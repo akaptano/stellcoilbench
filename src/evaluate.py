@@ -4,11 +4,12 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from statistics import mean
 from typing import Any, Dict, Iterable, List, Tuple
+from simsopt.objectives import SquaredFlux
 
 import yaml
 
-from .config_schema import CaseConfig, SubmissionMetadata
-from . import biotsavart, geometry, metrics
+from .config_scheme import CaseConfig, SubmissionMetadata
+from . import geometry, metrics
 
 
 @dataclass
@@ -46,18 +47,27 @@ def evaluate_case(case_dir: Path, coils_path: Path) -> Dict[str, Any]:
 
     Heavy physics-specific pieces live in biotsavart.py and geometry.py.
     """
+    from simsopt import load 
+    from simsopt.field import BiotSavart
     case_cfg = load_case_config(case_dir)
 
-    # Compute B·n on the plasma surface for this case.
-    Bn = biotsavart.compute_Bn_on_plasma_surface(case_dir=case_dir, coils_path=coils_path)
+    coils = load(case_dir / "coils.json")
+    s = load(case_dir / "surface.json")
+    B = BiotSavart(coils)
 
     # Normal-field error metric.
-    chi2_Bn = metrics.normal_field_error(Bn, B0=case_cfg.normalization_B0)
+    normalized_Bn = metrics.normalized_normal_field_error(B, s)
+
+    # Squared flux metric.
+    chi2_Bn = SquaredFlux(s, B).J()
 
     # Coil complexity / engineering metrics (curvature, length, spacing, ...).
     complexity = geometry.coil_complexity_metrics(case_dir=case_dir, coils_path=coils_path)
 
-    metric_dict: Dict[str, float] = {"chi2_Bn": float(chi2_Bn), **complexity}
+    metric_dict: Dict[str, float] = {
+        "chi2_Bn": float(chi2_Bn), 
+        "normalized_Bn": float(normalized_Bn), 
+        **complexity}
 
     # Composite scores (e.g. normalized 0–1 primary score + feasibility flag).
     score_dict = metrics.composite_scores(metric_dict, case_cfg)

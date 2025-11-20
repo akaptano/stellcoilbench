@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Dict
 
+from simsopt.geo import CurveCurveDistance, CurveSurfaceDistance, LpCurveCurvature, LinkingNumber
 
 def coil_complexity_metrics(case_dir: Path, coils_path: Path) -> Dict[str, float]:
     """

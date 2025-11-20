@@ -2,6 +2,12 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
 [project]
 name = "coilbench"
 version = "0.1.0"
@@ -14,16 +20,13 @@ authors = [
 ]
 
 dependencies = [
-  "numpy>=1.24",
-  "typer[all]>=0.9",
-  "PyYAML>=6.0",
-]
-
-[project.optional-dependencies]
-dev = [
-  "pytest",
-  "black",
-  "ruff",
+    "numpy>=1.24",
+    "typer[all]>=0.9",
+    "PyYAML>=6.0",
+    "pytest",
+    "black",
+    "ruff",
+    "simsopt @ git+https://github.com/PedroFranciscoGil/simsopt.git@auglag_coils",
 ]
 
 [project.scripts]

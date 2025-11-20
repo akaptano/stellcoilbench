@@ -4,29 +4,31 @@ from typing import Dict
 
 import numpy as np
 
-from .config_schema import CaseConfig
+from .config_scheme import CaseConfig
+from simsopt.field import BiotSavart
+from simsopt.geo import Surface
 
 
-def normal_field_error(Bn: np.ndarray, B0: float) -> float:
+def normalized_normal_field_error(B : BiotSavart, s: Surface) -> float:
     """
     Simple χ²-like normal-field error metric.
 
     Parameters
     ----------
-    Bn:
+    B: Simsopt.field.BiotSavart
         Array of B·n values on the plasma surface at a set of quadrature points.
-    B0:
-        Normalization field [Tesla]. Typically something like on-axis field.
+    s: Simsopt.geo.Surface
+        Surface to evaluate the normal-field error on.
 
     Returns
     -------
     float
         Dimensionless normal-field error, averaged over sample points.
     """
-    Bn = np.asarray(Bn, dtype=float)
-    if Bn.size == 0:
-        raise ValueError("normal_field_error: Bn array is empty")
-    return float(np.mean((Bn / B0) ** 2))
+    B.set_points(s.points)
+    Bn = np.mean(np.array(B()).reshape(-1, 3) * np.array(s.gamma()).reshape(-1, 3), axis=1)
+    B0 = np.mean(B.modB())
+    return (Bn / B0)
 
 
 def composite_scores(metric_dict: Dict[str, float], case_cfg: CaseConfig) -> Dict[str, float]:
