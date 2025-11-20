@@ -1,3 +1,4 @@
+# src/coilbench/cli.py
 from __future__ import annotations
 
 import json
@@ -7,6 +8,7 @@ from typing import Optional
 import typer
 
 from . import evaluate
+from .update_db import update_database
 
 app = typer.Typer(help="CoilBench: benchmarking framework for stellarator coil optimization.")
 
@@ -69,56 +71,37 @@ def eval_bundle(
     typer.echo(f"Wrote submission results to {out}")
 
 
-@app.command("make-leaderboard")
-def make_leaderboard(
-    results_dir: Path = typer.Argument(
-        ...,
-        help="Directory containing multiple submission 'results.json' files (recursively).",
+@app.command("update-db")
+def update_db_cmd(
+    submissions_dir: Path = typer.Argument(
+        Path("submissions"),
+        help="Directory containing per-method submissions (results.json files).",
     ),
-    out_json: Path = typer.Option(
-        Path("leaderboard.json"),
-        "--out-json",
-        help="Where to write the leaderboard JSON.",
+    db_dir: Path = typer.Option(
+        Path("db"),
+        "--db-dir",
+        help="Directory where database JSON files (methods.json, cases.json, leaderboard.json) are stored.",
     ),
-    out_md: Optional[Path] = typer.Option(
-        Path("leaderboard.md"),
-        "--out-md",
-        help="Where to write a simple markdown leaderboard table.",
+    docs_dir: Path = typer.Option(
+        Path("docs"),
+        "--docs-dir",
+        help="Directory where docs/leaderboard.md is written.",
     ),
 ) -> None:
     """
-    Merge multiple submission result files into a simple leaderboard.
+    Rebuild the on-repo 'database' of submissions and leaderboards.
+
+    This scans submissions_dir for results.json files produced by `coilbench eval-bundle`,
+    aggregates them into db/*.json, and writes docs/leaderboard.md.
     """
-    submissions = []
-    for path in results_dir.rglob("*.json"):
-        try:
-            data = json.loads(path.read_text())
-        except Exception as exc:  # noqa: BLE001
-            typer.echo(f"Skipping {path}: could not parse JSON ({exc})", err=True)
-            continue
-        submissions.append((path, data))
-
-    leaderboard = evaluate.build_leaderboard(submissions)
-    out_json.parent.mkdir(parents=True, exist_ok=True)
-    out_json.write_text(json.dumps(leaderboard, indent=2))
-
-    if out_md is not None:
-        lines = ["# CoilBench Leaderboard", ""]
-        if not leaderboard["entries"]:
-            lines.append("_No valid submissions found._")
-        else:
-            lines.append("| Rank | Method | Version | Mean primary score | Num cases |")
-            lines.append("|------|--------|---------|--------------------|-----------|")
-            for entry in leaderboard["entries"]:
-                lines.append(
-                    f"| {entry['rank']} | {entry['method_name']} | {entry['method_version']} | "
-                    f"{entry['mean_score_primary']:.3f} | {entry['num_cases']} |"
-                )
-        out_md.write_text("\n".join(lines))
-
-    typer.echo(f"Wrote leaderboard JSON to {out_json}")
-    if out_md is not None:
-        typer.echo(f"Wrote markdown leaderboard to {out_md}")
+    repo_root = Path.cwd()
+    update_database(
+        repo_root=repo_root,
+        submissions_root=submissions_dir,
+        db_dir=db_dir,
+        docs_dir=docs_dir,
+    )
+    typer.echo(f"Updated database in {db_dir} and leaderboard in {docs_dir / 'leaderboard.md'}")
 
 
 def main() -> None:
@@ -127,4 +110,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
