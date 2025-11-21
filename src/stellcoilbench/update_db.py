@@ -101,6 +101,7 @@ def build_methods_json(
             "method_version": meta.get("method_version", path.parent.name),
             "contact": meta.get("contact", ""),
             "hardware": meta.get("hardware", ""),
+            "run_date": meta.get("run_date", ""),
             "path": rel_path,
             "num_cases": len(per_case),
             "mean_score_primary": float(mean(primary_scores)) if primary_scores else None,
@@ -168,6 +169,16 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
         if not isinstance(mean_sp, (int, float)):
             continue
 
+        per_case = md.get("per_case") or {}
+        cases = []
+        for cid in sorted(per_case.keys()):
+            cases.append(
+                {
+                    "case_id": cid,
+                    "metrics": per_case[cid],
+                }
+            )
+
         entries.append(
             {
                 "method_key": method_key,
@@ -175,6 +186,10 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
                 "method_version": md.get("method_version", ""),
                 "mean_score_primary": float(mean_sp),
                 "num_cases": int(md.get("num_cases", 0)),
+                "run_date": md.get("run_date", ""),
+                "contact": md.get("contact", ""),
+                "hardware": md.get("hardware", ""),
+                "cases": cases,
             }
         )
 
@@ -191,17 +206,37 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
     """
     entries = leaderboard.get("entries") or []
 
+    def _format_case_block(case: Dict[str, Any]) -> str:
+        metrics = case.get("metrics") or {}
+        if not metrics:
+            return f"**{case.get('case_id', 'unknown')}** — _no metrics_"
+        parts = []
+        for key in sorted(metrics.keys()):
+            value = metrics[key]
+            if isinstance(value, float):
+                parts.append(f"{key}: {value:.6g}")
+            else:
+                parts.append(f"{key}: {value}")
+        return f"**{case.get('case_id', 'unknown')}** — " + ", ".join(parts)
+
     lines = ["# CoilBench Leaderboard", ""]
 
     if not entries:
         lines.append("_No valid submissions found._")
     else:
-        lines.append("| Rank | Method | Version | Mean primary score | Num cases |")
-        lines.append("|------|--------|---------|--------------------|-----------|")
+        lines.append(
+            "| Rank | Method | Run date | Mean primary score | Cases & metrics | Contact | Hardware |"
+        )
+        lines.append(
+            "|:----:|:-------|:---------|:-------------------|:---------------|:--------|:---------|"
+        )
         for e in entries:
+            cases = e.get("cases") or []
+            case_block = "<br>".join(_format_case_block(c) for c in cases) if cases else "_No cases_"
+            run_date = e.get("run_date") or "_unknown_"
             lines.append(
-                f"| {e['rank']} | {e['method_name']} | {e['method_version']} | "
-                f"{e['mean_score_primary']:.3f} | {e['num_cases']} |"
+                f"| {e['rank']} | {e['method_name']} ({e['method_version']}) | {run_date} | "
+                f"{e['mean_score_primary']:.3f} | {case_block} | {e.get('contact','')} | {e.get('hardware','')} |"
             )
 
     out_md.parent.mkdir(parents=True, exist_ok=True)
