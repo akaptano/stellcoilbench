@@ -35,13 +35,17 @@ jobs:
       - name: Force-add and commit generated files
         run: |
           # Force-add all generated database and leaderboard files (ignored by .gitignore)
-          git add -f db/ docs/leaderboard.md docs/leaderboards.md docs/surfaces.md 2>/dev/null || true
+          git add -f db/ docs/leaderboard.md docs/surfaces.md 2>/dev/null || true
           # Add leaderboard directories if they exist
           if [ -d "docs/leaderboards" ]; then
             git add -f docs/leaderboards/*.md 2>/dev/null || true
           fi
           if [ -d "docs/surfaces" ]; then
             git add -f docs/surfaces/*.md 2>/dev/null || true
+          fi
+          # Remove old leaderboards.md if it exists (now combined into leaderboard.md)
+          if [ -f "docs/leaderboards.md" ]; then
+            git rm -f docs/leaderboards.md 2>/dev/null || true
           fi
           # Commit if there are changes
           if ! git diff --staged --quiet; then

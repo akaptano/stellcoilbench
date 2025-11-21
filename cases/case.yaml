@@ -1,8 +1,8 @@
 case_id: "dev_test_akaptano"
-description: "Basic MUSE test case"
+description: "Basic test case"
 surface_params:
-  nphi: 32
-  ntheta: 32
+  nphi: 16
+  ntheta: 16
   surface: "input.LandremanPaul2021_QA"
   range: "half period"
 

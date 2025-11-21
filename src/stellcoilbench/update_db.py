@@ -20,13 +20,21 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         data: parsed JSON dict
     """
     if not submissions_root.exists():
+        import sys
+        print(f"Warning: Submissions directory does not exist: {submissions_root}", file=sys.stderr)
         return  # nothing to do
 
+    found_count = 0
     for path in submissions_root.rglob("*.json"):
+        # Skip files that are clearly not submission results
+        if path.name != "results.json":
+            continue
+            
         try:
             data = json.loads(path.read_text())
-        except Exception:
-            # Skip malformed JSON; you could also log/raise if you prefer.
+        except Exception as e:
+            import sys
+            print(f"Warning: Failed to parse JSON from {path}: {e}", file=sys.stderr)
             continue
 
         meta = data.get("metadata") or {}
@@ -34,8 +42,15 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         # Use explicit method_version if present, otherwise fall back to dir name.
         version = meta.get("method_version") or path.parent.name
         method_key = f"{method_name}:{version}"
-
+        
+        found_count += 1
         yield method_key, path, data
+    
+    import sys
+    if found_count == 0:
+        print(f"Warning: No results.json files found in {submissions_root}", file=sys.stderr)
+    else:
+        print(f"Found {found_count} submission(s) in {submissions_root}", file=sys.stderr)
 
 
 def build_methods_json(
@@ -233,25 +248,14 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     return {"entries": entries, "cases": case_entries}
 
 
-def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> None:
+def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_ids: list[str] | None = None) -> None:
     """
     Write a beautiful markdown leaderboard table to out_md, using leaderboard JSON.
+    Combines overall leaderboard with case-by-case navigation.
     """
     entries = leaderboard.get("entries") or []
     case_entries = leaderboard.get("cases") or {}
-
-    def _format_case_block(case: Dict[str, Any]) -> str:
-        metrics = case.get("metrics") or {}
-        if not metrics:
-            return f"**{case.get('case_id', 'unknown')}** — _no metrics_"
-        parts = []
-        for key in sorted(metrics.keys()):
-            value = metrics[key]
-            if isinstance(value, float):
-                parts.append(f"{key}: {value:.6g}")
-            else:
-                parts.append(f"{key}: {value}")
-        return f"**{case.get('case_id', 'unknown')}** — " + ", ".join(parts)
+    case_ids = case_ids or sorted(case_entries.keys())
 
     lines = [
         "# CoilBench Leaderboard",
@@ -264,8 +268,8 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
 
     # Navigation links
     nav_lines = []
-    if case_entries:
-        nav_lines.append("- [Case-by-case leaderboards](leaderboards.md)")
+    if case_ids:
+        nav_lines.append("- [Case-by-case leaderboards](#case-by-case-leaderboards)")
     nav_lines.append("- [Plasma surface leaderboards](surfaces.md)")
     if nav_lines:
         lines.append("## Quick Navigation")
@@ -277,6 +281,19 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
 
     if not entries:
         lines.append("_No valid submissions found._")
+        lines.append("")
+        lines.append("To add submissions, place `results.json` files in the `submissions/` directory following the format:")
+        lines.append("```json")
+        lines.append("{")
+        lines.append('  "metadata": {')
+        lines.append('    "method_name": "your_method",')
+        lines.append('    "method_version": "v1.0.0",')
+        lines.append('    "contact": "your@email.com",')
+        lines.append('    "hardware": "your_hardware"')
+        lines.append("  },")
+        lines.append('  "cases": [...]')
+        lines.append("}")
+        lines.append("```")
     else:
         lines.append(
             "| Rank | Method | Version | Run Date | Mean Primary Score | Num Cases | Contact | Hardware |"
@@ -294,6 +311,18 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 f"**{e['mean_score_primary']:.6f}** | {e.get('num_cases', 0)} | "
                 f"{e.get('contact','')} | {e.get('hardware','')} |"
             )
+
+    # Add case-by-case leaderboards section
+    if case_ids:
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+        lines.append("## Case-by-case Leaderboards")
+        lines.append("")
+        lines.append("Jump directly to any benchmark case:")
+        lines.append("")
+        for cid in case_ids:
+            lines.append(f"- [{cid}](leaderboards/{cid}.md)")
 
     lines.append("")
     lines.append("---")
@@ -433,22 +462,6 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
     return case_ids
 
 
-def write_case_leaderboard_index(case_ids: list[str], docs_dir: Path) -> None:
-    """
-    Write docs/leaderboards.md linking to all per-case leaderboards.
-    """
-    index_path = docs_dir / "leaderboards.md"
-    lines = ["# Case Leaderboards", ""]
-
-    if not case_ids:
-        lines.append("_No per-case leaderboards yet. Run `stellcoilbench update-db` after adding submissions._")
-    else:
-        lines.append("Jump directly to any benchmark case:")
-        lines.append("")
-        for cid in case_ids:
-            lines.append(f"- [{cid}](leaderboards/{cid}.md)")
-
-    index_path.write_text("\n".join(lines))
 
 
 def build_surface_leaderboards(
@@ -736,12 +749,11 @@ def update_database(
     cases_file.write_text(json.dumps(cases, indent=2))
     leaderboard_file.write_text(json.dumps(leaderboard, indent=2))
 
-    # Write overall leaderboard
-    write_markdown_leaderboard(leaderboard, out_md=docs_dir / "leaderboard.md")
-    
-    # Write per-case leaderboards
+    # Write per-case leaderboards first (to get case_ids)
     case_ids = write_case_leaderboards(leaderboard, docs_dir=docs_dir, repo_root=repo_root)
-    write_case_leaderboard_index(case_ids, docs_dir=docs_dir)
+    
+    # Write overall leaderboard (combined with case-by-case links)
+    write_markdown_leaderboard(leaderboard, out_md=docs_dir / "leaderboard.md", case_ids=case_ids)
     
     # Build and write per-surface leaderboards
     case_to_surface = _load_case_to_surface_map(cases_root, plasma_surfaces_dir)
