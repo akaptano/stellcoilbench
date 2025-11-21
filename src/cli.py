@@ -104,6 +104,63 @@ def update_db_cmd(
     typer.echo(f"Updated database in {db_dir} and leaderboard in {docs_dir / 'leaderboard.md'}")
 
 
+@app.command("run-case")
+def run_case(
+    case_dir: Path = typer.Argument(
+        ...,
+        help="Path to a single case directory (containing case.yaml, geometry, etc.).",
+    ),
+    coils_config_path: Path = typer.Argument(
+        ...,
+        help="Path to coils.yaml (or similar) that configures the optimizer.",
+    ),
+    coils_out_dir: Path = typer.Option(
+        Path("coils_runs"),
+        "--coils-out-dir",
+        help="Directory where the optimized coils file will be written.",
+    ),
+    results_out: Optional[Path] = typer.Option(
+        None,
+        "--results-out",
+        "-o",
+        help="Where to write the per-case results JSON (default: <coils_out_dir>/<case_id>_results.json).",
+    ),
+) -> None:
+    """
+    Run a coil optimization for one case using parameters from coils.yaml,
+    then evaluate the resulting coil set.
+    """
+    from .coil_optimization import load_coils_config, optimize_coils
+    from .evaluate import load_case_config
+    case_cfg = load_case_config(case_dir)
+    coils_config = load_coils_config(coils_config_path)
+
+    coils_out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Decide coils filename, using pattern from config if provided.
+    pattern = (
+        coils_config.get("output", {})
+        .get("coils_filename_pattern", "{case_id}.h5")
+    )
+    coils_filename = pattern.format(case_id=case_cfg.case_id)
+    coils_out_path = coils_out_dir / coils_filename
+
+    # 1) Run the optimizer, writing coils_out_path.
+    typer.echo(f"Running optimizer '{coils_config.get('optimizer', 'dummy')}' for case {case_cfg.case_id}...")
+    optimize_coils(case_dir=case_dir, coils_config=coils_config, coils_out_path=coils_out_path)
+    typer.echo(f"Wrote optimized coils to {coils_out_path}")
+
+    # 2) Evaluate the resulting coils.
+    result = evaluate.evaluate_case(case_dir=case_dir, coils_path=coils_out_path)
+
+    # Decide results filename.
+    if results_out is None:
+        results_out = coils_out_dir / f"{case_cfg.case_id}_results.json"
+
+    results_out.parent.mkdir(parents=True, exist_ok=True)
+    results_out.write_text(json.dumps(result, indent=2))
+    typer.echo(f"Wrote evaluation results to {results_out}")
+
 def main() -> None:
     app()
 
