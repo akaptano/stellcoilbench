@@ -49,6 +49,13 @@ def build_methods_json(
     dict
         Keys are "method_name:version", values hold metadata + per-case metrics.
     """
+    def _numeric_fields(values: Dict[str, Any]) -> Dict[str, float]:
+        return {
+            key: float(value)
+            for key, value in values.items()
+            if isinstance(value, (int, float))
+        }
+
     methods: Dict[str, Any] = {}
 
     for method_key, path, data in _load_submissions(submissions_root):
@@ -64,15 +71,22 @@ def build_methods_json(
                 continue
 
             c_metrics = c.get("metrics") or {}
+            c_scores = c.get("scores") or {}
 
-            sp = c_metrics.get("final_flux")
-            if isinstance(sp, (int, float)):
-                primary_scores.append(float(sp))
+            metrics_numeric = _numeric_fields(c_metrics)
+            scores_numeric = _numeric_fields(c_scores)
 
-            # Flatten metrics + scores into one dict for per-case convenience
-            per_case[cid] = {
-                **{k: float(v) for k, v in c_metrics.items() if isinstance(v, (int, float))},
-            }
+            primary_score = scores_numeric.get("score_primary")
+            if primary_score is None:
+                fallback = c_metrics.get("final_flux")
+                if isinstance(fallback, (int, float)):
+                    primary_score = float(fallback)
+                    scores_numeric.setdefault("score_primary", primary_score)
+
+            if isinstance(primary_score, (int, float)):
+                primary_scores.append(float(primary_score))
+
+            per_case[cid] = {**metrics_numeric, **scores_numeric}
 
         if not per_case:
             # If no valid cases, skip this submission.
