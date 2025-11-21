@@ -38,12 +38,31 @@ jobs:
         run: |
           stellcoilbench update-db
 
+      - name: Check if there are submissions
+        id: check_submissions
+        run: |
+          # Check if methods.json exists and has content (not just empty dict)
+          if [ -f "db/methods.json" ]; then
+            # Check if file has actual entries (more than just "{}")
+            if grep -q '"' db/methods.json && [ "$(cat db/methods.json | wc -c)" -gt 10 ]; then
+              echo "has_submissions=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_submissions=false" >> $GITHUB_OUTPUT
+              echo "No submissions found - skipping commit"
+            fi
+          else
+            echo "has_submissions=false" >> $GITHUB_OUTPUT
+            echo "No database file found - skipping commit"
+          fi
+
       - name: Configure Git
+        if: steps.check_submissions.outputs.has_submissions == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
       - name: Force-add and commit generated files
+        if: steps.check_submissions.outputs.has_submissions == 'true'
         run: |
           # Force-add all generated database and leaderboard files (ignored by .gitignore)
           git add -f db/ docs/leaderboard.md docs/surfaces.md 2>/dev/null || true

@@ -1,20 +1,39 @@
 # Submissions
 
-This directory holds **raw submissions** from coil optimization methods.  
-Each submission is a folder containing at least:
+This directory holds **submission results** generated from running benchmark cases.
 
-- `metadata.yaml` – short description of the plasma surface, optimization parameters, etc. to use
+## Workflow
 
-### Recommended layout
+1. **Define a case** in `cases/case.yaml` with your benchmark configuration
+2. **Run and submit** using:
+   ```bash
+   stellcoilbench submit-case cases/case.yaml \
+     --method-name my_method \
+     --version v1.0.0 \
+     --contact your@email.com \
+     --hardware "CPU/GPU description"
+   ```
+3. **Results** are automatically written to `submissions/<method_name>/<version>/results.json`
 
-```text
+## Directory Structure
+
+```
 submissions/
-  MyAwesomeCoilOptimizer/
-    TodaysDate/
-      metadata.yaml
-  AnotherMethod/
-    11-20-2025/
-      metadata.yaml
+  my_method/
+    v1.0.0/
+      results.json    # Contains metadata + case results with metrics
+    v1.1.0/
+      results.json
+  another_method/
+    v1.0.0/
+      results.json
+```
 
-Structure of a metadata.yml file can be found in cases/
+## Results.json Format
+
+Each `results.json` file contains:
+- `metadata`: Method name, version, contact, hardware, run date
+- `cases`: Array of case results with `case_id` and `metrics`
+
+The `update-db` command scans this directory to build the leaderboard.
 

@@ -69,6 +69,81 @@ def update_db_cmd(
     typer.echo(f"Updated database in {db_dir} and leaderboard in {docs_dir / 'leaderboard.md'}")
 
 
+@app.command("submit-case")
+def submit_case(
+    case_path: Path = typer.Argument(
+        ...,
+        help="Path to case.yaml file (e.g., cases/case.yaml).",
+    ),
+    method_name: str = typer.Option(..., "--method-name", "-m", help="Name of your optimization method."),
+    method_version: str = typer.Option(..., "--version", "-v", help="Version identifier (e.g., v1.0.0)."),
+    contact: str = typer.Option("", "--contact", "-c", help="Contact email or info."),
+    hardware: str = typer.Option("", "--hardware", help="Hardware description."),
+    notes: str = typer.Option("", "--notes", "-n", help="Additional notes."),
+    coils_out_dir: Path = typer.Option(
+        Path("coils_runs"),
+        "--coils-out-dir",
+        help="Directory where the optimized coils file will be written.",
+    ),
+    submissions_dir: Path = typer.Option(
+        Path("submissions"),
+        "--submissions-dir",
+        help="Directory where submission results.json will be written.",
+    ),
+) -> None:
+    """
+    Run a case and generate a submission results.json file.
+    
+    This command:
+    1. Loads case.yaml from cases/
+    2. Runs the coil optimization
+    3. Evaluates the results
+    4. Generates a results.json in submissions/ with metadata and metrics
+    
+    Example:
+        stellcoilbench submit-case cases/case.yaml --method-name my_method --version v1.0.0 --contact me@example.com
+    """
+    from .coil_optimization import optimize_coils
+    from .evaluate import load_case_config, evaluate_case
+
+    # Load case configuration
+    case_cfg = load_case_config(case_path)
+
+    coils_out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Decide coils filename
+    coils_filename = f"{case_cfg.case_id}.json"
+    coils_out_path = coils_out_dir / coils_filename
+
+    # 1) Run the optimizer, writing coils_out_path.
+    typer.echo(f"Running optimizer for case {case_cfg.case_id}...")
+    results_dict = optimize_coils(case_path=case_path, coils_out_path=coils_out_path, case_cfg=case_cfg)
+    typer.echo(f"Wrote optimized coils to {coils_out_path}")
+
+    # 2) Evaluate the resulting coils.
+    case_result = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
+
+    # 3) Build submission results.json
+    run_date = datetime.now().isoformat()
+    submission = {
+        "metadata": {
+            "method_name": method_name,
+            "method_version": method_version,
+            "contact": contact,
+            "hardware": hardware,
+            "notes": notes,
+            "run_date": run_date,
+        },
+        "cases": [case_result],
+    }
+
+    # Write to submissions directory
+    submission_path = submissions_dir / method_name / method_version / "results.json"
+    submission_path.parent.mkdir(parents=True, exist_ok=True)
+    submission_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
+    typer.echo(f"Wrote submission results to {submission_path}")
+
+
 @app.command("run-case")
 def run_case(
     case_path: Path = typer.Argument(
@@ -88,8 +163,10 @@ def run_case(
     ),
 ) -> None:
     """
-    Run a coil optimization for one case using parameters from coils.yaml,
+    Run a coil optimization for one case using parameters from case.yaml,
     then evaluate the resulting coil set.
+    
+    Note: For generating submissions, use 'submit-case' instead.
     """
     from .coil_optimization import optimize_coils
     from .evaluate import load_case_config, evaluate_case
