@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
@@ -207,6 +208,7 @@ def generate_submission(
         raise typer.Exit(1)
 
     # Build submission results
+    run_date = datetime.now().isoformat()
     submission = {
         "metadata": {
             "method_name": metadata.method_name,
@@ -214,6 +216,7 @@ def generate_submission(
             "contact": metadata.contact,
             "hardware": metadata.hardware,
             "notes": metadata.notes,
+            "run_date": run_date,
         },
         "cases": case_results,
     }
