@@ -20,18 +20,46 @@ jobs:
           python-version: "3.12"
           cache: 'pip'
 
-      - name: Cache pip packages and wheels
+      - name: Cache pip packages and build cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/pip
-            ~/.pip/wheels
+            ~/.pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install package
+      - name: Cache simsopt git repository
+        uses: actions/cache@v4
+        id: simsopt_cache
+        with:
+          path: ~/.cache/simsopt-repo
+          key: ${{ runner.os }}-simsopt-repo-auglag_coils
+          restore-keys: |
+            ${{ runner.os }}-simsopt-repo-
+
+      - name: Clone or update simsopt repository
         run: |
+          if [ -d ~/.cache/simsopt-repo/.git ]; then
+            # Update existing cached repo
+            cd ~/.cache/simsopt-repo
+            git fetch --depth 1 origin auglag_coils || git fetch origin auglag_coils
+            git reset --hard origin/auglag_coils || git checkout auglag_coils
+          else
+            # Clone fresh
+            mkdir -p ~/.cache/simsopt-repo
+            git clone --depth 1 --branch auglag_coils https://github.com/PedroFranciscoGil/simsopt.git ~/.cache/simsopt-repo
+          fi
+
+      - name: Install simsopt from cached repo
+        run: |
+          pip install -e ~/.cache/simsopt-repo
+
+      - name: Install package (simsopt already installed)
+        run: |
+          # Install rest of dependencies and package
+          # pip will skip simsopt since it's already installed
           pip install -e .
 
       - name: Rebuild database and leaderboard
