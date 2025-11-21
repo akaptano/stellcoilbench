@@ -48,29 +48,39 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "chore: add CI-generated submission"
             git push
+            # Pull to ensure we have the latest
+            git pull
           else
             echo "No new submissions to commit"
           fi
 
-      - name: Rebuild database and leaderboard
-        run: |
-          stellcoilbench update-db
-
       - name: Commit leaderboard files to separate branch
         run: |
-          # Fetch all branches
+          # Fetch all branches to get latest state
           git fetch origin
           
-          # Create or checkout leaderboard branch
+          # Create or checkout leaderboard branch, ensuring it has latest main
           if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
+            # Branch exists, checkout and merge latest main to get all submissions
             git checkout -b leaderboard origin/leaderboard 2>/dev/null || git checkout leaderboard
-            git pull origin leaderboard || true
+            # Merge main to get all latest submissions
+            git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || true
           else
-            git checkout -b leaderboard
+            # Branch doesn't exist, create it from main (which has all submissions)
+            git checkout -b leaderboard main
           fi
           
-          # Regenerate leaderboard files on this branch (they may have been overwritten by checkout)
+          # Verify submissions are available
+          echo "Checking for submissions..."
+          find submissions -name "results.json" -type f | head -5 || echo "No submissions found"
+          
+          # Generate leaderboard files (now we have all submissions from main)
           stellcoilbench update-db
+          
+          # Verify files were generated
+          echo "Checking generated files..."
+          ls -la docs/ || echo "docs/ directory not found"
+          ls -la docs/*.md 2>/dev/null || echo "No markdown files in docs/"
           
           # Force-add generated leaderboard files (ignored by .gitignore)
           # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
