@@ -28,6 +28,7 @@ dependencies = [
     "black",
     "ruff",
     "psutil",
+    "threadpoolctl",
     "simsopt @ git+https://github.com/PedroFranciscoGil/simsopt.git@auglag_coils",
 ]
 

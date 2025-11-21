@@ -56,7 +56,17 @@ def evaluate_case(case_cfg: CaseConfig, results_dict: Dict[str, Any]) -> Dict[st
       - computing normal-field error and coil complexity metrics
       - combining those into one or more scores
 
-    Heavy physics-specific pieces live in biotsavart.py and geometry.py.
+    Parameters
+    ----------
+    case_cfg:
+        CaseConfig object containing the case configuration.
+    results_dict:
+        Dictionary containing the results of the optimization.
+
+    Returns
+    -------
+    Dictionary containing the evaluation results.
+    The dictionary contains the case ID and the metrics.
     """
     case_result = CaseResult(
         case_id=case_cfg.case_id,
