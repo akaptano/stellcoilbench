@@ -62,38 +62,37 @@ jobs:
           # pip will skip simsopt since it's already installed
           pip install -e .
 
+      - name: Run benchmark case
+        run: |
+          # Run the case.yaml file and generate a submission
+          # Use CI-specific metadata
+          METHOD_NAME="${GITHUB_ACTOR:-ci-runner}"
+          VERSION="ci-$(date +%Y%m%d-%H%M%S)"
+          
+          stellcoilbench submit-case cases/case.yaml \
+            --method-name "$METHOD_NAME" \
+            --version "$VERSION" \
+            --contact "$GITHUB_ACTOR@users.noreply.github.com" \
+            --hardware "GitHub Actions (ubuntu-latest)"
+          
+          echo "Generated submission: submissions/$METHOD_NAME/$VERSION/results.json"
+
       - name: Rebuild database and leaderboard
         run: |
           stellcoilbench update-db
 
-      - name: Check if there are submissions
-        id: check_submissions
-        run: |
-          # Check if methods.json exists and has content (not just empty dict)
-          if [ -f "db/methods.json" ]; then
-            # Check if file has actual entries (more than just "{}")
-            if grep -q '"' db/methods.json && [ "$(cat db/methods.json | wc -c)" -gt 10 ]; then
-              echo "has_submissions=true" >> $GITHUB_OUTPUT
-            else
-              echo "has_submissions=false" >> $GITHUB_OUTPUT
-              echo "No submissions found - skipping commit"
-            fi
-          else
-            echo "has_submissions=false" >> $GITHUB_OUTPUT
-            echo "No database file found - skipping commit"
-          fi
-
       - name: Configure Git
-        if: steps.check_submissions.outputs.has_submissions == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Force-add and commit generated files
-        if: steps.check_submissions.outputs.has_submissions == 'true'
+      - name: Commit submissions and generated files
         run: |
+          # Add submission files (if any were generated)
+          git add submissions/ 2>/dev/null || true
+          
           # Force-add all generated database and leaderboard files (ignored by .gitignore)
-          git add -f db/ docs/leaderboard.md docs/surfaces.md 2>/dev/null || true
+          git add -f db/*.json docs/leaderboard.md docs/surfaces.md 2>/dev/null || true
           # Add leaderboard directories if they exist
           if [ -d "docs/leaderboards" ]; then
             git add -f docs/leaderboards/*.md 2>/dev/null || true
@@ -105,9 +104,10 @@ jobs:
           if [ -f "docs/leaderboards.md" ]; then
             git rm -f docs/leaderboards.md 2>/dev/null || true
           fi
+          
           # Commit if there are changes
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update StellCoilBench database and leaderboard"
+            git commit -m "chore: update StellCoilBench submissions and leaderboard"
             git push
           else
             echo "No changes to commit"
