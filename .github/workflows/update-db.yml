@@ -8,6 +8,8 @@ on:
 jobs:
   update-db:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -19,7 +21,7 @@ jobs:
 
       - name: Install package
         run: |
-          pip install -e .[dev]
+          pip install -e .
 
       - name: Rebuild database and leaderboard
         run: |
