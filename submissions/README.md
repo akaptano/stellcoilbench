@@ -3,22 +3,18 @@
 This directory holds **raw submissions** from coil optimization methods.  
 Each submission is a folder containing at least:
 
-- `metadata.yaml` – short description of the method/run
-- `results.json` – output from `coilbench eval-bundle`
+- `metadata.yaml` – short description of the plasma surface, optimization parameters, etc. to use
 
 ### Recommended layout
 
 ```text
 submissions/
   MyAwesomeCoilOptimizer/
-    v0.3.1/
+    TodaysDate/
       metadata.yaml
-      results.json
-    v0.3.2/
-      metadata.yaml
-      results.json
   AnotherMethod/
-    2025-11-01_baseline/
+    11-20-2025/
       metadata.yaml
-      results.json
+
+Structure of a metadata.yml file can be found in cases/
 

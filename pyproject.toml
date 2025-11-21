@@ -6,10 +6,10 @@ build-backend = "hatchling.build"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/stellcoilbench"]
 
 [project]
-name = "coilbench"
+name = "stellcoilbench"
 version = "0.1.0"
 description = "Benchmark suite for stellarator coil optimization algorithms."
 readme = "README.md"
@@ -23,6 +23,7 @@ dependencies = [
     "numpy>=1.24",
     "typer[all]>=0.9",
     "PyYAML>=6.0",
+    "pandas",
     "pytest",
     "black",
     "ruff",
@@ -30,5 +31,5 @@ dependencies = [
 ]
 
 [project.scripts]
-coilbench = "coilbench.cli:main"
+stellcoilbench = "stellcoilbench.cli:main"
 

@@ -1,0 +1,24 @@
+case_id: "dev_test_akaptano"
+description: "Basic MUSE test case"
+surface_params:
+  nphi: 32
+  ntheta: 32
+  surface: "input.LandremanPaul2021_QA"
+  range: "half period"
+
+coils_params:
+  ncoils: 4
+  order: 16
+  nturns: 200  # number of turns in the coil
+  target_B: 1.0  # Tesla
+  verbose: "True"
+  coil_radius: "0.05"
+
+optimizer_params:
+  algorithm: "l-bfgs"
+  max_iterations: 200
+  max_iter_lag: 10
+  verbose: False
+
+output:
+  coils_filename_pattern: "{case_id}.json"   # how to name the coils file
