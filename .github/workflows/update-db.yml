@@ -4,6 +4,8 @@ name: Update StellCoilBench Database
 on:
   push:
     branches: [ main ]
+    paths:
+      submissions/**
 
 jobs:
   update-db:
