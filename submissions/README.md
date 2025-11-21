@@ -9,10 +9,11 @@ This directory holds **submission results** generated from running benchmark cas
    ```bash
    stellcoilbench submit-case cases/case.yaml \
      --method-name my_method \
-     --version v1.0.0 \
-     --contact your@email.com \
-     --hardware "CPU/GPU description"
+     --version v1.0.0
    ```
+   
+   GitHub username and hardware are **auto-detected** from your git config and system info.
+   You can override with `--contact` and `--hardware` if needed.
 3. **Results** are automatically written to `submissions/<method_name>/<version>/results.json`
 
 ## Directory Structure

@@ -27,6 +27,7 @@ dependencies = [
     "pytest",
     "black",
     "ruff",
+    "psutil",
     "simsopt @ git+https://github.com/PedroFranciscoGil/simsopt.git@auglag_coils",
 ]
 

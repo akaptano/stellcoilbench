@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import platform
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -34,6 +36,126 @@ class NumpyJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 app = typer.Typer(help="CoilBench: benchmarking framework for stellarator coil optimization.")
+
+
+def _detect_github_username() -> str:
+    """
+    Try to detect GitHub username from git config or remote URL.
+    Returns empty string if not found.
+    """
+    try:
+        # Try git config first
+        result = subprocess.run(
+            ["git", "config", "user.name"],
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
+    except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
+        pass
+    
+    try:
+        # Try to get from remote URL
+        result = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+        if result.returncode == 0:
+            url = result.stdout.strip()
+            # Extract username from common GitHub URL patterns
+            if "github.com" in url:
+                parts = url.replace(".git", "").split("/")
+                if len(parts) >= 2:
+                    # Handle both https://github.com/user/repo and git@github.com:user/repo
+                    username = parts[-2] if ":" in url else parts[-2]
+                    if username and username != "github.com":
+                        return username
+    except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
+        pass
+    
+    # Try environment variable (useful in CI)
+    import os
+    github_user = os.environ.get("GITHUB_ACTOR") or os.environ.get("GITHUB_USER")
+    if github_user:
+        return github_user
+    
+    return ""
+
+
+def _detect_hardware() -> str:
+    """
+    Detect hardware information (CPU, GPU, memory).
+    Returns a formatted string describing the hardware.
+    """
+    parts = []
+    
+    # CPU info
+    try:
+        cpu_info = platform.processor() or platform.machine()
+        if cpu_info:
+            parts.append(f"CPU: {cpu_info}")
+    except Exception:
+        pass
+    
+    # Try to get more detailed CPU info
+    try:
+        if platform.system() == "Linux":
+            result = subprocess.run(
+                ["lscpu"],
+                capture_output=True,
+                text=True,
+                timeout=2,
+            )
+            if result.returncode == 0:
+                for line in result.stdout.split("\n"):
+                    if "Model name:" in line:
+                        cpu_name = line.split("Model name:")[-1].strip()
+                        if cpu_name:
+                            parts[0] = f"CPU: {cpu_name}"
+                            break
+        elif platform.system() == "Darwin":  # macOS
+            result = subprocess.run(
+                ["sysctl", "-n", "machdep.cpu.brand_string"],
+                capture_output=True,
+                text=True,
+                timeout=2,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                parts[0] = f"CPU: {result.stdout.strip()}"
+    except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
+        pass
+    
+    # GPU info (NVIDIA)
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            gpu_names = [line.strip() for line in result.stdout.strip().split("\n") if line.strip()]
+            if gpu_names:
+                gpu_str = ", ".join(gpu_names)
+                parts.append(f"GPU: {gpu_str}")
+    except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
+        pass
+    
+    # Memory info (optional, requires psutil)
+    try:
+        import psutil  # type: ignore
+        mem = psutil.virtual_memory()
+        mem_gb = mem.total / (1024**3)
+        parts.append(f"RAM: {mem_gb:.1f}GB")
+    except (ImportError, Exception):
+        # psutil not available or error, skip
+        pass
+    
+    return " | ".join(parts) if parts else platform.platform()
 
 @app.command("update-db")
 def update_db_cmd(
@@ -77,8 +199,17 @@ def submit_case(
     ),
     method_name: str = typer.Option(..., "--method-name", "-m", help="Name of your optimization method."),
     method_version: str = typer.Option(..., "--version", "-v", help="Version identifier (e.g., v1.0.0)."),
-    contact: str = typer.Option("", "--contact", "-c", help="Contact email or info."),
-    hardware: str = typer.Option("", "--hardware", help="Hardware description."),
+    contact: Optional[str] = typer.Option(
+        None,
+        "--contact",
+        "-c",
+        help="Contact email or info (default: auto-detect GitHub username).",
+    ),
+    hardware: Optional[str] = typer.Option(
+        None,
+        "--hardware",
+        help="Hardware description (default: auto-detect CPU/GPU).",
+    ),
     notes: str = typer.Option("", "--notes", "-n", help="Additional notes."),
     coils_out_dir: Path = typer.Option(
         Path("coils_runs"),
@@ -100,11 +231,31 @@ def submit_case(
     3. Evaluates the results
     4. Generates a results.json in submissions/ with metadata and metrics
     
+    GitHub username and hardware are auto-detected if not provided.
+    
     Example:
-        stellcoilbench submit-case cases/case.yaml --method-name my_method --version v1.0.0 --contact me@example.com
+        stellcoilbench submit-case cases/case.yaml --method-name my_method --version v1.0.0
     """
     from .coil_optimization import optimize_coils
     from .evaluate import load_case_config, evaluate_case
+
+    # Auto-detect contact (GitHub username) if not provided
+    if contact is None:
+        contact = _detect_github_username()
+        if contact:
+            typer.echo(f"Auto-detected contact: {contact}")
+        else:
+            contact = ""
+            typer.echo("Warning: Could not auto-detect GitHub username. Use --contact to specify.")
+
+    # Auto-detect hardware if not provided
+    if hardware is None:
+        hardware = _detect_hardware()
+        if hardware:
+            typer.echo(f"Auto-detected hardware: {hardware}")
+        else:
+            hardware = ""
+            typer.echo("Warning: Could not auto-detect hardware. Use --hardware to specify.")
 
     # Load case configuration
     case_cfg = load_case_config(case_path)
