@@ -1,5 +1,5 @@
 # .github/workflows/update-db.yml
-name: Update CoilBench Database
+name: Update StellCoilBench Database
 
 on:
   push:
@@ -25,12 +25,12 @@ jobs:
 
       - name: Rebuild database and leaderboard
         run: |
-          coilbench update-db
+          stellcoilbench update-db
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update CoilBench database and leaderboard"
+          commit_message: "chore: update StellCoilBench database and leaderboard"
           file_pattern: |
             db/*.json
             docs/leaderboard.md
