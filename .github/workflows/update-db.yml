@@ -27,12 +27,26 @@ jobs:
       - name: Run benchmark case
         run: |
           # Run the case.yaml file and generate a submission
-          # Directory will be: submissions/<GITHUB_ACTOR>/<YYYYMMDD-HHMM>/
-          stellcoilbench submit-case cases/case.yaml \
-            --contact "$GITHUB_ACTOR@users.noreply.github.com" \
-            --hardware "GitHub Actions (ubuntu-latest)"
+          # Directory will be: submissions/<GITHUB_ACTOR>/<MM-DD-YYYY_HH-MM>/
+          echo "GITHUB_ACTOR: $GITHUB_ACTOR"
+          echo "Running submit-case..."
           
-          echo "Submission generated in submissions/$GITHUB_ACTOR/"
+          # Run with error handling
+          if ! stellcoilbench submit-case cases/case.yaml \
+            --contact "$GITHUB_ACTOR@users.noreply.github.com" \
+            --hardware "GitHub Actions (ubuntu-latest)"; then
+            echo "ERROR: submit-case failed!"
+            exit 1
+          fi
+          
+          echo "Checking generated submission..."
+          if ! find submissions -name "results.json" -type f | head -1; then
+            echo "ERROR: No results.json file was generated!"
+            exit 1
+          fi
+          
+          echo "Submission files:"
+          find submissions -type f | head -10
 
       - name: Configure Git
         run: |
@@ -41,36 +55,69 @@ jobs:
 
       - name: Commit submissions to main
         run: |
+          # List what was generated
+          echo "Checking for generated submissions..."
+          find submissions -type f -name "*.json" -o -name "*.yaml" 2>/dev/null | head -10 || echo "No submission files found"
+          
           # Add submission files (if any were generated)
           git add submissions/ 2>/dev/null || true
+          
+          # Show what's staged
+          echo "Staged files:"
+          git diff --staged --name-only | head -10 || echo "No staged files"
           
           # Commit submissions to main branch
           if ! git diff --staged --quiet; then
             git commit -m "chore: add CI-generated submission"
             git push
+            echo "Pushed submissions to main"
           else
             echo "No new submissions to commit"
           fi
-
-      - name: Rebuild database and leaderboard
-        run: |
-          stellcoilbench update-db
+          
+          # Verify submissions still exist after commit
+          echo "Submissions after commit:"
+          find submissions -name "results.json" -type f | head -10 || echo "No submissions found"
 
       - name: Commit leaderboard files to separate branch
         run: |
-          # Fetch all branches
+          # Fetch all branches to get latest state
           git fetch origin
           
-          # Create or checkout leaderboard branch
+          # Save current submissions path before switching branches
+          SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
+          echo "Submissions on main: $SUBMISSIONS_COUNT"
+          
+          # Create or checkout leaderboard branch, ensuring it has latest submissions from main
           if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
+            # Branch exists, checkout it
             git checkout -b leaderboard origin/leaderboard 2>/dev/null || git checkout leaderboard
-            git pull origin leaderboard || true
+            # Merge main to get latest submissions (use theirs strategy to prefer main's submissions)
+            git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || true
           else
-            git checkout -b leaderboard
+            # Branch doesn't exist, create it from main (which has all submissions)
+            git checkout -b leaderboard main
           fi
           
-          # Regenerate leaderboard files on this branch (they may have been overwritten by checkout)
+          # Verify submissions are available after checkout/merge
+          echo "Checking for submissions after branch switch..."
+          find submissions -name "results.json" -type f | head -10 || echo "No submissions found"
+          SUBMISSIONS_AFTER=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
+          echo "Submissions after checkout: $SUBMISSIONS_AFTER"
+          
+          # If submissions are missing, checkout them from main
+          if [ "$SUBMISSIONS_AFTER" -eq 0 ] && [ "$SUBMISSIONS_COUNT" -gt 0 ]; then
+            echo "Submissions missing after checkout, restoring from main..."
+            git checkout main -- submissions/ || true
+          fi
+          
+          # Generate leaderboard files (now we have all submissions from main)
           stellcoilbench update-db
+          
+          # Verify files were generated
+          echo "Checking generated files..."
+          ls -la docs/ 2>/dev/null || echo "docs/ directory not found"
+          ls -la docs/*.md 2>/dev/null | head -5 || echo "No markdown files in docs/"
           
           # Force-add generated leaderboard files (ignored by .gitignore)
           # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
