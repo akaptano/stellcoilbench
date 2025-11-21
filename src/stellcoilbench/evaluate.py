@@ -25,10 +25,24 @@ class SubmissionResults:
 def load_case_config(case_dir: Path) -> CaseConfig:
     """
     Load a case.yaml file into a CaseConfig dataclass.
+    
+    Accepts either:
+    - A directory path containing case.yaml
+    - A direct path to case.yaml file
     """
-    cfg_path = case_dir / "case.yaml"
+    # If it's a file, use it directly
+    if case_dir.is_file():
+        cfg_path = case_dir
+    # If it's a directory, look for case.yaml inside
+    elif case_dir.is_dir():
+        cfg_path = case_dir / "case.yaml"
+    else:
+        # Try treating it as a file path
+        cfg_path = case_dir
+    
     if not cfg_path.is_file():
-        raise FileNotFoundError(f"Expected case.yaml in {case_dir}")
+        raise FileNotFoundError(f"Expected case.yaml file at {case_dir} or {case_dir}/case.yaml")
+    
     data = yaml.safe_load(cfg_path.read_text())
     return CaseConfig.from_dict(data)
 
