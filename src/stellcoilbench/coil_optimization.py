@@ -24,6 +24,7 @@ def optimize_coils(
     case_path: Path,
     coils_out_path: Path,
     case_cfg: CaseConfig | None = None,
+    output_dir: Path | None = None,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -39,6 +40,9 @@ def optimize_coils(
         Where to write the coil geometry file (JSON format).
     case_cfg:
         Optional CaseConfig object. If None, loads from case_path / "case.yaml".
+    output_dir:
+        Optional directory where VTK files and other optimization outputs will be saved.
+        If None, uses the directory containing coils_out_path.
 
     Returns
     -------
@@ -98,7 +102,31 @@ def optimize_coils(
 
     coil_radius = float(coil_params.pop("coil_radius", 0.05))
     coil_regularization = regularization_circ(coil_radius)
-    coils, results_dict = optimize_coils_simple(surface, **coil_params, **optimizer_params, regularization=coil_regularization)
+    
+    # Determine output directory for VTK files
+    if output_dir is None:
+        output_dir = coils_out_path.parent
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Pass output_dir to optimize_coils_simple for VTK file output
+    # optimize_coils_simple saves VTK files to output_dir during optimization
+    try:
+        coils, results_dict = optimize_coils_simple(
+            surface, 
+            **coil_params, 
+            **optimizer_params, 
+            regularization=coil_regularization,
+            output_dir=str(output_dir)
+        )
+    except TypeError:
+        # Fallback if optimize_coils_simple doesn't accept output_dir parameter
+        coils, results_dict = optimize_coils_simple(
+            surface, 
+            **coil_params, 
+            **optimizer_params, 
+            regularization=coil_regularization
+        )
     
     # Ensure output path has .json extension for JSON format
     if not str(coils_out_path).endswith('.json'):

@@ -153,22 +153,28 @@ def build_cases_json(methods: Dict[str, Any]) -> Dict[str, Any]:
             if isinstance(sp, (int, float)):
                 best = entry.get("best_by_score_primary")
                 if best is None or sp > best["score_primary"]:
-                    entry["best_by_score_primary"] = {
-                        "method_key": method_key,
-                        "score_primary": float(sp),
-                        "chi2_Bn": cm.get("chi2_Bn"),
+                    # Include all metrics, not just score_primary and chi2_Bn
+                    best_entry = {
+                        **cm,  # Include all metrics (will include score_primary, chi2_Bn, etc.)
+                        "method_key": method_key,  # Set method_key after to ensure it's not overwritten
                     }
+                    # Ensure score_primary is float
+                    best_entry["score_primary"] = float(sp)
+                    entry["best_by_score_primary"] = best_entry
 
             # Best by chi2_Bn (minimize)
             chi2 = cm.get("chi2_Bn")
             if isinstance(chi2, (int, float)):
                 best = entry.get("best_by_chi2_Bn")
                 if best is None or chi2 < best["chi2_Bn"]:
-                    entry["best_by_chi2_Bn"] = {
-                        "method_key": method_key,
-                        "chi2_Bn": float(chi2),
-                        "score_primary": cm.get("score_primary"),
+                    # Include all metrics, not just chi2_Bn and score_primary
+                    best_entry = {
+                        **cm,  # Include all metrics (will include chi2_Bn, score_primary, etc.)
+                        "method_key": method_key,  # Set method_key after to ensure it's not overwritten
                     }
+                    # Ensure chi2_Bn is float
+                    best_entry["chi2_Bn"] = float(chi2)
+                    entry["best_by_chi2_Bn"] = best_entry
 
     return cases
 
@@ -400,7 +406,8 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
             return str(value)
         return str(value)
 
-    case_ids = sorted(case_entries.keys())
+    # Filter out test/dev cases
+    case_ids = sorted([cid for cid in case_entries.keys() if not (cid.startswith("dev_") or cid.startswith("test_"))])
     for cid in case_ids:
         entries = case_entries[cid]
         lines = [
@@ -488,8 +495,12 @@ def build_surface_leaderboards(
     for surface in sorted(all_surfaces):
         surface_leaderboards[surface] = {"entries": [], "cases": {}}
     
-    # Group cases by surface
+    # Group cases by surface (filter out test/dev cases)
     for case_id, entries in case_entries.items():
+        # Skip test/dev cases
+        if case_id.startswith("dev_") or case_id.startswith("test_"):
+            continue
+            
         surface = case_to_surface.get(case_id)
         if not surface:
             # Try to infer from case_id or skip
@@ -703,14 +714,15 @@ def update_database(
     plasma_surfaces_dir: Path | None = None,
 ) -> None:
     """
-    High-level entry point to rebuild the on-repo database.
+    High-level entry point to rebuild the leaderboard.
 
     It does several things:
       1. Scans submissions_root for results.json files
-      2. Writes db/methods.json, db/cases.json, db/leaderboard.json
+      2. Aggregates data from submissions (in-memory)
       3. Writes docs/leaderboard.md (overall)
       4. Writes docs/leaderboards/ (per-case)
       5. Writes docs/surfaces/ (per-surface)
+      6. Optionally writes db/leaderboard.json for reference
 
     Parameters
     ----------
@@ -736,17 +748,14 @@ def update_database(
     db_dir.mkdir(parents=True, exist_ok=True)
     docs_dir.mkdir(parents=True, exist_ok=True)
 
+    # Build in-memory data structures from submissions
     methods = build_methods_json(submissions_root=submissions_root, repo_root=repo_root)
-    cases = build_cases_json(methods)
+    # cases = build_cases_json(methods)
     leaderboard = build_leaderboard_json(methods)
 
-    # Ensure all JSON files have .json extension
-    methods_file = db_dir / "methods.json"
-    cases_file = db_dir / "cases.json"
+    # Only write leaderboard.json for reference (optional)
+    # methods.json and cases.json are intermediate and not needed on disk
     leaderboard_file = db_dir / "leaderboard.json"
-    
-    methods_file.write_text(json.dumps(methods, indent=2))
-    cases_file.write_text(json.dumps(cases, indent=2))
     leaderboard_file.write_text(json.dumps(leaderboard, indent=2))
 
     # Write per-case leaderboards first (to get case_ids)

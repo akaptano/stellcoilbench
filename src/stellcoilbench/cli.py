@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import platform
+import shutil
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -197,8 +198,18 @@ def submit_case(
         ...,
         help="Path to case.yaml file (e.g., cases/case.yaml).",
     ),
-    method_name: str = typer.Option(..., "--method-name", "-m", help="Name of your optimization method."),
-    method_version: str = typer.Option(..., "--version", "-v", help="Version identifier (e.g., v1.0.0)."),
+    method_name: Optional[str] = typer.Option(
+        None,
+        "--method-name",
+        "-m",
+        help="Name of your optimization method (optional, stored in metadata).",
+    ),
+    method_version: Optional[str] = typer.Option(
+        None,
+        "--version",
+        "-v",
+        help="Version identifier (optional, stored in metadata).",
+    ),
     contact: Optional[str] = typer.Option(
         None,
         "--contact",
@@ -211,11 +222,6 @@ def submit_case(
         help="Hardware description (default: auto-detect CPU/GPU).",
     ),
     notes: str = typer.Option("", "--notes", "-n", help="Additional notes."),
-    coils_out_dir: Path = typer.Option(
-        Path("coils_runs"),
-        "--coils-out-dir",
-        help="Directory where the optimized coils file will be written.",
-    ),
     submissions_dir: Path = typer.Option(
         Path("submissions"),
         "--submissions-dir",
@@ -229,24 +235,30 @@ def submit_case(
     1. Loads case.yaml from cases/
     2. Runs the coil optimization
     3. Evaluates the results
-    4. Generates a results.json in submissions/ with metadata and metrics
+    4. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
     
+    Directory structure: submissions/<github_username>/<MM-DD-YYYY_HH-MM>/results.json
     GitHub username and hardware are auto-detected if not provided.
     
     Example:
-        stellcoilbench submit-case cases/case.yaml --method-name my_method --version v1.0.0
+        stellcoilbench submit-case cases/case.yaml
     """
     from .coil_optimization import optimize_coils
     from .evaluate import load_case_config, evaluate_case
 
+    # Auto-detect GitHub username for directory structure
+    github_username = _detect_github_username()
+    if not github_username:
+        github_username = "unknown_user"
+        typer.echo("Warning: Could not auto-detect GitHub username. Using 'unknown_user'.")
+        typer.echo("Use --contact to specify your GitHub username.")
+    else:
+        typer.echo(f"Using GitHub username: {github_username}")
+
     # Auto-detect contact (GitHub username) if not provided
     if contact is None:
-        contact = _detect_github_username()
-        if contact:
-            typer.echo(f"Auto-detected contact: {contact}")
-        else:
-            contact = ""
-            typer.echo("Warning: Could not auto-detect GitHub username. Use --contact to specify.")
+        contact = github_username
+        typer.echo(f"Auto-detected contact: {contact}")
 
     # Auto-detect hardware if not provided
     if hardware is None:
@@ -260,26 +272,37 @@ def submit_case(
     # Load case configuration
     case_cfg = load_case_config(case_path)
 
-    coils_out_dir.mkdir(parents=True, exist_ok=True)
+    # 3) Build submission directory first (needed for output_dir)
+    now = datetime.now()
+    run_date = now.isoformat()
+    datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
+    
+    # Write to submissions directory: submissions/<username>/<datetime>/
+    submission_dir = submissions_dir / github_username / datetime_str
+    submission_dir.mkdir(parents=True, exist_ok=True)
 
-    # Decide coils filename
+    # Decide coils filename - save in submission directory
     coils_filename = f"{case_cfg.case_id}.json"
-    coils_out_path = coils_out_dir / coils_filename
+    coils_out_path = submission_dir / coils_filename
 
-    # 1) Run the optimizer, writing coils_out_path.
+    # 1) Run the optimizer, writing coils_out_path and VTK files to submission_dir.
     typer.echo(f"Running optimizer for case {case_cfg.case_id}...")
-    results_dict = optimize_coils(case_path=case_path, coils_out_path=coils_out_path, case_cfg=case_cfg)
+    results_dict = optimize_coils(
+        case_path=case_path, 
+        coils_out_path=coils_out_path, 
+        case_cfg=case_cfg,
+        output_dir=submission_dir  # VTK files will be saved here
+    )
     typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
     case_result = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
     # 3) Build submission results.json
-    run_date = datetime.now().isoformat()
     submission = {
         "metadata": {
-            "method_name": method_name,
-            "method_version": method_version,
+            "method_name": method_name or "",
+            "method_version": method_version or "",
             "contact": contact,
             "hardware": hardware,
             "notes": notes,
@@ -287,12 +310,18 @@ def submit_case(
         },
         "cases": [case_result],
     }
-
-    # Write to submissions directory
-    submission_path = submissions_dir / method_name / method_version / "results.json"
-    submission_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Write results.json
+    submission_path = submission_dir / "results.json"
     submission_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote submission results to {submission_path}")
+    
+    # Copy case.yaml file to submission directory for reference
+    case_yaml_path = case_path if case_path.is_file() else (case_path / "case.yaml")
+    if case_yaml_path.exists() and case_yaml_path.is_file():
+        submission_case_yaml = submission_dir / "case.yaml"
+        shutil.copy2(case_yaml_path, submission_case_yaml)
+        typer.echo(f"Copied case.yaml to {submission_case_yaml}")
 
 
 @app.command("run-case")
