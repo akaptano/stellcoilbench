@@ -13,6 +13,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper branch operations
+          token: ${{ secrets.GITHUB_TOKEN }}  # Explicit token for write access
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -66,11 +69,21 @@ jobs:
           echo "Staged files:"
           git diff --staged --name-only | head -10 || echo "No staged files"
           
+          # Show git status
+          echo "Git status:"
+          git status --short | head -20
+          
           # Commit submissions to main branch
           if ! git diff --staged --quiet; then
-            git commit -m "chore: add CI-generated submission"
-            git push
-            echo "Pushed submissions to main"
+            git commit -m "chore: add CI-generated submission" || echo "Commit failed or nothing to commit"
+            echo "Attempting to push to main..."
+            if git push origin main; then
+              echo "Successfully pushed submissions to main"
+            else
+              echo "ERROR: Failed to push to main"
+              git push origin main --verbose
+              exit 1
+            fi
           else
             echo "No new submissions to commit"
           fi
@@ -90,14 +103,22 @@ jobs:
           
           # Create or checkout leaderboard branch, ensuring it has latest submissions from main
           if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
-            # Branch exists, checkout it
+            # Branch exists remotely, checkout it
+            echo "Leaderboard branch exists, checking out..."
             git checkout -b leaderboard origin/leaderboard 2>/dev/null || git checkout leaderboard
             # Merge main to get latest submissions (use theirs strategy to prefer main's submissions)
+            echo "Merging main into leaderboard..."
             git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || true
           else
             # Branch doesn't exist, create it from main (which has all submissions)
+            echo "Creating new leaderboard branch from main..."
             git checkout -b leaderboard main
           fi
+          
+          # Show current branch
+          echo "Current branch: $(git branch --show-current)"
+          echo "Remote branches:"
+          git branch -r | grep leaderboard || echo "No remote leaderboard branch"
           
           # Verify submissions are available after checkout/merge
           echo "Checking for submissions after branch switch..."
@@ -121,24 +142,60 @@ jobs:
           
           # Force-add generated leaderboard files (ignored by .gitignore)
           # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
-          git add -f db/leaderboard.json docs/leaderboard.md docs/surfaces.md 2>/dev/null || true
+          echo "Adding leaderboard files..."
+          ADDED_ANY=false
+          
+          # Add individual files if they exist
+          for file in db/leaderboard.json docs/leaderboard.md docs/surfaces.md; do
+            if [ -f "$file" ]; then
+              echo "Adding $file"
+              git add -f "$file" && ADDED_ANY=true
+            else
+              echo "File not found: $file"
+            fi
+          done
+          
           # Add leaderboard directories if they exist
-          if [ -d "docs/leaderboards" ]; then
-            git add -f docs/leaderboards/*.md 2>/dev/null || true
+          if [ -d "docs/leaderboards" ] && [ "$(ls -A docs/leaderboards/*.md 2>/dev/null)" ]; then
+            echo "Adding docs/leaderboards/*.md"
+            git add -f docs/leaderboards/*.md && ADDED_ANY=true
           fi
-          if [ -d "docs/surfaces" ]; then
-            git add -f docs/surfaces/*.md 2>/dev/null || true
+          if [ -d "docs/surfaces" ] && [ "$(ls -A docs/surfaces/*.md 2>/dev/null)" ]; then
+            echo "Adding docs/surfaces/*.md"
+            git add -f docs/surfaces/*.md && ADDED_ANY=true
           fi
+          
           # Remove old leaderboards.md if it exists (now combined into leaderboard.md)
           if [ -f "docs/leaderboards.md" ]; then
-            git rm -f docs/leaderboards.md 2>/dev/null || true
+            echo "Removing old docs/leaderboards.md"
+            git rm -f docs/leaderboards.md
           fi
+          
+          echo "Files added: $ADDED_ANY"
+          
+          # Show git status before committing
+          echo "Git status before commit:"
+          git status --short | head -20
           
           # Commit if there are changes
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update StellCoilBench leaderboard"
-            git push origin leaderboard
+            echo "Committing leaderboard files..."
+            git commit -m "chore: update StellCoilBench leaderboard" || echo "Commit failed"
+            echo "Attempting to push to leaderboard branch..."
+            # Set upstream if branch doesn't exist remotely
+            if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
+              git push origin leaderboard || (echo "ERROR: Failed to push" && exit 1)
+            else
+              git push -u origin leaderboard || (echo "ERROR: Failed to push new branch" && exit 1)
+            fi
+            echo "Successfully pushed leaderboard to leaderboard branch"
           else
             echo "No leaderboard changes to commit"
+            echo "Staged files:"
+            git diff --staged --name-only || echo "No staged files"
+            echo "Untracked/modified files:"
+            git status --short | grep -E "(docs/|db/)" | head -10 || echo "No leaderboard files found"
+            echo "All untracked files:"
+            git status --untracked-files=all --short | head -10
           fi
 
