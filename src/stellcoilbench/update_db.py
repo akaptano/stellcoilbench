@@ -254,6 +254,18 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     return {"entries": entries, "cases": case_entries}
 
 
+def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
+    """Get all unique metric keys from overall leaderboard entries."""
+    all_keys = set()
+    for entry in entries:
+        for case_data in entry.get("cases", []):
+            metrics = case_data.get("metrics", {})
+            for key in metrics.keys():
+                if key != "score_primary":  # score_primary gets its own column
+                    all_keys.add(key)
+    return sorted(all_keys)
+
+
 def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_ids: list[str] | None = None) -> None:
     """
     Write a beautiful markdown leaderboard table to out_md, using leaderboard JSON.
@@ -301,22 +313,74 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
         lines.append("}")
         lines.append("```")
     else:
-        lines.append(
-            "| Rank | Method | Version | Run Date | Mean Primary Score | Num Cases | Contact | Hardware |"
-        )
-        lines.append(
-            "|:----:|:-------|:--------|:---------|:-------------------|:----------|:--------|:---------|"
-        )
+        # Get all unique metric keys across all entries
+        all_metric_keys = _get_all_metrics_from_entries(entries)
+        
+        # Build header: Rank, User, Run Date, Mean Primary Score, Num Cases, then all metrics
+        header_cols = ["Rank", "User", "Run Date", "Mean Primary Score", "Num Cases"]
+        header_cols.extend(all_metric_keys)
+        
+        lines.append("| " + " | ".join(header_cols) + " |")
+        
+        # Separator row
+        sep_parts = []
+        for col in header_cols:
+            if col == "Rank":
+                sep_parts.append(":----:")
+            elif col in ["User", "Run Date"]:
+                sep_parts.append(":-------")
+            else:
+                sep_parts.append(":--------:")
+        lines.append("| " + " | ".join(sep_parts) + " |")
+        
+        def _format_value(value: Any) -> str:
+            """Format a metric value nicely."""
+            if isinstance(value, float):
+                if abs(value) < 1e-3 or abs(value) > 1e6:
+                    return f"{value:.4e}"
+                return f"{value:.6f}"
+            elif isinstance(value, int):
+                return str(value)
+            return str(value)
+        
+        # Aggregate metrics across all cases for each entry
         for e in entries:
+            # Aggregate metrics from all cases
+            aggregated_metrics: Dict[str, list[float]] = {}
+            for case_data in e.get("cases", []):
+                metrics = case_data.get("metrics", {})
+                for key, value in metrics.items():
+                    if key != "score_primary" and isinstance(value, (int, float)):
+                        if key not in aggregated_metrics:
+                            aggregated_metrics[key] = []
+                        aggregated_metrics[key].append(float(value))
+            
+            # Calculate mean for each metric
+            mean_metrics: Dict[str, float] = {}
+            for key, values in aggregated_metrics.items():
+                if values:
+                    mean_metrics[key] = float(mean(values))
+            
             run_date = e.get("run_date") or "_unknown_"
             # Format date nicely if it's an ISO string
             if run_date != "_unknown_" and "T" in run_date:
                 run_date = run_date.split("T")[0]
-            lines.append(
-                f"| {e['rank']} | **{e['method_name']}** | {e['method_version']} | {run_date} | "
-                f"**{e['mean_score_primary']:.6f}** | {e.get('num_cases', 0)} | "
-                f"{e.get('contact','')} | {e.get('hardware','')} |"
-            )
+            
+            # Build row: Rank, User, Run Date, Mean Primary Score, Num Cases, then all metrics
+            row_parts = [
+                str(e['rank']),
+                f"**{e.get('contact', e.get('method_name', 'UNKNOWN'))}**",  # Use contact as user, fallback to method_name
+                run_date,
+                f"**{_format_value(e.get('mean_score_primary', 0.0))}**",
+                str(e.get('num_cases', 0)),
+            ]
+            
+            # Add all metrics
+            for key in all_metric_keys:
+                value = mean_metrics.get(key)
+                row_parts.append(_format_value(value) if value is not None else "—")
+            
+            lines.append("| " + " | ".join(row_parts) + " |")
 
     # Add case-by-case leaderboards section
     if case_ids:
@@ -421,9 +485,8 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
             lines.append("_No valid submissions found for this case._")
         else:
             # Build header with separate columns for each metric
-            header_cols = ["Rank", "Method", "Version", "Run Date", "Primary Score"]
+            header_cols = ["Rank", "User", "Run Date", "Primary Score"]
             header_cols.extend(all_metric_keys)
-            header_cols.extend(["Contact", "Hardware"])
             
             # Create header row
             lines.append("| " + " | ".join(header_cols) + " |")
@@ -433,7 +496,7 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
             for col in header_cols:
                 if col == "Rank":
                     sep_parts.append(":----:")
-                elif col in ["Method", "Version", "Contact", "Hardware"]:
+                elif col == "User":
                     sep_parts.append(":-------")
                 else:
                     sep_parts.append(":--------:")
@@ -441,11 +504,15 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
             
             # Add data rows
             for entry in entries:
+                run_date = entry.get("run_date", "_unknown_")
+                # Format date nicely if it's an ISO string
+                if run_date != "_unknown_" and "T" in run_date:
+                    run_date = run_date.split("T")[0]
+                
                 row_parts = [
                     str(entry.get("rank", "-")),
-                    entry.get("method_name", "UNKNOWN"),
-                    entry.get("method_version", ""),
-                    entry.get("run_date", "_unknown_"),
+                    f"**{entry.get('contact', entry.get('method_name', 'UNKNOWN'))}**",  # Use contact as user
+                    run_date,
                 ]
                 
                 # Primary score
@@ -457,10 +524,6 @@ def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_ro
                 for key in all_metric_keys:
                     value = metrics.get(key)
                     row_parts.append(_format_value(value) if value is not None else "—")
-                
-                # Contact and hardware
-                row_parts.append(entry.get("contact", ""))
-                row_parts.append(entry.get("hardware", ""))
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
 
@@ -618,9 +681,8 @@ def write_surface_leaderboards(
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
             # Build header
-            header_cols = ["Rank", "Method", "Version", "Run Date", "Mean Score"]
+            header_cols = ["Rank", "User", "Run Date", "Mean Score"]
             header_cols.extend(all_metric_keys)
-            header_cols.extend(["Contact", "Hardware"])
             
             lines.append("| " + " | ".join(header_cols) + " |")
             
@@ -629,7 +691,7 @@ def write_surface_leaderboards(
             for col in header_cols:
                 if col == "Rank":
                     sep_parts.append(":----:")
-                elif col in ["Method", "Version", "Contact", "Hardware"]:
+                elif col == "User":
                     sep_parts.append(":-------")
                 else:
                     sep_parts.append(":--------:")
@@ -654,11 +716,15 @@ def write_surface_leaderboards(
                     if values:
                         final_metrics[key] = float(mean(values))
                 
+                run_date = entry.get("run_date", "_unknown_")
+                # Format date nicely if it's an ISO string
+                if run_date != "_unknown_" and "T" in run_date:
+                    run_date = run_date.split("T")[0]
+                
                 row_parts = [
                     str(entry.get("rank", "-")),
-                    f"**{entry.get('method_name', 'UNKNOWN')}**",
-                    entry.get("method_version", ""),
-                    entry.get("run_date", "_unknown_"),
+                    f"**{entry.get('contact', entry.get('method_name', 'UNKNOWN'))}**",  # Use contact as user
+                    run_date,
                     f"**{_format_value(entry.get('mean_score_primary', 0.0))}**",
                 ]
                 
@@ -666,10 +732,6 @@ def write_surface_leaderboards(
                 for key in all_metric_keys:
                     value = final_metrics.get(key)
                     row_parts.append(_format_value(value) if value is not None else "—")
-                
-                # Contact and hardware
-                row_parts.append(entry.get("contact", ""))
-                row_parts.append(entry.get("hardware", ""))
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
         
