@@ -1,0 +1,30 @@
+{
+  "akaptano:ci-20251121-175615": {
+    "method_name": "akaptano",
+    "method_version": "ci-20251121-175615",
+    "contact": "akaptano@users.noreply.github.com",
+    "hardware": "GitHub Actions (ubuntu-latest)",
+    "run_date": "2025-11-21T18:01:51.533039",
+    "path": "submissions/akaptano/ci-20251121-175615/results.json",
+    "num_cases": 1,
+    "mean_score_primary": 0.0024035629740007387,
+    "per_case": {
+      "dev_test_akaptano": {
+        "initial_B_field": 0.9999129099617139,
+        "final_B_field": 1.0274587204256318,
+        "target_B_field": 1.0,
+        "optimization_time": 328.24971866607666,
+        "final_flux": 0.0024035629740007387,
+        "final_cs_separation": 0.0,
+        "final_cc_separation": 8.539502354576963e-05,
+        "final_length_constraint": 0.0,
+        "final_curvature_constraint": 0.0,
+        "final_linking_number": 0.0,
+        "final_force_constraint": 0.0,
+        "avg_BdotN_over_B": 0.05515456039716661,
+        "max_BdotN_over_B": 0.5675315561884356,
+        "score_primary": 0.0024035629740007387
+      }
+    }
+  }
+}

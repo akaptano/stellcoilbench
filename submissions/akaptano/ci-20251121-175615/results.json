@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "method_name": "akaptano",
+    "method_version": "ci-20251121-175615",
+    "contact": "akaptano@users.noreply.github.com",
+    "hardware": "GitHub Actions (ubuntu-latest)",
+    "notes": "",
+    "run_date": "2025-11-21T18:01:51.533039"
+  },
+  "cases": [
+    {
+      "case_id": "dev_test_akaptano",
+      "metrics": {
+        "initial_B_field": 0.9999129099617139,
+        "final_B_field": 1.0274587204256318,
+        "target_B_field": 1.0,
+        "optimization_time": 328.24971866607666,
+        "final_flux": 0.0024035629740007387,
+        "final_cs_separation": 0,
+        "final_cc_separation": 8.539502354576963e-05,
+        "final_length_constraint": 0.0,
+        "final_curvature_constraint": 0.0,
+        "final_linking_number": 0,
+        "final_force_constraint": 0.0,
+        "final_forces": [
+          70952.75548775386,
+          297865.6941793857,
+          20141431.73666535,
+          8967944.170810472
+        ],
+        "final_lengths": [
+          2.8948885057582987,
+          2.8043495613077467,
+          2.935171834421836,
+          3.3383197774832567
+        ],
+        "final_max_curvatures": [
+          6.307766224747048,
+          6.616772787020997,
+          6.926622983621034,
+          7.963897185353461
+        ],
+        "avg_BdotN_over_B": 0.05515456039716661,
+        "max_BdotN_over_B": 0.5675315561884356,
+        "lagrange_multipliers": [
+          -6722.1981789421825,
+          -238.77890260560008,
+          -0.10117999750257824,
+          -0.0,
+          -0.009859989599661364,
+          -0.0359026806867806,
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "output_directory": "."
+      }
+    }
+  ]
+}
