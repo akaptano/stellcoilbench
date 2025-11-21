@@ -34,19 +34,43 @@ jobs:
           
           echo "Submission generated in submissions/$GITHUB_ACTOR/"
 
-      - name: Rebuild database and leaderboard
-        run: |
-          stellcoilbench update-db
-
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Commit submissions and generated files
+      - name: Commit submissions to main
         run: |
           # Add submission files (if any were generated)
           git add submissions/ 2>/dev/null || true
+          
+          # Commit submissions to main branch
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: add CI-generated submission"
+            git push
+          else
+            echo "No new submissions to commit"
+          fi
+
+      - name: Rebuild database and leaderboard
+        run: |
+          stellcoilbench update-db
+
+      - name: Commit leaderboard files to separate branch
+        run: |
+          # Fetch all branches
+          git fetch origin
+          
+          # Create or checkout leaderboard branch
+          if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
+            git checkout -b leaderboard origin/leaderboard 2>/dev/null || git checkout leaderboard
+            git pull origin leaderboard || true
+          else
+            git checkout -b leaderboard
+          fi
+          
+          # Regenerate leaderboard files on this branch (they may have been overwritten by checkout)
+          stellcoilbench update-db
           
           # Force-add generated leaderboard files (ignored by .gitignore)
           # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
@@ -65,9 +89,9 @@ jobs:
           
           # Commit if there are changes
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update StellCoilBench submissions and leaderboard"
-            git push
+            git commit -m "chore: update StellCoilBench leaderboard"
+            git push origin leaderboard
           else
-            echo "No changes to commit"
+            echo "No leaderboard changes to commit"
           fi
 
