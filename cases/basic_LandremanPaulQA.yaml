@@ -1,17 +1,12 @@
 description: "Basic test case"
 surface_params:
-  nphi: 16
-  ntheta: 16
   surface: "input.LandremanPaul2021_QA"
   range: "half period"
 
 coils_params:
   ncoils: 4
   order: 16
-  nturns: 200  # number of turns in the coil
-  target_B: 1.0  # Tesla
   verbose: "True"
-  coil_radius: "0.05"
 
 optimizer_params:
   algorithm: "l-bfgs"

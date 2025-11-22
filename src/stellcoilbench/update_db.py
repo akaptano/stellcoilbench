@@ -163,7 +163,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     """
     Build a simple leaderboard summary from methods.json-style data.
 
-    Sorting by score_primary (descending).
+    Sorting by score_primary (ascending - lower normalized squared flux is better).
     """
     entries = []
 
@@ -189,7 +189,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
             }
         )
 
-    entries.sort(key=lambda e: e["score_primary"], reverse=True)
+    entries.sort(key=lambda e: e["score_primary"], reverse=False)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
@@ -285,10 +285,16 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 sep_parts.append(":---:")
         lines.append("| " + " | ".join(sep_parts) + " |")
         
-        def _format_value(value: Any) -> str:
-            """Format a metric value in scientific notation with 3 digits."""
+        def _format_value(value: Any, metric_key: str = "") -> str:
+            """Format a metric value in scientific notation with 2 digits."""
+            # Special handling for linking number - use integer format
+            if metric_key == "final_linking_number":
+                if isinstance(value, (float, int)):
+                    return str(int(round(value)))
+                return str(value)
+            # All other numeric values use scientific notation with 2 digits
             if isinstance(value, (float, int)):
-                return f"{float(value):.3e}"
+                return f"{float(value):.2e}"
             return str(value)
         
         # Write rows for each entry
@@ -310,7 +316,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
             # Add all metrics
             for key in all_metric_keys:
                 value = metrics.get(key)
-                row_parts.append(_format_value(value) if value is not None else "—")
+                row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
             
             lines.append("| " + " | ".join(row_parts) + " |")
         
@@ -387,8 +393,8 @@ def build_surface_leaderboards(
     for surface, surf_data in surface_leaderboards.items():
         entries = surf_data["entries"]
         entries.sort(
-            key=lambda e: e.get("score_primary", 0.0),
-            reverse=True
+            key=lambda e: e.get("score_primary", float('inf')),  # Use inf for missing scores (sort last)
+            reverse=False  # Ascending order - lower normalized squared flux is better
         )
         for i, entry in enumerate(entries, start=1):
             entry["rank"] = i
@@ -408,10 +414,16 @@ def write_surface_leaderboards(
     surface_dir = docs_dir / "surfaces"
     surface_dir.mkdir(parents=True, exist_ok=True)
     
-    def _format_value(value: Any) -> str:
-        """Format a metric value in scientific notation with 3 digits."""
+    def _format_value(value: Any, metric_key: str = "") -> str:
+        """Format a metric value in scientific notation with 2 digits."""
+        # Special handling for linking number - use integer format
+        if metric_key == "final_linking_number":
+            if isinstance(value, (float, int)):
+                return str(int(round(value)))
+            return str(value)
+        # All other numeric values use scientific notation with 2 digits
         if isinstance(value, (float, int)):
-            return f"{float(value):.3e}"
+            return f"{float(value):.2e}"
         return str(value)
     
     def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:
@@ -505,7 +517,7 @@ def write_surface_leaderboards(
                 # Add all metrics
                 for key in all_metric_keys:
                     value = metrics.get(key)
-                    row_parts.append(_format_value(value) if value is not None else "—")
+                    row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
             

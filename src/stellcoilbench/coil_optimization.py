@@ -98,8 +98,8 @@ def optimize_coils(
     surface = surface_func(
         filename=surface_file, 
         range=surface_params["range"],
-        nphi=surface_params["nphi"], 
-        ntheta=surface_params["ntheta"])
+        nphi=32, 
+        ntheta=32)  # Always use 32x32 for standardization
     
     # Determine output directory for VTK files
     if output_dir is None:
@@ -248,7 +248,7 @@ def initialize_coils_loop(
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, max_iter_lag : int = 10, 
-    ncoils : int = 4, order : int = 16, nphi : int = 32, ntheta : int = 32, 
+    ncoils : int = 4, order : int = 16, 
     verbose : bool = False, coil_width : float = 0.4,
     regularization : Callable = regularization_circ, **kwargs):
     """
@@ -264,8 +264,6 @@ def optimize_coils_loop(
         max_iter_lag: Maximum number of Lagrangian iterations (default: 50).
         ncoils: Number of base coils to create (default: 4).
         order: Fourier order for coil curves (default: 16).
-        nphi: Number of phi points for surface discretization (default: 32).
-        ntheta: Number of theta points for surface discretization (default: 32).
         verbose: Print out progress and results (default: False).
         **kwargs: Additional keyword arguments for constraint thresholds.
     Returns:
@@ -333,8 +331,8 @@ def optimize_coils_loop(
     
     # Step 2: Create plotting surface for visualization
     # print("Step 2: Setting up plotting surface...")
-    qphi = 4 * nphi
-    qtheta = 4 * ntheta
+    qphi = 4 * len(s.quadpoints_phi)
+    qtheta = 4 * len(s.quadpoints_theta)
     quadpoints_phi = np.linspace(0, 1, qphi)
     quadpoints_theta = np.linspace(0, 1, qtheta)
     
@@ -494,9 +492,7 @@ def optimize_coils_loop(
     
     # Calculate final B_N metrics
     bs.set_points(s.gamma().reshape((-1, 3)))
-    nphi_s = len(s.quadpoints_phi)
-    ntheta_s = len(s.quadpoints_theta)
-    BdotN = np.mean(np.abs(np.sum(bs.B().reshape((nphi_s, ntheta_s, 3)) * s.unitnormal(), axis=2)))
+    BdotN = np.mean(np.abs(np.sum(bs.B().reshape((32, 32, 3)) * s.unitnormal(), axis=2)))
     avg_BdotN_over_B = BdotN / bs.AbsB().mean()
     
     bs.set_points(s_plot.gamma().reshape((-1, 3)))

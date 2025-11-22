@@ -1,0 +1,15 @@
+description: "Basic test case"
+surface_params:
+  surface: "MUSE.focus"
+  range: "half period"
+
+coils_params:
+  ncoils: 4
+  order: 16
+  verbose: "True"
+
+optimizer_params:
+  algorithm: "l-bfgs"
+  max_iterations: 200
+  max_iter_lag: 10
+  verbose: False
