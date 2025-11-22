@@ -172,14 +172,14 @@ def update_db_cmd(
     docs_dir: Path = typer.Option(
         Path("docs"),
         "--docs-dir",
-        help="Directory where docs/leaderboard.md is written.",
+        help="Directory where docs/surfaces/ leaderboards are written.",
     ),
 ) -> None:
     """
     Rebuild the on-repo 'database' of submissions and leaderboards.
 
     This scans submissions_dir for results.json files produced by `coilbench eval-bundle`,
-    aggregates them into db/*.json, and writes docs/leaderboard.md.
+    aggregates them into db/*.json, and writes per-surface leaderboards in docs/surfaces/.
     """
     from .update_db import update_database
     repo_root = Path.cwd()
@@ -189,7 +189,7 @@ def update_db_cmd(
         db_dir=db_dir,
         docs_dir=docs_dir,
     )
-    typer.echo(f"Updated database in {db_dir} and leaderboard in {docs_dir / 'leaderboard.md'}")
+    typer.echo(f"Updated database in {db_dir} and surface leaderboards in {docs_dir / 'surfaces'}")
 
 
 @app.command("submit-case")
@@ -203,23 +203,6 @@ def submit_case(
         "--method-name",
         "-m",
         help="Name of your optimization method (optional, stored in metadata).",
-    ),
-    method_version: Optional[str] = typer.Option(
-        None,
-        "--version",
-        "-v",
-        help="Version identifier (optional, stored in metadata).",
-    ),
-    contact: Optional[str] = typer.Option(
-        None,
-        "--contact",
-        "-c",
-        help="Contact email or info (default: auto-detect GitHub username).",
-    ),
-    hardware: Optional[str] = typer.Option(
-        None,
-        "--hardware",
-        help="Hardware description (default: auto-detect CPU/GPU).",
     ),
     notes: str = typer.Option("", "--notes", "-n", help="Additional notes."),
     submissions_dir: Path = typer.Option(
@@ -255,19 +238,17 @@ def submit_case(
     else:
         typer.echo(f"Using GitHub username: {github_username}")
 
-    # Auto-detect contact (GitHub username) if not provided
-    if contact is None:
-        contact = github_username
-        typer.echo(f"Auto-detected contact: {contact}")
+    # Auto-detect contact (use GitHub username)
+    contact = github_username
+    typer.echo(f"Auto-detected contact: {contact}")
 
-    # Auto-detect hardware if not provided
-    if hardware is None:
-        hardware = _detect_hardware()
-        if hardware:
-            typer.echo(f"Auto-detected hardware: {hardware}")
-        else:
-            hardware = ""
-            typer.echo("Warning: Could not auto-detect hardware. Use --hardware to specify.")
+    # Auto-detect hardware
+    hardware = _detect_hardware()
+    if not hardware:
+        hardware = "Unknown hardware"
+        typer.echo("Warning: Could not auto-detect hardware.")
+    else:
+        typer.echo(f"Auto-detected hardware: {hardware}")
 
     # Load case configuration
     case_cfg = load_case_config(case_path)
@@ -314,7 +295,6 @@ def submit_case(
     submission = {
         "metadata": {
             "method_name": method_name or "",
-            "method_version": method_version or "",
             "contact": contact,
             "hardware": hardware,
             "notes": notes,

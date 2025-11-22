@@ -266,10 +266,9 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         all_metric_keys = _get_all_metrics_from_entries(entries)
         
         # Build header: Rank, User, Date, then all metrics (compact)
-        # Add sorting indicator (↕) to metric columns
         header_cols = ["#", "User", "Date"]
-        # Add metric shorthands with sorting indicator
-        header_cols.extend([f"{_metric_shorthand(key)} ↕" for key in all_metric_keys])
+        # Add metric shorthands
+        header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
         
         lines.append("| " + " | ".join(header_cols) + " |")
         
@@ -287,13 +286,9 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         lines.append("| " + " | ".join(sep_parts) + " |")
         
         def _format_value(value: Any) -> str:
-            """Format a metric value compactly."""
-            if isinstance(value, float):
-                if abs(value) < 1e-3 or abs(value) > 1e6:
-                    return f"{value:.3e}"
-                return f"{value:.4f}"
-            elif isinstance(value, int):
-                return str(value)
+            """Format a metric value in scientific notation with 3 digits."""
+            if isinstance(value, (float, int)):
+                return f"{float(value):.3e}"
             return str(value)
         
         # Write rows for each entry
@@ -414,13 +409,9 @@ def write_surface_leaderboards(
     surface_dir.mkdir(parents=True, exist_ok=True)
     
     def _format_value(value: Any) -> str:
-        """Format a metric value compactly."""
-        if isinstance(value, float):
-            if abs(value) < 1e-3 or abs(value) > 1e6:
-                return f"{value:.3e}"
-            return f"{value:.4f}"
-        elif isinstance(value, int):
-            return str(value)
+        """Format a metric value in scientific notation with 3 digits."""
+        if isinstance(value, (float, int)):
+            return f"{float(value):.3e}"
         return str(value)
     
     def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:
@@ -465,7 +456,7 @@ def write_surface_leaderboards(
             "",
             f"**Plasma Surface:** `{surface_name}`",
             "",
-            "[← Back to overall leaderboard](../leaderboard.md) | [View all surfaces](surfaces.md)",
+            "[View all surfaces](surfaces.md)",
             "",
             "---",
             "",
@@ -478,8 +469,8 @@ def write_surface_leaderboards(
         else:
             # Build header (compact)
             header_cols = ["#", "User", "Date"]
-            # Add metric shorthands with sorting indicator
-            header_cols.extend([f"{_metric_shorthand(key)} ↕" for key in all_metric_keys])
+            # Add metric shorthands
+            header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
             
             lines.append("| " + " | ".join(header_cols) + " |")
             
@@ -560,7 +551,6 @@ def write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) ->
             safe_filename = surface_name.replace(".", "_")
             lines.append(f"- **{display_name}** — [`{surface_name}`](surfaces/{safe_filename}.md)")
         lines.append("")
-        lines.append("[← Back to overall leaderboard](leaderboard.md)")
     
     index_path.write_text("\n".join(lines))
 
@@ -579,10 +569,8 @@ def update_database(
     It does several things:
       1. Scans submissions_root for results.json files
       2. Aggregates data from submissions (in-memory)
-      3. Writes docs/leaderboard.md (overall)
-      4. Writes docs/leaderboards/ (per-case)
-      5. Writes docs/surfaces/ (per-surface)
-      6. Optionally writes db/leaderboard.json for reference
+      3. Writes docs/surfaces/ (per-surface leaderboards)
+      4. Optionally writes db/leaderboard.json for reference
 
     Parameters
     ----------
@@ -593,7 +581,7 @@ def update_database(
     db_dir:
         Directory where JSON database files are stored. Defaults to repo_root / "db".
     docs_dir:
-        Directory where docs/leaderboard.md is written. Defaults to repo_root / "docs".
+        Directory where docs/surfaces/ leaderboards are written. Defaults to repo_root / "docs".
     cases_root:
         Directory containing case.yaml files. Defaults to repo_root / "cases".
     plasma_surfaces_dir:
@@ -631,9 +619,6 @@ def update_database(
         print("ERROR: leaderboard.json was not written correctly!", file=sys.stderr)
         sys.exit(1)
 
-    # Write overall leaderboard
-    write_markdown_leaderboard(leaderboard, out_md=docs_dir / "leaderboard.md")
-    
     # Build and write per-surface leaderboards
     surface_leaderboards = build_surface_leaderboards(
         leaderboard, submissions_root, plasma_surfaces_dir

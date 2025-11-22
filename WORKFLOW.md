@@ -26,8 +26,9 @@ stellcoilbench/
 ├── db/                       # Generated reference files (on leaderboard branch only)
 │   └── leaderboard.json      # Optional reference file
 └── docs/                     # Generated leaderboards (on leaderboard branch only)
-    ├── leaderboard.md
-    └── ...
+    ├── surfaces.md           # Index of all surface leaderboards
+    └── surfaces/             # Per-surface leaderboards
+        └── *.md              # One leaderboard per plasma surface
 ```
 
 ## How to Add a Submission
@@ -38,7 +39,6 @@ Create or use an existing `case.yaml` file in `cases/`:
 
 ```yaml
 # cases/my_case.yaml
-case_id: "my_benchmark_case"
 description: "My optimization test"
 surface_params:
   nphi: 32
@@ -66,41 +66,53 @@ stellcoilbench submit-case cases/my_case.yaml
 **What this does:**
 1. Runs the coil optimization for the case
 2. Evaluates the results
-3. Auto-detects GitHub username and hardware
-4. Generates `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
-5. Saves `coils.json` (optimized coil geometry) in the submission directory
-6. Copies `case.yaml` to the submission directory for reference
-7. Saves VTK visualization files (*.vtu, *.vts) in the submission directory
+3. Auto-detects GitHub username from git config
+4. Auto-detects hardware (CPU/GPU)
+5. Generates `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
+6. Saves `coils.json` (optimized coil geometry) in the submission directory
+7. Copies `case.yaml` to the submission directory for reference
+8. Saves VTK visualization files (*.vtu, *.vts) in the submission directory
 
 **Directory naming:**
-- Username: Auto-detected from git config (or use `--contact` to override)
+- Username: Auto-detected from git config (`git config user.name`)
 - Timestamp: Current date and time in `MM-DD-YYYY_HH-MM` format (e.g., `12-20-2024_14-30`)
 
+**Submission identification:**
+Each submission is uniquely identified by:
+- **Date submitted**: Timestamp in directory name (`MM-DD-YYYY_HH-MM`)
+- **GitHub username**: Auto-detected from git config
+- **Metadata**: All case parameters stored in `case.yaml` (copied to submission directory)
+
 **Optional flags:**
-- `--contact` - Override auto-detected contact (default: GitHub username)
-- `--hardware` - Override auto-detected hardware (default: auto-detected CPU/GPU)
-- `--notes` - Add notes about the submission
+- `--method-name` - Name of your optimization method (optional, stored in metadata)
+- `--notes` - Add notes about the submission (optional, stored in metadata)
 
 ### Step 3: Commit and Push
 
-Commit the generated `results.json` file:
+Commit the generated submission directory:
 
 ```bash
-git add submissions/my_optimization_method/v1.0.0/results.json
-git commit -m "Add submission: my_optimization_method v1.0.0"
+git add submissions/<surface>/<your_username>/<timestamp>/
+git commit -m "Add submission"
 git push
 ```
+
+Replace `<surface>`, `<your_username>`, and `<timestamp>` with the actual values from your submission directory.
 
 ### Step 4: CI Updates Leaderboard
 
 When you push to `main`, CI automatically:
 1. Commits your submission to the `main` branch
 2. Scans `submissions/` for all `results.json` files
-3. Builds `db/` database files
-4. Generates `docs/leaderboard.md` and related files
-5. Commits the leaderboard files to the `leaderboard` branch (separate from `main`)
+3. Builds `db/` database files **on the `leaderboard` branch only** (not on `main`)
+4. Generates per-surface leaderboards in `docs/surfaces/` **on the `leaderboard` branch only** (not on `main`)
+5. Commits the leaderboard files (`db/` and `docs/`) to the `leaderboard` branch (separate from `main`)
 
-**Important**: You don't need to pull leaderboard files - they're on a separate branch. Your `main` branch stays clean!
+**Important**: 
+- **`db/` and `docs/` directories do NOT exist on the `main` branch** - they are only created and updated on the `leaderboard` branch via CI
+- Leaderboard files (`db/` and `docs/`) are only updated on the `leaderboard` branch via CI
+- You don't need to pull leaderboard files - they're on a separate branch. Your `main` branch stays clean!
+- The `leaderboard` branch contains generated files that are automatically updated by CI
 
 ## How It Works
 
@@ -112,16 +124,18 @@ When you push to `main`, CI automatically:
 
 ### `submissions/` Directory  
 - **Purpose**: Stores submission results (solution outputs)
-- **Format**: `results.json` files organized by method/version
+- **Format**: `results.json` files organized by surface/username/timestamp
 - **Usage**: Scanned by `update-db` to build leaderboard
 - **Git**: Tracked in git (submissions are part of the repo)
+- **Identification**: Each submission is identified by GitHub username, submission date/time, and metadata in `case.yaml`
 
 ### Generated Files (`db/`, `docs/`)
-- **Purpose**: Aggregated database and leaderboards
-- **Format**: JSON (db/) and Markdown (docs/)
+- **Purpose**: Aggregated database and per-surface leaderboards
+- **Format**: JSON (db/) and Markdown (docs/surfaces/)
 - **Usage**: Displayed on GitHub (browse the `leaderboard` branch)
-- **Git**: Committed to `leaderboard` branch (not on `main` branch)
-- **Note**: You don't need to pull these files - they're on a separate branch
+- **Git**: **Only exist on `leaderboard` branch** - these directories are NOT on the `main` branch
+- **Update**: Automatically generated and updated by CI on the `leaderboard` branch when submissions are pushed to `main`
+- **Note**: You don't need to pull these files - they're on a separate branch. The `main` branch does not contain `db/` or `docs/` directories
 
 ## Example Workflow
 
@@ -147,19 +161,21 @@ git push
 
 ## Key Points
 
-- **Cases** (`cases/`) = Problem definitions (what to optimize)
+- **Cases** (`cases/`) = Problem definitions (what to optimize) - on `main` branch
 - **Submissions** (`submissions/`) = Results (your solutions) - committed to `main` branch
-- **Leaderboard files** (`docs/`, `db/`) = Generated leaderboards - committed to `leaderboard` branch
+- **Leaderboard files** (`docs/`, `db/`) = Generated per-surface leaderboards - **ONLY exist on `leaderboard` branch, NOT on `main`**
 - **Put submissions in `submissions/`** - either:
   - Generate them with `submit-case` command (recommended)
   - Or manually create `results.json` files following the format
-- **CI scans `submissions/`** to build the leaderboard on the `leaderboard` branch
-- **Each submission** = one `results.json` file in `submissions/<username>/<MM-DD-YYYY_HH-MM>/`
+- **CI scans `submissions/`** from `main` branch to build per-surface leaderboards on the `leaderboard` branch
+- **Each submission** = one `results.json` file in `submissions/<surface>/<username>/<MM-DD-YYYY_HH-MM>/` on `main` branch
+- **Leaderboard files are auto-generated** - `db/` and `docs/` directories are created and updated by CI **only on the `leaderboard` branch**, they do not exist on `main`
 - **You don't need to pull leaderboard files** - they're on a separate branch, so `main` stays clean!
 
 ## Viewing the Leaderboard
 
 The leaderboard is automatically updated on the `leaderboard` branch:
-- Browse: `https://github.com/<your-repo>/tree/leaderboard/docs/leaderboard.md`
+- Browse: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces.md` (index of all surfaces)
+- Or browse individual surface leaderboards: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces/<surface>.md`
 - Or switch to the `leaderboard` branch locally: `git checkout leaderboard`
 
