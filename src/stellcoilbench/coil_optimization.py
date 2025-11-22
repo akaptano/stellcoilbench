@@ -187,7 +187,6 @@ def initialize_coils_loop(
     """
     from simsopt.geo import create_equally_spaced_curves
     from simsopt.field import Current, coils_via_symmetries, BiotSavart
-    from simsopt.field.coil import coils_to_vtk
     from simsopt.util.coil_optimization_helper_functions import calculate_modB_on_major_radius
 
     out_dir = Path(out_dir)
@@ -239,8 +238,6 @@ def initialize_coils_loop(
         current_scale_factor = target_B / B_avg
         total_current *= current_scale_factor
     
-    # Save final coils to VTK
-    coils_to_vtk(coils, out_dir / "coils_init", nturns=200)  # save forces assuming 200 turns    
     return coils
 
 
@@ -451,9 +448,6 @@ def optimize_coils_loop(
     
     end_time = time.time()
     print(f"Optimization completed in {end_time - start_time:.1f} seconds")
-
-    # Step 6: Save results and final state
-    # print("Step 6: Saving results and final state...")
     
     # Save optimized coils
     coils_to_vtk(coils, out_dir / "coils_optimized", nturns=nturns)
