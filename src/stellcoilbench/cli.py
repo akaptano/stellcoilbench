@@ -293,12 +293,12 @@ def submit_case(
     submission_dir = submissions_dir / surface_name / github_username / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
-    # Coils filename is always coils.json (not case_id.json)
+    # Coils filename is always coils.json
     coils_filename = "coils.json"
     coils_out_path = submission_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path and VTK files to submission_dir.
-    typer.echo(f"Running optimizer for case {case_cfg.case_id}...")
+    typer.echo("Running optimizer...")
     results_dict = optimize_coils(
         case_path=case_path, 
         coils_out_path=coils_out_path, 
@@ -308,7 +308,7 @@ def submit_case(
     typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
-    case_result = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
+    metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
     # 3) Build submission results.json
     submission = {
@@ -320,7 +320,7 @@ def submit_case(
             "notes": notes,
             "run_date": run_date,
         },
-        "cases": [case_result],
+        "metrics": metrics,
     }
     
     # Write results.json
@@ -351,7 +351,7 @@ def run_case(
         None,
         "--results-out",
         "-o",
-        help="Where to write the per-case results JSON (default: <coils_out_dir>/<case_id>_results.json).",
+        help="Where to write the results JSON (default: <coils_out_dir>/results.json).",
     ),
 ) -> None:
     """
@@ -368,28 +368,28 @@ def run_case(
 
     coils_out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Decide coils filename
-    coils_filename = f"{case_cfg.case_id}.json"
+    # Coils filename is always coils.json
+    coils_filename = "coils.json"
     coils_out_path = coils_out_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path.
-    typer.echo(f"Running optimizer for case {case_cfg.case_id}...")
+    typer.echo("Running optimizer...")
     results_dict = optimize_coils(case_path=case_path, coils_out_path=coils_out_path, case_cfg=case_cfg)
     typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
-    case_result = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
+    metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
     # Decide results filename.
     if results_out is None:
-        results_out = coils_out_dir / f"{case_cfg.case_id}_results.json"
+        results_out = coils_out_dir / "results.json"
     
     # Ensure output path has .json extension for JSON format
     if not str(results_out).endswith('.json'):
         results_out = results_out.with_suffix('.json')
 
     results_out.parent.mkdir(parents=True, exist_ok=True)
-    results_out.write_text(json.dumps(case_result, indent=2, cls=NumpyJSONEncoder))
+    results_out.write_text(json.dumps(metrics, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote evaluation results to {results_out}")
 
 
@@ -451,10 +451,10 @@ def generate_submission(
     for case_dir in sorted(case_dirs):
         try:
             case_cfg = load_case_config(case_dir)
-            coils_path = coils_root / f"{case_cfg.case_id}.json"
+            coils_path = coils_root / "coils.json"
             
             if not coils_path.exists():
-                typer.echo(f"Warning: Coils file not found for {case_cfg.case_id}: {coils_path}", err=True)
+                typer.echo(f"Warning: Coils file not found: {coils_path}", err=True)
                 continue
 
             # For now, we need to load the results_dict from the optimization
@@ -464,9 +464,9 @@ def generate_submission(
                 "chi2_Bn": 0.001,  # Placeholder - would come from actual evaluation
             }
             
-            case_result = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
-            case_results.append(case_result)
-            typer.echo(f"Processed case: {case_cfg.case_id}")
+            metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
+            case_results.append(metrics)
+            typer.echo(f"Processed case from {case_dir}")
             
         except Exception as e:
             typer.echo(f"Error processing {case_dir}: {e}", err=True)
@@ -487,7 +487,7 @@ def generate_submission(
             "notes": metadata.notes,
             "run_date": run_date,
         },
-        "cases": case_results,
+        "metrics": case_results[0] if case_results else {},  # Use first case's metrics, or empty dict
     }
 
     # Write output

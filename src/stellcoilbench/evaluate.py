@@ -11,15 +11,9 @@ from .config_scheme import CaseConfig, SubmissionMetadata
 
 
 @dataclass
-class CaseResult:
-    case_id: str
-    metrics: Dict[str, float]
-
-
-@dataclass
 class SubmissionResults:
     metadata: SubmissionMetadata
-    cases: List[CaseResult]
+    metrics: Dict[str, Any]
 
 
 def load_case_config(case_dir: Path) -> CaseConfig:
@@ -65,17 +59,9 @@ def evaluate_case(case_cfg: CaseConfig, results_dict: Dict[str, Any]) -> Dict[st
 
     Returns
     -------
-    Dictionary containing the evaluation results.
-    The dictionary contains the case ID and the metrics.
+    Dictionary containing the evaluation metrics.
     """
-    case_result = CaseResult(
-        case_id=case_cfg.case_id,
-        metrics=results_dict,
-    )
-    return {
-        "case_id": case_result.case_id,
-        "metrics": case_result.metrics,
-    }
+    return results_dict
 
 
 def build_leaderboard(

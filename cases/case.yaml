@@ -1,4 +1,3 @@
-case_id: "dev_test_akaptano"
 description: "Basic test case"
 surface_params:
   nphi: 16
@@ -19,6 +18,3 @@ optimizer_params:
   max_iterations: 200
   max_iter_lag: 10
   verbose: False
-
-output:
-  coils_filename_pattern: "{case_id}.json"   # how to name the coils file

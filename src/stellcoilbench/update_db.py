@@ -2,9 +2,7 @@
 from __future__ import annotations
 
 import json
-import yaml
 from pathlib import Path
-from statistics import mean
 from typing import Any, Dict, Iterable, Tuple
 
 
@@ -63,7 +61,7 @@ def build_methods_json(
     Returns
     -------
     dict
-        Keys are "method_name:version", values hold metadata + per-case metrics.
+        Keys are "method_name:version", values hold metadata + metrics.
     """
     def _numeric_fields(values: Dict[str, Any]) -> Dict[str, float]:
         return {
@@ -76,44 +74,24 @@ def build_methods_json(
 
     for method_key, path, data in _load_submissions(submissions_root):
         meta = data.get("metadata") or {}
-        cases = data.get("cases") or []
+        metrics = data.get("metrics") or {}
 
-        per_case: Dict[str, Dict[str, float]] = {}
-        primary_scores = []
-
-        for c in cases:
-            cid = c.get("case_id")
-            if not cid:
-                continue
-            
-            # Skip dev/test cases - don't include them in per_case metrics
-            if cid.startswith("dev_") or cid.startswith("test_"):
-                continue
-
-            c_metrics = c.get("metrics") or {}
-            c_scores = c.get("scores") or {}
-
-            metrics_numeric = _numeric_fields(c_metrics)
-            scores_numeric = _numeric_fields(c_scores)
-
-            primary_score = scores_numeric.get("score_primary")
-            if primary_score is None:
-                # Try multiple fallback options for primary score
-                fallback = c_metrics.get("final_flux")
-                if fallback is None:
-                    fallback = c_metrics.get("final_normalized_squared_flux")
-                if isinstance(fallback, (int, float)):
-                    primary_score = float(fallback)
-                    scores_numeric.setdefault("score_primary", primary_score)
-
-            if isinstance(primary_score, (int, float)):
-                primary_scores.append(float(primary_score))
-
-            per_case[cid] = {**metrics_numeric, **scores_numeric}
-
-        if not per_case:
-            # If no valid cases, skip this submission.
+        if not metrics:
+            # Skip submissions with no metrics
             continue
+
+        metrics_numeric = _numeric_fields(metrics)
+        
+        # Extract primary score
+        primary_score = metrics_numeric.get("score_primary")
+        if primary_score is None:
+            # Try multiple fallback options for primary score
+            fallback = metrics.get("final_flux")
+            if fallback is None:
+                fallback = metrics.get("final_normalized_squared_flux")
+            if isinstance(fallback, (int, float)):
+                primary_score = float(fallback)
+                metrics_numeric["score_primary"] = primary_score
 
         # Convert path to absolute if it's relative
         abs_path = path if path.is_absolute() else (repo_root / path).resolve()
@@ -126,194 +104,81 @@ def build_methods_json(
             "hardware": meta.get("hardware", ""),
             "run_date": meta.get("run_date", ""),
             "path": rel_path,
-            "num_cases": len(per_case),
-            "mean_score_primary": float(mean(primary_scores)) if primary_scores else None,
-            "per_case": per_case,
+            "score_primary": primary_score,
+            "metrics": metrics_numeric,
         }
 
     return methods
-
-
-def build_cases_json(methods: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Build per-case summary, including best-so-far entries by score and χ²_Bn.
-
-    Parameters
-    ----------
-    methods:
-        Output of build_methods_json.
-
-    Returns
-    -------
-    dict
-        Keys are case_id, values contain best-by-* entries.
-    """
-    cases: Dict[str, Any] = {}
-
-    for method_key, md in methods.items():
-        per_case = md.get("per_case") or {}
-        for cid, cm in per_case.items():
-            entry = cases.setdefault(cid, {})
-
-            # Best by score_primary (maximize)
-            sp = cm.get("score_primary")
-            if isinstance(sp, (int, float)):
-                best = entry.get("best_by_score_primary")
-                if best is None or sp > best["score_primary"]:
-                    # Include all metrics, not just score_primary and chi2_Bn
-                    best_entry = {
-                        **cm,  # Include all metrics (will include score_primary, chi2_Bn, etc.)
-                        "method_key": method_key,  # Set method_key after to ensure it's not overwritten
-                    }
-                    # Ensure score_primary is float
-                    best_entry["score_primary"] = float(sp)
-                    entry["best_by_score_primary"] = best_entry
-
-            # Best by chi2_Bn (minimize)
-            chi2 = cm.get("chi2_Bn")
-            if isinstance(chi2, (int, float)):
-                best = entry.get("best_by_chi2_Bn")
-                if best is None or chi2 < best["chi2_Bn"]:
-                    # Include all metrics, not just chi2_Bn and score_primary
-                    best_entry = {
-                        **cm,  # Include all metrics (will include chi2_Bn, score_primary, etc.)
-                        "method_key": method_key,  # Set method_key after to ensure it's not overwritten
-                    }
-                    # Ensure chi2_Bn is float
-                    best_entry["chi2_Bn"] = float(chi2)
-                    entry["best_by_chi2_Bn"] = best_entry
-
-    return cases
 
 
 def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     """
     Build a simple leaderboard summary from methods.json-style data.
 
-    Sorting by mean_score_primary (descending).
+    Sorting by score_primary (descending).
     """
-
-    def _case_primary_score(metrics: Dict[str, Any]) -> float | None:
-        score = metrics.get("score_primary")
-        if isinstance(score, (int, float)):
-            return float(score)
-        # Try multiple fallback options for primary score
-        fallback = metrics.get("final_flux")
-        if fallback is None:
-            fallback = metrics.get("final_normalized_squared_flux")
-        if isinstance(fallback, (int, float)):
-            return float(fallback)
-        return None
-
     entries = []
-    case_entries: Dict[str, list[Dict[str, Any]]] = {}
 
     for method_key, md in methods.items():
-        mean_sp = md.get("mean_score_primary")
-        per_case = md.get("per_case") or {}
-        cases = []
-        for cid in sorted(per_case.keys()):
-            cases.append(
-                {
-                    "case_id": cid,
-                    "metrics": per_case[cid],
-                }
-            )
+        score_primary = md.get("score_primary")
+        metrics = md.get("metrics", {})
+        
+        if score_primary is None:
+            # Skip entries without a primary score
+            continue
 
-            case_entry = {
+        entries.append(
+            {
                 "method_key": method_key,
                 "method_name": md.get("method_name", "UNKNOWN"),
                 "method_version": md.get("method_version", ""),
+                "score_primary": float(score_primary),
                 "run_date": md.get("run_date", ""),
                 "contact": md.get("contact", ""),
                 "hardware": md.get("hardware", ""),
-                "score_primary": _case_primary_score(per_case[cid]),
-                "metrics": per_case[cid],
+                "path": md.get("path", ""),
+                "metrics": metrics,
             }
-            case_entries.setdefault(cid, []).append(case_entry)
+        )
 
-        if isinstance(mean_sp, (int, float)):
-            entries.append(
-                {
-                    "method_key": method_key,
-                    "method_name": md.get("method_name", "UNKNOWN"),
-                    "method_version": md.get("method_version", ""),
-                    "mean_score_primary": float(mean_sp),
-                    "num_cases": int(md.get("num_cases", 0)),
-                    "run_date": md.get("run_date", ""),
-                    "contact": md.get("contact", ""),
-                    "hardware": md.get("hardware", ""),
-                    "cases": cases,
-                }
-            )
-
-    entries.sort(key=lambda e: e["mean_score_primary"], reverse=True)
+    entries.sort(key=lambda e: e["score_primary"], reverse=True)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
-    # Filter out dev/test cases from case_entries
-    filtered_case_entries = {
-        cid: entries 
-        for cid, entries in case_entries.items() 
-        if not (cid.startswith("dev_") or cid.startswith("test_"))
-    }
-    
-    for cid, case_list in filtered_case_entries.items():
-        case_list.sort(
-            key=lambda entry: (
-                0 if isinstance(entry.get("score_primary"), (int, float)) else 1,
-                -(entry["score_primary"] or 0.0) if entry.get("score_primary") is not None else 0.0,
-            )
-        )
-        for i, entry in enumerate(case_list, start=1):
-            entry["rank"] = i
-
-    return {"entries": entries, "cases": filtered_case_entries}
+    return {"entries": entries}
 
 
 def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
     """Get all unique metric keys from overall leaderboard entries."""
     all_keys = set()
     for entry in entries:
-        for case_data in entry.get("cases", []):
-            metrics = case_data.get("metrics", {})
-            for key in metrics.keys():
-                if key != "score_primary":  # score_primary gets its own column
-                    all_keys.add(key)
+        metrics = entry.get("metrics", {})
+        for key in metrics.keys():
+            if key != "score_primary":  # score_primary gets its own column
+                all_keys.add(key)
     return sorted(all_keys)
 
 
-def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_ids: list[str] | None = None) -> None:
+def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> None:
     """
     Write a beautiful markdown leaderboard table to out_md, using leaderboard JSON.
-    Combines overall leaderboard with case-by-case navigation.
     """
     entries = leaderboard.get("entries") or []
-    case_entries = leaderboard.get("cases") or {}
-    # Filter out dev/test cases from case_ids
-    all_case_ids = sorted(case_entries.keys())
-    case_ids = case_ids or all_case_ids
-    # Ensure case_ids doesn't include dev/test cases
-    case_ids = [cid for cid in case_ids if not (cid.startswith("dev_") or cid.startswith("test_"))]
 
     lines = [
         "# CoilBench Leaderboard",
         "",
-        "Welcome to the CoilBench leaderboard! Compare coil optimization methods across different benchmark cases and plasma surfaces.",
+        "Welcome to the CoilBench leaderboard! Compare coil optimization methods across different plasma surfaces.",
         "",
         "---",
         "",
     ]
 
     # Navigation links
-    nav_lines = []
-    if case_ids:
-        nav_lines.append("- [Case-by-case leaderboards](#case-by-case-leaderboards)")
-    nav_lines.append("- [Plasma surface leaderboards](surfaces.md)")
-    if nav_lines:
-        lines.append("## Quick Navigation")
-        lines.extend(nav_lines)
-        lines.append("")
+    nav_lines = ["- [Plasma surface leaderboards](surfaces.md)"]
+    lines.append("## Quick Navigation")
+    lines.extend(nav_lines)
+    lines.append("")
 
     lines.append("## Overall Leaderboard")
     lines.append("")
@@ -330,15 +195,15 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
         lines.append('    "contact": "your@email.com",')
         lines.append('    "hardware": "your_hardware"')
         lines.append("  },")
-        lines.append('  "cases": [...]')
+        lines.append('  "metrics": {...}')
         lines.append("}")
         lines.append("```")
     else:
         # Get all unique metric keys across all entries
         all_metric_keys = _get_all_metrics_from_entries(entries)
         
-        # Build header: Rank, User, Run Date, Mean Primary Score, Num Cases, then all metrics
-        header_cols = ["Rank", "User", "Run Date", "Mean Primary Score", "Num Cases"]
+        # Build header: Rank, User, Run Date, Primary Score, then all metrics
+        header_cols = ["Rank", "User", "Run Date", "Primary Score"]
         header_cols.extend(all_metric_keys)
         
         lines.append("| " + " | ".join(header_cols) + " |")
@@ -364,57 +229,29 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
                 return str(value)
             return str(value)
         
-        # Aggregate metrics across all cases for each entry
+        # Write rows for each entry
         for e in entries:
-            # Aggregate metrics from all cases
-            aggregated_metrics: Dict[str, list[float]] = {}
-            for case_data in e.get("cases", []):
-                metrics = case_data.get("metrics", {})
-                for key, value in metrics.items():
-                    if key != "score_primary" and isinstance(value, (int, float)):
-                        if key not in aggregated_metrics:
-                            aggregated_metrics[key] = []
-                        aggregated_metrics[key].append(float(value))
-            
-            # Calculate mean for each metric
-            mean_metrics: Dict[str, float] = {}
-            for key, values in aggregated_metrics.items():
-                if values:
-                    mean_metrics[key] = float(mean(values))
+            metrics = e.get("metrics", {})
             
             run_date = e.get("run_date") or "_unknown_"
             # Format date nicely if it's an ISO string
             if run_date != "_unknown_" and "T" in run_date:
                 run_date = run_date.split("T")[0]
             
-            # Build row: Rank, User, Run Date, Mean Primary Score, Num Cases, then all metrics
+            # Build row: Rank, User, Run Date, Primary Score, then all metrics
             row_parts = [
                 str(e['rank']),
                 f"**{e.get('contact', e.get('method_name', 'UNKNOWN'))}**",  # Use contact as user, fallback to method_name
                 run_date,
-                f"**{_format_value(e.get('mean_score_primary', 0.0))}**",
-                str(e.get('num_cases', 0)),
+                f"**{_format_value(e.get('score_primary', 0.0))}**",
             ]
             
             # Add all metrics
             for key in all_metric_keys:
-                value = mean_metrics.get(key)
+                value = metrics.get(key)
                 row_parts.append(_format_value(value) if value is not None else "—")
             
             lines.append("| " + " | ".join(row_parts) + " |")
-
-    # Add case-by-case leaderboards section (only if there are valid cases)
-    # case_ids is already filtered above, so we can use it directly
-    if case_ids:
-        lines.append("")
-        lines.append("---")
-        lines.append("")
-        lines.append("## Case-by-case Leaderboards")
-        lines.append("")
-        lines.append("Jump directly to any benchmark case:")
-        lines.append("")
-        for cid in case_ids:
-            lines.append(f"- [{cid}](leaderboards/{cid}.md)")
 
     lines.append("")
     lines.append("---")
@@ -425,217 +262,59 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
     out_md.write_text("\n".join(lines))
 
 
-def _load_case_to_surface_map(cases_root: Path, plasma_surfaces_dir: Path) -> Dict[str, str]:
-    """
-    Map case_id -> surface filename by reading case.yaml files.
-    
-    Returns dict mapping case_id to surface filename (e.g., "input.muse").
-    """
-    case_to_surface: Dict[str, str] = {}
-    
-    # Try to find case.yaml files
-    for case_yaml in cases_root.rglob("case.yaml"):
-        try:
-            data = yaml.safe_load(case_yaml.read_text())
-            case_id = data.get("case_id")
-            surface = data.get("surface_params", {}).get("surface", "")
-            if case_id and surface:
-                # Extract just the filename if it's a path
-                surface_name = Path(surface).name
-                case_to_surface[case_id] = surface_name
-        except Exception:
-            continue
-    
-    return case_to_surface
 
 
-def _get_all_metric_keys(case_entries: Dict[str, list[Dict[str, Any]]]) -> list[str]:
-    """
-    Collect all unique metric keys across all entries.
-    Returns sorted list of metric names (excluding score_primary which gets its own column).
-    """
-    all_keys = set()
-    for entries in case_entries.values():
-        for entry in entries:
-            metrics = entry.get("metrics") or {}
-            for key in metrics.keys():
-                if key != "score_primary":  # score_primary gets its own column
-                    all_keys.add(key)
-    return sorted(all_keys)
-
-
-def write_case_leaderboards(leaderboard: Dict[str, Any], docs_dir: Path, repo_root: Path) -> list[str]:
-    """
-    Write per-case leaderboard markdown files under docs/leaderboards.
-    Now with separate columns for each metric.
-    """
-    case_entries = leaderboard.get("cases") or {}
-    if not case_entries:
-        # Ensure directory exists even if empty for downstream tooling.
-        (docs_dir / "leaderboards").mkdir(parents=True, exist_ok=True)
-        return []
-
-    # Get all unique metric keys to create columns
-    all_metric_keys = _get_all_metric_keys(case_entries)
-
-    case_dir = docs_dir / "leaderboards"
-    case_dir.mkdir(parents=True, exist_ok=True)
-
-    def _format_value(value: Any) -> str:
-        """Format a metric value nicely."""
-        if isinstance(value, float):
-            # Use scientific notation for very small/large numbers
-            if abs(value) < 1e-3 or abs(value) > 1e6:
-                return f"{value:.4e}"
-            return f"{value:.6f}"
-        elif isinstance(value, int):
-            return str(value)
-        return str(value)
-
-    # Filter out test/dev cases
-    case_ids = sorted([cid for cid in case_entries.keys() if not (cid.startswith("dev_") or cid.startswith("test_"))])
-    for cid in case_ids:
-        entries = case_entries[cid]
-        lines = [
-            f"# {cid} Leaderboard",
-            "",
-            "[← Back to overall leaderboard](../leaderboard.md)",
-            "",
-        ]
-
-        if not entries:
-            lines.append("_No valid submissions found for this case._")
-        else:
-            # Build header with separate columns for each metric
-            header_cols = ["Rank", "User", "Run Date", "Primary Score"]
-            header_cols.extend(all_metric_keys)
-            
-            # Create header row
-            lines.append("| " + " | ".join(header_cols) + " |")
-            
-            # Create separator row
-            sep_parts = []
-            for col in header_cols:
-                if col == "Rank":
-                    sep_parts.append(":----:")
-                elif col == "User":
-                    sep_parts.append(":-------")
-                else:
-                    sep_parts.append(":--------:")
-            lines.append("| " + " | ".join(sep_parts) + " |")
-            
-            # Add data rows
-            for entry in entries:
-                run_date = entry.get("run_date", "_unknown_")
-                # Format date nicely if it's an ISO string
-                if run_date != "_unknown_" and "T" in run_date:
-                    run_date = run_date.split("T")[0]
-                
-                row_parts = [
-                    str(entry.get("rank", "-")),
-                    f"**{entry.get('contact', entry.get('method_name', 'UNKNOWN'))}**",  # Use contact as user
-                    run_date,
-                ]
-                
-                # Primary score
-                score = entry.get("score_primary")
-                row_parts.append(_format_value(score) if isinstance(score, (int, float)) else "_n/a_")
-                
-                # All metrics
-                metrics = entry.get("metrics") or {}
-                for key in all_metric_keys:
-                    value = metrics.get(key)
-                    row_parts.append(_format_value(value) if value is not None else "—")
-                
-                lines.append("| " + " | ".join(row_parts) + " |")
-
-        (case_dir / f"{cid}.md").write_text("\n".join(lines))
-
-    return case_ids
 
 
 
 
 def build_surface_leaderboards(
     leaderboard: Dict[str, Any],
-    case_to_surface: Dict[str, str],
+    submissions_root: Path,
     plasma_surfaces_dir: Path,
 ) -> Dict[str, Dict[str, Any]]:
     """
-    Group case entries by plasma surface and build per-surface leaderboards.
+    Group entries by plasma surface based on submission directory structure.
     
-    Returns dict mapping surface_name -> {"entries": [...], "cases": [...]}
+    Submission paths are: submissions/<surface>/<username>/<datetime>/results.json
+    
+    Returns dict mapping surface_name -> {"entries": [...]}
     """
-    case_entries = leaderboard.get("cases") or {}
+    entries = leaderboard.get("entries") or []
     surface_leaderboards: Dict[str, Dict[str, Any]] = {}
     
-    # Get all surfaces from plasma_surfaces directory
-    all_surfaces = set()
-    if plasma_surfaces_dir.exists():
-        for surface_file in plasma_surfaces_dir.iterdir():
-            if surface_file.is_file():
-                all_surfaces.add(surface_file.name)
-    
-    # Initialize leaderboards for all surfaces
-    for surface in sorted(all_surfaces):
-        surface_leaderboards[surface] = {"entries": [], "cases": {}}
-    
-    # Group cases by surface (filter out test/dev cases)
-    for case_id, entries in case_entries.items():
-        # Skip test/dev cases
-        if case_id.startswith("dev_") or case_id.startswith("test_"):
-            continue
-            
-        surface = case_to_surface.get(case_id)
-        if not surface:
-            # Try to infer from case_id or skip
+    # Group entries by surface extracted from submission paths
+    for entry in entries:
+        # Extract surface from path stored in methods data
+        # Path format: submissions/<surface>/<username>/<datetime>/results.json
+        path_str = entry.get("path", "")
+        if not path_str:
             continue
         
-        if surface not in surface_leaderboards:
-            surface_leaderboards[surface] = {"entries": [], "cases": {}}
+        path_parts = Path(path_str).parts
+        # Find "submissions" in path and get the next part (surface name)
+        try:
+            submissions_idx = path_parts.index("submissions")
+            if len(path_parts) > submissions_idx + 1:
+                surface_name = path_parts[submissions_idx + 1]
+            else:
+                continue
+        except ValueError:
+            continue
         
-        surface_leaderboards[surface]["cases"][case_id] = entries
+        if surface_name not in surface_leaderboards:
+            surface_leaderboards[surface_name] = {"entries": []}
+        
+        surface_leaderboards[surface_name]["entries"].append(entry)
     
-    # For each surface, aggregate entries across all cases
+    # Sort entries within each surface by score_primary
     for surface, surf_data in surface_leaderboards.items():
-        all_surface_entries: Dict[str, Dict[str, Any]] = {}
-        
-        for case_id, entries in surf_data["cases"].items():
-            for entry in entries:
-                method_key = entry.get("method_key", "")
-                if method_key not in all_surface_entries:
-                    all_surface_entries[method_key] = {
-                        "method_key": method_key,
-                        "method_name": entry.get("method_name", "UNKNOWN"),
-                        "method_version": entry.get("method_version", ""),
-                        "run_date": entry.get("run_date", ""),
-                        "contact": entry.get("contact", ""),
-                        "hardware": entry.get("hardware", ""),
-                        "cases": [],
-                        "scores": [],
-                    }
-                
-                all_surface_entries[method_key]["cases"].append({
-                    "case_id": case_id,
-                    "metrics": entry.get("metrics", {}),
-                })
-                score = entry.get("score_primary")
-                if isinstance(score, (int, float)):
-                    all_surface_entries[method_key]["scores"].append(float(score))
-        
-        # Calculate mean scores and rank
-        for method_key, entry_data in all_surface_entries.items():
-            scores = entry_data["scores"]
-            if scores:
-                entry_data["mean_score_primary"] = float(mean(scores))
-                surf_data["entries"].append(entry_data)
-        
-        # Sort by mean score
-        surf_data["entries"].sort(
-            key=lambda e: e.get("mean_score_primary", 0.0),
+        entries = surf_data["entries"]
+        entries.sort(
+            key=lambda e: e.get("score_primary", 0.0),
             reverse=True
         )
-        for i, entry in enumerate(surf_data["entries"], start=1):
+        for i, entry in enumerate(entries, start=1):
             entry["rank"] = i
     
     return surface_leaderboards
@@ -667,11 +346,10 @@ def write_surface_leaderboards(
         """Get all unique metric keys for a surface."""
         all_keys = set()
         for entry in surf_data.get("entries", []):
-            for case_data in entry.get("cases", []):
-                metrics = case_data.get("metrics", {})
-                for key in metrics.keys():
-                    if key != "score_primary":
-                        all_keys.add(key)
+            metrics = entry.get("metrics", {})
+            for key in metrics.keys():
+                if key != "score_primary":
+                    all_keys.add(key)
         return sorted(all_keys)
     
     surface_names = sorted(surface_leaderboards.keys())
@@ -703,7 +381,7 @@ def write_surface_leaderboards(
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
             # Build header
-            header_cols = ["Rank", "User", "Run Date", "Mean Score"]
+            header_cols = ["Rank", "User", "Run Date", "Primary Score"]
             header_cols.extend(all_metric_keys)
             
             lines.append("| " + " | ".join(header_cols) + " |")
@@ -719,24 +397,9 @@ def write_surface_leaderboards(
                     sep_parts.append(":--------:")
             lines.append("| " + " | ".join(sep_parts) + " |")
             
-            # Data rows - aggregate metrics across cases
+            # Data rows
             for entry in entries:
-                # Aggregate metrics across all cases for this method
-                aggregated_metrics: Dict[str, Any] = {}
-                for case_data in entry.get("cases", []):
-                    metrics = case_data.get("metrics", {})
-                    for key, value in metrics.items():
-                        if key != "score_primary":
-                            if key not in aggregated_metrics:
-                                aggregated_metrics[key] = []
-                            if isinstance(value, (int, float)):
-                                aggregated_metrics[key].append(float(value))
-                
-                # Calculate means for aggregated metrics
-                final_metrics: Dict[str, Any] = {}
-                for key, values in aggregated_metrics.items():
-                    if values:
-                        final_metrics[key] = float(mean(values))
+                metrics = entry.get("metrics", {})
                 
                 run_date = entry.get("run_date", "_unknown_")
                 # Format date nicely if it's an ISO string
@@ -747,12 +410,12 @@ def write_surface_leaderboards(
                     str(entry.get("rank", "-")),
                     f"**{entry.get('contact', entry.get('method_name', 'UNKNOWN'))}**",  # Use contact as user
                     run_date,
-                    f"**{_format_value(entry.get('mean_score_primary', 0.0))}**",
+                    f"**{_format_value(entry.get('score_primary', 0.0))}**",
                 ]
                 
                 # Add all metrics
                 for key in all_metric_keys:
-                    value = final_metrics.get(key)
+                    value = metrics.get(key)
                     row_parts.append(_format_value(value) if value is not None else "—")
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
@@ -841,11 +504,9 @@ def update_database(
     # methods.json and cases.json are intermediate and not needed on disk
     # Ensure leaderboard always has the expected structure
     if not isinstance(leaderboard, dict):
-        leaderboard = {"entries": [], "cases": {}}
+        leaderboard = {"entries": []}
     if "entries" not in leaderboard:
         leaderboard["entries"] = []
-    if "cases" not in leaderboard:
-        leaderboard["cases"] = {}
     
     leaderboard_file = db_dir / "leaderboard.json"
     leaderboard_json = json.dumps(leaderboard, indent=2)
@@ -854,19 +515,15 @@ def update_database(
     # Verify the file was written correctly
     import sys
     if not leaderboard_file.exists() or leaderboard_file.stat().st_size == 0:
-        print(f"ERROR: leaderboard.json was not written correctly!", file=sys.stderr)
+        print("ERROR: leaderboard.json was not written correctly!", file=sys.stderr)
         sys.exit(1)
 
-    # Write per-case leaderboards first (to get case_ids)
-    case_ids = write_case_leaderboards(leaderboard, docs_dir=docs_dir, repo_root=repo_root)
-    
-    # Write overall leaderboard (combined with case-by-case links)
-    write_markdown_leaderboard(leaderboard, out_md=docs_dir / "leaderboard.md", case_ids=case_ids)
+    # Write overall leaderboard
+    write_markdown_leaderboard(leaderboard, out_md=docs_dir / "leaderboard.md")
     
     # Build and write per-surface leaderboards
-    case_to_surface = _load_case_to_surface_map(cases_root, plasma_surfaces_dir)
     surface_leaderboards = build_surface_leaderboards(
-        leaderboard, case_to_surface, plasma_surfaces_dir
+        leaderboard, submissions_root, plasma_surfaces_dir
     )
     surface_names = write_surface_leaderboards(
         surface_leaderboards, docs_dir=docs_dir, repo_root=repo_root
