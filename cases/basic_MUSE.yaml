@@ -1,6 +1,6 @@
 description: "Basic test case"
 surface_params:
-  surface: "MUSE.focus"
+  surface: "muse.focus"
   range: "half period"
 
 coils_params:

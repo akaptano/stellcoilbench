@@ -27,28 +27,88 @@ jobs:
         run: |
           pip install -e .
 
-      - name: Run benchmark case
+      - name: Run benchmark cases
         run: |
-          # Run the case.yaml file and generate a submission
-          # Directory will be: submissions/<GITHUB_ACTOR>/<MM-DD-YYYY_HH-MM>/
+          # Run all .yaml files in cases/ directory and generate submissions
+          # Directory will be: submissions/<surface>/<GITHUB_ACTOR>/<MM-DD-YYYY_HH-MM>/
           echo "GITHUB_ACTOR: $GITHUB_ACTOR"
-          echo "Running submit-case..."
+          echo "Finding benchmark cases..."
           
-          # Run with error handling
-          # Contact and hardware are now auto-detected (no flags needed)
-          if ! stellcoilbench submit-case cases/case.yaml; then
-            echo "ERROR: submit-case failed!"
+          # Find all .yaml files in cases/ (excluding README.md)
+          CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
+          
+          if [ -z "$CASE_FILES" ]; then
+            echo "ERROR: No .yaml files found in cases/ directory!"
             exit 1
           fi
           
-          echo "Checking generated submission..."
-          if ! find submissions -name "results.json" -type f | head -1; then
-            echo "ERROR: No results.json file was generated!"
+          echo "Found benchmark cases:"
+          echo "$CASE_FILES"
+          
+          # Run each case
+          FAILED_CASES=()
+          SKIPPED_CASES=()
+          for case_file in $CASE_FILES; do
+            echo ""
+            echo "=========================================="
+            echo "Running case: $case_file"
+            echo "=========================================="
+            
+            # Check if surface file exists (basic check)
+            # Extract surface name from case.yaml
+            SURFACE_NAME=$(grep -A 2 "surface_params:" "$case_file" | grep "surface:" | awk '{print $2}' | tr -d '"')
+            if [ -n "$SURFACE_NAME" ]; then
+              # Check if surface file exists in plasma_surfaces
+              if [ ! -f "plasma_surfaces/$SURFACE_NAME" ] && [ ! -f "plasma_surfaces/${SURFACE_NAME,,}" ]; then
+                echo "WARNING: Surface file '$SURFACE_NAME' not found in plasma_surfaces/"
+                echo "Skipping case: $case_file"
+                SKIPPED_CASES+=("$case_file (missing surface: $SURFACE_NAME)")
+                continue
+              fi
+            fi
+            
+            # Run with error handling
+            # Contact and hardware are now auto-detected (no flags needed)
+            if ! stellcoilbench submit-case "$case_file"; then
+              echo "ERROR: submit-case failed for $case_file!"
+              FAILED_CASES+=("$case_file")
+            else
+              echo "✓ Successfully completed $case_file"
+            fi
+          done
+          
+          # Report skipped cases
+          if [ ${#SKIPPED_CASES[@]} -gt 0 ]; then
+            echo ""
+            echo "WARNING: The following cases were skipped:"
+            for case in "${SKIPPED_CASES[@]}"; do
+              echo "  - $case"
+            done
+          fi
+          
+          # Check if any cases failed
+          if [ ${#FAILED_CASES[@]} -gt 0 ]; then
+            echo ""
+            echo "ERROR: The following cases failed:"
+            for case in "${FAILED_CASES[@]}"; do
+              echo "  - $case"
+            done
+            exit 1
+          fi
+          
+          echo ""
+          echo "Checking generated submissions..."
+          SUBMISSION_COUNT=$(find submissions -name "results.json" -type f | wc -l)
+          echo "Total submissions generated: $SUBMISSION_COUNT"
+          
+          if [ "$SUBMISSION_COUNT" -eq 0 ]; then
+            echo "ERROR: No results.json files were generated!"
             exit 1
           fi
           
           echo "Submission files:"
-          find submissions -type f | head -10
+          find submissions -name "results.json" -type f
+          find submissions -type f \( -name "*.json" -o -name "*.yaml" -o -name "*.vtu" -o -name "*.vts" \) | head -20
 
       - name: Configure Git
         run: |

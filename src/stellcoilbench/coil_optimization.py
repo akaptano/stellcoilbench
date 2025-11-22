@@ -77,21 +77,46 @@ def optimize_coils(
     surface_file = surface_params["surface"]
     if not Path(surface_file).is_absolute():
         # Try relative to case_path first, then plasma_surfaces
+        # Also try case-insensitive matching for files like MUSE.focus vs muse.focus
         potential_paths = [
             case_path / surface_file,
             Path("plasma_surfaces") / surface_file,
             Path.cwd() / "plasma_surfaces" / surface_file,
         ]
+        # Add case-insensitive variants
+        surface_file_lower = surface_file.lower()
+        if surface_file != surface_file_lower:
+            potential_paths.extend([
+                Path("plasma_surfaces") / surface_file_lower,
+                Path.cwd() / "plasma_surfaces" / surface_file_lower,
+            ])
+        
+        found = False
         for path in potential_paths:
             if path.exists():
                 surface_file = str(path)
+                found = True
                 break
+        
+        if not found:
+            # Try to find any file with matching name (case-insensitive) in plasma_surfaces
+            plasma_surfaces_dir = Path("plasma_surfaces")
+            if plasma_surfaces_dir.exists():
+                for file in plasma_surfaces_dir.iterdir():
+                    if file.name.lower() == surface_file.lower():
+                        surface_file = str(file)
+                        found = True
+                        break
     
     # Load surface based on file type
-    if "input" in surface_file:
+    # MUSE files are VMEC input files, so treat them the same way
+    surface_file_lower = surface_file.lower()
+    if "input" in surface_file_lower or "muse" in surface_file_lower:
         surface_func = SurfaceRZFourier.from_vmec_input
-    elif "wout" in surface_file:
+    elif "wout" in surface_file_lower:
         surface_func = SurfaceRZFourier.from_wout
+    elif "focus" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_focus
     else:
         raise ValueError(f"Unknown surface type: {surface_file}")
 
@@ -478,8 +503,8 @@ def optimize_coils_loop(
     print(f"  Normalized flux: {Jf.J():.2e}")
     print(f"  CS separation: {Jcsdist.J():.2e} (min distance: {Jcsdist.shortest_distance():.3f})")
     print(f"  CC separation: {Jccdist.J():.2e} (min distance: {Jccdist.shortest_distance():.3f})")
-    print(f"  Length constraint: {Jl.J():.2e}")
-    print(f"  Curvature constraint: {sum(Jcs).J():.2e}")
+    print(f"  Length constraint: {Jl.J():.2e}")  # type: ignore[attr-defined]
+    print(f"  Curvature constraint: {sum(Jcs).J():.2e}")  # type: ignore[attr-defined]
     print(f"  Linking number: {Jlink.J():.2e}")
     print(f"  Force constraint: {Jforce.J():.2e}")
     print(f"  Max curvatures: {[np.max(c.kappa()) for c in base_curves]}")
