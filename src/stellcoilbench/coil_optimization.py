@@ -208,6 +208,9 @@ def initialize_coils_loop(
         ncoils, s.nfp, stellsym=s.stellsym,
         R0=R0, R1=R1, order=order, numquadpoints=256)
     base_currents = [(Current(total_current / ncoils * 1e-7) * 1e7) for _ in range(ncoils - 1)]
+    total_current_obj = Current(total_current)
+    total_current_obj.fix_all()
+    base_currents += [total_current_obj - sum(base_currents)]
     coils = coils_via_symmetries(base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations)
     
     # Iterative current adjustment to achieve the target B-field
