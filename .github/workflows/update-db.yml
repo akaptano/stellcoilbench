@@ -60,32 +60,42 @@ jobs:
         run: |
           # List what was generated
           echo "Checking for generated submissions..."
-          find submissions -type f -name "*.json" -o -name "*.yaml" 2>/dev/null | head -10 || echo "No submission files found"
+          find submissions -type f \( -name "*.json" -o -name "*.yaml" \) 2>/dev/null | head -10 || echo "No submission files found"
           
-          # Add submission files (if any were generated)
-          git add submissions/ 2>/dev/null || true
+          # Show git status before adding
+          echo "Git status before adding:"
+          git status --short submissions/ | head -20 || echo "No changes in submissions/"
+          
+          # Add submission files
+          echo "Adding submission files..."
+          git add submissions/ || echo "git add failed"
           
           # Show what's staged
           echo "Staged files:"
-          git diff --staged --name-only | head -10 || echo "No staged files"
+          git diff --staged --name-only | head -20 || echo "No staged files"
           
-          # Show git status
-          echo "Git status:"
+          # Show git status after adding
+          echo "Git status after adding:"
           git status --short | head -20
           
           # Commit submissions to main branch
           if ! git diff --staged --quiet; then
-            git commit -m "chore: add CI-generated submission" || echo "Commit failed or nothing to commit"
-            echo "Attempting to push to main..."
-            if git push origin main; then
-              echo "Successfully pushed submissions to main"
-            else
-              echo "ERROR: Failed to push to main"
-              git push origin main --verbose
-              exit 1
-            fi
+            echo "Committing submissions..."
+            git commit -m "chore: add CI-generated submission" || (echo "Commit failed" && exit 1)
+            echo "Pushing to main..."
+            git push origin main || (echo "ERROR: Failed to push to main" && git push origin main --verbose && exit 1)
+            echo "Successfully pushed submissions to main"
           else
-            echo "No new submissions to commit"
+            echo "WARNING: No new submissions to commit"
+            echo "This might mean:"
+            echo "  1. Files are already committed"
+            echo "  2. Files are being ignored"
+            echo "  3. No files were generated"
+            # Show what git sees
+            echo "Files in submissions/:"
+            find submissions -type f | head -10
+            echo "Git status of submissions/:"
+            git status submissions/ || echo "No status"
           fi
           
           # Verify submissions still exist after commit
@@ -94,21 +104,27 @@ jobs:
 
       - name: Commit leaderboard files to separate branch
         run: |
-          # Fetch all branches to get latest state
-          git fetch origin
+          # Fetch all branches to get latest state (including the push we just made)
+          echo "Fetching all branches..."
+          git fetch origin --prune
           
-          # Save current submissions path before switching branches
+          # Ensure we're on main and have latest
+          git checkout main
+          git pull origin main || echo "Already up to date"
+          
+          # Count submissions on main
           SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
           echo "Submissions on main: $SUBMISSIONS_COUNT"
+          find submissions -name "results.json" -type f | head -5 || echo "No submissions found"
           
           # Create or checkout leaderboard branch, ensuring it has latest submissions from main
           if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
             # Branch exists remotely, checkout it
             echo "Leaderboard branch exists, checking out..."
-            git checkout -b leaderboard origin/leaderboard 2>/dev/null || git checkout leaderboard
+            git checkout -b leaderboard origin/leaderboard 2>/dev/null || (git checkout leaderboard && git pull origin leaderboard)
             # Merge main to get latest submissions (use theirs strategy to prefer main's submissions)
             echo "Merging main into leaderboard..."
-            git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || true
+            git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || echo "Merge completed or no changes"
           else
             # Branch doesn't exist, create it from main (which has all submissions)
             echo "Creating new leaderboard branch from main..."
@@ -117,8 +133,6 @@ jobs:
           
           # Show current branch
           echo "Current branch: $(git branch --show-current)"
-          echo "Remote branches:"
-          git branch -r | grep leaderboard || echo "No remote leaderboard branch"
           
           # Verify submissions are available after checkout/merge
           echo "Checking for submissions after branch switch..."
@@ -129,7 +143,10 @@ jobs:
           # If submissions are missing, checkout them from main
           if [ "$SUBMISSIONS_AFTER" -eq 0 ] && [ "$SUBMISSIONS_COUNT" -gt 0 ]; then
             echo "Submissions missing after checkout, restoring from main..."
-            git checkout main -- submissions/ || true
+            git checkout origin/main -- submissions/ || git checkout main -- submissions/ || echo "Failed to restore submissions"
+            # Verify they're restored
+            SUBMISSIONS_RESTORED=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
+            echo "Submissions after restore: $SUBMISSIONS_RESTORED"
           fi
           
           # Generate leaderboard files (now we have all submissions from main)
