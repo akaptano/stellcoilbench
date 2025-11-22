@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "method_name": "",
+    "contact": "akaptano",
+    "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+    "notes": "",
+    "run_date": "2025-11-22T18:39:12.737444"
+  },
+  "metrics": {
+    "initial_B_field": 0.9999129099617139,
+    "final_B_field": 1.170518385668946,
+    "target_B_field": 1.0,
+    "optimization_time": 1178.451357126236,
+    "final_normalized_squared_flux": 0.004324606348242068,
+    "final_min_cs_separation": 0.1289789128245814,
+    "final_min_cc_separation": 0.263089208163867,
+    "final_total_length": 10.15704880047885,
+    "final_max_curvature": 7.812668891654013,
+    "final_average_curvature": 2.983295069682945,
+    "final_mean_squared_curvature": 12.758584914338861,
+    "final_linking_number": 0,
+    "final_max_max_coil_force": 200018.0412817965,
+    "final_avg_max_coil_force": 197459.87784503255,
+    "final_max_max_coil_torque": 50887.70609537982,
+    "final_avg_max_coil_torque": 37448.83127505989,
+    "avg_BdotN_over_B": 0.08399655312918118,
+    "max_BdotN_over_B": 0.391956102714242,
+    "lagrange_multipliers": [
+      -12026.892902321779,
+      -0.0,
+      -25696.44763927385,
+      -0.0,
+      -2386.5051209099947,
+      -0.006705944296050068,
+      -0.0,
+      -243144.439040232,
+      -130.98286802885795
+    ],
+    "output_directory": "."
+  }
+}
