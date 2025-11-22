@@ -24,7 +24,7 @@ def _metric_shorthand(metric_name: str) -> str:
         # Curvature
         "final_average_curvature": "κ̄",
         "final_max_curvature": "max(κ)",
-        "final_mean_squared_curvature": "κ²̄",
+        "final_mean_squared_curvature": "MSC",
         
         # Separations
         "final_min_cs_separation": "min(d_cs)",
@@ -43,6 +43,9 @@ def _metric_shorthand(metric_name: str) -> str:
         
         # Time
         "optimization_time": "t",
+        
+        # Linking number
+        "final_linking_number": "LN",
         
         # Score (keep for sorting but don't display)
         "score_primary": "score",
@@ -195,13 +198,28 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
 
 def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
     """Get all unique metric keys from overall leaderboard entries."""
+    # Fields to exclude from display
+    exclude_fields = {
+        "score_primary",  # Used for sorting only
+        "initial_B_field",  # B0 - removed per request
+        "final_B_field",  # Bf - removed per request
+        "target_B_field",  # Bt - removed per request
+    }
+    
     all_keys = set()
     for entry in entries:
         metrics = entry.get("metrics", {})
         for key in metrics.keys():
-            if key != "score_primary":  # Don't display score_primary, only use for sorting
+            if key not in exclude_fields:
                 all_keys.add(key)
-    return sorted(all_keys)
+    
+    # Sort with final_normalized_squared_flux first
+    sorted_keys = sorted(all_keys)
+    if "final_normalized_squared_flux" in sorted_keys:
+        sorted_keys.remove("final_normalized_squared_flux")
+        sorted_keys.insert(0, "final_normalized_squared_flux")
+    
+    return sorted_keys
 
 
 def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> None:
@@ -248,9 +266,10 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         all_metric_keys = _get_all_metrics_from_entries(entries)
         
         # Build header: Rank, User, Date, then all metrics (compact)
+        # Add sorting indicator (↕) to metric columns
         header_cols = ["#", "User", "Date"]
-        # Add metric shorthands
-        header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
+        # Add metric shorthands with sorting indicator
+        header_cols.extend([f"{_metric_shorthand(key)} ↕" for key in all_metric_keys])
         
         lines.append("| " + " | ".join(header_cols) + " |")
         
@@ -299,6 +318,21 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 row_parts.append(_format_value(value) if value is not None else "—")
             
             lines.append("| " + " | ".join(row_parts) + " |")
+        
+        # Add legend for acronyms
+        lines.append("")
+        lines.append("### Legend")
+        lines.append("")
+        
+        # Build legend from displayed metrics
+        legend_items = []
+        for key in all_metric_keys:
+            shorthand = _metric_shorthand(key)
+            full_name = key.replace("_", " ").title()
+            legend_items.append(f"- **{shorthand}**: {full_name}")
+        
+        lines.extend(legend_items)
+        lines.append("")
 
     lines.append("")
     lines.append("---")
@@ -391,13 +425,28 @@ def write_surface_leaderboards(
     
     def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:
         """Get all unique metric keys for a surface."""
+        # Fields to exclude from display
+        exclude_fields = {
+            "score_primary",  # Used for sorting only
+            "initial_B_field",  # B0 - removed per request
+            "final_B_field",  # Bf - removed per request
+            "target_B_field",  # Bt - removed per request
+        }
+        
         all_keys = set()
         for entry in surf_data.get("entries", []):
             metrics = entry.get("metrics", {})
             for key in metrics.keys():
-                if key != "score_primary":  # Don't display score_primary
+                if key not in exclude_fields:
                     all_keys.add(key)
-        return sorted(all_keys)
+        
+        # Sort with final_normalized_squared_flux first
+        sorted_keys = sorted(all_keys)
+        if "final_normalized_squared_flux" in sorted_keys:
+            sorted_keys.remove("final_normalized_squared_flux")
+            sorted_keys.insert(0, "final_normalized_squared_flux")
+        
+        return sorted_keys
     
     surface_names = sorted(surface_leaderboards.keys())
     
@@ -429,8 +478,8 @@ def write_surface_leaderboards(
         else:
             # Build header (compact)
             header_cols = ["#", "User", "Date"]
-            # Add metric shorthands
-            header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
+            # Add metric shorthands with sorting indicator
+            header_cols.extend([f"{_metric_shorthand(key)} ↕" for key in all_metric_keys])
             
             lines.append("| " + " | ".join(header_cols) + " |")
             
@@ -468,6 +517,21 @@ def write_surface_leaderboards(
                     row_parts.append(_format_value(value) if value is not None else "—")
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
+            
+            # Add legend for acronyms
+            lines.append("")
+            lines.append("### Legend")
+            lines.append("")
+            
+            # Build legend from displayed metrics
+            legend_items = []
+            for key in all_metric_keys:
+                shorthand = _metric_shorthand(key)
+                full_name = key.replace("_", " ").title()
+                legend_items.append(f"- **{shorthand}**: {full_name}")
+            
+            lines.extend(legend_items)
+            lines.append("")
         
         # Write file
         safe_filename = surface_name.replace(".", "_")
