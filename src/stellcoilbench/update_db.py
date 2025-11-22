@@ -98,7 +98,10 @@ def build_methods_json(
 
             primary_score = scores_numeric.get("score_primary")
             if primary_score is None:
+                # Try multiple fallback options for primary score
                 fallback = c_metrics.get("final_flux")
+                if fallback is None:
+                    fallback = c_metrics.get("final_normalized_squared_flux")
                 if isinstance(fallback, (int, float)):
                     primary_score = float(fallback)
                     scores_numeric.setdefault("score_primary", primary_score)
@@ -194,7 +197,10 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
         score = metrics.get("score_primary")
         if isinstance(score, (int, float)):
             return float(score)
+        # Try multiple fallback options for primary score
         fallback = metrics.get("final_flux")
+        if fallback is None:
+            fallback = metrics.get("final_normalized_squared_flux")
         if isinstance(fallback, (int, float)):
             return float(fallback)
         return None
@@ -833,8 +839,23 @@ def update_database(
 
     # Only write leaderboard.json for reference (optional)
     # methods.json and cases.json are intermediate and not needed on disk
+    # Ensure leaderboard always has the expected structure
+    if not isinstance(leaderboard, dict):
+        leaderboard = {"entries": [], "cases": {}}
+    if "entries" not in leaderboard:
+        leaderboard["entries"] = []
+    if "cases" not in leaderboard:
+        leaderboard["cases"] = {}
+    
     leaderboard_file = db_dir / "leaderboard.json"
-    leaderboard_file.write_text(json.dumps(leaderboard, indent=2))
+    leaderboard_json = json.dumps(leaderboard, indent=2)
+    leaderboard_file.write_text(leaderboard_json)
+    
+    # Verify the file was written correctly
+    import sys
+    if not leaderboard_file.exists() or leaderboard_file.stat().st_size == 0:
+        print(f"ERROR: leaderboard.json was not written correctly!", file=sys.stderr)
+        sys.exit(1)
 
     # Write per-case leaderboards first (to get case_ids)
     case_ids = write_case_leaderboards(leaderboard, docs_dir=docs_dir, repo_root=repo_root)

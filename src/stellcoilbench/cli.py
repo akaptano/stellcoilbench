@@ -278,6 +278,11 @@ def submit_case(
         raise ValueError("case.yaml must specify surface_params.surface")
     # Extract just the filename if it's a path (e.g., "input.LandremanPaul2021_QA")
     surface_name = Path(surface_file).name
+    # Remove common prefixes like "input." or "wout." from directory name
+    if surface_name.startswith("input."):
+        surface_name = surface_name[6:]  # Remove "input." prefix
+    elif surface_name.startswith("wout."):
+        surface_name = surface_name[5:]  # Remove "wout." prefix
     
     # 3) Build submission directory first (needed for output_dir)
     now = datetime.now()
