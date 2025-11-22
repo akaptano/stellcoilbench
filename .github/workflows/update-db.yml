@@ -35,9 +35,8 @@ jobs:
           echo "Running submit-case..."
           
           # Run with error handling
-          if ! stellcoilbench submit-case cases/case.yaml \
-            --contact "$GITHUB_ACTOR@users.noreply.github.com" \
-            --hardware "GitHub Actions (ubuntu-latest)"; then
+          # Contact and hardware are now auto-detected (no flags needed)
+          if ! stellcoilbench submit-case cases/case.yaml; then
             echo "ERROR: submit-case failed!"
             exit 1
           fi
@@ -54,7 +53,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "$GITHUB_ACTOR"
 
       - name: Commit submissions to main
         run: |
