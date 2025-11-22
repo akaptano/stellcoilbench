@@ -6,6 +6,51 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Tuple
 
 
+def _metric_shorthand(metric_name: str) -> str:
+    """
+    Convert metric names to compact shorthand/acronyms for display in leaderboard.
+    
+    Uses LaTeX-style notation where appropriate for compactness.
+    """
+    shorthand_map = {
+        # B-field related
+        "max_BdotN_over_B": "max⟨Bn⟩/⟨B⟩",
+        "avg_BdotN_over_B": "avg⟨Bn⟩/⟨B⟩",
+        "final_normalized_squared_flux": "f_B",
+        "initial_B_field": "B0",
+        "final_B_field": "Bf",
+        "target_B_field": "Bt",
+        
+        # Curvature
+        "final_average_curvature": "κ̄",
+        "final_max_curvature": "max(κ)",
+        "final_mean_squared_curvature": "κ²̄",
+        
+        # Separations
+        "final_min_cs_separation": "min(d_cs)",
+        "final_min_cc_separation": "min(d_cc)",
+        "final_cs_separation": "d_cs",
+        "final_cc_separation": "d_cc",
+        
+        # Length
+        "final_total_length": "L",
+        
+        # Forces/Torques
+        "final_max_max_coil_force": "max(F)",
+        "final_avg_max_coil_force": "F̄",
+        "final_max_max_coil_torque": "max(τ)",
+        "final_avg_max_coil_torque": "τ̄",
+        
+        # Time
+        "optimization_time": "t",
+        
+        # Score (keep for sorting but don't display)
+        "score_primary": "score",
+    }
+    
+    return shorthand_map.get(metric_name, metric_name.replace("_", " "))
+
+
 def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]:
     """
     Iterate over all submission results.json files under submissions_root.
@@ -154,7 +199,7 @@ def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
     for entry in entries:
         metrics = entry.get("metrics", {})
         for key in metrics.keys():
-            if key != "score_primary":  # score_primary gets its own column
+            if key != "score_primary":  # Don't display score_primary, only use for sorting
                 all_keys.add(key)
     return sorted(all_keys)
 
@@ -202,29 +247,32 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         # Get all unique metric keys across all entries
         all_metric_keys = _get_all_metrics_from_entries(entries)
         
-        # Build header: Rank, User, Run Date, Primary Score, then all metrics
-        header_cols = ["Rank", "User", "Run Date", "Primary Score"]
-        header_cols.extend(all_metric_keys)
+        # Build header: Rank, User, Date, then all metrics (compact)
+        header_cols = ["#", "User", "Date"]
+        # Add metric shorthands
+        header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
         
         lines.append("| " + " | ".join(header_cols) + " |")
         
         # Separator row
         sep_parts = []
         for col in header_cols:
-            if col == "Rank":
-                sep_parts.append(":----:")
-            elif col in ["User", "Run Date"]:
-                sep_parts.append(":-------")
+            if col == "#":
+                sep_parts.append(":-:")
+            elif col == "User":
+                sep_parts.append(":---")
+            elif col == "Date":
+                sep_parts.append(":---:")
             else:
-                sep_parts.append(":--------:")
+                sep_parts.append(":---:")
         lines.append("| " + " | ".join(sep_parts) + " |")
         
         def _format_value(value: Any) -> str:
-            """Format a metric value nicely."""
+            """Format a metric value compactly."""
             if isinstance(value, float):
                 if abs(value) < 1e-3 or abs(value) > 1e6:
-                    return f"{value:.4e}"
-                return f"{value:.6f}"
+                    return f"{value:.3e}"
+                return f"{value:.4f}"
             elif isinstance(value, int):
                 return str(value)
             return str(value)
@@ -234,16 +282,15 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
             metrics = e.get("metrics", {})
             
             run_date = e.get("run_date") or "_unknown_"
-            # Format date nicely if it's an ISO string
+            # Format date compactly (just date part)
             if run_date != "_unknown_" and "T" in run_date:
                 run_date = run_date.split("T")[0]
             
-            # Build row: Rank, User, Run Date, Primary Score, then all metrics
+            # Build row: Rank, User, Date, then all metrics
             row_parts = [
                 str(e['rank']),
-                f"**{e.get('contact', e.get('method_name', 'UNKNOWN'))}**",  # Use contact as user, fallback to method_name
+                e.get('contact', e.get('method_name', '?'))[:15],  # Truncate long names
                 run_date,
-                f"**{_format_value(e.get('score_primary', 0.0))}**",
             ]
             
             # Add all metrics
@@ -333,11 +380,11 @@ def write_surface_leaderboards(
     surface_dir.mkdir(parents=True, exist_ok=True)
     
     def _format_value(value: Any) -> str:
-        """Format a metric value nicely."""
+        """Format a metric value compactly."""
         if isinstance(value, float):
             if abs(value) < 1e-3 or abs(value) > 1e6:
-                return f"{value:.4e}"
-            return f"{value:.6f}"
+                return f"{value:.3e}"
+            return f"{value:.4f}"
         elif isinstance(value, int):
             return str(value)
         return str(value)
@@ -348,7 +395,7 @@ def write_surface_leaderboards(
         for entry in surf_data.get("entries", []):
             metrics = entry.get("metrics", {})
             for key in metrics.keys():
-                if key != "score_primary":
+                if key != "score_primary":  # Don't display score_primary
                     all_keys.add(key)
         return sorted(all_keys)
     
@@ -380,21 +427,24 @@ def write_surface_leaderboards(
             lines.append("")
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
-            # Build header
-            header_cols = ["Rank", "User", "Run Date", "Primary Score"]
-            header_cols.extend(all_metric_keys)
+            # Build header (compact)
+            header_cols = ["#", "User", "Date"]
+            # Add metric shorthands
+            header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
             
             lines.append("| " + " | ".join(header_cols) + " |")
             
             # Separator
             sep_parts = []
             for col in header_cols:
-                if col == "Rank":
-                    sep_parts.append(":----:")
+                if col == "#":
+                    sep_parts.append(":-:")
                 elif col == "User":
-                    sep_parts.append(":-------")
+                    sep_parts.append(":---")
+                elif col == "Date":
+                    sep_parts.append(":---:")
                 else:
-                    sep_parts.append(":--------:")
+                    sep_parts.append(":---:")
             lines.append("| " + " | ".join(sep_parts) + " |")
             
             # Data rows
@@ -402,15 +452,14 @@ def write_surface_leaderboards(
                 metrics = entry.get("metrics", {})
                 
                 run_date = entry.get("run_date", "_unknown_")
-                # Format date nicely if it's an ISO string
+                # Format date compactly
                 if run_date != "_unknown_" and "T" in run_date:
                     run_date = run_date.split("T")[0]
                 
                 row_parts = [
                     str(entry.get("rank", "-")),
-                    f"**{entry.get('contact', entry.get('method_name', 'UNKNOWN'))}**",  # Use contact as user
+                    entry.get('contact', entry.get('method_name', '?'))[:15],  # Truncate long names
                     run_date,
-                    f"**{_format_value(entry.get('score_primary', 0.0))}**",
                 ]
                 
                 # Add all metrics

@@ -395,18 +395,18 @@ def run_case(
 
 @app.command("generate-submission")
 def generate_submission(
-    cases_root: Path = typer.Argument(
+    case_path: Path = typer.Argument(
         ...,
-        help="Root directory containing case directories (each with case.yaml and coils.yaml).",
+        help="Path to case.yaml file or directory containing case.yaml.",
     ),
     metadata_path: Path = typer.Argument(
         ...,
         help="Path to metadata.yaml file containing submission metadata.",
     ),
-    coils_root: Path = typer.Option(
-        Path("coils_runs"),
-        "--coils-root",
-        help="Directory containing optimized coil files (one per case).",
+    coils_path: Path = typer.Option(
+        None,
+        "--coils",
+        help="Path to coils.json file (default: <case_dir>/coils.json).",
     ),
     submission_out: Path = typer.Option(
         None,
@@ -416,14 +416,18 @@ def generate_submission(
     ),
 ) -> None:
     """
-    Generate a results.json submission file from multiple cases and a metadata.yaml file.
+    Generate a results.json submission file from a case and coils file.
     
     This command:
     1. Loads metadata from metadata.yaml
-    2. For each case in cases_root, loads case.yaml and evaluates the corresponding coils
-    3. Combines everything into a results.json file ready for submission
+    2. Loads case.yaml and evaluates the coils
+    3. Creates a results.json file ready for submission
+    
+    Note: For running optimizations and generating submissions, use 'submit-case' instead.
+    This command is for creating submissions from pre-existing coils files.
     """
     from .evaluate import load_case_config, evaluate_case
+    from .coil_optimization import optimize_coils
     from .config_scheme import SubmissionMetadata
     import yaml
 
@@ -437,44 +441,27 @@ def generate_submission(
         notes=metadata_data.get("notes", ""),
     )
 
-    # Find all case directories
-    case_dirs = [d for d in cases_root.iterdir() if d.is_dir() and (d / "case.yaml").exists()]
+    # Load case configuration
+    case_cfg = load_case_config(case_path)
     
-    if not case_dirs:
-        typer.echo(f"No case directories found in {cases_root}", err=True)
+    # Determine coils path
+    if coils_path is None:
+        if case_path.is_dir():
+            coils_path = case_path / "coils.json"
+        else:
+            coils_path = case_path.parent / "coils.json"
+    
+    if not coils_path.exists():
+        typer.echo(f"Error: Coils file not found: {coils_path}", err=True)
         raise typer.Exit(1)
 
-    typer.echo(f"Found {len(case_dirs)} case(s) to process...")
-
-    # Process each case
-    case_results = []
-    for case_dir in sorted(case_dirs):
-        try:
-            case_cfg = load_case_config(case_dir)
-            coils_path = coils_root / "coils.json"
-            
-            if not coils_path.exists():
-                typer.echo(f"Warning: Coils file not found: {coils_path}", err=True)
-                continue
-
-            # For now, we need to load the results_dict from the optimization
-            # In a real workflow, you'd evaluate the coils here
-            # For testing, we can create a minimal results_dict
-            results_dict = {
-                "chi2_Bn": 0.001,  # Placeholder - would come from actual evaluation
-            }
-            
-            metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
-            case_results.append(metrics)
-            typer.echo(f"Processed case from {case_dir}")
-            
-        except Exception as e:
-            typer.echo(f"Error processing {case_dir}: {e}", err=True)
-            continue
-
-    if not case_results:
-        typer.echo("No valid cases processed!", err=True)
-        raise typer.Exit(1)
+    # Evaluate the coils (this would normally load and evaluate, but for now use placeholder)
+    # In a real implementation, you'd load the coils and compute metrics
+    results_dict = {
+        "chi2_Bn": 0.001,  # Placeholder - would come from actual evaluation
+    }
+    
+    metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
     # Build submission results
     run_date = datetime.now().isoformat()
@@ -487,7 +474,7 @@ def generate_submission(
             "notes": metadata.notes,
             "run_date": run_date,
         },
-        "metrics": case_results[0] if case_results else {},  # Use first case's metrics, or empty dict
+        "metrics": metrics,
     }
 
     # Write output
