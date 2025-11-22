@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "method_name": "",
+    "method_version": "",
+    "contact": "akaptano@users.noreply.github.com",
+    "hardware": "GitHub Actions (ubuntu-latest)",
+    "notes": "",
+    "run_date": "2025-11-22T00:55:18.629154"
+  },
+  "cases": [
+    {
+      "case_id": "dev_test_akaptano",
+      "metrics": {
+        "initial_B_field": 0.9999129099617139,
+        "final_B_field": 1.0274587204256318,
+        "target_B_field": 1.0,
+        "optimization_time": 335.69954776763916,
+        "final_normalized_squared_flux": 0.0024035629740007387,
+        "final_min_cs_separation": 0.1599530685663696,
+        "final_min_cc_separation": 0.005223912129840308,
+        "final_total_length": 11.972729678971138,
+        "final_max_curvature": 7.963897185353461,
+        "final_average_curvature": 2.8089683282743048,
+        "final_mean_squared_curvature": 9.729561216636403,
+        "final_linking_number": 0,
+        "final_max_max_coil_force": 20141431.73666535,
+        "final_avg_max_coil_force": 7369548.589285741,
+        "final_max_max_coil_torque": 6857015.292623153,
+        "final_avg_max_coil_torque": 2361462.343320785,
+        "avg_BdotN_over_B": 0.05515456039716661,
+        "max_BdotN_over_B": 0.5675315561884356,
+        "lagrange_multipliers": [
+          -6722.1981789421825,
+          -238.77890260560008,
+          -0.10117999750257824,
+          -0.0,
+          -0.009859989599661364,
+          -0.0359026806867806,
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "output_directory": "."
+      }
+    }
+  ]
+}
