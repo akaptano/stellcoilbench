@@ -427,7 +427,6 @@ def generate_submission(
     This command is for creating submissions from pre-existing coils files.
     """
     from .evaluate import load_case_config, evaluate_case
-    from .coil_optimization import optimize_coils
     from .config_scheme import SubmissionMetadata
     import yaml
 
