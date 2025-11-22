@@ -45,8 +45,10 @@ GitHub username and hardware are **auto-detected** automatically!
 This will:
 1. Run the optimization for the case
 2. Evaluate the results
-3. Generate `submissions/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
-4. Copy `case.yaml` to the submission directory for reference
+3. Generate `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
+4. Save `coils.json` (optimized coil geometry) in the submission directory
+5. Copy `case.yaml` to the submission directory for reference
+6. Save VTK visualization files in the submission directory
 
 The directory structure uses your GitHub username and the current date/time (to minute accuracy).
 

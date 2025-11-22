@@ -85,6 +85,10 @@ def build_methods_json(
             cid = c.get("case_id")
             if not cid:
                 continue
+            
+            # Skip dev/test cases - don't include them in per_case metrics
+            if cid.startswith("dev_") or cid.startswith("test_"):
+                continue
 
             c_metrics = c.get("metrics") or {}
             c_scores = c.get("scores") or {}
@@ -241,7 +245,14 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
-    for cid, case_list in case_entries.items():
+    # Filter out dev/test cases from case_entries
+    filtered_case_entries = {
+        cid: entries 
+        for cid, entries in case_entries.items() 
+        if not (cid.startswith("dev_") or cid.startswith("test_"))
+    }
+    
+    for cid, case_list in filtered_case_entries.items():
         case_list.sort(
             key=lambda entry: (
                 0 if isinstance(entry.get("score_primary"), (int, float)) else 1,
@@ -251,7 +262,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
         for i, entry in enumerate(case_list, start=1):
             entry["rank"] = i
 
-    return {"entries": entries, "cases": case_entries}
+    return {"entries": entries, "cases": filtered_case_entries}
 
 
 def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
@@ -273,7 +284,11 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
     """
     entries = leaderboard.get("entries") or []
     case_entries = leaderboard.get("cases") or {}
-    case_ids = case_ids or sorted(case_entries.keys())
+    # Filter out dev/test cases from case_ids
+    all_case_ids = sorted(case_entries.keys())
+    case_ids = case_ids or all_case_ids
+    # Ensure case_ids doesn't include dev/test cases
+    case_ids = [cid for cid in case_ids if not (cid.startswith("dev_") or cid.startswith("test_"))]
 
     lines = [
         "# CoilBench Leaderboard",
@@ -382,7 +397,8 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path, case_i
             
             lines.append("| " + " | ".join(row_parts) + " |")
 
-    # Add case-by-case leaderboards section
+    # Add case-by-case leaderboards section (only if there are valid cases)
+    # case_ids is already filtered above, so we can use it directly
     if case_ids:
         lines.append("")
         lines.append("---")

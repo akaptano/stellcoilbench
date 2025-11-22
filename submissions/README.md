@@ -15,23 +15,34 @@ This directory holds **submission results** generated from running benchmark cas
    
    Optional: Add `--method-name` and `--version` to store method info in metadata (not used for directory structure).
 
-3. **Results** are automatically written to `submissions/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
+3. **Results** are automatically written to `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
 
 ## Directory Structure
 
 ```
 submissions/
-  akaptano/                    # GitHub username
-    12-20-2024_14-30/          # Date and time (MM-DD-YYYY_HH-MM)
-      results.json              # Contains metadata + case results with metrics
-      case.yaml                 # Copy of the case.yaml used to generate this submission
-    12-20-2024_15-00/          # Another submission from the same user
-      results.json
-      case.yaml
-  another_user/                # Different GitHub user
-    12-20-2024_14-00/
-      results.json
-      case.yaml
+  input.LandremanPaul2021_QA/  # Plasma surface name (from case.yaml)
+    akaptano/                   # GitHub username
+      12-20-2024_14-30/         # Date and time (MM-DD-YYYY_HH-MM)
+        results.json            # Contains metadata + case results with metrics
+        case.yaml               # Copy of the case.yaml used to generate this submission
+        coils.json              # Optimized coil geometry (JSON format)
+        *.vtu, *.vts            # VTK visualization files
+      12-20-2024_15-00/         # Another submission from the same user
+        results.json
+        case.yaml
+        coils.json
+    another_user/               # Different GitHub user
+      12-20-2024_14-00/
+        results.json
+        case.yaml
+        coils.json
+  input.muse/                  # Different plasma surface
+    akaptano/
+      12-20-2024_16-00/
+        results.json
+        case.yaml
+        coils.json
 ```
 
 Each submission directory is named with the timestamp (to minute accuracy) when it was created.
@@ -39,6 +50,8 @@ Each submission directory is named with the timestamp (to minute accuracy) when 
 Each submission directory contains:
 - **`results.json`** - Submission results with metadata, case_id, and metrics
 - **`case.yaml`** - Copy of the case definition file used to run this submission
+- **`coils.json`** - Optimized coil geometry (JSON format, contains coil class objects)
+- **`*.vtu`, `*.vts`** - VTK visualization files generated during optimization
 
 ## Results.json Format
 

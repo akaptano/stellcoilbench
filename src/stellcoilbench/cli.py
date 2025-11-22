@@ -237,7 +237,7 @@ def submit_case(
     3. Evaluates the results
     4. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
     
-    Directory structure: submissions/<github_username>/<MM-DD-YYYY_HH-MM>/results.json
+    Directory structure: submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json
     GitHub username and hardware are auto-detected if not provided.
     
     Example:
@@ -272,17 +272,24 @@ def submit_case(
     # Load case configuration
     case_cfg = load_case_config(case_path)
 
+    # Extract surface name from case config
+    surface_file = case_cfg.surface_params.get("surface", "")
+    if not surface_file:
+        raise ValueError("case.yaml must specify surface_params.surface")
+    # Extract just the filename if it's a path (e.g., "input.LandremanPaul2021_QA")
+    surface_name = Path(surface_file).name
+    
     # 3) Build submission directory first (needed for output_dir)
     now = datetime.now()
     run_date = now.isoformat()
     datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
     
-    # Write to submissions directory: submissions/<username>/<datetime>/
-    submission_dir = submissions_dir / github_username / datetime_str
+    # Write to submissions directory: submissions/<surface>/<username>/<datetime>/
+    submission_dir = submissions_dir / surface_name / github_username / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
-    # Decide coils filename - save in submission directory
-    coils_filename = f"{case_cfg.case_id}.json"
+    # Coils filename is always coils.json (not case_id.json)
+    coils_filename = "coils.json"
     coils_out_path = submission_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path and VTK files to submission_dir.
