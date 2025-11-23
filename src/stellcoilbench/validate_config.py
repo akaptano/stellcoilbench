@@ -139,6 +139,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             # Valid options for each term type
             valid_options_l2 = ["l2", "l2_threshold"]
             valid_options_l1 = ["l1", "l1_threshold"]
+            valid_options_l1_l2 = ["l1", "l1_threshold", "l2", "l2_threshold"]  # For distance terms that support both
             # valid_options_lp = ["lp", "lp_threshold"]
             valid_options_curvature = ["lp", "lp_threshold"]
             valid_options_msc = ["l2", "l2_threshold", "l1", "l1_threshold"]
@@ -169,15 +170,15 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "coil_coil_distance":
-                    if term_value not in valid_options_l1:
+                    if term_value not in valid_options_l1_l2:
                         errors.append(
-                            f"{file_prefix}coil_objective_terms.coil_coil_distance must be one of {valid_options_l1}, "
+                            f"{file_prefix}coil_objective_terms.coil_coil_distance must be one of {valid_options_l1_l2}, "
                             f"got '{term_value}'"
                         )
                 elif term_name == "coil_surface_distance":
-                    if term_value not in valid_options_l1:
+                    if term_value not in valid_options_l1_l2:
                         errors.append(
-                            f"{file_prefix}coil_objective_terms.coil_surface_distance must be one of {valid_options_l1}, "
+                            f"{file_prefix}coil_objective_terms.coil_surface_distance must be one of {valid_options_l1_l2}, "
                             f"got '{term_value}'"
                         )
                 elif term_name == "coil_curvature":
