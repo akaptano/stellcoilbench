@@ -1,21 +1,25 @@
+# StellCoilBench
 
----
-
-## 5. `docs/index.md` and `docs/leaderboard.md`
-
-### `docs/index.md` (simple starter)
-
-```markdown
-# CoilBench
-
-CoilBench is an open benchmark suite for stellarator coil optimization algorithms.
+StellCoilBench is an open benchmark suite for stellarator coil optimization algorithms.
 
 - **Benchmark cases** live under `cases/`.
 - **Submissions** live under `submissions/`.
-- Aggregated results are stored in `db/` and shown on the [Leaderboard](leaderboard.md).
+- Aggregated results are stored in `db/` and shown in the [Surface Leaderboards](surfaces.md).
 
-To update the database and leaderboard after new submissions are added, run:
+## Leaderboards
+
+- **[All Surfaces](surfaces.md)** - Index of all surface leaderboards
+- **[LandremanPaul2021_QA](surfaces/LandremanPaul2021_QA.md)** - QA stellarator surface
+- **[MUSE Focus](surfaces/muse_focus.md)** - MUSE focus configuration
+- **[Circular Tokamak](surfaces/circular_tokamak.md)** - Circular tokamak surface
+- **[Rotating Ellipse](surfaces/rotating_ellipse.md)** - Rotating ellipse surface
+
+## Updating the Leaderboard
+
+The leaderboard is automatically updated by CI when submissions are pushed to the `main` branch.
+
+To update locally after adding submissions, run:
 
 ```bash
-coilbench update-db
+stellcoilbench update-db
 

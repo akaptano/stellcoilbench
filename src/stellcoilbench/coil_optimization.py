@@ -10,6 +10,120 @@ from simsopt.geo import SurfaceRZFourier
 from simsopt.field import regularization_circ
 
 
+def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
+    """
+    Get valid options for a given scipy optimization algorithm.
+    
+    Returns a dictionary mapping option names to their valid types/values.
+    Based on scipy.optimize.minimize documentation.
+
+    Parameters
+    ----------
+    algorithm: str
+        The name of the scipy optimization algorithm.
+
+    Returns
+    -------
+    Dict[str, list]
+        A dictionary mapping option names to their valid types/values.
+    """
+    # Common options for most algorithms
+    common_options = {
+        'maxiter': [int],
+        'disp': [bool],
+    }
+    
+    # Algorithm-specific options
+    algorithm_specific = {
+        'BFGS': {
+            'gtol': [float],
+            'norm': [float],
+        },
+        'L-BFGS-B': {
+            'maxfun': [int],
+            'ftol': [float],
+            'gtol': [float],
+            'eps': [float],
+            'maxls': [int],
+        },
+        'SLSQP': {
+            'ftol': [float],
+            'eps': [float],
+        },
+        'Nelder-Mead': {
+            'xatol': [float],
+            'fatol': [float],
+            'adaptive': [bool],
+        },
+        'Powell': {
+            'xtol': [float],
+            'ftol': [float],
+            'maxfev': [int],
+        },
+        'CG': {
+            'gtol': [float],
+            'norm': [float],
+        },
+        'Newton-CG': {
+            'xtol': [float],
+            'eps': [float],
+        },
+        'TNC': {
+            'maxfun': [int],
+            'ftol': [float],
+            'gtol': [float],
+            'eps': [float],
+        },
+        'COBYLA': {
+            'maxiter': [int],
+            'rhobeg': [float],
+            'tol': [float],
+        },
+        'trust-constr': {
+            'xtol': [float],
+            'gtol': [float],
+            'barrier_tol': [float],
+            'initial_barrier_parameter': [float],
+            'initial_barrier_tolerance': [float],
+            'initial_trust_radius': [float],
+            'max_trust_radius': [float],
+        },
+    }
+    
+    # Combine common and algorithm-specific options
+    options = common_options.copy()
+    if algorithm in algorithm_specific:
+        options.update(algorithm_specific[algorithm])
+    
+    return options
+
+
+def _validate_algorithm_options(algorithm: str, options: Dict[str, Any]) -> None:
+    """
+    Validate that algorithm-specific options are valid for the given algorithm.
+    
+    Raises ValueError if invalid options are found.
+    """
+    valid_options = _get_scipy_algorithm_options(algorithm)
+    
+    invalid_options = []
+    for option_name, option_value in options.items():
+        if option_name not in valid_options:
+            invalid_options.append(option_name)
+        else:
+            # Check type
+            valid_types = valid_options[option_name]
+            if not any(isinstance(option_value, t) for t in valid_types):
+                invalid_options.append(f"{option_name} (wrong type: {type(option_value).__name__})")
+    
+    if invalid_options:
+        valid_option_names = ', '.join(sorted(valid_options.keys()))
+        raise ValueError(
+            f"Invalid algorithm options for '{algorithm}': {', '.join(invalid_options)}. "
+            f"Valid options are: {valid_option_names}"
+        )
+
+
 def load_coils_config(config_path: Path) -> Dict[str, Any]:
     """
     Load a coils.yaml-style config into a dict.
@@ -160,6 +274,10 @@ def optimize_coils(
     try:
         os.chdir(output_dir)
         
+        # Extract algorithm_options from optimizer_params if present
+        # This allows users to specify algorithm-specific hyperparameters
+        algorithm_options = optimizer_params.pop('algorithm_options', {})
+        
         # Pass output_dir to optimize_coils_loop for VTK file output
         # optimize_coils_loop saves VTK files to output_dir during optimization
         try:
@@ -168,7 +286,8 @@ def optimize_coils(
                 **coil_params, 
                 **optimizer_params, 
                 output_dir=str(output_dir),
-                coil_objective_terms=coil_objective_terms
+                coil_objective_terms=coil_objective_terms,
+                algorithm_options=algorithm_options
             )
         except TypeError:
             # Fallback if optimize_coils_loop doesn't accept output_dir parameter
@@ -177,7 +296,8 @@ def optimize_coils(
                 surface, 
                 **coil_params, 
                 **optimizer_params, 
-                coil_objective_terms=coil_objective_terms
+                coil_objective_terms=coil_objective_terms,
+                algorithm_options=algorithm_options
             )
     finally:
         # Always restore original working directory
@@ -344,6 +464,11 @@ def optimize_coils_loop(
     # If there is a suboptimization, set the max iterations 
     max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
     algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
+    
+    # Extract algorithm-specific options from kwargs
+    # These will be passed to scipy.minimize for scipy algorithms
+    algorithm_options = kwargs.get('algorithm_options', {})
+    
     # Normalize algorithm name (handle case variations)
     if isinstance(algorithm, str):
         algorithm_lower = algorithm.lower()
@@ -665,14 +790,70 @@ def optimize_coils_loop(
             JF.x = x  # type: ignore[attr-defined]
             return JF.dJ()  # type: ignore[attr-defined]
         
-        # Remove maxfun option if algorithm doesn't support it
+        # Taylor test to verify gradient computation
+        # Check that f(x + εh) ≈ f(x) + ε * ∇f(x) · h for small ε
+        # The error should decrease by at least a factor of 0.6 as ε decreases
+        x0 = JF.x.copy()  # type: ignore[attr-defined]
+        J0 = objective(x0)
+        grad0 = gradient(x0)
+        
+        # Generate random direction h (normalized)
+        np.random.seed(42)  # For reproducibility
+        h = np.random.randn(len(x0))
+        h = h / np.linalg.norm(h)
+        
+        # Test with small perturbation (decreasing epsilon)
+        epsilons = [1e-6, 1e-7, 1e-8]
+        errors = []
+        for eps in epsilons:
+            x_perturbed = x0 + eps * h
+            J_perturbed = objective(x_perturbed)
+            J_predicted = J0 + eps * np.dot(grad0, h)
+            error = abs(J_perturbed - J_predicted) / (abs(J0) + 1e-12)
+            errors.append(error)
+            
+            if verbose:
+                print(f"Taylor test ε={eps:.1e}: error={error:.2e}")
+        
+        # Check that error decreases by at least a factor of 0.6 as epsilon decreases
+        # (epsilon decreases by factor of 10, so error should decrease by at least 0.6)
+        taylor_test_passed = True
+        for i in range(len(errors) - 1):
+            if errors[i] > 0:
+                error_ratio = errors[i + 1] / errors[i]
+                # Error should decrease, so ratio should be < 1.0
+                # We require it to decrease by at least factor of 0.6
+                if error_ratio > 0.6:
+                    import sys
+                    print(f"WARNING: Taylor test failed: error ratio {error_ratio:.3f} > 0.6 "
+                          f"(ε={epsilons[i]:.1e} -> {epsilons[i+1]:.1e}, "
+                          f"error={errors[i]:.2e} -> {errors[i+1]:.2e})", file=sys.stderr)
+                    taylor_test_passed = False
+        
+        if not taylor_test_passed:
+            import sys
+            print("Gradient computation may be incorrect!", file=sys.stderr)
+        elif verbose:
+            print("Taylor test passed: error decreases as expected")
+        
+        # Restore original state
+        JF.x = x0  # type: ignore[attr-defined, assignment]
+        
+        # Build options dictionary, starting with defaults
         options = {'maxiter': max_iterations}
         if algorithm in ['L-BFGS-B', 'TNC']:
             options['maxfun'] = max_iter_subopt
         
+        # Add user-specified algorithm-specific options
+        # Validate them first to catch errors early
+        if algorithm_options:
+            _validate_algorithm_options(algorithm, algorithm_options)
+            # Merge user options, allowing them to override defaults
+            options.update(algorithm_options)
+        
         _ = minimize(
             fun=objective,
-            x0=JF.x,
+            x0=JF.x,  # type: ignore[attr-defined]
             method=algorithm,
             jac=gradient,  # Provide gradient function
             options=options,

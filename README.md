@@ -67,10 +67,10 @@ When CI updates `db/`, `docs/`, or `submissions/` on the remote, and you have lo
 
 ## How It Works
 
-- **Submissions** (`submissions/`) are committed to the `main` branch
-- **Leaderboard files** (`docs/`, `db/`) are committed to the `main` branch
+- **Submissions** (`submissions/`) are committed to the repository
+- **Leaderboard files** (`docs/`, `db/`) are committed to the repository
 - CI automatically updates the leaderboard when you push submissions
-- All files are on the `main` branch
+- All files are tracked in git
 
 ## Documentation
 
@@ -80,6 +80,6 @@ When CI updates `db/`, `docs/`, or `submissions/` on the remote, and you have lo
 
 ## Leaderboard
 
-The leaderboard is automatically generated and available on the `main` branch:
+The leaderboard is automatically generated and available:
 - View online: Browse `docs/surfaces.md` on GitHub
 - View locally: `cat docs/surfaces.md` or browse `docs/surfaces/` directory
