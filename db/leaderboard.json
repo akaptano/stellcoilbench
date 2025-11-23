@@ -1,6 +1,74 @@
 {
   "entries": [
     {
+      "method_key": ":11-23-2025_16-46",
+      "method_name": "",
+      "method_version": "11-23-2025_16-46",
+      "score_primary": 0.00011623725202626599,
+      "run_date": "2025-11-23T16:46:42.872314",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+      "path": "submissions/muse.focus/akaptano/11-23-2025_16-46/results.json",
+      "metrics": {
+        "initial_B_field": 0.14984232990585739,
+        "final_B_field": 0.15313115091131668,
+        "target_B_field": 0.15,
+        "optimization_time": 707.490963935852,
+        "final_normalized_squared_flux": 0.00011623725202626599,
+        "final_min_cs_separation": 0.06675464307112192,
+        "final_min_cc_separation": 0.022092403049405795,
+        "final_total_length": 4.847091149727959,
+        "final_max_curvature": 8.338895488017227,
+        "final_average_curvature": 5.614251475633085,
+        "final_mean_squared_curvature": 32.87731652270828,
+        "final_linking_number": 12.0,
+        "final_max_max_coil_force": 4989.25080556879,
+        "final_avg_max_coil_force": 2670.510662150353,
+        "final_max_max_coil_torque": 1171.0727815521993,
+        "final_avg_max_coil_torque": 499.3764001865011,
+        "avg_BdotN_over_B": 0.0130448485699876,
+        "max_BdotN_over_B": 0.05946010901186638,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.00011623725202626599
+      },
+      "rank": 1
+    },
+    {
+      "method_key": ":11-23-2025_16-32",
+      "method_name": "",
+      "method_version": "11-23-2025_16-32",
+      "score_primary": 0.0009820333171079339,
+      "run_date": "2025-11-23T16:32:41.541187",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/11-23-2025_16-32/results.json",
+      "metrics": {
+        "initial_B_field": 0.9998258195958676,
+        "final_B_field": 0.12203719813985217,
+        "target_B_field": 1.0,
+        "optimization_time": 836.2039291858673,
+        "final_normalized_squared_flux": 0.0009820333171079339,
+        "final_min_cs_separation": 0.001885288069755138,
+        "final_min_cc_separation": 0.11251139416448312,
+        "final_total_length": 12.473666052294188,
+        "final_max_curvature": 10.998341006699015,
+        "final_average_curvature": 3.4589100666643917,
+        "final_mean_squared_curvature": 23.603110061968327,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 110933.29437554101,
+        "final_avg_max_coil_force": 100894.39872386059,
+        "final_max_max_coil_torque": 35312.36307835155,
+        "final_avg_max_coil_torque": 26109.598001767077,
+        "avg_BdotN_over_B": 0.17462091236436364,
+        "max_BdotN_over_B": 412.60096961816635,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0009820333171079339
+      },
+      "rank": 2
+    },
+    {
       "method_key": ":11-22-2025_05-31",
       "method_name": "",
       "method_version": "",
@@ -28,9 +96,11 @@
         "final_avg_max_coil_torque": 2361462.343320785,
         "avg_BdotN_over_B": 0.05515456039716661,
         "max_BdotN_over_B": 0.5675315561884356,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.0024035629740007387
       },
-      "rank": 1
+      "rank": 3
     },
     {
       "method_key": ":11-22-2025_04-36",
@@ -60,9 +130,11 @@
         "final_avg_max_coil_torque": 2361462.343320785,
         "avg_BdotN_over_B": 0.05515456039716661,
         "max_BdotN_over_B": 0.5675315561884356,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.0024035629740007387
       },
-      "rank": 2
+      "rank": 4
     },
     {
       "method_key": ":11-22-2025_05-07",
@@ -92,9 +164,11 @@
         "final_avg_max_coil_torque": 2361462.343320785,
         "avg_BdotN_over_B": 0.05515456039716661,
         "max_BdotN_over_B": 0.5675315561884356,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.0024035629740007387
       },
-      "rank": 3
+      "rank": 5
     },
     {
       "method_key": ":11-22-2025_18-39",
@@ -124,9 +198,11 @@
         "final_avg_max_coil_torque": 37448.83127505989,
         "avg_BdotN_over_B": 0.08399655312918118,
         "max_BdotN_over_B": 0.391956102714242,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.004324606348242068
       },
-      "rank": 4
+      "rank": 6
     },
     {
       "method_key": ":11-23-2025_15-16",
@@ -156,9 +232,11 @@
         "final_avg_max_coil_torque": 32610.57143351379,
         "avg_BdotN_over_B": 0.1260508797833629,
         "max_BdotN_over_B": 0.5546326922596649,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.010260579637848245
       },
-      "rank": 5
+      "rank": 7
     },
     {
       "method_key": ":11-23-2025_05-05",
@@ -188,9 +266,11 @@
         "final_avg_max_coil_torque": 32610.57143351379,
         "avg_BdotN_over_B": 0.1260508797833629,
         "max_BdotN_over_B": 0.5546326922596649,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.010260579637848245
       },
-      "rank": 6
+      "rank": 8
     },
     {
       "method_key": ":11-23-2025_05-26",
@@ -220,9 +300,11 @@
         "final_avg_max_coil_torque": 41220.980111387704,
         "avg_BdotN_over_B": 0.12428023470519134,
         "max_BdotN_over_B": 0.45443035623833966,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.011836661524711842
       },
-      "rank": 7
+      "rank": 9
     },
     {
       "method_key": ":11-23-2025_15-37",
@@ -252,9 +334,11 @@
         "final_avg_max_coil_torque": 41220.980111387704,
         "avg_BdotN_over_B": 0.12428023470519134,
         "max_BdotN_over_B": 0.45443035623833966,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
         "score_primary": 0.011836661524711842
       },
-      "rank": 8
+      "rank": 10
     }
   ]
 }
