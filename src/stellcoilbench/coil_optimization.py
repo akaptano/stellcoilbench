@@ -111,7 +111,7 @@ def optimize_coils(
     # Load surface based on file type
     # MUSE files are VMEC input files, so treat them the same way
     surface_file_lower = surface_file.lower()
-    if "input" in surface_file_lower or "muse" in surface_file_lower:
+    if "input" in surface_file_lower:
         surface_func = SurfaceRZFourier.from_vmec_input
     elif "wout" in surface_file_lower:
         surface_func = SurfaceRZFourier.from_wout
