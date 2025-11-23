@@ -14,6 +14,7 @@ class CaseConfig:
     coils_params: Dict[str, Any]
     optimizer_params: Dict[str, Any]
     scoring: Dict[str, Any] | None = None
+    coil_objective_terms: Dict[str, Any] | None = None
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "CaseConfig":
@@ -23,6 +24,7 @@ class CaseConfig:
             coils_params=data.get("coils_params", {}),
             optimizer_params=data.get("optimizer_params", {}),
             scoring=data.get("scoring"),
+            coil_objective_terms=data.get("coil_objective_terms"),
         )
 
 

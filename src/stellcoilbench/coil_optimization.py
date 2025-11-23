@@ -68,6 +68,7 @@ def optimize_coils(
     coil_params = dict(case_cfg.coils_params)
     optimizer_params = dict(case_cfg.optimizer_params)
     surface_params = dict(case_cfg.surface_params)
+    coil_objective_terms = case_cfg.coil_objective_terms
     
     # Remove verbose from coil_params if it's in optimizer_params (avoid duplicate)
     if "verbose" in optimizer_params and "verbose" in coil_params:
@@ -123,8 +124,8 @@ def optimize_coils(
     surface = surface_func(
         filename=surface_file, 
         range=surface_params["range"],
-        nphi=32, 
-        ntheta=32)  # Always use 32x32 for standardization
+        nphi=16, 
+        ntheta=16)  # Always use 16x16 for standardization
     
     # Determine output directory for VTK files
     if output_dir is None:
@@ -163,7 +164,8 @@ def optimize_coils(
                 surface, 
                 **coil_params, 
                 **optimizer_params, 
-                output_dir=str(output_dir)
+                output_dir=str(output_dir),
+                coil_objective_terms=coil_objective_terms
             )
         except TypeError:
             # Fallback if optimize_coils_loop doesn't accept output_dir parameter
@@ -172,6 +174,7 @@ def optimize_coils(
                 surface, 
                 **coil_params, 
                 **optimizer_params, 
+                coil_objective_terms=coil_objective_terms
             )
     finally:
         # Always restore original working directory
@@ -275,7 +278,9 @@ def optimize_coils_loop(
     max_iterations : int = 30, max_iter_lag : int = 10, 
     ncoils : int = 4, order : int = 16, 
     verbose : bool = False, coil_width : float = 0.4,
-    regularization : Callable = regularization_circ, **kwargs):
+    regularization : Callable = regularization_circ, 
+    coil_objective_terms: Dict[str, Any] | None = None,
+    **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
     This function initializes coils with the target B-field and then optimizes
@@ -422,12 +427,15 @@ def optimize_coils_loop(
     # print("Step 4: Setting up optimization objectives and constraints...")
     bs.set_points(s.gamma().reshape((-1, 3)))
     
-    # Main objective: Squared flux
+    # Main objective: Squared flux (always included)
     Jf = SquaredFlux(s, bs, definition="normalized", threshold=flux_threshold)
     
-    # Constraint terms
+    # Build constraint terms based on coil_objective_terms configuration
+    # If coil_objective_terms is None or empty, use default behavior (all terms included)
+    use_default = coil_objective_terms is None or len(coil_objective_terms) == 0
+    
+    # Prepare all constraint objects (create them regardless, but only add to c_list if specified)
     Jls = [CurveLength(c) for c in base_curves]
-    Jl = sum(QuadraticPenalty(jj, length_target, "max") for jj in Jls)
     Jccdist = CurveCurveDistance(curves, cc_threshold, num_basecurves=ncoils)
     Jcsdist = CurveSurfaceDistance(curves, s, cs_threshold)
     Jcs = [LpCurveCurvature(c, 2, curvature_threshold) for c in base_curves]
@@ -435,6 +443,19 @@ def optimize_coils_loop(
     Jforce = LpCurveForce(coils[:ncoils], coils, p=2.0, threshold=force_threshold, downsample=2)
     Jtorque = LpCurveTorque(coils[:ncoils], coils, p=2.0, threshold=torque_threshold, downsample=2)
     Jmscs = [MeanSquaredCurvature(c) for c in base_curves]
+    
+    # Get p values for lp terms (default to 2)
+    curvature_p = coil_objective_terms.get("coil_curvature_p", 2) if coil_objective_terms else 2
+    force_p = coil_objective_terms.get("coil_coil_force_p", 2) if coil_objective_terms else 2
+    torque_p = coil_objective_terms.get("coil_coil_torque_p", 2) if coil_objective_terms else 2
+    
+    # Update curvature, force, and torque with correct p values if specified
+    if coil_objective_terms and curvature_p != 2:
+        Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves]
+    if coil_objective_terms and force_p != 2:
+        Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_threshold, downsample=2)
+    if coil_objective_terms and torque_p != 2:
+        Jtorque = LpCurveTorque(coils[:ncoils], coils, p=torque_p, threshold=torque_threshold, downsample=2)
 
     # Print initial constraint values
     print("Initial thresholds:")
@@ -451,18 +472,98 @@ def optimize_coils_loop(
     # print("Step 5: Running optimization...")
     start_time = time.time()
     
-    # Constraint list for augmented Lagrangian method
-    c_list = [
-        Jf,
-        Jccdist,
-        Weight(1e3) * Jcsdist,  # Special attention to avoiding coil-surface intersections
-        QuadraticPenalty(sum(Jls), length_target, "max"),
-        sum(QuadraticPenalty(J, msc_threshold, "max") for J in Jmscs),
-        sum(Jcs),
-        Jlink,
-        Jforce,
-        Jtorque
-    ]
+    # Build constraint list dynamically based on coil_objective_terms
+    c_list = [Jf]  # Always include flux
+    
+    if use_default:
+        # Default behavior: include all constraints
+        c_list.extend([
+            Jccdist,
+            Weight(1e3) * Jcsdist,  # Special attention to avoiding coil-surface intersections
+            QuadraticPenalty(sum(Jls), length_target, "max"),
+            sum(QuadraticPenalty(J, msc_threshold, "max") for J in Jmscs),
+            sum(Jcs),
+            Jlink,
+            Jforce,
+            Jtorque
+        ])
+    else:
+        # Build constraint list based on coil_objective_terms
+        # Map term names to constraint objects and penalty types
+        term_map = {
+            "total_length": {
+                "obj": sum(Jls),
+                "threshold": length_target,
+                "l1": lambda obj, thresh: obj,  # Weighted for importance
+                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
+                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
+            },
+            "coil_coil_distance": {
+                "obj": Jccdist,
+                "threshold": cc_threshold,
+                "l1": lambda obj, thresh: obj,  # L1 penalty is built into CurveCurveDistance
+                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
+                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
+            },
+            "coil_surface_distance": {
+                "obj": Jcsdist,
+                "threshold": cs_threshold,
+                "l1": lambda obj, thresh: Weight(1e3) * obj,  # Weighted for importance
+                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
+                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
+            },
+            "coil_curvature": {
+                "obj": sum(Jcs),
+                "threshold": curvature_threshold,
+                "lp": lambda obj, thresh: obj,
+                "lp_threshold": lambda obj, thresh: obj,
+            },
+            "coil_mean_squared_curvature": {
+                "obj": Jmscs,
+                "threshold": msc_threshold,
+                "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
+                "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
+                "l1": lambda obj, thresh: sum(obj),
+            },
+            "linking_number": {
+                "obj": Jlink,
+                "threshold": None,
+                "l2": lambda obj, thresh: obj,
+                "l2_threshold": lambda obj, thresh: obj,
+            },
+            "coil_coil_force": {
+                "obj": Jforce,
+                "threshold": force_threshold,
+                "lp": lambda obj, thresh: obj,
+                "lp_threshold": lambda obj, thresh: obj,
+            },
+            "coil_coil_torque": {
+                "obj": Jtorque,
+                "threshold": torque_threshold,
+                "lp": lambda obj, thresh: obj,
+                "lp_threshold": lambda obj, thresh: obj,
+            },
+        }
+        
+        for term_name, term_value in (coil_objective_terms or {}).items():
+            # Skip _p parameters (already handled above)
+            if term_name.endswith("_p"):
+                continue
+            
+            # Skip empty linking_number
+            if term_name == "linking_number" and term_value == "":
+                continue
+            
+            if term_name in term_map:
+                term_config = term_map[term_name]
+                obj = term_config["obj"]
+                thresh = term_config["threshold"]
+                
+                if term_value in term_config:
+                    constraint = term_config[term_value](obj, thresh)
+                    c_list.append(constraint)
+                else:
+                    print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
     
     # Run optimization
     _, _, lag_mul = augmented_lagrangian_method(
@@ -503,7 +604,7 @@ def optimize_coils_loop(
     print(f"  Normalized flux: {Jf.J():.2e}")
     print(f"  CS separation: {Jcsdist.J():.2e} (min distance: {Jcsdist.shortest_distance():.3f})")
     print(f"  CC separation: {Jccdist.J():.2e} (min distance: {Jccdist.shortest_distance():.3f})")
-    print(f"  Length constraint: {Jl.J():.2e}")  # type: ignore[attr-defined]
+    print(f"  Length constraint: {sum(Jls).J():.2e}")  # type: ignore[attr-defined]
     print(f"  Curvature constraint: {sum(Jcs).J():.2e}")  # type: ignore[attr-defined]
     print(f"  Linking number: {Jlink.J():.2e}")
     print(f"  Force constraint: {Jforce.J():.2e}")
@@ -517,7 +618,7 @@ def optimize_coils_loop(
     
     # Calculate final B_N metrics
     bs.set_points(s.gamma().reshape((-1, 3)))
-    BdotN = np.mean(np.abs(np.sum(bs.B().reshape((32, 32, 3)) * s.unitnormal(), axis=2)))
+    BdotN = np.mean(np.abs(np.sum(bs.B().reshape((16, 16, 3)) * s.unitnormal(), axis=2)))
     avg_BdotN_over_B = BdotN / bs.AbsB().mean()
     
     bs.set_points(s_plot.gamma().reshape((-1, 3)))

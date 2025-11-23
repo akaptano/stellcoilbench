@@ -38,6 +38,14 @@ def load_case_config(case_dir: Path) -> CaseConfig:
         raise FileNotFoundError(f"Expected case.yaml file at {case_dir} or {case_dir}/case.yaml")
     
     data = yaml.safe_load(cfg_path.read_text())
+    
+    # Validate the configuration
+    from .validate_config import validate_case_config
+    errors = validate_case_config(data, cfg_path)
+    if errors:
+        error_msg = "Configuration validation failed:\n" + "\n".join(f"  - {e}" for e in errors)
+        raise ValueError(error_msg)
+    
     return CaseConfig.from_dict(data)
 
 

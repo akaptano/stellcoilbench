@@ -47,11 +47,61 @@ def _metric_shorthand(metric_name: str) -> str:
         # Linking number
         "final_linking_number": "LN",
         
+        # Coil parameters
+        "coil_order": "order",
+        "num_coils": "N_coils",
+        
         # Score (keep for sorting but don't display)
         "score_primary": "score",
     }
     
     return shorthand_map.get(metric_name, metric_name.replace("_", " "))
+
+
+def _metric_definition(metric_name: str) -> str:
+    """
+    Get detailed mathematical definition for a metric.
+    
+    Returns a string with LaTeX-style mathematical notation describing the metric.
+    """
+    definitions = {
+        # B-field related
+        "final_normalized_squared_flux": r"$f_B = \frac{1}{|\partial S|} \int_{\partial S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ - Normalized squared flux error on plasma surface",
+        "max_BdotN_over_B": r"$\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)$ - Maximum normalized normal field component",
+        "avg_BdotN_over_B": r"$\frac{1}{|\partial S|} \int_{\partial S} \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|} dS$ - Average normalized normal field component",
+        
+        # Curvature
+        "final_average_curvature": r"$\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ - Mean curvature over all coils, where $\kappa_i = |\mathbf{r}''(s)|$",
+        "final_max_curvature": r"$\max(\kappa)$ - Maximum curvature across all coils",
+        "final_mean_squared_curvature": r"$\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ - Mean squared curvature",
+        
+        # Separations
+        "final_min_cs_separation": r"$\min(d_{cs})$ - Minimum coil-to-surface distance",
+        "final_min_cc_separation": r"$\min(d_{cc})$ - Minimum coil-to-coil distance",
+        "final_cs_separation": r"$d_{cs}$ - Average coil-to-surface separation",
+        "final_cc_separation": r"$d_{cc}$ - Average coil-to-coil separation",
+        
+        # Length
+        "final_total_length": r"$L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ - Total length of all coils",
+        
+        # Forces/Torques
+        "final_max_max_coil_force": r"$\max(|\mathbf{F}_i|)$ - Maximum force magnitude across all coils",
+        "final_avg_max_coil_force": r"$\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ - Average of maximum force per coil",
+        "final_max_max_coil_torque": r"$\max(|\boldsymbol{\tau}_i|)$ - Maximum torque magnitude across all coils",
+        "final_avg_max_coil_torque": r"$\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ - Average of maximum torque per coil",
+        
+        # Time
+        "optimization_time": r"$t$ - Total optimization time (seconds)",
+        
+        # Linking number
+        "final_linking_number": r"$\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ - Linking number between coil pairs",
+        
+        # Coil parameters
+        "coil_order": r"$n$ - Fourier order of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$",
+        "num_coils": r"$N$ - Number of base coils (before applying stellarator symmetry)",
+    }
+    
+    return definitions.get(metric_name, metric_name.replace("_", " ").title())
 
 
 def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]:
@@ -111,6 +161,8 @@ def build_methods_json(
     dict
         Keys are "method_name:version", values hold metadata + metrics.
     """
+    import yaml
+    
     def _numeric_fields(values: Dict[str, Any]) -> Dict[str, float]:
         return {
             key: float(value)
@@ -129,6 +181,21 @@ def build_methods_json(
             continue
 
         metrics_numeric = _numeric_fields(metrics)
+        
+        # Extract coil parameters from case.yaml if available
+        case_yaml_path = path.parent / "case.yaml"
+        if case_yaml_path.exists():
+            try:
+                case_data = yaml.safe_load(case_yaml_path.read_text())
+                coils_params = case_data.get("coils_params", {})
+                # Add coil order and number of coils to metrics
+                if "order" in coils_params:
+                    metrics_numeric["coil_order"] = float(coils_params["order"])
+                if "ncoils" in coils_params:
+                    metrics_numeric["num_coils"] = float(coils_params["ncoils"])
+            except Exception as e:
+                import sys
+                print(f"Warning: Failed to load case.yaml from {case_yaml_path}: {e}", file=sys.stderr)
         
         # Extract primary score
         primary_score = metrics_numeric.get("score_primary")
@@ -416,8 +483,9 @@ def write_surface_leaderboards(
     
     def _format_value(value: Any, metric_key: str = "") -> str:
         """Format a metric value in scientific notation with 2 digits."""
-        # Special handling for linking number - use integer format
-        if metric_key == "final_linking_number":
+        # Special handling for integer metrics - use integer format
+        integer_metrics = {"final_linking_number", "coil_order", "num_coils"}
+        if metric_key in integer_metrics:
             if isinstance(value, (float, int)):
                 return str(int(round(value)))
             return str(value)
@@ -443,13 +511,27 @@ def write_surface_leaderboards(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Sort with final_normalized_squared_flux first
+        # Sort with priority order: primary metric first, then coil parameters, then others
         sorted_keys = sorted(all_keys)
-        if "final_normalized_squared_flux" in sorted_keys:
-            sorted_keys.remove("final_normalized_squared_flux")
-            sorted_keys.insert(0, "final_normalized_squared_flux")
         
-        return sorted_keys
+        # Priority order for display
+        priority_order = [
+            "final_normalized_squared_flux",  # Primary metric
+            "num_coils",  # Coil configuration
+            "coil_order",  # Coil configuration
+        ]
+        
+        # Reorder: priority items first, then rest alphabetically
+        ordered_keys = []
+        for priority_key in priority_order:
+            if priority_key in sorted_keys:
+                ordered_keys.append(priority_key)
+                sorted_keys.remove(priority_key)
+        
+        # Add remaining keys alphabetically
+        ordered_keys.extend(sorted(sorted_keys))
+        
+        return ordered_keys
     
     surface_names = sorted(surface_leaderboards.keys())
     
@@ -521,17 +603,17 @@ def write_surface_leaderboards(
                 
                 lines.append("| " + " | ".join(row_parts) + " |")
             
-            # Add legend for acronyms
+            # Add legend with detailed mathematical definitions
             lines.append("")
             lines.append("### Legend")
             lines.append("")
             
-            # Build legend from displayed metrics
+            # Build legend from displayed metrics with mathematical definitions
             legend_items = []
             for key in all_metric_keys:
                 shorthand = _metric_shorthand(key)
-                full_name = key.replace("_", " ").title()
-                legend_items.append(f"- **{shorthand}**: {full_name}")
+                definition = _metric_definition(key)
+                legend_items.append(f"- **{shorthand}**: {definition}")
             
             lines.extend(legend_items)
             lines.append("")
