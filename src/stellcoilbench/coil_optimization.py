@@ -278,9 +278,9 @@ def initialize_coils_loop(
 
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
-    max_iterations : int = 30, max_iter_lag : int = 10, 
+    max_iterations : int = 30, 
     ncoils : int = 4, order : int = 16, 
-    verbose : bool = False, coil_width : float = 0.4,
+    verbose : bool = False,
     regularization : Callable = regularization_circ, 
     coil_objective_terms: Dict[str, Any] | None = None,
     **kwargs):
@@ -294,16 +294,25 @@ def optimize_coils_loop(
         target_B: Target magnetic field strength in Tesla (default: 5.7).
         out_dir: Path or string for the output directory for saved files.
         max_iterations: Maximum number of optimization iterations (default: 1500).
-        max_iter_lag: Maximum number of Lagrangian iterations (default: 50).
         ncoils: Number of base coils to create (default: 4).
         order: Fourier order for coil curves (default: 16).
         verbose: Print out progress and results (default: False).
         **kwargs: Additional keyword arguments for constraint thresholds.
+            max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 2).
+            length_target: Target length of the coils in meters (default: 210.0).
+            flux_threshold: Threshold for the flux objective (default: 1e-8).
+            cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
+            cs_threshold: Threshold for the coil-surface distance objective (default: 1.5).
+            msc_threshold: Threshold for the mean squared curvature objective (default: 1.0).
+            curvature_threshold: Threshold for the curvature objective (default: 1.0).
+            force_threshold: Threshold for the coil force objective (default: 1.0).
+            torque_threshold: Threshold for the coil torque objective (default: 1.0).
     Returns:
         coils: List of optimized Coil class objects.
         results: Dictionary containing optimization results and metrics.
     """
     import time
+    from scipy.optimize import minimize
     from pathlib import Path
     from simsopt.geo import SurfaceRZFourier
     from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance
@@ -328,8 +337,21 @@ def optimize_coils_loop(
     curvature_threshold = kwargs.get('curvature_threshold', 1.0)
 
     nturns = 1  # nturns = 1 for standardization
+    coil_width = 0.4  # 0.4 m at reactor-scale is the default coil width
     force_threshold = kwargs.get('force_threshold', 1.0) * nturns
     torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
+
+    # If there is a suboptimization, set the max iterations 
+    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
+    algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
+    # Normalize algorithm name (handle case variations)
+    if isinstance(algorithm, str):
+        algorithm_lower = algorithm.lower()
+        if algorithm_lower in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
+            algorithm = 'L-BFGS-B'
+        elif algorithm_lower == 'augmented_lagrangian':
+            algorithm = 'augmented_lagrangian'
+        # Keep other algorithm names as-is (they should match scipy method names)
 
     # Rescale all the length thresholds by the plasma major radius
     # divided by the 10m assumption for the major radius
@@ -502,10 +524,6 @@ def optimize_coils_loop(
     print(f" Curvature Threshold: {curvature_threshold:.2e}")
     print(f" Force Threshold: {force_threshold:.2e}")
     print(f" Torque Threshold: {torque_threshold:.2e}")
-
-    # Step 5: Run optimization
-    # print("Step 5: Running optimization...")
-    start_time = time.time()
     
     # Build constraint list dynamically based on coil_objective_terms
     # Only explicitly specified objectives in coil_objective_terms will be included
@@ -595,14 +613,70 @@ def optimize_coils_loop(
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
     
-    # Run optimization
-    _, _, lag_mul = augmented_lagrangian_method(
-        f=None,  # No main objective function
-        equality_constraints=c_list,
-        MAXITER=max_iterations,
-        MAXITER_lag=max_iter_lag,
-        verbose=verbose,
-    )
+    # Step 5: Run optimization
+    start_time = time.time()
+    lag_mul = None  # Initialize lag_mul for scipy methods
+    if algorithm == "augmented_lagrangian":
+        _, _, lag_mul = augmented_lagrangian_method(
+            f=None,  # No main objective function
+            equality_constraints=c_list,
+            MAXITER=max_iterations,
+            MAXITER_lag=max_iter_subopt,
+            verbose=verbose,
+        )
+    elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
+        # Build weighted objective function from constraints
+        # c_list includes flux first, then other constraints
+        # Default weight is 1.0 for all constraints
+        weights = []
+        for i, constraint in enumerate(c_list):
+            # Map constraint index to weight name (for backward compatibility)
+            # Flux (index 0) always has weight 1.0
+            if i == 0:
+                weights.append(1.0)  # Flux weight
+            else:
+                # For other constraints, try to get specific weight or default to 1.0
+                weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+                weights.append(weight)
+        
+        # Create weighted sum of constraints
+        JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
+
+        # Define the objective function and gradient
+        def objective(x: np.ndarray) -> float:
+            JF.x = x  # type: ignore[attr-defined]
+            J = JF.J()  # type: ignore[attr-defined]
+            if verbose:
+                grad = JF.dJ()  # type: ignore[attr-defined]
+                outstr = f"J={J:.1e}, Jf={Jf.J():.1e}"
+                cl_string = ", ".join([f"{J.J():.1f}" for J in Jls])
+                outstr += f", Len=sum([{cl_string}])={sum(J.J() for J in Jls):.2f}"
+                outstr += f", C-C-Sep={Jccdist.shortest_distance():.2f}, C-S-Sep={Jcsdist.shortest_distance():.2f}"
+                outstr += f", Curvature={sum(Jcs).J():.2e}"  # type: ignore[attr-defined]
+                outstr += f", Mean Squared Curvature={sum(Jmscs).J():.2e}"  # type: ignore[attr-defined]
+                outstr += f", Linking Number={Jlink.J():.2e}"
+                outstr += f", F={Jforce.J():.2e}"
+                outstr += f", T={Jtorque.J():.2e}"
+                outstr += f", ║∇J║={np.linalg.norm(grad):.1e}"
+                print(outstr)
+            return J
+        
+        def gradient(x: np.ndarray) -> np.ndarray:
+            JF.x = x  # type: ignore[attr-defined]
+            return JF.dJ()  # type: ignore[attr-defined]
+        
+        # Remove maxfun option if algorithm doesn't support it
+        options = {'maxiter': max_iterations}
+        if algorithm in ['L-BFGS-B', 'TNC']:
+            options['maxfun'] = max_iter_subopt
+        
+        _ = minimize(
+            fun=objective,
+            x0=JF.x,
+            method=algorithm,
+            jac=gradient,  # Provide gradient function
+            options=options,
+        )
     
     end_time = time.time()
     print(f"Optimization completed in {end_time - start_time:.1f} seconds")
@@ -648,15 +722,20 @@ def optimize_coils_loop(
     
     # Calculate final B_N metrics
     bs.set_points(s.gamma().reshape((-1, 3)))
-    BdotN = np.mean(np.abs(np.sum(bs.B().reshape((16, 16, 3)) * s.unitnormal(), axis=2)))
-    avg_BdotN_over_B = BdotN / bs.AbsB().mean()
+    B_field = bs.B().reshape((-1, 3))
+    unit_normal = s.unitnormal().reshape((-1, 3))
+    BdotN = np.mean(np.abs(np.sum(B_field * unit_normal, axis=1)))
+    abs_B = bs.AbsB().flatten()
+    avg_BdotN_over_B = BdotN / abs_B.mean() if abs_B.mean() > 0 else 0.0
     
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
     nphi_plot = len(s_plot.quadpoints_phi)
     ntheta_plot = len(s_plot.quadpoints_theta)
-    max_BdotN_overB = np.max(np.abs(np.sum(bs.B().reshape((nphi_plot, ntheta_plot, 3)) *
-                                          s_plot.unitnormal(), axis=2)) /
-                            bs.AbsB().reshape((nphi_plot, ntheta_plot, 1)))
+    B_plot = bs.B().reshape((nphi_plot, ntheta_plot, 3))
+    unit_normal_plot = s_plot.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
+    BdotN_plot = np.sum(B_plot * unit_normal_plot, axis=2)
+    abs_B_plot = bs.AbsB().reshape((nphi_plot, ntheta_plot))
+    max_BdotN_overB = np.max(np.abs(BdotN_plot / abs_B_plot)) if np.any(abs_B_plot > 0) else 0.0
     
     print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")
     print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")    
