@@ -6,7 +6,7 @@
 
 ---
 
-| # | User | Date | f_B | N_coils | order | avg⟨Bn⟩/⟨B⟩ | κ̄ | F̄ | τ̄ | LN | max(κ) | max(F) | max(τ) | MSC | min(d_cc) | min(d_cs) | L | max⟨Bn⟩/⟨B⟩ | t |
+| # | User | Date | f_B | N | n | avg⟨Bn⟩/⟨B⟩ | κ̄ | F̄ | τ̄ | LN | max(κ) | max(F) | max(τ) | MSC | min(d_cc) | min(d_cs) | L | max⟨Bn⟩/⟨B⟩ | t |
 | :-: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | 1 | akaptano | 2025-11-23 | 9.82e-04 | 4 | 4 | 1.75e-01 | 3.46e+00 | 1.01e+05 | 2.61e+04 | 0 | 1.10e+01 | 1.11e+05 | 3.53e+04 | 2.36e+01 | 1.13e-01 | 1.89e-03 | 1.25e+01 | 4.13e+02 | 8.36e+02 |
 | 2 | akaptano@users. | 2025-11-22 | 2.40e-03 | 4 | 16 | 5.52e-02 | 2.81e+00 | 7.37e+06 | 2.36e+06 | 0 | 7.96e+00 | 2.01e+07 | 6.86e+06 | 9.73e+00 | 5.22e-03 | 1.60e-01 | 1.20e+01 | 5.68e-01 | 3.62e+02 |
@@ -18,20 +18,20 @@
 
 ### Legend
 
-- **f_B**: $f_B = \frac{1}{|\partial S|} \int_{\partial S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ - Normalized squared flux error on plasma surface
-- **N_coils**: $N$ - Number of base coils (before applying stellarator symmetry)
-- **order**: $n$ - Fourier order of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$
-- **avg⟨Bn⟩/⟨B⟩**: $\frac{1}{|\partial S|} \int_{\partial S} \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|} dS$ - Average normalized normal field component
-- **κ̄**: $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ - Mean curvature over all coils, where $\kappa_i = |\mathbf{r}''(s)|$
-- **F̄**: $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ - Average of maximum force per coil
-- **τ̄**: $\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ - Average of maximum torque per coil
-- **LN**: $\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ - Linking number between coil pairs
+- **f_B**: $\frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ - Normalized squared flux error on plasma surface
+- **N**: $N$ - Number of base coils (before applying stellarator symmetry)
+- **n**: $n$ - Fourier order of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$
+- **avg⟨Bn⟩/⟨B⟩**: $\frac{1}{|S|} \int_{S} \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|} dS$ - Average normalized normal field component
+- **κ̄**: $\frac{1}{N} \sum_{i=1}^{N} \kappa_i$ - Mean curvature over all coils, where $\kappa_i = |\mathbf{r}''(s)|$
+- **F̄**: $\frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ - Average of maximum force per coil
+- **τ̄**: $\frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ - Average of maximum torque per coil
+- **LN**: $\frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ - Linking number between coil pairs
 - **max(κ)**: $\max(\kappa)$ - Maximum curvature across all coils
 - **max(F)**: $\max(|\mathbf{F}_i|)$ - Maximum force magnitude across all coils
 - **max(τ)**: $\max(|\boldsymbol{\tau}_i|)$ - Maximum torque magnitude across all coils
-- **MSC**: $\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ - Mean squared curvature
+- **MSC**: $\frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ - Mean squared curvature
 - **min(d_cc)**: $\min(d_{cc})$ - Minimum coil-to-coil distance
 - **min(d_cs)**: $\min(d_{cs})$ - Minimum coil-to-surface distance
-- **L**: $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ - Total length of all coils
+- **L**: $\sum_{i=1}^{N} \int_{0}^{L_i} ds$ - Total length of all coils
 - **max⟨Bn⟩/⟨B⟩**: $\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)$ - Maximum normalized normal field component
 - **t**: $t$ - Total optimization time (seconds)
