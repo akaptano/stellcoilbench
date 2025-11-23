@@ -3,5 +3,5 @@
 Leaderboards organized by plasma surface configuration:
 
 - **Landremanpaul2021 Qa** — [`LandremanPaul2021_QA`](surfaces/LandremanPaul2021_QA.md)
-- **Muse.Focus** — [`MUSE.focus`](surfaces/MUSE_focus.md)
-- **Rotating Ellipse** — [`rotating_ellipse`](surfaces/rotating_ellipse.md)
+- **Circular Tokamak** — [`circular_tokamak`](surfaces/circular_tokamak.md)
+- **Muse.Focus** — [`muse.focus`](surfaces/muse_focus.md)
