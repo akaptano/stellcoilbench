@@ -166,10 +166,21 @@ jobs:
           # Ensure we're on main and have latest submissions
           echo "Current branch: $(git branch --show-current)"
           
-          # Pull latest to get any submissions committed by previous workflow runs
-          git pull origin main || echo "Already up to date"
+          # Step 1 already committed submissions locally, so they're in the working directory
+          # However, we also want to include submissions from previous workflow runs
+          # So we'll merge origin/main to get everything, but preserve local commits
+          echo "Fetching latest from origin..."
+          git fetch origin main || echo "Fetch failed (non-critical)"
           
-          # Count submissions (should include both locally generated and pulled from remote)
+          # Merge origin/main into current branch to get submissions from previous runs
+          # Use --no-edit to avoid opening an editor, and --no-ff to create a merge commit
+          # This preserves local commits from Step 1 while also getting remote commits
+          if git rev-parse --verify origin/main > /dev/null 2>&1; then
+            echo "Merging origin/main to include submissions from previous runs..."
+            git merge origin/main --no-edit --no-ff || echo "Merge completed or not needed"
+          fi
+          
+          # Count submissions (should include both locally committed and merged from remote)
           SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
           echo "Submissions found: $SUBMISSIONS_COUNT"
           echo "All submission files:"

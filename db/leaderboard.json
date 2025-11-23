@@ -1,74 +1,6 @@
 {
   "entries": [
     {
-      "method_key": ":11-23-2025_19-11",
-      "method_name": "",
-      "method_version": "11-23-2025_19-11",
-      "score_primary": 0.0,
-      "run_date": "2025-11-23T19:11:11.728613",
-      "contact": "akaptano",
-      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/circular_tokamak/akaptano/11-23-2025_19-11/results.json",
-      "metrics": {
-        "initial_B_field": 0.9996565061813552,
-        "final_B_field": 0.9994260183159376,
-        "target_B_field": 1.0,
-        "optimization_time": 2.0922164916992188,
-        "final_normalized_squared_flux": 0.0,
-        "final_min_cs_separation": 1.7897595941301332,
-        "final_min_cc_separation": 1.6916447697405754,
-        "final_total_length": 95.2470471983253,
-        "final_max_curvature": 0.26386898038305134,
-        "final_average_curvature": 0.26386898038304996,
-        "final_mean_squared_curvature": 0.06962683880839042,
-        "final_linking_number": 0.0,
-        "final_max_max_coil_force": 4616627.060134455,
-        "final_avg_max_coil_force": 4616627.060134451,
-        "final_max_max_coil_torque": 1.7676262641651625e-07,
-        "final_avg_max_coil_torque": 1.644727256113978e-07,
-        "avg_BdotN_over_B": 2.0052184266850783e-16,
-        "max_BdotN_over_B": 0.2442726455167007,
-        "coil_order": 4.0,
-        "num_coils": 4.0,
-        "score_primary": 0.0
-      },
-      "rank": 1
-    },
-    {
-      "method_key": ":11-23-2025_23-04",
-      "method_name": "",
-      "method_version": "11-23-2025_23-04",
-      "score_primary": 0.0,
-      "run_date": "2025-11-23T23:04:44.528263",
-      "contact": "akaptano",
-      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/circular_tokamak/akaptano/11-23-2025_23-04/results.json",
-      "metrics": {
-        "initial_B_field": 0.9996565061813552,
-        "final_B_field": 0.9994260183159376,
-        "target_B_field": 1.0,
-        "optimization_time": 2.246934652328491,
-        "final_normalized_squared_flux": 0.0,
-        "final_min_cs_separation": 1.7897595941301332,
-        "final_min_cc_separation": 1.6916447697405754,
-        "final_total_length": 95.2470471983253,
-        "final_max_curvature": 0.26386898038305134,
-        "final_average_curvature": 0.26386898038304996,
-        "final_mean_squared_curvature": 0.06962683880839042,
-        "final_linking_number": 0.0,
-        "final_max_max_coil_force": 4616627.060134455,
-        "final_avg_max_coil_force": 4616627.060134451,
-        "final_max_max_coil_torque": 1.7676262641651625e-07,
-        "final_avg_max_coil_torque": 1.644727256113978e-07,
-        "avg_BdotN_over_B": 2.0052184266850783e-16,
-        "max_BdotN_over_B": 0.2442726455167007,
-        "coil_order": 4.0,
-        "num_coils": 4.0,
-        "score_primary": 0.0
-      },
-      "rank": 2
-    },
-    {
       "method_key": ":11-23-2025_16-46",
       "method_name": "",
       "method_version": "11-23-2025_16-46",
@@ -76,7 +8,7 @@
       "run_date": "2025-11-23T16:46:42.872314",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/muse.focus/akaptano/11-23-2025_16-46/results.json",
+      "path": "submissions/MUSE.focus/akaptano/11-23-2025_16-46/results.json",
       "metrics": {
         "initial_B_field": 0.14984232990585739,
         "final_B_field": 0.15313115091131668,
@@ -100,7 +32,7 @@
         "num_coils": 4.0,
         "score_primary": 0.00011623725202626599
       },
-      "rank": 3
+      "rank": 1
     },
     {
       "method_key": ":11-23-2025_16-32",
@@ -134,7 +66,7 @@
         "num_coils": 4.0,
         "score_primary": 0.0009820333171079339
       },
-      "rank": 4
+      "rank": 2
     },
     {
       "method_key": ":11-22-2025_05-31",
@@ -168,41 +100,7 @@
         "num_coils": 4.0,
         "score_primary": 0.0024035629740007387
       },
-      "rank": 5
-    },
-    {
-      "method_key": ":11-22-2025_04-36",
-      "method_name": "",
-      "method_version": "",
-      "score_primary": 0.0024035629740007387,
-      "run_date": "2025-11-22T04:36:56.864526",
-      "contact": "akaptano@users.noreply.github.com",
-      "hardware": "GitHub Actions (ubuntu-latest)",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/11-22-2025_04-36/results.json",
-      "metrics": {
-        "initial_B_field": 0.9999129099617139,
-        "final_B_field": 1.0274587204256318,
-        "target_B_field": 1.0,
-        "optimization_time": 326.73252606391907,
-        "final_normalized_squared_flux": 0.0024035629740007387,
-        "final_min_cs_separation": 0.1599530685663696,
-        "final_min_cc_separation": 0.005223912129840308,
-        "final_total_length": 11.972729678971138,
-        "final_max_curvature": 7.963897185353461,
-        "final_average_curvature": 2.8089683282743048,
-        "final_mean_squared_curvature": 9.729561216636403,
-        "final_linking_number": 0.0,
-        "final_max_max_coil_force": 20141431.73666535,
-        "final_avg_max_coil_force": 7369548.589285741,
-        "final_max_max_coil_torque": 6857015.292623153,
-        "final_avg_max_coil_torque": 2361462.343320785,
-        "avg_BdotN_over_B": 0.05515456039716661,
-        "max_BdotN_over_B": 0.5675315561884356,
-        "coil_order": 16.0,
-        "num_coils": 4.0,
-        "score_primary": 0.0024035629740007387
-      },
-      "rank": 6
+      "rank": 3
     },
     {
       "method_key": ":11-22-2025_05-07",
@@ -236,7 +134,41 @@
         "num_coils": 4.0,
         "score_primary": 0.0024035629740007387
       },
-      "rank": 7
+      "rank": 4
+    },
+    {
+      "method_key": ":11-22-2025_04-36",
+      "method_name": "",
+      "method_version": "",
+      "score_primary": 0.0024035629740007387,
+      "run_date": "2025-11-22T04:36:56.864526",
+      "contact": "akaptano@users.noreply.github.com",
+      "hardware": "GitHub Actions (ubuntu-latest)",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/11-22-2025_04-36/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999129099617139,
+        "final_B_field": 1.0274587204256318,
+        "target_B_field": 1.0,
+        "optimization_time": 326.73252606391907,
+        "final_normalized_squared_flux": 0.0024035629740007387,
+        "final_min_cs_separation": 0.1599530685663696,
+        "final_min_cc_separation": 0.005223912129840308,
+        "final_total_length": 11.972729678971138,
+        "final_max_curvature": 7.963897185353461,
+        "final_average_curvature": 2.8089683282743048,
+        "final_mean_squared_curvature": 9.729561216636403,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 20141431.73666535,
+        "final_avg_max_coil_force": 7369548.589285741,
+        "final_max_max_coil_torque": 6857015.292623153,
+        "final_avg_max_coil_torque": 2361462.343320785,
+        "avg_BdotN_over_B": 0.05515456039716661,
+        "max_BdotN_over_B": 0.5675315561884356,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0024035629740007387
+      },
+      "rank": 5
     },
     {
       "method_key": ":11-22-2025_18-39",
@@ -270,7 +202,7 @@
         "num_coils": 4.0,
         "score_primary": 0.004324606348242068
       },
-      "rank": 8
+      "rank": 6
     },
     {
       "method_key": ":11-23-2025_15-16",
@@ -304,7 +236,7 @@
         "num_coils": 4.0,
         "score_primary": 0.010260579637848245
       },
-      "rank": 9
+      "rank": 7
     },
     {
       "method_key": ":11-23-2025_05-05",
@@ -338,7 +270,7 @@
         "num_coils": 4.0,
         "score_primary": 0.010260579637848245
       },
-      "rank": 10
+      "rank": 8
     },
     {
       "method_key": ":11-23-2025_05-26",
@@ -348,7 +280,7 @@
       "run_date": "2025-11-23T05:26:19.551052",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/muse.focus/akaptano/11-23-2025_05-26/results.json",
+      "path": "submissions/MUSE.focus/akaptano/11-23-2025_05-26/results.json",
       "metrics": {
         "initial_B_field": 0.149921138619857,
         "final_B_field": 0.14996490770879933,
@@ -372,7 +304,7 @@
         "num_coils": 4.0,
         "score_primary": 0.011836661524711842
       },
-      "rank": 11
+      "rank": 9
     },
     {
       "method_key": ":11-23-2025_15-37",
@@ -382,7 +314,7 @@
       "run_date": "2025-11-23T15:37:06.825755",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/muse.focus/akaptano/11-23-2025_15-37/results.json",
+      "path": "submissions/MUSE.focus/akaptano/11-23-2025_15-37/results.json",
       "metrics": {
         "initial_B_field": 0.149921138619857,
         "final_B_field": 0.14996490770879933,
@@ -406,39 +338,107 @@
         "num_coils": 4.0,
         "score_primary": 0.011836661524711842
       },
-      "rank": 12
+      "rank": 10
     },
     {
       "method_key": ":11-23-2025_23-03",
       "method_name": "",
       "method_version": "11-23-2025_23-03",
-      "score_primary": 0.05951848402439735,
-      "run_date": "2025-11-23T23:03:55.389271",
+      "score_primary": 0.015921705857866928,
+      "run_date": "2025-11-23T23:03:18.384094",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
-      "path": "submissions/muse.focus/akaptano/11-23-2025_23-03/results.json",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/11-23-2025_23-03/results.json",
       "metrics": {
-        "initial_B_field": 0.14984232990585739,
-        "final_B_field": 0.23297727808634675,
-        "target_B_field": 0.15,
-        "optimization_time": 32.90895390510559,
-        "final_normalized_squared_flux": 0.05951848402439735,
-        "final_min_cs_separation": 0.1461182075360948,
-        "final_min_cc_separation": 0.005841604928745076,
-        "final_total_length": 6.03451241185767,
-        "final_max_curvature": 6.748478168842048,
-        "final_average_curvature": 4.190170735555235,
-        "final_mean_squared_curvature": 18.99377984665184,
-        "final_linking_number": 2.0,
-        "final_max_max_coil_force": 521532.3481846209,
-        "final_avg_max_coil_force": 178385.83479544625,
-        "final_max_max_coil_torque": 112004.12219692688,
-        "final_avg_max_coil_torque": 38201.46522746574,
-        "avg_BdotN_over_B": 0.2628983438441977,
-        "max_BdotN_over_B": 0.9965002158049645,
+        "initial_B_field": 0.9998258195958676,
+        "final_B_field": 1.004211195021163,
+        "target_B_field": 1.0,
+        "optimization_time": 32.257349491119385,
+        "final_normalized_squared_flux": 0.015921705857866928,
+        "final_min_cs_separation": 0.15487791954477684,
+        "final_min_cc_separation": 0.19197226275272922,
+        "final_total_length": 12.119705046602249,
+        "final_max_curvature": 7.185265223923831,
+        "final_average_curvature": 2.544296560877136,
+        "final_mean_squared_curvature": 8.999651816241794,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 330042.1870388409,
+        "final_avg_max_coil_force": 268261.6074349908,
+        "final_max_max_coil_torque": 60501.303017391256,
+        "final_avg_max_coil_torque": 53504.957289321086,
+        "avg_BdotN_over_B": 0.1578210952704967,
+        "max_BdotN_over_B": 0.3665617897041014,
         "coil_order": 4.0,
         "num_coils": 4.0,
-        "score_primary": 0.05951848402439735
+        "score_primary": 0.015921705857866928
+      },
+      "rank": 11
+    },
+    {
+      "method_key": ":11-23-2025_19-11",
+      "method_name": "",
+      "method_version": "11-23-2025_19-11",
+      "score_primary": 0.03836009855328892,
+      "run_date": "2025-11-23T19:11:00.899668",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+      "path": "submissions/rotating_ellipse/akaptano/11-23-2025_19-11/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999999496180914,
+        "final_B_field": 0.9987562950749579,
+        "target_B_field": 1.0,
+        "optimization_time": 4.37722110748291,
+        "final_normalized_squared_flux": 0.03836009855328892,
+        "final_min_cs_separation": 1.1582831576161472,
+        "final_min_cc_separation": 0.19588837968618125,
+        "final_total_length": 79.29488138856958,
+        "final_max_curvature": 0.4734573281817511,
+        "final_average_curvature": 0.32334842168686495,
+        "final_mean_squared_curvature": 0.11364309118788546,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2817176.224544979,
+        "final_avg_max_coil_force": 1528334.0899792286,
+        "final_max_max_coil_torque": 2833427.009714657,
+        "final_avg_max_coil_torque": 1958169.7433933332,
+        "avg_BdotN_over_B": 0.23597420575678849,
+        "max_BdotN_over_B": 0.6053862491921648,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.03836009855328892
+      },
+      "rank": 12
+    },
+    {
+      "method_key": ":11-23-2025_23-04",
+      "method_name": "",
+      "method_version": "11-23-2025_23-04",
+      "score_primary": 0.03836009855328892,
+      "run_date": "2025-11-23T23:04:33.055938",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+      "path": "submissions/rotating_ellipse/akaptano/11-23-2025_23-04/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999999496180914,
+        "final_B_field": 0.9987562950749579,
+        "target_B_field": 1.0,
+        "optimization_time": 4.577399730682373,
+        "final_normalized_squared_flux": 0.03836009855328892,
+        "final_min_cs_separation": 1.1582831576161472,
+        "final_min_cc_separation": 0.19588837968618125,
+        "final_total_length": 79.29488138856958,
+        "final_max_curvature": 0.4734573281817511,
+        "final_average_curvature": 0.32334842168686495,
+        "final_mean_squared_curvature": 0.11364309118788546,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2817176.224544979,
+        "final_avg_max_coil_force": 1528334.0899792286,
+        "final_max_max_coil_torque": 2833427.009714657,
+        "final_avg_max_coil_torque": 1958169.7433933332,
+        "avg_BdotN_over_B": 0.23597420575678849,
+        "max_BdotN_over_B": 0.6053862491921648,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.03836009855328892
       },
       "rank": 13
     }
