@@ -7,15 +7,12 @@ This directory contains benchmark case definitions in `case.yaml` format.
 Each `case.yaml` file defines:
 - `description`: Brief description of the case
 - `surface_params`: Plasma surface configuration
-  - `nphi`, `ntheta`: Surface discretization
-  - `surface`: Surface file name (e.g., `input.LandremanPaul2021_QA`)
+  - `surface`: Surface file name (must match a file in `plasma_surfaces/` directory, e.g., `input.LandremanPaul2021_QA`)
   - `range`: Surface range (`"half period"` or `"full torus"`)
 - `coils_params`: Coil optimization parameters
-  - `ncoils`: Number of coils
-  - `order`: Fourier order for coil curves
-  - `nturns`: Number of turns per coil
-  - `target_B`: Target magnetic field strength (Tesla)
-  - `coil_radius`: Coil radius for regularization
+  - `ncoils`: Number of coils (required, must be positive integer)
+  - `order`: Fourier order for coil curves (required, must be positive integer)
+  - `verbose`: Verbose flag (optional, string `"True"` or `"False"`)
 - `optimizer_params`: Optimizer settings
   - `algorithm`: Optimization algorithm (e.g., `"l-bfgs"`)
   - `max_iterations`: Maximum optimization iterations
@@ -28,16 +25,12 @@ Each `case.yaml` file defines:
 ```yaml
 description: "Basic test case"
 surface_params:
-  nphi: 16
-  ntheta: 16
   surface: "input.LandremanPaul2021_QA"
   range: "half period"
 coils_params:
   ncoils: 4
   order: 16
-  nturns: 200
-  target_B: 1.0
-  coil_radius: "0.05"
+  verbose: "True"
 optimizer_params:
   algorithm: "l-bfgs"
   max_iterations: 200

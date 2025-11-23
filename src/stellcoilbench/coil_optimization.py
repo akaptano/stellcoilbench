@@ -13,6 +13,9 @@ from simsopt.field import regularization_circ
 def load_coils_config(config_path: Path) -> Dict[str, Any]:
     """
     Load a coils.yaml-style config into a dict.
+    
+    Note: This function is deprecated. Use CaseConfig.from_dict() instead,
+    which includes validation via validate_case_config().
     """
     import yaml
 
