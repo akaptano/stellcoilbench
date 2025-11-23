@@ -1,0 +1,18 @@
+# Local git configuration for StellCoilBench
+# This file can be sourced to configure git for this repository
+
+# Configure git to prefer remote versions for db/, docs/, and submissions/
+# Run: git config --local include.path .gitconfig.local
+
+[merge "theirs"]
+    driver = true
+
+[pull]
+    # Use merge strategy that prefers remote versions
+    strategy = recursive
+    strategy-option = theirs
+
+[alias]
+    # Alias to pull with automatic cleanup of conflicting untracked files
+    pull-safe = !git clean -fd db/ docs/ submissions/ && git pull
+
