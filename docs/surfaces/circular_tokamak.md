@@ -2,7 +2,7 @@
 
 **Plasma Surface:** `circular_tokamak`
 
-[View all surfaces](surfaces.md)
+[View all surfaces](../surfaces.md)
 
 ---
 

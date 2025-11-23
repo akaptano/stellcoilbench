@@ -138,7 +138,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             
             # Valid options for each term type
             valid_options_l2 = ["l2", "l2_threshold"]
-            valid_options_l1 = ["l1", "l1_threshold"]
+            # valid_options_l1 = ["l1", "l1_threshold"]
             valid_options_l1_l2 = ["l1", "l1_threshold", "l2", "l2_threshold"]  # For distance terms that support both
             # valid_options_lp = ["lp", "lp_threshold"]
             valid_options_curvature = ["lp", "lp_threshold"]

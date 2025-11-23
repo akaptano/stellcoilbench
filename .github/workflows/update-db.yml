@@ -165,14 +165,17 @@ jobs:
         run: |
           # Ensure we're on main and have latest submissions
           echo "Current branch: $(git branch --show-current)"
+          
+          # Pull latest to get any submissions committed by previous workflow runs
           git pull origin main || echo "Already up to date"
           
-          # Count submissions
+          # Count submissions (should include both locally generated and pulled from remote)
           SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
           echo "Submissions found: $SUBMISSIONS_COUNT"
-          find submissions -name "results.json" -type f | head -5 || echo "No submissions found"
+          echo "All submission files:"
+          find submissions -name "results.json" -type f | sort || echo "No submissions found"
           
-          # Generate leaderboard files
+          # Generate leaderboard files (processes all submissions in submissions/ directory)
           echo "Generating leaderboard files..."
           stellcoilbench update-db
           
@@ -198,9 +201,13 @@ jobs:
           done
           
           # Add leaderboard directories if they exist
-          if [ -d "docs/surfaces" ] && [ "$(ls -A docs/surfaces/*.md 2>/dev/null)" ]; then
-            echo "Adding docs/surfaces/*.md"
-            git add docs/surfaces/*.md && ADDED_ANY=true
+          if [ -d "docs/surfaces" ]; then
+            echo "Adding all docs/surfaces/*.md files"
+            # Use find to ensure we get all .md files, including new ones
+            find docs/surfaces -name "*.md" -type f | while read file; do
+              echo "  Adding: $file"
+              git add "$file" && ADDED_ANY=true
+            done
           fi
           
           # Remove old leaderboard files if they exist
