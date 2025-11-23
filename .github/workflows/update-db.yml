@@ -161,90 +161,56 @@ jobs:
           echo "Submissions after commit:"
           find submissions -name "results.json" -type f | head -10 || echo "No submissions found"
 
-      - name: Commit leaderboard files to separate branch
+      - name: Generate and commit leaderboard files to main
         run: |
-          # Fetch all branches to get latest state (including the push we just made)
-          echo "Fetching all branches..."
-          git fetch origin --prune
-          
-          # Ensure we're on main and have latest
-          git checkout main
+          # Ensure we're on main and have latest submissions
+          echo "Current branch: $(git branch --show-current)"
           git pull origin main || echo "Already up to date"
           
-          # Count submissions on main
+          # Count submissions
           SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
-          echo "Submissions on main: $SUBMISSIONS_COUNT"
+          echo "Submissions found: $SUBMISSIONS_COUNT"
           find submissions -name "results.json" -type f | head -5 || echo "No submissions found"
           
-          # Create or checkout leaderboard branch, ensuring it has latest submissions from main
-          if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
-            # Branch exists remotely, checkout it
-            echo "Leaderboard branch exists, checking out..."
-            git checkout -b leaderboard origin/leaderboard 2>/dev/null || (git checkout leaderboard && git pull origin leaderboard)
-            # Merge main to get latest submissions (use theirs strategy to prefer main's submissions)
-            echo "Merging main into leaderboard..."
-            git merge origin/main --no-edit -X theirs || git merge main --no-edit -X theirs || echo "Merge completed or no changes"
-          else
-            # Branch doesn't exist, create it from main (which has all submissions)
-            echo "Creating new leaderboard branch from main..."
-            git checkout -b leaderboard main
-          fi
-          
-          # Show current branch
-          echo "Current branch: $(git branch --show-current)"
-          
-          # Verify submissions are available after checkout/merge
-          echo "Checking for submissions after branch switch..."
-          find submissions -name "results.json" -type f | head -10 || echo "No submissions found"
-          SUBMISSIONS_AFTER=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
-          echo "Submissions after checkout: $SUBMISSIONS_AFTER"
-          
-          # If submissions are missing, checkout them from main
-          if [ "$SUBMISSIONS_AFTER" -eq 0 ] && [ "$SUBMISSIONS_COUNT" -gt 0 ]; then
-            echo "Submissions missing after checkout, restoring from main..."
-            git checkout origin/main -- submissions/ || git checkout main -- submissions/ || echo "Failed to restore submissions"
-            # Verify they're restored
-            SUBMISSIONS_RESTORED=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
-            echo "Submissions after restore: $SUBMISSIONS_RESTORED"
-          fi
-          
-          # Generate leaderboard files (now we have all submissions from main)
+          # Generate leaderboard files
+          echo "Generating leaderboard files..."
           stellcoilbench update-db
           
           # Verify files were generated
           echo "Checking generated files..."
           ls -la docs/ 2>/dev/null || echo "docs/ directory not found"
           ls -la docs/*.md 2>/dev/null | head -5 || echo "No markdown files in docs/"
+          ls -la db/ 2>/dev/null || echo "db/ directory not found"
           
-          # Force-add generated leaderboard files (ignored by .gitignore)
+          # Add generated leaderboard files
           # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
           echo "Adding leaderboard files..."
           ADDED_ANY=false
           
           # Add individual files if they exist
-          for file in db/leaderboard.json docs/leaderboard.md docs/surfaces.md; do
+          for file in db/leaderboard.json docs/surfaces.md; do
             if [ -f "$file" ]; then
               echo "Adding $file"
-              git add -f "$file" && ADDED_ANY=true
+              git add "$file" && ADDED_ANY=true
             else
               echo "File not found: $file"
             fi
           done
           
           # Add leaderboard directories if they exist
-          if [ -d "docs/leaderboards" ] && [ "$(ls -A docs/leaderboards/*.md 2>/dev/null)" ]; then
-            echo "Adding docs/leaderboards/*.md"
-            git add -f docs/leaderboards/*.md && ADDED_ANY=true
-          fi
           if [ -d "docs/surfaces" ] && [ "$(ls -A docs/surfaces/*.md 2>/dev/null)" ]; then
             echo "Adding docs/surfaces/*.md"
-            git add -f docs/surfaces/*.md && ADDED_ANY=true
+            git add docs/surfaces/*.md && ADDED_ANY=true
           fi
           
-          # Remove old leaderboards.md if it exists (now combined into leaderboard.md)
-          if [ -f "docs/leaderboards.md" ]; then
-            echo "Removing old docs/leaderboards.md"
-            git rm -f docs/leaderboards.md
+          # Remove old leaderboard files if they exist
+          if [ -f "docs/leaderboard.md" ]; then
+            echo "Removing old docs/leaderboard.md"
+            git rm -f docs/leaderboard.md 2>/dev/null || true
+          fi
+          if [ -d "docs/leaderboards" ]; then
+            echo "Removing old docs/leaderboards/ directory"
+            git rm -rf docs/leaderboards 2>/dev/null || true
           fi
           
           echo "Files added: $ADDED_ANY"
@@ -255,23 +221,16 @@ jobs:
           
           # Commit if there are changes
           if ! git diff --staged --quiet; then
-            echo "Committing leaderboard files..."
+            echo "Committing leaderboard files to main..."
             git commit -m "chore: update StellCoilBench leaderboard" || echo "Commit failed"
-            echo "Attempting to push to leaderboard branch..."
-            # Set upstream if branch doesn't exist remotely
-            if git show-ref --verify --quiet refs/remotes/origin/leaderboard; then
-              git push origin leaderboard || (echo "ERROR: Failed to push" && exit 1)
-            else
-              git push -u origin leaderboard || (echo "ERROR: Failed to push new branch" && exit 1)
-            fi
-            echo "Successfully pushed leaderboard to leaderboard branch"
+            echo "Pushing to main..."
+            git push origin main || (echo "ERROR: Failed to push to main" && exit 1)
+            echo "Successfully pushed leaderboard files to main"
           else
             echo "No leaderboard changes to commit"
             echo "Staged files:"
             git diff --staged --name-only || echo "No staged files"
             echo "Untracked/modified files:"
             git status --short | grep -E "(docs/|db/)" | head -10 || echo "No leaderboard files found"
-            echo "All untracked files:"
-            git status --untracked-files=all --short | head -10
           fi
 

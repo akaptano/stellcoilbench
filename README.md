@@ -17,15 +17,15 @@ A repository for automated benchmarking of stellarator coil optimization techniq
    ```
 
 3. **View the leaderboard:**
-   - Browse the `leaderboard` branch on GitHub
-   - Or run locally: `git checkout leaderboard`
+   - Browse `docs/surfaces.md` on GitHub
+   - Or view locally: `cat docs/surfaces.md`
 
 ## How It Works
 
 - **Submissions** (`submissions/`) are committed to the `main` branch
-- **Leaderboard files** (`docs/`, `db/`) are committed to the `leaderboard` branch
+- **Leaderboard files** (`docs/`, `db/`) are committed to the `main` branch
 - CI automatically updates the leaderboard when you push submissions
-- You don't need to pull leaderboard files - they're on a separate branch
+- All files are on the `main` branch
 
 ## Documentation
 
@@ -35,6 +35,6 @@ A repository for automated benchmarking of stellarator coil optimization techniq
 
 ## Leaderboard
 
-The leaderboard is automatically generated and available on the `leaderboard` branch:
-- View online: Browse the `leaderboard` branch on GitHub
-- View locally: `git checkout leaderboard` then open `docs/leaderboard.md`
+The leaderboard is automatically generated and available on the `main` branch:
+- View online: Browse `docs/surfaces.md` on GitHub
+- View locally: `cat docs/surfaces.md` or browse `docs/surfaces/` directory

@@ -23,9 +23,9 @@ stellcoilbench/
 │   │           ├── coils.json    # Optimized coil geometry
 │   │           └── *.vtu, *.vts  # VTK visualization files
 │   └── README.md
-├── db/                       # Generated reference files (on leaderboard branch only)
+├── db/                       # Generated database files
 │   └── leaderboard.json      # Optional reference file
-└── docs/                     # Generated leaderboards (on leaderboard branch only)
+└── docs/                     # Generated leaderboards
     ├── surfaces.md           # Index of all surface leaderboards
     └── surfaces/             # Per-surface leaderboards
         └── *.md              # One leaderboard per plasma surface
@@ -104,15 +104,13 @@ Replace `<surface>`, `<your_username>`, and `<timestamp>` with the actual values
 When you push to `main`, CI automatically:
 1. Commits your submission to the `main` branch
 2. Scans `submissions/` for all `results.json` files
-3. Builds `db/` database files **on the `leaderboard` branch only** (not on `main`)
-4. Generates per-surface leaderboards in `docs/surfaces/` **on the `leaderboard` branch only** (not on `main`)
-5. Commits the leaderboard files (`db/` and `docs/`) to the `leaderboard` branch (separate from `main`)
+3. Builds `db/` database files
+4. Generates per-surface leaderboards in `docs/surfaces/`
+5. Commits the leaderboard files (`db/` and `docs/`) to the `main` branch
 
 **Important**: 
-- **`db/` and `docs/` directories do NOT exist on the `main` branch** - they are only created and updated on the `leaderboard` branch via CI
-- Leaderboard files (`db/` and `docs/`) are only updated on the `leaderboard` branch via CI
-- You don't need to pull leaderboard files - they're on a separate branch. Your `main` branch stays clean!
-- The `leaderboard` branch contains generated files that are automatically updated by CI
+- All files (`submissions/`, `db/`, and `docs/`) are committed to the `main` branch
+- Leaderboard files (`db/` and `docs/`) are automatically generated and updated by CI on `main`
 
 ## How It Works
 
@@ -132,10 +130,9 @@ When you push to `main`, CI automatically:
 ### Generated Files (`db/`, `docs/`)
 - **Purpose**: Aggregated database and per-surface leaderboards
 - **Format**: JSON (db/) and Markdown (docs/surfaces/)
-- **Usage**: Displayed on GitHub (browse the `leaderboard` branch)
-- **Git**: **Only exist on `leaderboard` branch** - these directories are NOT on the `main` branch
-- **Update**: Automatically generated and updated by CI on the `leaderboard` branch when submissions are pushed to `main`
-- **Note**: You don't need to pull these files - they're on a separate branch. The `main` branch does not contain `db/` or `docs/` directories
+- **Usage**: Displayed on GitHub (browse the `main` branch)
+- **Git**: Tracked in git on `main` branch
+- **Update**: Automatically generated and updated by CI on `main` when submissions are pushed
 
 ## Example Workflow
 
@@ -163,19 +160,18 @@ git push
 
 - **Cases** (`cases/`) = Problem definitions (what to optimize) - on `main` branch
 - **Submissions** (`submissions/`) = Results (your solutions) - committed to `main` branch
-- **Leaderboard files** (`docs/`, `db/`) = Generated per-surface leaderboards - **ONLY exist on `leaderboard` branch, NOT on `main`**
+- **Leaderboard files** (`docs/`, `db/`) = Generated per-surface leaderboards - on `main` branch
 - **Put submissions in `submissions/`** - either:
   - Generate them with `submit-case` command (recommended)
   - Or manually create `results.json` files following the format
-- **CI scans `submissions/`** from `main` branch to build per-surface leaderboards on the `leaderboard` branch
+- **CI scans `submissions/`** from `main` branch to build per-surface leaderboards on `main`
 - **Each submission** = one `results.json` file in `submissions/<surface>/<username>/<MM-DD-YYYY_HH-MM>/` on `main` branch
-- **Leaderboard files are auto-generated** - `db/` and `docs/` directories are created and updated by CI **only on the `leaderboard` branch**, they do not exist on `main`
-- **You don't need to pull leaderboard files** - they're on a separate branch, so `main` stays clean!
+- **Leaderboard files are auto-generated** - `db/` and `docs/` directories are created and updated by CI on `main`
+- **All files are on `main`** - `submissions/`, `db/`, and `docs/` are all committed to the `main` branch
 
 ## Viewing the Leaderboard
 
-The leaderboard is automatically updated on the `leaderboard` branch:
-- Browse: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces.md` (index of all surfaces)
-- Or browse individual surface leaderboards: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces/<surface>.md`
-- Or switch to the `leaderboard` branch locally: `git checkout leaderboard`
+The leaderboard is automatically updated on the `main` branch:
+- Browse: `https://github.com/<your-repo>/blob/main/docs/surfaces.md` (index of all surfaces)
+- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/surfaces/<surface>.md`
 

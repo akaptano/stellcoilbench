@@ -72,15 +72,14 @@ This will:
 
 After submitting, CI automatically:
 - Commits your submission to the `main` branch
-- Generates per-surface leaderboards in `docs/surfaces/` on the `leaderboard` branch
-- Commits leaderboard files (`db/` and `docs/`) to the `leaderboard` branch (separate from `main`)
+- Generates per-surface leaderboards in `docs/surfaces/` on the `main` branch
+- Commits leaderboard files (`db/` and `docs/`) to the `main` branch
 
 **Important**: 
-- Leaderboard files (`db/` and `docs/`) are only updated on the `leaderboard` branch via CI
-- You don't need to pull leaderboard files - they're on a separate branch. Your `main` branch stays clean!
-- The `leaderboard` branch contains generated files that are automatically updated by CI
+- All files (`submissions/`, `db/`, and `docs/`) are committed to the `main` branch
+- Leaderboard files (`db/` and `docs/`) are automatically generated and updated by CI on `main`
 
 View the leaderboard:
-- Browse: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces.md` (index of all surfaces)
-- Or browse individual surface leaderboards: `https://github.com/<your-repo>/tree/leaderboard/docs/surfaces/<surface>.md`
+- Browse: `https://github.com/<your-repo>/blob/main/docs/surfaces.md` (index of all surfaces)
+- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/surfaces/<surface>.md`
 

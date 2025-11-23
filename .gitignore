@@ -1,7 +1,6 @@
 # Generated benchmark artifacts – rebuilt via `stellcoilbench update-db`
-db/
+# Note: db/ and docs/surfaces/ are tracked in git (committed to main branch)
+# Old leaderboard files (no longer used):
 docs/leaderboard.md
 docs/leaderboards/
-docs/surfaces.md
-docs/surfaces/
 # Note: submissions/ is NOT ignored - submissions are source data that should be committed
