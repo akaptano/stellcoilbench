@@ -31,7 +31,7 @@ The `db/`, `docs/`, and `submissions/` directories are updated by CI and should 
 git pull-safe
 ```
 
-This will automatically clean untracked files in these directories and pull with the `theirs` strategy.
+This will automatically clean untracked files in these directories and pull with the `theirs` strategy (prefers remote versions).
 
 ### Alternative Methods
 
