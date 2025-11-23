@@ -48,8 +48,8 @@ def _metric_shorthand(metric_name: str) -> str:
         "final_linking_number": "LN",
         
         # Coil parameters
-        "coil_order": "order",
-        "num_coils": "N_coils",
+        "coil_order": "n",
+        "num_coils": "N",
         
         # Score (keep for sorting but don't display)
         "score_primary": "score",
@@ -66,14 +66,14 @@ def _metric_definition(metric_name: str) -> str:
     """
     definitions = {
         # B-field related
-        "final_normalized_squared_flux": r"$f_B = \frac{1}{|\partial S|} \int_{\partial S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ - Normalized squared flux error on plasma surface",
+        "final_normalized_squared_flux": r"$\frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ - Normalized squared flux error on plasma surface",
         "max_BdotN_over_B": r"$\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)$ - Maximum normalized normal field component",
-        "avg_BdotN_over_B": r"$\frac{1}{|\partial S|} \int_{\partial S} \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|} dS$ - Average normalized normal field component",
+        "avg_BdotN_over_B": r"$\frac{1}{|S|} \int_{S} \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|} dS$ - Average normalized normal field component",
         
         # Curvature
-        "final_average_curvature": r"$\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ - Mean curvature over all coils, where $\kappa_i = |\mathbf{r}''(s)|$",
+        "final_average_curvature": r"$\frac{1}{N} \sum_{i=1}^{N} \kappa_i$ - Mean curvature over all coils, where $\kappa_i = |\mathbf{r}''(s)|$",
         "final_max_curvature": r"$\max(\kappa)$ - Maximum curvature across all coils",
-        "final_mean_squared_curvature": r"$\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ - Mean squared curvature",
+        "final_mean_squared_curvature": r"$\frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ - Mean squared curvature",
         
         # Separations
         "final_min_cs_separation": r"$\min(d_{cs})$ - Minimum coil-to-surface distance",
@@ -82,19 +82,19 @@ def _metric_definition(metric_name: str) -> str:
         "final_cc_separation": r"$d_{cc}$ - Average coil-to-coil separation",
         
         # Length
-        "final_total_length": r"$L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ - Total length of all coils",
+        "final_total_length": r"$\sum_{i=1}^{N} \int_{0}^{L_i} ds$ - Total length of all coils",
         
         # Forces/Torques
         "final_max_max_coil_force": r"$\max(|\mathbf{F}_i|)$ - Maximum force magnitude across all coils",
-        "final_avg_max_coil_force": r"$\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ - Average of maximum force per coil",
+        "final_avg_max_coil_force": r"$\frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ - Average of maximum force per coil",
         "final_max_max_coil_torque": r"$\max(|\boldsymbol{\tau}_i|)$ - Maximum torque magnitude across all coils",
-        "final_avg_max_coil_torque": r"$\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ - Average of maximum torque per coil",
+        "final_avg_max_coil_torque": r"$\frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ - Average of maximum torque per coil",
         
         # Time
         "optimization_time": r"$t$ - Total optimization time (seconds)",
         
         # Linking number
-        "final_linking_number": r"$\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ - Linking number between coil pairs",
+        "final_linking_number": r"$\frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ - Linking number between coil pairs",
         
         # Coil parameters
         "coil_order": r"$n$ - Fourier order of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$",

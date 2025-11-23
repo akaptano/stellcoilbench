@@ -434,31 +434,63 @@ def optimize_coils_loop(
     Jf = SquaredFlux(s, bs, definition="normalized", threshold=flux_threshold)
     
     # Build constraint terms based on coil_objective_terms configuration
-    # If coil_objective_terms is None or empty, use default behavior (all terms included)
-    use_default = coil_objective_terms is None or len(coil_objective_terms) == 0
+    # If coil_objective_terms is None or empty, omit all constraint objectives (only flux objective included)
+    # Only explicitly specified objectives in coil_objective_terms will be included
     
     # Prepare all constraint objects (create them regardless, but only add to c_list if specified)
     Jls = [CurveLength(c) for c in base_curves]
-    Jccdist = CurveCurveDistance(curves, cc_threshold, num_basecurves=ncoils)
-    Jcsdist = CurveSurfaceDistance(curves, s, cs_threshold)
-    Jcs = [LpCurveCurvature(c, 2, curvature_threshold) for c in base_curves]
-    Jlink = LinkingNumber(curves, downsample=2)
-    Jforce = LpCurveForce(coils[:ncoils], coils, p=2.0, threshold=force_threshold, downsample=2)
-    Jtorque = LpCurveTorque(coils[:ncoils], coils, p=2.0, threshold=torque_threshold, downsample=2)
-    Jmscs = [MeanSquaredCurvature(c) for c in base_curves]
     
     # Get p values for lp terms (default to 2)
     curvature_p = coil_objective_terms.get("coil_curvature_p", 2) if coil_objective_terms else 2
     force_p = coil_objective_terms.get("coil_coil_force_p", 2) if coil_objective_terms else 2
     torque_p = coil_objective_terms.get("coil_coil_torque_p", 2) if coil_objective_terms else 2
     
-    # Update curvature, force, and torque with correct p values if specified
+    # Determine thresholds for distance and force/torque terms based on options
+    # Default to using thresholds (for backward compatibility with default behavior)
+    cc_thresh = cc_threshold
+    cs_thresh = cs_threshold
+    force_thresh = force_threshold
+    torque_thresh = torque_threshold
+    
+    # Check if l1 (no threshold) or l1_threshold is specified
+    # Only adjust thresholds if the term is explicitly specified in coil_objective_terms
+    if coil_objective_terms:
+        coil_coil_dist_option = coil_objective_terms.get("coil_coil_distance")
+        if coil_coil_dist_option and "threshold" in coil_coil_dist_option:
+            cc_thresh = cc_threshold
+        else:
+            cc_thresh = 0.0
+        
+        coil_surf_dist_option = coil_objective_terms.get("coil_surface_distance")
+        if coil_surf_dist_option and "threshold" in coil_surf_dist_option:
+            cs_thresh = cs_threshold
+        else:
+            cs_thresh = 0.0
+        
+        coil_force_option = coil_objective_terms.get("coil_coil_force")
+        if coil_force_option and "threshold" in coil_force_option:
+            force_thresh = force_threshold
+        else:
+            force_thresh = 0.0
+        
+        coil_torque_option = coil_objective_terms.get("coil_coil_torque")
+        if coil_torque_option and "threshold" in coil_torque_option:
+            torque_thresh = torque_threshold
+        else:
+            torque_thresh = 0.0
+    
+    # Create distance and force/torque objects with appropriate thresholds
+    Jccdist = CurveCurveDistance(curves, cc_thresh, num_basecurves=ncoils)
+    Jcsdist = CurveSurfaceDistance(curves, s, cs_thresh)
+    Jcs = [LpCurveCurvature(c, 2, curvature_threshold) for c in base_curves]
+    Jlink = LinkingNumber(curves, downsample=2)
+    Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_thresh, downsample=2)
+    Jtorque = LpCurveTorque(coils[:ncoils], coils, p=torque_p, threshold=torque_thresh, downsample=2)
+    Jmscs = [MeanSquaredCurvature(c) for c in base_curves]
+    
+    # Update curvature with correct p value if specified
     if coil_objective_terms and curvature_p != 2:
         Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves]
-    if coil_objective_terms and force_p != 2:
-        Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_threshold, downsample=2)
-    if coil_objective_terms and torque_p != 2:
-        Jtorque = LpCurveTorque(coils[:ncoils], coils, p=torque_p, threshold=torque_threshold, downsample=2)
 
     # Print initial constraint values
     print("Initial thresholds:")
@@ -476,50 +508,44 @@ def optimize_coils_loop(
     start_time = time.time()
     
     # Build constraint list dynamically based on coil_objective_terms
+    # Only explicitly specified objectives in coil_objective_terms will be included
+    # If coil_objective_terms is None or empty, only flux objective is included (no constraints)
     c_list = [Jf]  # Always include flux
     
-    if use_default:
-        # Default behavior: include all constraints
-        c_list.extend([
-            Jccdist,
-            Weight(1e3) * Jcsdist,  # Special attention to avoiding coil-surface intersections
-            QuadraticPenalty(sum(Jls), length_target, "max"),
-            sum(QuadraticPenalty(J, msc_threshold, "max") for J in Jmscs),
-            sum(Jcs),
-            Jlink,
-            Jforce,
-            Jtorque
-        ])
-    else:
-        # Build constraint list based on coil_objective_terms
-        # Map term names to constraint objects and penalty types
+    # Build constraint list based on coil_objective_terms
+    # Map term names to constraint objects and penalty types
+    # Note: Thresholds for l1/l1_threshold/lp/lp_threshold are already set during object creation
+    # Only l2/l2_threshold options need QuadraticPenalty wrapping
+    if coil_objective_terms:
         term_map = {
             "total_length": {
                 "obj": sum(Jls),
                 "threshold": length_target,
-                "l1": lambda obj, thresh: obj,  # Weighted for importance
+                "l1": lambda obj, thresh: obj,
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_coil_distance": {
                 "obj": Jccdist,
                 "threshold": cc_threshold,
-                "l1": lambda obj, thresh: obj,  # L1 penalty is built into CurveCurveDistance
+                "l1": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
+                "l1_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_surface_distance": {
                 "obj": Jcsdist,
                 "threshold": cs_threshold,
-                "l1": lambda obj, thresh: Weight(1e3) * obj,  # Weighted for importance
+                "l1": lambda obj, thresh: Weight(1e3) * obj,  # Threshold already set to 0.0 in object creation
+                "l1_threshold": lambda obj, thresh: Weight(1e3) * obj,  # Threshold already set in object creation
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_curvature": {
                 "obj": sum(Jcs),
                 "threshold": curvature_threshold,
-                "lp": lambda obj, thresh: obj,
-                "lp_threshold": lambda obj, thresh: obj,
+                "lp": lambda obj, thresh: obj,  # Threshold already set in object creation
+                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
             },
             "coil_mean_squared_curvature": {
                 "obj": Jmscs,
@@ -531,20 +557,21 @@ def optimize_coils_loop(
             "linking_number": {
                 "obj": Jlink,
                 "threshold": None,
+                "": lambda obj, thresh: obj,  # Empty string defaults to including linking number
                 "l2": lambda obj, thresh: obj,
                 "l2_threshold": lambda obj, thresh: obj,
             },
             "coil_coil_force": {
                 "obj": Jforce,
                 "threshold": force_threshold,
-                "lp": lambda obj, thresh: obj,
-                "lp_threshold": lambda obj, thresh: obj,
+                "lp": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
+                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
             },
             "coil_coil_torque": {
                 "obj": Jtorque,
                 "threshold": torque_threshold,
-                "lp": lambda obj, thresh: obj,
-                "lp_threshold": lambda obj, thresh: obj,
+                "lp": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
+                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
             },
         }
         
@@ -553,14 +580,14 @@ def optimize_coils_loop(
             if term_name.endswith("_p"):
                 continue
             
-            # Skip empty linking_number
-            if term_name == "linking_number" and term_value == "":
-                continue
-            
             if term_name in term_map:
                 term_config = term_map[term_name]
                 obj = term_config["obj"]
                 thresh = term_config["threshold"]
+                
+                # Handle empty string for linking_number (defaults to including it)
+                if term_name == "linking_number" and term_value == "":
+                    term_value = "l2"  # Default to l2 when empty string is specified
                 
                 if term_value in term_config:
                     constraint = term_config[term_value](obj, thresh)

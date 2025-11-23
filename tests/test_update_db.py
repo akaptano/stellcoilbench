@@ -22,8 +22,8 @@ class TestMetricShorthand:
         assert _metric_shorthand("max_BdotN_over_B") == "max⟨Bn⟩/⟨B⟩"
         assert _metric_shorthand("final_average_curvature") == "κ̄"
         assert _metric_shorthand("final_linking_number") == "LN"
-        assert _metric_shorthand("coil_order") == "order"
-        assert _metric_shorthand("num_coils") == "N_coils"
+        assert _metric_shorthand("coil_order") == "n"
+        assert _metric_shorthand("num_coils") == "N"
     
     def test_unknown_metric(self):
         """Test shorthand for unknown metric."""
@@ -36,12 +36,12 @@ class TestMetricDefinition:
     def test_known_metric_definitions(self):
         """Test definitions for known metrics."""
         flux_def = _metric_definition("final_normalized_squared_flux")
-        assert "f_B" in flux_def
         assert "Normalized squared flux" in flux_def
+        assert r"\int" in flux_def  # Check for the integral formula
         
         ln_def = _metric_definition("final_linking_number")
-        assert "LN" in ln_def
         assert "Linking number" in ln_def
+        assert r"4\pi" in ln_def or "4π" in ln_def  # Check for the formula
     
     def test_unknown_metric_definition(self):
         """Test definition for unknown metric."""

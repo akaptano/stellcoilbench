@@ -193,7 +193,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "linking_number":
-                    # Empty string means don't use it, otherwise should be a valid option
+                    # Empty string means include it (defaults to l2), otherwise should be a valid option
                     if term_value != "" and term_value not in ["l2", "l2_threshold"]:
                         errors.append(
                             f"{file_prefix}coil_objective_terms.linking_number must be empty string or one of ['l2', 'l2_threshold'], "
