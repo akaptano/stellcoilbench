@@ -98,17 +98,17 @@ jobs:
           
           echo ""
           echo "Checking generated submissions..."
-          SUBMISSION_COUNT=$(find submissions -name "results.json" -type f | wc -l)
-          echo "Total submissions generated: $SUBMISSION_COUNT"
+          # Submissions are now zipped, so check for zip files
+          ZIP_COUNT=$(find submissions -name "*.zip" -type f | wc -l)
+          echo "Total zip files found: $ZIP_COUNT"
           
-          if [ "$SUBMISSION_COUNT" -eq 0 ]; then
-            echo "ERROR: No results.json files were generated!"
+          if [ "$ZIP_COUNT" -eq 0 ]; then
+            echo "ERROR: No zip files were generated!"
             exit 1
           fi
           
-          echo "Submission files:"
-          find submissions -name "results.json" -type f
-          find submissions -type f \( -name "*.json" -o -name "*.yaml" -o -name "*.vtu" -o -name "*.vts" \) | head -20
+          echo "Submission zip files:"
+          find submissions -name "*.zip" -type f | head -20
 
       - name: Configure Git
         run: |
@@ -117,17 +117,21 @@ jobs:
 
       - name: Commit submissions to main
         run: |
-          # List what was generated
+          # List what was generated (submissions are now zipped)
           echo "Checking for generated submissions..."
-          find submissions -type f \( -name "*.json" -o -name "*.yaml" \) 2>/dev/null | head -10 || echo "No submission files found"
+          find submissions -name "*.zip" -type f 2>/dev/null | head -20 || echo "No zip files found"
           
           # Show git status before adding
           echo "Git status before adding:"
-          git status --short submissions/ | head -20 || echo "No changes in submissions/"
+          git status --short submissions/ | head -30 || echo "No changes in submissions/"
           
-          # Add submission files
-          echo "Adding submission files..."
+          # Add submission files (including zip files)
+          echo "Adding submission files (including zip files)..."
           git add submissions/ || echo "git add failed"
+          
+          # Explicitly verify zip files are staged
+          echo "Checking for staged zip files:"
+          git diff --staged --name-only | grep "\.zip$" || echo "No zip files in staged changes"
           
           # Show what's staged
           echo "Staged files:"
@@ -152,9 +156,11 @@ jobs:
             echo "  3. No files were generated"
             # Show what git sees
             echo "Files in submissions/:"
-            find submissions -type f | head -10
+            find submissions -type f | head -20
             echo "Git status of submissions/:"
             git status submissions/ || echo "No status"
+            echo "Checking for zip files:"
+            find submissions -name "*.zip" -type f || echo "No zip files found"
           fi
           
           # Verify submissions still exist after commit
@@ -181,10 +187,11 @@ jobs:
           fi
           
           # Count submissions (should include both locally committed and merged from remote)
-          SUBMISSIONS_COUNT=$(find submissions -name "results.json" -type f 2>/dev/null | wc -l)
+          # Submissions are now zipped
+          SUBMISSIONS_COUNT=$(find submissions -name "*.zip" -type f 2>/dev/null | wc -l)
           echo "Submissions found: $SUBMISSIONS_COUNT"
-          echo "All submission files:"
-          find submissions -name "results.json" -type f | sort || echo "No submissions found"
+          echo "All submission zip files:"
+          find submissions -name "*.zip" -type f | sort || echo "No zip files found"
           
           # Generate leaderboard files (processes all submissions in submissions/ directory)
           echo "Generating leaderboard files..."

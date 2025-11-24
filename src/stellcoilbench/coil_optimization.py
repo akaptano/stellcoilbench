@@ -560,8 +560,9 @@ def _zip_output_files(out_dir: Path) -> Path:
     zip_path = out_dir / zip_filename
     
     # Find all files to zip (VTK files, JSON files, etc.)
+    # Only zip VTK files for compression - keep JSON files (coils.json, results.json) unzipped
     files_to_zip = []
-    for pattern in ["*.vtu", "*.vts", "*.json"]:
+    for pattern in ["*.vtu", "*.vts"]:
         files_to_zip.extend(out_dir.glob(pattern))
     
     # Only create zip if there are files to zip
@@ -574,10 +575,10 @@ def _zip_output_files(out_dir: Path) -> Path:
         print(f"Created zip archive: {zip_path}")
         print(f"  Contains {len(files_to_zip)} files")
         
-        # Optionally remove original files after zipping (uncomment if desired)
-        # for file_path in files_to_zip:
-        #     file_path.unlink()
-        #     print(f"  Removed {file_path.name}")
+        # Remove original VTK files after zipping for compression
+        for file_path in files_to_zip:
+            file_path.unlink()
+            print(f"  Removed {file_path.name} (now in zip archive)")
     
     return zip_path
 
@@ -1111,8 +1112,8 @@ def optimize_coils_loop(
     print("Optimization completed successfully!")
     print(f"Results saved to: {out_dir}")
     
-    # Zip all output files with date stamp
-    _ = _zip_output_files(out_dir)
+    # Note: Individual file zipping is disabled - the entire submission directory
+    # will be zipped by submit-case command after all files are written
     
     # Prepare results dictionary
     bs.set_points(s.gamma().reshape((-1, 3)))

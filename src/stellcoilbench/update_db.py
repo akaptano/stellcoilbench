@@ -108,20 +108,28 @@ def _metric_definition(metric_name: str) -> str:
 def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]:
     """
     Iterate over all submission results.json files under submissions_root.
+    
+    Handles both regular directories and zip files. For zip files, extracts
+    results.json and case.yaml temporarily to read them.
 
     Yields
     ------
     (method_key, path, data)
         method_key: "method_name:version_or_run_id"
-        path: path to results.json
+        path: path to results.json (or zip file containing it)
         data: parsed JSON dict
     """
+    import tempfile
+    import zipfile
+    
     if not submissions_root.exists():
         import sys
         print(f"Warning: Submissions directory does not exist: {submissions_root}", file=sys.stderr)
         return  # nothing to do
 
     found_count = 0
+    
+    # First, handle regular JSON files in directories
     for path in submissions_root.rglob("*.json"):
         # Skip files that are clearly not submission results
         if path.name != "results.json":
@@ -134,14 +142,44 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             print(f"Warning: Failed to parse JSON from {path}: {e}", file=sys.stderr)
             continue
 
-        meta = data.get("metadata") or {}
-        method_name = meta.get("method_name", "UNKNOWN")
-        # Use explicit method_version if present, otherwise fall back to dir name.
-        version = meta.get("method_version") or path.parent.name
-        method_key = f"{method_name}:{version}"
+                meta = data.get("metadata") or {}
+                method_name = meta.get("method_name", "UNKNOWN")
+                # Use explicit method_version if present, otherwise fall back to dir name.
+                # For zip files, use the zip filename (without .zip extension)
+                if path.suffix == ".zip":
+                    version = meta.get("method_version") or path.stem
+                else:
+                    version = meta.get("method_version") or path.parent.name
+                method_key = f"{method_name}:{version}"
         
         found_count += 1
         yield method_key, path, data
+    
+    # Second, handle zip files (submission directories that were zipped)
+    for zip_path in submissions_root.rglob("*.zip"):
+        try:
+            with zipfile.ZipFile(zip_path, 'r') as zf:
+                # Check if results.json exists in the zip
+                if "results.json" not in zf.namelist():
+                    continue
+                
+                # Read results.json from zip
+                results_json_content = zf.read("results.json")
+                data = json.loads(results_json_content.decode('utf-8'))
+                
+                meta = data.get("metadata") or {}
+                method_name = meta.get("method_name", "UNKNOWN")
+                # Use zip filename (without .zip) as version/directory name
+                version = zip_path.stem  # Remove .zip extension
+                method_key = f"{method_name}:{version}"
+                
+                found_count += 1
+                # Yield with zip_path as the path (even though results.json is inside)
+                yield method_key, zip_path, data
+        except Exception as e:
+            import sys
+            print(f"Warning: Failed to read zip file {zip_path}: {e}", file=sys.stderr)
+            continue
     
     import sys
     if found_count == 0:
@@ -184,19 +222,37 @@ def build_methods_json(
         metrics_numeric = _numeric_fields(metrics)
         
         # Extract coil parameters from case.yaml if available
-        case_yaml_path = path.parent / "case.yaml"
-        if case_yaml_path.exists():
+        # Handle both regular directories and zip files
+        import zipfile
+        case_yaml_data = None
+        
+        if path.suffix == ".zip":
+            # Read case.yaml from zip file
             try:
-                case_data = yaml.safe_load(case_yaml_path.read_text())
-                coils_params = case_data.get("coils_params", {})
-                # Add coil order and number of coils to metrics
-                if "order" in coils_params:
-                    metrics_numeric["coil_order"] = float(coils_params["order"])
-                if "ncoils" in coils_params:
-                    metrics_numeric["num_coils"] = float(coils_params["ncoils"])
+                with zipfile.ZipFile(path, 'r') as zf:
+                    if "case.yaml" in zf.namelist():
+                        case_yaml_content = zf.read("case.yaml")
+                        case_yaml_data = yaml.safe_load(case_yaml_content.decode('utf-8'))
             except Exception as e:
                 import sys
-                print(f"Warning: Failed to load case.yaml from {case_yaml_path}: {e}", file=sys.stderr)
+                print(f"Warning: Failed to load case.yaml from zip {path}: {e}", file=sys.stderr)
+        else:
+            # Read case.yaml from regular directory
+            case_yaml_path = path.parent / "case.yaml"
+            if case_yaml_path.exists():
+                try:
+                    case_yaml_data = yaml.safe_load(case_yaml_path.read_text())
+                except Exception as e:
+                    import sys
+                    print(f"Warning: Failed to load case.yaml from {case_yaml_path}: {e}", file=sys.stderr)
+        
+        if case_yaml_data:
+            coils_params = case_yaml_data.get("coils_params", {})
+            # Add coil order and number of coils to metrics
+            if "order" in coils_params:
+                metrics_numeric["coil_order"] = float(coils_params["order"])
+            if "ncoils" in coils_params:
+                metrics_numeric["num_coils"] = float(coils_params["ncoils"])
         
         # Extract primary score
         primary_score = metrics_numeric.get("score_primary")
@@ -215,7 +271,7 @@ def build_methods_json(
 
         methods[method_key] = {
             "method_name": meta.get("method_name", "UNKNOWN"),
-            "method_version": meta.get("method_version", path.parent.name),
+            "method_version": meta.get("method_version", path.stem if path.suffix == ".zip" else path.parent.name),
             "contact": meta.get("contact", ""),
             "hardware": meta.get("hardware", ""),
             "run_date": meta.get("run_date", ""),

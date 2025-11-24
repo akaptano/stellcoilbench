@@ -5,6 +5,7 @@ import json
 import platform
 import shutil
 import subprocess
+import zipfile
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -85,6 +86,61 @@ def _detect_github_username() -> str:
         return github_user
     
     return ""
+
+
+def _zip_submission_directory(submission_dir: Path) -> Path:
+    """
+    Zip the entire submission directory and remove original files.
+    
+    Creates a zip file named after the submission directory (e.g., "11-23-2025_19-11.zip")
+    and removes the original directory.
+    
+    Parameters
+    ----------
+    submission_dir: Path
+        Directory containing submission files to zip.
+    
+    Returns
+    -------
+    Path
+        Path to the created zip file.
+    """
+    submission_dir = Path(submission_dir)
+    
+    if not submission_dir.exists() or not submission_dir.is_dir():
+        typer.echo(f"Warning: Submission directory does not exist: {submission_dir}")
+        return submission_dir.parent / f"{submission_dir.name}.zip"
+    
+    # Create zip filename based on directory name
+    zip_filename = f"{submission_dir.name}.zip"
+    zip_path = submission_dir.parent / zip_filename
+    
+    # Find all files in the submission directory
+    files_to_zip = []
+    for file_path in submission_dir.rglob("*"):
+        if file_path.is_file():
+            files_to_zip.append(file_path)
+    
+    if not files_to_zip:
+        typer.echo(f"Warning: No files found in {submission_dir} to zip")
+        return zip_path
+    
+    # Create zip file with all files
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for file_path in files_to_zip:
+            # Add file to zip with relative path from submission_dir
+            arcname = file_path.relative_to(submission_dir)
+            zipf.write(file_path, arcname=arcname)
+    
+    typer.echo(f"Created zip archive: {zip_path}")
+    typer.echo(f"  Contains {len(files_to_zip)} files")
+    
+    # Remove the original submission directory and all its contents
+    shutil.rmtree(submission_dir)
+    typer.echo(f"  Removed original directory: {submission_dir}")
+    typer.echo(f"  Submission is now compressed in: {zip_path}")
+    
+    return zip_path
 
 
 def _detect_hardware() -> str:
@@ -308,6 +364,9 @@ def submit_case(
         submission_case_yaml = submission_dir / "case.yaml"
         shutil.copy2(case_yaml_path, submission_case_yaml)
         typer.echo(f"Copied case.yaml to {submission_case_yaml}")
+    
+    # Zip the entire submission directory and remove original files
+    _zip_submission_directory(submission_dir)
 
 
 @app.command("run-case")
