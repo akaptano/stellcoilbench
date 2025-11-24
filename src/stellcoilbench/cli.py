@@ -164,32 +164,26 @@ def update_db_cmd(
         Path("submissions"),
         help="Directory containing per-method submissions (results.json files).",
     ),
-    db_dir: Path = typer.Option(
-        Path("db"),
-        "--db-dir",
-        help="Directory where database JSON files (methods.json, cases.json, leaderboard.json) are stored.",
-    ),
     docs_dir: Path = typer.Option(
         Path("docs"),
         "--docs-dir",
-        help="Directory where docs/surfaces/ leaderboards are written.",
+        help="Directory where docs/surfaces/ leaderboards and leaderboard.json are written.",
     ),
 ) -> None:
     """
     Rebuild the on-repo 'database' of submissions and leaderboards.
 
     This scans submissions_dir for results.json files produced by `coilbench eval-bundle`,
-    aggregates them into db/*.json, and writes per-surface leaderboards in docs/surfaces/.
+    aggregates them into docs/leaderboard.json, and writes per-surface leaderboards in docs/surfaces/.
     """
     from .update_db import update_database
     repo_root = Path.cwd()
     update_database(
         repo_root=repo_root,
         submissions_root=submissions_dir,
-        db_dir=db_dir,
         docs_dir=docs_dir,
     )
-    typer.echo(f"Updated database in {db_dir} and surface leaderboards in {docs_dir / 'surfaces'}")
+    typer.echo(f"Updated leaderboard.json and surface leaderboards in {docs_dir / 'surfaces'}")
 
 
 @app.command("submit-case")

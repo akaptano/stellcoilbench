@@ -22,7 +22,7 @@ A repository for automated benchmarking of stellarator coil optimization techniq
 
 ## Git Configuration
 
-The `db/`, `docs/`, and `submissions/` directories are updated by CI and should prefer remote versions when pulling.
+The `docs/` and `submissions/` directories are updated by CI and should prefer remote versions when pulling.
 
 ### Quick Solution
 
@@ -38,7 +38,7 @@ This will automatically clean untracked files in these directories and pull with
 **Option 1: Manual cleanup then pull**
 ```bash
 # Remove untracked files that would conflict
-git clean -fd db/ docs/ submissions/
+git clean -fd docs/ submissions/
 
 # Pull with strategy that prefers remote
 git pull -X theirs
@@ -57,7 +57,7 @@ git config --local pull.strategy-option theirs
 
 ### Why This Is Needed
 
-When CI updates `db/`, `docs/`, or `submissions/` on the remote, and you have local untracked files in these directories, git will refuse to pull to avoid overwriting your local files. Since these directories are managed by CI, you typically want to accept the remote version.
+When CI updates `docs/` or `submissions/` on the remote, and you have local untracked files in these directories, git will refuse to pull to avoid overwriting your local files. Since these directories are managed by CI, you typically want to accept the remote version.
 
 ### Configuration Files
 
@@ -68,7 +68,7 @@ When CI updates `db/`, `docs/`, or `submissions/` on the remote, and you have lo
 ## How It Works
 
 - **Submissions** (`submissions/`) are committed to the repository
-- **Leaderboard files** (`docs/`, `db/`) are committed to the repository
+- **Leaderboard files** (`docs/`) are committed to the repository
 - CI automatically updates the leaderboard when you push submissions
 - All files are tracked in git
 

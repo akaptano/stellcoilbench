@@ -87,12 +87,12 @@ This will:
 
 After submitting, CI automatically:
 - Commits your submission
-- Generates per-surface leaderboards in `docs/surfaces/`
-- Commits leaderboard files (`db/` and `docs/`)
+- Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/surfaces/`
+- Commits leaderboard files (`docs/`)
 
 **Important**: 
-- All files (`submissions/`, `db/`, and `docs/`) are committed to the repository
-- Leaderboard files (`db/` and `docs/`) are automatically generated and updated by CI
+- All files (`submissions/` and `docs/`) are committed to the repository
+- Leaderboard files (`docs/`) are automatically generated and updated by CI
 
 View the leaderboard:
 - Browse: `https://github.com/<your-repo>/blob/main/docs/surfaces.md` (index of all surfaces)

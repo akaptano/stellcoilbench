@@ -15,11 +15,9 @@ class TestLeaderboardIntegration:
         """Test full leaderboard generation pipeline with mock submissions."""
         # Create temporary directories
         submissions_dir = tmp_path / "submissions"
-        db_dir = tmp_path / "db"
         docs_dir = tmp_path / "docs"
         
         submissions_dir.mkdir(parents=True)
-        db_dir.mkdir(parents=True)
         docs_dir.mkdir(parents=True)
         
         # Create a mock submission
@@ -59,12 +57,11 @@ optimizer_params:
         update_database(
             repo_root=tmp_path,
             submissions_root=submissions_dir,
-            db_dir=db_dir,
             docs_dir=docs_dir
         )
         
         # Verify leaderboard.json was created
-        leaderboard_json = db_dir / "leaderboard.json"
+        leaderboard_json = docs_dir / "leaderboard.json"
         assert leaderboard_json.exists(), "leaderboard.json was not created"
         
         # Verify it's not empty
@@ -100,23 +97,20 @@ optimizer_params:
     def test_leaderboard_generation_empty_submissions(self, tmp_path):
         """Test leaderboard generation with no submissions."""
         submissions_dir = tmp_path / "submissions"
-        db_dir = tmp_path / "db"
         docs_dir = tmp_path / "docs"
         
         submissions_dir.mkdir(parents=True)
-        db_dir.mkdir(parents=True)
         docs_dir.mkdir(parents=True)
         
         # Run update-db with no submissions
         update_database(
             repo_root=tmp_path,
             submissions_root=submissions_dir,
-            db_dir=db_dir,
             docs_dir=docs_dir
         )
         
         # Verify leaderboard.json was created (even if empty)
-        leaderboard_json = db_dir / "leaderboard.json"
+        leaderboard_json = docs_dir / "leaderboard.json"
         assert leaderboard_json.exists(), "leaderboard.json was not created"
         
         # Should have empty entries list
@@ -129,11 +123,9 @@ optimizer_params:
     def test_leaderboard_generation_with_coil_params(self, tmp_path):
         """Test that coil parameters are extracted from case.yaml."""
         submissions_dir = tmp_path / "submissions"
-        db_dir = tmp_path / "db"
         docs_dir = tmp_path / "docs"
         
         submissions_dir.mkdir(parents=True)
-        db_dir.mkdir(parents=True)
         docs_dir.mkdir(parents=True)
         
         # Create submission with case.yaml containing coil params
@@ -168,12 +160,11 @@ optimizer_params:
         update_database(
             repo_root=tmp_path,
             submissions_root=submissions_dir,
-            db_dir=db_dir,
             docs_dir=docs_dir
         )
         
         # Verify coil parameters are in metrics
-        leaderboard_json = db_dir / "leaderboard.json"
+        leaderboard_json = docs_dir / "leaderboard.json"
         with open(leaderboard_json, 'r') as f:
             data = json.load(f)
         
@@ -189,11 +180,9 @@ optimizer_params:
     def test_surface_leaderboards_generated(self, tmp_path):
         """Test that surface leaderboards are generated."""
         submissions_dir = tmp_path / "submissions"
-        db_dir = tmp_path / "db"
         docs_dir = tmp_path / "docs"
         
         submissions_dir.mkdir(parents=True)
-        db_dir.mkdir(parents=True)
         docs_dir.mkdir(parents=True)
         
         # Create submission
@@ -226,7 +215,6 @@ optimizer_params:
         update_database(
             repo_root=tmp_path,
             submissions_root=submissions_dir,
-            db_dir=db_dir,
             docs_dir=docs_dir
         )
         
@@ -252,11 +240,9 @@ optimizer_params:
     def test_leaderboard_sorts_ascending(self, tmp_path):
         """Test that leaderboard entries are sorted ascending by score."""
         submissions_dir = tmp_path / "submissions"
-        db_dir = tmp_path / "db"
         docs_dir = tmp_path / "docs"
         
         submissions_dir.mkdir(parents=True)
-        db_dir.mkdir(parents=True)
         docs_dir.mkdir(parents=True)
         
         # Create multiple submissions with different scores
@@ -290,12 +276,11 @@ optimizer_params:
         update_database(
             repo_root=tmp_path,
             submissions_root=submissions_dir,
-            db_dir=db_dir,
             docs_dir=docs_dir
         )
         
         # Verify sorting
-        leaderboard_json = db_dir / "leaderboard.json"
+        leaderboard_json = docs_dir / "leaderboard.json"
         with open(leaderboard_json, 'r') as f:
             data = json.load(f)
         

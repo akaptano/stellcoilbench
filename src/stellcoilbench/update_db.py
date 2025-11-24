@@ -652,7 +652,6 @@ def write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) ->
 def update_database(
     repo_root: Path,
     submissions_root: Path | None = None,
-    db_dir: Path | None = None,
     docs_dir: Path | None = None,
     cases_root: Path | None = None,
     plasma_surfaces_dir: Path | None = None,
@@ -664,7 +663,7 @@ def update_database(
       1. Scans submissions_root for results.json files
       2. Aggregates data from submissions (in-memory)
       3. Writes docs/surfaces/ (per-surface leaderboards)
-      4. Optionally writes db/leaderboard.json for reference
+      4. Writes docs/leaderboard.json for reference
 
     Parameters
     ----------
@@ -672,22 +671,18 @@ def update_database(
         Root of the git repo (e.g. Path.cwd() when called from repo root).
     submissions_root:
         Directory containing per-method submissions. Defaults to repo_root / "submissions".
-    db_dir:
-        Directory where JSON database files are stored. Defaults to repo_root / "db".
     docs_dir:
-        Directory where docs/surfaces/ leaderboards are written. Defaults to repo_root / "docs".
+        Directory where docs/surfaces/ leaderboards and leaderboard.json are written. Defaults to repo_root / "docs".
     cases_root:
         Directory containing case.yaml files. Defaults to repo_root / "cases".
     plasma_surfaces_dir:
         Directory containing plasma surface files. Defaults to repo_root / "plasma_surfaces".
     """
     submissions_root = submissions_root or (repo_root / "submissions")
-    db_dir = db_dir or (repo_root / "db")
     docs_dir = docs_dir or (repo_root / "docs")
     cases_root = cases_root or (repo_root / "cases")
     plasma_surfaces_dir = plasma_surfaces_dir or (repo_root / "plasma_surfaces")
 
-    db_dir.mkdir(parents=True, exist_ok=True)
     docs_dir.mkdir(parents=True, exist_ok=True)
 
     # Build in-memory data structures from submissions
@@ -695,7 +690,7 @@ def update_database(
     # cases = build_cases_json(methods)
     leaderboard = build_leaderboard_json(methods)
 
-    # Only write leaderboard.json for reference (optional)
+    # Write leaderboard.json for reference
     # methods.json and cases.json are intermediate and not needed on disk
     # Ensure leaderboard always has the expected structure
     if not isinstance(leaderboard, dict):
@@ -703,7 +698,7 @@ def update_database(
     if "entries" not in leaderboard:
         leaderboard["entries"] = []
     
-    leaderboard_file = db_dir / "leaderboard.json"
+    leaderboard_file = docs_dir / "leaderboard.json"
     leaderboard_json = json.dumps(leaderboard, indent=2)
     leaderboard_file.write_text(leaderboard_json)
     

@@ -31,8 +31,6 @@ stellcoilbench/
 │   │       └── 11-23-2025_23-03/
 │   │           └── ...
 │   └── README.md
-├── db/                       # Generated database files
-│   └── leaderboard.json      # Optional reference file
 └── docs/                     # Generated leaderboards
     ├── surfaces.md           # Index of all surface leaderboards
     └── surfaces/             # Per-surface leaderboards
@@ -124,13 +122,12 @@ Replace `<surface>`, `<your_username>`, and `<timestamp>` with the actual values
 When you push, CI automatically:
 1. Commits your submission
 2. Scans `submissions/` for all `results.json` files
-3. Builds `db/` database files
-4. Generates per-surface leaderboards in `docs/surfaces/`
-5. Commits the leaderboard files (`db/` and `docs/`)
+3. Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/surfaces/`
+4. Commits the leaderboard files (`docs/`)
 
 **Important**: 
-- All files (`submissions/`, `db/`, and `docs/`) are committed to the repository
-- Leaderboard files (`db/` and `docs/`) are automatically generated and updated by CI
+- All files (`submissions/` and `docs/`) are committed to the repository
+- Leaderboard files (`docs/`) are automatically generated and updated by CI
 
 ## How It Works
 
@@ -147,9 +144,9 @@ When you push, CI automatically:
 - **Git**: Tracked in git (submissions are part of the repo)
 - **Identification**: Each submission is identified by GitHub username, submission date/time, and metadata in `case.yaml`
 
-### Generated Files (`db/`, `docs/`)
+### Generated Files (`docs/`)
 - **Purpose**: Aggregated database and per-surface leaderboards
-- **Format**: JSON (db/) and Markdown (docs/surfaces/)
+- **Format**: JSON (docs/leaderboard.json) and Markdown (docs/surfaces/)
 - **Usage**: Displayed on GitHub
 - **Git**: Tracked in git
 - **Update**: Automatically generated and updated by CI when submissions are pushed
@@ -180,14 +177,14 @@ git push
 
 - **Cases** (`cases/`) = Problem definitions (what to optimize)
 - **Submissions** (`submissions/`) = Results (your solutions)
-- **Leaderboard files** (`docs/`, `db/`) = Generated per-surface leaderboards
+- **Leaderboard files** (`docs/`) = Generated per-surface leaderboards and leaderboard.json
 - **Put submissions in `submissions/`** - either:
   - Generate them with `submit-case` command (recommended)
   - Or manually create `results.json` files following the format
 - **CI scans `submissions/`** to build per-surface leaderboards
 - **Each submission** = one `results.json` file in `submissions/<surface>/<username>/<MM-DD-YYYY_HH-MM>/`
-- **Leaderboard files are auto-generated** - `db/` and `docs/` directories are created and updated by CI
-- **All files are tracked** - `submissions/`, `db/`, and `docs/` are all committed to the repository
+- **Leaderboard files are auto-generated** - `docs/` directory is created and updated by CI
+- **All files are tracked** - `submissions/` and `docs/` are all committed to the repository
 
 ## Viewing the Leaderboard
 

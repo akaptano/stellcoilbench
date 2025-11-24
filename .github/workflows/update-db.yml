@@ -194,15 +194,14 @@ jobs:
           echo "Checking generated files..."
           ls -la docs/ 2>/dev/null || echo "docs/ directory not found"
           ls -la docs/*.md 2>/dev/null | head -5 || echo "No markdown files in docs/"
-          ls -la db/ 2>/dev/null || echo "db/ directory not found"
           
           # Add generated leaderboard files
-          # Note: db/leaderboard.json is optional reference, methods.json and cases.json are not saved
+          # Note: docs/leaderboard.json is optional reference, methods.json and cases.json are not saved
           echo "Adding leaderboard files..."
           ADDED_ANY=false
           
           # Add individual files if they exist
-          for file in db/leaderboard.json docs/surfaces.md; do
+          for file in docs/leaderboard.json docs/surfaces.md; do
             if [ -f "$file" ]; then
               echo "Adding $file"
               git add "$file" && ADDED_ANY=true
