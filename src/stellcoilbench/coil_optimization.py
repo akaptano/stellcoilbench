@@ -4,10 +4,127 @@ from pathlib import Path
 from typing import Any, Dict
 import numpy as np
 from typing import Callable
+from datetime import datetime
+import zipfile
 from .config_scheme import CaseConfig
 
 from simsopt.geo import SurfaceRZFourier
 from simsopt.field import regularization_circ
+
+
+class LinearPenalty:
+    """
+    Linear penalty function that implements max(objective - threshold, 0).
+    
+    This is used for l1_threshold options where we want a linear penalty
+    above the threshold and zero below.
+    """
+    def __init__(self, objective, threshold: float):
+        self.objective = objective
+        self.threshold = threshold
+        # Add simsopt compatibility attributes
+        self._parent = None
+        self._children = []
+    
+    def __getattr__(self, name):
+        """Delegate attribute access to underlying objective for simsopt compatibility."""
+        # Only delegate if not already defined on this class
+        if name in ['objective', 'threshold', '_parent', '_children', 'J', 'dJ', 'x']:
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+        return getattr(self.objective, name)
+    
+    def J(self):
+        """Return max(J - threshold, 0)"""
+        J_val = self.objective.J()
+        return max(J_val - self.threshold, 0.0)
+    
+    def dJ(self, **kwargs):
+        """Return gradient: dJ/dx if J > threshold, else 0"""
+        J_val = self.objective.J()
+        grad = self.objective.dJ(**kwargs)
+        if J_val > self.threshold:
+            return grad
+        else:
+            # Return zero gradient if below threshold
+            # Multiply by 0 to preserve type and structure
+            if isinstance(grad, np.ndarray):
+                return grad * 0.0
+            elif hasattr(grad, '__mul__'):
+                return grad * 0.0
+            else:
+                # Fallback: return zeros with same shape as x
+                try:
+                    x_arr = np.asarray(self.x)
+                    return np.zeros_like(x_arr)
+                except (AttributeError, TypeError, ValueError):
+                    return 0.0
+    
+    def __add__(self, other):
+        """Allow addition with other objectives for sum() compatibility"""
+        if isinstance(other, LinearPenalty):
+            # Create a combined objective
+            combined = self.objective + other.objective
+            # Use the first threshold (they should be the same)
+            return LinearPenalty(combined, self.threshold)
+        elif isinstance(other, (int, float)) and other == 0:
+            # Allow sum() to start with 0
+            return self
+        return NotImplemented
+    
+    def __radd__(self, other):
+        """Allow right addition for sum() compatibility"""
+        if isinstance(other, (int, float)) and other == 0:
+            return self
+        return NotImplemented
+    
+    def __mul__(self, other):
+        """Allow multiplication with Weight for compatibility"""
+        from simsopt.objectives import Weight
+        if isinstance(other, Weight):
+            # Create a weighted version
+            # Weight(2.0) * LinearPenalty(obj, thresh) should give:
+            # 2.0 * max(obj - thresh, 0) = max(2.0 * obj - 2.0 * thresh, 0)
+            # So we scale both the objective and threshold
+            weighted_obj = other * self.objective
+            # Extract weight value by comparing weighted vs unweighted objective values
+            # This works because Weight(w) * obj gives w * obj.J()
+            try:
+                unweighted_J = self.objective.J()
+                weighted_J = weighted_obj.J()
+                if abs(unweighted_J) > 1e-10:
+                    weight_val = weighted_J / unweighted_J
+                else:
+                    # If unweighted is zero, weight doesn't matter, use 1.0
+                    weight_val = 1.0
+                scaled_threshold = weight_val * self.threshold
+            except (AttributeError, ZeroDivisionError, TypeError, ValueError):
+                # Fallback: don't scale threshold if we can't determine weight
+                # This can happen if objectives don't have J() method, division fails,
+                # or other issues occur
+                scaled_threshold = self.threshold
+            return LinearPenalty(weighted_obj, scaled_threshold)
+        return NotImplemented
+    
+    def __rmul__(self, other):
+        """Allow right multiplication with Weight"""
+        return self.__mul__(other)
+    
+    def _add_child(self, child):
+        """Add a child objective (simsopt compatibility)."""
+        if child not in self._children:
+            self._children.append(child)
+            if hasattr(child, '_parent'):
+                child._parent = self
+    
+    @property
+    def x(self):
+        """Get optimization variables"""
+        return self.objective.x
+    
+    @x.setter
+    def x(self, value):
+        """Set optimization variables"""
+        self.objective.x = value
 
 
 def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
@@ -103,6 +220,17 @@ def _validate_algorithm_options(algorithm: str, options: Dict[str, Any]) -> None
     Validate that algorithm-specific options are valid for the given algorithm.
     
     Raises ValueError if invalid options are found.
+
+    Parameters
+    ----------
+    algorithm: str
+        The name of the scipy optimization algorithm.
+    options: Dict[str, Any]
+        A dictionary of algorithm-specific options to validate.
+
+    Raises
+    ------
+    ValueError: If invalid options are found.
     """
     valid_options = _get_scipy_algorithm_options(algorithm)
     
@@ -130,6 +258,20 @@ def load_coils_config(config_path: Path) -> Dict[str, Any]:
     
     Note: This function is deprecated. Use CaseConfig.from_dict() instead,
     which includes validation via validate_case_config().
+
+    Parameters
+    ----------
+    config_path: Path
+        Path to the coils.yaml file.
+
+    Returns
+    -------
+    Dict[str, Any]
+        A dictionary containing the loaded coils configuration.
+
+    Raises
+    ------
+    ValueError: If the config file is not a dictionary.
     """
     import yaml
 
@@ -394,6 +536,50 @@ def initialize_coils_loop(
         total_current *= current_scale_factor
     
     return coils
+
+
+def _zip_output_files(out_dir: Path) -> Path:
+    """
+    Zip all output files in the output directory with a date stamp.
+    
+    Parameters
+    ----------
+    out_dir: Path
+        Directory containing output files to zip.
+    
+    Returns
+    -------
+    Path
+        Path to the created zip file.
+    """
+    out_dir = Path(out_dir)
+    
+    # Create date-stamped zip filename: YYYY-MM-DD_HH-MM-SS.zip
+    now = datetime.now()
+    zip_filename = now.strftime("%Y-%m-%d_%H-%M-%S.zip")
+    zip_path = out_dir / zip_filename
+    
+    # Find all files to zip (VTK files, JSON files, etc.)
+    files_to_zip = []
+    for pattern in ["*.vtu", "*.vts", "*.json"]:
+        files_to_zip.extend(out_dir.glob(pattern))
+    
+    # Only create zip if there are files to zip
+    if files_to_zip:
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for file_path in files_to_zip:
+                # Add file to zip with relative path (just filename)
+                zipf.write(file_path, arcname=file_path.name)
+        
+        print(f"Created zip archive: {zip_path}")
+        print(f"  Contains {len(files_to_zip)} files")
+        
+        # Optionally remove original files after zipping (uncomment if desired)
+        # for file_path in files_to_zip:
+        #     file_path.unlink()
+        #     print(f"  Removed {file_path.name}")
+    
+    return zip_path
 
 
 def optimize_coils_loop(
@@ -665,22 +851,23 @@ def optimize_coils_loop(
                 "obj": sum(Jls),
                 "threshold": length_target,
                 "l1": lambda obj, thresh: obj,
+                "l1_threshold": lambda obj, thresh: LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_coil_distance": {
                 "obj": Jccdist,
                 "threshold": cc_threshold,
-                "l1": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
-                "l1_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
+                "l1": lambda obj, thresh: obj,  # No thresholding
+                "l1_threshold": lambda obj, thresh: LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_surface_distance": {
                 "obj": Jcsdist,
                 "threshold": cs_threshold,
-                "l1": lambda obj, thresh: Weight(1e3) * obj,  # Threshold already set to 0.0 in object creation
-                "l1_threshold": lambda obj, thresh: Weight(1e3) * obj,  # Threshold already set in object creation
+                "l1": lambda obj, thresh: Weight(1e3) * obj,  # No thresholding
+                "l1_threshold": lambda obj, thresh: Weight(1e3) * LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
@@ -696,6 +883,7 @@ def optimize_coils_loop(
                 "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
                 "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
                 "l1": lambda obj, thresh: sum(obj),
+                "l1_threshold": lambda obj, thresh: sum([LinearPenalty(j, thresh) for j in obj]) if len(obj) > 0 else Weight(0.0),  # max(obj - threshold, 0)
             },
             "linking_number": {
                 "obj": Jlink,
@@ -922,6 +1110,9 @@ def optimize_coils_loop(
     print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")    
     print("Optimization completed successfully!")
     print(f"Results saved to: {out_dir}")
+    
+    # Zip all output files with date stamp
+    _ = _zip_output_files(out_dir)
     
     # Prepare results dictionary
     bs.set_points(s.gamma().reshape((-1, 3)))
