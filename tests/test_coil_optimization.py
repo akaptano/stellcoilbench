@@ -5,8 +5,9 @@ Note: Full optimization tests require simsopt and are integration tests.
 These unit tests focus on functions that can be tested without running optimizations.
 """
 import pytest
+import numpy as np
 from pathlib import Path
-from stellcoilbench.coil_optimization import load_coils_config
+from stellcoilbench.coil_optimization import load_coils_config, _plot_bn_error_3d
 from stellcoilbench.evaluate import load_case_config
 
 
@@ -254,3 +255,143 @@ optimizer_params:
         
         with pytest.raises(ValueError, match="Unknown surface_params key"):
             load_case_config(case_yaml)
+
+
+class TestPlotBnError3D:
+    """Tests for _plot_bn_error_3d function."""
+    
+    def test_plot_bn_error_3d_creates_pdf(self, tmp_path):
+        """Test that _plot_bn_error_3d creates a PDF file."""
+        pytest.importorskip("matplotlib")
+        
+        from simsopt.geo import SurfaceRZFourier
+        from simsopt.field import BiotSavart
+        from simsopt.geo import create_equally_spaced_curves
+        from simsopt.field import Current, coils_via_symmetries
+        
+        # Create a simple surface with equal quadpoints_phi and quadpoints_theta
+        # Use stellsym=False for full torus (not half due to symmetry)
+        surface = SurfaceRZFourier(
+            nfp=1, stellsym=False, mpol=2, ntor=2,
+            quadpoints_phi=np.linspace(0, 1, 16),
+            quadpoints_theta=np.linspace(0, 1, 16)
+        )
+        surface.set_rc(0, 0, 1.0)  # Major radius
+        surface.set_zs(0, 0, 0.0)
+        
+        # Create a simple coil configuration
+        ncoils = 2
+        base_curves = create_equally_spaced_curves(
+            ncoils, surface.nfp, stellsym=surface.stellsym,
+            R0=1.0, R1=0.1, order=2, numquadpoints=64
+        )
+        base_currents = [Current(1e6) for _ in range(ncoils)]
+        coils = coils_via_symmetries(base_curves, base_currents, surface.nfp, surface.stellsym)
+        
+        # Create BiotSavart object
+        bs = BiotSavart(coils)
+        
+        # Create output directory
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Call plotting function
+        _plot_bn_error_3d(surface, bs, coils, out_dir)
+        
+        # Verify PDF file was created
+        pdf_path = out_dir / "bn_error_3d_plot.pdf"
+        assert pdf_path.exists(), f"PDF file was not created at {pdf_path}"
+        assert pdf_path.stat().st_size > 0, "PDF file is empty"
+    
+    def test_plot_bn_error_3d_handles_missing_matplotlib(self, tmp_path, monkeypatch):
+        """Test that _plot_bn_error_3d handles missing matplotlib gracefully."""
+        # Mock matplotlib as unavailable
+        import stellcoilbench.coil_optimization as co_module
+        original_available = co_module.MATPLOTLIB_AVAILABLE
+        co_module.MATPLOTLIB_AVAILABLE = False
+        
+        try:
+            from simsopt.geo import SurfaceRZFourier
+            from simsopt.field import BiotSavart
+            from simsopt.geo import create_equally_spaced_curves
+            from simsopt.field import Current, coils_via_symmetries
+            
+            # Create minimal objects with equal quadpoints
+            import numpy as np
+            surface = SurfaceRZFourier(
+                nfp=1, stellsym=False, mpol=2, ntor=2,
+                quadpoints_phi=np.linspace(0, 1, 16),
+                quadpoints_theta=np.linspace(0, 1, 16)
+            )
+            surface.set_rc(0, 0, 1.0)
+            surface.set_zs(0, 0, 0.0)
+            
+            ncoils = 2
+            base_curves = create_equally_spaced_curves(
+                ncoils, surface.nfp, stellsym=surface.stellsym,
+                R0=1.0, R1=0.1, order=2, numquadpoints=64
+            )
+            base_currents = [Current(1e6) for _ in range(ncoils)]
+            coils = coils_via_symmetries(base_curves, base_currents, surface.nfp, surface.stellsym)
+            bs = BiotSavart(coils)
+            
+            out_dir = tmp_path / "output"
+            out_dir.mkdir()
+            
+            # Should not raise an error, just skip plotting
+            _plot_bn_error_3d(surface, bs, coils, out_dir)
+            
+            # PDF should not be created
+            pdf_path = out_dir / "bn_error_3d_plot.pdf"
+            assert not pdf_path.exists(), "PDF should not be created when matplotlib is unavailable"
+        finally:
+            # Restore original value
+            co_module.MATPLOTLIB_AVAILABLE = original_available
+    
+    def test_plot_bn_error_3d_with_full_torus_surface(self, tmp_path):
+        """Test plotting with a full torus surface (more realistic case)."""
+        pytest.importorskip("matplotlib")
+        
+        from simsopt.geo import SurfaceRZFourier
+        from simsopt.field import BiotSavart
+        from simsopt.geo import create_equally_spaced_curves
+        from simsopt.field import Current, coils_via_symmetries
+        
+        # Create surface with equal quadpoints_phi and quadpoints_theta
+        # Use stellsym=False for full torus (not half due to symmetry)
+        surface = SurfaceRZFourier(
+            nfp=1, stellsym=False, mpol=2, ntor=2,
+            quadpoints_phi=np.linspace(0, 1, 32),
+            quadpoints_theta=np.linspace(0, 1, 32)
+        )
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        # Create coils
+        ncoils = 4
+        base_curves = create_equally_spaced_curves(
+            ncoils, surface.nfp, stellsym=surface.stellsym,
+            R0=1.0, R1=0.1, order=4, numquadpoints=128
+        )
+        base_currents = [Current(1e6) for _ in range(ncoils)]
+        coils = coils_via_symmetries(base_curves, base_currents, surface.nfp, surface.stellsym)
+        
+        # Create BiotSavart object
+        bs = BiotSavart(coils)
+        
+        # Create output directory
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Call plotting function
+        _plot_bn_error_3d(surface, bs, coils, out_dir)
+        
+        # Verify PDF file was created
+        pdf_path = out_dir / "bn_error_3d_plot.pdf"
+        assert pdf_path.exists(), f"PDF file was not created at {pdf_path}"
+        assert pdf_path.stat().st_size > 0, "PDF file is empty"
+        
+        # Verify file is actually a PDF (check magic bytes)
+        with open(pdf_path, 'rb') as f:
+            header = f.read(4)
+            assert header == b'%PDF', f"File does not appear to be a PDF (header: {header})"

@@ -4,15 +4,14 @@ StellCoilBench is an open benchmark suite for stellarator coil optimization algo
 
 - **Benchmark cases** live under `cases/`.
 - **Submissions** live under `submissions/`.
-- Aggregated results are stored in `docs/leaderboard.json` and shown in the [Surface Leaderboards](surfaces.md).
+- Aggregated results are stored in `docs/leaderboard.json` and shown in the [Surface Leaderboards](leaderboards/).
 
 ## Leaderboards
 
-- **[All Surfaces](surfaces.md)** - Index of all surface leaderboards
-- **[LandremanPaul2021_QA](surfaces/LandremanPaul2021_QA.md)** - QA stellarator surface
-- **[MUSE Focus](surfaces/muse_focus.md)** - MUSE focus configuration
-- **[Circular Tokamak](surfaces/circular_tokamak.md)** - Circular tokamak surface
-- **[Rotating Ellipse](surfaces/rotating_ellipse.md)** - Rotating ellipse surface
+- **[LandremanPaul2021_QA](leaderboards/LandremanPaul2021_QA.md)** - QA stellarator surface
+- **[MUSE Focus](leaderboards/muse_focus.md)** - MUSE focus configuration
+- **[Circular Tokamak](leaderboards/circular_tokamak.md)** - Circular tokamak surface
+- **[Rotating Ellipse](leaderboards/rotating_ellipse.md)** - Rotating ellipse surface
 
 ## Updating the Leaderboard
 

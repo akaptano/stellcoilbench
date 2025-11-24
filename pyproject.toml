@@ -29,6 +29,7 @@ dependencies = [
     "ruff",
     "psutil",
     "threadpoolctl",
+    "matplotlib>=3.5",
     "simsopt @ git+https://github.com/PedroFranciscoGil/simsopt.git@auglag_coils",
 ]
 

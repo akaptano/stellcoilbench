@@ -11,6 +11,20 @@ from .config_scheme import CaseConfig
 from simsopt.geo import SurfaceRZFourier
 from simsopt.field import regularization_circ
 
+try:
+    import matplotlib
+    matplotlib.use('Agg')  # Use non-interactive backend for PDF generation
+    from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+    import matplotlib.pyplot as plt
+    from matplotlib import cm
+    from matplotlib.colors import Normalize
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    plt = None  # type: ignore
+    cm = None  # type: ignore
+    Normalize = None  # type: ignore
+
 
 class LinearPenalty:
     """
@@ -583,6 +597,108 @@ def _zip_output_files(out_dir: Path) -> Path:
     return zip_path
 
 
+def _plot_bn_error_3d(surface, bs, coils, out_dir: Path) -> None:
+    """
+    Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
+    
+    Parameters
+    ----------
+    surface: SurfaceRZFourier
+        The plasma surface for plotting (should be full torus).
+    bs: BiotSavart
+        BiotSavart object containing the magnetic field from coils.
+    coils: list
+        List of coil objects to plot.
+    out_dir: Path
+        Directory where the PDF plot will be saved.
+    """
+    if not MATPLOTLIB_AVAILABLE:
+        print("Warning: matplotlib not available, skipping 3D plot generation")
+        return
+    
+    # Get surface points - grid should be square (nphi == ntheta)
+    surface_points = surface.gamma().reshape(-1, 3)
+    npoints = surface_points.shape[0]
+    nphi_plot = int(np.sqrt(npoints))
+    ntheta_plot = nphi_plot
+    
+    # Reshape surface points to grid
+    x_surf = surface_points[:, 0].reshape((nphi_plot, ntheta_plot))
+    y_surf = surface_points[:, 1].reshape((nphi_plot, ntheta_plot))
+    z_surf = surface_points[:, 2].reshape((nphi_plot, ntheta_plot))
+    
+    # Calculate B_N/|B| on surface
+    bs.set_points(surface_points)
+    B_field = bs.B().reshape((nphi_plot, ntheta_plot, 3))
+    unit_normal = surface.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
+    BdotN = np.sum(B_field * unit_normal, axis=2)
+    abs_B = bs.AbsB().reshape((nphi_plot, ntheta_plot))
+    
+    # Avoid division by zero
+    abs_B = np.where(abs_B > 1e-10, abs_B, 1e-10)
+    bn_over_b = np.abs(BdotN / abs_B)
+    
+    # Create figure with 3D subplot
+    fig = plt.figure(figsize=(12, 10))  # type: ignore
+    ax = fig.add_subplot(111, projection='3d')  # type: ignore
+    
+    # Plot surface with B_N/|B| as colormap
+    # Normalize the colormap
+    norm = Normalize(vmin=0, vmax=bn_over_b.max() if bn_over_b.max() > 0 else 1)  # type: ignore
+    ax.plot_surface(  # type: ignore[attr-defined]
+        x_surf, y_surf, z_surf,
+        facecolors=cm.viridis(norm(bn_over_b)),  # type: ignore[attr-defined]
+        alpha=0.8,
+        linewidth=0,
+        antialiased=True,
+        shade=True
+    )
+    
+    # Plot coils
+    for i, coil in enumerate(coils):
+        coil_points = coil.curve.gamma()
+        ax.plot(
+            coil_points[:, 0],
+            coil_points[:, 1],
+            coil_points[:, 2],
+            'r-',
+            linewidth=2,
+            label='Coils' if i == 0 else ''
+        )
+    
+    # Set labels and title
+    ax.set_xlabel('X (m)', fontsize=12)  # type: ignore
+    ax.set_ylabel('Y (m)', fontsize=12)  # type: ignore
+    ax.set_zlabel('Z (m)', fontsize=12)  # type: ignore
+    ax.set_title('B_N/|B| Error on Plasma Surface with Optimized Coils', fontsize=14, pad=20)  # type: ignore
+    
+    # Add colorbar
+    mappable = cm.ScalarMappable(cmap=cm.viridis, norm=norm)  # type: ignore
+    mappable.set_array(bn_over_b)
+    cbar = plt.colorbar(mappable, ax=ax, shrink=0.6, aspect=20, pad=0.1)  # type: ignore
+    cbar.set_label('|B_N|/|B|', fontsize=12, rotation=270, labelpad=20)
+    
+    # Set equal aspect ratio
+    max_range = np.array([
+        x_surf.max() - x_surf.min(),
+        y_surf.max() - y_surf.min(),
+        z_surf.max() - z_surf.min()
+    ]).max() / 2.0
+    mid_x = (x_surf.max() + x_surf.min()) * 0.5
+    mid_y = (y_surf.max() + y_surf.min()) * 0.5
+    mid_z = (z_surf.max() + z_surf.min()) * 0.5
+    ax.set_xlim(mid_x - max_range, mid_x + max_range)  # type: ignore
+    ax.set_ylim(mid_y - max_range, mid_y + max_range)  # type: ignore
+    ax.set_zlim(mid_z - max_range, mid_z + max_range)  # type: ignore
+    
+    # Save as PDF
+    pdf_path = out_dir / "bn_error_3d_plot.pdf"
+    plt.savefig(pdf_path, format='pdf', dpi=300, bbox_inches='tight')  # type: ignore
+    plt.close(fig)  # type: ignore
+    
+    print(f"  Saved 3D B_N/|B| error plot to: {pdf_path}")
+
+
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, 
@@ -1111,6 +1227,12 @@ def optimize_coils_loop(
     print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")    
     print("Optimization completed successfully!")
     print(f"Results saved to: {out_dir}")
+    
+    # Generate 3D visualization plot
+    try:
+        _plot_bn_error_3d(s_plot, bs, coils, out_dir)
+    except Exception as e:
+        print(f"Warning: Failed to generate 3D plot: {e}")
     
     # Note: Individual file zipping is disabled - the entire submission directory
     # will be zipped by submit-case command after all files are written

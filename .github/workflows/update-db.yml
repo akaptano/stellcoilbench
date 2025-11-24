@@ -208,7 +208,7 @@ jobs:
           ADDED_ANY=false
           
           # Add individual files if they exist
-          for file in docs/leaderboard.json docs/surfaces.md; do
+          for file in docs/leaderboard.json; do
             if [ -f "$file" ]; then
               echo "Adding $file"
               git add "$file" && ADDED_ANY=true
@@ -218,10 +218,10 @@ jobs:
           done
           
           # Add leaderboard directories if they exist
-          if [ -d "docs/surfaces" ]; then
-            echo "Adding all docs/surfaces/*.md files"
+          if [ -d "docs/leaderboards" ]; then
+            echo "Adding all docs/leaderboards/*.md files"
             # Use find to ensure we get all .md files, including new ones
-            find docs/surfaces -name "*.md" -type f | while read file; do
+            find docs/leaderboards -name "*.md" -type f | while read file; do
               echo "  Adding: $file"
               git add "$file" && ADDED_ANY=true
             done

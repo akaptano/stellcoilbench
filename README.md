@@ -17,8 +17,8 @@ A repository for automated benchmarking of stellarator coil optimization techniq
    ```
 
 3. **View the leaderboard:**
-   - Browse `docs/surfaces.md` on GitHub
-   - Or view locally: `cat docs/surfaces.md`
+   - Browse `docs/leaderboards/` on GitHub
+   - Or view locally: browse `docs/leaderboards/` directory
 
 ## Git Configuration
 
@@ -81,5 +81,5 @@ When CI updates `docs/` or `submissions/` on the remote, and you have local untr
 ## Leaderboard
 
 The leaderboard is automatically generated and available:
-- View online: Browse `docs/surfaces.md` on GitHub
-- View locally: `cat docs/surfaces.md` or browse `docs/surfaces/` directory
+- View online: Browse `docs/leaderboards/` on GitHub
+- View locally: browse `docs/leaderboards/` directory

@@ -2,7 +2,7 @@
 
 **Plasma Surface:** `rotating_ellipse`
 
-[View all surfaces](../surfaces.md)
+[View all surfaces](../leaderboards/)
 
 ---
 

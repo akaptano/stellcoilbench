@@ -87,7 +87,7 @@ This will:
 
 After submitting, CI automatically:
 - Commits your submission
-- Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/surfaces/`
+- Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/leaderboards/`
 - Commits leaderboard files (`docs/`)
 
 **Important**: 
@@ -95,6 +95,6 @@ After submitting, CI automatically:
 - Leaderboard files (`docs/`) are automatically generated and updated by CI
 
 View the leaderboard:
-- Browse: `https://github.com/<your-repo>/blob/main/docs/surfaces.md` (index of all surfaces)
-- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/surfaces/<surface>.md`
+- Browse: `https://github.com/<your-repo>/blob/main/docs/leaderboards/` (all surface leaderboards)
+- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/leaderboards/<surface>.md`
 

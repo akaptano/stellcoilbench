@@ -2,7 +2,7 @@
 
 **Plasma Surface:** `muse.focus`
 
-[View all surfaces](../surfaces.md)
+[View all surfaces](../leaderboards/)
 
 ---
 

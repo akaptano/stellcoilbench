@@ -218,16 +218,12 @@ optimizer_params:
             docs_dir=docs_dir
         )
         
-        # Verify surfaces.md was created
-        surfaces_md = docs_dir / "surfaces.md"
-        assert surfaces_md.exists(), "surfaces.md was not created"
-        
-        # Verify surface leaderboard directory exists
-        surfaces_dir = docs_dir / "surfaces"
-        assert surfaces_dir.exists(), "docs/surfaces/ directory was not created"
+        # Verify leaderboard directory exists (surfaces.md is no longer created)
+        leaderboards_dir = docs_dir / "leaderboards"
+        assert leaderboards_dir.exists(), "docs/leaderboards/ directory was not created"
         
         # Verify surface leaderboard file exists
-        surface_leaderboard = surfaces_dir / "LandremanPaul2021_QA.md"
+        surface_leaderboard = leaderboards_dir / "LandremanPaul2021_QA.md"
         assert surface_leaderboard.exists(), "Surface leaderboard file was not created"
         
         # Verify content includes expected elements

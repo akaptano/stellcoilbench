@@ -119,7 +119,6 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         path: path to results.json (or zip file containing it)
         data: parsed JSON dict
     """
-    import tempfile
     import zipfile
     
     if not submissions_root.exists():
@@ -142,15 +141,15 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             print(f"Warning: Failed to parse JSON from {path}: {e}", file=sys.stderr)
             continue
 
-                meta = data.get("metadata") or {}
-                method_name = meta.get("method_name", "UNKNOWN")
-                # Use explicit method_version if present, otherwise fall back to dir name.
-                # For zip files, use the zip filename (without .zip extension)
-                if path.suffix == ".zip":
-                    version = meta.get("method_version") or path.stem
-                else:
-                    version = meta.get("method_version") or path.parent.name
-                method_key = f"{method_name}:{version}"
+        meta = data.get("metadata") or {}
+        method_name = meta.get("method_name", "UNKNOWN")
+        # Use explicit method_version if present, otherwise fall back to dir name.
+        # For zip files, use the zip filename (without .zip extension)
+        if path.suffix == ".zip":
+            version = meta.get("method_version") or path.stem
+        else:
+            version = meta.get("method_version") or path.parent.name
+        method_key = f"{method_name}:{version}"
         
         found_count += 1
         yield method_key, path, data
@@ -362,7 +361,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
     ]
 
     # Navigation links
-    nav_lines = ["- [Plasma surface leaderboards](surfaces.md)"]
+    nav_lines = ["- [Plasma surface leaderboards](leaderboards/)"]
     lines.append("## Quick Navigation")
     lines.extend(nav_lines)
     lines.append("")
@@ -535,7 +534,7 @@ def write_surface_leaderboards(
     Write per-surface leaderboard markdown files with beautiful formatting.
     Each metric gets its own column.
     """
-    surface_dir = docs_dir / "surfaces"
+    surface_dir = docs_dir / "leaderboards"
     surface_dir.mkdir(parents=True, exist_ok=True)
     
     def _format_value(value: Any, metric_key: str = "") -> str:
@@ -607,7 +606,7 @@ def write_surface_leaderboards(
             "",
             f"**Plasma Surface:** `{surface_name}`",
             "",
-            "[View all surfaces](../surfaces.md)",
+            "[View all surfaces](../leaderboards/)",
             "",
             "---",
             "",
@@ -683,26 +682,10 @@ def write_surface_leaderboards(
 
 def write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) -> None:
     """
-    Write docs/surfaces.md linking to all per-surface leaderboards.
+    No longer creates an index file - leaderboards are in docs/leaderboards/ directory.
+    This function is kept for API compatibility but does nothing.
     """
-    index_path = docs_dir / "surfaces.md"
-    lines = [
-        "# Plasma Surface Leaderboards",
-        "",
-        "Leaderboards organized by plasma surface configuration:",
-        "",
-    ]
-    
-    if not surface_names:
-        lines.append("_No surface leaderboards yet. Run `stellcoilbench update-db` after adding submissions._")
-    else:
-        for surface_name in surface_names:
-            display_name = surface_name.replace("input.", "").replace("_", " ").title()
-            safe_filename = surface_name.replace(".", "_")
-            lines.append(f"- **{display_name}** — [`{surface_name}`](surfaces/{safe_filename}.md)")
-        lines.append("")
-    
-    index_path.write_text("\n".join(lines))
+    pass
 
 
 def update_database(
@@ -718,7 +701,7 @@ def update_database(
     It does several things:
       1. Scans submissions_root for results.json files
       2. Aggregates data from submissions (in-memory)
-      3. Writes docs/surfaces/ (per-surface leaderboards)
+      3. Writes docs/leaderboards/ (per-surface leaderboards)
       4. Writes docs/leaderboard.json for reference
 
     Parameters
@@ -728,7 +711,7 @@ def update_database(
     submissions_root:
         Directory containing per-method submissions. Defaults to repo_root / "submissions".
     docs_dir:
-        Directory where docs/surfaces/ leaderboards and leaderboard.json are written. Defaults to repo_root / "docs".
+        Directory where docs/leaderboards/ leaderboards and leaderboard.json are written. Defaults to repo_root / "docs".
     cases_root:
         Directory containing case.yaml files. Defaults to repo_root / "cases".
     plasma_surfaces_dir:

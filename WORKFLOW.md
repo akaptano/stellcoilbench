@@ -32,8 +32,7 @@ stellcoilbench/
 │   │           └── ...
 │   └── README.md
 └── docs/                     # Generated leaderboards
-    ├── surfaces.md           # Index of all surface leaderboards
-    └── surfaces/             # Per-surface leaderboards
+    └── leaderboards/         # Per-surface leaderboards
         ├── LandremanPaul2021_QA.md
         ├── muse_focus.md
         ├── circular_tokamak.md
@@ -122,7 +121,7 @@ Replace `<surface>`, `<your_username>`, and `<timestamp>` with the actual values
 When you push, CI automatically:
 1. Commits your submission
 2. Scans `submissions/` for all `results.json` files
-3. Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/surfaces/`
+3. Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/leaderboards/`
 4. Commits the leaderboard files (`docs/`)
 
 **Important**: 
@@ -146,7 +145,7 @@ When you push, CI automatically:
 
 ### Generated Files (`docs/`)
 - **Purpose**: Aggregated database and per-surface leaderboards
-- **Format**: JSON (docs/leaderboard.json) and Markdown (docs/surfaces/)
+- **Format**: JSON (docs/leaderboard.json) and Markdown (docs/leaderboards/)
 - **Usage**: Displayed on GitHub
 - **Git**: Tracked in git
 - **Update**: Automatically generated and updated by CI when submissions are pushed
@@ -189,6 +188,6 @@ git push
 ## Viewing the Leaderboard
 
 The leaderboard is automatically updated:
-- Browse: `https://github.com/<your-repo>/blob/main/docs/surfaces.md` (index of all surfaces)
-- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/surfaces/<surface>.md`
+- Browse: `https://github.com/<your-repo>/blob/main/docs/leaderboards/` (all surface leaderboards)
+- Or browse individual surface leaderboards: `https://github.com/<your-repo>/blob/main/docs/leaderboards/<surface>.md`
 

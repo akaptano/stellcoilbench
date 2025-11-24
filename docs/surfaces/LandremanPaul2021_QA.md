@@ -2,7 +2,7 @@
 
 **Plasma Surface:** `LandremanPaul2021_QA`
 
-[View all surfaces](../surfaces.md)
+[View all surfaces](../leaderboards/)
 
 ---
 
