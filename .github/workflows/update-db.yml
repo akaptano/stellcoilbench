@@ -29,29 +29,134 @@ jobs:
 
       - name: Run benchmark cases
         run: |
-          # Run all .yaml files in cases/ directory and generate submissions
+          # Run case files that are NEW or have FAILED (no successful submission generated)
+          # A case file should run if:
+          #   1. It's new (didn't exist in previous commit), OR
+          #   2. It exists but has no successful submission (will retry until successful)
           # Directory will be: submissions/<surface>/<GITHUB_ACTOR>/<MM-DD-YYYY_HH-MM>/
           echo "GITHUB_ACTOR: $GITHUB_ACTOR"
-          echo "Finding benchmark cases..."
+          echo "Finding cases to run (new or failed)..."
+          
+          # Get the previous commit (if it exists)
+          # Check if we have at least one commit before HEAD
+          if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
+            PREVIOUS_COMMIT="HEAD~1"
+            echo "Previous commit found: $(git rev-parse --short HEAD~1)"
+          else
+            # First commit - all files are new
+            PREVIOUS_COMMIT=""
+            echo "This appears to be the first commit - all case files will be considered new"
+          fi
           
           # Find all .yaml files in cases/ (excluding README.md)
-          CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
+          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
           
-          if [ -z "$CASE_FILES" ]; then
+          if [ -z "$ALL_CASE_FILES" ]; then
             echo "ERROR: No .yaml files found in cases/ directory!"
             exit 1
           fi
           
-          echo "Found benchmark cases:"
-          echo "$CASE_FILES"
+          echo "All case files found:"
+          echo "$ALL_CASE_FILES"
           
-          # Run each case
+          # Use Python to check which case files have successful submissions
+          # A case file should run if it has no successful submission (will retry failed cases)
+          PYTHON_OUTPUT=$(python3 << 'PYTHON_SCRIPT'
+          import sys
+          import yaml
+          import zipfile
+          from pathlib import Path
+          import json
+          
+          def normalize_yaml(content):
+              """Normalize YAML content for comparison."""
+              try:
+                  data = yaml.safe_load(content)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+          
+          def case_has_successful_submission(case_file_path):
+              """Check if a case file has at least one successful submission."""
+              case_path = Path(case_file_path)
+              if not case_path.exists():
+                  return False
+              
+              try:
+                  case_content = case_path.read_text()
+                  case_normalized = normalize_yaml(case_content)
+              except Exception as e:
+                  return False
+              
+              submissions_dir = Path("submissions")
+              if not submissions_dir.exists():
+                  return False
+              
+              zip_files = list(submissions_dir.rglob("*.zip"))
+              for zip_path in zip_files:
+                  try:
+                      with zipfile.ZipFile(zip_path, 'r') as zf:
+                          if 'case.yaml' in zf.namelist() and 'results.json' in zf.namelist():
+                              zip_case_content = zf.read('case.yaml').decode('utf-8')
+                              zip_case_normalized = normalize_yaml(zip_case_content)
+                              if zip_case_normalized == case_normalized:
+                                  return True
+                  except:
+                      continue
+              
+              return False
+          
+          # Read case files from stdin
+          case_files = [line.strip() for line in sys.stdin if line.strip()]
+          
+          cases_to_run = []
+          cases_already_successful = []
+          
+          for case_file in case_files:
+              if case_has_successful_submission(case_file):
+                  cases_already_successful.append(case_file)
+                  print(f"SKIP: {case_file} (has successful submission)", file=sys.stderr)
+              else:
+                  cases_to_run.append(case_file)
+                  print(f"RUN: {case_file} (new or no successful submission)", file=sys.stderr)
+          
+          result = {
+              "to_run": cases_to_run,
+              "already_successful": cases_already_successful
+          }
+          print(json.dumps(result))
+          PYTHON_SCRIPT <<< "$ALL_CASE_FILES")
+          
+          # Extract case files to run from JSON output
+          NEW_CASE_FILES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['to_run']))"))
+          ALREADY_RUN_CASES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['already_successful']))"))
+          
+          echo ""
+          echo "Summary:"
+          echo "  Cases to run (new or failed): ${#NEW_CASE_FILES[@]}"
+          echo "  Cases with successful submissions (skipped): ${#ALREADY_RUN_CASES[@]}"
+          
+          if [ ${#NEW_CASE_FILES[@]} -eq 0 ]; then
+            echo ""
+            echo "No case files to run. All cases have successful submissions."
+            echo "Exiting successfully."
+            exit 0
+          fi
+          
+          echo ""
+          echo "Case files to run:"
+          for case_file in "${NEW_CASE_FILES[@]}"; do
+            echo "  - $case_file"
+          done
+          
+          # Run each case (new or previously failed)
           FAILED_CASES=()
           SKIPPED_CASES=()
-          for case_file in $CASE_FILES; do
+          for case_file in "${NEW_CASE_FILES[@]}"; do
             echo ""
             echo "=========================================="
             echo "Running case: $case_file"
+            echo "(New case or previously failed - will retry until successful)"
             echo "=========================================="
             
             # Check if surface file exists (basic check)
@@ -93,22 +198,30 @@ jobs:
             for case in "${FAILED_CASES[@]}"; do
               echo "  - $case"
             done
+            echo ""
+            echo "Note: Failed cases will be retried on the next CI run until they succeed."
+            echo "A case stops being retried once it successfully generates a submission."
             exit 1
           fi
           
           echo ""
           echo "Checking generated submissions..."
           # Submissions are now zipped, so check for zip files
-          ZIP_COUNT=$(find submissions -name "*.zip" -type f | wc -l)
-          echo "Total zip files found: $ZIP_COUNT"
-          
-          if [ "$ZIP_COUNT" -eq 0 ]; then
-            echo "ERROR: No zip files were generated!"
-            exit 1
+          # Only check if we actually ran cases
+          if [ ${#NEW_CASE_FILES[@]} -gt 0 ]; then
+            ZIP_COUNT=$(find submissions -name "*.zip" -type f | wc -l)
+            echo "Total zip files found: $ZIP_COUNT"
+            
+            if [ "$ZIP_COUNT" -eq 0 ]; then
+              echo "ERROR: No zip files were generated!"
+              exit 1
+            fi
+            
+            echo "Submission zip files:"
+            find submissions -name "*.zip" -type f | head -20
+          else
+            echo "No new cases were run, skipping submission check."
           fi
-          
-          echo "Submission zip files:"
-          find submissions -name "*.zip" -type f | head -20
 
       - name: Configure Git
         run: |
@@ -149,11 +262,11 @@ jobs:
             git push origin main || (echo "ERROR: Failed to push to main" && git push origin main --verbose && exit 1)
             echo "Successfully pushed submissions to main"
           else
-            echo "WARNING: No new submissions to commit"
-            echo "This might mean:"
-            echo "  1. Files are already committed"
-            echo "  2. Files are being ignored"
-            echo "  3. No files were generated"
+            echo "INFO: No new submissions to commit"
+            echo "This is expected if:"
+            echo "  1. No new case files were found to run"
+            echo "  2. All cases were skipped (e.g., missing surface files)"
+            echo "  3. Files are already committed"
             # Show what git sees
             echo "Files in submissions/:"
             find submissions -type f | head -20
