@@ -61,40 +61,34 @@ jobs:
           
           # Use Python to check which case files have successful submissions
           # A case file should run if it has no successful submission (will retry failed cases)
-          PYTHON_OUTPUT=$(echo "$ALL_CASE_FILES" | python3 << 'PYTHON_SCRIPT'
+          echo "Checking for existing submissions..."
+          ZIP_COUNT=$(find submissions -name "*.zip" -type f 2>/dev/null | wc -l)
+          echo "Found $ZIP_COUNT zip files in submissions/"
+          
+          # Write case files to temp file and pass as stdin to avoid pipe issues
+          TEMP_CASES=$(mktemp)
+          echo "$ALL_CASE_FILES" > "$TEMP_CASES"
+          
+          PYTHON_OUTPUT=$(python3 < "$TEMP_CASES" << 'PYTHON_SCRIPT'
           import sys
           import yaml
           import zipfile
           from pathlib import Path
           import json
           
-          def normalize_yaml(content):
-              """Normalize YAML content for comparison."""
-              try:
-                  data = yaml.safe_load(content)
-                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
-              except:
-                  return content
-          
           def case_has_successful_submission(case_file_path):
-              """Check if a case file has at least one successful submission.
-              
-              Compares by source_case_file field in submission case.yaml files.
-              This is simpler and more reliable than comparing YAML content.
-              """
+              """Check if a case file has at least one successful submission."""
               case_path = Path(case_file_path)
               if not case_path.exists():
                   return False
               
-              # Get relative path from repo root (same format as stored in submissions)
+              # Get relative path from repo root
               try:
                   repo_root = Path.cwd()
                   case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
               except ValueError:
-                  # If relative path fails, use absolute path
                   case_file_rel = str(case_path.resolve())
               
-              # Also try with forward slashes normalized (for cross-platform compatibility)
               case_file_rel_normalized = case_file_rel.replace("\\", "/")
               
               submissions_dir = Path("submissions")
@@ -102,39 +96,35 @@ jobs:
                   return False
               
               zip_files = list(submissions_dir.rglob("*.zip"))
+              if len(zip_files) == 0:
+                  return False  # No submissions exist, so no successful submissions
+              
               for zip_path in zip_files:
                   try:
                       with zipfile.ZipFile(zip_path, 'r') as zf:
-                          if 'case.yaml' in zf.namelist() and 'results.json' in zf.namelist():
-                              zip_case_content = zf.read('case.yaml').decode('utf-8')
-                              zip_case_data = yaml.safe_load(zip_case_content)
-                              
-                              # Check if source_case_file matches
-                              submission_source = zip_case_data.get('source_case_file', '')
-                              if submission_source:
-                                  # Normalize paths for comparison
-                                  submission_source_normalized = submission_source.replace("\\", "/")
-                                  if (submission_source == case_file_rel or 
-                                      submission_source_normalized == case_file_rel_normalized):
-                                      return True
-                              else:
-                                  # Fallback: if source_case_file not present, compare normalized YAML content
-                                  # This handles old submissions that don't have source_case_file
-                                  try:
-                                      case_content = case_path.read_text()
-                                      case_normalized = normalize_yaml(case_content)
-                                      zip_case_normalized = normalize_yaml(zip_case_content)
-                                      if case_normalized == zip_case_normalized:
-                                          return True
-                                  except:
-                                      continue
-                  except:
+                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
+                              continue
+                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_data = yaml.safe_load(zip_case_content)
+                          
+                          submission_source = zip_case_data.get('source_case_file', '')
+                          if submission_source:
+                              submission_source_normalized = submission_source.replace("\\", "/")
+                              if (submission_source == case_file_rel or 
+                                  submission_source_normalized == case_file_rel_normalized):
+                                  return True
+                  except Exception as e:
+                      print(f"Warning: Failed to process {zip_path}: {e}", file=sys.stderr)
                       continue
               
               return False
           
           # Read case files from stdin
           case_files = [line.strip() for line in sys.stdin if line.strip()]
+          
+          if not case_files:
+              print("ERROR: No case files found!", file=sys.stderr)
+              sys.exit(1)
           
           cases_to_run = []
           cases_already_successful = []
@@ -154,6 +144,22 @@ jobs:
           print(json.dumps(result))
           PYTHON_SCRIPT
           )
+          
+          PYTHON_EXIT=$?
+          rm -f "$TEMP_CASES"
+          
+          if [ $PYTHON_EXIT -ne 0 ]; then
+            echo "ERROR: Python script failed with exit code $PYTHON_EXIT"
+            echo "Output: $PYTHON_OUTPUT"
+            exit 1
+          fi
+          
+          if [ -z "$PYTHON_OUTPUT" ]; then
+            echo "ERROR: Python script produced no output"
+            exit 1
+          fi
+          
+          echo "Python script output: $PYTHON_OUTPUT"
           
           # Extract case files to run from JSON output
           NEW_CASE_FILES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['to_run']))"))
