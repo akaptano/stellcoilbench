@@ -65,11 +65,11 @@ jobs:
           ZIP_COUNT=$(find submissions -name "*.zip" -type f 2>/dev/null | wc -l)
           echo "Found $ZIP_COUNT zip files in submissions/"
           
-          # Write case files to temp file and pass as stdin to avoid pipe issues
+          # Write case files to temp file and pass as argument to avoid stdin conflicts
           TEMP_CASES=$(mktemp)
           echo "$ALL_CASE_FILES" > "$TEMP_CASES"
           
-          PYTHON_OUTPUT=$(python3 < "$TEMP_CASES" << 'PYTHON_SCRIPT'
+          PYTHON_OUTPUT=$(python3 << 'PYTHON_SCRIPT' "$TEMP_CASES"
           import sys
           import yaml
           import zipfile
@@ -119,8 +119,12 @@ jobs:
               
               return False
           
-          # Read case files from stdin
-          case_files = [line.strip() for line in sys.stdin if line.strip()]
+          # Read case files from file passed as first argument
+          if len(sys.argv) > 1:
+              with open(sys.argv[1], 'r') as f:
+                  case_files = [line.strip() for line in f if line.strip()]
+          else:
+              case_files = [line.strip() for line in sys.stdin if line.strip()]
           
           if not case_files:
               print("ERROR: No case files found!", file=sys.stderr)
