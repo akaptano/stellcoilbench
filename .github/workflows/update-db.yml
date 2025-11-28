@@ -227,15 +227,13 @@ jobs:
             done
           fi
           
-          # Remove old leaderboard files if they exist
+          # Remove old leaderboard file if it exists (singular .md file, replaced by docs/leaderboards/ directory)
           if [ -f "docs/leaderboard.md" ]; then
             echo "Removing old docs/leaderboard.md"
             git rm -f docs/leaderboard.md 2>/dev/null || true
           fi
-          if [ -d "docs/leaderboards" ]; then
-            echo "Removing old docs/leaderboards/ directory"
-            git rm -rf docs/leaderboards 2>/dev/null || true
-          fi
+          # Note: docs/leaderboards/ directory is now tracked, so we don't remove it
+          # Files are added/updated explicitly above, and old files will be overwritten by new generation
           
           echo "Files added: $ADDED_ANY"
           

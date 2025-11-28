@@ -60,7 +60,6 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             valid_coils_params = {
                 "ncoils",  # Required: number of coils (must be int)
                 "order",  # Required: Fourier order (must be int)
-                "verbose",  # Optional: verbose flag (string "True"/"False")
             }
             
             # Check for unknown parameters

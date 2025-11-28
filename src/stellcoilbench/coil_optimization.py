@@ -343,10 +343,6 @@ def optimize_coils(
     surface_params = dict(case_cfg.surface_params)
     coil_objective_terms = case_cfg.coil_objective_terms
     
-    # Remove verbose from coil_params if it's in optimizer_params (avoid duplicate)
-    if "verbose" in optimizer_params and "verbose" in coil_params:
-        coil_params = {k: v for k, v in coil_params.items() if k != "verbose"}
-    
     # Handle surface file path - check if it's relative to plasma_surfaces directory
     surface_file = surface_params["surface"]
     if not Path(surface_file).is_absolute():

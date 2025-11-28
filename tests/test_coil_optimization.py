@@ -153,6 +153,23 @@ optimizer_params:
         with pytest.raises(ValueError, match="Unknown coils_params key.*coil_radius"):
             load_case_config(case_yaml)
     
+    def test_verbose_not_in_coils_params(self, tmp_path):
+        """Test that verbose in coils_params raises validation error (verbose should only be in optimizer_params)."""
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text("""description: Test case
+surface_params:
+  surface: input.test
+coils_params:
+  ncoils: 4
+  order: 16
+  verbose: "True"
+optimizer_params:
+  algorithm: l-bfgs
+""")
+        
+        with pytest.raises(ValueError, match="Unknown coils_params key.*verbose"):
+            load_case_config(case_yaml)
+    
     def test_ncoils_as_non_integer_type(self, tmp_path):
         """Test that ncoils as string raises error."""
         case_yaml = tmp_path / "case.yaml"
@@ -226,16 +243,17 @@ surface_params:
 coils_params:
   ncoils: 4
   order: 16
-  verbose: "True"
 optimizer_params:
   algorithm: l-bfgs
+  verbose: False
 """)
         
         # Should not raise an error
         config = load_case_config(case_yaml)
         assert config.coils_params["ncoils"] == 4
         assert config.coils_params["order"] == 16
-        assert config.coils_params["verbose"] == "True"
+        assert "verbose" not in config.coils_params
+        assert not config.optimizer_params["verbose"]
     
     def test_unknown_surface_params(self, tmp_path):
         """Test that unknown surface_params raise validation error."""

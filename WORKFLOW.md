@@ -54,12 +54,11 @@ surface_params:
 coils_params:
   ncoils: 4
   order: 4
-  verbose: "True"  # or "False"
 optimizer_params:
   algorithm: "L-BFGS-B"  # or "BFGS", "SLSQP", "augmented_lagrangian", etc.
   max_iterations: 200
   max_iter_subopt: 10
-  verbose: False
+  verbose: False  # Optional: controls optimization progress output
   algorithm_options:  # Optional: algorithm-specific hyperparameters
     ftol: 1e-6
     gtol: 1e-5

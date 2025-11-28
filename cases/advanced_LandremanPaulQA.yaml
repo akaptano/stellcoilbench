@@ -1,21 +1,21 @@
-description: "Basic test case"
+description: "Advanced coil optimization case with the Landreman-Paul QA surface"
 surface_params:
-  surface: "muse.focus"
+  surface: "input.LandremanPaul2021_QA"
   range: "half period"
 
 coils_params:
   ncoils: 4
-  order: 4
+  order: 8
 
 optimizer_params:
-  algorithm: "L-BFGS-B"
+  algorithm: "augmented_lagrangian"
   max_iterations: 200
-  max_iter_subopt: 10
-  verbose: False
+  max_iter_subopt: 20
+  verbose: True
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.
-# Note that SquaredFlux is always included (can't think of why it would ever be excluded)
+# Note that SquaredFlux is always included (can't think of why it would ever be excluded
 coil_objective_terms: 
   total_length: "l2_threshold"  
   coil_coil_distance: "l1_threshold"
@@ -26,5 +26,5 @@ coil_objective_terms:
   linking_number: ""  # Whether or not to use the linking number
   coil_coil_force: "lp_threshold"  # options are lp, lp_threshold
   coil_coil_force_p: 2  # defaults to 2 if not specified
-  coil_coil_torque: "lp_threshold"  # options are lp, lp_threshold
-  coil_coil_torque_p: 2  # defaults to 2 if not specified
+  # coil_coil_torque: "lp_threshold"  # options are lp, lp_threshold
+  # coil_coil_torque_p: 2  # defaults to 2 if not specified

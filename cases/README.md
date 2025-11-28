@@ -12,12 +12,11 @@ Each `case.yaml` file defines:
 - `coils_params`: Coil optimization parameters
   - `ncoils`: Number of coils (required, must be positive integer)
   - `order`: Fourier order for coil curves (required, must be positive integer)
-  - `verbose`: Verbose flag (optional, string `"True"` or `"False"`)
 - `optimizer_params`: Optimizer settings
   - `algorithm`: Optimization algorithm (e.g., `"L-BFGS-B"`, `"BFGS"`, `"SLSQP"`, `"augmented_lagrangian"`)
   - `max_iterations`: Maximum optimization iterations
   - `max_iter_subopt`: Maximum suboptimization iterations (for augmented Lagrangian)
-  - `verbose`: Verbose flag (boolean)
+  - `verbose`: Verbose flag (optional, boolean) - controls optimization progress output
   - `algorithm_options`: Optional dictionary of algorithm-specific hyperparameters (e.g., `{"ftol": 1e-6, "gtol": 1e-5}` for L-BFGS-B)
 - `coil_objective_terms`: Optional dictionary specifying which coil objectives to include
   - Each term can be specified with options like `"l1"`, `"l1_threshold"`, `"l2"`, `"l2_threshold"`, `"lp"`, `"lp_threshold"`
@@ -37,12 +36,11 @@ surface_params:
 coils_params:
   ncoils: 4
   order: 4
-  verbose: "True"  # or "False"
 optimizer_params:
   algorithm: "L-BFGS-B"  # Options: "BFGS", "L-BFGS-B", "SLSQP", "augmented_lagrangian", etc.
   max_iterations: 200
   max_iter_subopt: 10
-  verbose: False
+  verbose: False  # Optional: controls optimization progress output
   algorithm_options:  # Optional: algorithm-specific hyperparameters
     ftol: 1e-6  # Function tolerance (for L-BFGS-B)
     gtol: 1e-5  # Gradient tolerance (for L-BFGS-B)
