@@ -372,17 +372,41 @@ jobs:
           # Remove old leaderboard files first to ensure clean regeneration
           echo "Removing old leaderboard files to ensure clean regeneration..."
           rm -f docs/leaderboard.json
-          rm -rf docs/leaderboards/*.md
+          # Remove all existing leaderboard markdown files
+          if [ -d "docs/leaderboards" ]; then
+            find docs/leaderboards -name "*.md" -type f -delete
+            echo "Removed old leaderboard .md files"
+          fi
           
           echo "Generating leaderboard files..."
+          echo "Debug: Checking submissions before update-db..."
+          echo "Rotating ellipse submissions:"
+          find submissions/rotating_ellipse -name "*.zip" -type f 2>/dev/null | head -5 || echo "None found"
+          echo "All submission zip files:"
+          find submissions -name "*.zip" -type f | wc -l
+          
           stellcoilbench update-db
           
-          # Verify rotating_ellipse was generated (as a check)
-          if [ -f "docs/leaderboards/rotating_ellipse.md" ]; then
-            echo "✓ rotating_ellipse.md was generated"
-          else
-            echo "WARNING: rotating_ellipse.md was not generated - checking submissions..."
-            find submissions/rotating_ellipse -name "results.json" -type f | head -3
+          # Debug: Check what surfaces are in leaderboard.json
+          echo "Debug: Checking leaderboard.json after generation..."
+          if [ -f "docs/leaderboard.json" ]; then
+            python3 -c "import json; from pathlib import Path; data = json.loads(Path('docs/leaderboard.json').read_text()); entries = data.get('entries', []); surfaces = set(); [surfaces.add(entry.get('path', '').split('/')[entry.get('path', '').split('/').index('submissions') + 1]) for entry in entries if 'submissions/' in entry.get('path', '') and 'submissions' in entry.get('path', '').split('/')]; print(f'Surfaces in leaderboard.json: {sorted(surfaces)}'); print(f'Total entries: {len(entries)}')"
+          fi
+          
+          # Verify all expected leaderboard files were generated
+          echo "Verifying generated leaderboard files..."
+          if [ -d "docs/leaderboards" ]; then
+            echo "Generated leaderboard files:"
+            ls -la docs/leaderboards/*.md 2>/dev/null || echo "No .md files found"
+            
+            # Check for specific surfaces
+            for surface in rotating_ellipse LandremanPaul2021_QA circular_tokamak muse_focus; do
+              if [ -f "docs/leaderboards/${surface}.md" ]; then
+                echo "✓ ${surface}.md exists"
+              else
+                echo "WARNING: ${surface}.md not found"
+              fi
+            done
           fi
           
           # Verify files were generated
