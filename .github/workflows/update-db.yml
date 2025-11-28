@@ -69,7 +69,7 @@ jobs:
           TEMP_CASES=$(mktemp)
           echo "$ALL_CASE_FILES" > "$TEMP_CASES"
           
-          PYTHON_OUTPUT=$(python3 << 'PYTHON_SCRIPT' "$TEMP_CASES"
+          PYTHON_OUTPUT=$(python3 - "$TEMP_CASES" << 'PYTHON_SCRIPT'
           import sys
           import yaml
           import zipfile
