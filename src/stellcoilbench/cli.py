@@ -359,11 +359,24 @@ def submit_case(
     typer.echo(f"Wrote submission results to {submission_path}")
     
     # Copy case.yaml file to submission directory for reference
+    # Also add source_case_file field to track which case file was used
     case_yaml_path = case_path if case_path.is_file() else (case_path / "case.yaml")
     if case_yaml_path.exists() and case_yaml_path.is_file():
         submission_case_yaml = submission_dir / "case.yaml"
-        shutil.copy2(case_yaml_path, submission_case_yaml)
-        typer.echo(f"Copied case.yaml to {submission_case_yaml}")
+        # Read the case file and add source_case_file field
+        import yaml
+        case_data = yaml.safe_load(case_yaml_path.read_text())
+        # Store relative path from repo root for portability
+        repo_root = Path.cwd()
+        try:
+            source_case_file = str(case_yaml_path.resolve().relative_to(repo_root.resolve()))
+        except ValueError:
+            # If relative path fails, use absolute path
+            source_case_file = str(case_yaml_path.resolve())
+        case_data["source_case_file"] = source_case_file
+        # Write modified case.yaml to submission directory
+        submission_case_yaml.write_text(yaml.dump(case_data, default_flow_style=False, sort_keys=False))
+        typer.echo(f"Copied case.yaml to {submission_case_yaml} (with source_case_file: {source_case_file})")
     
     # Zip the entire submission directory and remove original files
     _zip_submission_directory(submission_dir)

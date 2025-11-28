@@ -77,16 +77,25 @@ jobs:
                   return content
           
           def case_has_successful_submission(case_file_path):
-              """Check if a case file has at least one successful submission."""
+              """Check if a case file has at least one successful submission.
+              
+              Compares by source_case_file field in submission case.yaml files.
+              This is simpler and more reliable than comparing YAML content.
+              """
               case_path = Path(case_file_path)
               if not case_path.exists():
                   return False
               
+              # Get relative path from repo root (same format as stored in submissions)
               try:
-                  case_content = case_path.read_text()
-                  case_normalized = normalize_yaml(case_content)
-              except Exception as e:
-                  return False
+                  repo_root = Path.cwd()
+                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
+              except ValueError:
+                  # If relative path fails, use absolute path
+                  case_file_rel = str(case_path.resolve())
+              
+              # Also try with forward slashes normalized (for cross-platform compatibility)
+              case_file_rel_normalized = case_file_rel.replace("\\", "/")
               
               submissions_dir = Path("submissions")
               if not submissions_dir.exists():
@@ -98,9 +107,27 @@ jobs:
                       with zipfile.ZipFile(zip_path, 'r') as zf:
                           if 'case.yaml' in zf.namelist() and 'results.json' in zf.namelist():
                               zip_case_content = zf.read('case.yaml').decode('utf-8')
-                              zip_case_normalized = normalize_yaml(zip_case_content)
-                              if zip_case_normalized == case_normalized:
-                                  return True
+                              zip_case_data = yaml.safe_load(zip_case_content)
+                              
+                              # Check if source_case_file matches
+                              submission_source = zip_case_data.get('source_case_file', '')
+                              if submission_source:
+                                  # Normalize paths for comparison
+                                  submission_source_normalized = submission_source.replace("\\", "/")
+                                  if (submission_source == case_file_rel or 
+                                      submission_source_normalized == case_file_rel_normalized):
+                                      return True
+                              else:
+                                  # Fallback: if source_case_file not present, compare normalized YAML content
+                                  # This handles old submissions that don't have source_case_file
+                                  try:
+                                      case_content = case_path.read_text()
+                                      case_normalized = normalize_yaml(case_content)
+                                      zip_case_normalized = normalize_yaml(zip_case_content)
+                                      if case_normalized == zip_case_normalized:
+                                          return True
+                                  except:
+                                      continue
                   except:
                       continue
               
@@ -291,12 +318,47 @@ jobs:
           echo "Fetching latest from origin..."
           git fetch origin main || echo "Fetch failed (non-critical)"
           
+          # Clean up any untracked files in docs/leaderboards/ that would conflict with merge
+          # These are generated files that will be regenerated anyway
+          echo "Cleaning untracked files in docs/leaderboards/ that would conflict with merge..."
+          if git rev-parse --verify origin/main > /dev/null 2>&1; then
+            # Get list of files that exist in origin/main/docs/leaderboards/
+            REMOTE_LEADERBOARD_FILES=$(git ls-tree -r --name-only origin/main docs/leaderboards/ 2>/dev/null || true)
+            if [ -n "$REMOTE_LEADERBOARD_FILES" ]; then
+              for file in $REMOTE_LEADERBOARD_FILES; do
+                # If file exists locally but is not tracked, remove it (will be regenerated)
+                if [ -f "$file" ] && ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
+                  echo "Removing untracked file that will conflict: $file"
+                  rm -f "$file"
+                fi
+              done
+            fi
+            # Also check leaderboard.json
+            if git ls-tree -r --name-only origin/main docs/leaderboard.json >/dev/null 2>&1; then
+              if [ -f "docs/leaderboard.json" ] && ! git ls-files --error-unmatch docs/leaderboard.json >/dev/null 2>&1; then
+                echo "Removing untracked file that will conflict: docs/leaderboard.json"
+                rm -f docs/leaderboard.json
+              fi
+            fi
+          fi
+          # Use git clean as fallback
+          if [ -d "docs/leaderboards" ]; then
+            git clean -fd docs/leaderboards/ 2>/dev/null || true
+          fi
+          
           # Merge origin/main into current branch to get submissions from previous runs
           # Use --no-edit to avoid opening an editor, and --no-ff to create a merge commit
           # This preserves local commits from Step 1 while also getting remote commits
           if git rev-parse --verify origin/main > /dev/null 2>&1; then
             echo "Merging origin/main to include submissions from previous runs..."
-            git merge origin/main --no-edit --no-ff || echo "Merge completed or not needed"
+            git merge origin/main --no-edit --no-ff || {
+              echo "Merge failed, checking if it's due to untracked files..."
+              # If merge failed, try to clean and retry
+              git merge --abort 2>/dev/null || true
+              git clean -fd docs/leaderboards/ 2>/dev/null || true
+              rm -f docs/leaderboard.json 2>/dev/null || true
+              git merge origin/main --no-edit --no-ff || echo "Merge still failed, continuing anyway"
+            }
           fi
           
           # Count submissions (should include both locally committed and merged from remote)
@@ -307,8 +369,21 @@ jobs:
           find submissions -name "*.zip" -type f | sort || echo "No zip files found"
           
           # Generate leaderboard files (processes all submissions in submissions/ directory)
+          # Remove old leaderboard files first to ensure clean regeneration
+          echo "Removing old leaderboard files to ensure clean regeneration..."
+          rm -f docs/leaderboard.json
+          rm -rf docs/leaderboards/*.md
+          
           echo "Generating leaderboard files..."
           stellcoilbench update-db
+          
+          # Verify rotating_ellipse was generated (as a check)
+          if [ -f "docs/leaderboards/rotating_ellipse.md" ]; then
+            echo "✓ rotating_ellipse.md was generated"
+          else
+            echo "WARNING: rotating_ellipse.md was not generated - checking submissions..."
+            find submissions/rotating_ellipse -name "results.json" -type f | head -3
+          fi
           
           # Verify files were generated
           echo "Checking generated files..."
