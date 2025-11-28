@@ -76,10 +76,31 @@ jobs:
           from pathlib import Path
           import json
           
+          def normalize_yaml_content(content):
+              """Normalize YAML content for comparison (remove comments, normalize whitespace)."""
+              try:
+                  data = yaml.safe_load(content)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+          
           def case_has_successful_submission(case_file_path):
-              """Check if a case file has at least one successful submission."""
+              """Check if a case file has at least one successful submission with matching content.
+              
+              Returns True only if:
+              1. A submission exists for this case file (by source_case_file path)
+              2. The case.yaml content in the submission matches the current case file
+              """
               case_path = Path(case_file_path)
               if not case_path.exists():
+                  return False
+              
+              # Read current case file content
+              try:
+                  current_case_content = case_path.read_text()
+                  current_case_normalized = normalize_yaml_content(current_case_content)
+              except Exception as e:
+                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
                   return False
               
               # Get relative path from repo root
@@ -104,20 +125,29 @@ jobs:
                       with zipfile.ZipFile(zip_path, 'r') as zf:
                           if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
                               continue
+                          
                           zip_case_content = zf.read('case.yaml').decode('utf-8')
                           zip_case_data = yaml.safe_load(zip_case_content)
                           
+                          # Check if this submission is for this case file
                           submission_source = zip_case_data.get('source_case_file', '')
                           if submission_source:
                               submission_source_normalized = submission_source.replace("\\", "/")
                               if (submission_source == case_file_rel or 
                                   submission_source_normalized == case_file_rel_normalized):
-                                  return True
+                                  # Found a submission for this case file - now check if content matches
+                                  zip_case_normalized = normalize_yaml_content(zip_case_content)
+                                  if zip_case_normalized == current_case_normalized:
+                                      return True  # Content matches, submission is still valid
+                                  else:
+                                      # Content differs - case file has changed, should rerun
+                                      print(f"Case file changed: {case_file_path} (submission from {zip_path.name})", file=sys.stderr)
+                                      continue  # Keep looking, but this submission is outdated
                   except Exception as e:
                       print(f"Warning: Failed to process {zip_path}: {e}", file=sys.stderr)
                       continue
               
-              return False
+              return False  # No matching submission found or all submissions have outdated content
           
           # Read case files from file passed as first argument
           if len(sys.argv) > 1:
@@ -395,14 +425,14 @@ jobs:
           find submissions/rotating_ellipse -name "*.zip" -type f 2>/dev/null | head -5 || echo "None found"
           echo "All submission zip files:"
           find submissions -name "*.zip" -type f | wc -l
+          echo "All submission zip file paths:"
+          find submissions -name "*.zip" -type f | sort | head -10
           
           stellcoilbench update-db
           
-          # Debug: Check what surfaces are in leaderboard.json
-          echo "Debug: Checking leaderboard.json after generation..."
-          if [ -f "docs/leaderboard.json" ]; then
-            python3 -c "import json; from pathlib import Path; data = json.loads(Path('docs/leaderboard.json').read_text()); entries = data.get('entries', []); surfaces = set(); [surfaces.add(entry.get('path', '').split('/')[entry.get('path', '').split('/').index('submissions') + 1]) for entry in entries if 'submissions/' in entry.get('path', '') and 'submissions' in entry.get('path', '').split('/')]; print(f'Surfaces in leaderboard.json: {sorted(surfaces)}'); print(f'Total entries: {len(entries)}')"
-          fi
+          # Run debug script to check for issues
+          echo "Running debug script..."
+          python3 debug_leaderboard.py || echo "Debug script failed (non-critical)"
           
           # Verify all expected leaderboard files were generated
           echo "Verifying generated leaderboard files..."
