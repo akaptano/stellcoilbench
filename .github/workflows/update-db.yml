@@ -61,7 +61,7 @@ jobs:
           
           # Use Python to check which case files have successful submissions
           # A case file should run if it has no successful submission (will retry failed cases)
-          PYTHON_OUTPUT=$(python3 << 'PYTHON_SCRIPT'
+          PYTHON_OUTPUT=$(echo "$ALL_CASE_FILES" | python3 << 'PYTHON_SCRIPT'
           import sys
           import yaml
           import zipfile
@@ -152,7 +152,8 @@ jobs:
               "already_successful": cases_already_successful
           }
           print(json.dumps(result))
-          PYTHON_SCRIPT <<< "$ALL_CASE_FILES")
+          PYTHON_SCRIPT
+          )
           
           # Extract case files to run from JSON output
           NEW_CASE_FILES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['to_run']))"))
