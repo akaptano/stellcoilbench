@@ -1,9 +1,3 @@
-# Git attributes for StellCoilBench
-# Configure merge strategies for generated/tracked directories
-# These directories are updated by CI and should prefer remote versions
-
-# Prefer remote version for docs/ directory (generated leaderboards)  
-docs/** merge=theirs
-
-# Prefer remote version for submissions/ directory (CI-generated submissions)
-submissions/** merge=theirs
+# Auto-handle merge conflicts for generated leaderboard files - prefer remote version
+docs/leaderboards/*.md merge=theirs
+docs/leaderboard.json merge=theirs

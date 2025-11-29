@@ -365,31 +365,24 @@ jobs:
           git log --oneline origin/main -5 || echo "No remote commits"
           
           # Clean up any untracked files in docs/leaderboards/ that would conflict with merge
-          # These are generated files that will be regenerated anyway
+          # These are generated files that will be regenerated anyway - always remove them
           echo "Cleaning untracked files in docs/leaderboards/ that would conflict with merge..."
-          if git rev-parse --verify origin/main > /dev/null 2>&1; then
-            # Get list of files that exist in origin/main/docs/leaderboards/
-            REMOTE_LEADERBOARD_FILES=$(git ls-tree -r --name-only origin/main docs/leaderboards/ 2>/dev/null || true)
-            if [ -n "$REMOTE_LEADERBOARD_FILES" ]; then
-              for file in $REMOTE_LEADERBOARD_FILES; do
-                # If file exists locally but is not tracked, remove it (will be regenerated)
-                if [ -f "$file" ] && ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
-                  echo "Removing untracked file that will conflict: $file"
-                  rm -f "$file"
-                fi
-              done
-            fi
-            # Also check leaderboard.json
-            if git ls-tree -r --name-only origin/main docs/leaderboard.json >/dev/null 2>&1; then
-              if [ -f "docs/leaderboard.json" ] && ! git ls-files --error-unmatch docs/leaderboard.json >/dev/null 2>&1; then
-                echo "Removing untracked file that will conflict: docs/leaderboard.json"
-                rm -f docs/leaderboard.json
-              fi
-            fi
-          fi
-          # Use git clean as fallback
+          # Aggressively remove all untracked files in docs/leaderboards/
           if [ -d "docs/leaderboards" ]; then
+            # Remove all untracked .md files
+            find docs/leaderboards -name "*.md" -type f ! -path "*/\.git/*" | while read file; do
+              if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
+                echo "Removing untracked file: $file"
+                rm -f "$file"
+              fi
+            done
+            # Also use git clean as fallback
             git clean -fd docs/leaderboards/ 2>/dev/null || true
+          fi
+          # Also remove untracked leaderboard.json if it exists
+          if [ -f "docs/leaderboard.json" ] && ! git ls-files --error-unmatch docs/leaderboard.json >/dev/null 2>&1; then
+            echo "Removing untracked file: docs/leaderboard.json"
+            rm -f docs/leaderboard.json
           fi
           
           # Step 1 already committed and pushed submissions locally

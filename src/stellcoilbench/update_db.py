@@ -210,12 +210,20 @@ def build_methods_json(
 
     methods: Dict[str, Any] = {}
 
+    loaded_count = 0
+    skipped_no_metrics = 0
+    skipped_no_score = 0
+    
     for method_key, path, data in _load_submissions(submissions_root):
+        loaded_count += 1
         meta = data.get("metadata") or {}
         metrics = data.get("metrics") or {}
 
         if not metrics:
             # Skip submissions with no metrics
+            skipped_no_metrics += 1
+            import sys
+            print(f"Warning: Skipping {path} - no metrics found", file=sys.stderr)
             continue
 
         metrics_numeric = _numeric_fields(metrics)
@@ -272,6 +280,9 @@ def build_methods_json(
         abs_path = path if path.is_absolute() else (repo_root / path).resolve()
         rel_path = str(abs_path.relative_to(repo_root.resolve()))
 
+        if primary_score is None:
+            skipped_no_score += 1
+        
         methods[method_key] = {
             "method_name": meta.get("method_name", "UNKNOWN"),
             "method_version": meta.get("method_version", path.stem if path.suffix == ".zip" else path.parent.name),
@@ -282,6 +293,11 @@ def build_methods_json(
             "score_primary": primary_score,
             "metrics": metrics_numeric,
         }
+    
+    # Log summary
+    import sys
+    print(f"Loaded {loaded_count} submissions, skipped {skipped_no_metrics} (no metrics), {skipped_no_score} will be filtered (no score)", file=sys.stderr)
+    print(f"Methods dict has {len(methods)} entries", file=sys.stderr)
 
     return methods
 
@@ -293,6 +309,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     Sorting by score_primary (ascending - lower normalized squared flux is better).
     """
     entries = []
+    filtered_count = 0
 
     for method_key, md in methods.items():
         score_primary = md.get("score_primary")
@@ -302,9 +319,9 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
         if score_primary is None:
             # Skip entries without a primary score
             # Log which entries are being filtered out for debugging
-            if "rotating_ellipse" in path.lower():
-                import sys
-                print(f"Warning: Filtering out rotating_ellipse entry {path} (score_primary is None)", file=sys.stderr)
+            filtered_count += 1
+            import sys
+            print(f"Warning: Filtering out entry {path} (score_primary is None, metrics keys: {list(metrics.keys())[:5]})", file=sys.stderr)
             continue
 
         entries.append(
@@ -324,6 +341,9 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     entries.sort(key=lambda e: e["score_primary"], reverse=False)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
+
+    import sys
+    print(f"Leaderboard: {len(entries)} entries included, {filtered_count} filtered out (no score_primary)", file=sys.stderr)
 
     return {"entries": entries}
 
