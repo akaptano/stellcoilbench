@@ -440,7 +440,13 @@ jobs:
           fi
           
           echo "Generating leaderboard files..."
-          stellcoilbench update-db
+          echo "Running stellcoilbench update-db..."
+          # Capture stderr output which contains diagnostics
+          stellcoilbench update-db 2>&1 | tee /tmp/update-db-output.log
+          echo ""
+          echo "=== Update-db diagnostic summary ==="
+          grep -E "(Loaded|skipped|filtered|Warning|Methods dict|Leaderboard:|Surface leaderboards|entries)" /tmp/update-db-output.log | head -20 || echo "No diagnostic output found"
+          echo "===================================="
           
           # Verify all expected leaderboard files were generated
           echo "Verifying generated leaderboard files..."

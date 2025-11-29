@@ -789,8 +789,17 @@ def update_database(
     surface_leaderboards = build_surface_leaderboards(
         leaderboard, submissions_root, plasma_surfaces_dir
     )
+    
+    import sys
+    print(f"Surface leaderboards built: {sorted(surface_leaderboards.keys())}", file=sys.stderr)
+    for surface, data in surface_leaderboards.items():
+        entries_count = len(data.get('entries', []))
+        print(f"  {surface}: {entries_count} entries", file=sys.stderr)
+    
     surface_names = write_surface_leaderboards(
         surface_leaderboards, docs_dir=docs_dir, repo_root=repo_root
     )
     write_surface_leaderboard_index(surface_names, docs_dir=docs_dir)
+    
+    print(f"Generated {len(surface_names)} surface leaderboard files: {sorted(surface_names)}", file=sys.stderr)
 
