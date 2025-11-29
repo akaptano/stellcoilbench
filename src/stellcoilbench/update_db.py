@@ -536,6 +536,9 @@ def write_surface_leaderboards(
     """
     surface_dir = docs_dir / "leaderboards"
     surface_dir.mkdir(parents=True, exist_ok=True)
+    if not surface_dir.exists() or not surface_dir.is_dir():
+        import sys
+        raise RuntimeError(f"Failed to create or access surface_dir: {surface_dir}")
     
     def _format_value(value: Any, metric_key: str = "") -> str:
         """Format a metric value in scientific notation with 2 digits."""
@@ -675,7 +678,13 @@ def write_surface_leaderboards(
         
         # Write file
         safe_filename = surface_name.replace(".", "_")
-        (surface_dir / f"{safe_filename}.md").write_text("\n".join(lines))
+        output_file = surface_dir / f"{safe_filename}.md"
+        try:
+            output_file.write_text("\n".join(lines))
+        except Exception as e:
+            import sys
+            print(f"ERROR: Failed to write {output_file}: {e}", file=sys.stderr)
+            raise
     
     return surface_names
 

@@ -353,11 +353,16 @@ jobs:
           # Ensure we're on main and have latest submissions
           echo "Current branch: $(git branch --show-current)"
           
-          # Step 1 already committed submissions locally, so they're in the working directory
-          # However, we also want to include submissions from previous workflow runs
-          # So we'll merge origin/main to get everything, but preserve local commits
-          echo "Fetching latest from origin..."
+          # Step 1 already committed submissions locally and pushed them
+          # Fetch the latest to ensure we have Step 1's commits
+          echo "Fetching latest from origin (including Step 1's commits)..."
           git fetch origin main || echo "Fetch failed (non-critical)"
+          
+          # Show what commits we have locally vs remote
+          echo "Local commits:"
+          git log --oneline -5 || echo "No local commits"
+          echo "Remote commits:"
+          git log --oneline origin/main -5 || echo "No remote commits"
           
           # Clean up any untracked files in docs/leaderboards/ that would conflict with merge
           # These are generated files that will be regenerated anyway
@@ -387,19 +392,41 @@ jobs:
             git clean -fd docs/leaderboards/ 2>/dev/null || true
           fi
           
-          # Merge origin/main into current branch to get submissions from previous runs
-          # Use --no-edit to avoid opening an editor, and --no-ff to create a merge commit
-          # This preserves local commits from Step 1 while also getting remote commits
+          # Step 1 already committed and pushed submissions locally
+          # We need to ensure we have those submissions before generating leaderboards
+          # Check if we're ahead of origin/main (Step 1's commits)
+          LOCAL_COMMITS=$(git rev-list HEAD ^origin/main 2>/dev/null | wc -l || echo "0")
+          echo "Local commits ahead of origin/main: $LOCAL_COMMITS"
+          
+          # If we have local commits, we already have Step 1's submissions
+          # Still fetch to get any other remote updates, but don't merge if it would conflict
+          echo "Fetching latest from origin..."
+          git fetch origin main || echo "Fetch failed (non-critical)"
+          
+          # Only merge if we're behind origin/main (to get submissions from previous runs)
+          # But preserve local commits from Step 1
           if git rev-parse --verify origin/main > /dev/null 2>&1; then
-            echo "Merging origin/main to include submissions from previous runs..."
-            git merge origin/main --no-edit --no-ff || {
-              echo "Merge failed, checking if it's due to untracked files..."
-              # If merge failed, try to clean and retry
-              git merge --abort 2>/dev/null || true
-              git clean -fd docs/leaderboards/ 2>/dev/null || true
-              rm -f docs/leaderboard.json 2>/dev/null || true
-              git merge origin/main --no-edit --no-ff || echo "Merge still failed, continuing anyway"
-            }
+            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
+            if [ "$BEHIND_COUNT" -gt 0 ]; then
+              echo "Merging origin/main to include submissions from previous runs..."
+              git merge origin/main --no-edit --no-ff || {
+                # If merge fails, resolve conflicts by keeping local submissions
+                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+                if [ -n "$CONFLICTS" ]; then
+                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
+                    [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  git commit --no-edit || echo "Merge commit failed"
+                else
+                  git merge --abort 2>/dev/null || true
+                fi
+              }
+            else
+              echo "Already up to date with origin/main, using local state"
+            fi
           fi
           
           # Count submissions (should include both locally committed and merged from remote)
@@ -420,19 +447,7 @@ jobs:
           fi
           
           echo "Generating leaderboard files..."
-          echo "Debug: Checking submissions before update-db..."
-          echo "Rotating ellipse submissions:"
-          find submissions/rotating_ellipse -name "*.zip" -type f 2>/dev/null | head -5 || echo "None found"
-          echo "All submission zip files:"
-          find submissions -name "*.zip" -type f | wc -l
-          echo "All submission zip file paths:"
-          find submissions -name "*.zip" -type f | sort | head -10
-          
           stellcoilbench update-db
-          
-          # Run debug script to check for issues
-          echo "Running debug script..."
-          python3 debug_leaderboard.py || echo "Debug script failed (non-critical)"
           
           # Verify all expected leaderboard files were generated
           echo "Verifying generated leaderboard files..."
