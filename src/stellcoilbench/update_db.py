@@ -263,6 +263,10 @@ def build_methods_json(
             if isinstance(fallback, (int, float)):
                 primary_score = float(fallback)
                 metrics_numeric["score_primary"] = primary_score
+            elif fallback is not None:
+                # Log warning if fallback exists but is not numeric
+                import sys
+                print(f"Warning: fallback score '{fallback}' (type {type(fallback).__name__}) is not numeric for {path}", file=sys.stderr)
 
         # Convert path to absolute if it's relative
         abs_path = path if path.is_absolute() else (repo_root / path).resolve()
@@ -293,9 +297,14 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     for method_key, md in methods.items():
         score_primary = md.get("score_primary")
         metrics = md.get("metrics", {})
+        path = md.get("path", "")
         
         if score_primary is None:
             # Skip entries without a primary score
+            # Log which entries are being filtered out for debugging
+            if "rotating_ellipse" in path.lower():
+                import sys
+                print(f"Warning: Filtering out rotating_ellipse entry {path} (score_primary is None)", file=sys.stderr)
             continue
 
         entries.append(

@@ -419,6 +419,14 @@ def optimize_coils(
         target_B = 1.0
     elif 'rotating_ellipse' in surface_file:
         target_B = 1.0
+    elif 'c09r00' in surface_file:
+        target_B = 0.5  # Half-tesla target B-field for C09R00 NCSX from PM4Stell design
+    elif 'cfqs_2b40' in surface_file:
+        target_B = 1.0
+    elif 'W7-X' in surface_file:
+        target_B = 2.5  # 2.5 T target B-field for W7-X design here
+    elif 'HSX' in surface_file:
+        target_B = 2.0  # 2 T target B-field for HSX_QH design here
     else:
         raise ValueError(f"Unknown surface file: {surface_file}")
     coil_params['target_B'] = target_B
