@@ -148,12 +148,31 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         path_parts = path.parts
         surface = "unknown"
         user = "unknown"
+        
+        # Try to find "submissions" in path
         if "submissions" in path_parts:
             submissions_idx = path_parts.index("submissions")
             if submissions_idx + 1 < len(path_parts):
                 surface = path_parts[submissions_idx + 1]
             if submissions_idx + 2 < len(path_parts):
                 user = path_parts[submissions_idx + 2]
+        else:
+            # For test cases or non-standard paths, extract from relative path structure
+            # Path format: submissions_root/surface/user/timestamp/results.json
+            # Calculate relative to submissions_root
+            try:
+                rel_path = path.relative_to(submissions_root)
+                rel_parts = rel_path.parts
+                if len(rel_parts) >= 3:
+                    surface = rel_parts[0]  # First part after submissions_root
+                    user = rel_parts[1]     # Second part
+            except ValueError:
+                # If relative path calculation fails, try absolute path structure
+                # Assume format: .../surface/user/timestamp/results.json
+                if len(path_parts) >= 4:
+                    # results.json is last, timestamp is second to last, user is third to last, surface is fourth to last
+                    surface = path_parts[-4]
+                    user = path_parts[-3]
         
         # Use explicit method_version if present, otherwise fall back to dir name.
         # For zip files, use the zip filename (without .zip extension)

@@ -86,7 +86,7 @@ class TestLoadSubmissions:
             submissions = list(_load_submissions(submissions_root))
             assert len(submissions) == 1
             method_key, path, data = submissions[0]
-            assert method_key == "test_method:2024-01-01_12-00"
+            assert method_key == "test_method:surface1:user1:2024-01-01_12-00"
             assert data["metadata"]["method_name"] == "test_method"
     
     def test_load_submissions_skips_non_results_json(self):
@@ -154,7 +154,7 @@ class TestBuildMethodsJson:
             methods = build_methods_json(submissions_root, repo_root)
             assert len(methods) == 1
             
-            method_key = "test_method:2024-01-01_12-00"
+            method_key = "test_method:surface1:user1:2024-01-01_12-00"
             assert method_key in methods
             method_data = methods[method_key]
             assert method_data["method_name"] == "test_method"
@@ -185,7 +185,7 @@ class TestBuildMethodsJson:
 """)
             
             methods = build_methods_json(submissions_root, repo_root)
-            method_key = "test_method:2024-01-01_12-00"
+            method_key = "test_method:surface1:user1:2024-01-01_12-00"
             method_data = methods[method_key]
             
             assert method_data["metrics"]["num_coils"] == 4.0
