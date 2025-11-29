@@ -143,13 +143,27 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
 
         meta = data.get("metadata") or {}
         method_name = meta.get("method_name", "UNKNOWN")
+        
+        # Extract surface and user from path to make method_key unique
+        path_parts = path.parts
+        surface = "unknown"
+        user = "unknown"
+        if "submissions" in path_parts:
+            submissions_idx = path_parts.index("submissions")
+            if submissions_idx + 1 < len(path_parts):
+                surface = path_parts[submissions_idx + 1]
+            if submissions_idx + 2 < len(path_parts):
+                user = path_parts[submissions_idx + 2]
+        
         # Use explicit method_version if present, otherwise fall back to dir name.
         # For zip files, use the zip filename (without .zip extension)
         if path.suffix == ".zip":
             version = meta.get("method_version") or path.stem
         else:
             version = meta.get("method_version") or path.parent.name
-        method_key = f"{method_name}:{version}"
+        
+        # Include surface and user in method_key to ensure uniqueness
+        method_key = f"{method_name}:{surface}:{user}:{version}"
         
         found_count += 1
         yield method_key, path, data
@@ -168,9 +182,23 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                 
                 meta = data.get("metadata") or {}
                 method_name = meta.get("method_name", "UNKNOWN")
+                
+                # Extract surface and user from path to make method_key unique
+                # Path format: submissions/{surface}/{user}/{timestamp}.zip
+                path_parts = zip_path.parts
+                surface = "unknown"
+                user = "unknown"
+                if "submissions" in path_parts:
+                    submissions_idx = path_parts.index("submissions")
+                    if submissions_idx + 1 < len(path_parts):
+                        surface = path_parts[submissions_idx + 1]
+                    if submissions_idx + 2 < len(path_parts):
+                        user = path_parts[submissions_idx + 2]
+                
                 # Use zip filename (without .zip) as version/directory name
                 version = zip_path.stem  # Remove .zip extension
-                method_key = f"{method_name}:{version}"
+                # Include surface and user in method_key to ensure uniqueness
+                method_key = f"{method_name}:{surface}:{user}:{version}"
                 
                 found_count += 1
                 # Yield with zip_path as the path (even though results.json is inside)
@@ -213,6 +241,7 @@ def build_methods_json(
     loaded_count = 0
     skipped_no_metrics = 0
     skipped_no_score = 0
+    duplicate_keys = {}  # Track duplicate method_keys
     
     for method_key, path, data in _load_submissions(submissions_root):
         loaded_count += 1
@@ -225,6 +254,14 @@ def build_methods_json(
             import sys
             print(f"Warning: Skipping {path} - no metrics found", file=sys.stderr)
             continue
+
+        # Track duplicate method_keys (warn but still process - later overwrites earlier)
+        if method_key in methods:
+            if method_key not in duplicate_keys:
+                duplicate_keys[method_key] = [methods[method_key].get('path')]  # Include the first one
+            duplicate_keys[method_key].append(str(path))  # Add the duplicate
+            import sys
+            print(f"Warning: Duplicate method_key '{method_key}'. Previous: {methods[method_key].get('path')}, New: {path} (will overwrite)", file=sys.stderr)
 
         metrics_numeric = _numeric_fields(metrics)
         
@@ -296,8 +333,14 @@ def build_methods_json(
     
     # Log summary
     import sys
+    total_duplicates = sum(len(paths) - 1 for paths in duplicate_keys.values())  # -1 because first one isn't a duplicate
     print(f"Loaded {loaded_count} submissions, skipped {skipped_no_metrics} (no metrics), {skipped_no_score} will be filtered (no score)", file=sys.stderr)
-    print(f"Methods dict has {len(methods)} entries", file=sys.stderr)
+    if duplicate_keys:
+        print(f"Found {len(duplicate_keys)} duplicate method_keys ({total_duplicates} overwrites):", file=sys.stderr)
+        for key, paths in duplicate_keys.items():
+            print(f"  {key}: {len(paths)} total (first kept, {len(paths)-1} overwritten)", file=sys.stderr)
+    expected_entries = loaded_count - skipped_no_metrics - total_duplicates
+    print(f"Methods dict has {len(methods)} entries (expected: {expected_entries}, loaded: {loaded_count}, skipped: {skipped_no_metrics}, duplicates: {total_duplicates})", file=sys.stderr)
 
     return methods
 
