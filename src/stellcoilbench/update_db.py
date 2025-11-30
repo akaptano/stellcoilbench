@@ -451,6 +451,11 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
     entries = leaderboard.get("entries") or []
 
     lines = [
+        "<style>",
+        "table { font-size: 0.85em; }",
+        "th, td { font-size: 0.9em; padding: 4px 8px; }",
+        "</style>",
+        "",
         "# CoilBench Leaderboard",
         "",
         "Welcome to the CoilBench leaderboard! Compare coil optimization methods across different plasma surfaces.",
@@ -712,6 +717,11 @@ def write_surface_leaderboards(
         display_name = surface_name.replace("input.", "").replace("_", " ").title()
         
         lines = [
+            "<style>",
+            "table { font-size: 0.85em; }",
+            "th, td { font-size: 0.9em; padding: 4px 8px; }",
+            "</style>",
+            "",
             f"# {display_name} Leaderboard",
             "",
             f"**Plasma Surface:** `{surface_name}`",
