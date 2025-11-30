@@ -758,8 +758,8 @@ def optimize_coils_loop(
     #  reactor-scale device with 5.7 T target B-field
     length_target = kwargs.get('length_target', 210.0)
     flux_threshold = kwargs.get('flux_threshold', 1e-8)
-    cc_threshold = kwargs.get('cc_threshold', 1.0)
-    cs_threshold = kwargs.get('cs_threshold', 1.5)
+    cc_threshold = kwargs.get('cc_threshold', 0.8)
+    cs_threshold = kwargs.get('cs_threshold', 1.3)
     msc_threshold = kwargs.get('msc_threshold', 1.0)
     curvature_threshold = kwargs.get('curvature_threshold', 1.0)
 
@@ -1263,7 +1263,14 @@ def optimize_coils_loop(
         'avg_BdotN_over_B': avg_BdotN_over_B,
         'max_BdotN_over_B': max_BdotN_overB,
         'lagrange_multipliers': lag_mul,
-        'output_directory': str(out_dir)
+        'output_directory': str(out_dir),
+        'flux_threshold': flux_threshold,
+        'cc_threshold': cc_threshold,
+        'cs_threshold': cs_threshold,
+        'msc_threshold': msc_threshold,
+        'curvature_threshold': curvature_threshold,
+        'force_threshold': force_threshold,
+        'torque_threshold': torque_threshold,
     }
     
     return coils, results
