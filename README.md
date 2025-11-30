@@ -15,6 +15,8 @@ A repository for automated benchmarking of stellarator coil optimization techniq
    git commit -m "Add submission"
    git push
    ```
+   
+   **Note**: Submissions are automatically zipped into `.zip` files. Each submission is stored as `submissions/<surface>/<username>/<timestamp>.zip`.
 
 3. **View the leaderboard:**
    - Browse `docs/leaderboards/` on GitHub

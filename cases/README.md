@@ -17,6 +17,7 @@ Each `case.yaml` file defines:
   - `max_iterations`: Maximum optimization iterations
   - `max_iter_subopt`: Maximum suboptimization iterations (for augmented Lagrangian)
   - `verbose`: Verbose flag (optional, boolean) - controls optimization progress output
+    - **Note**: `verbose` is only valid in `optimizer_params`, not in `coils_params`
   - `algorithm_options`: Optional dictionary of algorithm-specific hyperparameters (e.g., `{"ftol": 1e-6, "gtol": 1e-5}` for L-BFGS-B)
 - `coil_objective_terms`: Optional dictionary specifying which coil objectives to include
   - Each term can be specified with options like `"l1"`, `"l1_threshold"`, `"l2"`, `"l2_threshold"`, `"lp"`, `"lp_threshold"`
@@ -71,15 +72,16 @@ stellcoilbench submit-case cases/case.yaml
 This will:
 1. Run the coil optimization for the case
 2. Evaluate the results
-3. Generate `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
-4. Save `coils.json` (optimized coil geometry) in the submission directory
-5. Copy `case.yaml` to the submission directory for reference
-6. Save VTK visualization files (*.vtu, *.vts) in the submission directory
+3. Create a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
+4. Save `results.json`, `coils.json`, `case.yaml` (with `source_case_file` field), and VTK files in the submission directory
+5. **Automatically zip** the submission directory into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>.zip`
+6. Remove the original directory, leaving only the `.zip` file
 
 **Submission identification**: Each submission is uniquely identified by:
-- **Date submitted**: Timestamp in directory name (`MM-DD-YYYY_HH-MM`)
+- **Date submitted**: Timestamp in zip filename (`MM-DD-YYYY_HH-MM.zip`)
 - **GitHub username**: Auto-detected from `git config user.name`
-- **Metadata**: All case parameters stored in `case.yaml` (copied to submission directory)
+- **Source case file**: Tracked in `case.yaml` via `source_case_file` field (which case file was used)
+- **Metadata**: All case parameters stored in `case.yaml` (copied to submission zip file)
 
 ## Leaderboard
 

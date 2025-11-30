@@ -14,7 +14,9 @@ This directory holds **submission results** generated from running benchmark cas
    
    Optional: Add `--method-name` and `--notes` to store method info in metadata.
 
-3. **Results** are automatically written to `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json`
+3. **Results** are automatically written to `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>.zip`
+   - The submission directory is automatically zipped after creation
+   - The zip file contains all submission files (results.json, case.yaml, coils.json, VTK files, etc.)
 
 ## Directory Structure
 
@@ -22,48 +24,32 @@ This directory holds **submission results** generated from running benchmark cas
 submissions/
   LandremanPaul2021_QA/  # Plasma surface name (from case.yaml surface_params.surface)
     akaptano/            # GitHub username (auto-detected from git config)
-      11-23-2025_23-03/  # Date and time (MM-DD-YYYY_HH-MM)
-        results.json            # Contains metadata + case results with metrics
-        case.yaml               # Copy of the case.yaml used to generate this submission
-        coils.json              # Optimized coil geometry (JSON format)
-        biot_savart_optimized.json  # Biot-Savart field data
-        coils_initial.vtu       # Initial coil geometry (VTK)
-        coils_optimized.vtu     # Optimized coil geometry (VTK)
-        surface_initial.vts     # Initial surface (VTK)
-        surface_optimized.vts   # Optimized surface (VTK)
-      11-23-2025_23-04/  # Another submission from the same user
-        results.json
-        case.yaml
-        coils.json
-        ...
+      11-23-2025_23-03.zip  # Date and time (MM-DD-YYYY_HH-MM).zip
+        # Contains:
+        #   - results.json (metadata + case results with metrics)
+        #   - case.yaml (copy of case.yaml with source_case_file field)
+        #   - coils.json (optimized coil geometry, JSON format)
+        #   - biot_savart_optimized.json (Biot-Savart field data)
+        #   - coils_initial.vtu, coils_optimized.vtu (VTK coil files)
+        #   - surface_initial.vts, surface_optimized.vts (VTK surface files)
+      11-23-2025_23-04.zip  # Another submission from the same user
     another_user/        # Different GitHub user
-      11-23-2025_14-00/
-        results.json
-        case.yaml
-        coils.json
-        ...
+      11-23-2025_14-00.zip
   MUSE.focus/           # Different plasma surface
     akaptano/
-      11-23-2025_23-03/
-        results.json
-        case.yaml
-        coils.json
-        ...
+      11-23-2025_23-03.zip
   circular_tokamak/     # Another plasma surface
     akaptano/
-      11-23-2025_23-04/
-        results.json
-        case.yaml
-        coils.json
-        ...
+      11-23-2025_23-04.zip
 ```
 
-Each submission directory is named with the timestamp (to minute accuracy) when it was created.
+**Important**: Submissions are automatically zipped into `.zip` files. Each submission zip file is named with the timestamp (to minute accuracy) when it was created.
 
-Each submission directory contains:
-- **`results.json`** - Submission results with metadata, case_id, and metrics
-- **`case.yaml`** - Copy of the case definition file used to run this submission
+Each submission zip file contains:
+- **`results.json`** - Submission results with metadata and metrics
+- **`case.yaml`** - Copy of the case definition file used to run this submission, with `source_case_file` field added (tracks which case file was used)
 - **`coils.json`** - Optimized coil geometry (JSON format, contains coil class objects)
+- **`biot_savart_optimized.json`** - Biot-Savart field data
 - **`*.vtu`, `*.vts`** - VTK visualization files generated during optimization
 
 ## Results.json Format
@@ -74,9 +60,9 @@ Each `results.json` file contains:
 
 ## Case.yaml
 
-The `case.yaml` file is automatically copied from `cases/` when you run `submit-case`. This ensures each submission includes the exact case configuration that was used, making it easy to reproduce or understand what benchmark was run.
+The `case.yaml` file is automatically copied from `cases/` when you run `submit-case` and stored inside the submission zip file. The `source_case_file` field is added to track which case file was used. This ensures each submission includes the exact case configuration that was used, making it easy to reproduce or understand what benchmark was run.
 
-The `update-db` command scans this directory for `results.json` files to build the leaderboard.
+The `update-db` command scans this directory for `.zip` files and extracts `results.json` from each to build the leaderboard.
 
 ## Leaderboard
 

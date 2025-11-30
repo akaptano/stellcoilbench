@@ -3,7 +3,7 @@
 StellCoilBench is an open benchmark suite for stellarator coil optimization algorithms.
 
 - **Benchmark cases** live under `cases/`.
-- **Submissions** live under `submissions/`.
+- **Submissions** live under `submissions/` (stored as `.zip` files).
 - Aggregated results are stored in `docs/leaderboard.json` and shown in the [Surface Leaderboards](leaderboards/).
 
 ## Leaderboards
@@ -15,7 +15,7 @@ StellCoilBench is an open benchmark suite for stellarator coil optimization algo
 
 ## Updating the Leaderboard
 
-The leaderboard is automatically updated by CI when submissions are pushed to the `main` branch.
+The leaderboard is automatically updated by CI when submissions are pushed to the `main` branch. CI only runs case files that don't have successful submissions yet.
 
 To update locally after adding submissions, run:
 

@@ -27,6 +27,41 @@ jobs:
         run: |
           pip install -e .
 
+      - name: Fetch latest submissions from main
+        run: |
+          # Fetch the latest from origin/main to see submissions from previous CI runs
+          echo "Fetching latest from origin/main to check for existing submissions..."
+          git fetch origin main || echo "Fetch failed (non-critical, will check local state)"
+          
+          # Merge origin/main to get submissions from previous runs
+          # This ensures we can see if cases already have successful submissions
+          if git rev-parse --verify origin/main > /dev/null 2>&1; then
+            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
+            if [ "$BEHIND_COUNT" -gt 0 ]; then
+              echo "Merging origin/main to include submissions from previous runs..."
+              git merge origin/main --no-edit --no-ff || {
+                # If merge fails, resolve conflicts by preferring remote for both docs/ and submissions/
+                # At this point, we want to see previous submissions from origin/main
+                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+                if [ -n "$CONFLICTS" ]; then
+                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  git commit --no-edit || echo "Merge commit failed"
+                else
+                  git merge --abort 2>/dev/null || true
+                fi
+              }
+            else
+              echo "Already up to date with origin/main"
+            fi
+          else
+            echo "No origin/main found, using local state"
+          fi
+
       - name: Run benchmark cases
         run: |
           # Run case files that are NEW or have FAILED (no successful submission generated)
