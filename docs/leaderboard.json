@@ -69,6 +69,47 @@
       "rank": 2
     },
     {
+      "method_key": ":LandremanPaul2021_QA:akaptano:11-30-2025_21-02",
+      "method_name": "",
+      "method_version": "11-30-2025_21-02",
+      "score_primary": 3.835729686930566e-05,
+      "run_date": "2025-11-30T21:02:54.536151",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 7.8GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/11-30-2025_21-02.zip",
+      "metrics": {
+        "initial_B_field": 0.9998258195958676,
+        "final_B_field": 0.3003895598358945,
+        "target_B_field": 1.0,
+        "optimization_time": 1918.0194625854492,
+        "final_normalized_squared_flux": 3.835729686930566e-05,
+        "final_min_cs_separation": 0.0005440675567221652,
+        "final_min_cc_separation": 0.09626335159509972,
+        "final_total_length": 11.636540941010166,
+        "final_max_curvature": 7.963392224503279,
+        "final_average_curvature": 3.1452854285184415,
+        "final_mean_squared_curvature": 14.11776593973197,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 124764.20010829424,
+        "final_avg_max_coil_force": 107380.38775081975,
+        "final_max_max_coil_torque": 30042.90403066859,
+        "final_avg_max_coil_torque": 20792.027223889105,
+        "avg_BdotN_over_B": 0.027232943453519738,
+        "max_BdotN_over_B": 0.9982554801103073,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 3.835729686930566e-05
+      },
+      "rank": 3
+    },
+    {
       "method_key": ":LandremanPaul2021_QA:akaptano:11-29-2025_20-59",
       "method_name": "",
       "method_version": "11-29-2025_20-59",
@@ -100,7 +141,7 @@
         "num_coils": 4.0,
         "score_primary": 4.7236517034117376e-05
       },
-      "rank": 3
+      "rank": 4
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:11-30-2025_14-50",
@@ -134,7 +175,7 @@
         "num_coils": 4.0,
         "score_primary": 0.0007548558731222065
       },
-      "rank": 4
+      "rank": 5
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:11-30-2025_15-04",
@@ -168,7 +209,7 @@
         "num_coils": 4.0,
         "score_primary": 0.00493245371937412
       },
-      "rank": 5
+      "rank": 6
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:11-29-2025_21-30",
@@ -202,7 +243,7 @@
         "num_coils": 4.0,
         "score_primary": 0.004932453719374122
       },
-      "rank": 6
+      "rank": 7
     },
     {
       "method_key": ":cfqs_2b40:akaptano:11-30-2025_15-02",
@@ -236,7 +277,7 @@
         "num_coils": 4.0,
         "score_primary": 0.009628668158454584
       },
-      "rank": 7
+      "rank": 8
     },
     {
       "method_key": ":cfqs_2b40:akaptano:11-29-2025_21-29",
@@ -270,7 +311,7 @@
         "num_coils": 4.0,
         "score_primary": 0.009628668158454675
       },
-      "rank": 8
+      "rank": 9
     },
     {
       "method_key": ":c09r00_B_axis_half_tesla_PM4Stell.focus:akaptano:11-29-2025_21-30",
@@ -304,7 +345,7 @@
         "num_coils": 4.0,
         "score_primary": 0.016148850201163707
       },
-      "rank": 9
+      "rank": 10
     },
     {
       "method_key": ":c09r00_B_axis_half_tesla_PM4Stell.focus:akaptano:11-30-2025_15-04",
@@ -338,7 +379,7 @@
         "num_coils": 4.0,
         "score_primary": 0.016148850201163727
       },
-      "rank": 10
+      "rank": 11
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:11-29-2025_21-29",
@@ -372,7 +413,7 @@
         "num_coils": 4.0,
         "score_primary": 0.016311908159674135
       },
-      "rank": 11
+      "rank": 12
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:11-30-2025_15-03",
@@ -406,7 +447,7 @@
         "num_coils": 4.0,
         "score_primary": 0.016311908159754442
       },
-      "rank": 12
+      "rank": 13
     },
     {
       "method_key": ":HSX_QHS_mn1824_ns101:akaptano:11-29-2025_21-29",
@@ -440,7 +481,7 @@
         "num_coils": 4.0,
         "score_primary": 0.017518080317853745
       },
-      "rank": 13
+      "rank": 14
     },
     {
       "method_key": ":HSX_QHS_mn1824_ns101:akaptano:11-30-2025_15-03",
@@ -474,7 +515,7 @@
         "num_coils": 4.0,
         "score_primary": 0.017518080445817177
       },
-      "rank": 14
+      "rank": 15
     },
     {
       "method_key": ":rotating_ellipse:akaptano:11-29-2025_21-31",
@@ -508,7 +549,7 @@
         "num_coils": 4.0,
         "score_primary": 0.0383600985532873
       },
-      "rank": 15
+      "rank": 16
     },
     {
       "method_key": ":rotating_ellipse:akaptano:11-30-2025_15-05",
@@ -542,7 +583,7 @@
         "num_coils": 4.0,
         "score_primary": 0.03836009855328892
       },
-      "rank": 16
+      "rank": 17
     },
     {
       "method_key": ":muse.focus:akaptano:11-30-2025_15-04",
@@ -576,7 +617,7 @@
         "num_coils": 4.0,
         "score_primary": 0.059512666331497745
       },
-      "rank": 17
+      "rank": 18
     },
     {
       "method_key": ":muse.focus:akaptano:11-29-2025_21-30",
@@ -610,7 +651,7 @@
         "num_coils": 4.0,
         "score_primary": 0.05951266633149775
       },
-      "rank": 18
+      "rank": 19
     }
   ]
 }
