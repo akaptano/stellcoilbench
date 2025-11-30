@@ -1225,6 +1225,8 @@ def optimize_coils_loop(
     unit_normal_plot = s_plot.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
     BdotN_plot = np.sum(B_plot * unit_normal_plot, axis=2)
     abs_B_plot = bs.AbsB().reshape((nphi_plot, ntheta_plot))
+    # Avoid division by very small numbers (same protection as in plotting function)
+    abs_B_plot = np.where(abs_B_plot > 1e-10, abs_B_plot, 1e-10)
     max_BdotN_overB = np.max(np.abs(BdotN_plot / abs_B_plot)) if np.any(abs_B_plot > 0) else 0.0
     
     print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")

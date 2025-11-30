@@ -418,6 +418,14 @@ def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
         "initial_B_field",  # B0 - removed per request
         "final_B_field",  # Bf - removed per request
         "target_B_field",  # Bt - removed per request
+        # Threshold parameters - these are configuration, not results
+        "flux_threshold",
+        "cc_threshold",
+        "cs_threshold",
+        "msc_threshold",
+        "curvature_threshold",
+        "force_threshold",
+        "torque_threshold",
     }
     
     all_keys = set()
@@ -652,6 +660,14 @@ def write_surface_leaderboards(
             "initial_B_field",  # B0 - removed per request
             "final_B_field",  # Bf - removed per request
             "target_B_field",  # Bt - removed per request
+            # Threshold parameters - these are configuration, not results
+            "flux_threshold",
+            "cc_threshold",
+            "cs_threshold",
+            "msc_threshold",
+            "curvature_threshold",
+            "force_threshold",
+            "torque_threshold",
         }
         
         all_keys = set()
