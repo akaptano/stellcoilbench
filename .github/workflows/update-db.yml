@@ -161,26 +161,26 @@ jobs:
                           if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
                               continue
                           
-                  zip_case_content = zf.read('case.yaml').decode('utf-8')
-                  zip_case_data = yaml.safe_load(zip_case_content)
-                  
-                  # Check if this submission is for this case file
-                  submission_source = zip_case_data.get('source_case_file', '')
-                  if submission_source:
-                      submission_source_normalized = submission_source.replace("\\", "/")
-                      if (submission_source == case_file_rel or 
-                          submission_source_normalized == case_file_rel_normalized):
-                          # Found a submission for this case file - now check if content matches
-                          # Remove source_case_file from comparison since it's metadata, not part of case definition
-                          zip_case_data_for_comparison = {k: v for k, v in zip_case_data.items() if k != 'source_case_file'}
-                          zip_case_normalized = yaml.dump(zip_case_data_for_comparison, sort_keys=True, default_flow_style=False)
+                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_data = yaml.safe_load(zip_case_content)
                           
-                          if zip_case_normalized == current_case_normalized:
-                              return True  # Content matches, submission is still valid
-                          else:
-                              # Content differs - case file has changed, should rerun
-                              print(f"Case file changed: {case_file_path} (submission from {zip_path.name})", file=sys.stderr)
-                              continue  # Keep looking, but this submission is outdated
+                          # Check if this submission is for this case file
+                          submission_source = zip_case_data.get('source_case_file', '')
+                          if submission_source:
+                              submission_source_normalized = submission_source.replace("\\", "/")
+                              if (submission_source == case_file_rel or 
+                                  submission_source_normalized == case_file_rel_normalized):
+                                  # Found a submission for this case file - now check if content matches
+                                  # Remove source_case_file from comparison since it's metadata, not part of case definition
+                                  zip_case_data_for_comparison = {k: v for k, v in zip_case_data.items() if k != 'source_case_file'}
+                                  zip_case_normalized = yaml.dump(zip_case_data_for_comparison, sort_keys=True, default_flow_style=False)
+                                  
+                                  if zip_case_normalized == current_case_normalized:
+                                      return True  # Content matches, submission is still valid
+                                  else:
+                                      # Content differs - case file has changed, should rerun
+                                      print(f"Case file changed: {case_file_path} (submission from {zip_path.name})", file=sys.stderr)
+                                      continue  # Keep looking, but this submission is outdated
                   except Exception as e:
                       print(f"Warning: Failed to process {zip_path}: {e}", file=sys.stderr)
                       continue
