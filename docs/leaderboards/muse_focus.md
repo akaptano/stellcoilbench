@@ -1,8 +1,3 @@
-<style>
-table { font-size: 0.85em; }
-th, td { font-size: 0.9em; padding: 4px 8px; }
-</style>
-
 # Muse.Focus Leaderboard
 
 **Plasma Surface:** `muse.focus`
@@ -11,9 +6,56 @@ th, td { font-size: 0.9em; padding: 4px 8px; }
 
 ---
 
-| # | User | Date | f_B | N | n | avg⟨Bn⟩/⟨B⟩ | κ̄ | F̄ | τ̄ | LN | max(κ) | max(F) | max(τ) | MSC | min(d_cc) | min(d_cs) | L | max⟨Bn⟩/⟨B⟩ | t |
-| :-: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | akaptano | 2025-11-30 | 5.95e-02 | 4 | 4 | 2.64e-01 | 4.17e+00 | 1.48e+05 | 3.14e+04 | 2 | 6.76e+00 | 4.03e+05 | 8.46e+04 | 1.89e+01 | 7.40e-03 | 1.48e-01 | 6.07e+00 | 9.99e-01 | 3.32e+01 |
+<table style="font-size: 0.85em;">
+<thead>
+<tr>
+<th style="font-size: 0.9em; padding: 4px 8px;">#</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">User</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">Date</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">N</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">n</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">avg⟨Bn⟩/⟨B⟩</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">F̄</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">τ̄</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">LN</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">max(κ)</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">max(F)</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">max(τ)</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">MSC</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">min(d_cc)</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">min(d_cs)</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">L</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">max⟨Bn⟩/⟨B⟩</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2025-11-30</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.95e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.64e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.17e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.48e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.14e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.76e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.03e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.46e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.89e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.40e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.48e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.07e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.99e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.32e+01</td>
+</tr>
+</tbody>
+</table>
 
 ### Legend
 
