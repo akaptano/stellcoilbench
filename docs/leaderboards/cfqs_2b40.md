@@ -35,7 +35,7 @@
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2025-11-30</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2025-12-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">9.63e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
@@ -52,7 +52,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">5.34e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.31e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.04e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.07e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.97e+00</td>
 </tr>
 </tbody>
 </table>
