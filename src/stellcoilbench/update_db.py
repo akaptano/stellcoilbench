@@ -451,11 +451,6 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
     entries = leaderboard.get("entries") or []
 
     lines = [
-        "<style>",
-        "table { font-size: 0.85em; }",
-        "th, td { font-size: 0.9em; padding: 4px 8px; }",
-        "</style>",
-        "",
         "# CoilBench Leaderboard",
         "",
         "Welcome to the CoilBench leaderboard! Compare coil optimization methods across different plasma surfaces.",
@@ -497,20 +492,15 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         # Add metric shorthands
         header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
         
-        lines.append("| " + " | ".join(header_cols) + " |")
-        
-        # Separator row
-        sep_parts = []
+        # Use HTML table with inline styles for smaller font
+        lines.append('<table style="font-size: 0.85em;">')
+        lines.append("<thead>")
+        lines.append("<tr>")
         for col in header_cols:
-            if col == "#":
-                sep_parts.append(":-:")
-            elif col == "User":
-                sep_parts.append(":---")
-            elif col == "Date":
-                sep_parts.append(":---:")
-            else:
-                sep_parts.append(":---:")
-        lines.append("| " + " | ".join(sep_parts) + " |")
+            lines.append(f'<th style="font-size: 0.9em; padding: 4px 8px;">{col}</th>')
+        lines.append("</tr>")
+        lines.append("</thead>")
+        lines.append("<tbody>")
         
         def _format_value(value: Any, metric_key: str = "") -> str:
             """Format a metric value in scientific notation with 2 digits."""
@@ -545,7 +535,13 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 value = metrics.get(key)
                 row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
             
-            lines.append("| " + " | ".join(row_parts) + " |")
+            lines.append("<tr>")
+            for cell in row_parts:
+                lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;">{cell}</td>')
+            lines.append("</tr>")
+        
+        lines.append("</tbody>")
+        lines.append("</table>")
         
         # Add legend for acronyms
         lines.append("")
@@ -717,11 +713,6 @@ def write_surface_leaderboards(
         display_name = surface_name.replace("input.", "").replace("_", " ").title()
         
         lines = [
-            "<style>",
-            "table { font-size: 0.85em; }",
-            "th, td { font-size: 0.9em; padding: 4px 8px; }",
-            "</style>",
-            "",
             f"# {display_name} Leaderboard",
             "",
             f"**Plasma Surface:** `{surface_name}`",
@@ -742,20 +733,15 @@ def write_surface_leaderboards(
             # Add metric shorthands
             header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
             
-            lines.append("| " + " | ".join(header_cols) + " |")
-            
-            # Separator
-            sep_parts = []
+            # Use HTML table with inline styles for smaller font
+            lines.append('<table style="font-size: 0.85em;">')
+            lines.append("<thead>")
+            lines.append("<tr>")
             for col in header_cols:
-                if col == "#":
-                    sep_parts.append(":-:")
-                elif col == "User":
-                    sep_parts.append(":---")
-                elif col == "Date":
-                    sep_parts.append(":---:")
-                else:
-                    sep_parts.append(":---:")
-            lines.append("| " + " | ".join(sep_parts) + " |")
+                lines.append(f'<th style="font-size: 0.9em; padding: 4px 8px;">{col}</th>')
+            lines.append("</tr>")
+            lines.append("</thead>")
+            lines.append("<tbody>")
             
             # Data rows
             for entry in entries:
@@ -777,7 +763,13 @@ def write_surface_leaderboards(
                     value = metrics.get(key)
                     row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
                 
-                lines.append("| " + " | ".join(row_parts) + " |")
+                lines.append("<tr>")
+                for cell in row_parts:
+                    lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;">{cell}</td>')
+                lines.append("</tr>")
+            
+            lines.append("</tbody>")
+            lines.append("</table>")
             
             # Add legend with detailed mathematical definitions
             lines.append("")
