@@ -972,7 +972,7 @@ def optimize_coils_loop(
                 "obj": sum(Jls),
                 "threshold": length_target,
                 "l1": lambda obj, thresh: obj,
-                "l1_threshold": lambda obj, thresh: LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
+                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
@@ -980,15 +980,15 @@ def optimize_coils_loop(
                 "obj": Jccdist,
                 "threshold": cc_threshold,
                 "l1": lambda obj, thresh: obj,  # No thresholding
-                "l1_threshold": lambda obj, thresh: LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
+                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
             "coil_surface_distance": {
                 "obj": Jcsdist,
                 "threshold": cs_threshold,
-                "l1": lambda obj, thresh: Weight(1e3) * obj,  # No thresholding
-                "l1_threshold": lambda obj, thresh: Weight(1e3) * LinearPenalty(obj, thresh),  # max(obj - threshold, 0)
+                "l1": lambda obj, thresh: obj,  # No thresholding
+                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
             },
@@ -1004,7 +1004,7 @@ def optimize_coils_loop(
                 "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
                 "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
                 "l1": lambda obj, thresh: sum(obj),
-                "l1_threshold": lambda obj, thresh: sum([LinearPenalty(j, thresh) for j in obj]) if len(obj) > 0 else Weight(0.0),  # max(obj - threshold, 0)
+                "l1_threshold": lambda obj, thresh: sum(obj)
             },
             "linking_number": {
                 "obj": Jlink,
