@@ -393,8 +393,8 @@ def optimize_coils(
     surface = surface_func(
         filename=surface_file, 
         range=surface_params["range"],
-        nphi=16, 
-        ntheta=16)  # Always use 16x16 for standardization
+        nphi=32, 
+        ntheta=32)  # Always use 32x32 for standardization
     
     # Determine output directory for VTK files
     if output_dir is None:
@@ -851,7 +851,7 @@ def optimize_coils_loop(
     from scipy.optimize import minimize
     from pathlib import Path
     from simsopt.geo import SurfaceRZFourier
-    from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance
+    from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance, ArclengthVariation
     from simsopt.geo import LpCurveCurvature, CurveSurfaceDistance, MeanSquaredCurvature
     from simsopt.objectives import SquaredFlux, QuadraticPenalty, Weight
     from simsopt.solve import augmented_lagrangian_method
@@ -870,6 +870,7 @@ def optimize_coils_loop(
     cc_threshold = kwargs.get('cc_threshold', 0.8)
     cs_threshold = kwargs.get('cs_threshold', 1.3)
     msc_threshold = kwargs.get('msc_threshold', 1.0)
+    arclength_variation_threshold = kwargs.get('arclength_variation_threshold', 0.0)
     curvature_threshold = kwargs.get('curvature_threshold', 1.0)
 
     nturns = 1  # nturns = 1 for standardization
@@ -903,6 +904,7 @@ def optimize_coils_loop(
     cs_threshold /= R0 
     curvature_threshold *= R0
     msc_threshold *= R0
+    arclength_variation_threshold *= R0 ** 2
     coil_width /= R0
 
     print(f"Starting coil optimization for target B-field: {target_B} T")
@@ -1058,6 +1060,7 @@ def optimize_coils_loop(
     # Create distance and force/torque objects with appropriate thresholds
     Jccdist = CurveCurveDistance(curves, cc_thresh, num_basecurves=ncoils)
     Jcsdist = CurveSurfaceDistance(curves, s, cs_thresh)
+    Jalenvar = [ArclengthVariation(c) for c in base_curves]
     Jcs = [LpCurveCurvature(c, 2, curvature_threshold) for c in base_curves]
     Jlink = LinkingNumber(curves, downsample=2)
     Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_thresh, downsample=2)
@@ -1075,6 +1078,7 @@ def optimize_coils_loop(
     print(f" CC Threshold: {cc_threshold:.2e}")
     print(f" CS Threshold: {cs_threshold:.2e}")
     print(f" MSC Threshold: {msc_threshold:.2e}")
+    print(f" Arclength Variation Threshold: {arclength_variation_threshold:.2e}")
     print(f" Curvature Threshold: {curvature_threshold:.2e}")
     print(f" Force Threshold: {force_threshold:.2e}")
     print(f" Torque Threshold: {torque_threshold:.2e}")
@@ -1120,6 +1124,14 @@ def optimize_coils_loop(
                 "lp": lambda obj, thresh: obj,  # Threshold already set in object creation
                 "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
             },
+            "coil_arclength_variation": {
+                "obj": Jalenvar,
+                "threshold": arclength_variation_threshold,
+                "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
+                "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
+                "l1": lambda obj, thresh: sum(obj),
+                "l1_threshold": lambda obj, thresh: sum(obj)
+            },
             "coil_mean_squared_curvature": {
                 "obj": Jmscs,
                 "threshold": msc_threshold,
@@ -1132,8 +1144,6 @@ def optimize_coils_loop(
                 "obj": Jlink,
                 "threshold": None,
                 "": lambda obj, thresh: obj,  # Empty string defaults to including linking number
-                "l2": lambda obj, thresh: obj,
-                "l2_threshold": lambda obj, thresh: obj,
             },
             "coil_coil_force": {
                 "obj": Jforce,
@@ -1159,10 +1169,6 @@ def optimize_coils_loop(
                 obj = term_config["obj"]
                 thresh = term_config["threshold"]
                 
-                # Handle empty string for linking_number (defaults to including it)
-                if term_name == "linking_number" and term_value == "":
-                    term_value = "l2"  # Default to l2 when empty string is specified
-                
                 if term_value in term_config:
                     constraint = term_config[term_value](obj, thresh)
                     c_list.append(constraint)
@@ -1173,12 +1179,21 @@ def optimize_coils_loop(
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
     if algorithm == "augmented_lagrangian":
+        augmented_lagrangian_options = {
+            "MAXITER": max_iterations,
+            "MAXITER_lag": max_iter_subopt,
+            "verbose": verbose,
+        }
+        if "mu_init" in kwargs.keys():
+            augmented_lagrangian_options["mu_init"] = kwargs["mu_init"]
+        if "tau" in kwargs.keys():
+            augmented_lagrangian_options["tau"] = kwargs["tau"]
+        if "minimize_method" in kwargs.keys():
+            augmented_lagrangian_options["minimize_method"] = kwargs["minimize_method"]
         _, _, lag_mul = augmented_lagrangian_method(
             f=None,  # No main objective function
+            **augmented_lagrangian_options,
             equality_constraints=c_list,
-            MAXITER=max_iterations,
-            MAXITER_lag=max_iter_subopt,
-            verbose=verbose,
         )
     elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
         # Build weighted objective function from constraints
@@ -1385,6 +1400,7 @@ def optimize_coils_loop(
         'final_total_length': sum(CurveLength(c).J() for c in base_curves),
         'final_max_curvature': max(np.max(c.kappa()) for c in base_curves),
         'final_average_curvature': np.mean([c.kappa() for c in base_curves]),
+        'final_arclength_variation': np.mean([ArclengthVariation(c).J() for c in base_curves]),
         'final_mean_squared_curvature': np.max([np.mean(c.kappa() ** 2) for c in base_curves]),
         'final_linking_number': Jlink.J(),
         'final_max_max_coil_force': np.max(max_force),
@@ -1399,6 +1415,7 @@ def optimize_coils_loop(
         'cc_threshold': cc_threshold,
         'cs_threshold': cs_threshold,
         'msc_threshold': msc_threshold,
+        'arclength_variation_threshold': arclength_variation_threshold,
         'curvature_threshold': curvature_threshold,
         'force_threshold': force_threshold,
         'torque_threshold': torque_threshold,

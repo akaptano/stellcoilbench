@@ -7,7 +7,14 @@ These unit tests focus on functions that can be tested without running optimizat
 import pytest
 import numpy as np
 from pathlib import Path
-from stellcoilbench.coil_optimization import load_coils_config, _plot_bn_error_3d
+from stellcoilbench.coil_optimization import (
+    load_coils_config,
+    _plot_bn_error_3d,
+    optimize_coils,
+    _zip_output_files,
+    initialize_coils_loop,
+)
+from stellcoilbench.config_scheme import CaseConfig
 from stellcoilbench.evaluate import load_case_config
 
 
@@ -441,3 +448,217 @@ class TestPlotBnError3D:
         with open(pdf_path, 'rb') as f:
             header = f.read(4)
             assert header == b'%PDF', f"File does not appear to be a PDF (header: {header})"
+
+
+class TestOptimizeCoils:
+    """Tests for optimize_coils path handling and argument plumbing."""
+
+    def test_optimize_coils_resolves_surface_and_target_b(self, tmp_path, monkeypatch):
+        plasma_dir = tmp_path / "plasma_surfaces"
+        plasma_dir.mkdir()
+        surface_file = plasma_dir / "INPUT.LandremanPaul2021_QA"
+        surface_file.write_text("dummy")
+
+        case_cfg = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian", "algorithm_options": {"maxiter": 5}},
+            "coil_objective_terms": {"total_length": "l2"},
+        })
+
+        monkeypatch.chdir(tmp_path)
+        calls = {}
+
+        def fake_from_vmec_input(filename, range, nphi, ntheta):
+            calls["surface_filename"] = filename
+            calls["surface_range"] = range
+            return object()
+
+        def fake_optimize(surface, **kwargs):
+            calls["optimize_kwargs"] = kwargs
+            return ["coil"], {"ok": True}
+
+        def fake_save(coils, path):
+            calls["save_path"] = path
+
+        monkeypatch.setattr(
+            "stellcoilbench.coil_optimization.SurfaceRZFourier.from_vmec_input",
+            fake_from_vmec_input,
+        )
+        monkeypatch.setattr("stellcoilbench.coil_optimization.optimize_coils_loop", fake_optimize)
+        monkeypatch.setattr("simsopt.save", fake_save)
+
+        out_dir = tmp_path / "out"
+        results = optimize_coils(
+            case_path=tmp_path,
+            coils_out_path=tmp_path / "coils.out",
+            case_cfg=case_cfg,
+            output_dir=out_dir,
+        )
+
+        assert results == {"ok": True}
+        assert "LandremanPaul2021_QA" in calls["surface_filename"]
+        assert calls["surface_range"] == "full torus"
+        assert calls["optimize_kwargs"]["target_B"] == 1.0
+        assert calls["optimize_kwargs"]["algorithm_options"] == {"maxiter": 5}
+        assert calls["optimize_kwargs"]["output_dir"] == str(out_dir.resolve())
+        assert calls["save_path"].name == "coils.json"
+
+    def test_optimize_coils_fallback_without_output_dir(self, tmp_path, monkeypatch):
+        surface_file = tmp_path / "input.W7-X"
+        surface_file.write_text("dummy")
+
+        case_cfg = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": str(surface_file), "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian"},
+        })
+
+        calls = {"count": 0}
+
+        def fake_from_vmec_input(filename, range, nphi, ntheta):
+            return object()
+
+        def fake_optimize(surface, **kwargs):
+            calls["count"] += 1
+            if "output_dir" in kwargs:
+                raise TypeError("no output_dir")
+            return ["coil"], {"ok": True}
+
+        def fake_save(coils, path):
+            calls["save_path"] = path
+
+        monkeypatch.setattr(
+            "stellcoilbench.coil_optimization.SurfaceRZFourier.from_vmec_input",
+            fake_from_vmec_input,
+        )
+        monkeypatch.setattr("stellcoilbench.coil_optimization.optimize_coils_loop", fake_optimize)
+        monkeypatch.setattr("simsopt.save", fake_save)
+
+        optimize_coils(
+            case_path=tmp_path,
+            coils_out_path=tmp_path / "coils.json",
+            case_cfg=case_cfg,
+        )
+
+        assert calls["count"] == 2
+        assert calls["save_path"].name == "coils.json"
+
+    def test_optimize_coils_surface_type_branches(self, tmp_path, monkeypatch):
+        calls = {"wout": 0, "focus": 0}
+
+        def fake_from_wout(filename, range, nphi, ntheta):
+            calls["wout"] += 1
+            return object()
+
+        def fake_from_focus(filename, range, nphi, ntheta):
+            calls["focus"] += 1
+            return object()
+
+        def fake_optimize(surface, **kwargs):
+            return ["coil"], {"ok": True}
+
+        def fake_save(coils, path):
+            pass
+
+        monkeypatch.setattr("stellcoilbench.coil_optimization.SurfaceRZFourier.from_wout", fake_from_wout)
+        monkeypatch.setattr("stellcoilbench.coil_optimization.SurfaceRZFourier.from_focus", fake_from_focus)
+        monkeypatch.setattr("stellcoilbench.coil_optimization.optimize_coils_loop", fake_optimize)
+        monkeypatch.setattr("simsopt.save", fake_save)
+
+        wout_case = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": str(tmp_path / "wout.W7-X"), "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian"},
+        })
+        focus_case = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": str(tmp_path / "focus.HSX"), "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian"},
+        })
+
+        optimize_coils(tmp_path, tmp_path / "coils1.json", case_cfg=wout_case)
+        optimize_coils(tmp_path, tmp_path / "coils2.json", case_cfg=focus_case)
+
+        assert calls["wout"] == 1
+        assert calls["focus"] == 1
+
+    def test_optimize_coils_unknown_surface_type(self, tmp_path, monkeypatch):
+        case_cfg = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": str(tmp_path / "unknown.dat"), "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian"},
+        })
+
+        with pytest.raises(ValueError, match="Unknown surface type"):
+            optimize_coils(tmp_path, tmp_path / "coils.json", case_cfg=case_cfg)
+
+    def test_optimize_coils_unknown_target_b_surface(self, tmp_path, monkeypatch):
+        surface_file = tmp_path / "input.Unknown"
+        surface_file.write_text("dummy")
+
+        case_cfg = CaseConfig.from_dict({
+            "description": "test",
+            "surface_params": {"surface": str(surface_file), "range": "full torus"},
+            "coils_params": {"ncoils": 2, "order": 2},
+            "optimizer_params": {"algorithm": "augmented_lagrangian"},
+        })
+
+        def fake_from_vmec_input(filename, range, nphi, ntheta):
+            return object()
+
+        monkeypatch.setattr(
+            "stellcoilbench.coil_optimization.SurfaceRZFourier.from_vmec_input",
+            fake_from_vmec_input,
+        )
+
+        with pytest.raises(ValueError, match="Unknown surface file"):
+            optimize_coils(tmp_path, tmp_path / "coils.json", case_cfg=case_cfg)
+
+
+class TestZipOutputFiles:
+    """Tests for _zip_output_files helper."""
+
+    def test_zip_output_files_creates_archive(self, tmp_path):
+        vtu = tmp_path / "file.vtu"
+        vts = tmp_path / "file.vts"
+        vtu.write_text("data")
+        vts.write_text("data")
+
+        zip_path = _zip_output_files(tmp_path)
+        assert zip_path.exists()
+        assert not vtu.exists()
+        assert not vts.exists()
+
+    def test_zip_output_files_no_vtk(self, tmp_path):
+        zip_path = _zip_output_files(tmp_path)
+        assert not zip_path.exists()
+
+
+class TestInitializeCoilsLoop:
+    """Tests for initialize_coils_loop helper."""
+
+    def test_initialize_coils_loop_no_regularization(self, monkeypatch, tmp_path):
+        from simsopt.geo import SurfaceRZFourier
+        import simsopt.util.coil_optimization_helper_functions as cohf
+
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+
+        monkeypatch.setattr(cohf, "calculate_modB_on_major_radius", lambda bs, s: 1.0)
+
+        coils = initialize_coils_loop(
+            s=surface,
+            out_dir=tmp_path,
+            target_B=1.0,
+            ncoils=2,
+            order=2,
+            regularization=None,
+        )
+        assert len(coils) > 0

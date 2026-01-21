@@ -528,3 +528,34 @@ class TestLeaderboardMarkdown:
         assert surface_md.exists()
         content = surface_md.read_text()
         assert "Legend" in content
+
+
+class TestLeaderboardEdgeCases:
+    """Tests for empty and malformed leaderboard entries."""
+
+    def test_write_markdown_leaderboard_empty_entries(self, tmp_path):
+        leaderboard = {"entries": []}
+        out_md = tmp_path / "leaderboard.md"
+        write_markdown_leaderboard(leaderboard, out_md)
+        content = out_md.read_text()
+        assert "_No valid submissions found._" in content
+        assert '"method_name": "your_method"' in content
+
+    def test_build_surface_leaderboards_skips_missing_path(self):
+        leaderboard = {"entries": [{"metrics": {"final_normalized_squared_flux": 0.1}}]}
+        surface_leaderboards = build_surface_leaderboards(
+            leaderboard, submissions_root=Path("."), plasma_surfaces_dir=Path(".")
+        )
+        assert surface_leaderboards == {}
+
+    def test_build_surface_leaderboards_skips_non_submission_paths(self):
+        leaderboard = {
+            "entries": [
+                {"path": "results.json", "metrics": {"final_normalized_squared_flux": 0.1}},
+                {"path": "submissions", "metrics": {"final_normalized_squared_flux": 0.2}},
+            ]
+        }
+        surface_leaderboards = build_surface_leaderboards(
+            leaderboard, submissions_root=Path("."), plasma_surfaces_dir=Path(".")
+        )
+        assert surface_leaderboards == {}

@@ -2,7 +2,6 @@
 Unit tests for cli.py helpers and commands.
 """
 import json
-import os
 import sys
 import types
 import zipfile
@@ -10,12 +9,14 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import typer
 
 from stellcoilbench.cli import (
     NumpyJSONEncoder,
     _detect_github_username,
     _detect_hardware,
     _zip_submission_directory,
+    update_db_cmd,
     generate_submission,
     run_case,
     submit_case,
@@ -68,6 +69,26 @@ def test_numpy_json_encoder_handles_numpy_types():
     assert loaded["f"] == 1.25
     assert loaded["b"] is True
     assert loaded["a"] == [1, 2, 3]
+
+
+def test_numpy_json_encoder_handles_array_protocol():
+    class _ArrayLike:
+        def __array__(self):
+            return np.array([4, 5, 6])
+
+    payload = {"arr": _ArrayLike()}
+    dumped = json.dumps(payload, cls=NumpyJSONEncoder)
+    loaded = json.loads(dumped)
+    assert loaded["arr"] == [4, 5, 6]
+
+
+def test_numpy_json_encoder_array_protocol_error():
+    class _BadArray:
+        def __array__(self):
+            raise TypeError("bad array")
+
+    with pytest.raises(TypeError):
+        json.dumps({"arr": _BadArray()}, cls=NumpyJSONEncoder)
 
 
 def test_detect_github_username_from_git_config(monkeypatch):
@@ -132,6 +153,14 @@ def test_zip_submission_directory_missing_dir(tmp_path):
     assert zip_path == submission_dir.parent / "missing.zip"
 
 
+def test_zip_submission_directory_empty_dir(tmp_path):
+    submission_dir = tmp_path / "empty"
+    submission_dir.mkdir()
+    zip_path = _zip_submission_directory(submission_dir)
+    assert zip_path == submission_dir.parent / "empty.zip"
+    assert not zip_path.exists()
+
+
 def test_detect_hardware_reports_cpu_gpu_and_ram(monkeypatch):
     def fake_run(cmd, **kwargs):
         if cmd[0] == "sysctl":
@@ -158,6 +187,26 @@ def test_detect_hardware_reports_cpu_gpu_and_ram(monkeypatch):
     assert "CPU: Test CPU" in hardware
     assert "GPU: GPU1, GPU2" in hardware
     assert "RAM: 8.0GB" in hardware
+
+
+def test_detect_hardware_linux_cpu_model(monkeypatch):
+    def fake_run(cmd, **kwargs):
+        if cmd[0] == "lscpu":
+            return _FakeCompletedProcess(
+                returncode=0,
+                stdout="Model name: Fancy CPU\n",
+            )
+        if cmd[0] == "nvidia-smi":
+            return _FakeCompletedProcess(returncode=1, stdout="")
+        return _FakeCompletedProcess(returncode=1, stdout="")
+
+    monkeypatch.setattr("platform.system", lambda: "Linux")
+    monkeypatch.setattr("platform.processor", lambda: "")
+    monkeypatch.setattr("platform.machine", lambda: "x86_64")
+    monkeypatch.setattr("subprocess.run", fake_run)
+
+    hardware = _detect_hardware()
+    assert "CPU: Fancy CPU" in hardware
 
 
 def test_run_case_writes_results_json(tmp_path, monkeypatch):
@@ -220,6 +269,23 @@ def test_generate_submission_writes_results(tmp_path, monkeypatch):
     assert data["metrics"]["final_normalized_squared_flux"] == 0.007
 
 
+def test_generate_submission_missing_coils_file(tmp_path, monkeypatch):
+    _install_stub_modules(monkeypatch)
+    case_dir = tmp_path / "case"
+    case_dir.mkdir()
+    (case_dir / "case.yaml").write_text("description: test\n")
+    metadata_yaml = tmp_path / "metadata.yaml"
+    metadata_yaml.write_text("method_name: demo\nmethod_version: v1\n")
+
+    with pytest.raises(typer.Exit):
+        generate_submission(
+            case_path=case_dir,
+            metadata_path=metadata_yaml,
+            coils_path=None,
+            submission_out=None,
+        )
+
+
 def test_submit_case_creates_submission(tmp_path, monkeypatch):
     _install_stub_modules(monkeypatch, metrics={"final_normalized_squared_flux": 0.004})
     monkeypatch.chdir(tmp_path)
@@ -249,3 +315,54 @@ def test_submit_case_creates_submission(tmp_path, monkeypatch):
     assert len(case_copies) == 1
     case_data = case_copies[0].read_text()
     assert "source_case_file: case.yaml" in case_data
+
+
+def test_submit_case_unknown_user_and_hardware(tmp_path, monkeypatch):
+    _install_stub_modules(monkeypatch, surface="wout.TestSurface")
+    monkeypatch.chdir(tmp_path)
+
+    case_path = tmp_path / "case.yaml"
+    case_path.write_text("description: test\nsurface_params:\n  surface: wout.TestSurface\n")
+
+    monkeypatch.setattr("stellcoilbench.cli._detect_github_username", lambda: "")
+    monkeypatch.setattr("stellcoilbench.cli._detect_hardware", lambda: "")
+    monkeypatch.setattr("stellcoilbench.cli._zip_submission_directory", lambda path: path.with_suffix(".zip"))
+
+    submissions_dir = tmp_path / "submissions"
+    submit_case(
+        case_path=case_path,
+        method_name="method1",
+        notes="",
+        submissions_dir=submissions_dir,
+    )
+
+    results_files = list(submissions_dir.rglob("results.json"))
+    assert len(results_files) == 1
+    # wout. prefix should be stripped from surface name
+    assert "TestSurface" in str(results_files[0].parent.parent)
+
+
+def test_update_db_cmd_invokes_update_database(tmp_path, monkeypatch):
+    calls = {}
+
+    def fake_update_database(repo_root, submissions_root, docs_dir):
+        calls["repo_root"] = repo_root
+        calls["submissions_root"] = submissions_root
+        calls["docs_dir"] = docs_dir
+
+    monkeypatch.setattr("stellcoilbench.update_db.update_database", fake_update_database)
+    update_db_cmd(submissions_dir=tmp_path / "subs", docs_dir=tmp_path / "docs")
+    assert calls["docs_dir"] == tmp_path / "docs"
+
+
+def test_main_calls_app(monkeypatch):
+    import stellcoilbench.cli as cli_module
+
+    called = {"count": 0}
+
+    def fake_app():
+        called["count"] += 1
+
+    monkeypatch.setattr(cli_module, "app", fake_app)
+    cli_module.main()
+    assert called["count"] == 1

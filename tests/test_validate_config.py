@@ -109,6 +109,51 @@ class TestValidateCaseConfig:
         }
         errors = validate_case_config(data)
         assert any("optimizer_params.max_iterations must be a positive integer" in e for e in errors)
+
+    def test_invalid_max_iter_lag(self):
+        """Test validation with invalid max_iter_lag."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": {"max_iter_lag": 0},
+        }
+        errors = validate_case_config(data)
+        assert any("optimizer_params.max_iter_lag must be a positive integer" in e for e in errors)
+
+    def test_non_dict_coils_params(self):
+        """Test validation when coils_params is not a dict."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": "not a dict",
+            "optimizer_params": {"algorithm": "l-bfgs"},
+        }
+        errors = validate_case_config(data)
+        assert any("coils_params must be a dictionary" in e for e in errors)
+
+    def test_non_dict_optimizer_params(self):
+        """Test validation when optimizer_params is not a dict."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": "not a dict",
+        }
+        errors = validate_case_config(data)
+        assert any("optimizer_params must be a dictionary" in e for e in errors)
+
+    def test_non_dict_coil_objective_terms(self):
+        """Test validation when coil_objective_terms is not a dict."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": "not a dict",
+        }
+        errors = validate_case_config(data)
+        assert any("coil_objective_terms must be a dictionary" in e for e in errors)
     
     def test_valid_coil_objective_terms(self):
         """Test validation with valid coil_objective_terms."""
