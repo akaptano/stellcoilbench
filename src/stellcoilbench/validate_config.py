@@ -129,6 +129,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 "coil_coil_distance",
                 "coil_surface_distance",
                 "coil_curvature",
+                "coil_arclength_variation",
                 "coil_mean_squared_curvature",
                 "linking_number",
                 "coil_coil_force",
@@ -142,6 +143,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             # valid_options_lp = ["lp", "lp_threshold"]
             valid_options_curvature = ["lp", "lp_threshold"]
             valid_options_msc = ["l2", "l2_threshold", "l1", "l1_threshold"]
+            valid_options_arclength = ["l2", "l2_threshold", "l1", "l1_threshold"]
             valid_options_force_torque = ["lp", "lp_threshold"]
             
             for term_name, term_value in obj_terms.items():
@@ -185,6 +187,12 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                         errors.append(
                             f"{file_prefix}coil_objective_terms.coil_curvature must be one of {valid_options_curvature}, "
                             f"got '{term_value}'"
+                        )
+                elif term_name == "coil_arclength_variation":
+                    if term_value not in valid_options_arclength:
+                        errors.append(
+                            f"{file_prefix}coil_objective_terms.{term_name} must be one of "
+                            f"{valid_options_arclength}, got '{term_value}'"
                         )
                 elif term_name == "coil_mean_squared_curvature":
                     if term_value not in valid_options_msc:
