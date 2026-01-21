@@ -601,7 +601,14 @@ def _zip_output_files(out_dir: Path) -> Path:
     return zip_path
 
 
-def _plot_bn_error_3d(surface, bs, coils, out_dir: Path) -> None:
+def _plot_bn_error_3d(
+    surface,
+    bs,
+    coils,
+    out_dir: Path,
+    filename: str = "bn_error_3d_plot.pdf",
+    title: str = "B_N/|B| Error on Plasma Surface with Optimized Coils",
+) -> None:
     """
     Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
     
@@ -643,44 +650,55 @@ def _plot_bn_error_3d(surface, bs, coils, out_dir: Path) -> None:
     bn_over_b = np.abs(BdotN / abs_B)
     
     # Create figure with 3D subplot
-    fig = plt.figure(figsize=(12, 10))  # type: ignore
+    fig = plt.figure(figsize=(10, 8), dpi=200)  # type: ignore
     ax = fig.add_subplot(111, projection='3d')  # type: ignore
     
-    # Plot surface with B_N/|B| as colormap
-    # Normalize the colormap
+    # Plot surface with B_N/|B| as colormap (opaque to avoid artifacts)
     norm = Normalize(vmin=0, vmax=bn_over_b.max() if bn_over_b.max() > 0 else 1)  # type: ignore
     ax.plot_surface(  # type: ignore[attr-defined]
         x_surf, y_surf, z_surf,
         facecolors=cm.viridis(norm(bn_over_b)),  # type: ignore[attr-defined]
-        alpha=0.8,
         linewidth=0,
-        antialiased=True,
-        shade=True
+        antialiased=False,
+        shade=False
     )
     
-    # Plot coils
+    # Plot coils colored by current magnitude
+    currents = [abs(c.current.get_value()) for c in coils]
+    current_norm = Normalize(
+        vmin=min(currents) if currents else 0.0,
+        vmax=max(currents) if currents else 1.0,
+    )
+    current_cmap = cm.plasma  # type: ignore
     for i, coil in enumerate(coils):
         coil_points = coil.curve.gamma()
+        current_val = abs(coil.current.get_value())
         ax.plot(
             coil_points[:, 0],
             coil_points[:, 1],
             coil_points[:, 2],
-            'r-',
-            linewidth=2,
-            label='Coils' if i == 0 else ''
+            color=current_cmap(current_norm(current_val)),
+            linewidth=2.2,
+            solid_capstyle="round",
         )
     
     # Set labels and title
     ax.set_xlabel('X (m)', fontsize=12)  # type: ignore
     ax.set_ylabel('Y (m)', fontsize=12)  # type: ignore
     ax.set_zlabel('Z (m)', fontsize=12)  # type: ignore
-    ax.set_title('B_N/|B| Error on Plasma Surface with Optimized Coils', fontsize=14, pad=20)  # type: ignore
+    ax.set_title(title, fontsize=13, pad=16)  # type: ignore
     
-    # Add colorbar
+    # Add surface colorbar
     mappable = cm.ScalarMappable(cmap=cm.viridis, norm=norm)  # type: ignore
     mappable.set_array(bn_over_b)
     cbar = plt.colorbar(mappable, ax=ax, shrink=0.6, aspect=20, pad=0.1)  # type: ignore
     cbar.set_label('|B_N|/|B|', fontsize=12, rotation=270, labelpad=20)
+    
+    # Add coil current colorbar
+    coil_mappable = cm.ScalarMappable(cmap=current_cmap, norm=current_norm)  # type: ignore
+    coil_mappable.set_array(currents)
+    coil_cbar = plt.colorbar(coil_mappable, ax=ax, shrink=0.6, aspect=20, pad=0.02)  # type: ignore
+    coil_cbar.set_label('|I| (A)', fontsize=12, rotation=270, labelpad=18)
     
     # Set equal aspect ratio
     max_range = np.array([
@@ -695,8 +713,14 @@ def _plot_bn_error_3d(surface, bs, coils, out_dir: Path) -> None:
     ax.set_ylim(mid_y - max_range, mid_y + max_range)  # type: ignore
     ax.set_zlim(mid_z - max_range, mid_z + max_range)  # type: ignore
     
+    # Clean up axes for a sleeker look
+    ax.grid(False)  # type: ignore
+    for axis in (ax.xaxis, ax.yaxis, ax.zaxis):  # type: ignore
+        axis.pane.fill = False  # type: ignore
+        axis.pane.set_edgecolor("w")  # type: ignore
+    
     # Save as PDF
-    pdf_path = out_dir / "bn_error_3d_plot.pdf"
+    pdf_path = out_dir / filename
     plt.savefig(pdf_path, format='pdf', dpi=300, bbox_inches='tight')  # type: ignore
     plt.close(fig)  # type: ignore
     
@@ -879,6 +903,19 @@ def optimize_coils_loop(
         "modB": bs.AbsB().reshape((qphi, qtheta, 1))
     }
     s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
+    
+    # Generate 3D visualization plot for initial coils
+    try:
+        _plot_bn_error_3d(
+            s_plot,
+            bs,
+            coils,
+            out_dir,
+            filename="bn_error_3d_plot_initial.pdf",
+            title="B_N/|B| Error on Plasma Surface with Initial Coils",
+        )
+    except Exception as e:
+        print(f"Warning: Failed to generate initial 3D plot: {e}")
 
     # Step 4: Define objective function and constraints
     # print("Step 4: Setting up optimization objectives and constraints...")
@@ -1236,7 +1273,14 @@ def optimize_coils_loop(
     
     # Generate 3D visualization plot
     try:
-        _plot_bn_error_3d(s_plot, bs, coils, out_dir)
+        _plot_bn_error_3d(
+            s_plot,
+            bs,
+            coils,
+            out_dir,
+            filename="bn_error_3d_plot.pdf",
+            title="B_N/|B| Error on Plasma Surface with Optimized Coils",
+        )
     except Exception as e:
         print(f"Warning: Failed to generate 3D plot: {e}")
     

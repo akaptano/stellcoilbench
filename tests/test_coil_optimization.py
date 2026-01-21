@@ -313,13 +313,26 @@ class TestPlotBnError3D:
         out_dir = tmp_path / "output"
         out_dir.mkdir()
         
-        # Call plotting function
+        # Call plotting function (default output)
         _plot_bn_error_3d(surface, bs, coils, out_dir)
         
         # Verify PDF file was created
         pdf_path = out_dir / "bn_error_3d_plot.pdf"
         assert pdf_path.exists(), f"PDF file was not created at {pdf_path}"
         assert pdf_path.stat().st_size > 0, "PDF file is empty"
+        
+        # Call plotting function with custom filename/title (initial coils)
+        _plot_bn_error_3d(
+            surface,
+            bs,
+            coils,
+            out_dir,
+            filename="bn_error_3d_plot_initial.pdf",
+            title="B_N/|B| Error on Plasma Surface with Initial Coils",
+        )
+        initial_pdf_path = out_dir / "bn_error_3d_plot_initial.pdf"
+        assert initial_pdf_path.exists(), f"PDF file was not created at {initial_pdf_path}"
+        assert initial_pdf_path.stat().st_size > 0, "PDF file is empty"
     
     def test_plot_bn_error_3d_handles_missing_matplotlib(self, tmp_path, monkeypatch):
         """Test that _plot_bn_error_3d handles missing matplotlib gracefully."""

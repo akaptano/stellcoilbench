@@ -1,15 +1,20 @@
 """
 Unit tests for update_db.py
 """
-import tempfile
 import json
+import tempfile
+import zipfile
 from pathlib import Path
 from stellcoilbench.update_db import (
     _metric_shorthand,
     _metric_definition,
     _load_submissions,
+    _get_all_metrics_from_entries,
     build_methods_json,
     build_leaderboard_json,
+    build_surface_leaderboards,
+    write_markdown_leaderboard,
+    write_surface_leaderboards,
 )
 
 
@@ -116,6 +121,42 @@ class TestLoadSubmissions:
             submissions = list(_load_submissions(submissions_root))
             assert len(submissions) == 0
 
+    def test_load_submissions_zip_file(self):
+        """Test loading submission from a zip file."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir)
+            zip_path = submissions_root / "submissions" / "surface1" / "user1" / "2024-01-01_12-00.zip"
+            zip_path.parent.mkdir(parents=True)
+            with zipfile.ZipFile(zip_path, "w") as zf:
+                zf.writestr(
+                    "results.json",
+                    json.dumps(
+                        {
+                            "metadata": {"method_name": "test_method"},
+                            "metrics": {"final_normalized_squared_flux": 0.002},
+                        }
+                    ),
+                )
+
+            submissions = list(_load_submissions(submissions_root))
+            assert len(submissions) == 1
+            method_key, path, data = submissions[0]
+            assert method_key == "test_method:surface1:user1:2024-01-01_12-00"
+            assert path == zip_path
+            assert data["metrics"]["final_normalized_squared_flux"] == 0.002
+
+    def test_load_submissions_zip_without_results(self):
+        """Test that zip files without results.json are skipped."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir)
+            zip_path = submissions_root / "submissions" / "surface1" / "user1" / "2024-01-01_12-00.zip"
+            zip_path.parent.mkdir(parents=True)
+            with zipfile.ZipFile(zip_path, "w") as zf:
+                zf.writestr("other.json", json.dumps({"ok": True}))
+
+            submissions = list(_load_submissions(submissions_root))
+            assert submissions == []
+
 
 class TestBuildMethodsJson:
     """Tests for build_methods_json function."""
@@ -209,6 +250,73 @@ class TestBuildMethodsJson:
             methods = build_methods_json(submissions_root, repo_root)
             assert methods == {}
 
+    def test_build_methods_json_fallback_score(self):
+        """Test fallback scoring from final_flux."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir).resolve()
+            repo_root = Path(tmpdir).resolve()
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            submission_dir.mkdir(parents=True)
+            results_file = submission_dir / "results.json"
+            results_file.write_text(
+                json.dumps(
+                    {
+                        "metadata": {"method_name": "method1"},
+                        "metrics": {"final_flux": 0.5},
+                    }
+                )
+            )
+
+            methods = build_methods_json(submissions_root, repo_root)
+            method_key = "method1:surface1:user1:2024-01-01_12-00"
+            assert methods[method_key]["score_primary"] == 0.5
+
+    def test_build_methods_json_non_numeric_fallback_keeps_none(self):
+        """Test non-numeric fallback score leaves score_primary as None."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir).resolve()
+            repo_root = Path(tmpdir).resolve()
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            submission_dir.mkdir(parents=True)
+            results_file = submission_dir / "results.json"
+            results_file.write_text(
+                json.dumps(
+                    {
+                        "metadata": {"method_name": "method1"},
+                        "metrics": {"final_flux": "bad"},
+                    }
+                )
+            )
+
+            methods = build_methods_json(submissions_root, repo_root)
+            method_key = "method1:surface1:user1:2024-01-01_12-00"
+            assert method_key in methods
+            assert methods[method_key]["score_primary"] is None
+
+    def test_build_methods_json_duplicate_method_keys(self):
+        """Test duplicate method keys are overwritten."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir).resolve()
+            repo_root = Path(tmpdir).resolve()
+            for ts in ["2024-01-01_12-00", "2024-01-02_12-00"]:
+                submission_dir = submissions_root / "surface1" / "user1" / ts
+                submission_dir.mkdir(parents=True)
+                results_file = submission_dir / "results.json"
+                results_file.write_text(
+                    json.dumps(
+                        {
+                            "metadata": {
+                                "method_name": "method1",
+                                "method_version": "v1",
+                            },
+                            "metrics": {"final_normalized_squared_flux": 0.1},
+                        }
+                    )
+                )
+
+            methods = build_methods_json(submissions_root, repo_root)
+            assert len(methods) == 1
+
 
 class TestBuildLeaderboardJson:
     """Tests for build_leaderboard_json function."""
@@ -290,3 +398,133 @@ class TestBuildLeaderboardJson:
         leaderboard = build_leaderboard_json(methods)
         assert leaderboard == {"entries": []}
 
+
+
+class TestLeaderboardAdditional:
+    """Additional tests for leaderboard filtering."""
+
+    def test_build_leaderboard_filters_missing_scores(self):
+        """Test that entries with missing score_primary are filtered out."""
+        methods = {
+            "method1:1.0": {
+                "method_name": "method1",
+                "method_version": "1.0",
+                "contact": "user1",
+                "hardware": "CPU: Test",
+                "run_date": "2024-01-01T12:00:00",
+                "path": "path1",
+                "score_primary": None,
+                "metrics": {"final_normalized_squared_flux": 0.1},
+            },
+            "method2:1.0": {
+                "method_name": "method2",
+                "method_version": "1.0",
+                "contact": "user2",
+                "hardware": "CPU: Test",
+                "run_date": "2024-01-02T12:00:00",
+                "path": "path2",
+                "score_primary": 0.02,
+                "metrics": {"final_normalized_squared_flux": 0.02},
+            },
+        }
+        leaderboard = build_leaderboard_json(methods)
+        assert len(leaderboard["entries"]) == 1
+        assert leaderboard["entries"][0]["method_name"] == "method2"
+
+
+class TestLeaderboardMarkdown:
+    """Tests for markdown leaderboard writers and helpers."""
+
+    def test_get_all_metrics_from_entries_excludes_and_orders(self):
+        entries = [
+            {
+                "metrics": {
+                    "final_total_length": 10.0,
+                    "final_normalized_squared_flux": 0.01,
+                    "score_primary": 0.01,
+                    "initial_B_field": 1.0,
+                }
+            }
+        ]
+        keys = _get_all_metrics_from_entries(entries)
+        assert keys[0] == "final_normalized_squared_flux"
+        assert "score_primary" not in keys
+        assert "initial_B_field" not in keys
+        assert "final_total_length" in keys
+
+    def test_write_markdown_leaderboard(self, tmp_path):
+        leaderboard = {
+            "entries": [
+                {
+                    "rank": 1,
+                    "method_key": "method1",
+                    "method_name": "method1",
+                    "method_version": "v1",
+                    "score_primary": 0.01,
+                    "run_date": "2024-01-01T12:00:00",
+                    "contact": "user1",
+                    "hardware": "CPU",
+                    "path": "submissions/surface/user/ts/results.json",
+                    "metrics": {
+                        "final_normalized_squared_flux": 0.01,
+                        "final_linking_number": 0,
+                    },
+                }
+            ]
+        }
+        out_md = tmp_path / "leaderboard.md"
+        write_markdown_leaderboard(leaderboard, out_md)
+        content = out_md.read_text()
+        assert "CoilBench Leaderboard" in content
+        assert "Legend" in content
+        assert "f_B" in content
+
+    def test_build_surface_leaderboards_and_write(self, tmp_path):
+        leaderboard = {
+            "entries": [
+                {
+                    "method_key": "m1",
+                    "method_name": "m1",
+                    "method_version": "v1",
+                    "score_primary": 0.2,
+                    "run_date": "2024-01-01T12:00:00",
+                    "contact": "user1",
+                    "hardware": "CPU",
+                    "path": "submissions/surf1/user/ts/results.json",
+                    "metrics": {
+                        "final_normalized_squared_flux": 0.2,
+                        "num_coils": 4.0,
+                    },
+                },
+                {
+                    "method_key": "m2",
+                    "method_name": "m2",
+                    "method_version": "v1",
+                    "score_primary": 0.1,
+                    "run_date": "2024-01-02T12:00:00",
+                    "contact": "user2",
+                    "hardware": "CPU",
+                    "path": "submissions/surf1/user/ts2/results.json",
+                    "metrics": {
+                        "final_normalized_squared_flux": 0.1,
+                        "num_coils": 6.0,
+                    },
+                },
+            ]
+        }
+
+        surface_leaderboards = build_surface_leaderboards(
+            leaderboard, submissions_root=tmp_path, plasma_surfaces_dir=tmp_path
+        )
+        assert "surf1" in surface_leaderboards
+        assert surface_leaderboards["surf1"]["entries"][0]["score_primary"] == 0.1
+
+        docs_dir = tmp_path / "docs"
+        surface_names = write_surface_leaderboards(
+            surface_leaderboards, docs_dir=docs_dir, repo_root=tmp_path
+        )
+        assert "surf1" in surface_names
+        surface_md = docs_dir / "leaderboards" / "surf1.md"
+        assert surface_md.exists()
+        content = surface_md.read_text()
+        assert "Legend" in content
