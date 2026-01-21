@@ -202,6 +202,9 @@ def _metric_definition(metric_name: str) -> str:
         # Linking number
         "final_linking_number": r"Linking number $\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ between coil pairs (dimensionless)",
         
+        # Arclength variation
+        "final_arclength_variation": r"Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)",
+        
         # Coil parameters
         "coil_order": r"Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$ (dimensionless)",
         "num_coils": r"Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)",
@@ -543,6 +546,8 @@ def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
         "curvature_threshold",
         "force_threshold",
         "torque_threshold",
+        "arclength_variation",  # Exclude intermediate arclength variation, keep only final
+        "arclength_variation_threshold",  # Exclude threshold parameter
     }
     
     all_keys = set()
@@ -740,6 +745,8 @@ def write_rst_leaderboard(
             "curvature_threshold",
             "force_threshold",
             "torque_threshold",
+            "arclength_variation",  # Exclude intermediate arclength variation, keep only final
+            "arclength_variation_threshold",  # Exclude threshold parameter
         }
         all_keys = set()
         for entry in entries_for_surface:
@@ -852,7 +859,7 @@ def write_rst_leaderboard(
             
             if "flux" in key.lower() or "BdotN" in key or "B" in key:
                 field_quality.append((shorthand, formatted_def))
-            elif "curvature" in key.lower() or "length" in key.lower() or key in ["coil_order", "num_coils"]:
+            elif "curvature" in key.lower() or "length" in key.lower() or "arclength" in key.lower() or key in ["coil_order", "num_coils"]:
                 coil_geometry.append((shorthand, formatted_def))
             elif "separation" in key.lower() or "distance" in key.lower():
                 separations.append((shorthand, formatted_def))
@@ -981,8 +988,30 @@ def write_rst_leaderboard(
             for entry in entries_for_surface:
                 metrics = entry.get("metrics", {})
                 run_date = _format_date(entry.get("run_date", "_unknown_"))
+                
+                # Find PDF path for this entry and make rank number a link
+                rank = str(entry.get("rank", "-"))
+                entry_path = entry.get("path", "")
+                if entry_path:
+                    # Path format: submissions/{surface}/{user}/{timestamp}.zip
+                    path_obj = Path(entry_path)
+                    if path_obj.suffix == ".zip":
+                        # PDF should be in the same directory as the zip file
+                        # Extract PDF name from zip filename: {timestamp}.zip -> bn_error_3d_plot_{timestamp}.pdf
+                        pdf_name = f"bn_error_3d_plot_{path_obj.stem}.pdf"
+                        pdf_path = path_obj.parent / pdf_name
+                        # Fallback to standard name if timestamped version doesn't exist
+                        if not pdf_path.exists():
+                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                        if pdf_path.exists():
+                            # Create relative path from docs/_build/html/ to PDF
+                            # HTML files are in docs/_build/html/, PDFs are in submissions/ (project root)
+                            # Need to go up 3 levels: html -> _build -> docs -> project root, then into submissions
+                            pdf_rel_path = Path("../../..") / pdf_path
+                            rank = f"`{rank} <{pdf_rel_path}>`__"
+                
                 row_parts = [
-                    str(entry.get("rank", "-")),
+                    rank,
                     entry.get("contact", entry.get("method_name", "?"))[:15],
                     run_date,
                 ]

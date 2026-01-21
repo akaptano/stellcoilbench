@@ -24,6 +24,7 @@ The following metrics are used to evaluate coil optimization submissions:
 **Coil Geometry Metrics:**
 
   - Fourier order :math:`n` of coil representation: :math:`\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}` (dimensionless)
+  - Variance of incremental arclength :math:`J = \text{Var}(l_i)` where :math:`l_i` is the average incremental arclength on interval :math:`I_i` from a partition :math:`\{I_i\}_{i=1}^L` of :math:`[0,1]` (:math:`\text{m}^2`)
   - Mean curvature :math:`\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i` over all coils, where :math:`\kappa_i = |\mathbf{r}''(s)|` (:math:`\text{m}^{-1}`)
   - Maximum curvature :math:`\max(\kappa)` across all coils (:math:`\text{m}^{-1}`)
   - Mean squared curvature :math:`\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2` (:math:`\text{m}^{-2}`)
@@ -91,7 +92,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/bn_error_3d_plot_12-01-2025_01-51.pdf>`__
      - akaptano
      - 01/12/25
      - 1.75e-02
@@ -147,7 +148,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_12-01-2025_01-53.pdf>`__
      - akaptano
      - 01/12/25
      - 9.59e-06
@@ -167,7 +168,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 9.99e-01
      - 4
      - 4.82e+03
-   * - 2
+   * - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_12-01-2025_01-22.pdf>`__
      - akaptano
      - 01/12/25
      - 5.53e-05
@@ -187,7 +188,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 9.99e-01
      - 4
      - 1.69e+03
-   * - 3
+   * - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_12-01-2025_01-51.pdf>`__
      - akaptano
      - 01/12/25
      - 1.61e-02
@@ -216,7 +217,7 @@ W7-X
 
 **Surface file:** ``W7-X_without_coil_ripple_beta0p05_d23p4_tm``
 
-This surface has 1 submission(s).
+This surface has 2 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 .. list-table:: W7-X Leaderboard
@@ -229,6 +230,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`n`
+     - :math:`final arclength variation`
      - :math:`\bar{\kappa}`
      - :math:`\bar{F}`
      - :math:`\bar{\tau}`
@@ -243,12 +245,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_12-01-2025_01-52.pdf>`__
      - akaptano
      - 01/12/25
      - 3.22e-03
      - 6.79e-02
      - 4
+     - —
      - 8.60e-01
      - 3.20e+06
      - 2.17e+06
@@ -263,6 +266,27 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 2.66e-01
      - 4
      - 6.34e+00
+   * - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_01-21-2026_19-48.pdf>`__
+     - akaptano
+     - 21/01/26
+     - 3.95e-03
+     - 7.68e-02
+     - 16
+     - 1.68e-02
+     - 9.18e-01
+     - 2.20e+05
+     - 6.37e+05
+     - 0
+     - 1.85e+00
+     - 2.39e+05
+     - 8.80e+05
+     - 1.89e+00
+     - 2.88e-01
+     - 7.03e-01
+     - 8.73e+01
+     - 2.82e-01
+     - 4
+     - 4.73e+03
 
 
 .. _c09r00-b-axis-half-tesla-pm4stell-focus:
@@ -299,7 +323,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell.focus/akaptano/bn_error_3d_plot_12-01-2025_01-52.pdf>`__
      - akaptano
      - 01/12/25
      - 1.61e-02
@@ -355,7 +379,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/cfqs_2b40/akaptano/bn_error_3d_plot_12-01-2025_01-51.pdf>`__
      - akaptano
      - 01/12/25
      - 9.63e-03
@@ -411,7 +435,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/circular_tokamak/akaptano/bn_error_3d_plot_12-01-2025_01-53.pdf>`__
      - akaptano
      - 01/12/25
      - 0.00e+00
@@ -467,7 +491,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/muse.focus/akaptano/bn_error_3d_plot_12-01-2025_01-52.pdf>`__
      - akaptano
      - 01/12/25
      - 5.95e-02
@@ -523,7 +547,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`N`
      - :math:`t`
-   * - 1
+   * - `1 <../../../submissions/rotating_ellipse/akaptano/bn_error_3d_plot_12-01-2025_01-53.pdf>`__
      - akaptano
      - 01/12/25
      - 3.84e-02

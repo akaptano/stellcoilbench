@@ -24,7 +24,6 @@ html_theme_options = {
 
 # Allow content to expand beyond viewport width if needed
 html_static_path = ["_static"]
-
 autosummary_generate = True
 napoleon_google_docstring = True
 napoleon_numpy_docstring = True

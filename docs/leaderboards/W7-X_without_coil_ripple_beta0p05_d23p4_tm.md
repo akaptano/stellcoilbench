@@ -15,7 +15,9 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">avg⟨Bn⟩/⟨B⟩</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">final arclength variation</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">F̄</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">τ̄</th>
@@ -39,7 +41,9 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">3.22e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">6.79e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.60e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.20e+06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.17e+06</td>
@@ -54,6 +58,30 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">2.66e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">6.34e+00</td>
 </tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">21/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.95e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">16</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.00e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.68e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.68e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.18e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.20e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.37e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.85e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.39e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.80e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.89e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.88e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.03e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.73e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.82e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.73e+03</td>
+</tr>
 </tbody>
 </table>
 
@@ -62,7 +90,9 @@
 - Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$ (dimensionless)
+- Arclength Variation Threshold
 - Average normalized normal field component $\frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
+- Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
 - Average of maximum force $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ per coil ($\text{N}/\text{m}$)
 - Average of maximum torque $\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ per coil ($\text{N}$)
