@@ -1,0 +1,170 @@
+/* Custom CSS for StellCoilBench documentation */
+
+/* Override ReadTheDocs theme max-width to allow wider tables */
+.rst-content {
+    max-width: none !important;
+    width: auto !important;
+}
+
+/* Remove body max-width constraint and allow expansion */
+.wy-nav-content {
+    max-width: none !important;
+    width: auto !important;
+}
+
+body {
+    max-width: none !important;
+    width: auto !important;
+    overflow-x: visible !important;
+}
+
+/* Ensure the main container can expand */
+.wy-body-for-nav {
+    overflow-x: visible !important;
+}
+
+/* Ensure document container can expand */
+.document {
+    max-width: none !important;
+    width: auto !important;
+}
+
+/* Make tables display fully without horizontal scrolling - expand page width */
+.rst-content table.docutils,
+.rst-content .list-table {
+    display: block;
+    width: 100%;
+    overflow-x: visible;
+    overflow-y: visible;
+    margin: 0.1em 0;
+}
+
+.rst-content table.docutils,
+.rst-content .list-table table {
+    width: auto;
+    min-width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    table-layout: auto;
+    font-size: 0.32em;
+    transform: scale(0.98);
+}
+
+/* Ensure table cells don't wrap unnecessarily but allow some flexibility */
+.rst-content table.docutils td,
+.rst-content table.docutils th,
+.rst-content .list-table td,
+.rst-content .list-table th {
+    white-space: nowrap;
+    padding: 0px;
+    font-size: 0.32em;
+    text-align: left;
+    vertical-align: middle;
+    min-width: auto;
+    max-width: none;
+    line-height: 0.6;
+    letter-spacing: -0.15em;
+    font-family: "Courier New", "Consolas", "Monaco", monospace;
+    font-stretch: ultra-condensed;
+    word-spacing: -0.2em;
+    transform: scaleX(0.95);
+}
+
+/* Make header cells stand out */
+.rst-content table.docutils th,
+.rst-content .list-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border-bottom: 0.5px solid #888;
+    padding: 0px;
+    line-height: 0.6;
+    font-size: 0.32em;
+    letter-spacing: -0.15em;
+    word-spacing: -0.2em;
+    transform: scaleX(0.95);
+}
+
+/* Better spacing for table rows */
+.rst-content table.docutils tbody tr,
+.rst-content .list-table tbody tr {
+    border-bottom: 0.5px solid #e0e0e0;
+    line-height: 0.6;
+}
+
+.rst-content table.docutils tbody tr:hover,
+.rst-content .list-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.rst-content table.docutils tbody tr:nth-child(even),
+.rst-content .list-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.rst-content table.docutils tbody tr:nth-child(even):hover,
+.rst-content .list-table tbody tr:nth-child(even):hover {
+    background-color: #f5f5f5;
+}
+
+/* Table headers styling - no sticky positioning needed since we're not scrolling */
+.rst-content .list-table thead {
+    background-color: #fff;
+}
+
+.rst-content .list-table thead th {
+    background-color: #f0f0f0;
+}
+
+/* For very wide tables, reduce font size further */
+@media screen and (min-width: 1400px) {
+    .rst-content table.docutils td,
+    .rst-content table.docutils th,
+    .rst-content .list-table td,
+    .rst-content .list-table th {
+        font-size: 0.32em;
+        padding: 0px;
+        line-height: 0.6;
+        letter-spacing: -0.15em;
+        word-spacing: -0.2em;
+        transform: scaleX(0.95);
+    }
+}
+
+/* On smaller screens, still allow full width expansion */
+@media screen and (max-width: 1200px) {
+    .rst-content table.docutils,
+    .rst-content .list-table {
+        display: block;
+        overflow-x: visible;
+    }
+    
+    .rst-content table.docutils,
+    .rst-content .list-table table {
+        min-width: max-content;
+    }
+}
+
+/* Style for leaderboard tables specifically - make them more compact */
+.rst-content section[id*="leaderboard"] table.docutils td,
+.rst-content section[id*="leaderboard"] table.docutils th,
+.rst-content section[id*="leaderboard"] .list-table td,
+.rst-content section[id*="leaderboard"] .list-table th {
+    font-size: 0.28em;
+    padding: 0px;
+    line-height: 0.55;
+    letter-spacing: -0.18em;
+    font-family: "Courier New", "Consolas", "Monaco", monospace;
+    font-stretch: ultra-condensed;
+    word-spacing: -0.25em;
+    transform: scaleX(0.92);
+}
+
+/* Make leaderboard tables even more compact */
+.rst-content .list-table caption {
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+}
+
+/* Remove scroll indicator since we're not using horizontal scrolling */

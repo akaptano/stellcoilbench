@@ -1,0 +1,18 @@
+{
+    "venvPath": "/opt/miniconda3/envs",
+    "venv": "simsopt_auglag",
+    "extraPaths": [
+        "/Users/aak572/simsopt_main/simsopt_pedro/simsopt/src"
+    ],
+    "executionEnvironments": [
+        {
+            "root": ".",
+            "pythonVersion": "3.9",
+            "pythonPlatform": "Darwin",
+            "extraPaths": [
+                "/Users/aak572/simsopt_main/simsopt_pedro/simsopt/src"
+            ]
+        }
+    ]
+}
+

@@ -500,12 +500,16 @@ class TestLeaderboardMarkdown:
                 }
             ]
         }
+        surface_leaderboards = build_surface_leaderboards(
+            leaderboard, submissions_root=tmp_path, plasma_surfaces_dir=tmp_path
+        )
         out_rst = tmp_path / "leaderboard.rst"
-        write_rst_leaderboard(leaderboard, out_rst)
+        write_rst_leaderboard(leaderboard, out_rst, surface_leaderboards)
         content = out_rst.read_text()
         assert "StellCoilBench Leaderboard" in content
         assert ".. list-table:: Overall Leaderboard" in content
         assert "Legend" in content
+        assert "Surface Leaderboards" in content
 
     def test_build_surface_leaderboards_and_write(self, tmp_path):
         leaderboard = {

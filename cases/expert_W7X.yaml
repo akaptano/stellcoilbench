@@ -5,12 +5,12 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 16
+  order: 8
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
-  max_iterations: 400
-  max_iter_subopt: 20
+  max_iterations: 200
+  max_iter_subopt: 10
   minimize_method: "L-BFGS-B"
   verbose: True
 
