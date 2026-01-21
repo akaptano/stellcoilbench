@@ -507,9 +507,9 @@ class TestLeaderboardMarkdown:
         write_rst_leaderboard(leaderboard, out_rst, surface_leaderboards)
         content = out_rst.read_text()
         assert "StellCoilBench Leaderboard" in content
-        assert ".. list-table:: Overall Leaderboard" in content
-        assert "Legend" in content
-        assert "Surface Leaderboards" in content
+        assert "Surface-Specific Leaderboards" in content
+        assert ".. list-table::" in content
+        assert "Metric Definitions" in content
 
     def test_build_surface_leaderboards_and_write(self, tmp_path):
         leaderboard = {
