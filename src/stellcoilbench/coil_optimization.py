@@ -396,8 +396,8 @@ def optimize_coils(
     surface = surface_func(
         filename=surface_file, 
         range=surface_params["range"],
-        nphi=32, 
-        ntheta=32)  # Always use 32x32 for standardization
+        nphi=16, 
+        ntheta=16)  # Always use 16x16 for standardization
     
     # Determine output directory for VTK files
     if output_dir is None:

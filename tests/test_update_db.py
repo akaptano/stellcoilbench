@@ -14,6 +14,7 @@ from stellcoilbench.update_db import (
     build_leaderboard_json,
     build_surface_leaderboards,
     write_markdown_leaderboard,
+    write_rst_leaderboard,
     write_surface_leaderboards,
 )
 
@@ -478,6 +479,33 @@ class TestLeaderboardMarkdown:
         assert "CoilBench Leaderboard" in content
         assert "Legend" in content
         assert "f_B" in content
+
+    def test_write_rst_leaderboard(self, tmp_path):
+        leaderboard = {
+            "entries": [
+                {
+                    "rank": 1,
+                    "method_key": "method1",
+                    "method_name": "method1",
+                    "method_version": "v1",
+                    "score_primary": 0.01,
+                    "run_date": "2024-01-01T12:00:00",
+                    "contact": "user1",
+                    "hardware": "CPU",
+                    "path": "submissions/surface/user/ts/results.json",
+                    "metrics": {
+                        "final_normalized_squared_flux": 0.01,
+                        "final_linking_number": 0,
+                    },
+                }
+            ]
+        }
+        out_rst = tmp_path / "leaderboard.rst"
+        write_rst_leaderboard(leaderboard, out_rst)
+        content = out_rst.read_text()
+        assert "StellCoilBench Leaderboard" in content
+        assert ".. list-table:: Overall Leaderboard" in content
+        assert "Legend" in content
 
     def test_build_surface_leaderboards_and_write(self, tmp_path):
         leaderboard = {

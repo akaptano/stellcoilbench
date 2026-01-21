@@ -567,6 +567,82 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
     out_md.write_text("\n".join(lines))
 
 
+def write_rst_leaderboard(leaderboard: Dict[str, Any], out_rst: Path) -> None:
+    """
+    Write a ReadTheDocs-friendly reStructuredText leaderboard.
+    """
+    entries = leaderboard.get("entries") or []
+
+    lines = [
+        "StellCoilBench Leaderboard",
+        "===========================",
+        "",
+        "Compare coil optimization methods across different plasma surfaces.",
+        "",
+    ]
+
+    if not entries:
+        lines.extend([
+            "No valid submissions found.",
+            "",
+            "To add submissions, place `results.json` files in the `submissions/` directory.",
+            "",
+        ])
+    else:
+        all_metric_keys = _get_all_metrics_from_entries(entries)
+        header_cols = ["#", "User", "Date"]
+        header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
+
+        lines.append(".. list-table:: Overall Leaderboard")
+        lines.append("   :header-rows: 1")
+        lines.append("   :widths: " + " ".join(["8"] * len(header_cols)))
+        lines.append("")
+
+        def _format_value(value: Any, metric_key: str = "") -> str:
+            if metric_key == "final_linking_number":
+                if isinstance(value, (float, int)):
+                    return str(int(round(value)))
+                return str(value)
+            if isinstance(value, (float, int)):
+                return f"{float(value):.2e}"
+            return str(value)
+
+        lines.append("   * - " + " - ".join(header_cols))
+        for e in entries:
+            metrics = e.get("metrics", {})
+            run_date = e.get("run_date") or "_unknown_"
+            if run_date != "_unknown_" and "T" in run_date:
+                run_date = run_date.split("T")[0]
+            row_parts = [
+                str(e.get("rank", "-")),
+                e.get("contact", e.get("method_name", "?"))[:15],
+                run_date,
+            ]
+            for key in all_metric_keys:
+                value = metrics.get(key)
+                row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
+            lines.append("   * - " + " - ".join(row_parts))
+
+        lines.append("")
+        lines.append("Legend")
+        lines.append("------")
+        lines.append("")
+        for key in all_metric_keys:
+            shorthand = _metric_shorthand(key)
+            full_name = key.replace("_", " ").title()
+            lines.append(f"- **{shorthand}**: {full_name}")
+        lines.append("")
+
+    lines.extend([
+        "",
+        "Last updated: run ``stellcoilbench update-db`` to refresh.",
+        "",
+    ])
+
+    out_rst.parent.mkdir(parents=True, exist_ok=True)
+    out_rst.write_text("\n".join(lines))
+
+
 
 
 
@@ -858,6 +934,9 @@ def update_database(
     leaderboard_file = docs_dir / "leaderboard.json"
     leaderboard_json = json.dumps(leaderboard, indent=2)
     leaderboard_file.write_text(leaderboard_json)
+
+    # Write ReadTheDocs-friendly leaderboard
+    write_rst_leaderboard(leaderboard, docs_dir / "leaderboard.rst")
     
     # Verify the file was written correctly
     import sys
