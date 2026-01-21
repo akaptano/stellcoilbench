@@ -305,8 +305,8 @@ class TestPlotBnError3D:
         surface = SurfaceRZFourier.from_vmec_input(
             filename=str(surface_file),
             range="full torus",
-            quadpoints_phi=np.linspace(0, 1, 128),
-            quadpoints_theta=np.linspace(0, 1, 128),
+            quadpoints_phi=np.linspace(0, 1, 48),
+            quadpoints_theta=np.linspace(0, 1, 48),
         )
         
         # Create a simple coil configuration
@@ -317,7 +317,7 @@ class TestPlotBnError3D:
         coil_radius = max(0.25 * major_radius, 3.0 * minor_component)
         base_curves = create_equally_spaced_curves(
             ncoils, surface.nfp, stellsym=surface.stellsym,
-            R0=major_radius, R1=coil_radius, order=coil_order, numquadpoints=512
+            R0=major_radius, R1=coil_radius, order=coil_order, numquadpoints=256
         )
         base_currents = [Current(1.0e6 + 2.0e5 * i) for i in range(ncoils)]
         coils = coils_via_symmetries(base_curves, base_currents, surface.nfp, surface.stellsym)

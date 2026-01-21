@@ -125,7 +125,19 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
         typer.echo(f"Warning: No files found in {submission_dir} to zip")
         return zip_path
     
-    # Create zip file with all files
+    # Move PDF plots outside the zip so they sit alongside the archive
+    pdf_files = [p for p in files_to_zip if p.suffix.lower() == ".pdf"]
+    for pdf_path in pdf_files:
+        dest = submission_dir.parent / pdf_path.name
+        try:
+            if dest.exists():
+                dest.unlink()
+            shutil.move(str(pdf_path), str(dest))
+            files_to_zip.remove(pdf_path)
+        except (OSError, shutil.Error) as e:
+            typer.echo(f"Warning: Failed to move PDF {pdf_path} out of submission dir: {e}")
+
+    # Create zip file with remaining files
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for file_path in files_to_zip:
             # Add file to zip with relative path from submission_dir

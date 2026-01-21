@@ -1,87 +1,129 @@
 # StellCoilBench
 
-A repository for automated benchmarking of stellarator coil optimization techniques.
+StellCoilBench is an open benchmark suite for stellarator coil optimization algorithms.
 
 ## Quick Start
 
-1. **Run a benchmark case:**
-   ```bash
-   stellcoilbench submit-case cases/case.yaml
-   ```
+**Fastest way to get a run:** add a new case under `cases/` and `git push` — CI will run the case and update the leaderboards.
 
-2. **Commit and push:**
-   ```bash
-   git add submissions/
-   git commit -m "Add submission"
-   git push
-   ```
-   
-   **Note**: Submissions are automatically zipped into `.zip` files. Each submission is stored as `submissions/<surface>/<username>/<timestamp>.zip`.
+If you want to run locally instead:
 
-3. **View the leaderboard:**
-   - Browse `docs/leaderboards/` on GitHub
-   - Or view locally: browse `docs/leaderboards/` directory
+```bash
+stellcoilbench submit-case cases/my_case.yaml
+```
+
+## How To Use StellCoilBench
+
+### Directory Structure
+
+```
+stellcoilbench/
+├── cases/                    # Benchmark case definitions
+│   ├── basic_LandremanPaulQA.yaml
+│   ├── basic_MUSE.yaml
+│   ├── basic_tokamak.yaml
+│   ├── basic_rotating_ellipse.yaml
+│   └── README.md
+├── submissions/              # Generated submission results (zipped)
+│   ├── LandremanPaul2021_QA/  # Plasma surface name (from case.yaml)
+│   │   └── akaptano/          # GitHub username
+│   │       └── 11-23-2025_23-03.zip  # Date and time (MM-DD-YYYY_HH-MM).zip
+│   └── README.md
+└── docs/                     # Generated leaderboards
+    └── leaderboards/         # Per-surface leaderboards
+        ├── LandremanPaul2021_QA.md
+        ├── muse_focus.md
+        ├── circular_tokamak.md
+        └── rotating_ellipse.md
+```
+
+### Step 1: Define a Case
+
+Create a new case in `cases/` or copy an existing one. Example:
+
+```yaml
+# cases/my_case.yaml
+description: "My optimization test"
+surface_params:
+  surface: "input.LandremanPaul2021_QA"  # Must match file in plasma_surfaces/
+  range: "half period"  # or "full torus"
+coils_params:
+  ncoils: 4
+  order: 4
+optimizer_params:
+  algorithm: "L-BFGS-B"  # or "BFGS", "SLSQP", "augmented_lagrangian", etc.
+  max_iterations: 200
+  max_iter_subopt: 10
+  verbose: False  # Optional: controls optimization progress output
+  algorithm_options:  # Optional: algorithm-specific hyperparameters
+    ftol: 1e-6
+    gtol: 1e-5
+coil_objective_terms:  # Optional: specify which objectives to include
+  total_length: "l2_threshold"
+  coil_coil_distance: "l1_threshold"
+  coil_surface_distance: "l1_threshold"
+  linking_number: ""  # Empty string includes linking number
+```
+
+### Step 2: Run and Submit (Local)
+
+```bash
+stellcoilbench submit-case cases/my_case.yaml
+```
+
+**What this does:**
+1. Runs coil optimization for the case
+2. Evaluates the results
+3. Auto-detects GitHub username from git config (`git config user.name`)
+4. Auto-detects hardware (CPU/GPU) from system information
+5. Creates a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
+6. Writes `results.json`, `coils.json`, `case.yaml`, `biot_savart_optimized.json`, and VTK files (*.vtu, *.vts)
+7. Copies `case.yaml` and adds `source_case_file`
+8. Zips the submission into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>.zip`
+9. Leaves PDF plots **next to** the zip file (not inside the archive)
+
+### Step 3: Commit and Push
+
+```bash
+git add submissions/
+git commit -m "Add submission"
+git push
+```
+
+### Step 4: CI Updates Leaderboards
+
+When you push, CI automatically:
+1. Runs cases that need results
+2. Scans `submissions/` for `.zip` files and extracts `results.json`
+3. Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/leaderboards/`
+4. Commits the leaderboard files (`docs/`)
 
 ## Git Configuration
 
 The `docs/` and `submissions/` directories are updated by CI and should prefer remote versions when pulling.
 
-### Quick Solution
-
-**To pull without conflicts, use the git alias (recommended):**
+**Recommended:**
 ```bash
 git pull-safe
 ```
 
-This will automatically clean untracked files in these directories and pull with the `theirs` strategy (prefers remote versions).
+This cleans local untracked files in `docs/` and `submissions/` and pulls with the `theirs` merge strategy.
 
-### Alternative Methods
+## Key Points
 
-**Option 1: Manual cleanup then pull**
-```bash
-# Remove untracked files that would conflict
-git clean -fd docs/ submissions/
-
-# Pull with strategy that prefers remote
-git pull -X theirs
-```
-
-**Option 2: Use the helper script**
-```bash
-./scripts/git-pull-safe.sh
-```
-
-**Option 3: Configure git to always prefer remote for these paths**
-The `.gitattributes` file is already configured. You can also set:
-```bash
-git config --local pull.strategy-option theirs
-```
-
-### Why This Is Needed
-
-When CI updates `docs/` or `submissions/` on the remote, and you have local untracked files in these directories, git will refuse to pull to avoid overwriting your local files. Since these directories are managed by CI, you typically want to accept the remote version.
-
-### Configuration Files
-
-- **`.gitattributes`** - Configures merge strategies to prefer remote versions
-- **`scripts/git-pull-safe.sh`** - Helper script for safe pulling
-- **Git alias `pull-safe`** - Convenient alias (configured automatically)
-
-## How It Works
-
-- **Submissions** (`submissions/`) are committed to the repository
-- **Leaderboard files** (`docs/`) are committed to the repository
-- CI automatically updates the leaderboard when you push submissions
-- All files are tracked in git
+- **Cases** (`cases/`) define the benchmarks
+- **Submissions** (`submissions/`) store results as `.zip`
+- **Leaderboards** (`docs/`) are generated by CI
+- **Fastest way to run**: add a case to `cases/` and push to GitHub
 
 ## Documentation
 
-- **[Workflow Guide](WORKFLOW.md)** - Complete guide to using StellCoilBench
-- **[Submissions](submissions/README.md)** - How to create and submit results
-- **[Cases](cases/README.md)** - How to define benchmark cases
+- **`cases/README.md`** - case format and fields
+- **`submissions/README.md`** - submission outputs and layout
+- **`tests/README.md`** - running tests and coverage
+- **`docs/index.md`** - published leaderboard index
 
-## Leaderboard
+## Leaderboards
 
-The leaderboard is automatically generated and available:
-- View online: Browse `docs/leaderboards/` on GitHub
-- View locally: browse `docs/leaderboards/` directory
+- Browse `docs/leaderboards/` on GitHub
+- View locally in `docs/leaderboards/`

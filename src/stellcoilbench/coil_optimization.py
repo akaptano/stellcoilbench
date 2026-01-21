@@ -9,7 +9,10 @@ import zipfile
 from .config_scheme import CaseConfig
 
 from simsopt.geo import SurfaceRZFourier
-from simsopt.field import regularization_circ
+try:
+    from simsopt.field import regularization_circ
+except ImportError:  # pragma: no cover - fallback for older simsopt
+    regularization_circ = None
 
 try:
     import matplotlib
@@ -522,7 +525,16 @@ def initialize_coils_loop(
     total_current_obj = Current(total_current)
     total_current_obj.fix_all()
     base_currents += [total_current_obj - sum(base_currents)]
-    coils = coils_via_symmetries(base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations)
+    try:
+        coils = coils_via_symmetries(
+            base_curves,
+            base_currents,
+            s.nfp,
+            s.stellsym,
+            regularizations=regularizations,
+        )
+    except TypeError:
+        coils = coils_via_symmetries(base_curves, base_currents, s.nfp, s.stellsym)
     
     # Iterative current adjustment to achieve the target B-field
     max_iterations = 30
@@ -536,7 +548,16 @@ def initialize_coils_loop(
         base_currents += [total_current_obj - sum(base_currents)]
         
         # Create coils using symmetries
-        coils = coils_via_symmetries(base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations)
+        try:
+            coils = coils_via_symmetries(
+                base_curves,
+                base_currents,
+                s.nfp,
+                s.stellsym,
+                regularizations=regularizations,
+            )
+        except TypeError:
+            coils = coils_via_symmetries(base_curves, base_currents, s.nfp, s.stellsym)
         
         # Create BiotSavart object to evaluate field
         bs = BiotSavart(coils)
@@ -854,7 +875,6 @@ def optimize_coils_loop(
     from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance, ArclengthVariation
     from simsopt.geo import LpCurveCurvature, CurveSurfaceDistance, MeanSquaredCurvature
     from simsopt.objectives import SquaredFlux, QuadraticPenalty, Weight
-    from simsopt.solve import augmented_lagrangian_method
     from simsopt.field import BiotSavart, coils_to_vtk
     from simsopt.field.force import LpCurveForce, LpCurveTorque, coil_force, coil_torque
     from simsopt.util import calculate_modB_on_major_radius
@@ -1179,6 +1199,7 @@ def optimize_coils_loop(
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
     if algorithm == "augmented_lagrangian":
+        from simsopt.solve import augmented_lagrangian_method
         augmented_lagrangian_options = {
             "MAXITER": max_iterations,
             "MAXITER_lag": max_iter_subopt,

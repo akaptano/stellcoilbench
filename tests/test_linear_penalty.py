@@ -4,6 +4,7 @@ Unit tests for LinearPenalty class.
 Tests verify that LinearPenalty correctly implements max(objective - threshold, 0).
 """
 import numpy as np
+import pytest
 from simsopt.geo import CurveLength
 from simsopt.geo import create_equally_spaced_curves
 from simsopt.objectives import Weight
@@ -200,3 +201,55 @@ class TestLinearPenalty:
         grad_above = lp.dJ()
         assert np.allclose(np.asarray(grad_above), 0.0), "Gradient should be zero when below threshold"
 
+    def test_linear_penalty_getattr_restricted(self):
+        """Test that __getattr__ raises for reserved names."""
+        curves = create_equally_spaced_curves(1, 1, stellsym=False, R0=1.0, R1=0.1, order=2, numquadpoints=64)
+        obj = CurveLength(curves[0])
+        lp = LinearPenalty(obj, 0.1)
+        with pytest.raises(AttributeError):
+            lp.__getattr__("objective")
+
+    def test_linear_penalty_dj_fallback_to_zeros(self):
+        """Test dJ fallback when gradient lacks __mul__."""
+        class _Obj:
+            def __init__(self):
+                self.x = np.ones(3)
+            def J(self):
+                return 0.0
+            def dJ(self, **kwargs):
+                return object()
+
+        lp = LinearPenalty(_Obj(), 1.0)
+        grad = lp.dJ()
+        assert np.allclose(grad, np.zeros(3))
+
+    def test_linear_penalty_weight_fallback(self, monkeypatch):
+        """Test weight scaling fallback when objective J() fails."""
+        class _Obj:
+            def __init__(self):
+                self.x = np.ones(2)
+            def J(self):
+                raise TypeError("no J")
+            def dJ(self, **kwargs):
+                return np.ones(2)
+
+        class _Weight:
+            def __init__(self, w):
+                self.w = w
+            def __mul__(self, other):
+                class _Weighted:
+                    def __init__(self, w, obj):
+                        self.w = w
+                        self.obj = obj
+                        self.x = obj.x
+                    def J(self):
+                        return self.w * 1.0
+                    def dJ(self, **kwargs):
+                        return self.w * self.obj.dJ(**kwargs)
+                return _Weighted(self.w, other)
+
+        monkeypatch.setattr("simsopt.objectives.Weight", _Weight)
+        lp = LinearPenalty(_Obj(), 0.5)
+        weighted_lp = lp * _Weight(2.0)
+        assert isinstance(weighted_lp, LinearPenalty)
+        assert weighted_lp.threshold == 0.5
