@@ -37,6 +37,30 @@
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">21/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.56e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.00e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.29e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.16e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.10e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.08e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.42e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.45e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.18e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.77e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.03e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.83e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.66e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.73e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.03e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.25e+03</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">01/12/25</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.22e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
@@ -59,7 +83,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">6.34e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">21/01/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.95e-03</td>
