@@ -608,6 +608,7 @@ def _plot_bn_error_3d(
     out_dir: Path,
     filename: str = "bn_error_3d_plot.pdf",
     title: str = "B_N/|B| Error on Plasma Surface with Optimized Coils",
+    plot_upsample: int = 3,
 ) -> None:
     """
     Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
@@ -627,8 +628,35 @@ def _plot_bn_error_3d(
         print("Warning: matplotlib not available, skipping 3D plot generation")
         return
     
+    # Upsample surface for smoother plotting when possible
+    plot_surface = surface
+    if isinstance(surface, SurfaceRZFourier) and plot_upsample > 1:
+        try:
+            qphi = max(32, int(len(surface.quadpoints_phi) * plot_upsample))
+            qtheta = max(32, int(len(surface.quadpoints_theta) * plot_upsample))
+            quadpoints_phi = np.linspace(0, 1, qphi)
+            quadpoints_theta = np.linspace(0, 1, qtheta)
+            plot_surface = SurfaceRZFourier(
+                nfp=surface.nfp,
+                stellsym=surface.stellsym,
+                mpol=surface.mpol,
+                ntor=surface.ntor,
+                quadpoints_phi=quadpoints_phi,
+                quadpoints_theta=quadpoints_theta,
+            )
+            for m in range(surface.mpol + 1):
+                for n in range(-surface.ntor, surface.ntor + 1):
+                    rc_val = surface.get_rc(m, n)
+                    zs_val = surface.get_zs(m, n)
+                    if rc_val != 0:
+                        plot_surface.set_rc(m, n, rc_val)
+                    if zs_val != 0:
+                        plot_surface.set_zs(m, n, zs_val)
+        except Exception:
+            plot_surface = surface
+    
     # Get surface points - grid should be square (nphi == ntheta)
-    surface_points = surface.gamma().reshape(-1, 3)
+    surface_points = plot_surface.gamma().reshape(-1, 3)
     npoints = surface_points.shape[0]
     nphi_plot = int(np.sqrt(npoints))
     ntheta_plot = nphi_plot
@@ -641,7 +669,7 @@ def _plot_bn_error_3d(
     # Calculate B_N/|B| on surface
     bs.set_points(surface_points)
     B_field = bs.B().reshape((nphi_plot, ntheta_plot, 3))
-    unit_normal = surface.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
+    unit_normal = plot_surface.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
     BdotN = np.sum(B_field * unit_normal, axis=2)
     abs_B = bs.AbsB().reshape((nphi_plot, ntheta_plot))
     
@@ -650,7 +678,7 @@ def _plot_bn_error_3d(
     bn_over_b = np.abs(BdotN / abs_B)
     
     # Create figure with 3D subplot
-    fig = plt.figure(figsize=(10, 8), dpi=200)  # type: ignore
+    fig = plt.figure(figsize=(12, 9), dpi=300)  # type: ignore
     ax = fig.add_subplot(111, projection='3d')  # type: ignore
     
     # Plot surface with B_N/|B| as colormap (opaque to avoid artifacts)
@@ -659,28 +687,66 @@ def _plot_bn_error_3d(
         x_surf, y_surf, z_surf,
         facecolors=cm.viridis(norm(bn_over_b)),  # type: ignore[attr-defined]
         linewidth=0,
-        antialiased=False,
-        shade=False
+        antialiased=True,
+        shade=True,
+        rstride=1,
+        cstride=1,
+        zorder=1
     )
     
-    # Plot coils colored by current magnitude
+    # Plot coils colored by current magnitude with simple front/back layering
     currents = [abs(c.current.get_value()) for c in coils]
     current_norm = Normalize(
         vmin=min(currents) if currents else 0.0,
         vmax=max(currents) if currents else 1.0,
     )
     current_cmap = cm.plasma  # type: ignore
-    for i, coil in enumerate(coils):
+    
+    def _segments_from_mask(points: np.ndarray, mask: np.ndarray) -> list[np.ndarray]:
+        segments: list[np.ndarray] = []
+        start = 0
+        for i in range(1, len(points)):
+            if mask[i] != mask[i - 1]:
+                if mask[i - 1]:
+                    segments.append(points[start:i])
+                start = i
+        if mask[-1]:
+            segments.append(points[start:])
+        return segments
+    
+    center = np.array([x_surf.mean(), y_surf.mean(), z_surf.mean()])
+    azim = np.deg2rad(ax.azim)  # type: ignore[attr-defined]
+    elev = np.deg2rad(ax.elev)  # type: ignore[attr-defined]
+    view_vec = np.array([
+        np.cos(elev) * np.cos(azim),
+        np.cos(elev) * np.sin(azim),
+        np.sin(elev),
+    ])
+    
+    front_segments: list[tuple[np.ndarray, tuple[float, float, float, float]]] = []
+    
+    for coil in coils:
         coil_points = coil.curve.gamma()
         current_val = abs(coil.current.get_value())
-        ax.plot(
-            coil_points[:, 0],
-            coil_points[:, 1],
-            coil_points[:, 2],
-            color=current_cmap(current_norm(current_val)),
-            linewidth=2.2,
-            solid_capstyle="round",
-        )
+        color = current_cmap(current_norm(current_val))
+        closed = np.vstack([coil_points, coil_points[0]])
+        depth = (closed - center) @ view_vec
+        front_mask = depth >= 0
+        back_mask = ~front_mask
+        
+        for seg in _segments_from_mask(closed, back_mask):
+            ax.plot(
+                seg[:, 0],
+                seg[:, 1],
+                seg[:, 2],
+                color=color,
+                linewidth=2.2,
+                solid_capstyle="round",
+                zorder=0,
+            )
+        
+        for seg in _segments_from_mask(closed, front_mask):
+            front_segments.append((seg, color))
     
     # Set labels and title
     ax.set_xlabel('X (m)', fontsize=12)  # type: ignore
@@ -694,11 +760,30 @@ def _plot_bn_error_3d(
     cbar = plt.colorbar(mappable, ax=ax, shrink=0.6, aspect=20, pad=0.1)  # type: ignore
     cbar.set_label('|B_N|/|B|', fontsize=12, rotation=270, labelpad=20)
     
-    # Add coil current colorbar
+    # Add coil current colorbar on the left side
     coil_mappable = cm.ScalarMappable(cmap=current_cmap, norm=current_norm)  # type: ignore
     coil_mappable.set_array(currents)
-    coil_cbar = plt.colorbar(coil_mappable, ax=ax, shrink=0.6, aspect=20, pad=0.02)  # type: ignore
-    coil_cbar.set_label('|I| (A)', fontsize=12, rotation=270, labelpad=18)
+    coil_cbar = plt.colorbar(  # type: ignore
+        coil_mappable,
+        ax=ax,
+        shrink=0.6,
+        aspect=20,
+        pad=0.08,
+        location="left",
+    )
+    coil_cbar.set_label('|I| (A)', fontsize=12, rotation=90, labelpad=18)
+    
+    # Draw front coil segments after the surface for better depth cues
+    for seg, color in front_segments:
+        ax.plot(
+            seg[:, 0],
+            seg[:, 1],
+            seg[:, 2],
+            color=color,
+            linewidth=2.2,
+            solid_capstyle="round",
+            zorder=3,
+        )
     
     # Set equal aspect ratio
     max_range = np.array([
@@ -714,7 +799,7 @@ def _plot_bn_error_3d(
     ax.set_zlim(mid_z - max_range, mid_z + max_range)  # type: ignore
     
     # Clean up axes for a sleeker look
-    ax.grid(False)  # type: ignore
+    ax.grid(True)  # type: ignore
     for axis in (ax.xaxis, ax.yaxis, ax.zaxis):  # type: ignore
         axis.pane.fill = False  # type: ignore
         axis.pane.set_edgecolor("w")  # type: ignore

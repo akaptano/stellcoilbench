@@ -286,24 +286,33 @@ class TestPlotBnError3D:
         from simsopt.field import BiotSavart
         from simsopt.geo import create_equally_spaced_curves
         from simsopt.field import Current, coils_via_symmetries
+        from stellcoilbench.evaluate import load_case_config
         
-        # Create a simple surface with equal quadpoints_phi and quadpoints_theta
-        # Use stellsym=False for full torus (not half due to symmetry)
-        surface = SurfaceRZFourier(
-            nfp=1, stellsym=False, mpol=2, ntor=2,
-            quadpoints_phi=np.linspace(0, 1, 16),
-            quadpoints_theta=np.linspace(0, 1, 16)
+        # Load a realistic surface from the LandremanPaul QA case
+        repo_root = Path(__file__).resolve().parents[1]
+        case_path = repo_root / "cases" / "expert_LandremanPaulQA.yaml"
+        case_cfg = load_case_config(case_path)
+        surface_file = Path(case_cfg.surface_params["surface"])
+        if not surface_file.is_absolute():
+            surface_file = repo_root / "plasma_surfaces" / surface_file
+        surface = SurfaceRZFourier.from_vmec_input(
+            filename=str(surface_file),
+            range="full torus",
+            quadpoints_phi=np.linspace(0, 1, 128),
+            quadpoints_theta=np.linspace(0, 1, 128),
         )
-        surface.set_rc(0, 0, 1.0)  # Major radius
-        surface.set_zs(0, 0, 0.0)
         
         # Create a simple coil configuration
-        ncoils = 2
+        ncoils = case_cfg.coils_params["ncoils"]
+        coil_order = case_cfg.coils_params["order"]
+        major_radius = surface.get_rc(0, 0)
+        minor_component = abs(surface.get_rc(1, 0))
+        coil_radius = max(0.25 * major_radius, 3.0 * minor_component)
         base_curves = create_equally_spaced_curves(
             ncoils, surface.nfp, stellsym=surface.stellsym,
-            R0=1.0, R1=0.1, order=2, numquadpoints=64
+            R0=major_radius, R1=coil_radius, order=coil_order, numquadpoints=512
         )
-        base_currents = [Current(1e6) for _ in range(ncoils)]
+        base_currents = [Current(1.0e6 + 2.0e5 * i) for i in range(ncoils)]
         coils = coils_via_symmetries(base_curves, base_currents, surface.nfp, surface.stellsym)
         
         # Create BiotSavart object
@@ -333,6 +342,12 @@ class TestPlotBnError3D:
         initial_pdf_path = out_dir / "bn_error_3d_plot_initial.pdf"
         assert initial_pdf_path.exists(), f"PDF file was not created at {initial_pdf_path}"
         assert initial_pdf_path.stat().st_size > 0, "PDF file is empty"
+
+        # Also write copies to a stable artifacts directory for manual inspection
+        artifacts_dir = Path(__file__).resolve().parent / "artifacts"
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+        (artifacts_dir / "bn_error_3d_plot.pdf").write_bytes(pdf_path.read_bytes())
+        (artifacts_dir / "bn_error_3d_plot_initial.pdf").write_bytes(initial_pdf_path.read_bytes())
     
     def test_plot_bn_error_3d_handles_missing_matplotlib(self, tmp_path, monkeypatch):
         """Test that _plot_bn_error_3d handles missing matplotlib gracefully."""
