@@ -136,6 +136,19 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 "coil_coil_torque",
             }
             
+            # Valid threshold parameter names (these are extracted and passed as kwargs)
+            valid_threshold_names = {
+                "length_threshold",
+                "cc_threshold",
+                "cs_threshold",
+                "curvature_threshold",
+                "arclength_variation_threshold",
+                "msc_threshold",
+                "force_threshold",
+                "torque_threshold",
+                "flux_threshold",
+            }
+            
             # Valid options for each term type
             valid_options_l2 = ["l2", "l2_threshold"]
             # valid_options_l1 = ["l1", "l1_threshold"]
@@ -147,11 +160,19 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             valid_options_force_torque = ["lp", "lp_threshold"]
             
             for term_name, term_value in obj_terms.items():
+                # Skip threshold parameters (they are validated separately)
+                if term_name in valid_threshold_names:
+                    if not isinstance(term_value, (int, float)) or term_value < 0:
+                        errors.append(
+                            f"{file_prefix}coil_objective_terms.{term_name} must be a non-negative number"
+                        )
+                    continue
+                
                 # Check for unknown term names
                 if term_name not in valid_term_names and not term_name.endswith("_p"):
                     errors.append(
                         f"{file_prefix}Unknown coil_objective_terms key: '{term_name}'. "
-                        f"Valid keys: {sorted(valid_term_names)}"
+                        f"Valid keys: {sorted(valid_term_names | valid_threshold_names)}"
                     )
                     continue
                 

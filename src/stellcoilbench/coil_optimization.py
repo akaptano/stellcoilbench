@@ -346,6 +346,31 @@ def optimize_coils(
     surface_params = dict(case_cfg.surface_params)
     coil_objective_terms = case_cfg.coil_objective_terms
     
+    # Extract threshold values from coil_objective_terms if present
+    # These will be passed as kwargs to optimize_coils_loop
+    threshold_kwargs = {}
+    if coil_objective_terms:
+        threshold_keys = [
+            "length_threshold",
+            "cc_threshold",
+            "cs_threshold",
+            "curvature_threshold",
+            "arclength_variation_threshold",
+            "msc_threshold",
+            "force_threshold",
+            "torque_threshold",
+            "flux_threshold",
+        ]
+        for key in threshold_keys:
+            if key in coil_objective_terms:
+                threshold_kwargs[key] = coil_objective_terms[key]
+        
+        # Create a copy of coil_objective_terms without threshold keys
+        coil_objective_terms = {
+            k: v for k, v in coil_objective_terms.items()
+            if k not in threshold_keys
+        }
+    
     # Handle surface file path - check if it's relative to plasma_surfaces directory
     surface_file = surface_params["surface"]
     if not Path(surface_file).is_absolute():
@@ -450,7 +475,8 @@ def optimize_coils(
                 **optimizer_params, 
                 output_dir=str(output_dir),
                 coil_objective_terms=coil_objective_terms,
-                algorithm_options=algorithm_options
+                algorithm_options=algorithm_options,
+                **threshold_kwargs
             )
         except TypeError:
             # Fallback if optimize_coils_loop doesn't accept output_dir parameter
@@ -460,7 +486,8 @@ def optimize_coils(
                 **coil_params, 
                 **optimizer_params, 
                 coil_objective_terms=coil_objective_terms,
-                algorithm_options=algorithm_options
+                algorithm_options=algorithm_options,
+                **threshold_kwargs
             )
     finally:
         # Always restore original working directory
