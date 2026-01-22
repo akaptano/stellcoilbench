@@ -772,8 +772,9 @@ def _plot_bn_error_3d(
         vmin=min(currents) if currents else 0.0,
         vmax=max(currents) if currents else 1.0,
     )
-    # Use Reds colormap to contrast with viridis (blue-green-yellow) used for B_N errors
-    current_cmap = cm.Reds  # type: ignore
+    # Use 'YlOrRd' colormap (yellow->orange->red) to contrast with viridis (blue-green-yellow) used for B_N errors
+    # 'YlOrRd' doesn't go through white, avoiding blending with matplotlib background
+    current_cmap = cm.YlOrRd  # type: ignore
     
     def _segments_from_mask(points: np.ndarray, mask: np.ndarray) -> list[np.ndarray]:
         segments: list[np.ndarray] = []

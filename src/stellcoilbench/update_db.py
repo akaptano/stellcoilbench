@@ -68,6 +68,7 @@ def _format_date(date_str: str) -> str:
     
     Examples:
     - "2025-12-01" -> "01/12/25"
+    - "2026-01-21" -> "21/01/26"
     - "_unknown_" -> "_unknown_"
     """
     if date_str is None:
@@ -79,6 +80,23 @@ def _format_date(date_str: str) -> str:
     if "T" in date_str:
         date_str = date_str.split("T")[0]
     
+    # Check if already in DD/MM/YY format (e.g., "21/01/26" or "01/12/25")
+    if "/" in date_str:
+        parts = date_str.split("/")
+        if len(parts) == 3:
+            # Already in DD/MM/YY format, ensure consistent formatting
+            day, month, year = parts
+            # Pad day and month with zeros if needed, ensure 2-digit year
+            day = day.zfill(2)
+            month = month.zfill(2)
+            if len(year) == 4:
+                year = year[2:]  # Convert YYYY to YY
+            elif len(year) != 2:
+                # Invalid format, try to parse as ISO instead
+                pass
+            else:
+                return f"{day}/{month}/{year}"
+    
     try:
         # Parse YYYY-MM-DD format
         parts = date_str.split("-")
@@ -86,8 +104,11 @@ def _format_date(date_str: str) -> str:
             year = parts[0]
             month = parts[1]
             day = parts[2]
-            # Convert to DD/MM/YY
-            return f"{day}/{month}/{year[2:]}"
+            # Convert to DD/MM/YY with zero-padding
+            day = day.zfill(2)
+            month = month.zfill(2)
+            year = year[2:] if len(year) == 4 else year
+            return f"{day}/{month}/{year}"
     except (IndexError, AttributeError):
         pass
     

@@ -131,8 +131,8 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 3 submission(s).
-Typical configuration: 16 Fourier order, 4 base coils.
+This surface has 4 submission(s).
+Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: Landreman-Paul QA Leaderboard
    :header-rows: 1
@@ -145,6 +145,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
      - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
      - :math:`\min(d_{cc})`
      - :math:`\min(d_{cs})`
      - :math:`\bar{\kappa}`
@@ -161,12 +162,36 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - i
      - f
    * - 4
+     - 8
+     - —
+     - 1.6e-06
+     - 1.2e-02
+     - 1.0e+00
+     - 2.1e+01
+     - 3.2e+01
+     - 1.2e-01
+     - 3.0e-04
+     - 3.1e+00
+     - 2.0e+01
+     - 5.0e+04
+     - 2.6e+04
+     - 6.1e+04
+     - 3.7e+04
+     - 0
+     - 1.5e+03
+     - 1.0e+01
+     - 22/01/26
+     - akaptano
+     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+   * - 4
      - 16
      - —
      - 9.6e-06
      - 2.2e-02
      - 1.0e+00
      - 1.8e+01
+     - —
      - 9.6e-02
      - 4.6e-04
      - 3.2e+00
@@ -180,8 +205,8 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 1.0e+01
      - 01/12/25
      - akaptano
-     - —
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 8
      - —
@@ -189,6 +214,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 1.7e-02
      - 1.0e+00
      - 1.5e+01
+     - —
      - 8.9e-02
      - 1.9e-04
      - 3.4e+00
@@ -202,8 +228,8 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 1.1e+01
      - 01/12/25
      - akaptano
-     - —
-     - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
+     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
      - —
@@ -211,6 +237,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 1.6e-01
      - 4.7e-01
      - 1.1e+01
+     - —
      - 2.2e-01
      - 1.1e-01
      - 2.7e+00
@@ -224,8 +251,8 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - 7.5e+00
      - 01/12/25
      - akaptano
-     - —
-     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
+     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
 
 
 .. _w7-x-without-coil-ripple-beta0p05-d23p4-tm:
@@ -235,7 +262,7 @@ W7-X
 
 **Surface file:** ``W7-X_without_coil_ripple_beta0p05_d23p4_tm``
 
-This surface has 3 submission(s).
+This surface has 4 submission(s).
 Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: W7-X Leaderboard
@@ -334,6 +361,29 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - akaptano
      - `3 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
      - `3 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
+   * - 5
+     - 4
+     - —
+     - 5.9e-03
+     - 9.5e-02
+     - 3.3e-01
+     - 3.5e+01
+     - 5.9e-01
+     - 4.1e-01
+     - 2.2e-01
+     - 1.4e+00
+     - 2.8e+00
+     - 2.1e+06
+     - 8.3e+05
+     - 2.5e+06
+     - 1.1e+06
+     - 0
+     - 6.0e+02
+     - 4.9e+00
+     - 22/01/26
+     - akaptano
+     - `4 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
+     - `4 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
 
 
 .. _c09r00-b-axis-half-tesla-pm4stell-focus:
