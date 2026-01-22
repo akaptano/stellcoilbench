@@ -33,6 +33,9 @@ dependencies = [
     "simsopt @ git+https://github.com/PedroFranciscoGil/simsopt.git@auglag_coils",
 ]
 
+[project.optional-dependencies]
+DOCS = ["sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon", "sphinx-autodoc-napoleon-typehints", "breathe", "docutils"]
+
 [project.scripts]
 stellcoilbench = "stellcoilbench.cli:main"
 

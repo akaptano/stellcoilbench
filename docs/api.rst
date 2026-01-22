@@ -86,7 +86,7 @@ building.
    Computed metrics include:
    
    - Normalized squared flux error (primary score)
-   - B_N/|B| error (average and maximum)
+   - :math:`B_N/|B|` error (average and maximum)
    - Coil geometry metrics (curvature, length, separations)
    - Force and torque metrics
    - Linking number
@@ -266,7 +266,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    
    Generates a high-resolution PDF plot showing:
    
-   - Plasma surface colored by B_N/|B| error magnitude
+   - Plasma surface colored by :math:`B_N/|B|` error magnitude
    - Coils colored by current magnitude
    - Colorbars for both
    
@@ -281,7 +281,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``plot_upsample``: Surface upsampling factor for higher resolution
 
 Update Database Module
----------------------
+----------------------
 
 .. automodule:: stellcoilbench.update_db
    :members:

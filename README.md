@@ -122,6 +122,7 @@ This cleans local untracked files in `docs/` and `submissions/` and pulls with t
 - **`submissions/README.md`** - submission outputs and layout
 - **`tests/README.md`** - running tests and coverage
 - **`docs/index.md`** - published leaderboard index
+- **ReadTheDocs** - https://stellcoilbench.readthedocs.io/en/latest/
 
 ## Leaderboards
 

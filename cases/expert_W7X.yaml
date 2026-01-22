@@ -4,8 +4,8 @@ surface_params:
   range: "half period"
 
 coils_params:
-  ncoils: 4
-  order: 8
+  ncoils: 5
+  order: 4
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
@@ -19,6 +19,7 @@ optimizer_params:
 # Note that SquaredFlux is always included (can't think of why it would ever be excluded)
 coil_objective_terms: 
   total_length: "l2_threshold"  
+  length_threshold: 40.0
   coil_coil_distance: "l2_threshold"
   coil_surface_distance: "l2_threshold"
   coil_curvature: "lp_threshold"  # options are lp, lp_threshold

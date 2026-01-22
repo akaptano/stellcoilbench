@@ -5,13 +5,13 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 16
+  order: 8
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
-  max_iterations: 500
-  max_iter_subopt: 40
-  verbose: True
+  max_iterations: 200
+  max_iter_subopt: 20
+  verbose: False
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.

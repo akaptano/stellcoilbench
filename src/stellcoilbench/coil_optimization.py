@@ -512,7 +512,7 @@ def initialize_coils_loop(
     
     # Get the major radius from the surface and scale coil parameters
     R0 = s.get_rc(0, 0)  # Major radius
-    R1 = s.get_rc(1, 0) * 2.5  # Scale the minor radius component
+    R1 = s.get_rc(1, 0) * 3.5  # Scale the minor radius component
     
     # Initial guess for total current (using QH configuration as reference)
     total_current = 5e7  # 50 MA initial guess is not bad for reactor-scale
@@ -721,7 +721,8 @@ def _plot_bn_error_3d(
         vmin=min(currents) if currents else 0.0,
         vmax=max(currents) if currents else 1.0,
     )
-    current_cmap = cm.plasma  # type: ignore
+    # Use Reds colormap to contrast with viridis (blue-green-yellow) used for B_N errors
+    current_cmap = cm.Reds  # type: ignore
     
     def _segments_from_mask(points: np.ndarray, mask: np.ndarray) -> list[np.ndarray]:
         segments: list[np.ndarray] = []
@@ -856,7 +857,7 @@ def optimize_coils_loop(
         verbose: Print out progress and results (default: False).
         **kwargs: Additional keyword arguments for constraint thresholds.
             max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 2).
-            length_target: Target length of the coils in meters (default: 210.0).
+            length_threshold: Threshold for the length objective (default: 200.0).
             flux_threshold: Threshold for the flux objective (default: 1e-8).
             cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
             cs_threshold: Threshold for the coil-surface distance objective (default: 1.5).
@@ -879,13 +880,13 @@ def optimize_coils_loop(
     from simsopt.field.force import LpCurveForce, LpCurveTorque, coil_force, coil_torque
     from simsopt.util import calculate_modB_on_major_radius
 
-    out_dir = Path(out_dir)
+    out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Set default constraint thresholds if not provided
     # Defaults here are reasonable for 10 m major radius
     #  reactor-scale device with 5.7 T target B-field
-    length_target = kwargs.get('length_target', 210.0)
+    length_threshold = kwargs.get('length_threshold', 200.0)
     flux_threshold = kwargs.get('flux_threshold', 1e-8)
     cc_threshold = kwargs.get('cc_threshold', 0.8)
     cs_threshold = kwargs.get('cs_threshold', 1.3)
@@ -915,16 +916,22 @@ def optimize_coils_loop(
             algorithm = 'augmented_lagrangian'
         # Keep other algorithm names as-is (they should match scipy method names)
 
-    # Rescale all the length thresholds by the plasma major radius
+    # Rescale thresholds by the plasma major radius only if they were not explicitly passed
     # divided by the 10m assumption for the major radius
     R0 = 10.0 / s.get_rc(0, 0)
-    length_target /= R0
-    length_target *= (ncoils / 7.0) ** 0.5
-    cc_threshold /= R0
-    cs_threshold /= R0 
-    curvature_threshold *= R0
-    msc_threshold *= R0
-    arclength_variation_threshold *= R0 ** 2
+    if 'length_threshold' not in kwargs:
+        length_threshold /= R0
+    if 'cc_threshold' not in kwargs:
+        cc_threshold /= R0
+    if 'cs_threshold' not in kwargs:
+        cs_threshold /= R0
+    if 'curvature_threshold' not in kwargs:
+        curvature_threshold *= R0
+    if 'msc_threshold' not in kwargs:
+        msc_threshold *= R0
+    if 'arclength_variation_threshold' not in kwargs:
+        arclength_variation_threshold *= R0 ** 2
+    # coil_width is not a threshold parameter, so always scale it
     coil_width /= R0
 
     print(f"Starting coil optimization for target B-field: {target_B} T")
@@ -937,12 +944,18 @@ def optimize_coils_loop(
     # print("Step 1: Initializing coils with target B-field...")
     coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
 
-    # Rescale force_threshold
+    # Calculate total_current (needed for later printing and possibly for threshold scaling)
     total_current = sum([c.current.get_value() for c in coils[:ncoils]]) / (s.stellsym + 1) / s.nfp
-    coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
-    total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]]) / (s.stellsym + 1) / s.nfp
-    force_threshold *= (total_current / total_current_reactor_scale) ** 2
-    torque_threshold *= (total_current / total_current_reactor_scale) ** 2
+    
+    # Rescale force_threshold and torque_threshold only if they were not explicitly passed
+    if 'force_threshold' not in kwargs or 'torque_threshold' not in kwargs:
+        coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+        total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]]) / (s.stellsym + 1) / s.nfp
+        current_scale_factor = (total_current / total_current_reactor_scale) ** 2
+        if 'force_threshold' not in kwargs:
+            force_threshold *= current_scale_factor
+        if 'torque_threshold' not in kwargs:
+            torque_threshold *= current_scale_factor
 
     # Extract base curves and currents from the initialized coils
     base_curves = [coil.curve for coil in coils[:ncoils]]
@@ -1094,7 +1107,7 @@ def optimize_coils_loop(
     # Print initial constraint values
     print("Initial thresholds:")
     print(f" Flux Threshold: {flux_threshold:.2e}")
-    print(f" Length Target: {length_target:.2e}")
+    print(f" Length Threshold: {length_threshold:.2e}")
     print(f" CC Threshold: {cc_threshold:.2e}")
     print(f" CS Threshold: {cs_threshold:.2e}")
     print(f" MSC Threshold: {msc_threshold:.2e}")
@@ -1116,7 +1129,7 @@ def optimize_coils_loop(
         term_map = {
             "total_length": {
                 "obj": sum(Jls),
-                "threshold": length_target,
+                "threshold": length_threshold,
                 "l1": lambda obj, thresh: obj,
                 "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),

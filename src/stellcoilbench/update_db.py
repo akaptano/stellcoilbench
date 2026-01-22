@@ -34,6 +34,7 @@ def _metric_shorthand(metric_name: str) -> str:
         
         # Length
         "final_total_length": "L",
+        "final_arclength_variation": "Var(l_i)",
         
         # Forces/Torques
         "final_max_max_coil_force": "max(F)",
@@ -114,6 +115,7 @@ def _shorthand_to_math(shorthand: str) -> str:
         "τ̄": r":math:`\bar{\tau}`",
         "avg⟨Bn⟩/⟨B⟩": r":math:`\text{avg}\langle B_n \rangle / \langle B \rangle`",
         "max⟨Bn⟩/⟨B⟩": r":math:`\max(\langle B_n \rangle / \langle B \rangle)`",
+        "Var(l_i)": r":math:`\mathrm{Var}(l_i)`",
     }
     if shorthand in unicode_map:
         return unicode_map[shorthand]
@@ -754,11 +756,39 @@ def write_rst_leaderboard(
             for key in metrics.keys():
                 if key not in exclude_fields:
                     all_keys.add(key)
-        sorted_keys = sorted(all_keys)
-        if "final_normalized_squared_flux" in sorted_keys:
-            sorted_keys.remove("final_normalized_squared_flux")
-            sorted_keys.insert(0, "final_normalized_squared_flux")
-        return sorted_keys
+        
+        # Define the desired order: N, n, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t
+        desired_order = [
+            "num_coils",                    # N
+            "coil_order",                   # n
+            "final_normalized_squared_flux", # fB
+            "avg_BdotN_over_B",             # avg(Bn/B)
+            "max_BdotN_over_B",             # max(Bn/B)
+            "final_total_length",           # L
+            "final_arclength_variation",    # Var(l_i)
+            "final_min_cc_separation",      # min(d_cc)
+            "final_min_cs_separation",      # min(d_cs)
+            "final_average_curvature",      # \bar{kappa}
+            "final_mean_squared_curvature",  # MSC
+            "final_avg_max_coil_force",     # \bar{F}
+            "final_avg_max_coil_torque",    # \bar{\tau}
+            "final_max_max_coil_force",     # max(F)
+            "final_max_max_coil_torque",    # max(\tau)
+            "final_linking_number",         # LN
+            "optimization_time",            # t
+        ]
+        
+        # Build ordered list: first add metrics in desired order that exist, then add any others
+        ordered_keys = []
+        for key in desired_order:
+            if key in all_keys:
+                ordered_keys.append(key)
+        
+        # Add any remaining keys that weren't in the desired order
+        remaining_keys = sorted(all_keys - set(ordered_keys))
+        ordered_keys.extend(remaining_keys)
+        
+        return ordered_keys
 
     def _get_surface_display_name(surface_name: str) -> str:
         """Convert surface file name to a descriptive display name."""
@@ -920,6 +950,13 @@ def write_rst_leaderboard(
             for shorthand, rst_def in config:
                 lines.append(f"  - {rst_def}")
             lines.append("")
+        
+        # Add visualization link definitions
+        lines.append("**Visualization Links:**")
+        lines.append("")
+        lines.append("  - :math:`i`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with initial (pre-optimization) coils")
+        lines.append("  - :math:`f`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with final (optimized) coils")
+        lines.append("")
 
     lines.append("Surface-Specific Leaderboards")
     lines.append("===============================")
@@ -965,13 +1002,16 @@ def write_rst_leaderboard(
                 continue
 
             surface_metric_keys = _get_metrics_for_surface(entries_for_surface)
-            surface_header_cols = ["#", "User", "Date"]
+            # Build header columns: metrics first, then Date, User, IC, # at the end
+            surface_header_cols = []
             # Wrap metric shorthands in math mode for table headers
             for key in surface_metric_keys:
                 shorthand = _metric_shorthand(key)
                 # Convert shorthand to math mode (e.g., "min(d_cc)" -> ":math:`\min(d_{cc})`")
                 math_shorthand = _shorthand_to_math(shorthand)
                 surface_header_cols.append(math_shorthand)
+            # Add Date, User, i, f at the end
+            surface_header_cols.extend(["Date", "User", "i", "f"])
 
             # Use list-table for surface leaderboard
             lines.append(f".. list-table:: {display_name} Leaderboard")
@@ -989,36 +1029,51 @@ def write_rst_leaderboard(
                 metrics = entry.get("metrics", {})
                 run_date = _format_date(entry.get("run_date", "_unknown_"))
                 
-                # Find PDF path for this entry and make rank number a link
-                rank = str(entry.get("rank", "-"))
+                # Find PDF paths for this entry and make initial (i) and final (f) coil visualization links
+                rank_num = str(entry.get("rank", "-"))
                 entry_path = entry.get("path", "")
+                i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
+                f_link = rank_num  # Final coils link - show rank number
                 if entry_path:
                     # Path format: submissions/{surface}/{user}/{timestamp}.zip
+                    # entry_path is relative to repo root
                     path_obj = Path(entry_path)
                     if path_obj.suffix == ".zip":
                         # PDF should be in the same directory as the zip file
-                        # Extract PDF name from zip filename: {timestamp}.zip -> bn_error_3d_plot_{timestamp}.pdf
-                        pdf_name = f"bn_error_3d_plot_{path_obj.stem}.pdf"
-                        pdf_path = path_obj.parent / pdf_name
-                        # Fallback to standard name if timestamped version doesn't exist
-                        if not pdf_path.exists():
-                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                        if pdf_path.exists():
+                        # Use standard PDF name (files are named bn_error_3d_plot.pdf without timestamp)
+                        # path_obj.parent gives us submissions/{surface}/{user}/
+                        pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                        # Initial coils PDF
+                        pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                        # Infer repo root from out_rst path (docs/leaderboard.rst -> repo_root)
+                        repo_root = out_rst.parent.parent
+                        # Convert to absolute paths for existence check
+                        full_pdf_path = (repo_root / pdf_path).resolve()
+                        full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
+                        if full_pdf_path.exists():
                             # Create relative path from docs/_build/html/ to PDF
                             # HTML files are in docs/_build/html/, PDFs are in submissions/ (project root)
                             # Need to go up 3 levels: html -> _build -> docs -> project root, then into submissions
                             pdf_rel_path = Path("../../..") / pdf_path
-                            rank = f"`{rank} <{pdf_rel_path}>`__"
+                            f_link = f"`{rank_num} <{pdf_rel_path}>`__"
+                        if full_pdf_path_initial.exists():
+                            # Only show rank number in "i" column if initial PDF exists
+                            pdf_rel_path_initial = Path("../../..") / pdf_path_initial
+                            i_link = f"`{rank_num} <{pdf_rel_path_initial}>`__"
                 
-                row_parts = [
-                    rank,
-                    entry.get("contact", entry.get("method_name", "?"))[:15],
-                    run_date,
-                ]
+                # Build row: metrics first, then Date, User, i, f at the end
+                row_parts = []
                 for key in surface_metric_keys:
                     value = metrics.get(key)
                     formatted = _format_value(value, metric_key=key) if value is not None else "—"
                     row_parts.append(formatted)
+                # Add Date, User, i, f at the end
+                row_parts.extend([
+                    run_date,
+                    entry.get("contact", entry.get("method_name", "?"))[:15],
+                    i_link,
+                    f_link,
+                ])
                 
                 # First column
                 lines.append("   * - " + row_parts[0])

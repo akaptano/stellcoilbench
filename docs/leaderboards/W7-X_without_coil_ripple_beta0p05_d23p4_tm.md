@@ -17,7 +17,7 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">avg⟨Bn⟩/⟨B⟩</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">final arclength variation</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">F̄</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">τ̄</th>
