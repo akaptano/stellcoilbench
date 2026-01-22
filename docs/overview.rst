@@ -61,8 +61,8 @@ To run locally instead:
 
    stellcoilbench submit-case cases/my_case.yaml
 
-This creates a submission directory under ``submissions/<surface>/<user>/<timestamp>/``,
-zips it into ``submissions/<surface>/<user>/<timestamp>.zip``, and generates PDF plots
+This creates a submission directory under ``submissions/<user>/<timestamp>/``,
+zips files into ``submissions/<user>/<timestamp>/all_files.zip``, and generates PDF plots
 next to the zip file for quick inspection.
 
 Repository Layout
@@ -74,9 +74,9 @@ The StellCoilBench repository is organized as follows:
   
   Each case file defines a complete optimization problem. See :doc:`cases` for details.
 
-- **``submissions/``**: Submission results (organized by surface and user)
-  
-  Structure: ``submissions/<surface>/<user>/<timestamp>.zip``
+- **``submissions/``**: Submission results (organized by user)
+
+  Structure: ``submissions/<user>/<timestamp>/all_files.zip``
   
   Each zip contains:
   

@@ -1068,6 +1068,7 @@ def optimize_coils_with_fourier_continuation(
     all_results = []
     coils: list | None = None
     coil_width = kwargs.get('coil_width', 0.4)
+    cached_thresholds: Dict[str, Any] = {}  # Initialize cache for thresholds
     
     print(f"Starting Fourier continuation with orders: {fourier_orders}")
     
@@ -1095,6 +1096,8 @@ def optimize_coils_with_fourier_continuation(
                 coil_objective_terms=coil_objective_terms,
                 **kwargs
             )
+            # Extract cached thresholds from first step for reuse in continuation
+            cached_thresholds = results.get('_cached_thresholds', {})
         else:
             # Subsequent iterations: extend previous solution
             if coils is None:
@@ -1105,6 +1108,11 @@ def optimize_coils_with_fourier_continuation(
             )
             
             # Optimize with extended coils as initial condition
+            # Pass cached thresholds to avoid recalculating them
+            continuation_kwargs = kwargs.copy()
+            if cached_thresholds:
+                continuation_kwargs['_cached_thresholds'] = cached_thresholds
+            
             print(f"Optimizing with extended coils (order={order})...")
             coils, results = optimize_coils_loop(
                 s=s,
@@ -1117,7 +1125,7 @@ def optimize_coils_with_fourier_continuation(
                 regularization=regularization,
                 coil_objective_terms=coil_objective_terms,
                 initial_coils=coils,  # Pass extended coils as initial condition
-                **kwargs
+                **continuation_kwargs
             )
         
         # Store results for this order
@@ -1207,21 +1215,62 @@ def optimize_coils_loop(
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Set default constraint thresholds if not provided
-    # Defaults here are reasonable for 10 m major radius
-    #  reactor-scale device with 5.7 T target B-field
-    length_threshold = kwargs.get('length_threshold', 200.0)
-    flux_threshold = kwargs.get('flux_threshold', 1e-8)
-    cc_threshold = kwargs.get('cc_threshold', 0.8)
-    cs_threshold = kwargs.get('cs_threshold', 1.3)
-    msc_threshold = kwargs.get('msc_threshold', 1.0)
-    arclength_variation_threshold = kwargs.get('arclength_variation_threshold', 0.0)
-    curvature_threshold = kwargs.get('curvature_threshold', 1.0)
-
+    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
+    is_continuation_step = kwargs.get('initial_coils') is not None
+    
+    # nturns is constant for all cases (defined here so it's always available)
     nturns = 1  # nturns = 1 for standardization
-    coil_width = 0.4  # 0.4 m at reactor-scale is the default coil width
-    force_threshold = kwargs.get('force_threshold', 1.0) * nturns
-    torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
+    
+    # For continuation steps, reuse pre-computed thresholds/weights from kwargs if available
+    # This avoids recalculating thresholds and weights that don't change between continuation steps
+    if is_continuation_step and '_cached_thresholds' in kwargs:
+        # Use cached thresholds from first step
+        cached = kwargs['_cached_thresholds']
+        length_threshold = cached['length_threshold']
+        flux_threshold = cached['flux_threshold']
+        cc_threshold = cached['cc_threshold']
+        cs_threshold = cached['cs_threshold']
+        msc_threshold = cached['msc_threshold']
+        arclength_variation_threshold = cached['arclength_variation_threshold']
+        curvature_threshold = cached['curvature_threshold']
+        force_threshold = cached['force_threshold']
+        torque_threshold = cached['torque_threshold']
+        coil_width = cached['coil_width']
+        R0 = cached['R0']
+    else:
+        # First step or no cache: compute thresholds normally
+        # Set default constraint thresholds if not provided
+        # Defaults here are reasonable for 10 m major radius
+        #  reactor-scale device with 5.7 T target B-field
+        length_threshold = kwargs.get('length_threshold', 200.0)
+        flux_threshold = kwargs.get('flux_threshold', 1e-8)
+        cc_threshold = kwargs.get('cc_threshold', 0.8)
+        cs_threshold = kwargs.get('cs_threshold', 1.3)
+        msc_threshold = kwargs.get('msc_threshold', 1.0)
+        arclength_variation_threshold = kwargs.get('arclength_variation_threshold', 0.0)
+        curvature_threshold = kwargs.get('curvature_threshold', 1.0)
+
+        coil_width = 0.4  # 0.4 m at reactor-scale is the default coil width
+        force_threshold = kwargs.get('force_threshold', 1.0) * nturns
+        torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
+
+        # Rescale thresholds by the plasma major radius only if they were not explicitly passed
+        # divided by the 10m assumption for the major radius
+        R0 = 10.0 / s.get_rc(0, 0)
+        if 'length_threshold' not in kwargs:
+            length_threshold /= R0
+        if 'cc_threshold' not in kwargs:
+            cc_threshold /= R0
+        if 'cs_threshold' not in kwargs:
+            cs_threshold /= R0
+        if 'curvature_threshold' not in kwargs:
+            curvature_threshold *= R0
+        if 'msc_threshold' not in kwargs:
+            msc_threshold *= R0
+        if 'arclength_variation_threshold' not in kwargs:
+            arclength_variation_threshold *= R0 ** 2
+        # coil_width is not a threshold parameter, so always scale it
+        coil_width /= R0
 
     # If there is a suboptimization, set the max iterations 
     max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
@@ -1230,7 +1279,7 @@ def optimize_coils_loop(
     # Extract algorithm-specific options from kwargs
     # These will be passed to scipy.minimize for scipy algorithms
     algorithm_options = kwargs.get('algorithm_options', {})
-    
+
     # Normalize algorithm name (handle case variations)
     if isinstance(algorithm, str):
         algorithm_lower = algorithm.lower()
@@ -1240,24 +1289,6 @@ def optimize_coils_loop(
             algorithm = 'augmented_lagrangian'
         # Keep other algorithm names as-is (they should match scipy method names)
 
-    # Rescale thresholds by the plasma major radius only if they were not explicitly passed
-    # divided by the 10m assumption for the major radius
-    R0 = 10.0 / s.get_rc(0, 0)
-    if 'length_threshold' not in kwargs:
-        length_threshold /= R0
-    if 'cc_threshold' not in kwargs:
-        cc_threshold /= R0
-    if 'cs_threshold' not in kwargs:
-        cs_threshold /= R0
-    if 'curvature_threshold' not in kwargs:
-        curvature_threshold *= R0
-    if 'msc_threshold' not in kwargs:
-        msc_threshold *= R0
-    if 'arclength_variation_threshold' not in kwargs:
-        arclength_variation_threshold *= R0 ** 2
-    # coil_width is not a threshold parameter, so always scale it
-    coil_width /= R0
-
     print(f"Starting coil optimization for target B-field: {target_B} T")
     print(f"Surface major radius: {s.get_rc(0, 0):.3f} m")
     print(f"Surface minor radius component: {s.get_rc(1, 0):.3f} m")
@@ -1266,6 +1297,9 @@ def optimize_coils_loop(
 
     # Step 1: Initialize coils with target B-field
     # print("Step 1: Initializing coils with target B-field...")
+    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
+    is_continuation_step = initial_coils is not None
+    
     if initial_coils is None:
         coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
     else:
@@ -1275,7 +1309,9 @@ def optimize_coils_loop(
     total_current = sum([c.current.get_value() for c in coils[:ncoils]]) / (s.stellsym + 1) / s.nfp
     
     # Rescale force_threshold and torque_threshold only if they were not explicitly passed
-    if 'force_threshold' not in kwargs or 'torque_threshold' not in kwargs:
+    # AND only for the first initialization (not continuation steps)
+    # For continuation steps, use the thresholds that were already computed in the first step
+    if not is_continuation_step and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
         coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
         total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]]) / (s.stellsym + 1) / s.nfp
         current_scale_factor = (total_current / total_current_reactor_scale) ** 2
@@ -1748,6 +1784,21 @@ def optimize_coils_loop(
     # Note: Individual file zipping is disabled - the entire submission directory
     # will be zipped by submit-case command after all files are written
     
+    # Cache thresholds for continuation steps (remove internal cache key before returning)
+    cached_thresholds = {
+        'length_threshold': length_threshold,
+        'flux_threshold': flux_threshold,
+        'cc_threshold': cc_threshold,
+        'cs_threshold': cs_threshold,
+        'msc_threshold': msc_threshold,
+        'arclength_variation_threshold': arclength_variation_threshold,
+        'curvature_threshold': curvature_threshold,
+        'force_threshold': force_threshold,
+        'torque_threshold': torque_threshold,
+        'coil_width': coil_width,
+        'R0': R0,
+    }
+    
     # Prepare results dictionary
     bs.set_points(s.gamma().reshape((-1, 3)))
     results = {
@@ -1756,6 +1807,7 @@ def optimize_coils_loop(
         'target_B_field': target_B,
         'optimization_time': end_time - start_time,
         'final_normalized_squared_flux': Jf.J(),
+        '_cached_thresholds': cached_thresholds,  # Store for continuation steps
         'final_min_cs_separation': Jcsdist.shortest_distance(),
         'final_min_cc_separation': Jccdist.shortest_distance(),
         'final_total_length': sum(CurveLength(c).J() for c in base_curves),

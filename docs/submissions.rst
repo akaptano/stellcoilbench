@@ -14,9 +14,9 @@ Submissions are organized in the repository as follows:
 .. code-block::
 
    submissions/
-   └── <surface_name>/
-       └── <username>/
-           ├── <timestamp>.zip          # Submission archive
+   └── <username>/
+       └── <timestamp>/
+           ├── all_files.zip            # Submission archive
            ├── bn_error_3d_plot.pdf     # Optimized coils visualization
            └── bn_error_3d_plot_initial.pdf  # Initial coils visualization
 
@@ -126,7 +126,7 @@ Creating Submissions
    
    .. code-block::
    
-      submissions/<surface>/<user>/<timestamp>/
+      submissions/<user>/<timestamp>/
       ├── results.json
       ├── case.yaml
       ├── coils.json
@@ -134,12 +134,12 @@ Creating Submissions
       ├── coils_optimized.vtu
       └── surface_optimized.vts
    
-   After zipping, the directory is removed and replaced with:
+   After zipping, non-PDF files are removed and the structure becomes:
    
    .. code-block::
    
-      submissions/<surface>/<user>/
-      ├── <timestamp>.zip
+      submissions/<user>/<timestamp>/
+      ├── all_files.zip
       ├── bn_error_3d_plot.pdf
       └── bn_error_3d_plot_initial.pdf
 
@@ -253,9 +253,9 @@ Viewing Submissions
    
    .. code-block:: bash
    
-      ls submissions/*/$(git config user.name)/
+      ls submissions/$(git config user.name)/
    
-   Shows all your submissions across all surfaces.
+   Shows all your submissions.
 
 **View Submission Contents**
    
@@ -264,7 +264,7 @@ Viewing Submissions
    .. code-block:: bash
    
       cd /tmp
-      unzip submissions/<surface>/<user>/<timestamp>.zip
+      unzip submissions/<user>/<timestamp>/all_files.zip
       cat results.json | jq .
    
    (Requires ``jq`` for JSON pretty-printing)
@@ -275,13 +275,13 @@ Viewing Submissions
    
    .. code-block:: bash
    
-      open submissions/<surface>/<user>/bn_error_3d_plot.pdf
+      open submissions/<user>/<timestamp>/bn_error_3d_plot.pdf
    
    Or on Linux:
    
    .. code-block:: bash
    
-      xdg-open submissions/<surface>/<user>/bn_error_3d_plot.pdf
+      xdg-open submissions/<user>/<timestamp>/bn_error_3d_plot.pdf
 
 **Regenerate Leaderboards Locally**
    

@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import platform
-import shutil
 import subprocess
 import zipfile
 from datetime import datetime
@@ -90,10 +89,10 @@ def _detect_github_username() -> str:
 
 def _zip_submission_directory(submission_dir: Path) -> Path:
     """
-    Zip the entire submission directory and remove original files.
+    Zip the submission files (excluding PDFs) into all_files.zip inside the submission directory.
     
-    Creates a zip file named after the submission directory (e.g., "11-23-2025_19-11.zip")
-    and removes the original directory.
+    Creates a zip file named "all_files.zip" inside the submission directory.
+    PDF files are kept in the directory alongside the zip file.
     
     Parameters
     ----------
@@ -103,41 +102,36 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
     Returns
     -------
     Path
-        Path to the created zip file.
+        Path to the created zip file (submission_dir / "all_files.zip").
     """
     submission_dir = Path(submission_dir)
     
     if not submission_dir.exists() or not submission_dir.is_dir():
         typer.echo(f"Warning: Submission directory does not exist: {submission_dir}")
-        return submission_dir.parent / f"{submission_dir.name}.zip"
+        return submission_dir / "all_files.zip"
     
-    # Create zip filename based on directory name
-    zip_filename = f"{submission_dir.name}.zip"
-    zip_path = submission_dir.parent / zip_filename
+    # Create zip file inside the submission directory
+    zip_filename = "all_files.zip"
+    zip_path = submission_dir / zip_filename
     
     # Find all files in the submission directory
     files_to_zip = []
+    pdf_files_to_keep = []
     for file_path in submission_dir.rglob("*"):
         if file_path.is_file():
-            files_to_zip.append(file_path)
+            # PDF plots stay in the DATE directory and are NOT zipped
+            if file_path.suffix.lower() == ".pdf":
+                pdf_files_to_keep.append(file_path)
+            else:
+                files_to_zip.append(file_path)
     
     if not files_to_zip:
         typer.echo(f"Warning: No files found in {submission_dir} to zip")
         return zip_path
     
-    # Move PDF plots outside the zip so they sit alongside the archive
-    pdf_files = [p for p in files_to_zip if p.suffix.lower() == ".pdf"]
-    for pdf_path in pdf_files:
-        dest = submission_dir.parent / pdf_path.name
-        try:
-            if dest.exists():
-                dest.unlink()
-            shutil.move(str(pdf_path), str(dest))
-            files_to_zip.remove(pdf_path)
-        except (OSError, shutil.Error) as e:
-            typer.echo(f"Warning: Failed to move PDF {pdf_path} out of submission dir: {e}")
+    # Note: PDF files are kept in the DATE directory and not included in the zip
 
-    # Create zip file with remaining files
+    # Create zip file with remaining files (excluding PDFs)
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for file_path in files_to_zip:
             # Add file to zip with relative path from submission_dir
@@ -146,11 +140,28 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
     
     typer.echo(f"Created zip archive: {zip_path}")
     typer.echo(f"  Contains {len(files_to_zip)} files")
+    if pdf_files_to_keep:
+        typer.echo(f"  Kept {len(pdf_files_to_keep)} PDF file(s) in {submission_dir}")
     
-    # Remove the original submission directory and all its contents
-    shutil.rmtree(submission_dir)
-    typer.echo(f"  Removed original directory: {submission_dir}")
-    typer.echo(f"  Submission is now compressed in: {zip_path}")
+    # Remove non-PDF files and empty directories from submission directory, but keep PDFs and the zip file
+    # PDFs and the zip file stay in the submission directory
+    for file_path in files_to_zip:
+        try:
+            file_path.unlink()
+            # Try to remove parent directory if it's empty (but not the submission_dir itself)
+            parent = file_path.parent
+            if parent != submission_dir and parent.exists() and not any(parent.iterdir()):
+                try:
+                    parent.rmdir()
+                except (OSError, FileNotFoundError):
+                    pass  # Directory not empty or other error, skip
+        except (OSError, FileNotFoundError) as e:
+            typer.echo(f"Warning: Failed to remove {file_path}: {e}")
+    
+    typer.echo(f"  Submission directory structure: {submission_dir}")
+    typer.echo(f"    - Zip file: {zip_path.name}")
+    if pdf_files_to_keep:
+        typer.echo(f"    - PDF files: {len(pdf_files_to_keep)} file(s)")
     
     return zip_path
 
@@ -282,7 +293,7 @@ def submit_case(
     3. Evaluates the results
     4. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
     
-    Directory structure: submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/results.json
+    Directory structure: submissions/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip
     GitHub username and hardware are auto-detected if not provided.
     
     Example:
@@ -332,8 +343,8 @@ def submit_case(
     run_date = now.isoformat()
     datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
     
-    # Write to submissions directory: submissions/<surface>/<username>/<datetime>/
-    submission_dir = submissions_dir / surface_name / github_username / datetime_str
+    # Write to submissions directory: submissions/<username>/<datetime>/
+    submission_dir = submissions_dir / github_username / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
     # Coils filename is always coils.json

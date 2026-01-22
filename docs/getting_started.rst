@@ -118,7 +118,7 @@ The fastest way to run a case is through the CI workflow:
    
    After CI completes, check:
    
-   - ``submissions/<surface>/<your-username>/`` for your submission zip and PDF plots
+   - ``submissions/<your-username>/<timestamp>/`` for your submission zip and PDF plots
    - ``docs/leaderboard.rst`` for updated leaderboards
 
 Local Development Workflow

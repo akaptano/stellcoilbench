@@ -75,7 +75,8 @@ class TestLoadSubmissions:
         """Test loading single submission file."""
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir)
-            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/user/timestamp/
+            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -88,6 +89,10 @@ class TestLoadSubmissions:
                     "final_normalized_squared_flux": 0.001
                 }
             }))
+            
+            # Create case.yaml to extract surface name
+            case_yaml = submission_dir / "case.yaml"
+            case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
             
             submissions = list(_load_submissions(submissions_root))
             assert len(submissions) == 1
@@ -126,8 +131,10 @@ class TestLoadSubmissions:
         """Test loading submission from a zip file."""
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir)
-            zip_path = submissions_root / "submissions" / "surface1" / "user1" / "2024-01-01_12-00.zip"
-            zip_path.parent.mkdir(parents=True)
+            # New structure: submissions/user/timestamp/all_files.zip
+            zip_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            zip_dir.mkdir(parents=True)
+            zip_path = zip_dir / "all_files.zip"
             with zipfile.ZipFile(zip_path, "w") as zf:
                 zf.writestr(
                     "results.json",
@@ -138,6 +145,8 @@ class TestLoadSubmissions:
                         }
                     ),
                 )
+                # Add case.yaml to extract surface name
+                zf.writestr("case.yaml", "surface_params:\n  surface: input.surface1\n")
 
             submissions = list(_load_submissions(submissions_root))
             assert len(submissions) == 1
@@ -176,7 +185,8 @@ class TestBuildMethodsJson:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
             
-            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/user/timestamp/
+            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -192,6 +202,10 @@ class TestBuildMethodsJson:
                     "final_total_length": 100.0
                 }
             }))
+            
+            # Create case.yaml to extract surface name
+            case_yaml = submission_dir / "case.yaml"
+            case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
             
             methods = build_methods_json(submissions_root, repo_root)
             assert len(methods) == 1
@@ -210,7 +224,8 @@ class TestBuildMethodsJson:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
             
-            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/user/timestamp/
+            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -219,9 +234,11 @@ class TestBuildMethodsJson:
                 "metrics": {"final_normalized_squared_flux": 0.001}
             }))
             
-            # Create case.yaml with coil parameters
+            # Create case.yaml with coil parameters and surface
             case_yaml = submission_dir / "case.yaml"
-            case_yaml.write_text("""coils_params:
+            case_yaml.write_text("""surface_params:
+  surface: input.surface1
+coils_params:
   ncoils: 4
   order: 16
 """)
@@ -256,7 +273,8 @@ class TestBuildMethodsJson:
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
-            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/user/timestamp/
+            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             results_file = submission_dir / "results.json"
             results_file.write_text(
@@ -267,6 +285,10 @@ class TestBuildMethodsJson:
                     }
                 )
             )
+            
+            # Create case.yaml to extract surface name
+            case_yaml = submission_dir / "case.yaml"
+            case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
 
             methods = build_methods_json(submissions_root, repo_root)
             method_key = "method1:surface1:user1:2024-01-01_12-00"
@@ -277,7 +299,8 @@ class TestBuildMethodsJson:
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
-            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/user/timestamp/
+            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             results_file = submission_dir / "results.json"
             results_file.write_text(
@@ -288,6 +311,10 @@ class TestBuildMethodsJson:
                     }
                 )
             )
+            
+            # Create case.yaml to extract surface name
+            case_yaml = submission_dir / "case.yaml"
+            case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
 
             methods = build_methods_json(submissions_root, repo_root)
             method_key = "method1:surface1:user1:2024-01-01_12-00"

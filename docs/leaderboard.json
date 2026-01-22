@@ -1,6 +1,47 @@
 {
   "entries": [
     {
+      "method_key": ":akaptano:12-01-2025_01-53:12-01-2025_01-53",
+      "method_name": "",
+      "method_version": "12-01-2025_01-53",
+      "score_primary": 0.0,
+      "run_date": "2025-12-01T01:53:19.368321",
+      "contact": "akaptano",
+      "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
+      "path": "submissions/akaptano/12-01-2025_01-53/results.json",
+      "metrics": {
+        "initial_B_field": 0.9996565061813552,
+        "final_B_field": 0.9994260183159376,
+        "target_B_field": 1.0,
+        "optimization_time": 2.1588971614837646,
+        "final_normalized_squared_flux": 0.0,
+        "final_min_cs_separation": 1.7897595941301334,
+        "final_min_cc_separation": 1.6916447697405768,
+        "final_total_length": 95.24704719832532,
+        "final_max_curvature": 0.2638689803830511,
+        "final_average_curvature": 0.26386898038304996,
+        "final_mean_squared_curvature": 0.06962683880839039,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 4616627.060134449,
+        "final_avg_max_coil_force": 4616627.060134444,
+        "final_max_max_coil_torque": 1.8119266043397615e-07,
+        "final_avg_max_coil_torque": 1.5462171974507517e-07,
+        "avg_BdotN_over_B": 1.926193444898115e-16,
+        "max_BdotN_over_B": 0.24427264551670078,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0
+      },
+      "rank": 1
+    },
+    {
       "method_key": ":circular_tokamak:akaptano:12-01-2025_01-53",
       "method_name": "",
       "method_version": "12-01-2025_01-53",
@@ -39,17 +80,17 @@
         "num_coils": 4.0,
         "score_primary": 0.0
       },
-      "rank": 1
+      "rank": 2
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:01-22-2026_20-01",
       "method_name": "",
-      "method_version": "01-22-2026_20-01",
+      "method_version": "all_files",
       "score_primary": 1.6485989965883581e-06,
       "run_date": "2026-01-22T20:01:39.527492",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/01-22-2026_20-01.zip",
+      "path": "submissions/akaptano/01-22-2026_20-01/all_files.zip",
       "metrics": {
         "initial_B_field": 0.9999749591471006,
         "final_B_field": 0.2703750047346975,
@@ -82,17 +123,17 @@
         "num_coils": 4.0,
         "score_primary": 1.6485989965883581e-06
       },
-      "rank": 2
+      "rank": 3
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:12-01-2025_01-53",
       "method_name": "",
-      "method_version": "12-01-2025_01-53",
+      "method_version": "all_files",
       "score_primary": 9.594843772875388e-06,
       "run_date": "2025-12-01T01:53:26.227919",
       "contact": "akaptano",
       "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/12-01-2025_01-53.zip",
+      "path": "submissions/akaptano/12-01-2025_01-53/all_files.zip",
       "metrics": {
         "initial_B_field": 0.9998258195958676,
         "final_B_field": 0.4481193203220243,
@@ -123,17 +164,17 @@
         "num_coils": 4.0,
         "score_primary": 9.594843772875388e-06
       },
-      "rank": 3
+      "rank": 4
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:12-01-2025_01-22",
       "method_name": "",
-      "method_version": "12-01-2025_01-22",
+      "method_version": "all_files",
       "score_primary": 5.533868939475081e-05,
       "run_date": "2025-12-01T01:22:43.584953",
       "contact": "akaptano",
       "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/12-01-2025_01-22.zip",
+      "path": "submissions/akaptano/12-01-2025_01-22/all_files.zip",
       "metrics": {
         "initial_B_field": 0.9998258195958676,
         "final_B_field": 0.37506166157021564,
@@ -164,17 +205,17 @@
         "num_coils": 4.0,
         "score_primary": 5.533868939475081e-05
       },
-      "rank": 4
+      "rank": 5
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:01-21-2026_21-41",
       "method_name": "",
-      "method_version": "01-21-2026_21-41",
+      "method_version": "all_files",
       "score_primary": 0.0025591148429035533,
       "run_date": "2026-01-21T21:41:17.971076",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
-      "path": "submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-21-2026_21-41.zip",
+      "path": "submissions/akaptano/01-21-2026_21-41/all_files.zip",
       "metrics": {
         "initial_B_field": 2.4999411989153506,
         "final_B_field": 0.4831222039297525,
@@ -207,17 +248,17 @@
         "num_coils": 4.0,
         "score_primary": 0.0025591148429035533
       },
-      "rank": 5
+      "rank": 6
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:12-01-2025_01-52",
       "method_name": "",
-      "method_version": "12-01-2025_01-52",
+      "method_version": "all_files",
       "score_primary": 0.003223920272768895,
       "run_date": "2025-12-01T01:52:52.520679",
       "contact": "akaptano",
       "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
-      "path": "submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/12-01-2025_01-52.zip",
+      "path": "submissions/akaptano/12-01-2025_01-52/all_files.zip",
       "metrics": {
         "initial_B_field": 2.4999411989153506,
         "final_B_field": 2.5669003742732706,
@@ -248,17 +289,17 @@
         "num_coils": 4.0,
         "score_primary": 0.003223920272768895
       },
-      "rank": 6
+      "rank": 7
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:01-21-2026_19-48",
       "method_name": "",
-      "method_version": "01-21-2026_19-48",
+      "method_version": "all_files",
       "score_primary": 0.003950563300538983,
       "run_date": "2026-01-21T19:48:52.265590",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
-      "path": "submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-21-2026_19-48.zip",
+      "path": "submissions/akaptano/01-21-2026_19-48/all_files.zip",
       "metrics": {
         "initial_B_field": 2.4999411989153506,
         "final_B_field": 0.4936391440620404,
@@ -291,17 +332,17 @@
         "num_coils": 4.0,
         "score_primary": 0.003950563300538983
       },
-      "rank": 7
+      "rank": 8
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:01-22-2026_20-26",
       "method_name": "",
-      "method_version": "01-22-2026_20-26",
+      "method_version": "all_files",
       "score_primary": 0.00591961782726647,
       "run_date": "2026-01-22T20:26:50.036520",
       "contact": "akaptano",
       "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
-      "path": "submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-22-2026_20-26.zip",
+      "path": "submissions/akaptano/01-22-2026_20-26/all_files.zip",
       "metrics": {
         "initial_B_field": 2.4999997858957492,
         "final_B_field": 2.570401415218968,
@@ -334,7 +375,7 @@
         "num_coils": 5.0,
         "score_primary": 0.00591961782726647
       },
-      "rank": 8
+      "rank": 9
     },
     {
       "method_key": ":cfqs_2b40:akaptano:12-01-2025_01-51",
@@ -374,47 +415,6 @@
         "coil_order": 4.0,
         "num_coils": 4.0,
         "score_primary": 0.009628668158454675
-      },
-      "rank": 9
-    },
-    {
-      "method_key": ":LandremanPaul2021_QA:akaptano:12-01-2025_01-51",
-      "method_name": "",
-      "method_version": "12-01-2025_01-51",
-      "score_primary": 0.016137297726616227,
-      "run_date": "2025-12-01T01:51:29.688228",
-      "contact": "akaptano",
-      "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/12-01-2025_01-51.zip",
-      "metrics": {
-        "initial_B_field": 0.9998258195958676,
-        "final_B_field": 1.002356851284818,
-        "target_B_field": 1.0,
-        "optimization_time": 30.33704900741577,
-        "final_normalized_squared_flux": 0.016137297726616227,
-        "final_min_cs_separation": 0.10719407139164518,
-        "final_min_cc_separation": 0.2184445363940109,
-        "final_total_length": 10.784137899322337,
-        "final_max_curvature": 7.504806923422474,
-        "final_average_curvature": 2.652606216721007,
-        "final_mean_squared_curvature": 10.790787534811141,
-        "final_linking_number": 0.0,
-        "final_max_max_coil_force": 244490.70128890238,
-        "final_avg_max_coil_force": 234761.13433389636,
-        "final_max_max_coil_torque": 49785.81006040528,
-        "final_avg_max_coil_torque": 41828.919747623426,
-        "avg_BdotN_over_B": 0.15791837093857247,
-        "max_BdotN_over_B": 0.46694030934260755,
-        "flux_threshold": 1e-08,
-        "cc_threshold": 0.08,
-        "cs_threshold": 0.13,
-        "msc_threshold": 10.0,
-        "curvature_threshold": 10.0,
-        "force_threshold": 0.03077870113881194,
-        "torque_threshold": 0.03077870113881194,
-        "coil_order": 4.0,
-        "num_coils": 4.0,
-        "score_primary": 0.016137297726616227
       },
       "rank": 10
     },
@@ -462,12 +462,12 @@
     {
       "method_key": ":HSX_QHS_mn1824_ns101:akaptano:12-01-2025_01-51",
       "method_name": "",
-      "method_version": "12-01-2025_01-51",
+      "method_version": "all_files",
       "score_primary": 0.017518080317853745,
       "run_date": "2025-12-01T01:51:11.301242",
       "contact": "akaptano",
       "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
-      "path": "submissions/HSX_QHS_mn1824_ns101/akaptano/12-01-2025_01-51.zip",
+      "path": "submissions/akaptano/12-01-2025_01-51/all_files.zip",
       "metrics": {
         "initial_B_field": 1.9999638491132898,
         "final_B_field": 2.169385007698529,

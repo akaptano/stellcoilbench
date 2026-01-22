@@ -80,22 +80,72 @@ def _format_date(date_str: str) -> str:
     if "T" in date_str:
         date_str = date_str.split("T")[0]
     
-    # Check if already in DD/MM/YY format (e.g., "21/01/26" or "01/12/25")
+    # Check if already in "/" format - could be MM/DD/YY or DD/MM/YY
     if "/" in date_str:
         parts = date_str.split("/")
         if len(parts) == 3:
-            # Already in DD/MM/YY format, ensure consistent formatting
-            day, month, year = parts
-            # Pad day and month with zeros if needed, ensure 2-digit year
-            day = day.zfill(2)
-            month = month.zfill(2)
+            first, second, year = parts
+            # Pad components
+            first = first.zfill(2)
+            second = second.zfill(2)
             if len(year) == 4:
                 year = year[2:]  # Convert YYYY to YY
             elif len(year) != 2:
                 # Invalid format, try to parse as ISO instead
                 pass
             else:
-                return f"{day}/{month}/{year}"
+                # Detect format: if first part > 12, it must be DD/MM/YY (day can be > 12, month can't)
+                # If second part > 12, it must be MM/DD/YY (second part is the day)
+                # If both <= 12, we need to check: if first <= 12 and second <= 12, it's ambiguous
+                # However, if the date is already in DD/MM/YY format (which is our target),
+                # we should preserve it. Since we can't tell, we'll use a heuristic:
+                # - If first > 12: definitely DD/MM/YY, keep as-is
+                # - If second > 12: definitely MM/DD/YY, swap to DD/MM/YY
+                # - If both <= 12: check if it looks like it's already DD/MM/YY by checking
+                #   if it matches common DD/MM patterns (days 1-31, months 1-12)
+                try:
+                    first_int = int(first)
+                    second_int = int(second)
+                    if first_int > 12:
+                        # Definitely DD/MM/YY format (day > 12)
+                        day, month = first, second
+                    elif second_int > 12:
+                        # Definitely MM/DD/YY format (second part > 12 means it's the day)
+                        day, month = second, first
+                    else:
+                        # Ambiguous: both <= 12
+                        # Check original unpadded values to see if we can determine format
+                        original_first = int(parts[0])  # Original unpadded first part
+                        original_second = int(parts[1])  # Original unpadded second part
+                        
+                        # If original first > 12, it's definitely DD/MM/YY
+                        if original_first > 12:
+                            day, month = first, second
+                        # If original second > 12, it's definitely MM/DD/YY
+                        elif original_second > 12:
+                            day, month = second, first
+                        else:
+                            # Both original parts <= 12 - truly ambiguous
+                            # Since dates should come from ISO format (YYYY-MM-DD), if we see "/" format,
+                            # it's likely from old data. We'll use a heuristic:
+                            # - If first part could be a day > 12 (when unpadded), it's DD/MM/YY
+                            # - Otherwise, assume MM/DD/YY and convert to DD/MM/YY
+                            # 
+                            # However, we need to be careful: if the date is already DD/MM/YY,
+                            # we don't want to double-convert it. Since we can't tell for sure,
+                            # we'll check: if first <= 12 AND second <= 12, and first could be
+                            # a valid month (1-12) and second could be a valid day (1-31),
+                            # assume MM/DD/YY and convert.
+                            # 
+                            # Actually, the safest approach: if both are <= 12, assume MM/DD/YY
+                            # (since that's the US format more common in legacy data) and convert.
+                            # But we already checked original_first > 12 above, so if we're here,
+                            # original_first <= 12. So we should convert.
+                            day, month = second, first
+                    return f"{day}/{month}/{year}"
+                except (ValueError, TypeError):
+                    # If parsing fails, return as-is
+                    return f"{first}/{second}/{year}"
     
     try:
         # Parse YYYY-MM-DD format
@@ -283,6 +333,9 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         method_name = meta.get("method_name", "UNKNOWN")
         
         # Extract surface and user from path to make method_key unique
+        # Handle both old and new path formats:
+        # Old: submissions_root/surface/user/timestamp/results.json or .../timestamp.zip
+        # New: submissions_root/user/timestamp/results.json
         path_parts = path.parts
         surface = "unknown"
         user = "unknown"
@@ -290,32 +343,127 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         # Try to find "submissions" in path
         if "submissions" in path_parts:
             submissions_idx = path_parts.index("submissions")
-            if submissions_idx + 1 < len(path_parts):
-                surface = path_parts[submissions_idx + 1]
-            if submissions_idx + 2 < len(path_parts):
-                user = path_parts[submissions_idx + 2]
+            parts_after_submissions = path_parts[submissions_idx + 1:]
+            
+            # Detect old vs new structure
+            # Old: submissions/surface/user/timestamp.zip or submissions/surface/user/timestamp/results.json
+            # New: submissions/user/timestamp/results.json or submissions/user/timestamp/all_files.zip
+            if len(parts_after_submissions) >= 3:
+                # Could be old structure (surface/user/timestamp) or new (user/timestamp/file)
+                first_part = parts_after_submissions[0]
+                second_part = parts_after_submissions[1] if len(parts_after_submissions) > 1 else ""
+                third_part = parts_after_submissions[2] if len(parts_after_submissions) > 2 else ""
+                
+                # Check if second part looks like a timestamp (contains date pattern like YYYY-MM-DD or MM-DD-YYYY)
+                # Timestamps typically have dashes and underscores: MM-DD-YYYY_HH-MM
+                import re
+                timestamp_pattern = r'\d{2}-\d{2}-\d{4}'
+                second_is_timestamp = bool(re.search(timestamp_pattern, second_part))
+                
+                # If second part is a timestamp, it's new structure: user/timestamp/file
+                if second_is_timestamp:
+                    # New structure: user/timestamp/file
+                    user = first_part
+                elif third_part.endswith('.zip') or third_part == 'results.json':
+                    # Old structure: surface/user/timestamp
+                    surface = first_part
+                    user = second_part
+                else:
+                    # Default to new structure if unclear
+                    user = first_part
+            elif len(parts_after_submissions) >= 2:
+                # Could be new structure (user/timestamp) or old (surface/user)
+                # If last part is a zip file, it's likely old structure
+                if parts_after_submissions[-1].endswith('.zip'):
+                    # Old structure: surface/user/timestamp.zip
+                    surface = parts_after_submissions[0]
+                    user = parts_after_submissions[1]
+                else:
+                    # New structure: user/timestamp (most common case)
+                    user = parts_after_submissions[0]
+            elif len(parts_after_submissions) >= 1:
+                # New structure: user/timestamp (when path is relative)
+                user = parts_after_submissions[0]
         else:
             # For test cases or non-standard paths, extract from relative path structure
-            # Path format: submissions_root/surface/user/timestamp/results.json
+            # Path format: submissions_root/user/timestamp/results.json (new) or surface/user/timestamp (old)
             # Calculate relative to submissions_root
             try:
                 rel_path = path.relative_to(submissions_root)
                 rel_parts = rel_path.parts
                 if len(rel_parts) >= 3:
-                    surface = rel_parts[0]  # First part after submissions_root
-                    user = rel_parts[1]     # Second part
+                    # Could be old (surface/user/timestamp) or new (user/timestamp/file)
+                    if rel_parts[-1].endswith('.zip') or rel_parts[-1] == 'results.json':
+                        # Old structure
+                        surface = rel_parts[0]
+                        user = rel_parts[1]
+                    else:
+                        # New structure
+                        user = rel_parts[0]
+                elif len(rel_parts) >= 2:
+                    # New structure: user/timestamp
+                    user = rel_parts[0]
             except ValueError:
                 # If relative path calculation fails, try absolute path structure
-                # Assume format: .../surface/user/timestamp/results.json
+                # Assume format: .../user/timestamp/results.json (new) or .../surface/user/timestamp (old)
                 if len(path_parts) >= 4:
-                    # results.json is last, timestamp is second to last, user is third to last, surface is fourth to last
+                    # Old structure: .../surface/user/timestamp/file
                     surface = path_parts[-4]
                     user = path_parts[-3]
+                elif len(path_parts) >= 3:
+                    # New structure: .../user/timestamp/file
+                    user = path_parts[-3]
+        
+        # Extract surface name from case.yaml if available
+        # Always try to read from case.yaml first (preferred method)
+        case_yaml_path = path.parent / "case.yaml"
+        if case_yaml_path.exists():
+            # Try to read surface from case.yaml in the same directory
+            try:
+                import yaml
+                case_data = yaml.safe_load(case_yaml_path.read_text())
+                surface_file = case_data.get("surface_params", {}).get("surface", "")
+                if surface_file:
+                    surface_name = Path(surface_file).name
+                    if surface_name.startswith("input."):
+                        surface = surface_name[6:]
+                    elif surface_name.startswith("wout."):
+                        surface = surface_name[5:]
+                    else:
+                        surface = surface_name
+            except Exception:
+                pass
+        
+        # If still unknown and path is a zip file, try to read case.yaml from zip
+        if surface == "unknown" and path.suffix == ".zip":
+            import zipfile
+            try:
+                with zipfile.ZipFile(path, 'r') as zf:
+                    if "case.yaml" in zf.namelist():
+                        import yaml
+                        case_content = zf.read("case.yaml").decode('utf-8')
+                        case_data = yaml.safe_load(case_content)
+                        surface_file = case_data.get("surface_params", {}).get("surface", "")
+                        if surface_file:
+                            surface_name = Path(surface_file).name
+                            if surface_name.startswith("input."):
+                                surface = surface_name[6:]
+                            elif surface_name.startswith("wout."):
+                                surface = surface_name[5:]
+                            else:
+                                surface = surface_name
+            except Exception:
+                pass
         
         # Use explicit method_version if present, otherwise fall back to dir name.
-        # For zip files, use the zip filename (without .zip extension)
+        # For zip files, check if it's "all_files.zip" (new structure) or timestamp-based (old structure)
         if path.suffix == ".zip":
-            version = meta.get("method_version") or path.stem
+            if path.name == "all_files.zip":
+                # New structure: use parent directory name (timestamp)
+                version = meta.get("method_version") or path.parent.name
+            else:
+                # Old structure: use zip filename (without .zip extension)
+                version = meta.get("method_version") or path.stem
         else:
             version = meta.get("method_version") or path.parent.name
         
@@ -353,19 +501,101 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                         meta["run_date"] = f"{year}-{month}-{day}T{hour}:{minute}:00"
                 
                 # Extract surface and user from path to make method_key unique
-                # Path format: submissions/{surface}/{user}/{timestamp}.zip
+                # Handle both old and new path formats:
+                # Old: submissions_root/surface/user/timestamp.zip
+                # New: submissions_root/user/timestamp/all_files.zip
                 path_parts = zip_path.parts
                 surface = "unknown"
                 user = "unknown"
+                
+                # Try to find user from path
                 if "submissions" in path_parts:
                     submissions_idx = path_parts.index("submissions")
-                    if submissions_idx + 1 < len(path_parts):
-                        surface = path_parts[submissions_idx + 1]
-                    if submissions_idx + 2 < len(path_parts):
-                        user = path_parts[submissions_idx + 2]
+                    parts_after_submissions = path_parts[submissions_idx + 1:]
+                    
+                    # Detect old vs new structure
+                    # Old: submissions/surface/user/timestamp.zip
+                    # New: submissions/user/timestamp/all_files.zip
+                    if len(parts_after_submissions) >= 3:
+                        # Check if zip filename is "all_files.zip" (new) or timestamp-based (old)
+                        zip_filename = parts_after_submissions[-1]
+                        if zip_filename == "all_files.zip":
+                            # New structure: user/timestamp/all_files.zip
+                            user = parts_after_submissions[0]
+                        else:
+                            # Old structure: surface/user/timestamp.zip
+                            surface = parts_after_submissions[0]
+                            user = parts_after_submissions[1]
+                    elif len(parts_after_submissions) >= 2:
+                        # Old structure: surface/user/timestamp.zip
+                        surface = parts_after_submissions[0]
+                        user = parts_after_submissions[1]
+                    elif len(parts_after_submissions) >= 1:
+                        # New structure: user/timestamp (when path is relative)
+                        user = parts_after_submissions[0]
+                else:
+                    # Path is relative to submissions_root
+                    try:
+                        rel_path = zip_path.relative_to(submissions_root)
+                        rel_parts = rel_path.parts
+                        if len(rel_parts) >= 3:
+                            # Check if zip filename is "all_files.zip" (new) or timestamp-based (old)
+                            zip_filename = rel_parts[-1]
+                            if zip_filename == "all_files.zip":
+                                # New structure: user/timestamp/all_files.zip
+                                user = rel_parts[0]
+                            else:
+                                # Old structure: surface/user/timestamp.zip
+                                surface = rel_parts[0]
+                                user = rel_parts[1]
+                        elif len(rel_parts) >= 2:
+                            # Old structure: surface/user/timestamp.zip
+                            surface = rel_parts[0]
+                            user = rel_parts[1]
+                        elif len(rel_parts) >= 1:
+                            # New structure: user/timestamp
+                            user = rel_parts[0]
+                    except ValueError:
+                        # If relative path calculation fails, try to extract from absolute path
+                        # Path format: .../user/timestamp/all_files.zip (new) or .../surface/user/timestamp.zip (old)
+                        zip_filename = path_parts[-1]
+                        if zip_filename == "all_files.zip":
+                            # New structure
+                            if len(path_parts) >= 3:
+                                user = path_parts[-3]
+                        else:
+                            # Old structure
+                            if len(path_parts) >= 4:
+                                surface = path_parts[-4]
+                                user = path_parts[-3]
+                            elif len(path_parts) >= 3:
+                                user = path_parts[-3]
                 
-                # Use zip filename (without .zip) as version/directory name
-                version = zip_path.stem  # Remove .zip extension
+                # Extract surface name from case.yaml in zip if available
+                if "case.yaml" in zf.namelist():
+                    try:
+                        import yaml
+                        case_content = zf.read("case.yaml").decode('utf-8')
+                        case_data = yaml.safe_load(case_content)
+                        surface_file = case_data.get("surface_params", {}).get("surface", "")
+                        if surface_file:
+                            surface_name = Path(surface_file).name
+                            if surface_name.startswith("input."):
+                                surface = surface_name[6:]
+                            elif surface_name.startswith("wout."):
+                                surface = surface_name[5:]
+                            else:
+                                surface = surface_name
+                    except Exception:
+                        pass
+                
+                # Use directory name (parent of zip) as version for new structure, zip stem for old structure
+                # For new structure (all_files.zip), parent is the timestamp directory
+                # For old structure (timestamp.zip), use zip filename without extension
+                if zip_path.name == "all_files.zip":
+                    version = meta.get("method_version") or zip_path.parent.name
+                else:
+                    version = meta.get("method_version") or zip_path.stem
                 # Include surface and user in method_key to ensure uniqueness
                 method_key = f"{method_name}:{surface}:{user}:{version}"
                 
@@ -473,7 +703,9 @@ def build_methods_json(
                 orders = fourier_continuation.get("orders", [])
                 if orders:
                     # Store as a string representation for display
-                    metrics_numeric["fourier_continuation_orders"] = ",".join(str(o) for o in orders)
+                    # Note: This is intentionally a string, not a float
+                    orders_str = ",".join(str(o) for o in orders)
+                    metrics_numeric["fourier_continuation_orders"] = orders_str  # type: ignore
         
         # Extract primary score
         primary_score = metrics_numeric.get("score_primary")
@@ -1078,29 +1310,78 @@ def write_rst_leaderboard(
                 i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
                 f_link = rank_num  # Final coils link - show rank number
                 if entry_path:
-                    # Path format: submissions/{surface}/{user}/{timestamp}.zip
+                    # Path format: submissions/{user}/{timestamp}/all_files.zip (new)
+                    # Or: submissions/{surface}/{user}/{timestamp}.zip (old)
                     # entry_path is relative to repo root
                     path_obj = Path(entry_path)
-                    if path_obj.suffix == ".zip":
-                        # PDF should be in the same directory as the zip file
-                        # Use standard PDF name (files are named bn_error_3d_plot.pdf without timestamp)
-                        # path_obj.parent gives us submissions/{surface}/{user}/
+                    if path_obj.name == "all_files.zip":
+                        # New structure: PDFs are in the same directory as the zip file
+                        # path_obj.parent gives us submissions/{user}/{timestamp}/
                         pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                        # Initial coils PDF
                         pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
-                        # Infer repo root from out_rst path (docs/leaderboard.rst -> repo_root)
-                        repo_root = out_rst.parent.parent
-                        # Convert to absolute paths for existence check
+                    elif path_obj.suffix == ".zip":
+                        # Legacy format: handle old zip files
+                        # Old structure: submissions/{surface}/{user}/{timestamp}.zip
+                        # PDFs might be in:
+                        # 1. submissions/{user}/{timestamp}/ (if already migrated - NEW STRUCTURE)
+                        # 2. submissions/{surface}/{user}/{timestamp}/ (if DATE subdirectory exists)
+                        # 3. submissions/{surface}/{user}/ (old location)
+                        
+                        # Extract timestamp from zip filename
+                        zip_stem = path_obj.stem
+                        # Check if zip filename looks like a timestamp (MM-DD-YYYY_HH-MM)
+                        if zip_stem.count('-') >= 4 and '_' in zip_stem:
+                            timestamp = zip_stem
+                            # Try new structure first (migrated location)
+                            path_parts = path_obj.parts
+                            if "submissions" in path_parts:
+                                submissions_idx = path_parts.index("submissions")
+                                # Extract user from old structure: submissions/{surface}/{user}/{timestamp}.zip
+                                if submissions_idx + 2 < len(path_parts):
+                                    user = path_parts[submissions_idx + 2]  # User is third part after submissions
+                                    new_pdf_path = Path("submissions") / user / timestamp / "bn_error_3d_plot.pdf"
+                                    new_pdf_path_initial = Path("submissions") / user / timestamp / "bn_error_3d_plot_initial.pdf"
+                                    # Check if new structure exists
+                                    repo_root = out_rst.parent.parent
+                                    if (repo_root / new_pdf_path).exists():
+                                        pdf_path = new_pdf_path
+                                        pdf_path_initial = new_pdf_path_initial
+                                    else:
+                                        # Fall back to old structure: try DATE subdirectory
+                                        old_date_dir = path_obj.parent / timestamp
+                                        if old_date_dir.exists():
+                                            pdf_path = old_date_dir / "bn_error_3d_plot.pdf"
+                                            pdf_path_initial = old_date_dir / "bn_error_3d_plot_initial.pdf"
+                                        else:
+                                            # Fall back to user directory
+                                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                                            pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                                else:
+                                    # Can't extract user, try parent directory
+                                    pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                                    pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                            else:
+                                pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                                pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                        else:
+                            # Zip filename doesn't look like timestamp, try parent directory
+                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                            pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                    else:
+                        # Not a zip file, skip PDF links
+                        pdf_path = None
+                        pdf_path_initial = None
+                    
+                    # Check if PDFs exist and create links (check each independently)
+                    repo_root = out_rst.parent.parent
+                    if pdf_path:
                         full_pdf_path = (repo_root / pdf_path).resolve()
-                        full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
                         if full_pdf_path.exists():
-                            # Create relative path from docs/_build/html/ to PDF
-                            # HTML files are in docs/_build/html/, PDFs are in submissions/ (project root)
-                            # Need to go up 3 levels: html -> _build -> docs -> project root, then into submissions
                             pdf_rel_path = Path("../../..") / pdf_path
                             f_link = f"`{rank_num} <{pdf_rel_path}>`__"
+                    if pdf_path_initial:
+                        full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
                         if full_pdf_path_initial.exists():
-                            # Only show rank number in "i" column if initial PDF exists
                             pdf_rel_path_initial = Path("../../..") / pdf_path_initial
                             i_link = f"`{rank_num} <{pdf_rel_path_initial}>`__"
                 
@@ -1150,32 +1431,79 @@ def build_surface_leaderboards(
     plasma_surfaces_dir: Path,
 ) -> Dict[str, Dict[str, Any]]:
     """
-    Group entries by plasma surface based on submission directory structure.
+    Group entries by plasma surface extracted from case.yaml files.
     
-    Submission paths are: submissions/<surface>/<username>/<datetime>/results.json
+    Submission paths can be:
+    - Old: submissions/<surface>/<username>/<timestamp>.zip
+    - New: submissions/<username>/<timestamp>/all_files.zip
     
     Returns dict mapping surface_name -> {"entries": [...]}
     """
     entries = leaderboard.get("entries") or []
     surface_leaderboards: Dict[str, Dict[str, Any]] = {}
     
-    # Group entries by surface extracted from submission paths
+    # Group entries by surface extracted from case.yaml
     for entry in entries:
-        # Extract surface from path stored in methods data
-        # Path format: submissions/<surface>/<username>/<datetime>/results.json
         path_str = entry.get("path", "")
         if not path_str:
             continue
         
-        path_parts = Path(path_str).parts
-        # Find "submissions" in path and get the next part (surface name)
-        try:
-            submissions_idx = path_parts.index("submissions")
-            if len(path_parts) > submissions_idx + 1:
-                surface_name = path_parts[submissions_idx + 1]
+        path_obj = Path(path_str)
+        surface_name = "unknown"
+        
+        # Try to extract surface from case.yaml
+        # Handle both zip files and directories
+        if path_obj.suffix == ".zip":
+            # Zip file - try to read case.yaml from inside
+            try:
+                import zipfile
+                with zipfile.ZipFile(path_obj, 'r') as zf:
+                    if "case.yaml" in zf.namelist():
+                        import yaml
+                        case_content = zf.read("case.yaml").decode('utf-8')
+                        case_data = yaml.safe_load(case_content)
+                        surface_file = case_data.get("surface_params", {}).get("surface", "")
+                        if surface_file:
+                            surface_name = Path(surface_file).name
+                            if surface_name.startswith("input."):
+                                surface_name = surface_name[6:]
+                            elif surface_name.startswith("wout."):
+                                surface_name = surface_name[5:]
+            except Exception:
+                pass
+            
+            # Fallback: try to extract from old structure path
+            if surface_name == "unknown":
+                path_parts = path_obj.parts
+                if "submissions" in path_parts:
+                    submissions_idx = path_parts.index("submissions")
+                    parts_after = path_parts[submissions_idx + 1:]
+                    # Old structure: submissions/<surface>/<user>/<timestamp>.zip
+                    if len(parts_after) >= 3 and parts_after[-1].endswith('.zip') and parts_after[-1] != 'all_files.zip':
+                        surface_name = parts_after[0]
+        else:
+            # Directory or results.json file - try to find case.yaml nearby
+            if path_obj.name == "results.json":
+                case_yaml_path = path_obj.parent / "case.yaml"
             else:
-                continue
-        except ValueError:
+                case_yaml_path = path_obj / "case.yaml"
+            
+            if case_yaml_path.exists():
+                try:
+                    import yaml
+                    case_data = yaml.safe_load(case_yaml_path.read_text())
+                    surface_file = case_data.get("surface_params", {}).get("surface", "")
+                    if surface_file:
+                        surface_name = Path(surface_file).name
+                        if surface_name.startswith("input."):
+                            surface_name = surface_name[6:]
+                        elif surface_name.startswith("wout."):
+                            surface_name = surface_name[5:]
+                except Exception:
+                    pass
+        
+        if surface_name == "unknown":
+            # Skip entries where we can't determine surface
             continue
         
         if surface_name not in surface_leaderboards:

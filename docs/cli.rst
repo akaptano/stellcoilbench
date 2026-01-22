@@ -63,14 +63,14 @@ Run a case and create a submission zip file.
    
    .. code-block::
    
-      submissions/<surface>/<username>/<timestamp>.zip
+      submissions/<username>/<timestamp>/all_files.zip
    
    PDF plots are placed next to the zip:
    
    .. code-block::
    
-      submissions/<surface>/<username>/
-      ├── <timestamp>.zip
+      submissions/<username>/<timestamp>/
+      ├── all_files.zip
       ├── bn_error_3d_plot.pdf
       └── bn_error_3d_plot_initial.pdf
    

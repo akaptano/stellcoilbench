@@ -121,7 +121,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/bn_error_3d_plot.pdf>`__
+     - `1 <../../../submissions/akaptano/12-01-2025_01-51/bn_error_3d_plot.pdf>`__
 
 
 .. _landremanpaul2021-qa:
@@ -131,7 +131,7 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 4 submission(s).
+This surface has 3 submission(s).
 Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: Landreman-Paul QA Leaderboard
@@ -182,8 +182,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.0e+01
      - 22/01/26
      - akaptano
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - —
+     - 1
    * - 4
      - 16
      - —
@@ -205,8 +205,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.0e+01
      - 01/12/25
      - akaptano
-     - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - `2 <../../../submissions/akaptano/12-01-2025_01-53/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/akaptano/12-01-2025_01-53/bn_error_3d_plot.pdf>`__
    * - 4
      - 8
      - —
@@ -228,31 +228,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.1e+01
      - 01/12/25
      - akaptano
-     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
-   * - 4
-     - 4
      - —
-     - 1.6e-02
-     - 1.6e-01
-     - 4.7e-01
-     - 1.1e+01
-     - —
-     - 2.2e-01
-     - 1.1e-01
-     - 2.7e+00
-     - 1.1e+01
-     - 2.3e+05
-     - 4.2e+04
-     - 2.4e+05
-     - 5.0e+04
-     - 0
-     - 3.0e+01
-     - 7.5e+00
-     - 01/12/25
-     - akaptano
-     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
+     - `3 <../../../submissions/akaptano/12-01-2025_01-22/bn_error_3d_plot.pdf>`__
 
 
 .. _w7-x-without-coil-ripple-beta0p05-d23p4-tm:
@@ -313,8 +290,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.4e+00
      - 21/01/26
      - akaptano
-     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
+     - —
+     - 1
    * - 4
      - 4
      - —
@@ -336,8 +313,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.8e+00
      - 01/12/25
      - akaptano
-     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
+     - `2 <../../../submissions/akaptano/12-01-2025_01-52/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/akaptano/12-01-2025_01-52/bn_error_3d_plot.pdf>`__
    * - 4
      - 16
      - —
@@ -359,8 +336,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.9e+00
      - 21/01/26
      - akaptano
-     - `3 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `3 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
+     - —
+     - `3 <../../../submissions/akaptano/01-21-2026_19-48/bn_error_3d_plot.pdf>`__
    * - 5
      - 4
      - —
@@ -382,8 +359,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 4.9e+00
      - 22/01/26
      - akaptano
-     - `4 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
-     - `4 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
+     - —
+     - 4
 
 
 .. _c09r00-b-axis-half-tesla-pm4stell-focus:
@@ -443,7 +420,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell.focus/akaptano/bn_error_3d_plot.pdf>`__
+     - 1
 
 
 .. _cfqs-2b40:
@@ -503,7 +480,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/cfqs_2b40/akaptano/bn_error_3d_plot.pdf>`__
+     - 1
 
 
 .. _circular-tokamak:
@@ -513,7 +490,7 @@ Circular Tokamak
 
 **Surface file:** ``circular_tokamak``
 
-This surface has 1 submission(s).
+This surface has 2 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 .. list-table:: Circular Tokamak Leaderboard
@@ -563,7 +540,29 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/circular_tokamak/akaptano/bn_error_3d_plot.pdf>`__
+     - 1
+   * - 4
+     - 4
+     - —
+     - 0.0e+00
+     - 1.9e-16
+     - 2.4e-01
+     - 9.5e+01
+     - 1.7e+00
+     - 1.8e+00
+     - 2.6e-01
+     - 7.0e-02
+     - 4.6e+06
+     - 1.5e-07
+     - 4.6e+06
+     - 1.8e-07
+     - 0
+     - 2.2e+00
+     - 2.6e-01
+     - 01/12/25
+     - akaptano
+     - —
+     - 2
 
 
 .. _muse-focus:
@@ -623,7 +622,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/muse.focus/akaptano/bn_error_3d_plot.pdf>`__
+     - 1
 
 
 .. _rotating-ellipse:
@@ -683,7 +682,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 01/12/25
      - akaptano
      - —
-     - `1 <../../../submissions/rotating_ellipse/akaptano/bn_error_3d_plot.pdf>`__
+     - 1
 
 
 

@@ -137,27 +137,36 @@ def test_zip_submission_directory_creates_zip_and_removes_dir(tmp_path):
     (submission_dir / "results.json").write_text("{}")
     (submission_dir / "nested").mkdir()
     (submission_dir / "nested" / "file.txt").write_text("data")
+    (submission_dir / "plot.pdf").write_text("pdf content")
 
     zip_path = _zip_submission_directory(submission_dir)
 
     assert zip_path.exists()
-    assert not submission_dir.exists()
+    assert zip_path == submission_dir / "all_files.zip"
+    # Directory should still exist (for PDFs)
+    assert submission_dir.exists()
+    # PDF should still be there
+    assert (submission_dir / "plot.pdf").exists()
+    # Non-PDF files should be removed
+    assert not (submission_dir / "results.json").exists()
+    assert not (submission_dir / "nested").exists()
     with zipfile.ZipFile(zip_path, "r") as zf:
         assert "results.json" in zf.namelist()
         assert "nested/file.txt" in zf.namelist()
+        assert "plot.pdf" not in zf.namelist()  # PDFs are not zipped
 
 
 def test_zip_submission_directory_missing_dir(tmp_path):
     submission_dir = tmp_path / "missing"
     zip_path = _zip_submission_directory(submission_dir)
-    assert zip_path == submission_dir.parent / "missing.zip"
+    assert zip_path == submission_dir / "all_files.zip"
 
 
 def test_zip_submission_directory_empty_dir(tmp_path):
     submission_dir = tmp_path / "empty"
     submission_dir.mkdir()
     zip_path = _zip_submission_directory(submission_dir)
-    assert zip_path == submission_dir.parent / "empty.zip"
+    assert zip_path == submission_dir / "all_files.zip"
     assert not zip_path.exists()
 
 
@@ -338,8 +347,9 @@ def test_submit_case_unknown_user_and_hardware(tmp_path, monkeypatch):
 
     results_files = list(submissions_dir.rglob("results.json"))
     assert len(results_files) == 1
-    # wout. prefix should be stripped from surface name
-    assert "TestSurface" in str(results_files[0].parent.parent)
+    # New structure: submissions/user/timestamp/ (surface no longer in path)
+    assert "unknown_user" in str(results_files[0].parent)
+    assert "TestSurface" not in str(results_files[0].parent.parent)
 
 
 def test_update_db_cmd_invokes_update_database(tmp_path, monkeypatch):

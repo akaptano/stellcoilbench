@@ -16,10 +16,3 @@ methods can be compared consistently.
    cli
    api
    leaderboard
-   :hidden:
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Leaderboard
-
-   leaderboard
