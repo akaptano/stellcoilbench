@@ -5,13 +5,19 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 8
+  order: 8  # Final order (used if fourier_continuation is disabled)
+
+# Fourier continuation: solve sequence of optimizations with increasing Fourier orders
+# Each step uses the previous solution as initial condition
+fourier_continuation:
+  enabled: true
+  orders: [4, 6, 8]  # Start with order 4, then 6, then 8
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
   max_iterations: 200
   max_iter_subopt: 20
-  verbose: True
+  verbose: False
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.

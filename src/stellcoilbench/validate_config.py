@@ -241,6 +241,27 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
     
+    # Validate fourier_continuation if present
+    if "fourier_continuation" in data:
+        fc = data["fourier_continuation"]
+        if not isinstance(fc, dict):
+            errors.append(f"{file_prefix}fourier_continuation must be a dictionary")
+        else:
+            if "enabled" in fc:
+                if not isinstance(fc["enabled"], bool):
+                    errors.append(f"{file_prefix}fourier_continuation.enabled must be a boolean")
+            
+            if "orders" in fc:
+                orders = fc["orders"]
+                if not isinstance(orders, list):
+                    errors.append(f"{file_prefix}fourier_continuation.orders must be a list")
+                elif not orders:
+                    errors.append(f"{file_prefix}fourier_continuation.orders must be non-empty")
+                elif not all(isinstance(o, int) and o > 0 for o in orders):
+                    errors.append(f"{file_prefix}fourier_continuation.orders must contain only positive integers")
+                elif orders != sorted(orders):
+                    errors.append(f"{file_prefix}fourier_continuation.orders must be in ascending order")
+    
     return errors
 
 

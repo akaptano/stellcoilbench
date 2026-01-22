@@ -466,29 +466,53 @@ def optimize_coils(
         # This allows users to specify algorithm-specific hyperparameters
         algorithm_options = optimizer_params.pop('algorithm_options', {})
         
-        # Pass output_dir to optimize_coils_loop for VTK file output
-        # optimize_coils_loop saves VTK files to output_dir during optimization
-        try:
-            coils, results_dict = optimize_coils_loop(
-                surface, 
-                **coil_params, 
-                **optimizer_params, 
-                output_dir=str(output_dir),
+        # Check if Fourier continuation is enabled
+        fourier_continuation = case_cfg.fourier_continuation
+        if fourier_continuation and fourier_continuation.get('enabled', False):
+            # Use Fourier continuation
+            fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
+            if not isinstance(fourier_orders, list) or not all(isinstance(o, int) for o in fourier_orders):
+                raise ValueError("fourier_continuation.orders must be a list of integers")
+            
+            coils, results_dict = optimize_coils_with_fourier_continuation(
+                surface,
+                fourier_orders=fourier_orders,
+                target_B=coil_params.get('target_B', 5.7),
+                out_dir=str(output_dir),
+                max_iterations=optimizer_params.get('max_iterations', 30),
+                ncoils=coil_params.get('ncoils', 4),
+                verbose=optimizer_params.get('verbose', False),
+                regularization=regularization_circ if regularization_circ is not None else lambda x: None,
                 coil_objective_terms=coil_objective_terms,
                 algorithm_options=algorithm_options,
+                **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                 **threshold_kwargs
             )
-        except TypeError:
-            # Fallback if optimize_coils_loop doesn't accept output_dir parameter
-            # Files will be saved to current directory (which is now output_dir)
-            coils, results_dict = optimize_coils_loop(
-                surface, 
-                **coil_params, 
-                **optimizer_params, 
-                coil_objective_terms=coil_objective_terms,
-                algorithm_options=algorithm_options,
-                **threshold_kwargs
-            )
+        else:
+            # Standard optimization without continuation
+            # Pass output_dir to optimize_coils_loop for VTK file output
+            # optimize_coils_loop saves VTK files to output_dir during optimization
+            try:
+                coils, results_dict = optimize_coils_loop(
+                    surface, 
+                    **coil_params, 
+                    **optimizer_params, 
+                    output_dir=str(output_dir),
+                    coil_objective_terms=coil_objective_terms,
+                    algorithm_options=algorithm_options,
+                    **threshold_kwargs
+                )
+            except TypeError:
+                # Fallback if optimize_coils_loop doesn't accept output_dir parameter
+                # Files will be saved to current directory (which is now output_dir)
+                coils, results_dict = optimize_coils_loop(
+                    surface, 
+                    **coil_params, 
+                    **optimizer_params, 
+                    coil_objective_terms=coil_objective_terms,
+                    algorithm_options=algorithm_options,
+                    **threshold_kwargs
+                )
     finally:
         # Always restore original working directory
         os.chdir(original_cwd)
@@ -507,7 +531,7 @@ def optimize_coils(
 def initialize_coils_loop(
     s : SurfaceRZFourier, out_dir: Path | str = '', 
     target_B: float = 5.7, ncoils: int = 4, order: int = 16, coil_width : float = 0.4,
-    regularization: Callable = regularization_circ):
+    regularization: Callable | None = regularization_circ):
     """
     Initializes four coils with order=16 and total current set to produce 
     a target B-field on-axis. The coil centers and radii are scaled by 
@@ -744,7 +768,7 @@ def _plot_bn_error_3d(
     
     # Plot coils colored by current magnitude with simple front/back layering
     currents = [abs(c.current.get_value()) for c in coils]
-    current_norm = Normalize(
+    current_norm = Normalize(  # type: ignore[call-overload]
         vmin=min(currents) if currents else 0.0,
         vmax=max(currents) if currents else 1.0,
     )
@@ -861,13 +885,285 @@ def _plot_bn_error_3d(
     print(f"  Saved 3D B_N/|B| error plot to: {pdf_path}")
 
 
+def _extend_coils_to_higher_order(
+    coils: list, new_order: int, s: SurfaceRZFourier, ncoils: int,
+    regularization: Callable | None = None, coil_width: float = 0.4
+) -> list:
+    """
+    Extend coils from a lower Fourier order to a higher order.
+    
+    This function takes coils optimized at a lower order and extends them to
+    a higher order by copying existing Fourier coefficients and padding new
+    modes with zeros.
+    
+    Parameters
+    ----------
+    coils: list
+        List of Coil objects from previous optimization (lower order).
+    new_order: int
+        Target Fourier order for the extended coils.
+    s: SurfaceRZFourier
+        Plasma surface (needed for creating new curves).
+    ncoils: int
+        Number of base coils.
+    regularization: Callable, optional
+        Regularization function for new coils.
+    coil_width: float
+        Coil width parameter.
+    
+    Returns
+    -------
+    list
+        New list of Coil objects with extended Fourier order.
+    """
+    from simsopt.geo import create_equally_spaced_curves, CurveXYZFourier
+    from simsopt.field import coils_via_symmetries
+    
+    # Get the old order from the first base curve
+    old_curves = [coil.curve for coil in coils[:ncoils]]
+    old_order = old_curves[0].order if hasattr(old_curves[0], 'order') else len(old_curves[0].dofs) // 3
+    
+    if new_order <= old_order:
+        # No extension needed, return coils as-is
+        return coils
+    
+    # Get major radius for creating new curves
+    R0 = s.get_rc(0, 0)
+    R1 = s.get_rc(1, 0) * 3.5
+    
+    # Create new base curves with higher order
+    new_base_curves = create_equally_spaced_curves(
+        ncoils, s.nfp, stellsym=s.stellsym,
+        R0=R0, R1=R1, order=new_order, numquadpoints=256
+    )
+    
+    # Copy Fourier coefficients from old curves to new curves
+    for old_curve, new_curve in zip(old_curves, new_base_curves):
+        if isinstance(old_curve, CurveXYZFourier) and isinstance(new_curve, CurveXYZFourier):
+            # Get the dofs (Fourier coefficients) from old curve
+            old_dofs = old_curve.get_dofs()
+            
+            # Get the dofs structure from new curve (initialize to zeros)
+            new_dofs = new_curve.get_dofs().copy()
+            
+            # Structure: For order N, each component has (2*N + 1) dofs:
+            # - (N+1) cosine modes: indices 0 to N
+            # - N sine modes: indices N+1 to 2*N
+            # Components are stored as: [x_dofs, y_dofs, z_dofs]
+            old_dofs_per_comp = 2 * old_order + 1
+            new_dofs_per_comp = 2 * new_order + 1
+            
+            # Copy coefficients component by component (x, y, z)
+            for comp_idx in range(3):
+                old_start = comp_idx * old_dofs_per_comp
+                new_start = comp_idx * new_dofs_per_comp
+                
+                # Copy all matching dofs (cosine + sine modes up to old_order)
+                for i in range(old_dofs_per_comp):
+                    if old_start + i < len(old_dofs) and new_start + i < len(new_dofs):
+                        new_dofs[new_start + i] = old_dofs[old_start + i]
+            
+            # Set the extended dofs to the new curve
+            new_curve.set_dofs(new_dofs)
+        else:
+            # Fallback: try to copy dofs directly if curves support it
+            try:
+                old_dofs = old_curve.get_dofs()
+                new_dofs = new_curve.get_dofs()
+                # Pad with zeros if needed
+                if len(old_dofs) < len(new_dofs):
+                    padded_dofs = np.zeros_like(new_dofs)
+                    padded_dofs[:len(old_dofs)] = old_dofs
+                    new_curve.set_dofs(padded_dofs)
+                else:
+                    new_curve.set_dofs(old_dofs[:len(new_dofs)])
+            except (AttributeError, TypeError):
+                # If we can't extend, just use the new curve as-is
+                pass
+    
+    # Extract currents from old coils
+    base_currents = [coil.current for coil in coils[:ncoils]]
+    
+    # Create new coils with extended curves
+    if regularization is not None:
+        regularizations = [regularization(coil_width) for _ in range(ncoils)]
+    else:
+        regularizations = None
+    
+    try:
+        new_coils = coils_via_symmetries(
+            new_base_curves,
+            base_currents,
+            s.nfp,
+            s.stellsym,
+            regularizations=regularizations,
+        )
+    except TypeError:
+        new_coils = coils_via_symmetries(new_base_curves, base_currents, s.nfp, s.stellsym)
+    
+    return new_coils
+
+
+def optimize_coils_with_fourier_continuation(
+    s: SurfaceRZFourier,
+    fourier_orders: list[int],
+    target_B: float = 5.7,
+    out_dir: Path | str = '',
+    max_iterations: int = 30,
+    ncoils: int = 4,
+    verbose: bool = False,
+    regularization: Callable | None = regularization_circ,
+    coil_objective_terms: Dict[str, Any] | None = None,
+    **kwargs
+) -> tuple[list, Dict[str, Any]]:
+    """
+    Perform coil optimization with Fourier continuation.
+    
+    This function solves a sequence of coil optimizations, starting with a low
+    number of Fourier modes, converging that problem, and using the solution
+    as an initial condition for the next optimization with more Fourier modes.
+    
+    Parameters
+    ----------
+    s: SurfaceRZFourier
+        Plasma boundary surface.
+    fourier_orders: list[int]
+        Sequence of Fourier orders to use (e.g., [4, 6, 8]).
+        Must be in ascending order.
+    target_B: float
+        Target magnetic field strength in Tesla (default: 5.7).
+    out_dir: Path | str
+        Output directory for saved files.
+    max_iterations: int
+        Maximum number of optimization iterations per order (default: 30).
+    ncoils: int
+        Number of base coils to create (default: 4).
+    verbose: bool
+        Print out progress and results (default: False).
+    regularization: Callable
+        Regularization function (default: regularization_circ).
+    coil_objective_terms: Dict[str, Any] | None
+        Dictionary specifying which objective terms to include.
+    **kwargs: Additional keyword arguments
+        Same as optimize_coils_loop (thresholds, algorithm options, etc.).
+    
+    Returns
+    -------
+    tuple[list, Dict[str, Any]]
+        Final optimized coils and combined results dictionary.
+    """
+    if not fourier_orders:
+        raise ValueError("fourier_orders must be a non-empty list")
+    
+    if not all(isinstance(o, int) and o > 0 for o in fourier_orders):
+        raise ValueError("All fourier_orders must be positive integers")
+    
+    if fourier_orders != sorted(fourier_orders):
+        raise ValueError("fourier_orders must be in ascending order")
+    
+    out_dir = Path(out_dir).resolve()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    
+    all_results = []
+    coils: list | None = None
+    coil_width = kwargs.get('coil_width', 0.4)
+    
+    print(f"Starting Fourier continuation with orders: {fourier_orders}")
+    
+    for i, order in enumerate(fourier_orders):
+        print(f"\n{'='*60}")
+        print(f"Fourier continuation step {i+1}/{len(fourier_orders)}: order={order}")
+        print(f"{'='*60}")
+        
+        # Create subdirectory for this order
+        order_dir = out_dir / f"order_{order}"
+        order_dir.mkdir(exist_ok=True)
+        
+        if i == 0:
+            # First iteration: use standard initialization
+            print(f"Initializing coils with order={order}...")
+            coils, results = optimize_coils_loop(
+                s=s,
+                target_B=target_B,
+                out_dir=str(order_dir),
+                max_iterations=max_iterations,
+                ncoils=ncoils,
+                order=order,
+                verbose=verbose,
+                regularization=regularization,
+                coil_objective_terms=coil_objective_terms,
+                **kwargs
+            )
+        else:
+            # Subsequent iterations: extend previous solution
+            if coils is None:
+                raise RuntimeError("Cannot extend coils: previous step produced None coils")
+            print(f"Extending coils from order={fourier_orders[i-1]} to order={order}...")
+            coils = _extend_coils_to_higher_order(
+                coils, order, s, ncoils, regularization, coil_width
+            )
+            
+            # Optimize with extended coils as initial condition
+            print(f"Optimizing with extended coils (order={order})...")
+            coils, results = optimize_coils_loop(
+                s=s,
+                target_B=target_B,
+                out_dir=str(order_dir),
+                max_iterations=max_iterations,
+                ncoils=ncoils,
+                order=order,
+                verbose=verbose,
+                regularization=regularization,
+                coil_objective_terms=coil_objective_terms,
+                initial_coils=coils,  # Pass extended coils as initial condition
+                **kwargs
+            )
+        
+        # Store results for this order
+        results['fourier_order'] = order
+        results['continuation_step'] = i + 1
+        all_results.append(results)
+        
+        # Note: optimize_coils_loop already saves VTK files (coils_optimized) and 
+        # Bn error PDF (bn_error_3d_plot.pdf) in order_dir, so they're automatically
+        # saved after each continuation step. We just need to ensure they're accessible.
+        # The files are saved to: order_dir/coils_optimized.* and order_dir/bn_error_3d_plot.pdf
+        
+        print(f"\nCompleted order={order} optimization:")
+        print(f"  Final flux: {results.get('final_normalized_squared_flux', 'N/A'):.2e}")
+        print(f"  Final B-field: {results.get('final_B_field', 'N/A'):.3f} T")
+        print(f"  Files saved to: {order_dir}")
+        print(f"    - VTK files: {order_dir}/coils_optimized.*")
+        print(f"    - Bn error PDF: {order_dir}/bn_error_3d_plot.pdf")
+    
+    # Combine results from all continuation steps
+    combined_results = {
+        'fourier_continuation': True,
+        'fourier_orders': fourier_orders,
+        'final_order': fourier_orders[-1],
+        'continuation_results': all_results,
+        **all_results[-1]  # Include final step results at top level
+    }
+    
+    print(f"\n{'='*60}")
+    print("Fourier continuation completed!")
+    print(f"Final order: {fourier_orders[-1]}")
+    print(f"{'='*60}\n")
+    
+    if coils is None:
+        raise RuntimeError("Fourier continuation failed: no coils were produced")
+    
+    return coils, combined_results
+
+
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, 
     ncoils : int = 4, order : int = 16, 
     verbose : bool = False,
-    regularization : Callable = regularization_circ, 
+    regularization : Callable | None = regularization_circ, 
     coil_objective_terms: Dict[str, Any] | None = None,
+    initial_coils: list | None = None,
     **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
@@ -969,7 +1265,10 @@ def optimize_coils_loop(
 
     # Step 1: Initialize coils with target B-field
     # print("Step 1: Initializing coils with target B-field...")
-    coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+    if initial_coils is None:
+        coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+    else:
+        coils = initial_coils
 
     # Calculate total_current (needed for later printing and possibly for threshold scaling)
     total_current = sum([c.current.get_value() for c in coils[:ncoils]]) / (s.stellsym + 1) / s.nfp
