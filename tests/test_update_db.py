@@ -75,8 +75,8 @@ class TestLoadSubmissions:
         """Test loading single submission file."""
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir)
-            # New structure: submissions/user/timestamp/
-            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # Current structure: submissions/surface/user/timestamp/
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -131,8 +131,8 @@ class TestLoadSubmissions:
         """Test loading submission from a zip file."""
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir)
-            # New structure: submissions/user/timestamp/all_files.zip
-            zip_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # Current structure: submissions/surface/user/timestamp/all_files.zip
+            zip_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             zip_dir.mkdir(parents=True)
             zip_path = zip_dir / "all_files.zip"
             with zipfile.ZipFile(zip_path, "w") as zf:
@@ -185,8 +185,8 @@ class TestBuildMethodsJson:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
             
-            # New structure: submissions/user/timestamp/
-            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # Current structure: submissions/surface/user/timestamp/
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -214,7 +214,8 @@ class TestBuildMethodsJson:
             assert method_key in methods
             method_data = methods[method_key]
             assert method_data["method_name"] == "test_method"
-            assert method_data["contact"] == "test@example.com"
+            # Contact field now uses GitHub username from path, not metadata
+            assert method_data["contact"] == "user1"  # Extracted from path structure
             assert method_data["metrics"]["final_normalized_squared_flux"] == 0.001
             assert method_data["score_primary"] == 0.001
     
@@ -224,8 +225,8 @@ class TestBuildMethodsJson:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
             
-            # New structure: submissions/user/timestamp/
-            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # Current structure: submissions/surface/user/timestamp/
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             
             results_file = submission_dir / "results.json"
@@ -273,8 +274,8 @@ coils_params:
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
-            # New structure: submissions/user/timestamp/
-            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/surface/user/timestamp/
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             results_file = submission_dir / "results.json"
             results_file.write_text(
@@ -299,8 +300,8 @@ coils_params:
         with tempfile.TemporaryDirectory() as tmpdir:
             submissions_root = Path(tmpdir).resolve()
             repo_root = Path(tmpdir).resolve()
-            # New structure: submissions/user/timestamp/
-            submission_dir = submissions_root / "user1" / "2024-01-01_12-00"
+            # New structure: submissions/surface/user/timestamp/
+            submission_dir = submissions_root / "surface1" / "user1" / "2024-01-01_12-00"
             submission_dir.mkdir(parents=True)
             results_file = submission_dir / "results.json"
             results_file.write_text(
@@ -508,6 +509,12 @@ class TestLeaderboardMarkdown:
         assert "f_B" in content
 
     def test_write_rst_leaderboard(self, tmp_path):
+        # Create submission directory structure and case.yaml for surface extraction
+        submission_dir = tmp_path / "submissions" / "surface" / "user" / "ts"
+        submission_dir.mkdir(parents=True)
+        case_yaml = submission_dir / "case.yaml"
+        case_yaml.write_text("surface_params:\n  surface: input.surface\n")
+        
         leaderboard = {
             "entries": [
                 {
@@ -527,8 +534,9 @@ class TestLeaderboardMarkdown:
                 }
             ]
         }
+        submissions_root = tmp_path / "submissions"
         surface_leaderboards = build_surface_leaderboards(
-            leaderboard, submissions_root=tmp_path, plasma_surfaces_dir=tmp_path
+            leaderboard, submissions_root=submissions_root, plasma_surfaces_dir=tmp_path
         )
         out_rst = tmp_path / "leaderboard.rst"
         write_rst_leaderboard(leaderboard, out_rst, surface_leaderboards)
@@ -539,6 +547,17 @@ class TestLeaderboardMarkdown:
         assert "Metric Definitions" in content
 
     def test_build_surface_leaderboards_and_write(self, tmp_path):
+        # Create submission directory structure and case.yaml files for surface extraction
+        submission_dir1 = tmp_path / "submissions" / "surf1" / "user" / "ts"
+        submission_dir1.mkdir(parents=True)
+        case_yaml1 = submission_dir1 / "case.yaml"
+        case_yaml1.write_text("surface_params:\n  surface: input.surf1\n")
+        
+        submission_dir2 = tmp_path / "submissions" / "surf1" / "user" / "ts2"
+        submission_dir2.mkdir(parents=True)
+        case_yaml2 = submission_dir2 / "case.yaml"
+        case_yaml2.write_text("surface_params:\n  surface: input.surf1\n")
+        
         leaderboard = {
             "entries": [
                 {
@@ -572,8 +591,9 @@ class TestLeaderboardMarkdown:
             ]
         }
 
+        submissions_root = tmp_path / "submissions"
         surface_leaderboards = build_surface_leaderboards(
-            leaderboard, submissions_root=tmp_path, plasma_surfaces_dir=tmp_path
+            leaderboard, submissions_root=submissions_root, plasma_surfaces_dir=tmp_path
         )
         assert "surf1" in surface_leaderboards
         assert surface_leaderboards["surf1"]["entries"][0]["score_primary"] == 0.1

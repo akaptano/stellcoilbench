@@ -41,24 +41,14 @@ app = typer.Typer(help="CoilBench: benchmarking framework for stellarator coil o
 
 def _detect_github_username() -> str:
     """
-    Try to detect GitHub username from git config or remote URL.
+    Try to detect GitHub username from remote URL or environment variables.
     Returns empty string if not found.
+    
+    Note: git config user.name returns the display name, not the GitHub username,
+    so we prioritize extracting from the remote URL.
     """
     try:
-        # Try git config first
-        result = subprocess.run(
-            ["git", "config", "user.name"],
-            capture_output=True,
-            text=True,
-            timeout=2,
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            return result.stdout.strip()
-    except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
-        pass
-    
-    try:
-        # Try to get from remote URL
+        # Try to get from remote URL first (most reliable for GitHub username)
         result = subprocess.run(
             ["git", "remote", "get-url", "origin"],
             capture_output=True,
@@ -69,12 +59,26 @@ def _detect_github_username() -> str:
             url = result.stdout.strip()
             # Extract username from common GitHub URL patterns
             if "github.com" in url:
-                parts = url.replace(".git", "").split("/")
-                if len(parts) >= 2:
-                    # Handle both https://github.com/user/repo and git@github.com:user/repo
-                    username = parts[-2] if ":" in url else parts[-2]
-                    if username and username != "github.com":
-                        return username
+                # Handle https://github.com/user/repo format
+                if url.startswith("https://") or url.startswith("http://"):
+                    parts = url.replace(".git", "").split("/")
+                    # URL format: https://github.com/user/repo
+                    # parts: ['https:', '', 'github.com', 'user', 'repo']
+                    if len(parts) >= 4 and parts[2] == "github.com":
+                        username = parts[3]
+                        if username and username != "github.com":
+                            return username
+                # Handle git@github.com:user/repo format
+                elif url.startswith("git@"):
+                    # URL format: git@github.com:user/repo
+                    # Split on ':' to get the part after github.com:
+                    if ":" in url:
+                        after_colon = url.split(":", 1)[1]
+                        parts = after_colon.replace(".git", "").split("/")
+                        if len(parts) >= 1:
+                            username = parts[0]
+                            if username:
+                                return username
     except (subprocess.TimeoutExpired, FileNotFoundError, subprocess.SubprocessError):
         pass
     
@@ -338,13 +342,19 @@ def submit_case(
     elif surface_name.startswith("wout."):
         surface_name = surface_name[5:]  # Remove "wout." prefix
     
+    # Remove file extensions like ".focus" from surface name
+    # Keep only the base name (e.g., "c09r00_B_axis_half_tesla_PM4Stell" from "c09r00_B_axis_half_tesla_PM4Stell.focus")
+    if "." in surface_name:
+        # Split on first dot and take the part before it
+        surface_name = surface_name.split(".", 1)[0]
+    
     # 3) Build submission directory first (needed for output_dir)
     now = datetime.now()
     run_date = now.isoformat()
     datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
     
-    # Write to submissions directory: submissions/<username>/<datetime>/
-    submission_dir = submissions_dir / github_username / datetime_str
+    # Write to submissions directory: submissions/<surface>/<username>/<datetime>/
+    submission_dir = submissions_dir / surface_name / github_username / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
     # Coils filename is always coils.json
@@ -411,21 +421,24 @@ def run_case(
         ...,
         help="Path to case directory containing case.yaml and coils.yaml, or a single YAML file.",
     ),
-    coils_out_dir: Path = typer.Option(
-        Path("coils_runs"),
-        "--coils-out-dir",
-        help="Directory where the optimized coils file will be written.",
+    submissions_dir: Path = typer.Option(
+        Path("submissions"),
+        "--submissions-dir",
+        help="Directory where submission results will be written.",
     ),
     results_out: Optional[Path] = typer.Option(
         None,
         "--results-out",
         "-o",
-        help="Where to write the results JSON (default: <coils_out_dir>/results.json).",
+        help="Where to write the results JSON (default: <submissions_dir>/<surface>/<username>/<datetime>/results.json).",
     ),
 ) -> None:
     """
     Run a coil optimization for one case using parameters from case.yaml,
     then evaluate the resulting coil set.
+    
+    Creates a subdirectory in submissions/ with structure:
+    submissions/<surface>/<username>/<datetime>/
     
     Note: For generating submissions, use 'submit-case' instead.
     """
@@ -435,11 +448,40 @@ def run_case(
     # Load case configuration
     case_cfg = load_case_config(case_path)
 
-    coils_out_dir.mkdir(parents=True, exist_ok=True)
+    # Extract surface name from case config (similar to submit-case)
+    surface_file = case_cfg.surface_params.get("surface", "")
+    if not surface_file:
+        raise ValueError("case.yaml must specify surface_params.surface")
+    # Extract just the filename if it's a path (e.g., "input.LandremanPaul2021_QA")
+    surface_name = Path(surface_file).name
+    # Remove common prefixes like "input." or "wout." from directory name
+    if surface_name.startswith("input."):
+        surface_name = surface_name[6:]  # Remove "input." prefix
+    elif surface_name.startswith("wout."):
+        surface_name = surface_name[5:]  # Remove "wout." prefix
+    
+    # Remove file extensions like ".focus" from surface name
+    if "." in surface_name:
+        # Split on first dot and take the part before it
+        surface_name = surface_name.split(".", 1)[0]
+
+    # Auto-detect GitHub username for directory structure
+    github_username = _detect_github_username()
+    if not github_username:
+        github_username = "unknown_user"
+        typer.echo("Warning: Could not auto-detect GitHub username. Using 'unknown_user'.")
+
+    # Create timestamp-based subdirectory
+    now = datetime.now()
+    datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
+    
+    # Create submission directory: submissions/<surface>/<username>/<datetime>/
+    submission_dir = submissions_dir / surface_name / github_username / datetime_str
+    submission_dir.mkdir(parents=True, exist_ok=True)
 
     # Coils filename is always coils.json
     coils_filename = "coils.json"
-    coils_out_path = coils_out_dir / coils_filename
+    coils_out_path = submission_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path.
     typer.echo("Running optimizer...")
@@ -451,7 +493,7 @@ def run_case(
 
     # Decide results filename.
     if results_out is None:
-        results_out = coils_out_dir / "results.json"
+        results_out = submission_dir / "results.json"
     
     # Ensure output path has .json extension for JSON format
     if not str(results_out).endswith('.json'):

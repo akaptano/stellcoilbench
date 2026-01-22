@@ -304,6 +304,7 @@ def optimize_coils(
     coils_out_path: Path,
     case_cfg: CaseConfig | None = None,
     output_dir: Path | None = None,
+    surface_resolution: int = 16,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -322,6 +323,9 @@ def optimize_coils(
     output_dir:
         Optional directory where VTK files and other optimization outputs will be saved.
         If None, uses the directory containing coils_out_path.
+    surface_resolution:
+        Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+        Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
 
     Returns
     -------
@@ -421,8 +425,8 @@ def optimize_coils(
     surface = surface_func(
         filename=surface_file, 
         range=surface_params["range"],
-        nphi=16, 
-        ntheta=16)  # Always use 16x16 for standardization
+        nphi=surface_resolution, 
+        ntheta=surface_resolution)
     
     # Determine output directory for VTK files
     if output_dir is None:
@@ -484,6 +488,7 @@ def optimize_coils(
                 verbose=optimizer_params.get('verbose', False),
                 regularization=regularization_circ if regularization_circ is not None else lambda x: None,
                 coil_objective_terms=coil_objective_terms,
+                surface_resolution=surface_resolution,
                 algorithm_options=algorithm_options,
                 **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                 **threshold_kwargs
@@ -499,6 +504,7 @@ def optimize_coils(
                     **optimizer_params, 
                     output_dir=str(output_dir),
                     coil_objective_terms=coil_objective_terms,
+                    surface_resolution=surface_resolution,
                     algorithm_options=algorithm_options,
                     **threshold_kwargs
                 )
@@ -511,6 +517,7 @@ def optimize_coils(
                     **optimizer_params, 
                     coil_objective_terms=coil_objective_terms,
                     algorithm_options=algorithm_options,
+                    surface_resolution=surface_resolution,
                     **threshold_kwargs
                 )
     finally:
@@ -562,8 +569,8 @@ def initialize_coils_loop(
         regularizations = None
     
     # Get the major radius from the surface and scale coil parameters
-    R0 = s.get_rc(0, 0)  # Major radius
-    R1 = s.get_rc(1, 0) * 3.5  # Scale the minor radius component
+    R0 = s.get_rc(0, 0) * 1.2  # Major radius scaled by 1.2 shift the coils outwards slightly
+    R1 = s.get_rc(1, 0) * 3.25  # Scale the minor radius component
     
     # Initial guess for total current (using QH configuration as reference)
     total_current = 5e7  # 50 MA initial guess is not bad for reactor-scale
@@ -772,9 +779,10 @@ def _plot_bn_error_3d(
         vmin=min(currents) if currents else 0.0,
         vmax=max(currents) if currents else 1.0,
     )
-    # Use 'YlOrRd' colormap (yellow->orange->red) to contrast with viridis (blue-green-yellow) used for B_N errors
-    # 'YlOrRd' doesn't go through white, avoiding blending with matplotlib background
-    current_cmap = cm.YlOrRd  # type: ignore
+    # Use 'plasma' colormap (dark purple->pink->yellow) for coil currents
+    # This provides good contrast with viridis (blue-green-yellow) used for B_N errors
+    # and has dark colors at the bottom that are visible on white background
+    current_cmap = cm.plasma  # type: ignore
     
     def _segments_from_mask(points: np.ndarray, mask: np.ndarray) -> list[np.ndarray]:
         segments: list[np.ndarray] = []
@@ -1015,6 +1023,7 @@ def optimize_coils_with_fourier_continuation(
     verbose: bool = False,
     regularization: Callable | None = regularization_circ,
     coil_objective_terms: Dict[str, Any] | None = None,
+    surface_resolution: int = 16,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1045,8 +1054,12 @@ def optimize_coils_with_fourier_continuation(
         Regularization function (default: regularization_circ).
     coil_objective_terms: Dict[str, Any] | None
         Dictionary specifying which objective terms to include.
+    surface_resolution: int
+        Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+        Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
     **kwargs: Additional keyword arguments
         Same as optimize_coils_loop (thresholds, algorithm options, etc.).
+        plot_upsample_factor: Factor for upsampling plotting surface (default: 4).
     
     Returns
     -------
@@ -1094,6 +1107,7 @@ def optimize_coils_with_fourier_continuation(
                 verbose=verbose,
                 regularization=regularization,
                 coil_objective_terms=coil_objective_terms,
+                surface_resolution=surface_resolution,
                 **kwargs
             )
             # Extract cached thresholds from first step for reuse in continuation
@@ -1125,6 +1139,7 @@ def optimize_coils_with_fourier_continuation(
                 regularization=regularization,
                 coil_objective_terms=coil_objective_terms,
                 initial_coils=coils,  # Pass extended coils as initial condition
+                surface_resolution=surface_resolution,
                 **continuation_kwargs
             )
         
@@ -1173,6 +1188,7 @@ def optimize_coils_loop(
     regularization : Callable | None = regularization_circ, 
     coil_objective_terms: Dict[str, Any] | None = None,
     initial_coils: list | None = None,
+    surface_resolution: int = 16,
     **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
@@ -1187,6 +1203,8 @@ def optimize_coils_loop(
         ncoils: Number of base coils to create (default: 4).
         order: Fourier order for coil curves (default: 16).
         verbose: Print out progress and results (default: False).
+        surface_resolution: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+            Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
         **kwargs: Additional keyword arguments for constraint thresholds.
             max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 2).
             length_threshold: Threshold for the length objective (default: 200.0).
@@ -1325,8 +1343,12 @@ def optimize_coils_loop(
     
     # Step 2: Create plotting surface for visualization
     # print("Step 2: Setting up plotting surface...")
-    qphi = 4 * len(s.quadpoints_phi)
-    qtheta = 4 * len(s.quadpoints_theta)
+    # Use surface_resolution for plotting (can be upsampled, but use base resolution as minimum)
+    # For tests, use lower upsampling factor to speed things up
+    plot_upsample_factor = kwargs.get('plot_upsample_factor', 4)
+    base_resolution = max(surface_resolution, len(s.quadpoints_phi))
+    qphi = plot_upsample_factor * base_resolution
+    qtheta = plot_upsample_factor * base_resolution
     quadpoints_phi = np.linspace(0, 1, qphi)
     quadpoints_theta = np.linspace(0, 1, qtheta)
     

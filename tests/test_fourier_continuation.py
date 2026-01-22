@@ -331,6 +331,8 @@ class TestFourierContinuation:
             ncoils=2,
             verbose=False,
             coil_objective_terms={"total_length": "l2"},
+            surface_resolution=8,  # Use lower resolution for faster tests
+            plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         # Check top-level results
@@ -365,6 +367,8 @@ class TestFourierContinuation:
             ncoils=2,
             verbose=False,
             coil_objective_terms={"total_length": "l2"},
+            surface_resolution=8,  # Use lower resolution for faster tests
+            plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         # Check that subdirectories were created

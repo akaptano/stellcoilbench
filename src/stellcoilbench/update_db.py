@@ -308,6 +308,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         data: parsed JSON dict
     """
     import zipfile
+    import re  # Import at top of function to avoid UnboundLocalError
     
     if not submissions_root.exists():
         import sys
@@ -333,9 +334,8 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
         method_name = meta.get("method_name", "UNKNOWN")
         
         # Extract surface and user from path to make method_key unique
-        # Handle both old and new path formats:
-        # Old: submissions_root/surface/user/timestamp/results.json or .../timestamp.zip
-        # New: submissions_root/user/timestamp/results.json
+        # Current structure: submissions_root/surface_name/user/timestamp/results.json
+        # Where surface_name is the plasma surface name without extension
         path_parts = path.parts
         surface = "unknown"
         user = "unknown"
@@ -345,74 +345,71 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             submissions_idx = path_parts.index("submissions")
             parts_after_submissions = path_parts[submissions_idx + 1:]
             
-            # Detect old vs new structure
-            # Old: submissions/surface/user/timestamp.zip or submissions/surface/user/timestamp/results.json
-            # New: submissions/user/timestamp/results.json or submissions/user/timestamp/all_files.zip
+            # Current structure: submissions/surface_name/user/timestamp/results.json
             if len(parts_after_submissions) >= 3:
-                # Could be old structure (surface/user/timestamp) or new (user/timestamp/file)
-                first_part = parts_after_submissions[0]
-                second_part = parts_after_submissions[1] if len(parts_after_submissions) > 1 else ""
-                third_part = parts_after_submissions[2] if len(parts_after_submissions) > 2 else ""
-                
-                # Check if second part looks like a timestamp (contains date pattern like YYYY-MM-DD or MM-DD-YYYY)
-                # Timestamps typically have dashes and underscores: MM-DD-YYYY_HH-MM
-                import re
-                timestamp_pattern = r'\d{2}-\d{2}-\d{4}'
-                second_is_timestamp = bool(re.search(timestamp_pattern, second_part))
-                
-                # If second part is a timestamp, it's new structure: user/timestamp/file
-                if second_is_timestamp:
-                    # New structure: user/timestamp/file
-                    user = first_part
-                elif third_part.endswith('.zip') or third_part == 'results.json':
-                    # Old structure: surface/user/timestamp
-                    surface = first_part
-                    user = second_part
-                else:
-                    # Default to new structure if unclear
-                    user = first_part
+                # Structure: surface_name/user/timestamp/file
+                surface = parts_after_submissions[0]
+                user = parts_after_submissions[1]
             elif len(parts_after_submissions) >= 2:
-                # Could be new structure (user/timestamp) or old (surface/user)
-                # If last part is a zip file, it's likely old structure
-                if parts_after_submissions[-1].endswith('.zip'):
-                    # Old structure: surface/user/timestamp.zip
+                # Could be surface_name/user or user/timestamp
+                # Check if second part looks like a timestamp
+                timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
+                second_part = parts_after_submissions[1] if len(parts_after_submissions) > 1 else ""
+                if re.search(timestamp_pattern, second_part):
+                    # Structure: user/timestamp (legacy format without surface)
+                    user = parts_after_submissions[0]
+                else:
+                    # Structure: surface_name/user
                     surface = parts_after_submissions[0]
                     user = parts_after_submissions[1]
-                else:
-                    # New structure: user/timestamp (most common case)
-                    user = parts_after_submissions[0]
             elif len(parts_after_submissions) >= 1:
-                # New structure: user/timestamp (when path is relative)
+                # Just user (legacy)
                 user = parts_after_submissions[0]
         else:
             # For test cases or non-standard paths, extract from relative path structure
-            # Path format: submissions_root/user/timestamp/results.json (new) or surface/user/timestamp (old)
-            # Calculate relative to submissions_root
+            # Path format: submissions_root/surface_name/user/timestamp/results.json
             try:
                 rel_path = path.relative_to(submissions_root)
                 rel_parts = rel_path.parts
                 if len(rel_parts) >= 3:
-                    # Could be old (surface/user/timestamp) or new (user/timestamp/file)
-                    if rel_parts[-1].endswith('.zip') or rel_parts[-1] == 'results.json':
-                        # Old structure
+                    # Structure: surface_name/user/timestamp/file
+                    surface = rel_parts[0]
+                    user = rel_parts[1]
+                elif len(rel_parts) >= 2:
+                    # Check if second part is a timestamp
+                    timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
+                    second_part = rel_parts[1] if len(rel_parts) > 1 else ""
+                    if re.search(timestamp_pattern, second_part):
+                        # Legacy: user/timestamp
+                        user = rel_parts[0]
+                    else:
+                        # Structure: surface_name/user
                         surface = rel_parts[0]
                         user = rel_parts[1]
-                    else:
-                        # New structure
-                        user = rel_parts[0]
-                elif len(rel_parts) >= 2:
-                    # New structure: user/timestamp
+                elif len(rel_parts) >= 1:
                     user = rel_parts[0]
             except ValueError:
                 # If relative path calculation fails, try absolute path structure
-                # Assume format: .../user/timestamp/results.json (new) or .../surface/user/timestamp (old)
+                timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
                 if len(path_parts) >= 4:
-                    # Old structure: .../surface/user/timestamp/file
-                    surface = path_parts[-4]
-                    user = path_parts[-3]
+                    # Check if second-to-last part looks like a timestamp
+                    second_last = path_parts[-2] if len(path_parts) > 1 else ""
+                    if re.search(timestamp_pattern, second_last):
+                        # Structure: .../surface_name/user/timestamp/file
+                        surface = path_parts[-4]
+                        user = path_parts[-3]
+                    else:
+                        # Legacy: .../user/timestamp/file
+                        user = path_parts[-3]
                 elif len(path_parts) >= 3:
-                    # New structure: .../user/timestamp/file
-                    user = path_parts[-3]
+                    # Structure: .../surface_name/user/file or .../user/timestamp/file
+                    # Check if second-to-last is timestamp
+                    second_last = path_parts[-2] if len(path_parts) > 1 else ""
+                    if re.search(timestamp_pattern, second_last):
+                        user = path_parts[-3]
+                    else:
+                        surface = path_parts[-3]
+                        user = path_parts[-2]
         
         # Extract surface name from case.yaml if available
         # Always try to read from case.yaml first (preferred method)
@@ -501,37 +498,34 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                         meta["run_date"] = f"{year}-{month}-{day}T{hour}:{minute}:00"
                 
                 # Extract surface and user from path to make method_key unique
-                # Handle both old and new path formats:
-                # Old: submissions_root/surface/user/timestamp.zip
-                # New: submissions_root/user/timestamp/all_files.zip
+                # Current structure: submissions_root/surface/user/timestamp/all_files.zip
                 path_parts = zip_path.parts
                 surface = "unknown"
                 user = "unknown"
                 
-                # Try to find user from path
+                # Try to find surface and user from path
                 if "submissions" in path_parts:
                     submissions_idx = path_parts.index("submissions")
                     parts_after_submissions = path_parts[submissions_idx + 1:]
                     
-                    # Detect old vs new structure
-                    # Old: submissions/surface/user/timestamp.zip
-                    # New: submissions/user/timestamp/all_files.zip
+                    # Current structure: submissions/surface/user/timestamp/all_files.zip
                     if len(parts_after_submissions) >= 3:
-                        # Check if zip filename is "all_files.zip" (new) or timestamp-based (old)
-                        zip_filename = parts_after_submissions[-1]
-                        if zip_filename == "all_files.zip":
-                            # New structure: user/timestamp/all_files.zip
-                            user = parts_after_submissions[0]
-                        else:
-                            # Old structure: surface/user/timestamp.zip
-                            surface = parts_after_submissions[0]
-                            user = parts_after_submissions[1]
-                    elif len(parts_after_submissions) >= 2:
-                        # Old structure: surface/user/timestamp.zip
+                        # Structure: surface/user/timestamp/all_files.zip
                         surface = parts_after_submissions[0]
                         user = parts_after_submissions[1]
+                    elif len(parts_after_submissions) >= 2:
+                        # Could be surface/user (current) or user/timestamp (legacy)
+                        timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
+                        second_is_timestamp = bool(re.search(timestamp_pattern, parts_after_submissions[1])) if len(parts_after_submissions) > 1 else False
+                        if second_is_timestamp:
+                            # Legacy: user/timestamp
+                            user = parts_after_submissions[0]
+                        else:
+                            # Current: surface/user
+                            surface = parts_after_submissions[0]
+                            user = parts_after_submissions[1]
                     elif len(parts_after_submissions) >= 1:
-                        # New structure: user/timestamp (when path is relative)
+                        # Just user (legacy)
                         user = parts_after_submissions[0]
                 else:
                     # Path is relative to submissions_root
@@ -539,37 +533,41 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                         rel_path = zip_path.relative_to(submissions_root)
                         rel_parts = rel_path.parts
                         if len(rel_parts) >= 3:
-                            # Check if zip filename is "all_files.zip" (new) or timestamp-based (old)
-                            zip_filename = rel_parts[-1]
-                            if zip_filename == "all_files.zip":
-                                # New structure: user/timestamp/all_files.zip
-                                user = rel_parts[0]
-                            else:
-                                # Old structure: surface/user/timestamp.zip
-                                surface = rel_parts[0]
-                                user = rel_parts[1]
-                        elif len(rel_parts) >= 2:
-                            # Old structure: surface/user/timestamp.zip
+                            # Current structure: surface/user/timestamp/all_files.zip
                             surface = rel_parts[0]
                             user = rel_parts[1]
+                        elif len(rel_parts) >= 2:
+                            # Check if second part is timestamp (legacy: user/timestamp)
+                            timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
+                            second_is_timestamp = bool(re.search(timestamp_pattern, rel_parts[1])) if len(rel_parts) > 1 else False
+                            if second_is_timestamp:
+                                # Legacy: user/timestamp
+                                user = rel_parts[0]
+                            else:
+                                # Current: surface/user
+                                surface = rel_parts[0]
+                                user = rel_parts[1]
                         elif len(rel_parts) >= 1:
-                            # New structure: user/timestamp
+                            # Just user (legacy)
                             user = rel_parts[0]
                     except ValueError:
                         # If relative path calculation fails, try to extract from absolute path
-                        # Path format: .../user/timestamp/all_files.zip (new) or .../surface/user/timestamp.zip (old)
-                        zip_filename = path_parts[-1]
-                        if zip_filename == "all_files.zip":
-                            # New structure
-                            if len(path_parts) >= 3:
+                        # Path format: .../surface/user/timestamp/all_files.zip (current)
+                        timestamp_pattern = r'\d{2}-\d{2}-\d{4}[\d_-]*'
+                        if len(path_parts) >= 4:
+                            # Check if second-to-last part looks like a timestamp
+                            second_last = path_parts[-2] if len(path_parts) > 1 else ""
+                            if re.search(timestamp_pattern, second_last):
+                                # Current structure: .../surface/user/timestamp/all_files.zip
+                                surface = path_parts[-4] if len(path_parts) >= 4 else "unknown"
                                 user = path_parts[-3]
-                        else:
-                            # Old structure
-                            if len(path_parts) >= 4:
-                                surface = path_parts[-4]
+                            else:
+                                # Legacy: .../user/timestamp/all_files.zip
                                 user = path_parts[-3]
-                            elif len(path_parts) >= 3:
-                                user = path_parts[-3]
+                        elif len(path_parts) >= 3:
+                            # Current: .../surface/user/all_files.zip
+                            surface = path_parts[-3]
+                            user = path_parts[-2]
                 
                 # Extract surface name from case.yaml in zip if available
                 if "case.yaml" in zf.namelist():
@@ -646,6 +644,51 @@ def build_methods_json(
         loaded_count += 1
         meta = data.get("metadata") or {}
         metrics = data.get("metrics") or {}
+        
+        # Handle legacy format where metrics are at top level (not in "metrics" key)
+        if not metrics and "final_normalized_squared_flux" in data:
+            # This is a legacy format - metrics are at top level
+            # Extract metrics by excluding metadata fields and internal fields
+            metadata_keys = {"metadata", "method_name", "method_version", "contact", "hardware", "notes", "run_date", "output_directory", "lagrange_multipliers"}
+            metrics = {k: v for k, v in data.items() if k not in metadata_keys}
+            # If metadata is missing, try to extract from top level
+            if not meta:
+                meta = {k: data.get(k) for k in ["method_name", "contact", "hardware", "notes", "run_date"] if k in data}
+            
+            # If still no metadata, try to extract from path
+            if not meta.get("contact"):
+                # Extract username from path: submissions/surface/user/timestamp/file
+                path_parts = path.parts
+                if "submissions" in path_parts:
+                    submissions_idx = path_parts.index("submissions")
+                    parts_after = path_parts[submissions_idx + 1:]
+                    # Current structure: submissions/surface/user/timestamp/file
+                    if len(parts_after) >= 2:
+                        meta["contact"] = parts_after[1]  # Username is second part after submissions
+                else:
+                    # Try relative path
+                    try:
+                        rel_path = path.relative_to(submissions_root)
+                        rel_parts = rel_path.parts
+                        if len(rel_parts) >= 2:
+                            meta["contact"] = rel_parts[1]  # Username is second part
+                    except ValueError:
+                        pass
+            
+            # Extract run_date from path timestamp if missing
+            if not meta.get("run_date"):
+                path_parts = path.parts
+                # Look for timestamp pattern MM-DD-YYYY_HH-MM in path
+                import re
+                timestamp_pattern = r'(\d{2}-\d{2}-\d{4}_\d{2}-\d{2})'
+                for part in path_parts:
+                    match = re.search(timestamp_pattern, part)
+                    if match:
+                        timestamp_str = match.group(1)
+                        # Convert MM-DD-YYYY_HH-MM to ISO format
+                        month, day, year, hour, minute = timestamp_str.replace('_', '-').split('-')
+                        meta["run_date"] = f"{year}-{month}-{day}T{hour}:{minute}:00"
+                        break
 
         if not metrics:
             # Skip submissions with no metrics
@@ -707,6 +750,94 @@ def build_methods_json(
                     orders_str = ",".join(str(o) for o in orders)
                     metrics_numeric["fourier_continuation_orders"] = orders_str  # type: ignore
         
+        # If num_coils or coil_order are still missing, try to extract from coils.json
+        if "coil_order" not in metrics_numeric or "num_coils" not in metrics_numeric:
+            coils_json_path = path.parent / "coils.json"
+            if coils_json_path.exists():
+                try:
+                    from simsopt import load
+                    coils = load(str(coils_json_path))
+                    if coils and len(coils) > 0:
+                        # Extract coil order from first coil
+                        if "coil_order" not in metrics_numeric and hasattr(coils[0], "curve") and hasattr(coils[0].curve, "order"):
+                            metrics_numeric["coil_order"] = float(coils[0].curve.order)
+                        
+                        # Extract number of base coils
+                        # Total coils = base_coils * nfp * (stellsym + 1)
+                        # We need nfp and stellsym to calculate base_coils
+                        if "num_coils" not in metrics_numeric:
+                            total_coils = len(coils)
+                            nfp = 1  # Default assumption
+                            stellsym = True  # Default assumption
+                            
+                            # Try to get surface info from case.yaml if available
+                            surface_file = None
+                            if case_yaml_data:
+                                surface_file = case_yaml_data.get("surface_params", {}).get("surface", "")
+                            
+                            # If no case.yaml, try to extract surface name from path
+                            # Path format: submissions/surface_name/user/timestamp/file
+                            if not surface_file:
+                                path_parts = path.parts
+                                if "submissions" in path_parts:
+                                    submissions_idx = path_parts.index("submissions")
+                                    parts_after = path_parts[submissions_idx + 1:]
+                                    if len(parts_after) >= 1:
+                                        surface_name = parts_after[0]
+                                        # Try common surface file patterns
+                                        for pattern in [
+                                            f"input.{surface_name}",
+                                            f"wout.{surface_name}",
+                                            surface_name,
+                                        ]:
+                                            surface_file = pattern
+                                            break
+                            
+                            # Try to load surface file to get nfp and stellsym
+                            if surface_file:
+                                try:
+                                    from simsopt.geo import SurfaceRZFourier
+                                    surface_file_path = None
+                                    # Try to find surface file
+                                    for potential_path in [
+                                        Path(surface_file),
+                                        Path("plasma_surfaces") / surface_file,
+                                        repo_root / "plasma_surfaces" / surface_file,
+                                    ]:
+                                        if potential_path.exists():
+                                            surface_file_path = potential_path
+                                            break
+                                    
+                                    if surface_file_path:
+                                        # Load surface with minimal resolution for speed
+                                        surface_file_lower = str(surface_file_path).lower()
+                                        if "input" in surface_file_lower:
+                                            surface = SurfaceRZFourier.from_vmec_input(
+                                                str(surface_file_path), nphi=8, ntheta=8
+                                            )
+                                        elif "wout" in surface_file_lower:
+                                            surface = SurfaceRZFourier.from_wout(
+                                                str(surface_file_path), nphi=8, ntheta=8
+                                            )
+                                        else:
+                                            surface = None
+                                        
+                                        if surface:
+                                            nfp = surface.nfp
+                                            stellsym = surface.stellsym
+                                except Exception:
+                                    pass  # Use defaults
+                            
+                            # Calculate base number of coils
+                            # Formula: base_coils = total_coils / (nfp * (stellsym + 1))
+                            symmetry_factor = nfp * (2 if stellsym else 1)
+                            base_coils = total_coils // symmetry_factor
+                            if base_coils > 0:
+                                metrics_numeric["num_coils"] = float(base_coils)
+                except Exception as e:
+                    import sys
+                    print(f"Warning: Failed to extract coil info from {coils_json_path}: {e}", file=sys.stderr)
+        
         # Extract primary score
         primary_score = metrics_numeric.get("score_primary")
         if primary_score is None:
@@ -726,13 +857,33 @@ def build_methods_json(
         abs_path = path if path.is_absolute() else (repo_root / path).resolve()
         rel_path = str(abs_path.relative_to(repo_root.resolve()))
 
+        # Always prefer GitHub username from path over contact field in metadata
+        # Path structure: submissions/surface/user/timestamp/file
+        github_username = meta.get("contact", "")
+        path_parts = path.parts
+        if "submissions" in path_parts:
+            submissions_idx = path_parts.index("submissions")
+            parts_after = path_parts[submissions_idx + 1:]
+            # Current structure: submissions/surface/user/timestamp/file
+            if len(parts_after) >= 2:
+                github_username = parts_after[1]  # Username is second part after submissions
+        else:
+            # Try relative path
+            try:
+                rel_path_obj = path.relative_to(submissions_root)
+                rel_parts = rel_path_obj.parts
+                if len(rel_parts) >= 2:
+                    github_username = rel_parts[1]  # Username is second part
+            except ValueError:
+                pass
+
         if primary_score is None:
             skipped_no_score += 1
         
         methods[method_key] = {
             "method_name": meta.get("method_name", "UNKNOWN"),
             "method_version": meta.get("method_version", path.stem if path.suffix == ".zip" else path.parent.name),
-            "contact": meta.get("contact", ""),
+            "contact": github_username,  # Use GitHub username from path, not metadata
             "hardware": meta.get("hardware", ""),
             "run_date": meta.get("run_date", ""),
             "path": rel_path,
@@ -1052,8 +1203,8 @@ def write_rst_leaderboard(
         
         # Build ordered list: first add metrics in desired order that exist, then add any others
         ordered_keys = []
-        # Always include FC column even if no entries have it
-        always_include = ["fourier_continuation_orders"]
+        # Always include these columns even if no entries have them (show "—" when missing)
+        always_include = ["num_coils", "coil_order", "fourier_continuation_orders"]
         for key in desired_order:
             if key in all_keys or key in always_include:
                 ordered_keys.append(key)
@@ -1368,9 +1519,11 @@ def write_rst_leaderboard(
                             pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
                             pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
                     else:
-                        # Not a zip file, skip PDF links
-                        pdf_path = None
-                        pdf_path_initial = None
+                        # Not a zip file - PDFs should be in the same directory as results.json
+                        # Path format: submissions/{surface}/{user}/{timestamp}/results.json
+                        # PDFs are: submissions/{surface}/{user}/{timestamp}/bn_error_3d_plot.pdf
+                        pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
+                        pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
                     
                     # Check if PDFs exist and create links (check each independently)
                     repo_root = out_rst.parent.parent
@@ -1448,7 +1601,14 @@ def build_surface_leaderboards(
         if not path_str:
             continue
         
-        path_obj = Path(path_str)
+        # path_str is relative to repo_root (e.g., "submissions/surface/user/timestamp/results.json")
+        # Resolve it relative to submissions_root or repo_root
+        if path_str.startswith("submissions/"):
+            # Relative to repo_root
+            path_obj = submissions_root.parent / path_str if submissions_root.parent else Path(path_str)
+        else:
+            path_obj = Path(path_str)
+        
         surface_name = "unknown"
         
         # Try to extract surface from case.yaml
@@ -1499,8 +1659,32 @@ def build_surface_leaderboards(
                             surface_name = surface_name[6:]
                         elif surface_name.startswith("wout."):
                             surface_name = surface_name[5:]
+                        # Remove file extension if present (e.g., ".focus")
+                        if "." in surface_name:
+                            surface_name = surface_name.split(".", 1)[0]
                 except Exception:
                     pass
+            
+            # Fallback: try to extract from path structure
+            # New structure: submissions/<surface>/<user>/<timestamp>/results.json or all_files.zip
+            if surface_name == "unknown":
+                path_parts = path_obj.parts
+                if "submissions" in path_parts:
+                    submissions_idx = path_parts.index("submissions")
+                    parts_after = path_parts[submissions_idx + 1:]
+                    # New structure: submissions/<surface>/<user>/<timestamp>/file
+                    if len(parts_after) >= 3:
+                        surface_name = parts_after[0]
+                else:
+                    # Try relative path structure
+                    try:
+                        rel_path = path_obj.relative_to(submissions_root)
+                        rel_parts = rel_path.parts
+                        if len(rel_parts) >= 3:
+                            # Structure: surface/user/timestamp/file
+                            surface_name = rel_parts[0]
+                    except ValueError:
+                        pass
         
         if surface_name == "unknown":
             # Skip entries where we can't determine surface

@@ -91,25 +91,28 @@ def test_numpy_json_encoder_array_protocol_error():
         json.dumps({"arr": _BadArray()}, cls=NumpyJSONEncoder)
 
 
-def test_detect_github_username_from_git_config(monkeypatch):
-    def fake_run(cmd, **kwargs):
-        return _FakeCompletedProcess(returncode=0, stdout="alice\n")
-
-    monkeypatch.setattr("subprocess.run", fake_run)
-    assert _detect_github_username() == "alice"
-
-
 def test_detect_github_username_from_remote_url(monkeypatch):
-    calls = {"count": 0}
-
     def fake_run(cmd, **kwargs):
-        calls["count"] += 1
-        if calls["count"] == 1:
-            return _FakeCompletedProcess(returncode=1, stdout="")
-        return _FakeCompletedProcess(returncode=0, stdout="https://github.com/bob/repo.git\n")
+        # Check if this is the remote URL command
+        if isinstance(cmd, list) and "remote" in cmd:
+            return _FakeCompletedProcess(returncode=0, stdout="https://github.com/bob/repo.git\n")
+        # For other commands, return error
+        return _FakeCompletedProcess(returncode=1, stdout="")
 
     monkeypatch.setattr("subprocess.run", fake_run)
     assert _detect_github_username() == "bob"
+
+
+def test_detect_github_username_from_remote_url_ssh(monkeypatch):
+    def fake_run(cmd, **kwargs):
+        # Check if this is the remote URL command
+        if isinstance(cmd, list) and "remote" in cmd:
+            return _FakeCompletedProcess(returncode=0, stdout="git@github.com:alice/repo.git\n")
+        # For other commands, return error
+        return _FakeCompletedProcess(returncode=1, stdout="")
+
+    monkeypatch.setattr("subprocess.run", fake_run)
+    assert _detect_github_username() == "alice"
 
 
 def test_detect_github_username_from_env(monkeypatch):
@@ -219,27 +222,33 @@ def test_detect_hardware_linux_cpu_model(monkeypatch):
 
 
 def test_run_case_writes_results_json(tmp_path, monkeypatch):
-    _install_stub_modules(monkeypatch, metrics={"final_normalized_squared_flux": 0.123})
+    _install_stub_modules(monkeypatch, metrics={"final_normalized_squared_flux": 0.123}, surface="input.TestSurface")
     case_path = tmp_path / "case.yaml"
-    case_path.write_text("description: test\n")
-    coils_out_dir = tmp_path / "out"
+    case_path.write_text("description: test\nsurface_params:\n  surface: input.TestSurface\n")
+    submissions_dir = tmp_path / "submissions"
+    monkeypatch.setattr("stellcoilbench.cli._detect_github_username", lambda: "testuser")
 
-    run_case(case_path=case_path, coils_out_dir=coils_out_dir, results_out=None)
+    run_case(case_path=case_path, submissions_dir=submissions_dir, results_out=None)
 
-    results_path = coils_out_dir / "results.json"
-    assert results_path.exists()
+    # Results should be in submissions/TestSurface/testuser/<datetime>/results.json
+    results_files = list(submissions_dir.rglob("results.json"))
+    assert len(results_files) == 1
+    results_path = results_files[0]
+    assert "TestSurface" in str(results_path)
+    assert "testuser" in str(results_path)
     data = json.loads(results_path.read_text())
     assert data["final_normalized_squared_flux"] == 0.123
 
 
 def test_run_case_ensures_json_extension(tmp_path, monkeypatch):
-    _install_stub_modules(monkeypatch)
+    _install_stub_modules(monkeypatch, surface="input.TestSurface")
     case_path = tmp_path / "case.yaml"
-    case_path.write_text("description: test\n")
-    coils_out_dir = tmp_path / "out"
+    case_path.write_text("description: test\nsurface_params:\n  surface: input.TestSurface\n")
+    submissions_dir = tmp_path / "submissions"
     results_out = tmp_path / "metrics.txt"
+    monkeypatch.setattr("stellcoilbench.cli._detect_github_username", lambda: "testuser")
 
-    run_case(case_path=case_path, coils_out_dir=coils_out_dir, results_out=results_out)
+    run_case(case_path=case_path, submissions_dir=submissions_dir, results_out=results_out)
 
     assert not results_out.exists()
     assert (tmp_path / "metrics.json").exists()
@@ -347,9 +356,9 @@ def test_submit_case_unknown_user_and_hardware(tmp_path, monkeypatch):
 
     results_files = list(submissions_dir.rglob("results.json"))
     assert len(results_files) == 1
-    # New structure: submissions/user/timestamp/ (surface no longer in path)
+    # Current structure: submissions/surface/user/timestamp/
     assert "unknown_user" in str(results_files[0].parent)
-    assert "TestSurface" not in str(results_files[0].parent.parent)
+    assert "TestSurface" in str(results_files[0].parent.parent)
 
 
 def test_update_db_cmd_invokes_update_database(tmp_path, monkeypatch):
