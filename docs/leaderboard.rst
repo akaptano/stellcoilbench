@@ -29,6 +29,7 @@ The following metrics are used to evaluate coil optimization submissions:
   - Maximum curvature :math:`\max(\kappa)` across all coils (:math:`\text{m}^{-1}`)
   - Mean squared curvature :math:`\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2` (:math:`\text{m}^{-2}`)
   - Total length :math:`L = \sum_{i=1}^{N} \int_{0}^{L_i} ds` of all coils (:math:`\text{m}`)
+  - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
   - Number of base coils :math:`N` (before applying stellarator symmetry) (dimensionless)
 
 **Separation Metrics:**
@@ -79,6 +80,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -100,21 +102,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 1.75e-02
-     - 1.87e-01
-     - 8.73e-01
-     - 1.77e+01
-     - 6.15e-03
-     - 4.08e-01
-     - 1.46e+00
-     - 2.43e+00
-     - 1.92e+07
-     - 8.46e+06
-     - 3.61e+07
-     - 1.95e+07
+     - —
+     - 1.8e-02
+     - 1.9e-01
+     - 8.7e-01
+     - 1.8e+01
+     - 6.2e-03
+     - 4.1e-01
+     - 1.5e+00
+     - 2.4e+00
+     - 1.9e+07
+     - 8.5e+06
+     - 3.6e+07
+     - 2.0e+07
      - 0
-     - 9.76e+00
-     - 2.29e+00
+     - 9.8e+00
+     - 2.3e+00
      - 01/12/25
      - akaptano
      - —
@@ -137,6 +140,7 @@ Typical configuration: 16 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -158,63 +162,66 @@ Typical configuration: 16 Fourier order, 4 base coils.
      - f
    * - 4
      - 16
-     - 9.59e-06
-     - 2.22e-02
-     - 9.99e-01
-     - 1.80e+01
-     - 9.61e-02
-     - 4.61e-04
-     - 3.24e+00
-     - 2.57e+01
-     - 5.36e+04
-     - 2.83e+04
-     - 5.61e+04
-     - 3.78e+04
+     - —
+     - 9.6e-06
+     - 2.2e-02
+     - 1.0e+00
+     - 1.8e+01
+     - 9.6e-02
+     - 4.6e-04
+     - 3.2e+00
+     - 2.6e+01
+     - 5.4e+04
+     - 2.8e+04
+     - 5.6e+04
+     - 3.8e+04
      - 0
-     - 4.82e+03
-     - 1.03e+01
+     - 4.8e+03
+     - 1.0e+01
      - 01/12/25
      - akaptano
      - —
      - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 8
-     - 5.53e-05
-     - 1.72e-02
-     - 9.99e-01
-     - 1.53e+01
-     - 8.89e-02
-     - 1.91e-04
-     - 3.37e+00
-     - 2.24e+01
-     - 6.56e+04
-     - 3.02e+04
-     - 7.12e+04
-     - 4.16e+04
+     - —
+     - 5.5e-05
+     - 1.7e-02
+     - 1.0e+00
+     - 1.5e+01
+     - 8.9e-02
+     - 1.9e-04
+     - 3.4e+00
+     - 2.2e+01
+     - 6.6e+04
+     - 3.0e+04
+     - 7.1e+04
+     - 4.2e+04
      - 0
-     - 1.69e+03
-     - 1.13e+01
+     - 1.7e+03
+     - 1.1e+01
      - 01/12/25
      - akaptano
      - —
      - `2 <../../../submissions/LandremanPaul2021_QA/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
-     - 1.61e-02
-     - 1.58e-01
-     - 4.67e-01
-     - 1.08e+01
-     - 2.18e-01
-     - 1.07e-01
-     - 2.65e+00
-     - 1.08e+01
-     - 2.35e+05
-     - 4.18e+04
-     - 2.44e+05
-     - 4.98e+04
+     - —
+     - 1.6e-02
+     - 1.6e-01
+     - 4.7e-01
+     - 1.1e+01
+     - 2.2e-01
+     - 1.1e-01
+     - 2.7e+00
+     - 1.1e+01
+     - 2.3e+05
+     - 4.2e+04
+     - 2.4e+05
+     - 5.0e+04
      - 0
-     - 3.03e+01
-     - 7.50e+00
+     - 3.0e+01
+     - 7.5e+00
      - 01/12/25
      - akaptano
      - —
@@ -237,6 +244,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -259,66 +267,69 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - f
    * - 4
      - 8
-     - 2.56e-03
-     - 6.29e-02
-     - 2.03e-01
-     - 8.73e+01
-     - 1.16e-02
-     - 5.83e-01
-     - 6.66e-01
-     - 5.10e-01
-     - 5.03e-01
-     - 2.08e+05
-     - 6.42e+05
-     - 2.18e+05
-     - 8.77e+05
+     - —
+     - 2.6e-03
+     - 6.3e-02
+     - 2.0e-01
+     - 8.7e+01
+     - 1.2e-02
+     - 5.8e-01
+     - 6.7e-01
+     - 5.1e-01
+     - 5.0e-01
+     - 2.1e+05
+     - 6.4e+05
+     - 2.2e+05
+     - 8.8e+05
      - 0
-     - 1.25e+03
-     - 1.45e+00
+     - 1.2e+03
+     - 1.4e+00
      - 21/01/26
      - akaptano
      - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
      - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
-     - 3.22e-03
-     - 6.79e-02
-     - 2.66e-01
-     - 3.86e+01
      - —
-     - 2.22e-01
-     - 4.83e-01
-     - 8.60e-01
-     - 1.05e+00
-     - 3.20e+06
-     - 2.17e+06
-     - 4.30e+06
-     - 3.47e+06
+     - 3.2e-03
+     - 6.8e-02
+     - 2.7e-01
+     - 3.9e+01
+     - —
+     - 2.2e-01
+     - 4.8e-01
+     - 8.6e-01
+     - 1.0e+00
+     - 3.2e+06
+     - 2.2e+06
+     - 4.3e+06
+     - 3.5e+06
      - 0
-     - 6.34e+00
-     - 1.78e+00
+     - 6.3e+00
+     - 1.8e+00
      - 01/12/25
      - akaptano
      - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
      - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot.pdf>`__
    * - 4
      - 16
-     - 3.95e-03
-     - 7.68e-02
-     - 2.82e-01
-     - 8.73e+01
-     - 1.68e-02
-     - 2.88e-01
-     - 7.03e-01
-     - 9.18e-01
-     - 1.89e+00
-     - 2.20e+05
-     - 6.37e+05
-     - 2.39e+05
-     - 8.80e+05
+     - —
+     - 4.0e-03
+     - 7.7e-02
+     - 2.8e-01
+     - 8.7e+01
+     - 1.7e-02
+     - 2.9e-01
+     - 7.0e-01
+     - 9.2e-01
+     - 1.9e+00
+     - 2.2e+05
+     - 6.4e+05
+     - 2.4e+05
+     - 8.8e+05
      - 0
-     - 4.73e+03
-     - 1.85e+00
+     - 4.7e+03
+     - 1.9e+00
      - 21/01/26
      - akaptano
      - `3 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/bn_error_3d_plot_initial.pdf>`__
@@ -341,6 +352,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -362,21 +374,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 1.61e-02
-     - 1.47e-01
-     - 4.80e-01
-     - 1.90e+01
-     - 1.00e-01
-     - 1.43e-01
-     - 1.51e+00
-     - 2.62e+00
-     - 8.96e+04
-     - 2.66e+04
-     - 2.00e+05
-     - 5.22e+04
+     - —
+     - 1.6e-02
+     - 1.5e-01
+     - 4.8e-01
+     - 1.9e+01
+     - 1.0e-01
+     - 1.4e-01
+     - 1.5e+00
+     - 2.6e+00
+     - 9.0e+04
+     - 2.7e+04
+     - 2.0e+05
+     - 5.2e+04
      - 0
-     - 4.43e+00
-     - 2.49e+00
+     - 4.4e+00
+     - 2.5e+00
      - 01/12/25
      - akaptano
      - —
@@ -399,6 +412,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -420,21 +434,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 9.63e-03
-     - 1.14e-01
-     - 4.04e-01
-     - 1.31e+01
-     - 6.51e-03
-     - 5.34e-02
-     - 2.16e+00
-     - 7.44e+00
-     - 2.34e+06
-     - 8.88e+05
-     - 5.04e+06
-     - 1.84e+06
+     - —
+     - 9.6e-03
+     - 1.1e-01
+     - 4.0e-01
+     - 1.3e+01
+     - 6.5e-03
+     - 5.3e-02
+     - 2.2e+00
+     - 7.4e+00
+     - 2.3e+06
+     - 8.9e+05
+     - 5.0e+06
+     - 1.8e+06
      - 0
-     - 3.97e+00
-     - 6.55e+00
+     - 4.0e+00
+     - 6.5e+00
      - 01/12/25
      - akaptano
      - —
@@ -457,6 +472,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -478,21 +494,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 0.00e+00
-     - 1.93e-16
-     - 2.44e-01
-     - 9.52e+01
-     - 1.69e+00
-     - 1.79e+00
-     - 2.64e-01
-     - 6.96e-02
-     - 4.62e+06
-     - 1.55e-07
-     - 4.62e+06
-     - 1.81e-07
+     - —
+     - 0.0e+00
+     - 1.9e-16
+     - 2.4e-01
+     - 9.5e+01
+     - 1.7e+00
+     - 1.8e+00
+     - 2.6e-01
+     - 7.0e-02
+     - 4.6e+06
+     - 1.5e-07
+     - 4.6e+06
+     - 1.8e-07
      - 0
-     - 2.16e+00
-     - 2.64e-01
+     - 2.2e+00
+     - 2.6e-01
      - 01/12/25
      - akaptano
      - —
@@ -515,6 +532,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -536,21 +554,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 5.95e-02
-     - 2.64e-01
-     - 9.99e-01
-     - 6.07e+00
-     - 7.35e-03
-     - 1.48e-01
-     - 4.17e+00
-     - 1.89e+01
-     - 1.49e+05
-     - 3.15e+04
-     - 4.06e+05
-     - 8.54e+04
+     - —
+     - 6.0e-02
+     - 2.6e-01
+     - 1.0e+00
+     - 6.1e+00
+     - 7.3e-03
+     - 1.5e-01
+     - 4.2e+00
+     - 1.9e+01
+     - 1.5e+05
+     - 3.2e+04
+     - 4.1e+05
+     - 8.5e+04
      - 2
-     - 3.13e+01
-     - 6.76e+00
+     - 3.1e+01
+     - 6.8e+00
      - 01/12/25
      - akaptano
      - —
@@ -573,6 +592,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
 
    * - :math:`N`
      - :math:`n`
+     - :math:`\text{FC}`
      - :math:`f_{B}`
      - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
      - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
@@ -594,21 +614,22 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - f
    * - 4
      - 4
-     - 3.84e-02
-     - 2.36e-01
-     - 6.05e-01
-     - 7.93e+01
-     - 1.96e-01
-     - 1.16e+00
-     - 3.23e-01
-     - 1.14e-01
-     - 1.53e+06
-     - 1.96e+06
-     - 2.82e+06
-     - 2.83e+06
+     - —
+     - 3.8e-02
+     - 2.4e-01
+     - 6.1e-01
+     - 7.9e+01
+     - 2.0e-01
+     - 1.2e+00
+     - 3.2e-01
+     - 1.1e-01
+     - 1.5e+06
+     - 2.0e+06
+     - 2.8e+06
+     - 2.8e+06
      - 0
-     - 4.16e+00
-     - 4.73e-01
+     - 4.2e+00
+     - 4.7e-01
      - 01/12/25
      - akaptano
      - —

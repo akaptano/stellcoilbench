@@ -36,23 +36,23 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">01/12/25</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.84e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.8e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.36e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.23e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.53e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.96e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.2e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e+06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.73e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.82e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.83e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.14e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.96e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.16e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.93e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.05e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.16e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.7e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.8e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.8e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.2e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.9e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.2e+00</td>
 </tr>
 </tbody>
 </table>

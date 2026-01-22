@@ -6,7 +6,7 @@ It standardizes case definitions, submissions, and leaderboards so optimization
 methods can be compared consistently.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents
 
    overview

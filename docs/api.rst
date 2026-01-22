@@ -165,7 +165,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    
    - ``coils``: List of initialized coil objects
 
-**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, **kwargs)**
+**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, **kwargs)**
    Complete coil optimization including initialization and optimization.
    
    This function combines initialization and optimization into a single call.
@@ -183,12 +183,73 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``verbose``: Print progress
    - ``regularization``: Regularization function
    - ``coil_objective_terms``: Objective function terms dictionary
+   - ``initial_coils``: Optional pre-initialized coils (for Fourier continuation)
    - ``**kwargs``: Additional constraint thresholds
    
    Returns:
    
    - ``coils``: Optimized coil objects
    - ``results``: Optimization results dictionary
+
+**optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, **kwargs) -> tuple[list, Dict[str, Any]]**
+   Perform coil optimization with Fourier continuation.
+   
+   This function solves a sequence of coil optimizations, starting with a low
+   Fourier order and progressively increasing to higher orders. Each step uses
+   the previous solution as an initial condition, helping achieve convergence
+   for complex problems.
+   
+   Parameters:
+   
+   - ``s``: Plasma boundary surface
+   - ``fourier_orders``: List of Fourier orders to use in sequence (must be
+     positive integers in ascending order)
+   - ``target_B``: Target magnetic field strength
+   - ``out_dir``: Output directory (subdirectories ``order_N/`` are created
+     for each step)
+   - ``max_iterations``: Maximum optimization iterations per order
+   - ``ncoils``: Number of base coils
+   - ``verbose``: Print progress
+   - ``regularization``: Regularization function (can be None)
+   - ``coil_objective_terms``: Objective function terms dictionary
+   - ``**kwargs``: Additional constraint thresholds and algorithm options
+   
+   Returns:
+   
+   - ``coils``: Final optimized coil objects (highest order)
+   - ``results``: Combined results dictionary containing:
+     
+     - ``fourier_continuation``: ``True`` flag
+     - ``fourier_orders``: List of orders used
+     - ``final_order``: Final Fourier order
+     - ``continuation_results``: List of results dictionaries for each step
+     - Final step results at top level
+   
+   Each step saves results to ``out_dir/order_N/`` including VTK files and
+   B_N error PDFs.
+
+**\_extend_coils_to_higher_order(coils: list, new_order: int, s: SurfaceRZFourier, ncoils: int, regularization: Callable | None = None, coil_width: float = 0.4) -> list**
+   Extend coils from a lower Fourier order to a higher order.
+   
+   This helper function takes coils optimized at a lower order and extends them
+   to a higher order by copying existing Fourier coefficients and padding new
+   modes with zeros.
+   
+   Parameters:
+   
+   - ``coils``: List of Coil objects from previous optimization (lower order)
+   - ``new_order``: Target Fourier order for the extended coils
+   - ``s``: Plasma surface (needed for creating new curves)
+   - ``ncoils``: Number of base coils
+   - ``regularization``: Regularization function (can be None)
+   - ``coil_width``: Coil width parameter
+   
+   Returns:
+   
+   - ``list``: New list of Coil objects with extended Fourier order
+   
+   The function preserves the geometry of the low-order coils while providing
+   additional degrees of freedom for refinement at higher order.
 
 **regularization_circ(coil_width: float) -> Callable**
    Create a circular regularization function for coils.

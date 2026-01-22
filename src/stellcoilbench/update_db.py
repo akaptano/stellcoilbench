@@ -52,6 +52,9 @@ def _metric_shorthand(metric_name: str) -> str:
         "coil_order": "n",
         "num_coils": "N",
         
+        # Fourier continuation
+        "fourier_continuation_orders": "FC",
+        
         # Score (keep for sorting but don't display)
         "score_primary": "score",
     }
@@ -116,6 +119,7 @@ def _shorthand_to_math(shorthand: str) -> str:
         "avg⟨Bn⟩/⟨B⟩": r":math:`\text{avg}\langle B_n \rangle / \langle B \rangle`",
         "max⟨Bn⟩/⟨B⟩": r":math:`\max(\langle B_n \rangle / \langle B \rangle)`",
         "Var(l_i)": r":math:`\mathrm{Var}(l_i)`",
+        "FC": r":math:`\text{FC}`",  # Fourier continuation
     }
     if shorthand in unicode_map:
         return unicode_map[shorthand]
@@ -210,6 +214,9 @@ def _metric_definition(metric_name: str) -> str:
         # Coil parameters
         "coil_order": r"Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$ (dimensionless)",
         "num_coils": r"Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)",
+        
+        # Fourier continuation
+        "fourier_continuation_orders": r"**Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".",
     }
     
     return definitions.get(metric_name, metric_name.replace("_", " ").title())
@@ -438,6 +445,14 @@ def build_methods_json(
                 metrics_numeric["coil_order"] = float(coils_params["order"])
             if "ncoils" in coils_params:
                 metrics_numeric["num_coils"] = float(coils_params["ncoils"])
+            
+            # Extract Fourier continuation information
+            fourier_continuation = case_yaml_data.get("fourier_continuation", {})
+            if fourier_continuation and fourier_continuation.get("enabled", False):
+                orders = fourier_continuation.get("orders", [])
+                if orders:
+                    # Store as a string representation for display
+                    metrics_numeric["fourier_continuation_orders"] = ",".join(str(o) for o in orders)
         
         # Extract primary score
         primary_score = metrics_numeric.get("score_primary")
@@ -728,9 +743,12 @@ def write_rst_leaderboard(
             if isinstance(value, (float, int)):
                 return str(int(round(value)))
             return str(value)
+        # Fourier continuation orders are stored as comma-separated string
+        if metric_key == "fourier_continuation_orders":
+            return str(value) if value else "—"
         if isinstance(value, (float, int)):
-            # Use scientific notation with 2 significant digits
-            return f"{float(value):.2e}"
+            # Use scientific notation with 1 significant digit
+            return f"{float(value):.1e}"
         return str(value)
 
     def _get_metrics_for_surface(entries_for_surface: list[Dict[str, Any]]) -> list[str]:
@@ -757,10 +775,11 @@ def write_rst_leaderboard(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Define the desired order: N, n, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t
+        # Define the desired order: N, n, FC, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t
         desired_order = [
             "num_coils",                    # N
             "coil_order",                   # n
+            "fourier_continuation_orders",  # FC
             "final_normalized_squared_flux", # fB
             "avg_BdotN_over_B",             # avg(Bn/B)
             "max_BdotN_over_B",             # max(Bn/B)
@@ -780,8 +799,10 @@ def write_rst_leaderboard(
         
         # Build ordered list: first add metrics in desired order that exist, then add any others
         ordered_keys = []
+        # Always include FC column even if no entries have it
+        always_include = ["fourier_continuation_orders"]
         for key in desired_order:
-            if key in all_keys:
+            if key in all_keys or key in always_include:
                 ordered_keys.append(key)
         
         # Add any remaining keys that weren't in the desired order
@@ -864,11 +885,6 @@ def write_rst_leaderboard(
 
     # Metric definitions (shown once at the top)
     if all_metric_keys:
-        lines.append("Metric Definitions")
-        lines.append("==================")
-        lines.append("")
-        lines.append("The following metrics are used to evaluate coil optimization submissions:")
-        lines.append("")
         
         # Group metrics logically
         import re
@@ -889,7 +905,7 @@ def write_rst_leaderboard(
             
             if "flux" in key.lower() or "BdotN" in key or "B" in key:
                 field_quality.append((shorthand, formatted_def))
-            elif "curvature" in key.lower() or "length" in key.lower() or "arclength" in key.lower() or key in ["coil_order", "num_coils"]:
+            elif "curvature" in key.lower() or "length" in key.lower() or "arclength" in key.lower() or key in ["coil_order", "num_coils", "fourier_continuation_orders"]:
                 coil_geometry.append((shorthand, formatted_def))
             elif "separation" in key.lower() or "distance" in key.lower():
                 separations.append((shorthand, formatted_def))
@@ -901,6 +917,12 @@ def write_rst_leaderboard(
                 performance.append((shorthand, formatted_def))
             else:
                 config.append((shorthand, formatted_def))
+        
+        lines.append("Metric Definitions")
+        lines.append("==================")
+        lines.append("")
+        lines.append("The following metrics are used to evaluate coil optimization submissions:")
+        lines.append("")
         
         if field_quality:
             lines.append("**Field Quality Metrics:**")
@@ -1176,9 +1198,9 @@ def write_surface_leaderboards(
             if isinstance(value, (float, int)):
                 return str(int(round(value)))
             return str(value)
-        # All other numeric values use scientific notation with 2 digits
+        # All other numeric values use scientific notation with 1 digit
         if isinstance(value, (float, int)):
-            return f"{float(value):.2e}"
+            return f"{float(value):.1e}"
         return str(value)
     
     def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:

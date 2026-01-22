@@ -198,6 +198,17 @@ Key Features
    - Augmented Lagrangian method
    - Other algorithms supported by ``scipy.optimize.minimize``
 
+**Fourier Continuation**
+   Advanced optimization technique that solves a sequence of problems with
+   progressively increasing Fourier orders. This helps achieve convergence
+   for complex coil optimization problems by:
+   
+   - Starting with low-order (fewer variables) optimization
+   - Using converged solutions as initial conditions for higher-order problems
+   - Gradually refining coil shapes with increasing resolution
+   
+   See :ref:`fourier-continuation` for detailed documentation.
+
 **High-Quality Visualizations**
    Generates publication-quality PDF plots:
    

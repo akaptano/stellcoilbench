@@ -15,6 +15,9 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+# Set the output directory for HTML builds
+html_output_path = "_build/html"
+
 html_theme = "sphinx_rtd_theme"
 
 # Add custom CSS for better table display

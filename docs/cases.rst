@@ -59,6 +59,10 @@ Schema Overview
      
      Higher order allows more complex coil shapes but increases the number of
      optimization variables. Typical values: 4, 8, 16.
+     
+     **Note**: This is the final order used if Fourier continuation is disabled.
+     If Fourier continuation is enabled, this value is ignored in favor of the
+     continuation schedule (see :ref:`fourier-continuation`).
 
 **Optimizer Parameters**
    

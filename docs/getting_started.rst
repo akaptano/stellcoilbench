@@ -181,7 +181,12 @@ Here's a quick overview:
 
 **Coil Parameters**
    - ``ncoils``: Number of base coils (before applying stellarator symmetry)
-   - ``order``: Fourier order for coil representation
+   - ``order``: Fourier order for coil representation (final order if Fourier continuation is used)
+   
+   **Fourier Continuation** (optional):
+   
+   - ``fourier_continuation.enabled``: Enable Fourier continuation (see :ref:`fourier-continuation`)
+   - ``fourier_continuation.orders``: List of Fourier orders to use in sequence (e.g., ``[4, 6, 8]``)
 
 **Optimizer Parameters**
    - ``algorithm``: Optimization algorithm ("L-BFGS-B", "augmented_lagrangian", etc.)
