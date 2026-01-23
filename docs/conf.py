@@ -12,6 +12,9 @@ extensions = [
     "sphinx.ext.autosummary",
 ]
 
+# Enable raw HTML in RST tables
+html_use_smartypants = False
+
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 

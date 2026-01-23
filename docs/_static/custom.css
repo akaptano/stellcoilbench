@@ -53,9 +53,26 @@ body {
 }
 
 /* Ensure table cells don't wrap unnecessarily but allow some flexibility */
+/* Table data rows (td) - smaller font size for numbers */
 .rst-content table.docutils td,
+.rst-content .list-table td {
+    white-space: nowrap;
+    padding: 0px;
+    font-size: 0.18em;
+    text-align: left;
+    vertical-align: middle;
+    min-width: auto;
+    max-width: none;
+    line-height: 0.45;
+    letter-spacing: -0.19em;
+    font-family: "Courier New", "Consolas", "Monaco", monospace;
+    font-stretch: ultra-condensed;
+    word-spacing: -0.26em;
+    transform: scaleX(0.88);
+}
+
+/* Table header rows (th) - keep original size */
 .rst-content table.docutils th,
-.rst-content .list-table td,
 .rst-content .list-table th {
     white-space: nowrap;
     padding: 0px;
@@ -78,13 +95,10 @@ body {
     background-color: #f0f0f0;
     font-weight: bold;
     border-bottom: 0.5px solid #888;
-    padding: 0px;
-    line-height: 0.6;
-    font-size: 0.32em;
-    letter-spacing: -0.15em;
-    word-spacing: -0.2em;
-    transform: scaleX(0.95);
 }
+
+/* Floating point numbers inherit the smaller font size from table cells above */
+/* Headers remain larger via the th selector */
 
 /* Better spacing for table rows */
 .rst-content table.docutils tbody tr,
@@ -120,8 +134,15 @@ body {
 /* For very wide tables, reduce font size further */
 @media screen and (min-width: 1400px) {
     .rst-content table.docutils td,
+    .rst-content .list-table td {
+        font-size: 0.16em;
+        padding: 0px;
+        line-height: 0.42;
+        letter-spacing: -0.20em;
+        word-spacing: -0.27em;
+        transform: scaleX(0.86);
+    }
     .rst-content table.docutils th,
-    .rst-content .list-table td,
     .rst-content .list-table th {
         font-size: 0.32em;
         padding: 0px;
@@ -147,9 +168,20 @@ body {
 }
 
 /* Style for leaderboard tables specifically - make them more compact */
+/* Data rows - smaller for numbers */
 .rst-content section[id*="leaderboard"] table.docutils td,
+.rst-content section[id*="leaderboard"] .list-table td {
+    font-size: 0.16em;
+    padding: 0px;
+    line-height: 0.42;
+    letter-spacing: -0.22em;
+    font-family: "Courier New", "Consolas", "Monaco", monospace;
+    font-stretch: ultra-condensed;
+    word-spacing: -0.30em;
+    transform: scaleX(0.85);
+}
+/* Header rows - keep readable */
 .rst-content section[id*="leaderboard"] table.docutils th,
-.rst-content section[id*="leaderboard"] .list-table td,
 .rst-content section[id*="leaderboard"] .list-table th {
     font-size: 0.28em;
     padding: 0px;

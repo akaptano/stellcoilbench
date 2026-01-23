@@ -16,7 +16,7 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">avg⟨Bn⟩/⟨B⟩</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">avg(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">continuation step</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
@@ -34,7 +34,7 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">fourier continuation</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">FC</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">fourier order</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">max⟨Bn⟩/⟨B⟩</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
 </tr>
 </thead>
@@ -126,6 +126,35 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.9e+01</td>
 </tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">22/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.9e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.9e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.1e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.9e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.7e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.6e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.3e+00</td>
+</tr>
 </tbody>
 </table>
 
@@ -135,7 +164,7 @@
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$ (dimensionless)
 - Arclength Variation Threshold
-- Average normalized normal field component $\frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
+- Average normalized normal field component $\text{avg}(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\text{avg}(B_n) = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
 - Continuation Step
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
@@ -153,5 +182,5 @@
 - Fourier Continuation
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
 - Fourier Order
-- Maximum normalized normal field component $\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)$ (dimensionless)
+- Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)

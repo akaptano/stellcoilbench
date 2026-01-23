@@ -18,8 +18,8 @@ The following metrics are used to evaluate coil optimization submissions:
 **Field Quality Metrics:**
 
   - Normalized squared flux error :math:`f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS` on plasma surface (dimensionless)
-  - Average normalized normal field component :math:`\frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}` (dimensionless)
-  - Maximum normalized normal field component :math:`\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)` (dimensionless)
+  - Average normalized normal field component :math:`\text{avg}(B_n)` where :math:`B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}` and :math:`\text{avg}(B_n) = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}` (dimensionless)
+  - Maximum normalized normal field component :math:`\max(B_n)` where :math:`B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}` (dimensionless)
 
 **Coil Geometry Metrics:**
 
@@ -64,17 +64,17 @@ Each plasma surface presents unique challenges for coil optimization. The follow
 tables show detailed results for each surface, allowing for direct comparison
 of methods on specific configurations.
 
-.. _landremanpaul2021-qa:
+.. _hsx-qhs-mn1824-ns101:
 
-Landreman-Paul QA
-^^^^^^^^^^^^^^^^^
+HSX
+^^^
 
-**Surface file:** ``LandremanPaul2021_QA``
+**Surface file:** ``HSX_QHS_mn1824_ns101``
 
 This surface has 1 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
-.. list-table:: Landreman-Paul QA Leaderboard
+.. list-table:: HSX Leaderboard
    :header-rows: 1
    :widths: auto
 
@@ -82,8 +82,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`n`
      - :math:`\text{FC}`
      - :math:`f_{B}`
-     - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
-     - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
      - :math:`L`
      - :math:`\mathrm{Var}(l_i)`
      - :math:`\min(d_{cc})`
@@ -101,6 +101,137 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - User
      - i
      - f
+   * - 4
+     - 4
+     - —
+     - 2.6e-02
+     - 3.1e-01
+     - 1.0e+00
+     - 1.1e+01
+     - 2.1e-02
+     - 1.6e-01
+     - 4.4e-03
+     - 2.3e+00
+     - 6.1e+00
+     - 6.3e+05
+     - 1.2e+05
+     - 1.2e+06
+     - 2.5e+05
+     - 0
+     - 3.9e+00
+     - 4.2e+00
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot.pdf>`__
+
+
+.. _landremanpaul2021-qa:
+
+Landreman-Paul QA
+^^^^^^^^^^^^^^^^^
+
+**Surface file:** ``LandremanPaul2021_QA``
+
+This surface has 4 submission(s).
+Typical configuration: 8 Fourier order, 4 base coils.
+
+.. list-table:: Landreman-Paul QA Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`\min(d_{cc})`
+     - :math:`\min(d_{cs})`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`\max(F)`
+     - :math:`\max(\tau)`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\max(\kappa)`
+     - Date
+     - User
+     - i
+     - f
+   * - 4
+     - 8
+     - —
+     - 4.5e-06
+     - 2.7e-02
+     - 1.0e+00
+     - 2.1e+01
+     - 3.9e+01
+     - 1.1e-01
+     - 4.1e-04
+     - 3.0e+00
+     - 2.1e+01
+     - 4.4e+04
+     - 2.3e+04
+     - 4.9e+04
+     - 4.1e+04
+     - 0
+     - 1.4e+03
+     - 1.1e+01
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - 4,6,8
+     - 5.3e-05
+     - 8.8e-02
+     - 1.0e+00
+     - 2.0e+01
+     - 7.7e+00
+     - 6.7e-02
+     - 1.6e-03
+     - 2.4e+00
+     - 1.7e+01
+     - 3.3e+05
+     - 1.2e+05
+     - 1.2e+06
+     - 4.2e+05
+     - 0
+     - 1.1e+03
+     - 1.0e+01
+     - 22/01/26
+     - akaptano
+     - —
+     - 2
+   * - 4
+     - 4
+     - —
+     - 1.6e-02
+     - 1.7e-01
+     - 1.0e+00
+     - 1.3e+01
+     - 1.2e-01
+     - 2.5e-01
+     - 2.7e-02
+     - 2.2e+00
+     - 7.5e+00
+     - 2.1e+05
+     - 4.6e+04
+     - 2.9e+05
+     - 8.4e+04
+     - 0
+     - 1.9e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
+     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
      - —
@@ -122,8 +253,155 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.9e+00
      - 22/01/26
      - akaptano
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot.pdf>`__
+     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot_initial.pdf>`__
+     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot.pdf>`__
+
+
+.. _w7-x-without-coil-ripple-beta0p05-d23p4-tm:
+
+W7-X
+^^^^
+
+**Surface file:** ``W7-X_without_coil_ripple_beta0p05_d23p4_tm``
+
+This surface has 2 submission(s).
+Typical configuration: 4 Fourier order, 4 base coils.
+
+.. list-table:: W7-X Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`\min(d_{cc})`
+     - :math:`\min(d_{cs})`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`\max(F)`
+     - :math:`\max(\tau)`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\max(\kappa)`
+     - Date
+     - User
+     - i
+     - f
+   * - 4
+     - 4
+     - —
+     - 3.1e-02
+     - 2.3e-01
+     - 9.9e-01
+     - 4.7e+01
+     - 1.1e+01
+     - 1.7e-02
+     - 7.4e-02
+     - 8.5e-01
+     - 1.7e+00
+     - 2.5e+07
+     - 1.7e+07
+     - 8.9e+07
+     - 5.9e+07
+     - 0
+     - 4.7e+00
+     - 4.4e+00
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
+   * - 5
+     - 4
+     - —
+     - 3.5e-02
+     - 2.2e-01
+     - 6.4e-01
+     - 4.0e+01
+     - 6.1e-02
+     - 2.9e-01
+     - 4.1e-01
+     - 1.1e+00
+     - 2.0e+00
+     - 3.1e+05
+     - 2.7e+05
+     - 3.4e+05
+     - 4.4e+05
+     - 0
+     - 1.6e+03
+     - 2.0e+00
+     - 23/01/26
+     - akaptano
+     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot.pdf>`__
+
+
+.. _c09r00-b-axis-half-tesla-pm4stell-focus:
+
+0.5 Tesla NCSX Design
+^^^^^^^^^^^^^^^^^^^^^
+
+**Surface file:** ``c09r00_B_axis_half_tesla_PM4Stell.focus``
+
+This surface has 1 submission(s).
+Typical configuration: 4 Fourier order, 4 base coils.
+
+.. list-table:: 0.5 Tesla NCSX Design Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`\min(d_{cc})`
+     - :math:`\min(d_{cs})`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`\max(F)`
+     - :math:`\max(\tau)`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\max(\kappa)`
+     - Date
+     - User
+     - i
+     - f
+   * - 4
+     - 4
+     - —
+     - 7.9e-03
+     - 1.1e-01
+     - 4.6e-01
+     - 2.6e+01
+     - 1.5e+00
+     - 1.3e-02
+     - 2.0e-01
+     - 1.5e+00
+     - 3.2e+00
+     - 6.4e+05
+     - 3.5e+05
+     - 1.2e+06
+     - 7.8e+05
+     - 0
+     - 4.0e+00
+     - 4.9e+00
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot.pdf>`__
 
 
 .. _cfqs-2b40:
@@ -133,7 +411,7 @@ CFQS
 
 **Surface file:** ``cfqs_2b40``
 
-This surface has 1 submission(s).
+This surface has 2 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 .. list-table:: CFQS Leaderboard
@@ -144,8 +422,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`n`
      - :math:`\text{FC}`
      - :math:`f_{B}`
-     - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
-     - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
      - :math:`L`
      - :math:`\mathrm{Var}(l_i)`
      - :math:`\min(d_{cc})`
@@ -186,19 +464,42 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - akaptano
      - `1 <../../../submissions/cfqs_2b40/akaptano/01-22-2026_17-43/bn_error_3d_plot_initial.pdf>`__
      - `1 <../../../submissions/cfqs_2b40/akaptano/01-22-2026_17-43/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 4.2e-02
+     - 2.8e-01
+     - 1.0e+00
+     - 1.7e+01
+     - 1.2e+00
+     - 8.7e-02
+     - 1.2e-01
+     - 1.8e+00
+     - 1.0e+01
+     - 3.9e+06
+     - 1.9e+06
+     - 8.5e+06
+     - 4.8e+06
+     - 0
+     - 3.2e+00
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `2 <../../../submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot.pdf>`__
 
 
-.. _rotating-ellipse:
+.. _circular-tokamak:
 
-Rotating Ellipse
+Circular Tokamak
 ^^^^^^^^^^^^^^^^
 
-**Surface file:** ``rotating_ellipse``
+**Surface file:** ``circular_tokamak``
 
 This surface has 1 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
-.. list-table:: Rotating Ellipse Leaderboard
+.. list-table:: Circular Tokamak Leaderboard
    :header-rows: 1
    :widths: auto
 
@@ -206,8 +507,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - :math:`n`
      - :math:`\text{FC}`
      - :math:`f_{B}`
-     - :math:`\text{avg}\langle B_n \rangle / \langle B \rangle`
-     - :math:`\max(\langle B_n \rangle / \langle B \rangle)`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
      - :math:`L`
      - :math:`\mathrm{Var}(l_i)`
      - :math:`\min(d_{cc})`
@@ -225,6 +526,153 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - User
      - i
      - f
+   * - 4
+     - 4
+     - —
+     - 0.0e+00
+     - 1.7e-16
+     - 6.2e-02
+     - 1.2e+02
+     - 4.8e-28
+     - 1.9e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 4.2e+06
+     - 2.9e-07
+     - 4.2e+06
+     - 3.4e-07
+     - 0
+     - 1.9e+00
+     - 2.1e-01
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot.pdf>`__
+
+
+.. _muse-focus:
+
+MUSE
+^^^^
+
+**Surface file:** ``muse.focus``
+
+This surface has 1 submission(s).
+Typical configuration: 4 Fourier order, 4 base coils.
+
+.. list-table:: MUSE Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`\min(d_{cc})`
+     - :math:`\min(d_{cs})`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`\max(F)`
+     - :math:`\max(\tau)`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\max(\kappa)`
+     - Date
+     - User
+     - i
+     - f
+   * - 4
+     - 4
+     - —
+     - 1.2e-02
+     - 1.3e-01
+     - 3.7e-01
+     - 1.1e+01
+     - 2.5e-07
+     - 3.6e-05
+     - 1.5e-01
+     - 2.2e+00
+     - 5.1e+00
+     - 9.5e+08
+     - 7.5e+07
+     - 3.8e+09
+     - 3.0e+08
+     - 0
+     - 2.1e+01
+     - 2.3e+00
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
+
+
+.. _rotating-ellipse:
+
+Rotating Ellipse
+^^^^^^^^^^^^^^^^
+
+**Surface file:** ``rotating_ellipse``
+
+This surface has 2 submission(s).
+Typical configuration: 4 Fourier order, 4 base coils.
+
+.. list-table:: Rotating Ellipse Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\text{avg}(B_n)`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`\min(d_{cc})`
+     - :math:`\min(d_{cs})`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`\max(F)`
+     - :math:`\max(\tau)`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\max(\kappa)`
+     - Date
+     - User
+     - i
+     - f
+   * - 4
+     - 4
+     - —
+     - 2.3e-02
+     - 2.1e-01
+     - 7.3e-01
+     - 1.0e+02
+     - 7.7e-01
+     - 6.0e-02
+     - 4.0e-01
+     - 2.6e-01
+     - 8.4e-02
+     - 1.3e+07
+     - 4.0e+07
+     - 5.0e+07
+     - 1.5e+08
+     - 0
+     - 3.8e+00
+     - 4.1e-01
+     - 23/01/26
+     - akaptano
+     - `1 <../../../submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
+     - `1 <../../../submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
      - —
@@ -246,8 +694,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 1.1e+00
      - 22/01/26
      - akaptano
-     - `1 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot.pdf>`__
+     - `2 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot_initial.pdf>`__
+     - `2 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot.pdf>`__
 
 
 

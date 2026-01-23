@@ -14,8 +14,8 @@ def _metric_shorthand(metric_name: str) -> str:
     """
     shorthand_map = {
         # B-field related
-        "max_BdotN_over_B": "max⟨Bn⟩/⟨B⟩",
-        "avg_BdotN_over_B": "avg⟨Bn⟩/⟨B⟩",
+        "max_BdotN_over_B": "max(B_n)",
+        "avg_BdotN_over_B": "avg(B_n)",
         "final_normalized_squared_flux": "f_B",
         "initial_B_field": "B0",
         "final_B_field": "Bf",
@@ -187,21 +187,19 @@ def _shorthand_to_math(shorthand: str) -> str:
         "κ̄": r":math:`\bar{\kappa}`",
         "F̄": r":math:`\bar{F}`",
         "τ̄": r":math:`\bar{\tau}`",
-        "avg⟨Bn⟩/⟨B⟩": r":math:`\text{avg}\langle B_n \rangle / \langle B \rangle`",
-        "max⟨Bn⟩/⟨B⟩": r":math:`\max(\langle B_n \rangle / \langle B \rangle)`",
+        "avg(B_n)": r":math:`\text{avg}(B_n)`",
+        "max(B_n)": r":math:`\max(B_n)`",
         "Var(l_i)": r":math:`\mathrm{Var}(l_i)`",
         "FC": r":math:`\text{FC}`",  # Fourier continuation
     }
     if shorthand in unicode_map:
         return unicode_map[shorthand]
     
-    # Handle function calls like "min(d_cc)", "max(κ)", "max(F)", "max(τ)"
+    # Handle function calls like "min(d_cc)", "max(κ)", "max(F)", "max(τ)", "avg(B_n)", "max(B_n)"
     func_match = re.match(r'(\w+)\(([^)]+)\)', shorthand)
     if func_match:
         func_name = func_match.group(1)
         arg = func_match.group(2)
-        # Convert underscores to subscripts
-        arg_math = arg.replace("_", "_{").replace("}", "}") + ("}" if "{" in arg.replace("_", "_{") else "")
         # Handle special cases
         if arg == "κ":
             arg_math = r"\kappa"
@@ -213,6 +211,8 @@ def _shorthand_to_math(shorthand: str) -> str:
             arg_math = r"d_{cc}"
         elif arg == "d_cs":
             arg_math = r"d_{cs}"
+        elif arg == "B_n":
+            arg_math = r"B_n"
         else:
             # Default: convert underscores to subscripts
             parts = arg.split("_")
@@ -222,6 +222,8 @@ def _shorthand_to_math(shorthand: str) -> str:
                 arg_math = arg.replace("_", "_{") + "}"
         
         func_math = func_name if func_name in ["min", "max"] else func_name
+        if func_name == "avg":
+            func_math = r"\text{avg}"
         return f":math:`\\{func_math}({arg_math})`"
     
     # Handle simple variable names with underscores (e.g., "d_cc", "d_cs")
@@ -250,8 +252,8 @@ def _metric_definition(metric_name: str) -> str:
     definitions = {
         # B-field related
         "final_normalized_squared_flux": r"Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)",
-        "max_BdotN_over_B": r"Maximum normalized normal field component $\max\left(\frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\right)$ (dimensionless)",
-        "avg_BdotN_over_B": r"Average normalized normal field component $\frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)",
+        "max_BdotN_over_B": r"Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)",
+        "avg_BdotN_over_B": r"Average normalized normal field component $\text{avg}(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\text{avg}(B_n) = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)",
         
         # Curvature
         "final_average_curvature": r"Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)",
@@ -969,6 +971,10 @@ def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
         "torque_threshold",
         "arclength_variation",  # Exclude intermediate arclength variation, keep only final
         "arclength_variation_threshold",  # Exclude threshold parameter
+        "final_order",  # Exclude final_order, keep only fourier_continuation_orders (FC)
+        "continuation_step",  # Exclude continuation_step, keep only fourier_continuation_orders (FC)
+        "fourier_continuation",  # Exclude fourier_continuation, keep only fourier_continuation_orders (FC)
+        "fourier_order",  # Exclude fourier_order, keep only fourier_continuation_orders (FC)
     }
     
     all_keys = set()
@@ -1052,7 +1058,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 if isinstance(value, (float, int)):
                     return str(int(round(value)))
                 return str(value)
-            # All other numeric values use ultra-compact scientific notation
+            # All other numeric values use ultra-compact scientific notation, wrapped in span for smaller font
             if isinstance(value, (float, int)):
                 val = float(value)
                 if abs(val) < 1e-100:
@@ -1067,6 +1073,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 elif s.startswith("-0."):
                     s = "-." + s[3:]
                 # For very large numbers, use shorter format if possible
+                # Wrap in span for smaller font
                 if "e" in s:
                     parts = s.split("e")
                     if len(parts) == 2:
@@ -1075,6 +1082,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                         if exp.startswith("0") and len(exp) > 1:
                             exp = exp[1:]
                         s = base + "e" + exp
+                # Return formatted number (markdown tables can use HTML if needed, but CSS handles styling)
                 return s
             return str(value)
         
@@ -1152,6 +1160,7 @@ def write_rst_leaderboard(
             return str(value) if value else "—"
         if isinstance(value, (float, int)):
             # Use scientific notation with 1 significant digit
+            # CSS will handle making numbers smaller (no HTML needed)
             return f"{float(value):.1e}"
         return str(value)
 
@@ -1171,6 +1180,10 @@ def write_rst_leaderboard(
             "torque_threshold",
             "arclength_variation",  # Exclude intermediate arclength variation, keep only final
             "arclength_variation_threshold",  # Exclude threshold parameter
+            "final_order",  # Exclude final_order, keep only fourier_continuation_orders (FC)
+            "continuation_step",  # Exclude continuation_step, keep only fourier_continuation_orders (FC)
+            "fourier_continuation",  # Exclude fourier_continuation, keep only fourier_continuation_orders (FC)
+            "fourier_order",  # Exclude fourier_order, keep only fourier_continuation_orders (FC)
         }
         all_keys = set()
         for entry in entries_for_surface:
@@ -1732,6 +1745,7 @@ def write_surface_leaderboards(
                 return str(int(round(value)))
             return str(value)
         # All other numeric values use scientific notation with 1 digit
+        # CSS will handle making numbers smaller (no HTML needed)
         if isinstance(value, (float, int)):
             return f"{float(value):.1e}"
         return str(value)

@@ -25,7 +25,7 @@ class TestMetricShorthand:
     def test_known_metrics(self):
         """Test shorthand for known metrics."""
         assert _metric_shorthand("final_normalized_squared_flux") == "f_B"
-        assert _metric_shorthand("max_BdotN_over_B") == "max⟨Bn⟩/⟨B⟩"
+        assert _metric_shorthand("max_BdotN_over_B") == "max(B_n)"
         assert _metric_shorthand("final_average_curvature") == "κ̄"
         assert _metric_shorthand("final_linking_number") == "LN"
         assert _metric_shorthand("coil_order") == "n"

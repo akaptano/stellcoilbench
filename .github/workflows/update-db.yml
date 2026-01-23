@@ -561,3 +561,20 @@ jobs:
             git status --short | grep -E "(docs/|db/)" | head -10 || echo "No leaderboard files found"
           fi
 
+      - name: Trigger ReadTheDocs build
+        if: always()
+        run: |
+          # Trigger ReadTheDocs build via webhook API if credentials are available
+          # This ensures docs build happens after CI runs complete and PDFs are committed
+          if [ -n "${{ secrets.RTDS_WEBHOOK_URL }}" ] && [ -n "${{ secrets.RTDS_WEBHOOK_TOKEN }}" ]; then
+            echo "Triggering ReadTheDocs build..."
+            curl -X POST "${{ secrets.RTDS_WEBHOOK_URL }}" \
+              -H "Authorization: token ${{ secrets.RTDS_WEBHOOK_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{"branches": ["main"]}' || echo "Warning: Failed to trigger ReadTheDocs build (non-critical)"
+          else
+            echo "ReadTheDocs webhook credentials not configured - skipping build trigger"
+            echo "To enable automatic docs builds after CI completes, add RTDS_WEBHOOK_URL and RTDS_WEBHOOK_TOKEN secrets"
+            echo "See: https://docs.readthedocs.com/platform/stable/guides/build/webhooks.html"
+          fi
+
