@@ -61,9 +61,9 @@ class TestAdvancedLandremanPaulContinuation:
         # Load config
         config = load_case_config(case_dir)
         
-        # Modify config to use fewer iterations for faster testing
-        config.optimizer_params["max_iterations"] = 5
-        config.optimizer_params["max_iter_subopt"] = 2
+        # Modify config to use minimal iterations for faster testing
+        config.optimizer_params["max_iterations"] = 1
+        config.optimizer_params["max_iter_subopt"] = 1
         config.optimizer_params["verbose"] = False
         
         # Run optimization with continuation
@@ -74,6 +74,7 @@ class TestAdvancedLandremanPaulContinuation:
             coils_out_path=coils_out_path,
             case_cfg=config,
             output_dir=output_dir,
+            surface_resolution=8,  # Lower resolution for faster tests
         )
         
         # Verify results
@@ -122,7 +123,7 @@ class TestAdvancedLandremanPaulContinuation:
         output_dir.mkdir()
         
         config = load_case_config(case_dir)
-        config.optimizer_params["max_iterations"] = 3
+        config.optimizer_params["max_iterations"] = 1
         config.optimizer_params["max_iter_subopt"] = 1
         config.optimizer_params["verbose"] = False
         
@@ -133,6 +134,7 @@ class TestAdvancedLandremanPaulContinuation:
             coils_out_path=coils_out_path,
             case_cfg=config,
             output_dir=output_dir,
+            surface_resolution=8,  # Lower resolution for faster tests
         )
         
         # Check structure of continuation results

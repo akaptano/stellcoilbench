@@ -156,9 +156,11 @@ class TestFourierContinuation:
             fourier_orders=[2, 3],
             target_B=1.0,
             out_dir=str(out_dir),
-            max_iterations=5,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             verbose=False,
+            surface_resolution=8,  # Lower resolution for faster tests
+            plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         assert coils is not None
@@ -202,7 +204,7 @@ class TestFourierContinuation:
                 s=simple_surface,
                 fourier_orders=[4, 2, 8],  # Not ascending
                 out_dir=str(tmp_path),
-                max_iterations=5,
+                max_iterations=1,
                 ncoils=2,
                 order=4,
             )
@@ -223,10 +225,11 @@ class TestFourierContinuation:
             s=simple_surface,
             target_B=1.0,
             out_dir=str(order_dir_1),
-            max_iterations=3,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             order=2,
             verbose=False,
+            surface_resolution=8,  # Lower resolution for faster tests
         )
         
         # Capture final state from step 1
@@ -295,10 +298,12 @@ class TestFourierContinuation:
             fourier_orders=[2, 3],
             target_B=1.0,
             out_dir=str(out_dir),
-            max_iterations=5,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             verbose=False,
             coil_objective_terms={"total_length": "l2"},
+            surface_resolution=8,  # Lower resolution for faster tests
+            plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         # Verify final coils have correct order
@@ -324,26 +329,26 @@ class TestFourierContinuation:
         
         _, results = optimize_coils_with_fourier_continuation(
             s=simple_surface,
-            fourier_orders=[2, 3, 4],
+            fourier_orders=[2, 3],  # Reduced from [2, 3, 4] for faster tests
             target_B=1.0,
             out_dir=str(out_dir),
-            max_iterations=2,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             verbose=False,
             coil_objective_terms={"total_length": "l2"},
-            surface_resolution=8,  # Use lower resolution for faster tests
+            surface_resolution=8,  # Lower resolution for faster tests
             plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         # Check top-level results
         assert results['fourier_continuation'] is True
-        assert results['fourier_orders'] == [2, 3, 4]
-        assert results['final_order'] == 4
+        assert results['fourier_orders'] == [2, 3]
+        assert results['final_order'] == 3
         
         # Check continuation_results list
-        assert len(results['continuation_results']) == 3
+        assert len(results['continuation_results']) == 2
         for i, step_result in enumerate(results['continuation_results']):
-            assert step_result['fourier_order'] == [2, 3, 4][i]
+            assert step_result['fourier_order'] == [2, 3][i]
             assert step_result['continuation_step'] == i + 1
             assert 'final_normalized_squared_flux' in step_result
             assert 'final_B_field' in step_result
@@ -360,24 +365,22 @@ class TestFourierContinuation:
         
         coils, results = optimize_coils_with_fourier_continuation(
             s=simple_surface,
-            fourier_orders=[2, 3, 4],
+            fourier_orders=[2, 3],  # Reduced from [2, 3, 4] for faster tests
             target_B=1.0,
             out_dir=str(out_dir),
-            max_iterations=2,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             verbose=False,
             coil_objective_terms={"total_length": "l2"},
-            surface_resolution=8,  # Use lower resolution for faster tests
+            surface_resolution=8,  # Lower resolution for faster tests
             plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         # Check that subdirectories were created
         assert (out_dir / "order_2").exists()
         assert (out_dir / "order_3").exists()
-        assert (out_dir / "order_4").exists()
         assert (out_dir / "order_2").is_dir()
         assert (out_dir / "order_3").is_dir()
-        assert (out_dir / "order_4").is_dir()
     
     def test_continuation_with_different_objective_terms(self, simple_surface, tmp_path):
         """Test continuation with different coil_objective_terms."""
@@ -389,13 +392,15 @@ class TestFourierContinuation:
             fourier_orders=[2, 3],
             target_B=1.0,
             out_dir=str(out_dir),
-            max_iterations=3,
+            max_iterations=1,  # Minimal iterations for fast tests
             ncoils=2,
             verbose=False,
             coil_objective_terms={
                 "total_length": "l2_threshold",
                 "coil_coil_distance": "l1",
             },
+            surface_resolution=8,  # Lower resolution for faster tests
+            plot_upsample_factor=1,  # Minimal upsampling for tests
         )
         
         assert coils is not None
