@@ -122,8 +122,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.2e+00
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/HSX_QHS_mn1824_ns101/akaptano/01-23-2026_00-45/bn_error_3d_plot.pdf>`__
 
 
 .. _landremanpaul2021-qa:
@@ -133,7 +133,7 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 4 submission(s).
+This surface has 35 submission(s).
 Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: Landreman-Paul QA Leaderboard
@@ -184,8 +184,8 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.1e+01
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-50/bn_error_3d_plot.pdf>`__
    * - 4
      - 8
      - 4,6,8
@@ -207,8 +207,376 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 1.0e+01
      - 22/01/26
      - akaptano
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-22-2026_23-43/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-22-2026_23-43/order_4/bn_error_3d_plot.pdf>`__ `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-22-2026_23-43/order_6/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-22-2026_23-43/order_8/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
      - —
-     - 2
+     - 7.4e-05
+     - 3.3e-03
+     - 1.8e-02
+     - 1.7e+01
+     - 1.8e+00
+     - 8.0e-02
+     - 3.0e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 3.9e+05
+     - 1.1e+05
+     - 4.4e+05
+     - 1.4e+05
+     - 0
+     - 5.8e+01
+     - 8.8e+00
+     - 23/01/26
+     - akaptano
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/bn_error_3d_plot_initial.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 16
+     - —
+     - 7.5e-04
+     - 1.0e-02
+     - 4.8e-02
+     - 1.8e+01
+     - 3.6e+00
+     - 7.8e-02
+     - 2.3e-01
+     - 2.7e+00
+     - 1.0e+01
+     - 5.3e+05
+     - 2.6e+05
+     - 7.9e+05
+     - 4.8e+05
+     - 0
+     - 4.8e+02
+     - 9.9e+00
+     - 23/01/26
+     - akaptano
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 16
+     - —
+     - 7.5e-04
+     - 1.0e-02
+     - 4.8e-02
+     - 1.8e+01
+     - 3.6e+00
+     - 7.8e-02
+     - 2.3e-01
+     - 2.7e+00
+     - 1.0e+01
+     - 5.3e+05
+     - 2.6e+05
+     - 7.9e+05
+     - 4.8e+05
+     - 0
+     - 4.8e+02
+     - 9.9e+00
+     - 23/01/26
+     - akaptano
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/bn_error_3d_plot_initial.pdf>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 7.2e-03
+     - 1.1e-01
+     - 9.8e-01
+     - 1.7e+01
+     - 2.4e+00
+     - 7.7e-02
+     - 2.0e-01
+     - 2.8e+00
+     - 1.4e+01
+     - 1.6e+08
+     - 1.1e+08
+     - 4.0e+08
+     - 3.3e+08
+     - 0
+     - 3.7e+02
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/bn_error_3d_plot_initial.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 7.3e-03
+     - 1.1e-01
+     - 9.8e-01
+     - 1.7e+01
+     - 2.2e+00
+     - 7.5e-02
+     - 2.0e-01
+     - 2.7e+00
+     - 1.3e+01
+     - 1.7e+08
+     - 1.1e+08
+     - 3.7e+08
+     - 3.0e+08
+     - 0
+     - 2.2e+02
+     - 8.8e+00
+     - 23/01/26
+     - akaptano
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/bn_error_3d_plot_initial.pdf>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 16
+     - —
+     - 7.5e-03
+     - 1.2e-01
+     - 1.0e+00
+     - 1.7e+01
+     - 3.6e+00
+     - 8.4e-02
+     - 2.4e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 3.6e+08
+     - 2.1e+08
+     - 9.9e+08
+     - 7.0e+08
+     - 0
+     - 5.9e+02
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/bn_error_3d_plot_initial.pdf>`__
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 7.6e-03
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/bn_error_3d_plot_initial.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 7.6e-03
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/bn_error_3d_plot_initial.pdf>`__
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 7.6e-03
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/bn_error_3d_plot_initial.pdf>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 7.6e-03
+     - 1.2e-01
+     - 9.8e-01
+     - 1.6e+01
+     - 1.9e+00
+     - 9.2e-02
+     - 2.0e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 1.6e+08
+     - 8.5e+07
+     - 3.1e+08
+     - 2.1e+08
+     - 0
+     - 1.1e+02
+     - 8.9e+00
+     - 23/01/26
+     - akaptano
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/bn_error_3d_plot_initial.pdf>`__
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 1.1e-02
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.5e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/bn_error_3d_plot_initial.pdf>`__
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 1.1e-02
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `14 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/bn_error_3d_plot_initial.pdf>`__
+     - `14 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 1.1e-02
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `15 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/bn_error_3d_plot_initial.pdf>`__
+     - `15 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 1.1e-02
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/bn_error_3d_plot_initial.pdf>`__
+     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 1.1e-02
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - 6.3e+00
+     - 23/01/26
+     - akaptano
+     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/bn_error_3d_plot_initial.pdf>`__
+     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 1.6e-02
+     - 1.6e-01
+     - 4.7e-01
+     - 1.1e+01
+     - —
+     - 2.2e-01
+     - 1.1e-01
+     - 2.7e+00
+     - 1.1e+01
+     - 2.3e+05
+     - 4.2e+04
+     - 2.4e+05
+     - 5.0e+04
+     - 0
+     - 3.0e+01
+     - 7.5e+00
+     - 01/12/25
+     - akaptano
+     - —
+     - 18
    * - 4
      - 4
      - —
@@ -230,31 +598,376 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - 6.3e+00
      - 23/01/26
      - akaptano
-     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
-     - `3 <../../../submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
+     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
+     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.0e-02
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - 8.7e+00
+     - 23/01/26
+     - akaptano
+     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/bn_error_3d_plot_initial.pdf>`__
+     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.0e-02
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - 8.7e+00
+     - 23/01/26
+     - akaptano
+     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/bn_error_3d_plot_initial.pdf>`__
+     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.0e-02
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.5e+01
+     - 8.7e+00
+     - 23/01/26
+     - akaptano
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/bn_error_3d_plot_initial.pdf>`__
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.0e-02
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - 8.7e+00
+     - 23/01/26
+     - akaptano
+     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/bn_error_3d_plot_initial.pdf>`__
+     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/bn_error_3d_plot.pdf>`__
    * - 4
      - 4
      - —
-     - 2.7e-02
-     - 2.0e-01
-     - 9.6e-01
-     - 1.4e+01
+     - 2.3e-02
      - 1.9e-01
+     - 9.8e-01
+     - 1.3e+01
+     - 1.4e-01
      - 2.5e-01
-     - 1.7e-02
+     - 1.4e-02
      - 2.2e+00
-     - 5.9e+00
+     - 5.5e+00
      - 2.2e+05
-     - 5.9e+04
-     - 2.6e+05
-     - 7.1e+04
+     - 4.6e+04
+     - 2.4e+05
+     - 5.5e+04
      - 0
-     - 8.3e+00
-     - 4.9e+00
-     - 22/01/26
+     - 7.4e+00
+     - 3.9e+00
+     - 23/01/26
      - akaptano
-     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot_initial.pdf>`__
-     - `4 <../../../submissions/LandremanPaul2021_QA/akaptano/01-22-2026_18-11/bn_error_3d_plot.pdf>`__
+     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-23/bn_error_3d_plot_initial.pdf>`__
+     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-23/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 2.3e-02
+     - 1.8e-01
+     - 1.0e+00
+     - 1.3e+01
+     - 1.7e-01
+     - 2.5e-01
+     - 1.4e-02
+     - 2.3e+00
+     - 6.4e+00
+     - 2.2e+05
+     - 5.0e+04
+     - 2.4e+05
+     - 5.9e+04
+     - 0
+     - 1.1e+01
+     - 4.9e+00
+     - 23/01/26
+     - akaptano
+     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-24/bn_error_3d_plot_initial.pdf>`__
+     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-24/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.8e-02
+     - 2.1e-01
+     - 1.0e+00
+     - 1.3e+01
+     - 2.6e-01
+     - 3.0e-01
+     - 4.3e-02
+     - 2.8e+00
+     - 1.1e+01
+     - 2.1e+05
+     - 6.3e+04
+     - 2.2e+05
+     - 6.6e+04
+     - 0
+     - 1.2e+01
+     - 1.0e+01
+     - 23/01/26
+     - akaptano
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-11/bn_error_3d_plot_initial.pdf>`__
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-11/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 2.8e-02
+     - 2.1e-01
+     - 5.0e-01
+     - 1.3e+01
+     - 8.5e-02
+     - 2.3e-01
+     - 1.0e-01
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.6e+04
+     - 2.5e+05
+     - 7.6e+04
+     - 0
+     - 1.2e+01
+     - 9.5e+00
+     - 23/01/26
+     - akaptano
+     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/bn_error_3d_plot_initial.pdf>`__
+     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 3.3e-02
+     - 2.2e-01
+     - 9.9e-01
+     - 1.3e+01
+     - 2.1e-01
+     - 2.9e-01
+     - 3.5e-02
+     - 2.7e+00
+     - 9.7e+00
+     - 2.1e+05
+     - 5.5e+04
+     - 2.3e+05
+     - 5.9e+04
+     - 0
+     - 1.1e+01
+     - 1.2e+01
+     - 23/01/26
+     - akaptano
+     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-05/bn_error_3d_plot_initial.pdf>`__
+     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-05/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 3.8e-02
+     - 7.9e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.1e-01
+     - 4.2e-03
+     - 1.9e-01
+     - 2.0e+00
+     - 5.5e+00
+     - 6.9e+06
+     - 1.3e+06
+     - 1.5e+07
+     - 4.5e+06
+     - 0
+     - 2.5e+01
+     - 4.7e+00
+     - 23/01/26
+     - akaptano
+     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/bn_error_3d_plot_initial.pdf>`__
+     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 4
+     - —
+     - 3.8e-02
+     - 7.9e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.1e-01
+     - 4.2e-03
+     - 1.9e-01
+     - 2.0e+00
+     - 5.5e+00
+     - 6.9e+06
+     - 1.3e+06
+     - 1.5e+07
+     - 4.5e+06
+     - 0
+     - 2.6e+01
+     - 4.7e+00
+     - 23/01/26
+     - akaptano
+     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/bn_error_3d_plot_initial.pdf>`__
+     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 16
+     - —
+     - 4.2e-02
+     - 8.2e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 3.1e-01
+     - 6.4e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.2e+00
+     - 2.5e+06
+     - 5.6e+05
+     - 5.7e+06
+     - 1.1e+06
+     - 0
+     - 3.3e+01
+     - 3.7e+00
+     - 23/01/26
+     - akaptano
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/bn_error_3d_plot_initial.pdf>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 4.3e-02
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 2.6e+01
+     - 3.7e+00
+     - 23/01/26
+     - akaptano
+     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/bn_error_3d_plot_initial.pdf>`__
+     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 4.3e-02
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 2.6e+01
+     - 3.7e+00
+     - 23/01/26
+     - akaptano
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/bn_error_3d_plot_initial.pdf>`__
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 4.3e-02
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 1.7e+01
+     - 3.7e+00
+     - 23/01/26
+     - akaptano
+     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/bn_error_3d_plot_initial.pdf>`__
+     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/bn_error_3d_plot.pdf>`__
+   * - 4
+     - 8
+     - —
+     - 8.0e-02
+     - 3.2e-01
+     - 1.0e+00
+     - 1.2e+01
+     - 6.7e-01
+     - 3.8e-01
+     - 4.8e-02
+     - 3.0e+00
+     - 1.2e+01
+     - 1.9e+05
+     - 6.3e+04
+     - 2.0e+05
+     - 6.5e+04
+     - 0
+     - 1.2e+01
+     - 6.5e+00
+     - 23/01/26
+     - akaptano
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-13/bn_error_3d_plot_initial.pdf>`__
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-13/bn_error_3d_plot.pdf>`__
 
 
 .. _w7-x-without-coil-ripple-beta0p05-d23p4-tm:
@@ -315,8 +1028,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.4e+00
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
    * - 5
      - 4
      - —
@@ -338,8 +1051,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 2.0e+00
      - 23/01/26
      - akaptano
-     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot_initial.pdf>`__
-     - `2 <../../../submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/01-23-2026_01-13/bn_error_3d_plot.pdf>`__
 
 
 .. _c09r00-b-axis-half-tesla-pm4stell-focus:
@@ -400,8 +1113,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.9e+00
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/c09r00_B_axis_half_tesla_PM4Stell/akaptano/01-23-2026_00-47/bn_error_3d_plot.pdf>`__
 
 
 .. _cfqs-2b40:
@@ -411,7 +1124,7 @@ CFQS
 
 **Surface file:** ``cfqs_2b40``
 
-This surface has 2 submission(s).
+This surface has 1 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 .. list-table:: CFQS Leaderboard
@@ -444,29 +1157,6 @@ Typical configuration: 4 Fourier order, 4 base coils.
    * - 4
      - 4
      - —
-     - 1.7e-02
-     - 1.6e-01
-     - 4.3e-01
-     - 1.8e+01
-     - 4.9e-02
-     - 9.6e-03
-     - 2.0e-01
-     - 1.5e+00
-     - 2.3e+00
-     - 1.4e+06
-     - 8.4e+05
-     - 3.5e+06
-     - 2.0e+06
-     - 0
-     - 1.6e+00
-     - 2.0e+00
-     - 22/01/26
-     - akaptano
-     - `1 <../../../submissions/cfqs_2b40/akaptano/01-22-2026_17-43/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/cfqs_2b40/akaptano/01-22-2026_17-43/bn_error_3d_plot.pdf>`__
-   * - 4
-     - 4
-     - —
      - 4.2e-02
      - 2.8e-01
      - 1.0e+00
@@ -485,8 +1175,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 1.0e+01
      - 23/01/26
      - akaptano
-     - `2 <../../../submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot_initial.pdf>`__
-     - `2 <../../../submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/cfqs_2b40/akaptano/01-23-2026_00-44/bn_error_3d_plot.pdf>`__
 
 
 .. _circular-tokamak:
@@ -547,8 +1237,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 2.1e-01
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/01-23-2026_00-49/bn_error_3d_plot.pdf>`__
 
 
 .. _muse-focus:
@@ -609,8 +1299,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 2.3e+00
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/01-23-2026_00-46/bn_error_3d_plot.pdf>`__
 
 
 .. _rotating-ellipse:
@@ -620,7 +1310,7 @@ Rotating Ellipse
 
 **Surface file:** ``rotating_ellipse``
 
-This surface has 2 submission(s).
+This surface has 3 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 .. list-table:: Rotating Ellipse Leaderboard
@@ -671,31 +1361,54 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.1e-01
      - 23/01/26
      - akaptano
-     - `1 <../../../submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
-     - `1 <../../../submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
+     - —
+     - 1
    * - 4
      - 4
      - —
-     - 7.2e-02
-     - 2.9e-01
-     - 7.1e-01
-     - 8.9e+01
-     - 7.7e+00
-     - 3.1e-03
-     - 9.0e-01
-     - 3.2e-01
-     - 1.4e-01
-     - 3.0e+08
-     - 8.4e+08
-     - 9.8e+08
-     - 2.6e+09
+     - 2.3e-02
+     - 2.1e-01
+     - 7.3e-01
+     - 1.0e+02
+     - 7.7e-01
+     - 6.0e-02
+     - 4.0e-01
+     - 2.6e-01
+     - 8.4e-02
+     - 1.3e+07
+     - 4.0e+07
+     - 5.0e+07
+     - 1.5e+08
      - 0
-     - 2.9e+00
-     - 1.1e+00
-     - 22/01/26
+     - 3.8e+00
+     - 4.1e-01
+     - 23/01/26
      - akaptano
-     - `2 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot_initial.pdf>`__
-     - `2 <../../../submissions/rotating_ellipse/akaptano/01-22-2026_18-16/bn_error_3d_plot.pdf>`__
+     - —
+     - 2
+   * - 4
+     - 4
+     - —
+     - 2.3e-02
+     - 2.1e-01
+     - 7.3e-01
+     - 1.0e+02
+     - 7.7e-01
+     - 6.0e-02
+     - 4.0e-01
+     - 2.6e-01
+     - 8.4e-02
+     - 1.3e+07
+     - 4.0e+07
+     - 5.0e+07
+     - 1.5e+08
+     - 0
+     - 3.8e+00
+     - 4.1e-01
+     - 23/01/26
+     - akaptano
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot_initial.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/01-23-2026_00-48/bn_error_3d_plot.pdf>`__
 
 
 

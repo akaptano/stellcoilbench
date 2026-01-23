@@ -27,35 +27,56 @@ Prerequisites
 Installation
 ------------
 
-**Using Conda (Recommended)**
+**Using Pip (Recommended)**
    
-   Create a conda environment and install dependencies:
+   Install StellCoilBench and all required dependencies:
    
    .. code-block:: bash
    
-      conda create -n stellcoilbench python=3.10
-      conda activate stellcoilbench
-      conda install -c conda-forge simsopt numpy scipy matplotlib pyyaml vtk
-      pip install typer
+      pip install stellcoilbench
    
-   Then install StellCoilBench in development mode:
+   The installation will automatically install all required dependencies, including
+   the correct version of simsopt from the specified repository.
+   
+   For development, install in editable mode:
    
    .. code-block:: bash
    
       git clone <repository-url>
       cd stellcoilbench
       pip install -e .
-
-**Using Pip**
+   
+   **Optional: Install Documentation Dependencies**
+   
+   To build the documentation locally, install the optional DOCS dependencies:
    
    .. code-block:: bash
    
+      pip install stellcoilbench[DOCS]
+   
+   Or for development mode:
+   
+   .. code-block:: bash
+   
+      pip install -e ".[DOCS]"
+
+**Using Conda**
+   
+   You can also use conda to create an environment, but pip will still handle
+   dependency installation:
+   
+   .. code-block:: bash
+   
+      conda create -n stellcoilbench python=3.10
+      conda activate stellcoilbench
       pip install stellcoilbench
    
    Or for development:
    
    .. code-block:: bash
    
+      conda create -n stellcoilbench python=3.10
+      conda activate stellcoilbench
       git clone <repository-url>
       cd stellcoilbench
       pip install -e .
@@ -118,7 +139,8 @@ The fastest way to run a case is through the CI workflow:
    
    After CI completes, check:
    
-   - ``submissions/<your-username>/<timestamp>/`` for your submission zip and PDF plots
+   - ``submissions/<surface>/<your-username>/<timestamp>/`` for your submission zip and PDF plots
+     (e.g., ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/``)
    - ``docs/leaderboard.rst`` for updated leaderboards
 
 Local Development Workflow
@@ -194,6 +216,7 @@ Here's a quick overview:
    - ``max_iter_subopt``: Maximum iterations for sub-optimization (for augmented Lagrangian)
    - ``verbose``: Print optimization progress
    - ``algorithm_options``: Algorithm-specific options (e.g., ``ftol``, ``gtol``)
+     - For L-BFGS-B, defaults are ``ftol: 1e-12``, ``gtol: 1e-12``, ``tol: 1e-12``
 
 **Objective Terms**
    Each term can use different penalty types:
@@ -246,8 +269,8 @@ Let's create a simple case step by step:
         max_iter_subopt: 10
         verbose: True
         algorithm_options:
-          ftol: 1e-6
-          gtol: 1e-5
+          ftol: 1e-12
+          gtol: 1e-12
       coil_objective_terms:
         total_length: "l2_threshold"
         coil_coil_distance: "l1_threshold"
@@ -275,7 +298,7 @@ Let's create a simple case step by step:
    
    After completion, check:
    
-   - ``submissions/LandremanPaul2021_QA/<your-username>/`` for the submission
+   - ``submissions/LandremanPaul2021_QA/<your-username>/<timestamp>/`` for the submission
    - PDF plots next to the zip file for visualizations
    - Console output for optimization progress and final metrics
 
@@ -308,13 +331,17 @@ Troubleshooting
 
 **Import Errors**
    
-   If you see import errors, ensure all dependencies are installed:
+   If you see import errors, ensure StellCoilBench is properly installed:
    
    .. code-block:: bash
    
-      conda activate stellcoilbench
-      conda install -c conda-forge simsopt numpy scipy matplotlib pyyaml vtk
-      pip install typer
+      pip install stellcoilbench
+   
+   Or if you're in development mode:
+   
+   .. code-block:: bash
+   
+      pip install -e .
 
 **Case Validation Errors**
    

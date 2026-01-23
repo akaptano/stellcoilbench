@@ -540,11 +540,17 @@ def initialize_coils_loop(
     target_B: float = 5.7, ncoils: int = 4, order: int = 16, coil_width : float = 0.4,
     regularization: Callable | None = regularization_circ):
     """
-    Initializes four coils with order=16 and total current set to produce 
-    a target B-field on-axis. The coil centers and radii are scaled by 
-    the plasma surface major radius. The function iteratively adjusts the
-    total current until the field strength along the major radius averages
-    to the target value.
+    Initializes coils with order=16 and total current set to produce 
+    a target B-field on-axis. Uses an adaptive strategy to determine R0 and R1
+    parameters to ensure coils:
+    - Don't intersect with the plasma surface
+    - Interlink the plasma (go around it) by being positioned outside the surface
+    - Maintain safe distance from surface
+    - Don't interlink with each other (linking number ~0, maintain separation)
+    
+    The function iteratively adjusts R0 and R1 until all constraints are satisfied,
+    then iteratively adjusts the total current until the field strength along the 
+    major radius averages to the target value.
 
     Args:
         s: plasma boundary surface.
@@ -552,7 +558,7 @@ def initialize_coils_loop(
         target_B: Target magnetic field strength in Tesla (default: 5.7).
         ncoils: Number of coils to create (default: 4).
         order: Fourier order for coil curves (default: 16).
-        coil_width: Width of the coil in meters (default: 0.05).
+        coil_width: Width of the coil in meters (default: 0.4).
         regularization: Regularization function (default: regularization_circ).
     Returns:
         coils: List of Coil class objects.
@@ -560,6 +566,7 @@ def initialize_coils_loop(
     from simsopt.geo import create_equally_spaced_curves
     from simsopt.field import Current, coils_via_symmetries, BiotSavart
     from simsopt.util.coil_optimization_helper_functions import calculate_modB_on_major_radius
+    import numpy as np
 
     out_dir = Path(out_dir)
 
@@ -568,14 +575,152 @@ def initialize_coils_loop(
     else:
         regularizations = None
     
-    # Get the major radius from the surface and scale coil parameters
-    R0 = s.get_rc(0, 0) * 1.2  # Major radius scaled by 1.2 shift the coils outwards slightly
-    R1 = s.get_rc(1, 0) * 3.25  # Scale the minor radius component
+    # Adaptive R0 and R1 initialization
+    # Start with conservative initial values
+    major_radius = s.get_rc(0, 0)
+    minor_radius_component = abs(s.get_rc(1, 0))
+    
+    # Minimum distances we want to maintain
+    min_cs_distance = 0.15 * major_radius  # Minimum coil-to-surface distance (15% of major radius)
+    min_cc_distance = 0.15 * major_radius  # Minimum coil-to-coil distance (15% of major radius)
+    
+    # Initial R0 and R1 scaling factors
+    R0_scale = 1.0  # Start with 1.0x major radius
+    R1_scale = 2.5  # Start with 2.5x minor radius component
+    
+    # Maximum iterations for adaptive R0/R1 adjustment
+    max_adaptive_iterations = 20
+    adaptive_tolerance = 0.05  # 5% tolerance for distances
     
     # Initial guess for total current (using QH configuration as reference)
     total_current = 5e7  # 50 MA initial guess is not bad for reactor-scale
     
-    # Create equally spaced curves with the specified parameters
+    R0 = major_radius * R0_scale
+    R1 = minor_radius_component * R1_scale
+    
+    # Adaptive loop to find suitable R0 and R1
+    from simsopt.geo import CurveSurfaceDistance, CurveCurveDistance, LinkingNumber
+    for adaptive_iter in range(max_adaptive_iterations):
+        # Create equally spaced curves with current R0 and R1
+        base_curves = create_equally_spaced_curves(
+            ncoils, s.nfp, stellsym=s.stellsym,
+            R0=R0, R1=R1, order=order, numquadpoints=256)
+        
+        # Create temporary coils to check distances
+        base_currents_temp = [(Current(total_current / ncoils * 1e-7) * 1e7) for _ in range(ncoils - 1)]
+        total_current_obj_temp = Current(total_current)
+        total_current_obj_temp.fix_all()
+        base_currents_temp += [total_current_obj_temp - sum(base_currents_temp)]
+        
+        try:
+            coils_temp = coils_via_symmetries(
+                base_curves,
+                base_currents_temp,
+                s.nfp,
+                s.stellsym,
+                regularizations=regularizations,
+            )
+        except TypeError:
+            coils_temp = coils_via_symmetries(base_curves, base_currents_temp, s.nfp, s.stellsym)
+        
+        # Get all curves (including symmetric ones)
+        curves_temp = [c.curve for c in coils_temp]
+        
+        # Check coil-to-surface distance
+        cs_dist = CurveSurfaceDistance(curves_temp, s, 0.0)
+        min_cs_sep = cs_dist.shortest_distance()
+        
+        # Check coil-to-coil distance (only between base coils)
+        cc_dist = CurveCurveDistance(curves_temp, 0.0, num_basecurves=ncoils)
+        min_cc_sep = cc_dist.shortest_distance()
+        
+        # Check that coils don't interlink with each other (coil-coil interlinking)
+        # Linking number should be close to zero - coils should not interlink each other
+        link_num = LinkingNumber(curves_temp, downsample=2)
+        linking_number = link_num.J()
+        
+        # Check if constraints are satisfied
+        cs_ok = min_cs_sep >= min_cs_distance * (1 - adaptive_tolerance)
+        cc_ok = min_cc_sep >= min_cc_distance * (1 - adaptive_tolerance)
+        # Coils should NOT interlink with each other (linking number should be small/zero)
+        # For equally spaced coils around a torus, linking number should be 0 or very small
+        no_coil_interlink = abs(linking_number) < 0.1  # Coils should not interlink each other
+        
+        # For coils to interlink the plasma, they need to pass through the torus hole.
+        # Check this by sampling points on the coils and verifying some are inside the torus.
+        # A coil interlinks the plasma if it has points both inside and outside the torus hole.
+        # We check if the coil extends inward enough: R0 - R1 should be less than the inner edge
+        # of the plasma surface (approximately major_radius - minor_radius).
+        # Also check that some coil points are actually inside the torus hole.
+        coil_points_inside_torus = False
+        for curve in base_curves[:min(2, len(base_curves))]:  # Check first 2 base curves
+            points = curve.gamma()
+            # Calculate radial distance from origin for each point
+            radial_distances = np.sqrt(points[:, 0]**2 + points[:, 1]**2)
+            # Estimate inner edge of torus (major_radius - minor_radius approximation)
+            # For a torus, the inner edge is roughly at major_radius - minor_radius
+            inner_edge_estimate = major_radius - minor_radius_component * 1.5  # Conservative estimate
+            # Check if any points are inside the torus hole
+            if np.any(radial_distances < inner_edge_estimate):
+                coil_points_inside_torus = True
+                break
+        
+        # Coils interlink plasma if:
+        # 1. They maintain safe distance from surface (cs_ok)
+        # 2. They extend inward enough: R0 - R1 < inner_edge (coil reaches into torus hole)
+        # 3. Some coil points are actually inside the torus hole
+        inner_edge_estimate = major_radius - minor_radius_component * 1.5
+        coil_reaches_into_hole = (R0 - R1) < inner_edge_estimate
+        plasma_interlink_ok = cs_ok and coil_reaches_into_hole and coil_points_inside_torus
+        
+        if cs_ok and cc_ok and no_coil_interlink and plasma_interlink_ok:
+            # Constraints satisfied, break out of adaptive loop
+            break
+        
+        # Adjust R0 and R1 based on constraint violations
+        if not cs_ok:
+            # Coils too close to surface, increase R0 slightly but also check R1
+            # If R1 is too small, coils might be intersecting; if too large, might not interlink
+            if R0 - R1 < inner_edge_estimate:
+                # Coil doesn't reach into hole, need to either decrease R0 or increase R1
+                # But if we decrease R0, coils get closer to surface, so increase R1 instead
+                R1_scale *= 1.1
+                R1 = minor_radius_component * R1_scale
+            else:
+                # Coils are intersecting surface, move them outward
+                R0_scale *= 1.1  # Increase by 10% (smaller increment to avoid overshooting)
+                R0 = major_radius * R0_scale
+        
+        if not cc_ok:
+            # Coils too close to each other, increase R1
+            R1_scale *= 1.15  # Increase by 15%
+            R1 = minor_radius_component * R1_scale
+        
+        if not no_coil_interlink:
+            # Coils are interlinking with each other, increase R1 to separate them more
+            R1_scale *= 1.15  # Increase by 15%
+            R1 = minor_radius_component * R1_scale
+        
+        if not plasma_interlink_ok:
+            # Coils don't interlink the plasma - need to ensure they pass through torus hole
+            if not coil_reaches_into_hole:
+                # Coil doesn't extend into hole - need larger R1 or smaller R0
+                # Prefer increasing R1 to keep coils away from surface
+                R1_scale *= 1.2  # Increase by 20% to make coil extend more inward
+                R1 = minor_radius_component * R1_scale
+            elif not coil_points_inside_torus:
+                # Coil geometry suggests it should reach, but points aren't inside
+                # This might mean R0 is too large - try decreasing it slightly
+                # But be careful not to get too close to surface
+                if R0 > major_radius * 1.1:
+                    R0_scale *= 0.95  # Decrease by 5% to bring coils closer to center
+                    R0 = major_radius * R0_scale
+                else:
+                    # R0 is already close, increase R1 instead
+                    R1_scale *= 1.15
+                    R1 = minor_radius_component * R1_scale
+    
+    # Final coil creation with determined R0 and R1
     base_curves = create_equally_spaced_curves(
         ncoils, s.nfp, stellsym=s.stellsym,
         R0=R0, R1=R1, order=order, numquadpoints=256)
@@ -805,12 +950,17 @@ def _plot_bn_error_3d(
         np.sin(elev),
     ])
     
-    front_segments: list[tuple[np.ndarray, tuple[float, float, float, float]]] = []
+    front_segments: list[tuple[np.ndarray, tuple[float, float, float]]] = []
     
     for coil in coils:
         coil_points = coil.curve.gamma()
         current_val = abs(coil.current.get_value())
-        color = current_cmap(current_norm(current_val))
+        color_rgba = current_cmap(current_norm(current_val))
+        # Convert RGBA to RGB (remove alpha channel) to ensure fully opaque coils
+        if len(color_rgba) == 4:
+            color = tuple(color_rgba[:3])  # Take only RGB, drop alpha
+        else:
+            color = color_rgba
         closed = np.vstack([coil_points, coil_points[0]])
         depth = (closed - center) @ view_vec
         front_mask = depth >= 0
@@ -1210,7 +1360,7 @@ def optimize_coils_loop(
             length_threshold: Threshold for the length objective (default: 200.0).
             flux_threshold: Threshold for the flux objective (default: 1e-8).
             cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
-            cs_threshold: Threshold for the coil-surface distance objective (default: 1.5).
+            cs_threshold: Threshold for the coil-surface distance objective (default: 1.3).
             msc_threshold: Threshold for the mean squared curvature objective (default: 1.0).
             curvature_threshold: Threshold for the curvature objective (default: 1.0).
             force_threshold: Threshold for the coil force objective (default: 1.0).
@@ -1274,7 +1424,8 @@ def optimize_coils_loop(
 
         # Rescale thresholds by the plasma major radius only if they were not explicitly passed
         # divided by the 10m assumption for the major radius
-        R0 = 10.0 / s.get_rc(0, 0)
+        major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
+        R0 = 10.0 / major_radius  # Dimensionless scaling factor for thresholds
         if 'length_threshold' not in kwargs:
             length_threshold /= R0
         if 'cc_threshold' not in kwargs:
@@ -1324,14 +1475,22 @@ def optimize_coils_loop(
         coils = initial_coils
 
     # Calculate total_current (needed for later printing and possibly for threshold scaling)
-    total_current = sum([c.current.get_value() for c in coils[:ncoils]]) / (s.stellsym + 1) / s.nfp
+    # Sum the unique base coils (coils[:ncoils]) to get total current
+    total_current = sum([c.current.get_value() for c in coils[:ncoils]])
     
-    # Rescale force_threshold and torque_threshold only if they were not explicitly passed
-    # AND only for the first initialization (not continuation steps)
-    # For continuation steps, use the thresholds that were already computed in the first step
+    # Print individual coil currents before optimization
+    print("\nCoil currents before optimization (unique base coils):")
+    for i, coil in enumerate(coils[:ncoils]):
+        print(f"  Coil {i+1}: {coil.current.get_value():.2e} A")
+    print(f"  Total: {total_current:.2e} A")
+    
+    # Calculate current_scale_factor for force/torque threshold and weight scaling
+    # This makes force/torque thresholds and weights dimensionless relative to reactor scale
+    current_scale_factor = 1.0  # Default: no scaling
     if not is_continuation_step and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
         coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
-        total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]]) / (s.stellsym + 1) / s.nfp
+        # Sum the unique base coils to get total current
+        total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]])
         current_scale_factor = (total_current / total_current_reactor_scale) ** 2
         if 'force_threshold' not in kwargs:
             force_threshold *= current_scale_factor
@@ -1340,6 +1499,11 @@ def optimize_coils_loop(
 
     # Extract base curves and currents from the initialized coils
     base_curves = [coil.curve for coil in coils[:ncoils]]
+    
+    # Fix individual coil currents to prevent sign changes during optimization
+    # This ensures currents maintain their initial sign and magnitude relationships
+    # for coil in coils[:ncoils]:
+    #     coil.current.fix_all()
     
     # Step 2: Create plotting surface for visualization
     # print("Step 2: Setting up plotting surface...")
@@ -1397,7 +1561,7 @@ def optimize_coils_loop(
     # Calculate and display initial B-field
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
     B_initial = calculate_modB_on_major_radius(bs, s_plot)
-    # print(f"Initial B-field on-axis: {B_initial:.3f} T")
+    print(f"\nInitial B-field on-axis: {B_initial:.3f} T")
     
     # Save initial surface data
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
@@ -1427,7 +1591,7 @@ def optimize_coils_loop(
     bs.set_points(s.gamma().reshape((-1, 3)))
     
     # Main objective: Squared flux (always included)
-    Jf = SquaredFlux(s, bs, definition="normalized", threshold=flux_threshold)
+    Jf = SquaredFlux(s, bs, threshold=flux_threshold)
     
     # Build constraint terms based on coil_objective_terms configuration
     # If coil_objective_terms is None or empty, omit all constraint objectives (only flux objective included)
@@ -1489,22 +1653,21 @@ def optimize_coils_loop(
     if coil_objective_terms and curvature_p != 2:
         Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves]
 
-    # Print initial constraint values
-    print("Initial thresholds:")
-    print(f" Flux Threshold: {flux_threshold:.2e}")
-    print(f" Length Threshold: {length_threshold:.2e}")
-    print(f" CC Threshold: {cc_threshold:.2e}")
-    print(f" CS Threshold: {cs_threshold:.2e}")
-    print(f" MSC Threshold: {msc_threshold:.2e}")
-    print(f" Arclength Variation Threshold: {arclength_variation_threshold:.2e}")
-    print(f" Curvature Threshold: {curvature_threshold:.2e}")
-    print(f" Force Threshold: {force_threshold:.2e}")
-    print(f" Torque Threshold: {torque_threshold:.2e}")
+    # Print initial constraint values and weights (will be updated after building c_list and weights)
+    # This will be printed after weights are determined
     
     # Build constraint list dynamically based on coil_objective_terms
     # Only explicitly specified objectives in coil_objective_terms will be included
     # If coil_objective_terms is None or empty, only flux objective is included (no constraints)
     c_list = [Jf]  # Always include flux
+    
+    # Track constraint names and thresholds for printing
+    constraint_names_and_thresholds = []
+    
+    # Track index of coil_surface_distance and coil_coil_distance constraints for heavy weighting
+    # Initialize before the if block so they're always defined
+    cs_distance_index = None
+    cc_distance_index = None
     
     # Build constraint list based on coil_objective_terms
     # Map term names to constraint objects and penalty types
@@ -1577,6 +1740,11 @@ def optimize_coils_loop(
             },
         }
         
+        # Map constraint indices to their scaling factors for dimensionless weights
+        # Use major_radius (with units [L]) for proper dimensional scaling
+        constraint_scaling = {}  # Maps constraint index to scaling factor
+        major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
+        
         for term_name, term_value in (coil_objective_terms or {}).items():
             # Skip _p parameters (already handled above)
             if term_name.endswith("_p"):
@@ -1589,14 +1757,205 @@ def optimize_coils_loop(
                 
                 if term_value in term_config:
                     constraint = term_config[term_value](obj, thresh)
+                    constraint_idx = len(c_list)  # Index before appending
                     c_list.append(constraint)
+                    
+                    # Determine scaling factor for dimensionless weights based on constraint units and penalty type:
+                    # To make weight * constraint_value dimensionless:
+                    # - If constraint has units [L], weight needs units [1/L], so weight *= 1 / major_radius
+                    # - If constraint has units [1/L], weight needs units [L], so weight *= major_radius
+                    # - If constraint has units [L^2], weight needs units [1/L^2], so weight *= 1 / major_radius^2
+                    # - If constraint has units [1/L^2], weight needs units [L^2], so weight *= major_radius^2
+                    # 
+                    # Base constraint units:
+                    # - Length/distance: [L] (m)
+                    # - Curvature (LpCurveCurvature): [1/L^(p-1)] for lp/lp_threshold, [1/L] for l1/l2
+                    #   LpCurveCurvature = (1/p) ∫ max(κ - κ₀, 0)^p dl has units [1/L^(p-1)]
+                    # - MSC: [1/L^2] (1/m^2) - MeanSquaredCurvature = (1/L) ∫ κ² dl
+                    # - Arclength variation: [L^2] (m^2)
+                    # - Force (LpCurveForce): [F^p / L^(p-1)] where F is force per unit length [F/L]
+                    #   LpCurveForce = (1/p) ∫ max(|F| - F₀, 0)^p dℓ has units [F^p / L^(p-1)]
+                    # - Torque (LpCurveTorque): [T^p / L^(p-1)] where T is torque per unit length [T/L]
+                    #   LpCurveTorque = (1/p) ∫ max(|T| - T₀, 0)^p dℓ has units [T^p / L^(p-1)]
+                    # 
+                    # Penalty type affects units:
+                    # - l1/l1_threshold: same units as constraint
+                    # - l2/l2_threshold: constraint units squared (e.g., [L] -> [L^2], [1/L] -> [1/L^2])
+                    # - lp/lp_threshold: 
+                    #   * For coil_curvature: uses LpCurveCurvature directly, units [1/L^(p-1)]
+                    #   * For coil_coil_force/coil_coil_torque: uses LpCurveForce/LpCurveTorque directly
+                    #   * For other constraints: constraint units^p (e.g., [L] -> [L^p], [1/L] -> [1/L^p])
+                    
+                    # Get p value for lp penalties
+                    p_value = 2  # Default p value
+                    if term_value in ["lp", "lp_threshold"]:
+                        p_key = f"{term_name}_p"
+                        p_value = coil_objective_terms.get(p_key, 2)
+                    
+                    # Base scaling factors (for l1/l1_threshold - linear penalties)
+                    # These make weight * constraint dimensionless when constraint has base units
+                    # Use major_radius (with units [L]) for proper dimensional scaling:
+                    # - Constraint [L]: weight needs [1/L], so weight *= 1 / major_radius
+                    # - Constraint [1/L]: weight needs [L], so weight *= major_radius
+                    # - Constraint [1/L^2]: weight needs [L^2], so weight *= major_radius^2
+                    # - Constraint [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
+                    base_scaling = 1.0
+                    if term_name == "total_length":
+                        # Length [L]: weight needs [1/L], so weight *= 1 / major_radius
+                        # Effect: (weight / major_radius) * constraint[L] = dimensionless
+                        base_scaling = 1.0 / major_radius
+                    elif term_name == "coil_coil_distance":
+                        # Distance [L]: weight needs [1/L], so weight *= 1 / major_radius
+                        base_scaling = 1.0 / major_radius
+                    elif term_name == "coil_surface_distance":
+                        # Distance [L]: weight needs [1/L], so weight *= 1 / major_radius
+                        base_scaling = 1.0 / major_radius
+                    elif term_name == "coil_curvature":
+                        # Curvature [1/L]: weight needs [L], so weight *= major_radius
+                        # Effect: (weight * major_radius) * constraint[1/L] = dimensionless
+                        base_scaling = major_radius
+                    elif term_name == "coil_mean_squared_curvature":
+                        # MSC [1/L^2]: weight needs [L^2], so weight *= major_radius^2
+                        # Effect: (weight * major_radius^2) * constraint[1/L^2] = dimensionless
+                        base_scaling = major_radius ** 2
+                    elif term_name == "coil_arclength_variation":
+                        # Arclength var [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
+                        # Effect: (weight / major_radius^2) * constraint[L^2] = dimensionless
+                        base_scaling = 1.0 / (major_radius ** 2)
+                    elif term_name == "linking_number":
+                        # Dimensionless: no scaling needed
+                        base_scaling = 1.0
+                    elif term_name in ["coil_coil_force", "coil_coil_torque"]:
+                        # LpCurveForce/LpCurveTorque have units [F^p / L^(p-1)] or [T^p / L^(p-1)]
+                        # For dimensionless weight * constraint, weight needs units [L^(p-1) / F^p] or [L^(p-1) / T^p]
+                        # Since major_radius has units [L], we scale by major_radius^(p-1) to handle the length part
+                        # Note: This doesn't fully make it dimensionless (force/torque units remain),
+                        # but scales the length dimension appropriately
+                        # But since these always use lp/lp_threshold, base_scaling won't be used
+                        # We'll handle scaling in the lp section based on the actual p value
+                        base_scaling = 1.0  # Will be overridden in lp section
+                    
+                    # Adjust for penalty type
+                    if term_value in ["l2", "l2_threshold"]:
+                        # Squared penalty: constraint units are squared
+                        # - [L] -> [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
+                        # - [1/L] -> [1/L^2]: weight needs [L^2], so weight *= major_radius^2
+                        # - [L^2] -> [L^4]: weight needs [1/L^4], so weight *= 1 / major_radius^4
+                        # - [1/L^2] -> [1/L^4]: weight needs [L^4], so weight *= major_radius^4
+                        if term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
+                            # [L] -> [L^2]: base_scaling = 1/major_radius, need 1/major_radius^2
+                            constraint_scaling[constraint_idx] = base_scaling / major_radius  # = 1/major_radius^2
+                        elif term_name == "coil_curvature":
+                            # [1/L] -> [1/L^2]: base_scaling = major_radius, need major_radius^2
+                            constraint_scaling[constraint_idx] = base_scaling * major_radius  # = major_radius^2
+                        elif term_name == "coil_mean_squared_curvature":
+                            # [1/L^2] -> [1/L^4]: base_scaling = major_radius^2, need major_radius^4
+                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** 2)  # = major_radius^4
+                        elif term_name == "coil_arclength_variation":
+                            # [L^2] -> [L^4]: base_scaling = 1/major_radius^2, need 1/major_radius^4
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** 2)  # = 1/major_radius^4
+                        else:
+                            constraint_scaling[constraint_idx] = base_scaling
+                    elif term_value in ["lp", "lp_threshold"]:
+                        # Lp penalty: constraint units depend on constraint type
+                        # For coil_curvature: LpCurveCurvature = (1/p) ∫ max(κ - κ₀, 0)^p dl
+                        #   This has units [1/L^(p-1)], not [1/L^p]
+                        #   Weight needs [L^(p-1)], so weight *= major_radius^(p-1)
+                        # For coil_coil_force/coil_coil_torque: LpCurveForce/LpCurveTorque = (1/p) ∫ max(|F| - F₀, 0)^p dℓ
+                        #   F is force per unit length [F/L], so constraint has units [F^p / L^(p-1)]
+                        #   Weight needs [L^(p-1) / F^p], so weight *= major_radius^(p-1) (handles length part)
+                        # For other constraints: constraint units are raised to power p
+                        #   - [L] -> [L^p]: weight needs [1/L^p], so weight *= 1 / major_radius^p
+                        #   - [L^2] -> [L^(2p)]: weight needs [1/L^(2p)], so weight *= 1 / major_radius^(2p)
+                        #   - [1/L^2] -> [1/L^(2p)]: weight needs [L^(2p)], so weight *= major_radius^(2p)
+                        if term_name == "coil_curvature":
+                            # LpCurveCurvature has units [1/L^(p-1)]
+                            # Weight needs [L^(p-1)], so weight *= major_radius^(p-1)
+                            constraint_scaling[constraint_idx] = major_radius ** (p_value - 1)
+                        elif term_name in ["coil_coil_force", "coil_coil_torque"]:
+                            # LpCurveForce/LpCurveTorque have units [F^p / L^(p-1)] or [T^p / L^(p-1)]
+                            # Weight needs [L^(p-1) / F^p] or [L^(p-1) / T^p]
+                            # Since major_radius has units [L], weight *= major_radius^(p-1) handles the length dimension
+                            # Additionally, force/torque scale with current^2, so F^p scales with current^(2p)
+                            # The constraint LpCurveForce scales with current^(2p)
+                            # current_scale_factor = (total_current / total_current_reactor_scale)^2
+                            # To normalize constraint relative to reactor scale: divide by (current/current_reactor)^(2p)
+                            # (current/current_reactor)^(2p) = ((current/current_reactor)^2)^p = current_scale_factor^p
+                            # So weight needs to scale by 1/current_scale_factor^p (not current_scale_factor^(2p))
+                            # to make weight * constraint dimensionless relative to reactor scale
+                            constraint_scaling[constraint_idx] = (major_radius ** (p_value - 1)) / (total_current ** (2 * p_value))
+                        elif term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
+                            # [L] -> [L^p]: base_scaling = 1/major_radius, need 1/major_radius^p
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (p_value - 1))
+                        elif term_name == "coil_mean_squared_curvature":
+                            # [1/L^2] -> [1/L^(2p)]: base_scaling = major_radius^2, need major_radius^(2p)
+                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** (2 * p_value - 2))
+                        elif term_name == "coil_arclength_variation":
+                            # [L^2] -> [L^(2p)]: base_scaling = 1/major_radius^2, need 1/major_radius^(2p)
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (2 * p_value - 2))
+                        else:
+                            constraint_scaling[constraint_idx] = base_scaling
+                    else:
+                        # For l1/l1_threshold (linear penalties), use base scaling
+                        constraint_scaling[constraint_idx] = base_scaling
+                    
+                    # Track constraint name and threshold for printing
+                    name_map = {
+                        "total_length": ("Length", length_threshold),
+                        "coil_coil_distance": ("CC Distance", cc_threshold),
+                        "coil_surface_distance": ("CS Distance", cs_threshold),
+                        "coil_mean_squared_curvature": ("MSC", msc_threshold),
+                        "coil_arclength_variation": ("Arclength Var", arclength_variation_threshold),
+                        "coil_curvature": ("κ", curvature_threshold),
+                        "linking_number": ("Link #", None),
+                        "coil_coil_force": ("Force", force_threshold),
+                        "coil_coil_torque": ("Torque", torque_threshold),
+                    }
+                    if term_name in name_map:
+                        constraint_names_and_thresholds.append(name_map[term_name])
+                    # Track index of coil_surface_distance and coil_coil_distance for heavy weighting
+                    if term_name == "coil_surface_distance":
+                        cs_distance_index = len(c_list) - 1
+                    elif term_name == "coil_coil_distance":
+                        cc_distance_index = len(c_list) - 1
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
     
     # Step 5: Run optimization
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
+    
+    # Check if weight is specified for coil-surface distance and coil-coil distance constraints
+    cs_weight_specified = False
+    cc_weight_specified = False
+    if cs_distance_index is not None:
+        cs_weight_key = f'constraint_weight_{cs_distance_index}'
+        cs_weight_specified = cs_weight_key in kwargs
+    if cc_distance_index is not None:
+        cc_weight_key = f'constraint_weight_{cc_distance_index}'
+        cc_weight_specified = cc_weight_key in kwargs
+    
     if algorithm == "augmented_lagrangian":
+        # Apply heavy weight to coil-surface distance and coil-coil distance for augmented_lagrangian if not specified
+        if cs_distance_index is not None and not cs_weight_specified:
+            c_list[cs_distance_index] = Weight(1e3) * c_list[cs_distance_index]
+        if cc_distance_index is not None and not cc_weight_specified:
+            c_list[cc_distance_index] = Weight(1e3) * c_list[cc_distance_index]
+        
+        # Print initial thresholds and weights for augmented_lagrangian
+        # (weights are embedded in Weight() wrappers)
+        print("Initial thresholds and weights:")
+        print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight=1.0")
+        for idx, (name, threshold) in enumerate(constraint_names_and_thresholds, start=1):
+            if idx < len(c_list):
+                # Determine weight: 1e3 for CS distance or CC distance if not specified, else 1.0
+                weight = 1e3 if ((cs_distance_index is not None and idx == cs_distance_index and not cs_weight_specified) or
+                                 (cc_distance_index is not None and idx == cc_distance_index and not cc_weight_specified)) else 1.0
+                if threshold is not None:
+                    print(f"  [{idx}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
+                else:
+                    print(f"  [{idx}] {name}: weight={weight:.2e}")
+        
         from simsopt.solve import augmented_lagrangian_method
         augmented_lagrangian_options = {
             "MAXITER": max_iterations,
@@ -1619,36 +1978,86 @@ def optimize_coils_loop(
         # c_list includes flux first, then other constraints
         # Default weight is 1.0 for all constraints
         weights = []
+        
         for i, constraint in enumerate(c_list):
             # Map constraint index to weight name (for backward compatibility)
-            # Flux (index 0) always has weight 1.0
+            # Flux (index 0) always has weight 1.0 (dimensionless)
             if i == 0:
                 weights.append(1.0)  # Flux weight
             else:
                 # For other constraints, try to get specific weight or default to 1.0
-                weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+                weight_key = f'constraint_weight_{i}'
+                weight_specified = weight_key in kwargs
+                weight = kwargs.get(weight_key, 1.0)
+                
+                # Apply heavy weight to coil-surface distance and coil-coil distance constraints if not specified
+                if cs_distance_index is not None and i == cs_distance_index and not cs_weight_specified:
+                    weight = 1e3  # Heavy weight for coil-surface distance
+                if cc_distance_index is not None and i == cc_distance_index and not cc_weight_specified:
+                    weight = 1e3  # Heavy weight for coil-coil distance
+                
+                # Rescale weight to be dimensionless if not explicitly specified
+                # This matches the threshold rescaling logic
+                if not weight_specified and i in constraint_scaling:
+                    weight *= constraint_scaling[i]
+                
                 weights.append(weight)
         
         # Create weighted sum of constraints
         JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
+        
+        # Print initial thresholds and weights
+        print("Initial thresholds and weights:")
+        print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight={weights[0]:.2e}")
+        
+        # Print constraints with their weights (skip index 0 which is flux)
+        for idx, (name, threshold) in enumerate(constraint_names_and_thresholds, start=1):
+            if idx < len(weights):
+                if threshold is not None:
+                    print(f"  [{idx}] {name}: threshold={threshold:.2e}, weight={weights[idx]:.2e}")
+                else:
+                    print(f"  [{idx}] {name}: weight={weights[idx]:.2e}")
+        
+        # Track iteration number for objective function
+        iteration_count = [0]  # Use list to allow modification in nested function
 
         # Define the objective function and gradient
         def objective(x: np.ndarray) -> float:
             JF.x = x  # type: ignore[attr-defined]
             J = JF.J()  # type: ignore[attr-defined]
             if verbose:
+                iteration_count[0] += 1
                 grad = JF.dJ()  # type: ignore[attr-defined]
-                outstr = f"J={J:.1e}, Jf={Jf.J():.1e}"
-                cl_string = ", ".join([f"{J.J():.1f}" for J in Jls])
-                outstr += f", Len=sum([{cl_string}])={sum(J.J() for J in Jls):.2f}"
-                outstr += f", C-C-Sep={Jccdist.shortest_distance():.2f}, C-S-Sep={Jcsdist.shortest_distance():.2f}"
-                outstr += f", Curvature={sum(Jcs).J():.2e}"  # type: ignore[attr-defined]
-                outstr += f", Mean Squared Curvature={sum(Jmscs).J():.2e}"  # type: ignore[attr-defined]
-                outstr += f", Linking Number={Jlink.J():.2e}"
+                outstr = f"[{iteration_count[0]}] J={J:.1e}, Jf={Jf.J():.1e}"
+                # cl_string = ", ".join([f"{J.J():.1f}" for J in Jls])
+                outstr += f", Len={sum(J.J() for J in Jls):.2f}"
+                outstr += f", CC-Sep={Jccdist.shortest_distance():.2f}, CS-Sep={Jcsdist.shortest_distance():.2f}"
+                kappa_values = [c.kappa().max() for c in base_curves]
+                msc_values = [MeanSquaredCurvature(c).J() for c in base_curves]
+                kappa_str = ",".join([f"{k:.1e}" for k in kappa_values])
+                msc_str = ",".join([f"{m:.1e}" for m in msc_values])
+                outstr += f", κ=[{kappa_str}]"  # type: ignore[attr-defined]
+                outstr += f", MSC=[{msc_str}]"  # type: ignore[attr-defined]
+                outstr += f", Link#={Jlink.J():.2e}"
                 outstr += f", F={Jforce.J():.2e}"
                 outstr += f", T={Jtorque.J():.2e}"
                 outstr += f", ║∇J║={np.linalg.norm(grad):.1e}"
                 print(outstr)
+                
+                # Print weighted contributions of each objective term
+                contrib_str = ""
+                contrib_parts = []
+                # Flux contribution (index 0)
+                flux_contrib = weights[0] * c_list[0].J()
+                contrib_parts.append(f"Flux={flux_contrib:.1e}")
+                # Other constraint contributions
+                for idx, (name, _) in enumerate(constraint_names_and_thresholds, start=1):
+                    if idx < len(c_list) and idx < len(weights):
+                        constraint_contrib = weights[idx] * c_list[idx].J()
+                        contrib_parts.append(f"{name}={constraint_contrib:.1e}")
+                contrib_str += ", ".join(contrib_parts)
+                contrib_str += f", Total={J:.1e}"
+                print(contrib_str)
             return J
         
         def gradient(x: np.ndarray) -> np.ndarray:
@@ -1677,8 +2086,8 @@ def optimize_coils_loop(
             error = abs(J_perturbed - J_predicted) / (abs(J0) + 1e-12)
             errors.append(error)
             
-            if verbose:
-                print(f"Taylor test ε={eps:.1e}: error={error:.2e}")
+            # if verbose:
+            #     print(f"Taylor test ε={eps:.1e}: error={error:.2e}")
         
         # Check that error decreases by at least a factor of 0.6 as epsilon decreases
         # (epsilon decreases by factor of 10, so error should decrease by at least 0.6)
@@ -1706,8 +2115,27 @@ def optimize_coils_loop(
         
         # Build options dictionary, starting with defaults
         options = {'maxiter': max_iterations}
+        # Set algorithm-specific tolerance defaults
+        if algorithm == 'L-BFGS-B':
+            # L-BFGS-B uses ftol and gtol, not tol
+            # Defaults: ftol=2.220446049250313e-09, gtol=1e-05
+            # Use scipy defaults to avoid premature convergence
+            # Note: Very strict tolerances (like 1e-12) can cause early convergence
+            # if the gradient norm drops below gtol quickly
+            options.setdefault('ftol', 1e-12)  # scipy default
+            options.setdefault('gtol', 1e-12)  # scipy default
+            options.setdefault('tol', 1e-12)  # scipy default
+        elif algorithm == 'TNC':
+            options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
+            options.setdefault('gtol', 1e-05)  # scipy default
+        elif algorithm in ['COBYLA']:
+            options.setdefault('tol', 1e-12)  # COBYLA uses tol
         if algorithm in ['L-BFGS-B', 'TNC']:
-            options['maxfun'] = max_iter_subopt
+            if 'maxfun' not in options:
+                options['maxfun'] = max_iterations * 15000
+            if 'max_iter_subopt' in options:
+                options['maxfun'] = max_iter_subopt * 15000
+            # If user explicitly set maxfun in algorithm_options, it will override via options.update() below
         
         # Add user-specified algorithm-specific options
         # Validate them first to catch errors early
@@ -1716,16 +2144,38 @@ def optimize_coils_loop(
             # Merge user options, allowing them to override defaults
             options.update(algorithm_options)
         
-        _ = minimize(
+        result = minimize(
             fun=objective,
             x0=JF.x,  # type: ignore[attr-defined]
             method=algorithm,
             jac=gradient,  # Provide gradient function
             options=options,
         )
+        
+        # Print optimization result message to help debug early exits
+        if verbose:
+            print(f"Optimization result: {result.message}")
+            print(f"  Success: {result.success}")
+            print(f"  Iterations: {result.nit}")
+            print(f"  Function evaluations: {result.nfev}")
+            if hasattr(result, 'njev'):
+                print(f"  Gradient evaluations: {result.njev}")
     
     end_time = time.time()
     print(f"Optimization completed in {end_time - start_time:.1f} seconds")
+    
+    # Calculate and print final total current
+    # Sum the unique base coils (coils[:ncoils]) to get total current
+    total_current_final = sum([c.current.get_value() for c in coils[:ncoils]])
+    
+    # Print individual coil currents after optimization
+    print("\nCoil currents after optimization (unique base coils):")
+    for i, coil in enumerate(coils[:ncoils]):
+        print(f"  Coil {i+1}: {coil.current.get_value():.2e} A")
+    print(f"  Total: {total_current_final:.2e} A")
+    
+    print(f"\nTotal current before optimization: {total_current:.0f} A")
+    print(f"Total current after optimization: {total_current_final:.0f} A")
     
     # Save optimized coils
     coils_to_vtk(coils, out_dir / "coils_optimized", nturns=nturns)
@@ -1734,7 +2184,8 @@ def optimize_coils_loop(
     # Calculate and display final B-field
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
     B_final = calculate_modB_on_major_radius(bs, s_plot)
-    print(f"Final B-field on-axis: {B_final:.3f} T")
+    print(f"\nFinal B-field on-axis: {B_final:.3f} T")
+    print(f"B-field change: {B_final - B_initial:.3f} T ({((B_final / B_initial - 1) * 100):+.1f}%)")
     
     # Save final surface data
     bs.set_points(s_plot.gamma().reshape((-1, 3)))

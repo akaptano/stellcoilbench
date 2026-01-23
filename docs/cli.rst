@@ -63,16 +63,18 @@ Run a case and create a submission zip file.
    
    .. code-block::
    
-      submissions/<username>/<timestamp>/all_files.zip
+      submissions/<surface>/<username>/<timestamp>/all_files.zip
    
    PDF plots are placed next to the zip:
    
    .. code-block::
    
-      submissions/<username>/<timestamp>/
+      submissions/<surface>/<username>/<timestamp>/
       ├── all_files.zip
       ├── bn_error_3d_plot.pdf
       └── bn_error_3d_plot_initial.pdf
+   
+   Example: ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/``
    
    **Examples**
    
@@ -318,8 +320,8 @@ Common Workflows
       # Run the case
       stellcoilbench submit-case cases/my_case.yaml
       
-      # Check results
-      ls submissions/*/$(git config user.name)/
+      # Check results (list all your submissions)
+      find submissions -type d -name "$(git config user.name)" -exec ls {} \;
    
    **Testing Optimization Changes**
    
@@ -387,28 +389,33 @@ Troubleshooting
    
    .. code-block:: bash
    
-      pip install -e .
+      pip install stellcoilbench
    
-   Or activate the conda environment:
+   Or for development:
    
    .. code-block:: bash
    
-      conda activate stellcoilbench
+      pip install -e .
 
 **Import Errors**
    
-   Check that all dependencies are installed:
+   Check that StellCoilBench is properly installed:
    
    .. code-block:: bash
    
-      python -c "import simsopt; import numpy; import scipy; import matplotlib"
+      python -c "import stellcoilbench; import simsopt; import numpy; import scipy; import matplotlib"
    
-   Install missing packages:
+   If imports fail, reinstall StellCoilBench (which will install all dependencies):
    
    .. code-block:: bash
    
-      conda install -c conda-forge simsopt numpy scipy matplotlib pyyaml vtk
-      pip install typer
+      pip install stellcoilbench
+   
+   Or if you're in development mode:
+   
+   .. code-block:: bash
+   
+      pip install -e .
 
 **Case File Not Found**
    

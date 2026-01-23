@@ -90,10 +90,14 @@ Schema Overview
      
      Dictionary of options passed to the optimizer. Common options:
      
-     - ``ftol``: Function tolerance (default: 1e-6)
-     - ``gtol``: Gradient tolerance (default: 1e-5)
+     - ``ftol``: Function tolerance (default: 1e-12 for L-BFGS-B)
+     - ``gtol``: Gradient tolerance (default: 1e-12 for L-BFGS-B)
+     - ``tol``: General tolerance (default: 1e-12 for L-BFGS-B)
      - ``maxfun``: Maximum function evaluations
      - ``maxcor``: Maximum number of variable metric corrections (L-BFGS-B)
+     
+     **Note**: For L-BFGS-B, the default tolerances are set to 1e-12 (ftol, gtol, tol)
+     for stricter convergence. For other algorithms, scipy defaults apply.
 
 **Objective Terms**
    
@@ -133,8 +137,8 @@ Here's a complete example case file:
      max_iter_subopt: 10
      verbose: False
      algorithm_options:
-       ftol: 1e-6
-       gtol: 1e-5
+       ftol: 1e-12
+       gtol: 1e-12
    
    coil_objective_terms:
      total_length: "l2_threshold"
@@ -367,8 +371,8 @@ Common Case Configurations
         max_iter_subopt: 10
         verbose: False
         algorithm_options:
-          ftol: 1e-8
-          gtol: 1e-7
+          ftol: 1e-12
+          gtol: 1e-12
       coil_objective_terms:
         total_length: "l2_threshold"
         coil_coil_distance: "l1_threshold"

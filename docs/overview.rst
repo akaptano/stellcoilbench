@@ -61,8 +61,8 @@ To run locally instead:
 
    stellcoilbench submit-case cases/my_case.yaml
 
-This creates a submission directory under ``submissions/<user>/<timestamp>/``,
-zips files into ``submissions/<user>/<timestamp>/all_files.zip``, and generates PDF plots
+This creates a submission directory under ``submissions/<surface>/<user>/<timestamp>/``,
+zips files into ``submissions/<surface>/<user>/<timestamp>/all_files.zip``, and generates PDF plots
 next to the zip file for quick inspection.
 
 Repository Layout
@@ -74,9 +74,11 @@ The StellCoilBench repository is organized as follows:
   
   Each case file defines a complete optimization problem. See :doc:`cases` for details.
 
-- **``submissions/``**: Submission results (organized by user)
+- **``submissions/``**: Submission results (organized by surface, then user)
 
-  Structure: ``submissions/<user>/<timestamp>/all_files.zip``
+  Structure: ``submissions/<surface>/<user>/<timestamp>/all_files.zip``
+  
+  Example: ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/all_files.zip``
   
   Each zip contains:
   
@@ -102,6 +104,7 @@ The StellCoilBench repository is organized as follows:
   
   - ``cli.py``: Command-line interface
   - ``coil_optimization.py``: Core optimization logic
+  - ``config_scheme.py``: Configuration data structures
   - ``evaluate.py``: Case loading and evaluation
   - ``update_db.py``: Leaderboard generation
   - ``validate_config.py``: Case configuration validation

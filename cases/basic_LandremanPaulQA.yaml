@@ -5,13 +5,13 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 4
+  order: 16
 
 optimizer_params:
   algorithm: "L-BFGS-B"
-  max_iterations: 200
-  max_iter_subopt: 10
-  verbose: False
+  max_iterations: 1000
+  max_iter_subopt: 20
+  verbose: True
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.

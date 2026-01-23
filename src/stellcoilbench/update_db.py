@@ -1473,83 +1473,112 @@ def write_rst_leaderboard(
                 entry_path = entry.get("path", "")
                 i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
                 f_link = rank_num  # Final coils link - show rank number
+                
+                # Check if this is a Fourier continuation submission
+                fourier_orders_str = metrics.get("fourier_continuation_orders")
+                is_fourier_continuation = fourier_orders_str and fourier_orders_str != "—"
+                
                 if entry_path:
-                    # Path format: submissions/{user}/{timestamp}/all_files.zip (new)
-                    # Or: submissions/{surface}/{user}/{timestamp}.zip (old)
-                    # entry_path is relative to repo root
+                    repo_root = out_rst.parent.parent
+                    # Use jsdelivr CDN which serves files with proper content-type headers for inline viewing
+                    github_base_url = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
+                    
+                    # Determine submission directory
                     path_obj = Path(entry_path)
+                    submission_dir = None
+                    
                     if path_obj.name == "all_files.zip":
                         # New structure: PDFs are in the same directory as the zip file
-                        # path_obj.parent gives us submissions/{user}/{timestamp}/
-                        pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                        pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                        submission_dir = path_obj.parent
                     elif path_obj.suffix == ".zip":
                         # Legacy format: handle old zip files
-                        # Old structure: submissions/{surface}/{user}/{timestamp}.zip
-                        # PDFs might be in:
-                        # 1. submissions/{user}/{timestamp}/ (if already migrated - NEW STRUCTURE)
-                        # 2. submissions/{surface}/{user}/{timestamp}/ (if DATE subdirectory exists)
-                        # 3. submissions/{surface}/{user}/ (old location)
-                        
-                        # Extract timestamp from zip filename
                         zip_stem = path_obj.stem
-                        # Check if zip filename looks like a timestamp (MM-DD-YYYY_HH-MM)
                         if zip_stem.count('-') >= 4 and '_' in zip_stem:
                             timestamp = zip_stem
-                            # Try new structure first (migrated location)
                             path_parts = path_obj.parts
                             if "submissions" in path_parts:
                                 submissions_idx = path_parts.index("submissions")
-                                # Extract user from old structure: submissions/{surface}/{user}/{timestamp}.zip
                                 if submissions_idx + 2 < len(path_parts):
-                                    user = path_parts[submissions_idx + 2]  # User is third part after submissions
-                                    new_pdf_path = Path("submissions") / user / timestamp / "bn_error_3d_plot.pdf"
-                                    new_pdf_path_initial = Path("submissions") / user / timestamp / "bn_error_3d_plot_initial.pdf"
-                                    # Check if new structure exists
-                                    repo_root = out_rst.parent.parent
-                                    if (repo_root / new_pdf_path).exists():
-                                        pdf_path = new_pdf_path
-                                        pdf_path_initial = new_pdf_path_initial
+                                    user = path_parts[submissions_idx + 2]
+                                    new_dir = repo_root / "submissions" / user / timestamp
+                                    if new_dir.exists():
+                                        submission_dir = Path("submissions") / user / timestamp
                                     else:
-                                        # Fall back to old structure: try DATE subdirectory
                                         old_date_dir = path_obj.parent / timestamp
                                         if old_date_dir.exists():
-                                            pdf_path = old_date_dir / "bn_error_3d_plot.pdf"
-                                            pdf_path_initial = old_date_dir / "bn_error_3d_plot_initial.pdf"
+                                            submission_dir = path_obj.parent / timestamp
                                         else:
-                                            # Fall back to user directory
-                                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                                            pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                                            submission_dir = path_obj.parent
                                 else:
-                                    # Can't extract user, try parent directory
-                                    pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                                    pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                                    submission_dir = path_obj.parent
                             else:
-                                pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                                pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                                submission_dir = path_obj.parent
                         else:
-                            # Zip filename doesn't look like timestamp, try parent directory
-                            pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                            pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                            submission_dir = path_obj.parent
                     else:
                         # Not a zip file - PDFs should be in the same directory as results.json
-                        # Path format: submissions/{surface}/{user}/{timestamp}/results.json
-                        # PDFs are: submissions/{surface}/{user}/{timestamp}/bn_error_3d_plot.pdf
-                        pdf_path = path_obj.parent / "bn_error_3d_plot.pdf"
-                        pdf_path_initial = path_obj.parent / "bn_error_3d_plot_initial.pdf"
+                        submission_dir = path_obj.parent
                     
-                    # Check if PDFs exist and create links (check each independently)
-                    repo_root = out_rst.parent.parent
-                    if pdf_path:
-                        full_pdf_path = (repo_root / pdf_path).resolve()
-                        if full_pdf_path.exists():
-                            pdf_rel_path = Path("../../..") / pdf_path
-                            f_link = f"`{rank_num} <{pdf_rel_path}>`__"
-                    if pdf_path_initial:
-                        full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
-                        if full_pdf_path_initial.exists():
-                            pdf_rel_path_initial = Path("../../..") / pdf_path_initial
-                            i_link = f"`{rank_num} <{pdf_rel_path_initial}>`__"
+                    if submission_dir:
+                        full_submission_dir = (repo_root / submission_dir).resolve()
+                        
+                        if is_fourier_continuation:
+                            # Fourier continuation: handle order_X subdirectories
+                            # Parse orders from string (e.g., "4,6,8" -> [4, 6, 8])
+                            try:
+                                orders = [int(o.strip()) for o in fourier_orders_str.split(",")]
+                            except (ValueError, AttributeError):
+                                orders = []
+                            
+                            if orders:
+                                # Find all order_X directories that exist
+                                order_dirs = []
+                                for order in orders:
+                                    order_dir_name = f"order_{order}"
+                                    order_dir_path = full_submission_dir / order_dir_name
+                                    if order_dir_path.exists() and order_dir_path.is_dir():
+                                        order_dirs.append((order, order_dir_name))
+                                
+                                if order_dirs:
+                                    # For "i": use initial PDF from first order
+                                    first_order, first_order_dir = order_dirs[0]
+                                    initial_pdf_path = submission_dir / first_order_dir / "bn_error_3d_plot_initial.pdf"
+                                    full_initial_pdf_path = repo_root / initial_pdf_path
+                                    if full_initial_pdf_path.exists():
+                                        pdf_url_path_initial = str(initial_pdf_path).replace("\\", "/")
+                                        pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
+                                        i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                    
+                                    # For "f": create multiple links, one for each order
+                                    f_links = []
+                                    for order, order_dir_name in order_dirs:
+                                        final_pdf_path = submission_dir / order_dir_name / "bn_error_3d_plot.pdf"
+                                        full_final_pdf_path = repo_root / final_pdf_path
+                                        if full_final_pdf_path.exists():
+                                            pdf_url_path = str(final_pdf_path).replace("\\", "/")
+                                            pdf_url = f"{github_base_url}/{pdf_url_path}"
+                                            f_links.append(f"`{order} <{pdf_url}>`__")
+                                    
+                                    if f_links:
+                                        # Join multiple links with spaces
+                                        f_link = " ".join(f_links)
+                        else:
+                            # Standard submission: PDFs in submission directory
+                            pdf_path = submission_dir / "bn_error_3d_plot.pdf"
+                            pdf_path_initial = submission_dir / "bn_error_3d_plot_initial.pdf"
+                            
+                            # Check if PDFs exist and create links
+                            full_pdf_path = (repo_root / pdf_path).resolve()
+                            if full_pdf_path.exists():
+                                pdf_url_path = str(pdf_path).replace("\\", "/")
+                                pdf_url = f"{github_base_url}/{pdf_url_path}"
+                                f_link = f"`{rank_num} <{pdf_url}>`__"
+                            
+                            full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
+                            if full_pdf_path_initial.exists():
+                                pdf_url_path_initial = str(pdf_path_initial).replace("\\", "/")
+                                pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
+                                i_link = f"`{rank_num} <{pdf_url_initial}>`__"
                 
                 # Build row: metrics first, then Date, User, i, f at the end
                 row_parts = []

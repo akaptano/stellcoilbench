@@ -25,6 +25,7 @@ dependencies = [
     "PyYAML>=6.0",
     "pandas",
     "pytest",
+    "pytest-cov",
     "black",
     "ruff",
     "psutil",

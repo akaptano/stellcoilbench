@@ -25,11 +25,12 @@ stellcoilbench/
 │   ├── basic_rotating_ellipse.yaml
 │   └── README.md
 ├── submissions/              # Generated submission results
-│   └── akaptano/             # GitHub username
-│       └── 11-23-2025_23-03/ # Date and time (MM-DD-YYYY_HH-MM)
-│           ├── all_files.zip # Submission archive
-│           ├── bn_error_3d_plot.pdf
-│           └── bn_error_3d_plot_initial.pdf
+│   └── LandremanPaul2021_QA/ # Plasma surface name
+│       └── akaptano/         # GitHub username
+│           └── 01-23-2026_00-45/ # Date and time (MM-DD-YYYY_HH-MM)
+│               ├── all_files.zip # Submission archive
+│               ├── bn_error_3d_plot.pdf
+│               └── bn_error_3d_plot_initial.pdf
 │   └── README.md
 └── docs/                     # Generated leaderboards
     └── leaderboards/         # Per-surface leaderboards
@@ -58,8 +59,8 @@ optimizer_params:
   max_iter_subopt: 10
   verbose: False  # Optional: controls optimization progress output
   algorithm_options:  # Optional: algorithm-specific hyperparameters
-    ftol: 1e-6
-    gtol: 1e-5
+    ftol: 1e-12  # Default for L-BFGS-B is 1e-12
+    gtol: 1e-12  # Default for L-BFGS-B is 1e-12
 coil_objective_terms:  # Optional: specify which objectives to include
   total_length: "l2_threshold"
   coil_coil_distance: "l1_threshold"
@@ -78,10 +79,11 @@ stellcoilbench submit-case cases/my_case.yaml
 2. Evaluates the results
 3. Auto-detects GitHub username from git config (`git config user.name`)
 4. Auto-detects hardware (CPU/GPU) from system information
-5. Creates a submission directory `submissions/<github_username>/<MM-DD-YYYY_HH-MM>/`
+5. Creates a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
+   (e.g., `submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/`)
 6. Writes `results.json`, `coils.json`, `case.yaml`, `biot_savart_optimized.json`, and VTK files (*.vtu, *.vts)
 7. Copies `case.yaml` and adds `source_case_file`
-8. Zips the submission into `submissions/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip`
+8. Zips the submission into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip`
 9. Leaves PDF plots **next to** the zip file (not inside the archive)
 
 ### Step 3: Commit and Push

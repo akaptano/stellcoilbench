@@ -114,7 +114,7 @@ Coil Optimization Module
 
 The ``coil_optimization`` module contains the core optimization logic.
 
-**optimize_coils(case_path: Path, coils_out_path: Path, case_cfg: CaseConfig | None = None, output_dir: Path | None = None) -> Dict[str, Any]**
+**optimize_coils(case_path: Path, coils_out_path: Path, case_cfg: CaseConfig | None = None, output_dir: Path | None = None, surface_resolution: int = 16) -> Dict[str, Any]**
    Run coil optimization for a given case.
    
    This is the main entry point for optimization. It:
@@ -132,6 +132,8 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``coils_out_path``: Where to write optimized coil geometry (JSON)
    - ``case_cfg``: Optional pre-loaded CaseConfig (if None, loads from case_path)
    - ``output_dir``: Directory for VTK and other outputs (default: coils_out_path parent)
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+     Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
    
    Returns:
    
@@ -165,7 +167,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    
    - ``coils``: List of initialized coil objects
 
-**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, **kwargs)**
+**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, surface_resolution: int = 16, **kwargs)**
    Complete coil optimization including initialization and optimization.
    
    This function combines initialization and optimization into a single call.
@@ -184,6 +186,8 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``regularization``: Regularization function
    - ``coil_objective_terms``: Objective function terms dictionary
    - ``initial_coils``: Optional pre-initialized coils (for Fourier continuation)
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+     Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
    - ``**kwargs``: Additional constraint thresholds
    
    Returns:
@@ -191,7 +195,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``coils``: Optimized coil objects
    - ``results``: Optimization results dictionary
 
-**optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, **kwargs) -> tuple[list, Dict[str, Any]]**
+**optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, surface_resolution: int = 16, **kwargs) -> tuple[list, Dict[str, Any]]**
    Perform coil optimization with Fourier continuation.
    
    This function solves a sequence of coil optimizations, starting with a low
@@ -212,6 +216,8 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``verbose``: Print progress
    - ``regularization``: Regularization function (can be None)
    - ``coil_objective_terms``: Objective function terms dictionary
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+     Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
    - ``**kwargs``: Additional constraint thresholds and algorithm options
    
    Returns:

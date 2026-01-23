@@ -14,13 +14,17 @@ Submissions are organized in the repository as follows:
 .. code-block::
 
    submissions/
-   └── <username>/
-       └── <timestamp>/
-           ├── all_files.zip            # Submission archive
-           ├── bn_error_3d_plot.pdf     # Optimized coils visualization
-           └── bn_error_3d_plot_initial.pdf  # Initial coils visualization
+   └── <surface>/
+       └── <username>/
+           └── <timestamp>/
+               ├── all_files.zip            # Submission archive
+               ├── bn_error_3d_plot.pdf     # Optimized coils visualization
+               └── bn_error_3d_plot_initial.pdf  # Initial coils visualization
 
-The ``<timestamp>`` format is ``YYYY-MM-DD_HH-MM-SS`` (e.g., ``2025-12-01_01-53-19``).
+The ``<surface>`` is the plasma surface name (e.g., ``LandremanPaul2021_QA``).
+The ``<timestamp>`` format is ``MM-DD-YYYY_HH-MM`` (e.g., ``01-23-2026_00-45``).
+
+Example: ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/``
 
 Submission Zip Contents
 -----------------------
@@ -120,13 +124,13 @@ Creating Submissions
    7. Zip the submission
    8. Move PDF plots next to the zip
 
-**Submission Directory Structure**
+   **Submission Directory Structure**
    
    During creation, files are organized as:
    
    .. code-block::
    
-      submissions/<user>/<timestamp>/
+      submissions/<surface>/<user>/<timestamp>/
       ├── results.json
       ├── case.yaml
       ├── coils.json
@@ -138,10 +142,12 @@ Creating Submissions
    
    .. code-block::
    
-      submissions/<user>/<timestamp>/
+      submissions/<surface>/<user>/<timestamp>/
       ├── all_files.zip
       ├── bn_error_3d_plot.pdf
       └── bn_error_3d_plot_initial.pdf
+   
+   Example: ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/``
 
 **Manual Submission Creation**
    
@@ -251,9 +257,17 @@ Viewing Submissions
 
 **List Your Submissions**
    
+   List all submissions for a specific surface:
+   
    .. code-block:: bash
    
-      ls submissions/$(git config user.name)/
+      ls submissions/<surface>/$(git config user.name)/
+   
+   Or find all your submissions across all surfaces:
+   
+   .. code-block:: bash
+   
+      find submissions -type d -name "$(git config user.name)" -exec ls {} \;
    
    Shows all your submissions.
 
@@ -264,10 +278,16 @@ Viewing Submissions
    .. code-block:: bash
    
       cd /tmp
-      unzip submissions/<user>/<timestamp>/all_files.zip
+      unzip submissions/<surface>/<user>/<timestamp>/all_files.zip
       cat results.json | jq .
    
    (Requires ``jq`` for JSON pretty-printing)
+   
+   Example:
+   
+   .. code-block:: bash
+   
+      unzip submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/all_files.zip
 
 **View PDF Plots**
    
@@ -275,13 +295,19 @@ Viewing Submissions
    
    .. code-block:: bash
    
-      open submissions/<user>/<timestamp>/bn_error_3d_plot.pdf
+      open submissions/<surface>/<user>/<timestamp>/bn_error_3d_plot.pdf
    
    Or on Linux:
    
    .. code-block:: bash
    
-      xdg-open submissions/<user>/<timestamp>/bn_error_3d_plot.pdf
+      xdg-open submissions/<surface>/<user>/<timestamp>/bn_error_3d_plot.pdf
+   
+   Example:
+   
+   .. code-block:: bash
+   
+      open submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/bn_error_3d_plot.pdf
 
 **Regenerate Leaderboards Locally**
    
