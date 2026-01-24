@@ -11,7 +11,7 @@ optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 200
   max_iter_subopt: 10
-  verbose: False
+  verbose: True
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.

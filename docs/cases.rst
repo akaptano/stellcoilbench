@@ -154,6 +154,24 @@ Here's a complete example case file:
      coil_coil_torque: "lp_threshold"
      coil_coil_torque_p: 2
 
+Notation
+--------
+
+The following notation is used throughout the mathematical definitions:
+
+- :math:`C_i` denotes coil curve :math:`i`
+- :math:`S` denotes the plasma surface
+- :math:`\mathbf{r}_i` denotes a point on coil curve :math:`C_i`
+- :math:`\mathbf{s}` denotes a point on the plasma surface :math:`S`
+- :math:`\ell_i` denotes arclength along coil curve :math:`C_i`
+- :math:`L_i` denotes the total length of coil curve :math:`C_i`
+- :math:`\kappa_i` denotes curvature along coil curve :math:`C_i`
+- :math:`\frac{d\vec{F}_i}{d\ell_i}` denotes force per unit length on coil curve :math:`C_i`
+- :math:`\frac{d\vec{T}_i}{d\ell_i}` denotes torque per unit length on coil curve :math:`C_i`
+- :math:`N` denotes the number of coils
+- :math:`d\ell_i` denotes the differential arclength element along coil curve :math:`C_i`
+- :math:`ds` denotes the differential surface area element on the plasma surface :math:`S`
+
 Available Objective Terms
 -------------------------
 
@@ -165,61 +183,123 @@ Available Objective Terms
    Mathematical form:
    
    .. math::
-      L = \sum_{i=1}^{N} \int_{0}^{L_i} ds
+      L = \sum_{i=1}^{N} \int_{C_i} d\ell_i
    
-   Thresholded versions only penalize lengths above a threshold, allowing coils to
-   be shorter than the threshold without penalty.
+   Units: :math:`\text{m}` (meters)
+   
+   For thresholded versions:
+   
+   - L1 thresholded: :math:`\max\left(L - L_0, 0\right)` where :math:`L_0` is the desired length threshold
+   - L2 thresholded: :math:`\max\left(L - L_0, 0\right)^2`
+   
+   This allows coils to be shorter than the threshold without penalty.
 
 **coil_coil_distance**
    Penalizes distances between coils to prevent collisions.
    
    Options: ``l1``, ``l1_threshold``, ``l2``, ``l2_threshold``
    
-   Measures the minimum distance between any two coils. Thresholded versions ensure
-   coils maintain a minimum separation distance.
+   Mathematical form:
+   
+   .. math::
+      J = \sum_{i = 1}^{N} \sum_{j = 1}^{i-1} d_{i,j}
+   
+   where
+   
+   .. math::
+      d_{i,j} = \int_{C_i} \int_{C_j} \max\left(0, d_{\min} - \left\| \mathbf{r}_i - \mathbf{r}_j \right\|_2\right)^2 ~d\ell_j ~d\ell_i
+   
+   and :math:`\mathbf{r}_i`, :math:`\mathbf{r}_j` are points on coil curves :math:`C_i` and :math:`C_j`, respectively, and :math:`d_\min` is the desired threshold minimum intercoil distance.
+   
+   Units: :math:`\text{m}^2` (meters squared)
+   
+   For thresholded versions:
+   
+   - L1 thresholded: Uses the same formula but with L1 norm instead of squared
+   - L2 thresholded: Uses the formula above
+   
+   This ensures coils maintain a minimum separation distance.
 
 **coil_surface_distance**
    Penalizes distances between coils and the plasma surface.
    
    Options: ``l1``, ``l1_threshold``, ``l2``, ``l2_threshold``
    
-   Ensures coils maintain a safe distance from the plasma surface. Too close and
-   coils may interfere with plasma operation; too far and field quality degrades.
+   Mathematical form:
+   
+   .. math::
+      J = \sum_{i = 1}^{N} d_{i}
+   
+   where
+   
+   .. math::
+      d_{i} = \int_{C_i} \int_{S} \max\left(0, d_{\min} - \left\| \mathbf{r}_i - \mathbf{s} \right\|_2\right)^2 ~d\ell_i ~ds
+   
+   and :math:`\mathbf{r}_i` is a point on coil curve :math:`C_i` and :math:`\mathbf{s}` is a point on the plasma surface :math:`S`, and :math:`d_\min` is the desired threshold minimum coil-to-surface distance.
+   
+   Units: :math:`\text{m}^2` (meters squared)
+   
+   For thresholded versions:
+   
+   - L1 thresholded: Uses the same formula but with L1 norm instead of squared
+   - L2 thresholded: Uses the formula above
+   
+   Ensures coils maintain a safe distance from the plasma surface.
 
 **coil_curvature**
    Penalizes coil curvature to ensure manufacturability.
    
    Options: ``lp``, ``lp_threshold`` (requires ``coil_curvature_p``)
    
-   Curvature is defined as :math:`\kappa = |\mathbf{r}''(s)|`. The Lp norm is:
+   Curvature is defined as :math:`\kappa_i(\ell_i) = \left|\mathbf{r}_i''(\ell_i)\right|` where :math:`\mathbf{r}_i(\ell_i)` is the parameterization of coil curve :math:`C_i` by arclength.
+   
+   Units: :math:`\text{m}^{-1}` (inverse meters)
+   
+   Mathematical form (per coil):
    
    .. math::
-      \left( \int \kappa^p ds \right)^{1/p}
+      \frac{1}{p} \int_{C_i} \max\left(\kappa_i - \kappa_0, 0\right)^p ~d\ell_i
    
-   Typical values for ``coil_curvature_p``: 2 (L2 norm) or higher for stronger
-   penalties on high curvature regions.
+   For ``lp`` option, :math:`\kappa_0 = 0`, so this becomes :math:`\frac{1}{p} \int_{C_i} \kappa_i^p ~d\ell_i`.
+   
+   For ``lp_threshold`` option, :math:`\kappa_0` is the desired maximum curvature threshold. Typical values for ``coil_curvature_p``: 2 (L2 norm) or higher for stronger penalties on high curvature regions.
 
 **coil_mean_squared_curvature**
    Penalizes mean squared curvature across coils.
    
    Options: ``l1``, ``l1_threshold``, ``l2``, ``l2_threshold``
    
-   Mathematical form:
+   Mathematical form (per coil):
    
    .. math::
-      \text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \int \kappa_i^2 ds
+      J = \frac{1}{L_i} \int_{C_i} \kappa_i^2 ~d\ell_i
    
-   This provides a smoother penalty than maximum curvature, encouraging overall
-   smoothness rather than just avoiding extreme values.
+   where :math:`L_i` is the total length of coil curve :math:`C_i`, :math:`\ell_i` is the arclength along the curve, and :math:`\kappa_i` is the curvature.
+   
+   Units: :math:`\text{m}^{-2}` (inverse meters squared)
+   
+   For thresholded versions:
+   
+   - L1 thresholded: :math:`\max\left(J - J_0, 0\right)` where :math:`J_0` is the desired threshold
+   - L2 thresholded: :math:`\max\left(J - J_0, 0\right)^2`
+   
+   This provides a smoother penalty than maximum curvature, encouraging overall smoothness rather than just avoiding extreme values.
 
 **coil_arclength_variation**
    Penalizes variation in arclength between coil segments.
    
    Options: ``l2_threshold``
    
-   Ensures coils have uniform spacing, which is important for manufacturing
-   and field quality. The threshold is scaled by :math:`R_0^2` where :math:`R_0`
-   is the major radius of the plasma surface.
+   Measures the variance of incremental arclength :math:`J = \text{Var}(l_i)` where :math:`l_i` is the average incremental arclength on interval :math:`I_i` from a partition :math:`\{I_i\}_{i=1}^L` of :math:`[0,1]`.
+   
+   Units: :math:`\text{m}^2` (meters squared)
+   
+   For L2 thresholded:
+   
+   .. math::
+      \max\left(J - J_0, 0\right)^2
+   
+   where :math:`J_0` is the desired threshold (scaled by :math:`R_0^2` where :math:`R_0` is the major radius). Ensures coils have uniform spacing, which is important for manufacturing and field quality.
 
 **linking_number**
    Constrains the topological linking number between coils.
@@ -229,7 +309,9 @@ Available Objective Terms
    The linking number measures how coils are topologically linked:
    
    .. math::
-      \text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}
+      \text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{\left(\mathbf{r}_i - \mathbf{r}_j\right) \cdot \left(d\mathbf{r}_i \times d\mathbf{r}_j\right)}{\left|\mathbf{r}_i - \mathbf{r}_j\right|^3}
+   
+   Units: dimensionless
    
    Including this term ensures coils maintain their topological structure during
    optimization.
@@ -239,22 +321,48 @@ Available Objective Terms
    
    Options: ``lp``, ``lp_threshold`` (requires ``coil_coil_force_p``)
    
-   Forces arise from electromagnetic interactions between coils. High forces
-   indicate coils that may be difficult to support mechanically.
+   Forces :math:`\frac{d\vec{F}_i}{d\ell_i}` (Lorentz force per unit length) arise from electromagnetic interactions between coils. The Lp norm is:
+   
+   .. math::
+      \frac{1}{p}\sum_{i=1}^{N}\frac{1}{L_i}\left(\int_{C_i} \left|\frac{d\vec{F}_i}{d\ell_i}\right|^p d\ell_i\right)
+   
+   where :math:`L_i` is the total length of coil curve :math:`C_i`.
+   
+   Units: :math:`\left(\text{N}/\text{m}\right)^p` (Newtons per meter to the power p)
+   
+   For Lp thresholded:
+   
+   .. math::
+      \frac{1}{p}\sum_{i=1}^{N}\frac{1}{L_i}\left(\int_{C_i} \max\left(\left|\frac{d\vec{F}_i}{d\ell_i}\right| - \frac{dF_0}{d\ell_i}, 0\right)^p d\ell_i\right)
+   
+   where :math:`\frac{dF_0}{d\ell_i}` is the desired maximum force threshold per unit length. High forces indicate coils that may be difficult to support mechanically.
 
 **coil_coil_torque**
    Penalizes torques between coils.
    
    Options: ``lp``, ``lp_threshold`` (requires ``coil_coil_torque_p``)
    
-   Torques indicate rotational forces that must be resisted by coil supports.
-   High torques can lead to mechanical instability.
+   Torques :math:`\frac{d\vec{T}_i}{d\ell_i}` (Lorentz torque per unit length) indicate rotational forces that must be resisted by coil supports. The Lp norm is:
+   
+   .. math::
+      \frac{1}{p}\sum_{i=1}^{N}\frac{1}{L_i}\left(\int_{C_i} \left|\frac{d\vec{T}_i}{d\ell_i}\right|^p d\ell_i\right)
+   
+   where :math:`L_i` is the total length of coil curve :math:`C_i`.
+   
+   Units: :math:`\text{N}^p` (Newtons to the power p)
+   
+   For Lp thresholded:
+   
+   .. math::
+      \frac{1}{p}\sum_{i=1}^{N}\frac{1}{L_i}\left(\int_{C_i} \max\left(\left|\frac{d\vec{T}_i}{d\ell_i}\right| - \frac{dT_0}{d\ell_i}, 0\right)^p d\ell_i\right)
+   
+   where :math:`\frac{dT_0}{d\ell_i}` is the desired maximum torque threshold per unit length. High torques can lead to mechanical instability.
 
 Penalty Types Explained
 -----------------------
 
 **L1 Norm**
-   Sum of absolute values: :math:`\sum_i |x_i|`
+   Sum of absolute values: :math:`\sum_i \left|x_i\right|`
    
    Encourages sparsity (many values become exactly zero). Useful for distance
    penalties where you want to avoid any violations.
@@ -266,22 +374,22 @@ Penalty Types Explained
    you want gradual increases in penalty with violation magnitude.
 
 **Lp Norm**
-   Generalization: :math:`\left(\sum_i |x_i|^p\right)^{1/p}`
+   Generalization: :math:`\left(\sum_i \left|x_i\right|^p\right)^{1/p}`
    
    Allows tuning the penalty strength. Higher :math:`p` gives stronger penalties
    for large violations. Typical values: 2 (L2), 4, 8.
 
 **Thresholded Penalties**
-   Only penalize values above a threshold:
+   Thresholded penalties only penalize values above a desired threshold :math:`x_0`:
    
-   .. math::
-      \text{penalty} = \begin{cases}
-         0 & \text{if } x \leq \text{threshold} \\
-         \text{norm}(x - \text{threshold}) & \text{if } x > \text{threshold}
-      \end{cases}
+   - **L1 thresholded**: :math:`\max\left(x - x_0, 0\right)` for discrete quantities, or :math:`\int \max\left(x - x_0, 0\right) \, d\ell` for continuous quantities
+   
+   - **L2 thresholded**: :math:`\max\left(x - x_0, 0\right)^2` for discrete quantities, or :math:`\int \max\left(x - x_0, 0\right)^2 \, d\ell` for continuous quantities
+   
+   - **Lp thresholded**: :math:`\frac{1}{p} \int \max\left(x - x_0, 0\right)^p \, d\ell` for continuous quantities (e.g., curvature, force, torque)
    
    This allows values below the threshold without penalty, which is useful for
-   engineering constraints (e.g., minimum separation distances).
+   engineering constraints (e.g., minimum separation distances, maximum curvature limits).
 
 Case File Validation
 --------------------

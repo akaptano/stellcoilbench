@@ -542,9 +542,17 @@ class TestLeaderboardMarkdown:
         write_rst_leaderboard(leaderboard, out_rst, surface_leaderboards)
         content = out_rst.read_text()
         assert "StellCoilBench Leaderboard" in content
-        assert "Surface-Specific Leaderboards" in content
-        assert ".. list-table::" in content
-        assert "Metric Definitions" in content
+        # Surface-Specific Leaderboards is in a separate file now
+        surface_specific_file = tmp_path / "leaderboard" / "surface_specific.rst"
+        assert surface_specific_file.exists()
+        surface_content = surface_specific_file.read_text()
+        assert "Surface-Specific Leaderboards" in surface_content
+        assert ".. list-table::" in surface_content
+        # Metric Definitions is also in a separate file
+        metric_def_file = tmp_path / "leaderboard" / "metric_definitions.rst"
+        assert metric_def_file.exists()
+        metric_content = metric_def_file.read_text()
+        assert "Metric Definitions" in metric_content
 
     def test_build_surface_leaderboards_and_write(self, tmp_path):
         # Create submission directory structure and case.yaml files for surface extraction

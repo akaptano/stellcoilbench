@@ -304,7 +304,7 @@ def optimize_coils(
     coils_out_path: Path,
     case_cfg: CaseConfig | None = None,
     output_dir: Path | None = None,
-    surface_resolution: int = 16,
+    surface_resolution: int = 32,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -832,7 +832,7 @@ def _plot_bn_error_3d(
     out_dir: Path,
     filename: str = "bn_error_3d_plot.pdf",
     title: str = "B_N/|B| Error on Plasma Surface with Optimized Coils",
-    plot_upsample: int = 3,
+    plot_upsample: int = 2,
 ) -> None:
     """
     Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
@@ -856,8 +856,8 @@ def _plot_bn_error_3d(
     plot_surface = surface
     if isinstance(surface, SurfaceRZFourier) and plot_upsample > 1:
         try:
-            qphi = max(32, int(len(surface.quadpoints_phi) * plot_upsample))
-            qtheta = max(32, int(len(surface.quadpoints_theta) * plot_upsample))
+            qphi = max(16, int(len(surface.quadpoints_phi) * plot_upsample))
+            qtheta = max(16, int(len(surface.quadpoints_theta) * plot_upsample))
             quadpoints_phi = np.linspace(0, 1, qphi)
             quadpoints_theta = np.linspace(0, 1, qtheta)
             plot_surface = SurfaceRZFourier(
@@ -902,14 +902,15 @@ def _plot_bn_error_3d(
     bn_over_b = np.abs(BdotN / abs_B)
     
     # Create figure with 3D subplot
-    fig = plt.figure(figsize=(12, 9), dpi=300)  # type: ignore
+    fig = plt.figure(figsize=(12, 9), dpi=200)  # type: ignore
     ax = fig.add_subplot(111, projection='3d')  # type: ignore
     
     # Plot surface with B_N/|B| as colormap (opaque to avoid artifacts)
     norm = Normalize(vmin=0, vmax=bn_over_b.max() if bn_over_b.max() > 0 else 1)  # type: ignore
+    facecolors = cm.viridis(norm(bn_over_b))  # type: ignore[attr-defined]
     ax.plot_surface(  # type: ignore[attr-defined]
         x_surf, y_surf, z_surf,
-        facecolors=cm.viridis(norm(bn_over_b)),  # type: ignore[attr-defined]
+        facecolors=facecolors,
         linewidth=0,
         antialiased=True,
         shade=True,
@@ -1038,7 +1039,7 @@ def _plot_bn_error_3d(
     
     # Save as PDF
     pdf_path = out_dir / filename
-    plt.savefig(pdf_path, format='pdf', dpi=300, bbox_inches='tight')  # type: ignore
+    plt.savefig(pdf_path, format='pdf', dpi=150, bbox_inches='tight')  # type: ignore
     plt.close(fig)  # type: ignore
     
     print(f"  Saved 3D B_N/|B| error plot to: {pdf_path}")
@@ -1173,7 +1174,7 @@ def optimize_coils_with_fourier_continuation(
     verbose: bool = False,
     regularization: Callable | None = regularization_circ,
     coil_objective_terms: Dict[str, Any] | None = None,
-    surface_resolution: int = 16,
+    surface_resolution: int = 32,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1338,7 +1339,7 @@ def optimize_coils_loop(
     regularization : Callable | None = regularization_circ, 
     coil_objective_terms: Dict[str, Any] | None = None,
     initial_coils: list | None = None,
-    surface_resolution: int = 16,
+    surface_resolution: int = 32,
     **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
@@ -1487,6 +1488,7 @@ def optimize_coils_loop(
     # Calculate current_scale_factor for force/torque threshold and weight scaling
     # This makes force/torque thresholds and weights dimensionless relative to reactor scale
     current_scale_factor = 1.0  # Default: no scaling
+    total_current_reactor_scale = None  # Will be set if needed for weight scaling
     if not is_continuation_step and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
         coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
         # Sum the unique base coils to get total current
@@ -1500,17 +1502,13 @@ def optimize_coils_loop(
     # Extract base curves and currents from the initialized coils
     base_curves = [coil.curve for coil in coils[:ncoils]]
     
-    # Fix individual coil currents to prevent sign changes during optimization
-    # This ensures currents maintain their initial sign and magnitude relationships
-    # for coil in coils[:ncoils]:
-    #     coil.current.fix_all()
-    
     # Step 2: Create plotting surface for visualization
     # print("Step 2: Setting up plotting surface...")
-    # Use surface_resolution for plotting (can be upsampled, but use base resolution as minimum)
+    # Use surface_resolution for plotting (can be upsampled, but respect the surface_resolution parameter)
     # For tests, use lower upsampling factor to speed things up
-    plot_upsample_factor = kwargs.get('plot_upsample_factor', 4)
-    base_resolution = max(surface_resolution, len(s.quadpoints_phi))
+    plot_upsample_factor = kwargs.get('plot_upsample_factor', 2)
+    # Use surface_resolution directly, don't override with len(s.quadpoints_phi) which may be higher
+    base_resolution = surface_resolution
     qphi = plot_upsample_factor * base_resolution
     qtheta = plot_upsample_factor * base_resolution
     quadpoints_phi = np.linspace(0, 1, qphi)
@@ -1568,7 +1566,7 @@ def optimize_coils_loop(
     pointData = {
         "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
                           s_plot.unitnormal(), axis=2)[:, :, None] / 
-                    bs.AbsB().reshape((qphi, qtheta, 1)),
+                        bs.AbsB().reshape((qphi, qtheta, 1)),
         "modB": bs.AbsB().reshape((qphi, qtheta, 1))
     }
     s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
@@ -1760,31 +1758,20 @@ def optimize_coils_loop(
                     constraint_idx = len(c_list)  # Index before appending
                     c_list.append(constraint)
                     
-                    # Determine scaling factor for dimensionless weights based on constraint units and penalty type:
-                    # To make weight * constraint_value dimensionless:
-                    # - If constraint has units [L], weight needs units [1/L], so weight *= 1 / major_radius
-                    # - If constraint has units [1/L], weight needs units [L], so weight *= major_radius
-                    # - If constraint has units [L^2], weight needs units [1/L^2], so weight *= 1 / major_radius^2
-                    # - If constraint has units [1/L^2], weight needs units [L^2], so weight *= major_radius^2
+                    # Scaling factors to make weight * constraint dimensionless
                     # 
-                    # Base constraint units:
+                    # Base constraint units (from simsopt):
                     # - Length/distance: [L] (m)
-                    # - Curvature (LpCurveCurvature): [1/L^(p-1)] for lp/lp_threshold, [1/L] for l1/l2
-                    #   LpCurveCurvature = (1/p) ∫ max(κ - κ₀, 0)^p dl has units [1/L^(p-1)]
-                    # - MSC: [1/L^2] (1/m^2) - MeanSquaredCurvature = (1/L) ∫ κ² dl
-                    # - Arclength variation: [L^2] (m^2)
-                    # - Force (LpCurveForce): [F^p / L^(p-1)] where F is force per unit length [F/L]
-                    #   LpCurveForce = (1/p) ∫ max(|F| - F₀, 0)^p dℓ has units [F^p / L^(p-1)]
-                    # - Torque (LpCurveTorque): [T^p / L^(p-1)] where T is torque per unit length [T/L]
-                    #   LpCurveTorque = (1/p) ∫ max(|T| - T₀, 0)^p dℓ has units [T^p / L^(p-1)]
+                    # - Curvature: [1/L] for l1/l2, [1/L^(p-1)] for lp (LpCurveCurvature)
+                    # - Mean squared curvature: [1/L^2]
+                    # - Arclength variation: [L^2]
+                    # - Force: [F^p / L^(p-1)] where F is force per unit length [F/L] = [N/m]
+                    # - Torque: [T^p / L^(p-1)] where T is torque per unit length [T/L] = [N]
                     # 
-                    # Penalty type affects units:
-                    # - l1/l1_threshold: same units as constraint
-                    # - l2/l2_threshold: constraint units squared (e.g., [L] -> [L^2], [1/L] -> [1/L^2])
-                    # - lp/lp_threshold: 
-                    #   * For coil_curvature: uses LpCurveCurvature directly, units [1/L^(p-1)]
-                    #   * For coil_coil_force/coil_coil_torque: uses LpCurveForce/LpCurveTorque directly
-                    #   * For other constraints: constraint units^p (e.g., [L] -> [L^p], [1/L] -> [1/L^p])
+                    # Penalty type affects final units:
+                    # - l1/l1_threshold: same as base constraint
+                    # - l2/l2_threshold: base units squared
+                    # - lp/lp_threshold: depends on constraint type (see below)
                     
                     # Get p value for lp penalties
                     p_value = 2  # Default p value
@@ -1792,107 +1779,61 @@ def optimize_coils_loop(
                         p_key = f"{term_name}_p"
                         p_value = coil_objective_terms.get(p_key, 2)
                     
-                    # Base scaling factors (for l1/l1_threshold - linear penalties)
-                    # These make weight * constraint dimensionless when constraint has base units
-                    # Use major_radius (with units [L]) for proper dimensional scaling:
-                    # - Constraint [L]: weight needs [1/L], so weight *= 1 / major_radius
-                    # - Constraint [1/L]: weight needs [L], so weight *= major_radius
-                    # - Constraint [1/L^2]: weight needs [L^2], so weight *= major_radius^2
-                    # - Constraint [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
+                    # Base scaling for l1/l1_threshold (linear penalties)
+                    # Weight scaling = 1 / (constraint units) to make weight * constraint dimensionless
                     base_scaling = 1.0
                     if term_name == "total_length":
-                        # Length [L]: weight needs [1/L], so weight *= 1 / major_radius
-                        # Effect: (weight / major_radius) * constraint[L] = dimensionless
-                        base_scaling = 1.0 / major_radius
+                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
                     elif term_name == "coil_coil_distance":
-                        # Distance [L]: weight needs [1/L], so weight *= 1 / major_radius
-                        base_scaling = 1.0 / major_radius
+                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
                     elif term_name == "coil_surface_distance":
-                        # Distance [L]: weight needs [1/L], so weight *= 1 / major_radius
-                        base_scaling = 1.0 / major_radius
+                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
                     elif term_name == "coil_curvature":
-                        # Curvature [1/L]: weight needs [L], so weight *= major_radius
-                        # Effect: (weight * major_radius) * constraint[1/L] = dimensionless
-                        base_scaling = major_radius
+                        base_scaling = major_radius  # [1/L] -> weight needs [L]
                     elif term_name == "coil_mean_squared_curvature":
-                        # MSC [1/L^2]: weight needs [L^2], so weight *= major_radius^2
-                        # Effect: (weight * major_radius^2) * constraint[1/L^2] = dimensionless
-                        base_scaling = major_radius ** 2
+                        base_scaling = major_radius ** 2  # [1/L^2] -> weight needs [L^2]
                     elif term_name == "coil_arclength_variation":
-                        # Arclength var [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
-                        # Effect: (weight / major_radius^2) * constraint[L^2] = dimensionless
-                        base_scaling = 1.0 / (major_radius ** 2)
+                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
                     elif term_name == "linking_number":
-                        # Dimensionless: no scaling needed
-                        base_scaling = 1.0
+                        base_scaling = 1.0  # Already dimensionless
                     elif term_name in ["coil_coil_force", "coil_coil_torque"]:
-                        # LpCurveForce/LpCurveTorque have units [F^p / L^(p-1)] or [T^p / L^(p-1)]
-                        # For dimensionless weight * constraint, weight needs units [L^(p-1) / F^p] or [L^(p-1) / T^p]
-                        # Since major_radius has units [L], we scale by major_radius^(p-1) to handle the length part
-                        # Note: This doesn't fully make it dimensionless (force/torque units remain),
-                        # but scales the length dimension appropriately
-                        # But since these always use lp/lp_threshold, base_scaling won't be used
-                        # We'll handle scaling in the lp section based on the actual p value
-                        base_scaling = 1.0  # Will be overridden in lp section
+                        base_scaling = 1.0  # Handled in lp section (always uses lp/lp_threshold)
                     
-                    # Adjust for penalty type
+                    # Adjust scaling for penalty type
                     if term_value in ["l2", "l2_threshold"]:
-                        # Squared penalty: constraint units are squared
-                        # - [L] -> [L^2]: weight needs [1/L^2], so weight *= 1 / major_radius^2
-                        # - [1/L] -> [1/L^2]: weight needs [L^2], so weight *= major_radius^2
-                        # - [L^2] -> [L^4]: weight needs [1/L^4], so weight *= 1 / major_radius^4
-                        # - [1/L^2] -> [1/L^4]: weight needs [L^4], so weight *= major_radius^4
+                        # Squared penalty: constraint units squared, so weight scaling squared
                         if term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
-                            # [L] -> [L^2]: base_scaling = 1/major_radius, need 1/major_radius^2
-                            constraint_scaling[constraint_idx] = base_scaling / major_radius  # = 1/major_radius^2
+                            constraint_scaling[constraint_idx] = base_scaling / major_radius  # [L^2] -> weight [1/L^2]
                         elif term_name == "coil_curvature":
-                            # [1/L] -> [1/L^2]: base_scaling = major_radius, need major_radius^2
-                            constraint_scaling[constraint_idx] = base_scaling * major_radius  # = major_radius^2
+                            constraint_scaling[constraint_idx] = base_scaling * major_radius  # [1/L^2] -> weight [L^2]
                         elif term_name == "coil_mean_squared_curvature":
-                            # [1/L^2] -> [1/L^4]: base_scaling = major_radius^2, need major_radius^4
-                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** 2)  # = major_radius^4
+                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** 2)  # [1/L^4] -> weight [L^4]
                         elif term_name == "coil_arclength_variation":
-                            # [L^2] -> [L^4]: base_scaling = 1/major_radius^2, need 1/major_radius^4
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** 2)  # = 1/major_radius^4
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** 2)  # [L^4] -> weight [1/L^4]
                         else:
                             constraint_scaling[constraint_idx] = base_scaling
                     elif term_value in ["lp", "lp_threshold"]:
-                        # Lp penalty: constraint units depend on constraint type
-                        # For coil_curvature: LpCurveCurvature = (1/p) ∫ max(κ - κ₀, 0)^p dl
-                        #   This has units [1/L^(p-1)], not [1/L^p]
-                        #   Weight needs [L^(p-1)], so weight *= major_radius^(p-1)
-                        # For coil_coil_force/coil_coil_torque: LpCurveForce/LpCurveTorque = (1/p) ∫ max(|F| - F₀, 0)^p dℓ
-                        #   F is force per unit length [F/L], so constraint has units [F^p / L^(p-1)]
-                        #   Weight needs [L^(p-1) / F^p], so weight *= major_radius^(p-1) (handles length part)
-                        # For other constraints: constraint units are raised to power p
-                        #   - [L] -> [L^p]: weight needs [1/L^p], so weight *= 1 / major_radius^p
-                        #   - [L^2] -> [L^(2p)]: weight needs [1/L^(2p)], so weight *= 1 / major_radius^(2p)
-                        #   - [1/L^2] -> [1/L^(2p)]: weight needs [L^(2p)], so weight *= major_radius^(2p)
+                        # Lp penalty: units depend on constraint type
                         if term_name == "coil_curvature":
-                            # LpCurveCurvature has units [1/L^(p-1)]
-                            # Weight needs [L^(p-1)], so weight *= major_radius^(p-1)
+                            # LpCurveCurvature: (1/p) ∫ max(κ - κ₀, 0)^p dl has units [1/L^(p-1)]
+                            # Weight needs [L^(p-1)]: weight *= major_radius^(p-1)
                             constraint_scaling[constraint_idx] = major_radius ** (p_value - 1)
                         elif term_name in ["coil_coil_force", "coil_coil_torque"]:
-                            # LpCurveForce/LpCurveTorque have units [F^p / L^(p-1)] or [T^p / L^(p-1)]
-                            # Weight needs [L^(p-1) / F^p] or [L^(p-1) / T^p]
-                            # Since major_radius has units [L], weight *= major_radius^(p-1) handles the length dimension
-                            # Additionally, force/torque scale with current^2, so F^p scales with current^(2p)
-                            # The constraint LpCurveForce scales with current^(2p)
-                            # current_scale_factor = (total_current / total_current_reactor_scale)^2
-                            # To normalize constraint relative to reactor scale: divide by (current/current_reactor)^(2p)
-                            # (current/current_reactor)^(2p) = ((current/current_reactor)^2)^p = current_scale_factor^p
-                            # So weight needs to scale by 1/current_scale_factor^p (not current_scale_factor^(2p))
-                            # to make weight * constraint dimensionless relative to reactor scale
+                            # LpCurveForce/LpCurveTorque: (1/p) ∫ max(|F| - F₀, 0)^p dℓ
+                            # F is force per unit length [F/L] = [N/m], so constraint has units [F^p / L^(p-1)]
+                            # Force scales with current^2: F ∝ I^2, so F^p ∝ I^(2p)
+                            # Weight needs [L^(p-1) / F^p] = [L^(p-1) / I^(2p)] to make weight * constraint dimensionless
+                            # 
+                            # To get units [L^(p-1)] (since weight * constraint must be dimensionless):
+                            #   weight *= major_radius^(p-1) / total_current^(2p)
+                            # This scales the weight inversely with current^(2p) to account for force scaling as I^2
                             constraint_scaling[constraint_idx] = (major_radius ** (p_value - 1)) / (total_current ** (2 * p_value))
                         elif term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
-                            # [L] -> [L^p]: base_scaling = 1/major_radius, need 1/major_radius^p
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (p_value - 1))
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (p_value - 1))  # [L^p] -> weight [1/L^p]
                         elif term_name == "coil_mean_squared_curvature":
-                            # [1/L^2] -> [1/L^(2p)]: base_scaling = major_radius^2, need major_radius^(2p)
-                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** (2 * p_value - 2))
+                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** (2 * p_value - 2))  # [1/L^(2p)] -> weight [L^(2p)]
                         elif term_name == "coil_arclength_variation":
-                            # [L^2] -> [L^(2p)]: base_scaling = 1/major_radius^2, need 1/major_radius^(2p)
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (2 * p_value - 2))
+                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (2 * p_value - 2))  # [L^(2p)] -> weight [1/L^(2p)]
                         else:
                             constraint_scaling[constraint_idx] = base_scaling
                     else:
@@ -2124,7 +2065,7 @@ def optimize_coils_loop(
             # if the gradient norm drops below gtol quickly
             options.setdefault('ftol', 1e-12)  # scipy default
             options.setdefault('gtol', 1e-12)  # scipy default
-            options.setdefault('tol', 1e-12)  # scipy default
+            # options.setdefault('tol', 1e-12)  # scipy default
         elif algorithm == 'TNC':
             options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
             options.setdefault('gtol', 1e-05)  # scipy default
@@ -2185,7 +2126,8 @@ def optimize_coils_loop(
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
     B_final = calculate_modB_on_major_radius(bs, s_plot)
     print(f"\nFinal B-field on-axis: {B_final:.3f} T")
-    print(f"B-field change: {B_final - B_initial:.3f} T ({((B_final / B_initial - 1) * 100):+.1f}%)")
+    if 'B_initial' in locals() and B_initial is not None:
+        print(f"B-field change: {B_final - B_initial:.3f} T ({((B_final / B_initial - 1) * 100):+.1f}%)")
     
     # Save final surface data
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
@@ -2194,7 +2136,7 @@ def optimize_coils_loop(
                      s_plot.unitnormal(), axis=2)[:, :, None],
         "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
                          s_plot.unitnormal(), axis=2)[:, :, None] /
-                   bs.AbsB().reshape((qphi, qtheta, 1)),
+                    bs.AbsB().reshape((qphi, qtheta, 1)),
         "modB": bs.AbsB().reshape((qphi, qtheta, 1))
     }
     s_plot.to_vtk(out_dir / "surface_optimized", extra_data=pointData)
