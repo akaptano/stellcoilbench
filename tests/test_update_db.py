@@ -1156,7 +1156,7 @@ class TestWriteRstLeaderboardComprehensive:
                 }
             ]
         }
-        submissions_root = tmp_path / "submissions"
+        # submissions_root = tmp_path / "submissions"
         surface_leaderboards = {}  # Empty
         
         out_rst = tmp_path / "leaderboard.rst"
