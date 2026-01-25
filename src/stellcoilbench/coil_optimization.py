@@ -581,16 +581,20 @@ def initialize_coils_loop(
     minor_radius_component = abs(s.get_rc(1, 0))
     
     # Minimum distances we want to maintain
-    min_cs_distance = 0.15 * major_radius  # Minimum coil-to-surface distance (15% of major radius)
-    min_cc_distance = 0.15 * major_radius  # Minimum coil-to-coil distance (15% of major radius)
+    min_cs_distance = 0.1 * major_radius  # Minimum coil-to-surface distance (15% of major radius)
+    min_cc_distance = 0.1 * major_radius  # Minimum coil-to-coil distance (15% of major radius)
     
     # Initial R0 and R1 scaling factors
     R0_scale = 1.0  # Start with 1.0x major radius
     R1_scale = 2.5  # Start with 2.5x minor radius component
     
     # Maximum iterations for adaptive R0/R1 adjustment
-    max_adaptive_iterations = 20
-    adaptive_tolerance = 0.05  # 5% tolerance for distances
+    max_adaptive_iterations = 50
+    adaptive_tolerance = 0.1  # 10% tolerance for distance checks
+    
+    # Maximum scaling factors to prevent coils from going too far
+    max_R0_scale = 3.0  # Don't let R0 exceed 3x major radius
+    max_R1_scale = 5.0  # Don't let R1 exceed 5x minor radius
     
     # Initial guess for total current (using QH configuration as reference)
     total_current = 5e7  # 50 MA initial guess is not bad for reactor-scale
@@ -600,7 +604,14 @@ def initialize_coils_loop(
     
     # Adaptive loop to find suitable R0 and R1
     from simsopt.geo import CurveSurfaceDistance, CurveCurveDistance, LinkingNumber
+    print(f"\nAdaptive coil positioning loop (max {max_adaptive_iterations} iterations):")
+    print(f"  Initial: R0={R0:.3f} m ({R0_scale:.3f}x), R1={R1:.3f} m ({R1_scale:.3f}x)")
+    print(f"  Limits: R0_scale <= {max_R0_scale}, R1_scale <= {max_R1_scale}")
+    
     for adaptive_iter in range(max_adaptive_iterations):
+        print(f"\n  Iteration {adaptive_iter + 1}/{max_adaptive_iterations}:")
+        print(f"    R0: {R0:.3f} m (scale: {R0_scale:.3f}x)")
+        print(f"    R1: {R1:.3f} m (scale: {R1_scale:.3f}x)")
         # Create equally spaced curves with current R0 and R1
         base_curves = create_equally_spaced_curves(
             ncoils, s.nfp, stellsym=s.stellsym,
@@ -646,6 +657,10 @@ def initialize_coils_loop(
         # For equally spaced coils around a torus, linking number should be 0 or very small
         no_coil_interlink = abs(linking_number) < 0.1  # Coils should not interlink each other
         
+        print(f"    Constraints: cs_ok={cs_ok} (min={min_cs_sep:.4f} m, required={min_cs_distance*(1-adaptive_tolerance):.4f} m), "
+              f"cc_ok={cc_ok} (min={min_cc_sep:.4f} m, required={min_cc_distance*(1-adaptive_tolerance):.4f} m), "
+              f"no_interlink={no_coil_interlink} (LN={linking_number:.4f})")
+        
         # For coils to interlink the plasma, they need to pass through the torus hole.
         # Check this by sampling points on the coils and verifying some are inside the torus.
         # A coil interlinks the plasma if it has points both inside and outside the torus hole.
@@ -675,9 +690,22 @@ def initialize_coils_loop(
         
         if cs_ok and cc_ok and no_coil_interlink and plasma_interlink_ok:
             # Constraints satisfied, break out of adaptive loop
+            print("    All constraints satisfied! Breaking out of adaptive loop.")
+            break
+        
+        # Check if we've exceeded maximum scales
+        if R0_scale > max_R0_scale or R1_scale > max_R1_scale:
+            print(f"    Warning: R0_scale ({R0_scale:.3f}) or R1_scale ({R1_scale:.3f}) exceeded maximum.")
+            print("    Stopping adaptive loop to prevent coils from going too far.")
+            # Cap the scales
+            R0_scale = min(R0_scale, max_R0_scale)
+            R1_scale = min(R1_scale, max_R1_scale)
+            R0 = major_radius * R0_scale
+            R1 = minor_radius_component * R1_scale
             break
         
         # Adjust R0 and R1 based on constraint violations
+        adjustment_made = False
         if not cs_ok:
             # Coils too close to surface, increase R0 slightly but also check R1
             # If R1 is too small, coils might be intersecting; if too large, might not interlink
@@ -686,20 +714,32 @@ def initialize_coils_loop(
                 # But if we decrease R0, coils get closer to surface, so increase R1 instead
                 R1_scale *= 1.1
                 R1 = minor_radius_component * R1_scale
+                print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (coil doesn't reach into hole)")
+                adjustment_made = True
             else:
                 # Coils are intersecting surface, move them outward
                 R0_scale *= 1.1  # Increase by 10% (smaller increment to avoid overshooting)
                 R0 = major_radius * R0_scale
+                print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils too close to surface)")
+                adjustment_made = True
         
         if not cc_ok:
-            # Coils too close to each other, increase R1
-            R1_scale *= 1.15  # Increase by 15%
-            R1 = minor_radius_component * R1_scale
+            # Coils too close to each other
+            # Increasing R0 moves coils further from center, which increases separation
+            # Increasing R1 makes coils larger poloidally but doesn't help toroidal separation
+            # So increase R0 to move coils outward
+            R0_scale *= 1.1  # Increase by 10% to move coils further from center
+            R0 = major_radius * R0_scale
+            print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils too close to each other, moving outward)")
+            adjustment_made = True
         
         if not no_coil_interlink:
-            # Coils are interlinking with each other, increase R1 to separate them more
-            R1_scale *= 1.15  # Increase by 15%
-            R1 = minor_radius_component * R1_scale
+            # Coils are interlinking with each other
+            # Increase R0 to move coils further from center, which should reduce interlinking
+            R0_scale *= 1.1  # Increase by 10%
+            R0 = major_radius * R0_scale
+            print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils interlinking, moving outward)")
+            adjustment_made = True
         
         if not plasma_interlink_ok:
             # Coils don't interlink the plasma - need to ensure they pass through torus hole
@@ -708,6 +748,8 @@ def initialize_coils_loop(
                 # Prefer increasing R1 to keep coils away from surface
                 R1_scale *= 1.2  # Increase by 20% to make coil extend more inward
                 R1 = minor_radius_component * R1_scale
+                print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (coil doesn't reach into hole)")
+                adjustment_made = True
             elif not coil_points_inside_torus:
                 # Coil geometry suggests it should reach, but points aren't inside
                 # This might mean R0 is too large - try decreasing it slightly
@@ -715,12 +757,25 @@ def initialize_coils_loop(
                 if R0 > major_radius * 1.1:
                     R0_scale *= 0.95  # Decrease by 5% to bring coils closer to center
                     R0 = major_radius * R0_scale
+                    print(f"    Adjusting: R0_scale decreased to {R0_scale:.3f} (bringing coils closer to center)")
+                    adjustment_made = True
                 else:
                     # R0 is already close, increase R1 instead
                     R1_scale *= 1.15
                     R1 = minor_radius_component * R1_scale
+                    print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (R0 already close)")
+                    adjustment_made = True
+        
+        if not adjustment_made:
+            print("    No adjustment made - constraints may be conflicting")
     
     # Final coil creation with determined R0 and R1
+    print("\nFinal coil positioning parameters:")
+    print(f"  R0: {R0:.3f} m (scale: {R0_scale:.3f}x major radius)")
+    print(f"  R1: {R1:.3f} m (scale: {R1_scale:.3f}x minor radius)")
+    print(f"  Major radius: {major_radius:.3f} m")
+    print(f"  Minor radius component: {minor_radius_component:.3f} m")
+    
     base_curves = create_equally_spaced_curves(
         ncoils, s.nfp, stellsym=s.stellsym,
         R0=R0, R1=R1, order=order, numquadpoints=256)
