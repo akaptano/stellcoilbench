@@ -192,16 +192,20 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "coil_coil_distance":
-                    if term_value not in valid_options_l1_l2:
+                    # coil_coil_distance is always included automatically
+                    # If specified, it should be empty string (no options needed)
+                    if term_value != "":
                         errors.append(
-                            f"{file_prefix}coil_objective_terms.coil_coil_distance must be one of {valid_options_l1_l2}, "
-                            f"got '{term_value}'"
+                            f"{file_prefix}coil_objective_terms.coil_coil_distance must be empty string (\"\"), "
+                            f"got '{term_value}'. It is always included automatically - use cc_threshold to set threshold."
                         )
                 elif term_name == "coil_surface_distance":
-                    if term_value not in valid_options_l1_l2:
+                    # coil_surface_distance is always included automatically
+                    # If specified, it should be empty string (no options needed)
+                    if term_value != "":
                         errors.append(
-                            f"{file_prefix}coil_objective_terms.coil_surface_distance must be one of {valid_options_l1_l2}, "
-                            f"got '{term_value}'"
+                            f"{file_prefix}coil_objective_terms.coil_surface_distance must be empty string (\"\"), "
+                            f"got '{term_value}'. It is always included automatically - use cs_threshold to set threshold."
                         )
                 elif term_name == "coil_curvature":
                     if term_value not in valid_options_curvature:

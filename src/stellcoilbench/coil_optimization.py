@@ -1853,20 +1853,13 @@ def optimize_coils_loop(
     force_thresh = force_threshold
     torque_thresh = torque_threshold
     
-    # Check if l1 (no threshold) or l1_threshold is specified
+    # coil_coil_distance and coil_surface_distance are always included automatically
+    # They use CurveCurveDistance and CurveSurfaceDistance which handle thresholding internally
+    # No need to check coil_objective_terms for these - they're always enabled
+    
+    # Check if l1 (no threshold) or l1_threshold is specified for force/torque
     # Only adjust thresholds if the term is explicitly specified in coil_objective_terms
     if coil_objective_terms:
-        coil_coil_dist_option = coil_objective_terms.get("coil_coil_distance")
-        if coil_coil_dist_option and "threshold" in coil_coil_dist_option:
-            cc_thresh = cc_threshold
-        else:
-            cc_thresh = 0.0
-        
-        coil_surf_dist_option = coil_objective_terms.get("coil_surface_distance")
-        if coil_surf_dist_option and "threshold" in coil_surf_dist_option:
-            cs_thresh = cs_threshold
-        else:
-            cs_thresh = 0.0
         
         coil_force_option = coil_objective_terms.get("coil_coil_force")
         if coil_force_option and "threshold" in coil_force_option:
@@ -1898,44 +1891,39 @@ def optimize_coils_loop(
     # This will be printed after weights are determined
     
     # Build constraint list dynamically based on coil_objective_terms
-    # Only explicitly specified objectives in coil_objective_terms will be included
-    # If coil_objective_terms is None or empty, only flux objective is included (no constraints)
+    # coil_coil_distance and coil_surface_distance are always included automatically
+    # Other objectives are only included if explicitly specified in coil_objective_terms
+    # If coil_objective_terms is None or empty, only flux and distance objectives are included
     c_list = [Jf]  # Always include flux
+    
+    # Always include coil_coil_distance and coil_surface_distance
+    # These use CurveCurveDistance and CurveSurfaceDistance which handle thresholding internally
+    cc_distance_idx = len(c_list)
+    c_list.append(Jccdist)
+    cs_distance_idx = len(c_list)
+    c_list.append(Jcsdist)
     
     # Track constraint names and thresholds for printing
     constraint_names_and_thresholds = []
+    constraint_names_and_thresholds.append(("CC Distance", cc_threshold))
+    constraint_names_and_thresholds.append(("CS Distance", cs_threshold))
     
     # Track index of coil_surface_distance and coil_coil_distance constraints for heavy weighting
-    # Initialize before the if block so they're always defined
-    cs_distance_index = None
-    cc_distance_index = None
+    cs_distance_index = cs_distance_idx
+    cc_distance_index = cc_distance_idx
     
     # Build constraint list based on coil_objective_terms
     # Map term names to constraint objects and penalty types
     # Note: Thresholds for l1/l1_threshold/lp/lp_threshold are already set during object creation
     # Only l2/l2_threshold options need QuadraticPenalty wrapping
+    # Initialize term_map (empty if no coil_objective_terms)
+    term_map = {}
     if coil_objective_terms:
         term_map = {
             "total_length": {
                 "obj": sum(Jls),
                 "threshold": length_threshold,
                 "l1": lambda obj, thresh: obj,
-                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
-                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
-                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
-            },
-            "coil_coil_distance": {
-                "obj": Jccdist,
-                "threshold": cc_threshold,
-                "l1": lambda obj, thresh: obj,  # No thresholding
-                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
-                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
-                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
-            },
-            "coil_surface_distance": {
-                "obj": Jcsdist,
-                "threshold": cs_threshold,
-                "l1": lambda obj, thresh: obj,  # No thresholding
                 "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
                 "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
                 "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
@@ -1980,13 +1968,20 @@ def optimize_coils_loop(
                 "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
             },
         }
-        
-        # Map constraint indices to their scaling factors for dimensionless weights
-        # Use major_radius (with units [L]) for proper dimensional scaling
-        constraint_scaling = {}  # Maps constraint index to scaling factor
-        major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
-        
-        for term_name, term_value in (coil_objective_terms or {}).items():
+    
+    # Map constraint indices to their scaling factors for dimensionless weights
+    # Use major_radius (with units [L]) for proper dimensional scaling
+    constraint_scaling = {}  # Maps constraint index to scaling factor
+    major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
+    
+    # Add scaling for always-included distance objectives
+    # CurveCurveDistance and CurveSurfaceDistance compute squared penalties, so units are [L^2]
+    # Weight scaling = 1 / (major_radius^2) to make weight * constraint dimensionless
+    constraint_scaling[cc_distance_idx] = 1.0 / (major_radius ** 2)  # [L^2] -> weight [1/L^2]
+    constraint_scaling[cs_distance_idx] = 1.0 / (major_radius ** 2)  # [L^2] -> weight [1/L^2]
+    
+    if coil_objective_terms:
+        for term_name, term_value in coil_objective_terms.items():
             # Skip _p parameters (already handled above)
             if term_name.endswith("_p"):
                 continue
@@ -2028,9 +2023,11 @@ def optimize_coils_loop(
                     if term_name == "total_length":
                         base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
                     elif term_name == "coil_coil_distance":
-                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
+                        # CurveCurveDistance already computes squared penalty, so units are [L^2]
+                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
                     elif term_name == "coil_surface_distance":
-                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
+                        # CurveSurfaceDistance already computes squared penalty, so units are [L^2]
+                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
                     elif term_name == "coil_curvature":
                         base_scaling = major_radius  # [1/L] -> weight needs [L]
                     elif term_name == "coil_mean_squared_curvature":
@@ -2045,8 +2042,9 @@ def optimize_coils_loop(
                     # Adjust scaling for penalty type
                     if term_value in ["l2", "l2_threshold"]:
                         # Squared penalty: constraint units squared, so weight scaling squared
-                        if term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
+                        if term_name == "total_length":
                             constraint_scaling[constraint_idx] = base_scaling / major_radius  # [L^2] -> weight [1/L^2]
+                        # coil_coil_distance and coil_surface_distance already have squared units, handled above
                         elif term_name == "coil_curvature":
                             constraint_scaling[constraint_idx] = base_scaling * major_radius  # [1/L^2] -> weight [L^2]
                         elif term_name == "coil_mean_squared_curvature":
@@ -2079,6 +2077,11 @@ def optimize_coils_loop(
                             constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (2 * p_value - 2))  # [L^(2p)] -> weight [1/L^(2p)]
                         else:
                             constraint_scaling[constraint_idx] = base_scaling
+                    elif term_value == "":
+                        # Empty string: for coil_coil_distance and coil_surface_distance
+                        # These already compute squared penalties internally, so units are [L^2]
+                        # Scaling already set correctly above (base_scaling = 1.0 / (major_radius ** 2))
+                        constraint_scaling[constraint_idx] = base_scaling
                     else:
                         # For l1/l1_threshold (linear penalties), use base scaling
                         constraint_scaling[constraint_idx] = base_scaling
@@ -2086,8 +2089,6 @@ def optimize_coils_loop(
                     # Track constraint name and threshold for printing
                     name_map = {
                         "total_length": ("Length", length_threshold),
-                        "coil_coil_distance": ("CC Distance", cc_threshold),
-                        "coil_surface_distance": ("CS Distance", cs_threshold),
                         "coil_mean_squared_curvature": ("MSC", msc_threshold),
                         "coil_arclength_variation": ("Arclength Var", arclength_variation_threshold),
                         "coil_curvature": ("κ", curvature_threshold),
@@ -2097,11 +2098,6 @@ def optimize_coils_loop(
                     }
                     if term_name in name_map:
                         constraint_names_and_thresholds.append(name_map[term_name])
-                    # Track index of coil_surface_distance and coil_coil_distance for heavy weighting
-                    if term_name == "coil_surface_distance":
-                        cs_distance_index = len(c_list) - 1
-                    elif term_name == "coil_coil_distance":
-                        cc_distance_index = len(c_list) - 1
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
     
@@ -2120,25 +2116,45 @@ def optimize_coils_loop(
         cc_weight_specified = cc_weight_key in kwargs
     
     if algorithm == "augmented_lagrangian":
-        # Apply heavy weight to coil-surface distance and coil-coil distance for augmented_lagrangian if not specified
-        if cs_distance_index is not None and not cs_weight_specified:
-            c_list[cs_distance_index] = Weight(1e3) * c_list[cs_distance_index]
-        if cc_distance_index is not None and not cc_weight_specified:
-            c_list[cc_distance_index] = Weight(1e3) * c_list[cc_distance_index]
+        # Apply weight to coil-surface distance and coil-coil distance for augmented_lagrangian
+        # Use specified weight or default to 1e3, then apply scaling
+        if cs_distance_index is not None:
+            cs_weight = kwargs.get(f'constraint_weight_{cs_distance_index}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_index}', 1.0)
+            # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
+            if cs_distance_index in constraint_scaling:
+                cs_weight *= constraint_scaling[cs_distance_index]
+            c_list[cs_distance_index] = Weight(cs_weight) * c_list[cs_distance_index]
+        if cc_distance_index is not None:
+            cc_weight = kwargs.get(f'constraint_weight_{cc_distance_index}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_index}', 1.0)
+            # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
+            if cc_distance_index in constraint_scaling:
+                cc_weight *= constraint_scaling[cc_distance_index]
+            c_list[cc_distance_index] = Weight(cc_weight) * c_list[cc_distance_index]
         
         # Print initial thresholds and weights for augmented_lagrangian
         # (weights are embedded in Weight() wrappers)
         print("Initial thresholds and weights:")
         print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight=1.0")
-        for idx, (name, threshold) in enumerate(constraint_names_and_thresholds, start=1):
-            if idx < len(c_list):
-                # Determine weight: 1e3 for CS distance or CC distance if not specified, else 1.0
-                weight = 1e3 if ((cs_distance_index is not None and idx == cs_distance_index and not cs_weight_specified) or
-                                 (cc_distance_index is not None and idx == cc_distance_index and not cc_weight_specified)) else 1.0
+        # Print distance objectives (they're always included at indices 1 and 2)
+        # Get weights that were applied (with scaling already applied above)
+        weight_cc = kwargs.get(f'constraint_weight_{cc_distance_idx}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_idx}', 1.0)
+        weight_cs = kwargs.get(f'constraint_weight_{cs_distance_idx}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_idx}', 1.0)
+        # Apply scaling to weights for display (always apply for distance objectives)
+        if cc_distance_idx in constraint_scaling:
+            weight_cc *= constraint_scaling[cc_distance_idx]
+        if cs_distance_idx in constraint_scaling:
+            weight_cs *= constraint_scaling[cs_distance_idx]
+        print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weight_cc:.2e}")
+        print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weight_cs:.2e}")
+        # Print other constraints
+        constraint_idx_offset = 3  # After flux (0), CC distance (1), CS distance (2)
+        for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
+            if i < len(c_list):
+                weight = 1.0
                 if threshold is not None:
-                    print(f"  [{idx}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
+                    print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
                 else:
-                    print(f"  [{idx}] {name}: weight={weight:.2e}")
+                    print(f"  [{i}] {name}: weight={weight:.2e}")
         
         from simsopt.solve import augmented_lagrangian_method
         augmented_lagrangian_options = {
@@ -2174,16 +2190,29 @@ def optimize_coils_loop(
                 weight_specified = weight_key in kwargs
                 weight = kwargs.get(weight_key, 1.0)
                 
-                # Apply heavy weight to coil-surface distance and coil-coil distance constraints if not specified
-                if cs_distance_index is not None and i == cs_distance_index and not cs_weight_specified:
-                    weight = 1e3  # Heavy weight for coil-surface distance
-                if cc_distance_index is not None and i == cc_distance_index and not cc_weight_specified:
-                    weight = 1e3  # Heavy weight for coil-coil distance
+                # Apply weight to coil-surface distance and coil-coil distance constraints
+                # Use specified weight or default to 1e3 for distance constraints
+                if cs_distance_index is not None and i == cs_distance_index:
+                    if not cs_weight_specified:
+                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+                    else:
+                        weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+                elif cc_distance_index is not None and i == cc_distance_index:
+                    if not cc_weight_specified:
+                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+                    else:
+                        weight = kwargs.get(f'constraint_weight_{i}', 1.0)
                 
-                # Rescale weight to be dimensionless if not explicitly specified
-                # This matches the threshold rescaling logic
-                if not weight_specified and i in constraint_scaling:
-                    weight *= constraint_scaling[i]
+                # Rescale weight to be dimensionless
+                # Always apply scaling for distance objectives (they have squared units)
+                # For other constraints, only apply if weight not explicitly specified
+                if i in constraint_scaling:
+                    if i in [cc_distance_idx, cs_distance_idx]:
+                        # Always apply scaling for distance objectives
+                        weight *= constraint_scaling[i]
+                    elif not weight_specified:
+                        # For other constraints, only if weight not explicitly specified
+                        weight *= constraint_scaling[i]
                 
                 weights.append(weight)
         
@@ -2193,14 +2222,18 @@ def optimize_coils_loop(
         # Print initial thresholds and weights
         print("Initial thresholds and weights:")
         print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight={weights[0]:.2e}")
+        # Print distance objectives (always included at indices 1 and 2)
+        print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weights[cc_distance_idx]:.2e}")
+        print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weights[cs_distance_idx]:.2e}")
         
-        # Print constraints with their weights (skip index 0 which is flux)
-        for idx, (name, threshold) in enumerate(constraint_names_and_thresholds, start=1):
-            if idx < len(weights):
+        # Print other constraints (skip indices 0, 1, 2 which are flux, CC distance, CS distance)
+        constraint_idx_offset = 3
+        for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
+            if i < len(weights):
                 if threshold is not None:
-                    print(f"  [{idx}] {name}: threshold={threshold:.2e}, weight={weights[idx]:.2e}")
+                    print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weights[i]:.2e}")
                 else:
-                    print(f"  [{idx}] {name}: weight={weights[idx]:.2e}")
+                    print(f"  [{i}] {name}: weight={weights[i]:.2e}")
         
         # Track iteration number for objective function
         iteration_count = [0]  # Use list to allow modification in nested function

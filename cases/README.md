@@ -47,8 +47,6 @@ optimizer_params:
     gtol: 1e-5
 coil_objective_terms:
   total_length: "l2_threshold"
-  coil_coil_distance: "l1_threshold"
-  coil_surface_distance: "l1_threshold"
   coil_curvature: "lp_threshold"
   coil_curvature_p: 2
   coil_mean_squared_curvature: "l2_threshold"

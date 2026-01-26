@@ -7,6 +7,10 @@ coils_params:
   ncoils: 4
   order: 4
 
+fourier_continuation:
+  enabled: true
+  orders: [4, 8]  # Start with order 4, then 6, then 8
+
 optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 1000
@@ -19,8 +23,6 @@ optimizer_params:
 coil_objective_terms: 
   length_threshold: 30.0
   total_length: "l2_threshold"  
-  coil_coil_distance: "l2_threshold"
-  coil_surface_distance: "l2_threshold"
   coil_curvature: "lp_threshold"  # options are lp, lp_threshold
   coil_curvature_p: 2  # defaults to 2 if not specified
   coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold

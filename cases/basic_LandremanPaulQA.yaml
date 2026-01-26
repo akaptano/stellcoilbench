@@ -19,8 +19,6 @@ optimizer_params:
 coil_objective_terms: 
   total_length: "l2_threshold"  
   length_threshold: 24.0
-  coil_coil_distance: "l1_threshold"
-  coil_surface_distance: "l1_threshold"
   coil_curvature: "lp_threshold"  # options are lp, lp_threshold
   coil_curvature_p: 2  # defaults to 2 if not specified
   coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold

@@ -110,7 +110,12 @@ Schema Overview
    - ``l2_threshold``: Thresholded L2 penalty (only penalizes values above threshold)
    - ``lp``: Lp norm penalty (requires corresponding ``*_p`` parameter)
    - ``lp_threshold``: Thresholded Lp penalty (requires corresponding ``*_p`` parameter)
-   - ``""``: Include term without penalty (for linking number)
+   - ``""``: Include term without penalty (for linking number, or optionally for coil_coil_distance/coil_surface_distance)
+   
+   .. note::
+      ``coil_coil_distance`` and ``coil_surface_distance`` are always included automatically. 
+      You can optionally specify them with ``""``, but this is not required. Use ``cc_threshold``/``cs_threshold`` 
+      for thresholds and ``constraint_weight_1``/``constraint_weight_2`` for weights.
    
    **Note**: ``SquaredFlux`` is always included in the objective function and cannot
    be excluded.
@@ -142,8 +147,6 @@ Here's a complete example case file:
    
    coil_objective_terms:
      total_length: "l2_threshold"
-     coil_coil_distance: "l1_threshold"
-     coil_surface_distance: "l1_threshold"
      coil_curvature: "lp_threshold"
      coil_curvature_p: 2
      coil_mean_squared_curvature: "l2_threshold"
@@ -197,7 +200,11 @@ Available Objective Terms
 **coil_coil_distance**
    Penalizes distances between coils to prevent collisions.
    
-   Options: ``l1``, ``l1_threshold``, ``l2``, ``l2_threshold``
+   .. note::
+      This objective is **always included automatically**. ``CurveCurveDistance`` computes squared penalties 
+      with threshold internally. You can optionally specify it with an empty string ``""`` in 
+      ``coil_objective_terms``, but this is not required. Use ``cc_threshold`` to set the threshold 
+      and ``constraint_weight_1`` to set the weight.
    
    Mathematical form:
    
@@ -209,21 +216,20 @@ Available Objective Terms
    .. math::
       d_{i,j} = \int_{C_i} \int_{C_j} \max\left(0, d_{\min} - \left\| \mathbf{r}_i - \mathbf{r}_j \right\|_2\right)^2 ~d\ell_j ~d\ell_i
    
-   and :math:`\mathbf{r}_i`, :math:`\mathbf{r}_j` are points on coil curves :math:`C_i` and :math:`C_j`, respectively, and :math:`d_\min` is the desired threshold minimum intercoil distance.
+   and :math:`\mathbf{r}_i`, :math:`\mathbf{r}_j` are points on coil curves :math:`C_i` and :math:`C_j`, respectively, and :math:`d_\min` is the desired threshold minimum intercoil distance (specified via ``cc_threshold``).
    
    Units: :math:`\text{m}^2` (meters squared)
-   
-   For thresholded versions:
-   
-   - L1 thresholded: Uses the same formula but with L1 norm instead of squared
-   - L2 thresholded: Uses the formula above
    
    This ensures coils maintain a minimum separation distance.
 
 **coil_surface_distance**
    Penalizes distances between coils and the plasma surface.
    
-   Options: ``l1``, ``l1_threshold``, ``l2``, ``l2_threshold``
+   .. note::
+      This objective is **always included automatically**. ``CurveSurfaceDistance`` computes squared penalties 
+      with threshold internally. You can optionally specify it with an empty string ``""`` in 
+      ``coil_objective_terms``, but this is not required. Use ``cs_threshold`` to set the threshold 
+      and ``constraint_weight_2`` to set the weight.
    
    Mathematical form:
    
@@ -235,14 +241,9 @@ Available Objective Terms
    .. math::
       d_{i} = \int_{C_i} \int_{S} \max\left(0, d_{\min} - \left\| \mathbf{r}_i - \mathbf{s} \right\|_2\right)^2 ~d\ell_i ~ds
    
-   and :math:`\mathbf{r}_i` is a point on coil curve :math:`C_i` and :math:`\mathbf{s}` is a point on the plasma surface :math:`S`, and :math:`d_\min` is the desired threshold minimum coil-to-surface distance.
+   and :math:`\mathbf{r}_i` is a point on coil curve :math:`C_i` and :math:`\mathbf{s}` is a point on the plasma surface :math:`S`, and :math:`d_\min` is the desired threshold minimum coil-to-surface distance (specified via ``cs_threshold``).
    
    Units: :math:`\text{m}^2` (meters squared)
-   
-   For thresholded versions:
-   
-   - L1 thresholded: Uses the same formula but with L1 norm instead of squared
-   - L2 thresholded: Uses the formula above
    
    Ensures coils maintain a safe distance from the plasma surface.
 
@@ -429,8 +430,8 @@ Common Case Configurations
         verbose: False
       coil_objective_terms:
         total_length: "l2_threshold"
-        coil_coil_distance: "l1_threshold"
-        coil_surface_distance: "l1_threshold"
+        coil_coil_distance: ""  # CurveCurveDistance already handles thresholding and squaring internally
+        coil_surface_distance: ""  # CurveSurfaceDistance already handles thresholding and squaring internally
 
 **Expert Case**
    Full configuration with all terms:
@@ -451,8 +452,8 @@ Common Case Configurations
         verbose: True
       coil_objective_terms:
         total_length: "l2_threshold"
-        coil_coil_distance: "l1_threshold"
-        coil_surface_distance: "l1_threshold"
+        coil_coil_distance: ""  # CurveCurveDistance already handles thresholding and squaring internally
+        coil_surface_distance: ""  # CurveSurfaceDistance already handles thresholding and squaring internally
         coil_curvature: "lp_threshold"
         coil_curvature_p: 2
         coil_mean_squared_curvature: "l2_threshold"
@@ -483,8 +484,8 @@ Common Case Configurations
           gtol: 1e-12
       coil_objective_terms:
         total_length: "l2_threshold"
-        coil_coil_distance: "l1_threshold"
-        coil_surface_distance: "l1_threshold"
+        coil_coil_distance: ""  # CurveCurveDistance already handles thresholding and squaring internally
+        coil_surface_distance: ""  # CurveSurfaceDistance already handles thresholding and squaring internally
         coil_curvature: "lp_threshold"
         coil_curvature_p: 4
         coil_mean_squared_curvature: "l2_threshold"

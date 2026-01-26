@@ -117,8 +117,6 @@ The fastest way to run a case is through the CI workflow:
         verbose: False
       coil_objective_terms:
         total_length: "l2_threshold"
-        coil_coil_distance: "l1_threshold"
-        coil_surface_distance: "l1_threshold"
         coil_curvature: "lp_threshold"
         coil_curvature_p: 2
 
@@ -228,8 +226,8 @@ Here's a quick overview:
    Available terms:
    
    - ``total_length``: Penalize total coil length
-   - ``coil_coil_distance``: Penalize coil-to-coil distances
-   - ``coil_surface_distance``: Penalize coil-to-surface distances
+   - ``coil_coil_distance``: Always included automatically (optional: specify with ``""``, use ``cc_threshold`` for threshold)
+   - ``coil_surface_distance``: Always included automatically (optional: specify with ``""``, use ``cs_threshold`` for threshold)
    - ``coil_curvature``: Penalize coil curvature (requires ``coil_curvature_p``)
    - ``coil_mean_squared_curvature``: Penalize mean squared curvature
    - ``coil_arclength_variation``: Penalize arclength variation
@@ -273,8 +271,6 @@ Let's create a simple case step by step:
           gtol: 1e-12
       coil_objective_terms:
         total_length: "l2_threshold"
-        coil_coil_distance: "l1_threshold"
-        coil_surface_distance: "l1_threshold"
         coil_curvature: "lp_threshold"
         coil_curvature_p: 2
 

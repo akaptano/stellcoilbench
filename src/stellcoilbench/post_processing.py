@@ -632,7 +632,7 @@ def plot_quasisymmetry_profile(
     plt.figure(figsize=(10, 6))
     plt.rcParams["font.family"] = "Times New Roman"
     plt.rc("font", size=15)
-    plt.plot(radii, qs_profile)
+    plt.semilogy(radii, qs_profile)
     plt.xlabel('Normalized toroidal flux')
     plt.ylabel('Two-term quasisymmetry error')
     plt.grid()
