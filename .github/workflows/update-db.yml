@@ -6,11 +6,181 @@ on:
     branches: [ main ]
 
 jobs:
-  update-db:
+  determine-cases:
+    runs-on: ubuntu-24.04
+    outputs:
+      cases_to_run: ${{ steps.filter.outputs.cases_to_run }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Fetch latest submissions from main
+        run: |
+          git fetch origin main || echo "Fetch failed (non-critical, will check local state)"
+          if git rev-parse --verify origin/main > /dev/null 2>&1; then
+            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
+            if [ "$BEHIND_COUNT" -gt 0 ]; then
+              echo "Merging origin/main to include submissions from previous runs..."
+              git merge origin/main --no-edit --no-ff || {
+                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+                if [ -n "$CONFLICTS" ]; then
+                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                  done
+                  git commit --no-edit || echo "Merge commit failed"
+                else
+                  git merge --abort 2>/dev/null || true
+                fi
+              }
+            fi
+          fi
+
+      - name: Filter cases to run
+        id: filter
+        run: |
+          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
+          
+          if [ -z "$ALL_CASE_FILES" ]; then
+            echo "ERROR: No .yaml files found in cases/ directory!"
+            exit 1
+          fi
+          
+          TEMP_CASES=$(mktemp)
+          echo "$ALL_CASE_FILES" > "$TEMP_CASES"
+          
+          PYTHON_OUTPUT=$(python3 - "$TEMP_CASES" << 'PYTHON_SCRIPT'
+          import sys
+          import yaml
+          import zipfile
+          from pathlib import Path
+          import json
+          
+          def normalize_yaml_content(content):
+              try:
+                  data = yaml.safe_load(content)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+          
+          def case_has_successful_submission(case_file_path):
+              case_path = Path(case_file_path)
+              if not case_path.exists():
+                  return False
+              
+              try:
+                  current_case_content = case_path.read_text()
+                  current_case_normalized = normalize_yaml_content(current_case_content)
+              except Exception as e:
+                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
+                  return False
+              
+              try:
+                  repo_root = Path.cwd()
+                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
+              except ValueError:
+                  case_file_rel = str(case_path.resolve())
+              
+              case_file_rel_normalized = case_file_rel.replace("\\", "/")
+              
+              submissions_dir = Path("submissions")
+              if not submissions_dir.exists():
+                  return False
+              
+              zip_files = list(submissions_dir.rglob("*.zip"))
+              if len(zip_files) == 0:
+                  return False
+              
+              for zip_path in zip_files:
+                  try:
+                      with zipfile.ZipFile(zip_path, 'r') as zf:
+                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
+                              continue
+                          
+                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_data = yaml.safe_load(zip_case_content)
+                          
+                          submission_source = zip_case_data.get('source_case_file', '')
+                          if submission_source:
+                              submission_source_normalized = submission_source.replace("\\", "/")
+                              if (submission_source == case_file_rel or 
+                                  submission_source_normalized == case_file_rel_normalized):
+                                  zip_case_data_for_comparison = {k: v for k, v in zip_case_data.items() if k != 'source_case_file'}
+                                  zip_case_normalized = yaml.dump(zip_case_data_for_comparison, sort_keys=True, default_flow_style=False)
+                                  
+                                  if zip_case_normalized == current_case_normalized:
+                                      return True
+                  except Exception as e:
+                      print(f"Warning: Failed to process {zip_path}: {e}", file=sys.stderr)
+                      continue
+              
+              return False
+          
+          if len(sys.argv) > 1:
+              with open(sys.argv[1], 'r') as f:
+                  case_files = [line.strip() for line in f if line.strip()]
+          else:
+              case_files = [line.strip() for line in sys.stdin if line.strip()]
+          
+          if not case_files:
+              print("ERROR: No case files found!", file=sys.stderr)
+              sys.exit(1)
+          
+          cases_to_run = []
+          cases_already_successful = []
+          
+          for case_file in case_files:
+              if case_has_successful_submission(case_file):
+                  cases_already_successful.append(case_file)
+                  print(f"SKIP: {case_file} (has successful submission)", file=sys.stderr)
+              else:
+                  cases_to_run.append(case_file)
+                  print(f"RUN: {case_file} (new or no successful submission)", file=sys.stderr)
+          
+          result = {
+              "to_run": cases_to_run,
+              "already_successful": cases_already_successful
+          }
+          print(json.dumps(result))
+          PYTHON_SCRIPT
+          )
+          
+          rm -f "$TEMP_CASES"
+          
+          CASES_TO_RUN_JSON=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
+          
+          echo "cases_to_run_json<<EOF" >> $GITHUB_OUTPUT
+          echo "$CASES_TO_RUN_JSON" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['to_run']))")
+          echo "Cases to run: $CASES_TO_RUN"
+
+  run-cases:
+    needs: determine-cases
+    if: needs.determine-cases.outputs.cases_to_run_json != '[]'
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        case_file: ${{ fromJson(needs.determine-cases.outputs.cases_to_run_json) }}
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: apt-get stuff needed for vmec
         run: |
           sudo apt-get update
@@ -72,26 +242,78 @@ jobs:
         run: |
           pip install -e .
 
-      - name: Fetch latest submissions from main
+      - name: Check if surface file exists
         run: |
-          # Fetch the latest from origin/main to see submissions from previous CI runs
-          echo "Fetching latest from origin/main to check for existing submissions..."
-          git fetch origin main || echo "Fetch failed (non-critical, will check local state)"
+          SURFACE_NAME=$(grep -A 2 "surface_params:" "${{ matrix.case_file }}" | grep "surface:" | awk '{print $2}' | tr -d '"')
+          if [ -n "$SURFACE_NAME" ]; then
+            if [ ! -f "plasma_surfaces/$SURFACE_NAME" ] && [ ! -f "plasma_surfaces/${SURFACE_NAME,,}" ]; then
+              echo "ERROR: Surface file '$SURFACE_NAME' not found in plasma_surfaces/"
+              exit 1
+            fi
+          fi
+
+      - name: Run case file
+        run: |
+          echo "=========================================="
+          echo "Running case: ${{ matrix.case_file }}"
+          echo "(New case or previously failed - will retry until successful)"
+          echo "=========================================="
+          stellcoilbench submit-case "${{ matrix.case_file }}"
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+
+      - name: Commit submission
+        run: |
+          # Check if any submissions were generated
+          if [ -n "$(find submissions -name "*.zip" -type f -newer /proc/self 2>/dev/null || find submissions -name "*.zip" -type f 2>/dev/null)" ]; then
+            echo "Found new submission files, committing..."
+            git add submissions/ || echo "git add failed"
+            if ! git diff --staged --quiet; then
+              git commit -m "chore: add CI-generated submission for ${{ matrix.case_file }}" || echo "Commit failed (may already be committed)"
+              git push origin main || echo "Push failed (may already be pushed)"
+            else
+              echo "No new submissions to commit for this case"
+            fi
+          else
+            echo "No new submissions generated for this case"
+          fi
+
+  commit-submissions:
+    needs: run-cases
+    if: always() && needs.run-cases.result != 'skipped'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+
+      - name: Wait for all matrix jobs and fetch submissions
+        run: |
+          echo "Waiting for all parallel case jobs to complete and commit their submissions..."
+          echo "Fetching latest from origin/main to get all submissions from parallel jobs..."
+          sleep 10  # Give matrix jobs time to commit
+          git fetch origin main || echo "Fetch failed (non-critical)"
           
-          # Merge origin/main to get submissions from previous runs
-          # This ensures we can see if cases already have successful submissions
+          # Merge to get all submissions from parallel jobs
           if git rev-parse --verify origin/main > /dev/null 2>&1; then
             BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
             if [ "$BEHIND_COUNT" -gt 0 ]; then
-              echo "Merging origin/main to include submissions from previous runs..."
+              echo "Merging origin/main to include all submissions from parallel jobs..."
               git merge origin/main --no-edit --no-ff || {
-                # If merge fails, resolve conflicts by preferring remote for both docs/ and submissions/
-                # At this point, we want to see previous submissions from origin/main
                 CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
                 if [ -n "$CONFLICTS" ]; then
-                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
-                  done
                   echo "$CONFLICTS" | grep "^submissions/" | while read file; do
                     [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
                   done
@@ -100,336 +322,38 @@ jobs:
                   git merge --abort 2>/dev/null || true
                 fi
               }
-            else
-              echo "Already up to date with origin/main"
             fi
-          else
-            echo "No origin/main found, using local state"
           fi
+          
+          echo "All submissions collected:"
+          find submissions -name "*.zip" -type f | wc -l || echo "0"
 
-      - name: Run benchmark cases
+  generate-leaderboard:
+    needs: commit-submissions
+    if: always() && needs.commit-submissions.result != 'skipped'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install package
         run: |
-          # Run case files that are NEW or have FAILED (no successful submission generated)
-          # A case file should run if:
-          #   1. It's new (didn't exist in previous commit), OR
-          #   2. It exists but has no successful submission (will retry until successful)
-          # Directory will be: submissions/<surface>/<GITHUB_ACTOR>/<MM-DD-YYYY_HH-MM>/
-          echo "GITHUB_ACTOR: $GITHUB_ACTOR"
-          echo "Finding cases to run (new or failed)..."
-          
-          # Get the previous commit (if it exists)
-          # Check if we have at least one commit before HEAD
-          if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            PREVIOUS_COMMIT="HEAD~1"
-            echo "Previous commit found: $(git rev-parse --short HEAD~1)"
-          else
-            # First commit - all files are new
-            PREVIOUS_COMMIT=""
-            echo "This appears to be the first commit - all case files will be considered new"
-          fi
-          
-          # Find all .yaml files in cases/ (excluding README.md)
-          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
-          
-          if [ -z "$ALL_CASE_FILES" ]; then
-            echo "ERROR: No .yaml files found in cases/ directory!"
-            exit 1
-          fi
-          
-          echo "All case files found:"
-          echo "$ALL_CASE_FILES"
-          
-          # Use Python to check which case files have successful submissions
-          # A case file should run if it has no successful submission (will retry failed cases)
-          echo "Checking for existing submissions..."
-          ZIP_COUNT=$(find submissions -name "*.zip" -type f 2>/dev/null | wc -l)
-          echo "Found $ZIP_COUNT zip files in submissions/"
-          
-          # Write case files to temp file and pass as argument to avoid stdin conflicts
-          TEMP_CASES=$(mktemp)
-          echo "$ALL_CASE_FILES" > "$TEMP_CASES"
-          
-          PYTHON_OUTPUT=$(python3 - "$TEMP_CASES" << 'PYTHON_SCRIPT'
-          import sys
-          import yaml
-          import zipfile
-          from pathlib import Path
-          import json
-          
-          def normalize_yaml_content(content):
-              """Normalize YAML content for comparison (remove comments, normalize whitespace)."""
-              try:
-                  data = yaml.safe_load(content)
-                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
-              except:
-                  return content
-          
-          def case_has_successful_submission(case_file_path):
-              """Check if a case file has at least one successful submission with matching content.
-              
-              Returns True only if:
-              1. A submission exists for this case file (by source_case_file path)
-              2. The case.yaml content in the submission matches the current case file
-              """
-              case_path = Path(case_file_path)
-              if not case_path.exists():
-                  return False
-              
-              # Read current case file content
-              try:
-                  current_case_content = case_path.read_text()
-                  current_case_normalized = normalize_yaml_content(current_case_content)
-              except Exception as e:
-                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
-                  return False
-              
-              # Get relative path from repo root
-              try:
-                  repo_root = Path.cwd()
-                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
-              except ValueError:
-                  case_file_rel = str(case_path.resolve())
-              
-              case_file_rel_normalized = case_file_rel.replace("\\", "/")
-              
-              submissions_dir = Path("submissions")
-              if not submissions_dir.exists():
-                  return False
-              
-              zip_files = list(submissions_dir.rglob("*.zip"))
-              if len(zip_files) == 0:
-                  return False  # No submissions exist, so no successful submissions
-              
-              for zip_path in zip_files:
-                  try:
-                      with zipfile.ZipFile(zip_path, 'r') as zf:
-                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
-                              continue
-                          
-                          zip_case_content = zf.read('case.yaml').decode('utf-8')
-                          zip_case_data = yaml.safe_load(zip_case_content)
-                          
-                          # Check if this submission is for this case file
-                          submission_source = zip_case_data.get('source_case_file', '')
-                          if submission_source:
-                              submission_source_normalized = submission_source.replace("\\", "/")
-                              if (submission_source == case_file_rel or 
-                                  submission_source_normalized == case_file_rel_normalized):
-                                  # Found a submission for this case file - now check if content matches
-                                  # Remove source_case_file from comparison since it's metadata, not part of case definition
-                                  zip_case_data_for_comparison = {k: v for k, v in zip_case_data.items() if k != 'source_case_file'}
-                                  zip_case_normalized = yaml.dump(zip_case_data_for_comparison, sort_keys=True, default_flow_style=False)
-                                  
-                                  if zip_case_normalized == current_case_normalized:
-                                      return True  # Content matches, submission is still valid
-                                  else:
-                                      # Content differs - case file has changed, should rerun
-                                      print(f"Case file changed: {case_file_path} (submission from {zip_path.name})", file=sys.stderr)
-                                      continue  # Keep looking, but this submission is outdated
-                  except Exception as e:
-                      print(f"Warning: Failed to process {zip_path}: {e}", file=sys.stderr)
-                      continue
-              
-              return False  # No matching submission found or all submissions have outdated content
-          
-          # Read case files from file passed as first argument
-          if len(sys.argv) > 1:
-              with open(sys.argv[1], 'r') as f:
-                  case_files = [line.strip() for line in f if line.strip()]
-          else:
-              case_files = [line.strip() for line in sys.stdin if line.strip()]
-          
-          if not case_files:
-              print("ERROR: No case files found!", file=sys.stderr)
-              sys.exit(1)
-          
-          cases_to_run = []
-          cases_already_successful = []
-          
-          for case_file in case_files:
-              if case_has_successful_submission(case_file):
-                  cases_already_successful.append(case_file)
-                  print(f"SKIP: {case_file} (has successful submission)", file=sys.stderr)
-              else:
-                  cases_to_run.append(case_file)
-                  print(f"RUN: {case_file} (new or no successful submission)", file=sys.stderr)
-          
-          result = {
-              "to_run": cases_to_run,
-              "already_successful": cases_already_successful
-          }
-          print(json.dumps(result))
-          PYTHON_SCRIPT
-          )
-          
-          PYTHON_EXIT=$?
-          rm -f "$TEMP_CASES"
-          
-          if [ $PYTHON_EXIT -ne 0 ]; then
-            echo "ERROR: Python script failed with exit code $PYTHON_EXIT"
-            echo "Output: $PYTHON_OUTPUT"
-            exit 1
-          fi
-          
-          if [ -z "$PYTHON_OUTPUT" ]; then
-            echo "ERROR: Python script produced no output"
-            exit 1
-          fi
-          
-          echo "Python script output: $PYTHON_OUTPUT"
-          
-          # Extract case files to run from JSON output
-          NEW_CASE_FILES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['to_run']))"))
-          ALREADY_RUN_CASES=($(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print('\n'.join(data['already_successful']))"))
-          
-          echo ""
-          echo "Summary:"
-          echo "  Cases to run (new or failed): ${#NEW_CASE_FILES[@]}"
-          echo "  Cases with successful submissions (skipped): ${#ALREADY_RUN_CASES[@]}"
-          
-          if [ ${#NEW_CASE_FILES[@]} -eq 0 ]; then
-            echo ""
-            echo "No case files to run. All cases have successful submissions."
-            echo "Exiting successfully."
-            exit 0
-          fi
-          
-          echo ""
-          echo "Case files to run:"
-          for case_file in "${NEW_CASE_FILES[@]}"; do
-            echo "  - $case_file"
-          done
-          
-          # Run each case (new or previously failed)
-          FAILED_CASES=()
-          SKIPPED_CASES=()
-          for case_file in "${NEW_CASE_FILES[@]}"; do
-            echo ""
-            echo "=========================================="
-            echo "Running case: $case_file"
-            echo "(New case or previously failed - will retry until successful)"
-            echo "=========================================="
-            
-            # Check if surface file exists (basic check)
-            # Extract surface name from case.yaml
-            SURFACE_NAME=$(grep -A 2 "surface_params:" "$case_file" | grep "surface:" | awk '{print $2}' | tr -d '"')
-            if [ -n "$SURFACE_NAME" ]; then
-              # Check if surface file exists in plasma_surfaces
-              if [ ! -f "plasma_surfaces/$SURFACE_NAME" ] && [ ! -f "plasma_surfaces/${SURFACE_NAME,,}" ]; then
-                echo "WARNING: Surface file '$SURFACE_NAME' not found in plasma_surfaces/"
-                echo "Skipping case: $case_file"
-                SKIPPED_CASES+=("$case_file (missing surface: $SURFACE_NAME)")
-                continue
-              fi
-            fi
-            
-            # Run with error handling
-            # Contact and hardware are now auto-detected (no flags needed)
-            if ! stellcoilbench submit-case "$case_file"; then
-              echo "ERROR: submit-case failed for $case_file!"
-              FAILED_CASES+=("$case_file")
-            else
-              echo "✓ Successfully completed $case_file"
-            fi
-          done
-          
-          # Report skipped cases
-          if [ ${#SKIPPED_CASES[@]} -gt 0 ]; then
-            echo ""
-            echo "WARNING: The following cases were skipped:"
-            for case in "${SKIPPED_CASES[@]}"; do
-              echo "  - $case"
-            done
-          fi
-          
-          # Check if any cases failed
-          if [ ${#FAILED_CASES[@]} -gt 0 ]; then
-            echo ""
-            echo "ERROR: The following cases failed:"
-            for case in "${FAILED_CASES[@]}"; do
-              echo "  - $case"
-            done
-            echo ""
-            echo "Note: Failed cases will be retried on the next CI run until they succeed."
-            echo "A case stops being retried once it successfully generates a submission."
-            exit 1
-          fi
-          
-          echo ""
-          echo "Checking generated submissions..."
-          # Submissions are now zipped, so check for zip files
-          # Only check if we actually ran cases
-          if [ ${#NEW_CASE_FILES[@]} -gt 0 ]; then
-            ZIP_COUNT=$(find submissions -name "*.zip" -type f | wc -l)
-            echo "Total zip files found: $ZIP_COUNT"
-            
-            if [ "$ZIP_COUNT" -eq 0 ]; then
-              echo "ERROR: No zip files were generated!"
-              exit 1
-            fi
-            
-            echo "Submission zip files:"
-            find submissions -name "*.zip" -type f | head -20
-          else
-            echo "No new cases were run, skipping submission check."
-          fi
+          pip install -e .
 
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "$GITHUB_ACTOR"
-
-      - name: Commit submissions to main
-        run: |
-          # List what was generated (submissions are now zipped)
-          echo "Checking for generated submissions..."
-          find submissions -name "*.zip" -type f 2>/dev/null | head -20 || echo "No zip files found"
-          
-          # Show git status before adding
-          echo "Git status before adding:"
-          git status --short submissions/ | head -30 || echo "No changes in submissions/"
-          
-          # Add submission files (including zip files)
-          echo "Adding submission files (including zip files)..."
-          git add submissions/ || echo "git add failed"
-          
-          # Explicitly verify zip files are staged
-          echo "Checking for staged zip files:"
-          git diff --staged --name-only | grep "\.zip$" || echo "No zip files in staged changes"
-          
-          # Show what's staged
-          echo "Staged files:"
-          git diff --staged --name-only | head -20 || echo "No staged files"
-          
-          # Show git status after adding
-          echo "Git status after adding:"
-          git status --short | head -20
-          
-          # Commit submissions to main branch
-          if ! git diff --staged --quiet; then
-            echo "Committing submissions..."
-            git commit -m "chore: add CI-generated submission" || (echo "Commit failed" && exit 1)
-            echo "Pushing to main..."
-            git push origin main || (echo "ERROR: Failed to push to main" && git push origin main --verbose && exit 1)
-            echo "Successfully pushed submissions to main"
-          else
-            echo "INFO: No new submissions to commit"
-            echo "This is expected if:"
-            echo "  1. No new case files were found to run"
-            echo "  2. All cases were skipped (e.g., missing surface files)"
-            echo "  3. Files are already committed"
-            # Show what git sees
-            echo "Files in submissions/:"
-            find submissions -type f | head -20
-            echo "Git status of submissions/:"
-            git status submissions/ || echo "No status"
-            echo "Checking for zip files:"
-            find submissions -name "*.zip" -type f || echo "No zip files found"
-          fi
-          
-          # Verify submissions still exist after commit
-          echo "Submissions after commit:"
-          find submissions -name "results.json" -type f | head -10 || echo "No submissions found"
 
       - name: Generate and commit leaderboard files to main
         run: |

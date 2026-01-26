@@ -13,7 +13,7 @@ name = "stellcoilbench"
 version = "0.1.0"
 description = "Benchmark suite for stellarator coil optimization algorithms."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
   {name = "Alan Kaptanoglu", email = "alanakaptanoglu@gmail.com"}
