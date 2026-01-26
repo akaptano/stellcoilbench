@@ -510,7 +510,7 @@ def compute_quasisymmetry(
     Returns
     -------
     Tuple[float, np.ndarray]
-        Total quasisymmetry error and radial profile.
+        Average quasisymmetry error and radial profile.
     """
     radii = np.arange(0, 1.01, 1.01 / ns)
     qs = QuasisymmetryRatioResidual(
@@ -520,7 +520,10 @@ def compute_quasisymmetry(
         helicity_n=helicity_n,
     )
     
-    return qs.total(), qs.profile()
+    qs_profile = qs.profile()
+    qs_average = float(np.mean(qs_profile))
+    
+    return qs_average, qs_profile
 
 
 def plot_boozer_surface(
@@ -889,7 +892,7 @@ def run_post_processing(
     Dict[str, Any]
         Dictionary containing post-processing results:
         - 'qfm_surface': QFM surface object
-        - 'quasisymmetry_total': Total quasisymmetry error
+        - 'quasisymmetry_average': Average quasisymmetry error
         - 'quasisymmetry_profile': Radial quasisymmetry profile
         - 'vmec': VMEC equilibrium object (if run_vmec=True)
     """
@@ -1101,16 +1104,16 @@ def run_post_processing(
             
             # Compute quasisymmetry
             proc0_print("Computing quasisymmetry metrics...")
-            qs_total, qs_profile = compute_quasisymmetry(
+            qs_average, qs_profile = compute_quasisymmetry(
                 equil,
                 helicity_m=helicity_m,
                 helicity_n=helicity_n,
                 ns=ns,
             )
-            results['quasisymmetry_total'] = float(qs_total)
+            results['quasisymmetry_average'] = float(qs_average)
             results['quasisymmetry_profile'] = qs_profile.tolist()
             
-            proc0_print(f"Total quasisymmetry error: {qs_total:.2e}")
+            proc0_print(f"Average quasisymmetry error: {qs_average:.2e}")
             
             # Always generate iota and quasisymmetry plots vs flux coordinate
             proc0_print("Generating iota profile plot vs flux coordinate...")
@@ -1151,7 +1154,7 @@ def run_post_processing(
     results_json = {
         'BdotN': results.get('BdotN'),
         'BdotN_over_B': results.get('BdotN_over_B'),
-        'quasisymmetry_total': results.get('quasisymmetry_total'),
+        'quasisymmetry_average': results.get('quasisymmetry_average'),
     }
     
     with open(output_dir / "post_processing_results.json", 'w') as f:

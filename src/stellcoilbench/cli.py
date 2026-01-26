@@ -731,8 +731,8 @@ def post_process(
             typer.echo(f"B·n on plasma surface: {results['BdotN']:.2e}")
             typer.echo(f"B·n/|B|: {results['BdotN_over_B']:.2e}")
         
-        if 'quasisymmetry_total' in results:
-            typer.echo(f"Total quasisymmetry error: {results['quasisymmetry_total']:.2e}")
+        if 'quasisymmetry_average' in results:
+            typer.echo(f"Average quasisymmetry error: {results['quasisymmetry_average']:.2e}")
         
     except Exception as e:
         typer.echo(f"Error during post-processing: {e}", err=True)

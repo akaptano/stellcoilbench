@@ -475,7 +475,7 @@ surface_params:
             assert 'BdotN' in results
             
             # Check that plots were created
-            if results.get('quasisymmetry_total') is not None:
+            if results.get('quasisymmetry_average') is not None:
                 assert (post_processing_output / "quasisymmetry_profile.png").exists()
                 assert (post_processing_output / "iota_profile.png").exists()
                 assert (post_processing_output / "boozer_surface.png").exists()
@@ -1344,7 +1344,7 @@ surface_params:
                                     assert results is not None
                                     assert 'qfm_surface' in results
                                     assert 'vmec' in results
-                                    assert 'quasisymmetry_total' in results
+                                    assert 'quasisymmetry_average' in results
                                     
                                     # Verify plots were called
                                     mock_boozer.assert_called_once()

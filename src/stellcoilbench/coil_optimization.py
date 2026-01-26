@@ -503,7 +503,7 @@ def optimize_coils(
                 coil_objective_terms=coil_objective_terms,
                 surface_resolution=surface_resolution,
                 algorithm_options=algorithm_options,
-                case_path=case_path,  # Pass case_path for post-processing
+                case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
                 **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                 **threshold_kwargs
             )
@@ -1464,9 +1464,24 @@ def optimize_coils_with_fourier_continuation(
         # Find case YAML file - try case_path first if provided
         case_yaml_path = None
         if case_path is not None:
-            case_yaml_path = Path(case_path) / "case.yaml"
-            if not case_yaml_path.exists():
-                case_yaml_path = None
+            case_path_obj = Path(case_path)
+            if case_path_obj.is_file():
+                # It's already the YAML file
+                case_yaml_path = case_path_obj.resolve()
+            elif case_path_obj.is_dir():
+                # It's a directory, look for case.yaml inside
+                case_yaml_path = (case_path_obj / "case.yaml").resolve()
+                if not case_yaml_path.exists():
+                    case_yaml_path = None
+            else:
+                # Try to resolve it (might be relative path)
+                if case_path_obj.exists():
+                    case_yaml_path = case_path_obj.resolve()
+                else:
+                    # Try as directory with case.yaml
+                    case_yaml_path = (case_path_obj / "case.yaml").resolve()
+                    if not case_yaml_path.exists():
+                        case_yaml_path = None
         
         # Try in out_dir if not found yet
         if case_yaml_path is None or not case_yaml_path.exists():
@@ -1488,7 +1503,7 @@ def optimize_coils_with_fourier_continuation(
                     break
         
         # If still not found, search for case YAML files that reference this surface
-        if not case_yaml_path.exists():
+        if case_yaml_path is None or not case_yaml_path.exists():
             cases_dir = Path("cases")
             if cases_dir.exists():
                 surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
@@ -1561,8 +1576,8 @@ def optimize_coils_with_fourier_continuation(
                 nfieldlines=20,
             )
             print("Post-processing complete!")
-            if 'quasisymmetry_total' in post_processing_results:
-                print(f"  Quasisymmetry error: {post_processing_results['quasisymmetry_total']:.2e}")
+            if 'quasisymmetry_average' in post_processing_results:
+                print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
         else:
             print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
     except Exception as e:
@@ -2605,8 +2620,8 @@ def optimize_coils_loop(
                     nfieldlines=20,
                 )
                 print("Post-processing complete!")
-                if 'quasisymmetry_total' in post_processing_results:
-                    print(f"  Quasisymmetry error: {post_processing_results['quasisymmetry_total']:.2e}")
+                if 'quasisymmetry_average' in post_processing_results:
+                    print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
             else:
                 print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
         except Exception as e:
