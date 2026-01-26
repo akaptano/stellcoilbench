@@ -40,12 +40,23 @@ jobs:
   
       - name: Install python dependencies
         run: |
-          # sudo apt-get install -y graphviz graphviz-dev
-          pip install --upgrade pip
+          sudo apt-get install -y graphviz graphviz-dev
           pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py f90wrap
 
+      - name: Install booz_xform
+        run: pip install -v git+https://github.com/hiddenSymmetries/booz_xform
+
+      - name: ls in /usr/lib/x86_64-linux-gnu
+        run: ls -l /usr/lib/x86_64-linux-gnu
+  
       - name: Add to LD_LIBRARY_PATH so scalapack etc can be found
         run: echo "LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu" >> $GITHUB_ENV
+  
+      - name: env after adding to LD_LIBRARY_PATH
+        run: env
+  
+      - name: ls in VMEC2000/python 1
+        run: ls -l VMEC2000/python
 
       - name: Configure and install VMEC2000 module
         run: |
@@ -56,9 +67,6 @@ jobs:
 
       - name: Try importing vmec module
         run: python -c "import vmec; print('VMEC module imported successfully')"
-
-      - name: Install booz_xform
-        run: pip install -v git+https://github.com/hiddenSymmetries/booz_xform
 
       - name: Install package
         run: |

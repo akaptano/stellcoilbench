@@ -535,6 +535,8 @@ def plot_boozer_surface(
     """
     Plot Boozer surface from VMEC equilibrium.
     
+    Creates a 2x2 grid showing Boozer surfaces at s = 0, 0.25, 0.5, 1.0.
+    
     Parameters
     ----------
     equil : Vmec
@@ -542,7 +544,8 @@ def plot_boozer_surface(
     output_path : Path
         Where to save the plot.
     js : int, optional
-        Radial surface index to plot. If None, plots the last surface.
+        Deprecated. If provided, plots only that surface index (for backward compatibility).
+        Otherwise, creates 2x2 grid at s = 0, 0.25, 0.5, 1.0.
     dpi : int, default=300
         Resolution for saved figure.
     """
@@ -558,13 +561,51 @@ def plot_boozer_surface(
     b2.read_wout(equil.output_file)
     b2.run()
     
-    if js is None:
-        js = len(equil.wout.iotas) - 2
+    # If js is explicitly provided, use old behavior for backward compatibility
+    if js is not None:
+        plt.figure(figsize=(10, 8))
+        plt.rcParams["font.family"] = "Times New Roman"
+        plt.rc("font", size=15)
+        bx.surfplot(b2, js=js, fill=False)
+        plt.tight_layout()
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        plt.savefig(output_path, dpi=dpi)
+        plt.close()
+        return
     
-    plt.figure(figsize=(10, 8))
+    # Create 2x2 grid of Boozer surfaces at s = 0, 0.25, 0.5, 1.0
+    s_values = [0.0, 0.25, 0.5, 1.0]
+    
+    # Get number of surfaces from booz_xform output
+    # b2.nsurf gives the number of surfaces
+    nsurf = b2.nsurf
+    
+    # Convert flux coordinate s to surface index js
+    # booz_xform uses 1-indexed surface indices (js ranges from 1 to nsurf)
+    # s ranges from 0 to 1
+    js_indices = []
+    for s in s_values:
+        # Map s to surface index: s=0 -> js=1, s=1 -> js=nsurf
+        # Use 1-indexed for booz_xform
+        js_idx = int(round(s * (nsurf - 1))) + 1
+        js_idx = max(1, min(js_idx, nsurf))  # Clamp to valid range [1, nsurf]
+        js_indices.append(js_idx)
+    
+    # Create 2x2 subplot grid
+    fig, axes = plt.subplots(2, 2, figsize=(16, 16))
     plt.rcParams["font.family"] = "Times New Roman"
-    plt.rc("font", size=15)
-    bx.surfplot(b2, js=js, fill=False)
+    plt.rc("font", size=12)
+    
+    # Flatten axes array for easier indexing
+    axes_flat = axes.flatten()
+    
+    # Plot each surface
+    for i, (s, js_idx) in enumerate(zip(s_values, js_indices)):
+        ax = axes_flat[i]
+        plt.sca(ax)
+        bx.surfplot(b2, js=js_idx, fill=False)
+        ax.set_title(f's = {s:.2f}', fontsize=14)
+    
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path, dpi=dpi)
@@ -1137,13 +1178,11 @@ def run_post_processing(
             
             # Generate Boozer plot if requested
             if plot_boozer:
-                proc0_print("Generating Boozer surface plot...")
-                # Determine js based on number of surfaces
-                js_plot = min(ns - 2, len(equil.wout.iotas) - 2) if hasattr(equil.wout, 'iotas') else ns - 2  # type: ignore
+                proc0_print("Generating Boozer surface plot (2x2 grid at s = 0, 0.25, 0.5, 1.0)...")
                 plot_boozer_surface(
                     equil,
                     output_dir / "boozer_surface.png",
-                    js=js_plot,
+                    js=None,  # None triggers 2x2 grid at s = 0, 0.25, 0.5, 1.0
                     dpi=300,  # High resolution for publication
                 )
         except Exception as e:
