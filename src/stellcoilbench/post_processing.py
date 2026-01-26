@@ -563,67 +563,114 @@ def plot_boozer_surface(
     
     # If js is explicitly provided, use old behavior for backward compatibility
     if js is not None:
-        plt.figure(figsize=(10, 8))
+        fig_single = plt.figure(figsize=(10, 8))
         plt.rcParams["font.family"] = "Times New Roman"
-        plt.rc("font", size=15)
+        plt.rc("font", size=18)  # Increased base font size
+        ax_single = plt.gca()
         bx.surfplot(b2, js=js, fill=False)
+        # Increase font sizes for axes labels, tick labels, and title
+        ax_single.xaxis.label.set_fontsize(18)
+        ax_single.yaxis.label.set_fontsize(18)
+        ax_single.tick_params(labelsize=16)
+        if ax_single.get_title():
+            ax_single.set_title(ax_single.get_title(), fontsize=20)
+        # Update colorbar if it exists
+        for ax_cbar in fig_single.axes:
+            if ax_cbar != ax_single:
+                try:
+                    ax_cbar.tick_params(labelsize=16)
+                    label = ax_cbar.get_ylabel()
+                    if label:
+                        ax_cbar.set_ylabel(label, fontsize=18)
+                    label = ax_cbar.get_xlabel()
+                    if label:
+                        ax_cbar.set_xlabel(label, fontsize=18)
+                except Exception:
+                    pass
         plt.tight_layout()
         output_path.parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(output_path, dpi=dpi)
         plt.close()
         return
     
-    # Create 2x2 grid of Boozer surfaces at s = 0, 0.25, 0.5, 1.0
-    target_s_values = [0.0, 0.25, 0.5, 1.0]
-    
-    # Get actual s values from VMEC equilibrium
-    # equil.wout.iotas has ns+1 elements (including axis at index 0)
-    # The flux coordinate s for each surface can be computed from the surface index
+    # Get maximum valid surface index from booz_xform
+    # booz_xform uses 1-indexed surface indices (js ranges from 1 to nsurf)
+    # If booz_xform's arrays have size N, max valid js is typically N-1 (conservative)
     vmec_nsurf = len(equil.wout.iotas) - 1  # type: ignore
     
-    # Compute actual s values for each surface
-    # s = (js - 1) / (nsurf - 1) for js from 1 to nsurf
-    # But s=0 is at the axis (not a surface), so surfaces are at js=1 to js=nsurf
-    if vmec_nsurf > 1:
-        # For surfaces js=1 to js=nsurf, s ranges approximately from 0 to 1
-        # More precisely: s[js] = (js - 1) / (nsurf - 1)
-        actual_s_values = np.linspace(0.0, 1.0, vmec_nsurf)
-        # Surface indices are 1-indexed: js ranges from 1 to nsurf
-        surface_indices = np.arange(1, vmec_nsurf + 1)
-    else:
-        # Only one surface available
-        actual_s_values = np.array([0.5])  # Use middle value
-        surface_indices = np.array([1])
+    # Determine max_js from booz_xform's wout data
+    max_js = max(1, vmec_nsurf - 1)  # Conservative default
+    try:
+        if hasattr(b2, 'wout') and hasattr(b2.wout, 'iotas'):
+            # Array size tells us the maximum - use size - 1 to be safe
+            array_size = len(b2.wout.iotas)
+            max_js = max(1, array_size - 1)
+    except Exception:
+        pass
     
-    # Find surface indices closest to target s values
-    js_indices = []
-    actual_s_used = []
-    for target_s in target_s_values:
-        # Find the index of the closest actual s value
-        closest_idx = np.argmin(np.abs(actual_s_values - target_s))
-        js_idx = int(surface_indices[closest_idx])
-        actual_s = actual_s_values[closest_idx]
-        js_indices.append(js_idx)
-        actual_s_used.append(actual_s)
+    # Sample 4 evenly spaced surfaces between first (1) and last (max_js)
+    if max_js == 1:
+        js_indices = [1, 1, 1, 1]
+    else:
+        js_indices = np.linspace(1, max_js, 4, dtype=int).tolist()
     
     # Create 2x2 subplot grid
     fig, axes = plt.subplots(2, 2, figsize=(16, 16))
     plt.rcParams["font.family"] = "Times New Roman"
-    plt.rc("font", size=12)
+    plt.rc("font", size=18)  # Increased base font size
     
     # Flatten axes array for easier indexing
     axes_flat = axes.flatten()
     
-    # Plot each surface
-    for i, (target_s, js_idx, actual_s) in enumerate(zip(target_s_values, js_indices, actual_s_used)):
+    # Plot each surface with error handling
+    for i, js_idx in enumerate(js_indices):
         ax = axes_flat[i]
         plt.sca(ax)
-        bx.surfplot(b2, js=js_idx, fill=False)
-        # Show both target and actual s value in title
-        if abs(target_s - actual_s) < 1e-6:
-            ax.set_title(f's = {actual_s:.2f}', fontsize=14)
-        else:
-            ax.set_title(f's ≈ {actual_s:.2f} (target: {target_s:.2f})', fontsize=14)
+        try:
+            bx.surfplot(b2, js=js_idx, fill=False)
+        except (IndexError, ValueError) as e:
+            # If index error, try progressively smaller indices
+            error_str = str(e).lower()
+            if "out of bounds" in error_str or "index" in error_str:
+                for fallback_js in range(js_idx - 1, 0, -1):
+                    try:
+                        bx.surfplot(b2, js=fallback_js, fill=False)
+                        js_idx = fallback_js
+                        break
+                    except Exception:
+                        continue
+                else:
+                    bx.surfplot(b2, js=1, fill=False)
+                    js_idx = 1
+            else:
+                raise
+        
+        # Increase font sizes for axes labels and tick labels
+        ax.xaxis.label.set_fontsize(18)
+        ax.yaxis.label.set_fontsize(18)
+        ax.tick_params(labelsize=16)
+        
+        # Compute s value for this surface and set title with larger font
+        s_val = (js_idx - 1) / max(1, max_js - 1) if max_js > 1 else 0.5
+        ax.set_title(f's = {s_val:.2f}', fontsize=20)
+    
+    # Increase colorbar font sizes after all plots are created
+    # Find colorbars by checking axes that aren't in our main subplot axes
+    main_axes_set = set(axes_flat)
+    for ax_fig in fig.axes:
+        if ax_fig not in main_axes_set:
+            # This is likely a colorbar axis
+            try:
+                ax_fig.tick_params(labelsize=16)
+                # Update labels if they exist
+                label = ax_fig.get_ylabel()
+                if label:
+                    ax_fig.set_ylabel(label, fontsize=18)
+                label = ax_fig.get_xlabel()
+                if label:
+                    ax_fig.set_xlabel(label, fontsize=18)
+            except Exception:
+                pass
     
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)

@@ -164,7 +164,6 @@ class TestValidateCaseConfig:
             "optimizer_params": {"algorithm": "l-bfgs"},
             "coil_objective_terms": {
                 "total_length": "l2_threshold",
-                "coil_coil_distance": "l1_threshold",
                 "coil_curvature": "lp_threshold",
                 "coil_curvature_p": 2,
             }

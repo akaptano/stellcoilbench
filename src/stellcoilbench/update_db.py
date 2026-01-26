@@ -55,6 +55,9 @@ def _metric_shorthand(metric_name: str) -> str:
         # Fourier continuation
         "fourier_continuation_orders": "FC",
         
+        # Quasisymmetry
+        "quasisymmetry_average": "avg(QS)",
+        
         # Score (keep for sorting but don't display)
         "score_primary": "score",
     }
@@ -290,6 +293,9 @@ def _metric_definition(metric_name: str) -> str:
         
         # Fourier continuation
         "fourier_continuation_orders": r"**Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".",
+        
+        # Quasisymmetry
+        "quasisymmetry_average": r"Average quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. Quasisymmetry measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces. Lower values indicate better quasisymmetry (dimensionless).",
     }
     
     return definitions.get(metric_name, metric_name.replace("_", " ").title())
@@ -1192,7 +1198,7 @@ def write_rst_leaderboard(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Define the desired order: N, n, FC, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t
+        # Define the desired order: N, n, FC, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t, avg(QS)
         desired_order = [
             "num_coils",                    # N
             "coil_order",                   # n
@@ -1212,6 +1218,7 @@ def write_rst_leaderboard(
             "final_max_max_coil_torque",    # max(\tau)
             "final_linking_number",         # LN
             "optimization_time",            # t
+            "quasisymmetry_average",        # avg(QS)
         ]
         
         # Build ordered list: first add metrics in desired order that exist, then add any others
@@ -1410,6 +1417,10 @@ def write_rst_leaderboard(
         metric_def_lines.append("")
         metric_def_lines.append("  - :math:`i`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with initial (pre-optimization) coils")
         metric_def_lines.append("  - :math:`f`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with final (optimized) coils")
+        metric_def_lines.append("  - **Poincaré**: Link to Poincaré plot showing fieldline trajectories")
+        metric_def_lines.append("  - **Boozer**: Link to Boozer surface plot showing flux surfaces")
+        metric_def_lines.append("  - **QS**: Link to quasisymmetry error profile plot")
+        metric_def_lines.append("  - **ι**: Link to rotational transform (iota) profile plot")
         metric_def_lines.append("")
 
     # Surface-specific leaderboards file
@@ -1470,8 +1481,8 @@ def write_rst_leaderboard(
                 # Convert shorthand to math mode (e.g., "min(d_cc)" -> ":math:`\min(d_{cc})`")
                 math_shorthand = _shorthand_to_math(shorthand)
                 surface_header_cols.append(math_shorthand)
-            # Add Date, User, i, f at the end
-            surface_header_cols.extend(["Date", "User", "i", "f"])
+            # Add Date, User, i, f, and plot links at the end
+            surface_header_cols.extend(["Date", "User", "i", "f", "Poincaré", "Boozer", "QS", "ι"])
 
             # Use list-table for surface leaderboard
             lines.append(f".. list-table:: {display_name} Leaderboard")
@@ -1492,15 +1503,22 @@ def write_rst_leaderboard(
                 # Find PDF paths for this entry and make initial (i) and final (f) coil visualization links
                 rank_num = str(entry.get("rank", "-"))
                 entry_path = entry.get("path", "")
+                # Normalize entry_path: remove leading slash if present
+                if entry_path.startswith("/"):
+                    entry_path = entry_path[1:]
                 i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
                 f_link = rank_num  # Final coils link - show rank number
+                poincare_link = "—"  # Poincaré plot link
+                boozer_link = "—"  # Boozer plot link
+                qs_link = "—"  # Quasisymmetry plot link
+                iota_link = "—"  # Iota plot link
                 
                 # Check if this is a Fourier continuation submission
                 fourier_orders_str = metrics.get("fourier_continuation_orders")
                 is_fourier_continuation = fourier_orders_str and fourier_orders_str != "—"
                 
                 if entry_path:
-                    repo_root = out_rst.parent.parent
+                    repo_root = Path(out_rst.parent.parent).resolve()
                     # Use jsdelivr CDN which serves files with proper content-type headers for inline viewing
                     github_base_url = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
                     
@@ -1541,78 +1559,172 @@ def write_rst_leaderboard(
                         submission_dir = path_obj.parent
                     
                     if submission_dir:
-                        full_submission_dir = (repo_root / submission_dir).resolve()
-                        
-                        if is_fourier_continuation:
-                            # Fourier continuation: handle order_X subdirectories
-                            # Parse orders from string (e.g., "4,6,8" -> [4, 6, 8])
+                        # Ensure submission_dir is relative to repo_root
+                        # If it's absolute, convert to relative
+                        if submission_dir.is_absolute():
                             try:
-                                orders = [int(o.strip()) for o in fourier_orders_str.split(",")]
-                            except (ValueError, AttributeError):
-                                orders = []
+                                submission_dir = submission_dir.relative_to(repo_root.resolve())
+                            except ValueError:
+                                # If can't make relative, try extracting submissions part
+                                submission_str = str(submission_dir)
+                                if "submissions" in submission_str:
+                                    submissions_idx = submission_str.find("submissions")
+                                    submission_dir = Path(submission_str[submissions_idx:])
+                                else:
+                                    # Fallback: use path_obj.parent if it's relative
+                                    if not path_obj.is_absolute():
+                                        submission_dir = path_obj.parent
+                                    else:
+                                        # Can't determine relative path, skip this entry's plots
+                                        submission_dir = None
+                        
+                        # Normalize submission_dir to ensure it's a proper relative path without leading slash
+                        if submission_dir:
+                            # Convert to string and normalize
+                            submission_dir_str = str(submission_dir).replace("\\", "/")
+                            # Remove leading slash if present (can happen if path was absolute)
+                            submission_dir_str = submission_dir_str.lstrip("/")
+                            # Remove leading "./" if present
+                            if submission_dir_str.startswith("./"):
+                                submission_dir_str = submission_dir_str[2:]
+                            # Ensure it doesn't start with a slash after normalization
+                            submission_dir_str = submission_dir_str.lstrip("/")
+                            submission_dir = Path(submission_dir_str)
+                        
+                        if submission_dir:
+                            full_submission_dir = (repo_root / submission_dir).resolve()
+                            orders = []  # Initialize orders list
                             
-                            if orders:
-                                # Find all order_X directories that exist
-                                order_dirs = []
-                                for order in orders:
-                                    order_dir_name = f"order_{order}"
-                                    order_dir_path = full_submission_dir / order_dir_name
-                                    if order_dir_path.exists() and order_dir_path.is_dir():
-                                        order_dirs.append((order, order_dir_name))
+                            if is_fourier_continuation:
+                                # Fourier continuation: handle order_X subdirectories
+                                # Parse orders from string (e.g., "4,6,8" -> [4, 6, 8])
+                                try:
+                                    orders = [int(o.strip()) for o in fourier_orders_str.split(",")]
+                                except (ValueError, AttributeError):
+                                    orders = []
                                 
-                                if order_dirs:
-                                    # For "i": use initial PDF from first order
-                                    first_order, first_order_dir = order_dirs[0]
-                                    initial_pdf_path = submission_dir / first_order_dir / "bn_error_3d_plot_initial.pdf"
-                                    full_initial_pdf_path = repo_root / initial_pdf_path
-                                    if full_initial_pdf_path.exists():
-                                        pdf_url_path_initial = str(initial_pdf_path).replace("\\", "/")
-                                        pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                        i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                if orders:
+                                    # Find all order_X directories that exist
+                                    order_dirs = []
+                                    for order in orders:
+                                        order_dir_name = f"order_{order}"
+                                        order_dir_path = full_submission_dir / order_dir_name
+                                        if order_dir_path.exists() and order_dir_path.is_dir():
+                                            order_dirs.append((order, order_dir_name))
                                     
-                                    # For "f": create multiple links, one for each order
-                                    f_links = []
-                                    for order, order_dir_name in order_dirs:
-                                        final_pdf_path = submission_dir / order_dir_name / "bn_error_3d_plot.pdf"
-                                        full_final_pdf_path = repo_root / final_pdf_path
-                                        if full_final_pdf_path.exists():
-                                            pdf_url_path = str(final_pdf_path).replace("\\", "/")
-                                            pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                            f_links.append(f"`{order} <{pdf_url}>`__")
-                                    
-                                    if f_links:
-                                        # Join multiple links with spaces
-                                        f_link = " ".join(f_links)
-                        else:
-                            # Standard submission: PDFs in submission directory
-                            pdf_path = submission_dir / "bn_error_3d_plot.pdf"
-                            pdf_path_initial = submission_dir / "bn_error_3d_plot_initial.pdf"
+                                    if order_dirs:
+                                        # For "i": use initial PDF from first order
+                                        first_order, first_order_dir = order_dirs[0]
+                                        initial_pdf_path = submission_dir / first_order_dir / "bn_error_3d_plot_initial.pdf"
+                                        full_initial_pdf_path = repo_root / initial_pdf_path
+                                        if full_initial_pdf_path.exists():
+                                            pdf_url_path_initial = str(initial_pdf_path).replace("\\", "/")
+                                            pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
+                                            i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                        
+                                        # For "f": create multiple links, one for each order
+                                        f_links = []
+                                        for order, order_dir_name in order_dirs:
+                                            final_pdf_path = submission_dir / order_dir_name / "bn_error_3d_plot.pdf"
+                                            full_final_pdf_path = repo_root / final_pdf_path
+                                            if full_final_pdf_path.exists():
+                                                pdf_url_path = str(final_pdf_path).replace("\\", "/")
+                                                pdf_url = f"{github_base_url}/{pdf_url_path}"
+                                                f_links.append(f"`{order} <{pdf_url}>`__")
+                                        
+                                        if f_links:
+                                            # Join multiple links with spaces
+                                            f_link = " ".join(f_links)
+                            else:
+                                # Standard submission: PDFs in submission directory
+                                pdf_path = submission_dir / "bn_error_3d_plot.pdf"
+                                pdf_path_initial = submission_dir / "bn_error_3d_plot_initial.pdf"
+                                
+                                # Check if PDFs exist and create links
+                                full_pdf_path = (repo_root / pdf_path).resolve()
+                                if full_pdf_path.exists():
+                                    pdf_url_path = str(pdf_path).replace("\\", "/")
+                                    pdf_url = f"{github_base_url}/{pdf_url_path}"
+                                    f_link = f"`{rank_num} <{pdf_url}>`__"
+                                
+                                full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
+                                if full_pdf_path_initial.exists():
+                                    pdf_url_path_initial = str(pdf_path_initial).replace("\\", "/")
+                                    pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
+                                    i_link = f"`{rank_num} <{pdf_url_initial}>`__"
                             
-                            # Check if PDFs exist and create links
-                            full_pdf_path = (repo_root / pdf_path).resolve()
-                            if full_pdf_path.exists():
-                                pdf_url_path = str(pdf_path).replace("\\", "/")
-                                pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                f_link = f"`{rank_num} <{pdf_url}>`__"
+                            # Find plot files (poincare, boozer, quasisymmetry, iota)
+                            # These are typically in the submission directory or post_processing subdirectory
+                            plot_files = [
+                                ("poincare_plot.pdf", "poincare"),
+                                ("boozer_surface.png", "boozer"),
+                                ("quasisymmetry_profile.png", "qs"),
+                                ("iota_profile.png", "iota"),
+                            ]
                             
-                            full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
-                            if full_pdf_path_initial.exists():
-                                pdf_url_path_initial = str(pdf_path_initial).replace("\\", "/")
-                                pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                            # Determine relative paths to check for plot files
+                            # Use submission_dir (already relative) as base, similar to PDF links
+                            plot_paths_to_check = []
+                            
+                            if is_fourier_continuation and orders:
+                                # For Fourier continuation, check highest order directory first
+                                # (plots are typically generated for the final order)
+                                highest_order = max(orders)
+                                highest_order_dir_name = f"order_{highest_order}"
+                                # Check in order_X directory
+                                plot_paths_to_check.append((submission_dir / highest_order_dir_name, False))
+                                # Check in order_X/post_processing directory
+                                plot_paths_to_check.append((submission_dir / highest_order_dir_name / "post_processing", True))
+                            
+                            # Always check main submission directory and its post_processing subdirectory
+                            plot_paths_to_check.append((submission_dir, False))
+                            plot_paths_to_check.append((submission_dir / "post_processing", True))
+                            
+                            for filename, plot_type in plot_files:
+                                for plot_dir_rel, is_post_processing in plot_paths_to_check:
+                                    # Check if file exists using absolute path
+                                    plot_dir_abs = repo_root / plot_dir_rel
+                                    plot_path_abs = plot_dir_abs / filename
+                                    if plot_path_abs.exists():
+                                        # Use relative path (plot_dir_rel) for URL, same as PDF links
+                                        # Construct path and normalize to ensure no leading slash
+                                        plot_path_rel = plot_dir_rel / filename
+                                        plot_url_path = str(plot_path_rel).replace("\\", "/")
+                                        # Remove any leading slashes or "./" prefixes (jsdelivr needs relative paths)
+                                        plot_url_path = plot_url_path.lstrip("/")
+                                        if plot_url_path.startswith("./"):
+                                            plot_url_path = plot_url_path[2:]
+                                        # Double-check: ensure no leading slash remains
+                                        plot_url_path = plot_url_path.lstrip("/")
+                                        # Construct URL - github_base_url already ends without slash
+                                        plot_url = f"{github_base_url}/{plot_url_path}"
+                                        # Update the appropriate link variable
+                                        if plot_type == "poincare":
+                                            poincare_link = f"`{rank_num} <{plot_url}>`__"
+                                        elif plot_type == "boozer":
+                                            boozer_link = f"`{rank_num} <{plot_url}>`__"
+                                        elif plot_type == "qs":
+                                            qs_link = f"`{rank_num} <{plot_url}>`__"
+                                        elif plot_type == "iota":
+                                            iota_link = f"`{rank_num} <{plot_url}>`__"
+                                        break
                 
-                # Build row: metrics first, then Date, User, i, f at the end
+                # Build row: metrics first, then Date, User, i, f, and plot links at the end
                 row_parts = []
                 for key in surface_metric_keys:
                     value = metrics.get(key)
                     formatted = _format_value(value, metric_key=key) if value is not None else "—"
                     row_parts.append(formatted)
-                # Add Date, User, i, f at the end
+                # Add Date, User, i, f, and plot links at the end
                 row_parts.extend([
                     run_date,
                     entry.get("contact", entry.get("method_name", "?"))[:15],
                     i_link,
                     f_link,
+                    poincare_link,
+                    boozer_link,
+                    qs_link,
+                    iota_link,
                 ])
                 
                 # First column

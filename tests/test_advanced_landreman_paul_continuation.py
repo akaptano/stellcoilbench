@@ -31,7 +31,7 @@ class TestAdvancedLandremanPaulContinuation:
         
         assert config.fourier_continuation is not None
         assert config.fourier_continuation["enabled"] is True
-        assert config.fourier_continuation["orders"] == [4, 6, 8]
+        assert config.fourier_continuation["orders"] == [4, 8, 16]
         assert config.coils_params["ncoils"] == 4
         assert config.surface_params["surface"] == "input.LandremanPaul2021_QA"
     
@@ -80,17 +80,17 @@ class TestAdvancedLandremanPaulContinuation:
         # Verify results
         assert results is not None
         assert results.get('fourier_continuation') is True
-        assert results.get('fourier_orders') == [4, 6, 8]
-        assert results.get('final_order') == 8
+        assert results.get('fourier_orders') == [4, 8, 16]
+        assert results.get('final_order') == 16
         assert len(results.get('continuation_results', [])) == 3
         
         # Verify that subdirectories were created
         assert (output_dir / "order_4").exists()
-        assert (output_dir / "order_6").exists()
         assert (output_dir / "order_8").exists()
+        assert (output_dir / "order_16").exists()
         
         # Verify that VTK files exist in each order directory
-        for order in [4, 6, 8]:
+        for order in [4, 8, 16]:
             order_dir = output_dir / f"order_{order}"
             # Check for VTK files (coils_optimized.vtu or similar)
             vtk_files = list(order_dir.glob("coils_optimized.*"))
@@ -142,7 +142,7 @@ class TestAdvancedLandremanPaulContinuation:
         assert len(continuation_results) == 3
         
         for i, step_result in enumerate(continuation_results):
-            assert step_result['fourier_order'] == [4, 6, 8][i]
+            assert step_result['fourier_order'] == [4, 8, 16][i]
             assert step_result['continuation_step'] == i + 1
             assert 'final_normalized_squared_flux' in step_result
             assert 'final_B_field' in step_result

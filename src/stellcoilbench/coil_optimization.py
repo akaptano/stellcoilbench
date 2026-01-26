@@ -6,6 +6,9 @@ import numpy as np
 from typing import Callable
 from datetime import datetime
 import zipfile
+import os
+import sys
+from contextlib import contextmanager
 from .config_scheme import CaseConfig
 
 from simsopt.geo import SurfaceRZFourier
@@ -1588,6 +1591,42 @@ def optimize_coils_with_fourier_continuation(
     return coils, combined_results
 
 
+def _is_ci_running() -> bool:
+    """
+    Check if the code is running in a CI environment.
+    
+    Returns:
+        True if running in CI (GitHub Actions, GitLab CI, Jenkins, etc.), False otherwise.
+    """
+    ci_env_vars = ['CI', 'GITHUB_ACTIONS', 'GITLAB_CI', 'JENKINS_URL', 
+                   'TRAVIS', 'CIRCLECI', 'APPVEYOR', 'BUILDKITE']
+    return any(os.getenv(var) for var in ci_env_vars)
+
+
+@contextmanager
+def _nullcontext():
+    """Null context manager that does nothing."""
+    yield
+
+
+@contextmanager
+def _redirect_verbose_to_file(output_file: Path):
+    """
+    Context manager to redirect stdout to a file while preserving stderr.
+    
+    Args:
+        output_file: Path to the file where stdout should be written.
+    """
+    original_stdout = sys.stdout
+    try:
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w', encoding='utf-8') as f:
+            sys.stdout = f
+            yield
+    finally:
+        sys.stdout = original_stdout
+
+
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, 
@@ -1629,6 +1668,40 @@ def optimize_coils_loop(
         coils: List of optimized Coil class objects.
         results: Dictionary containing optimization results and metrics.
     """
+    out_dir = Path(out_dir).resolve()
+    
+    # If verbose=True and CI is running, redirect output to a file
+    verbose_output_file = None
+    if verbose and _is_ci_running():
+        verbose_output_file = out_dir / "verbose_output.txt"
+    
+    # Use context manager to redirect output when needed
+    redirect_context = _redirect_verbose_to_file(verbose_output_file) if verbose_output_file else _nullcontext()
+    
+    with redirect_context:
+        return _optimize_coils_loop_impl(
+            s, target_B, out_dir, max_iterations, ncoils, order, verbose,
+            regularization, coil_objective_terms, initial_coils, surface_resolution,
+            skip_post_processing, case_path, **kwargs
+        )
+
+
+def _optimize_coils_loop_impl(
+    s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
+    max_iterations : int = 30, 
+    ncoils : int = 4, order : int = 16, 
+    verbose : bool = False,
+    regularization : Callable | None = regularization_circ, 
+    coil_objective_terms: Dict[str, Any] | None = None,
+    initial_coils: list | None = None,
+    surface_resolution: int = 32,
+    skip_post_processing: bool = False,
+    case_path: Path | None = None,
+    **kwargs):
+    """
+    Internal implementation of optimize_coils_loop.
+    This function contains the actual optimization logic.
+    """
     import time
     from scipy.optimize import minimize
     from simsopt.geo import SurfaceRZFourier
@@ -1641,7 +1714,7 @@ def optimize_coils_loop(
 
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-
+    
     # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
     is_continuation_step = kwargs.get('initial_coils') is not None
     
@@ -2134,13 +2207,21 @@ def optimize_coils_loop(
         # Apply weight to coil-surface distance and coil-coil distance for augmented_lagrangian
         # Use specified weight or default to 1e3, then apply scaling
         if cs_distance_index is not None:
-            cs_weight = kwargs.get(f'constraint_weight_{cs_distance_index}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_index}', 1.0)
+            # If weight is specified, use it; otherwise default to 1e3
+            if cs_weight_specified:
+                cs_weight = kwargs[f'constraint_weight_{cs_distance_index}']
+            else:
+                cs_weight = kwargs.get(f'constraint_weight_{cs_distance_index}', 1e3)
             # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
             if cs_distance_index in constraint_scaling:
                 cs_weight *= constraint_scaling[cs_distance_index]
             c_list[cs_distance_index] = Weight(cs_weight) * c_list[cs_distance_index]
         if cc_distance_index is not None:
-            cc_weight = kwargs.get(f'constraint_weight_{cc_distance_index}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_index}', 1.0)
+            # If weight is specified, use it; otherwise default to 1e3
+            if cc_weight_specified:
+                cc_weight = kwargs[f'constraint_weight_{cc_distance_index}']
+            else:
+                cc_weight = kwargs.get(f'constraint_weight_{cc_distance_index}', 1e3)
             # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
             if cc_distance_index in constraint_scaling:
                 cc_weight *= constraint_scaling[cc_distance_index]
@@ -2208,15 +2289,17 @@ def optimize_coils_loop(
                 # Apply weight to coil-surface distance and coil-coil distance constraints
                 # Use specified weight or default to 1e3 for distance constraints
                 if cs_distance_index is not None and i == cs_distance_index:
-                    if not cs_weight_specified:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+                    # If weight is specified, use it; otherwise default to 1e3
+                    if cs_weight_specified:
+                        weight = kwargs[f'constraint_weight_{i}']
                     else:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
                 elif cc_distance_index is not None and i == cc_distance_index:
-                    if not cc_weight_specified:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+                    # If weight is specified, use it; otherwise default to 1e3
+                    if cc_weight_specified:
+                        weight = kwargs[f'constraint_weight_{i}']
                     else:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
                 
                 # Rescale weight to be dimensionless
                 # Always apply scaling for distance objectives (they have squared units)

@@ -79,8 +79,12 @@ class TestNewPlasmaSurfaceCases:
         assert config.surface_params["surface"] == "input.W7-X_without_coil_ripple_beta0p05_d23p4_tm"
         assert config.surface_params["range"] == "half period"
         assert config.coils_params["ncoils"] == 4
-        assert config.coils_params["order"] == 8
+        assert config.coils_params["order"] == 4
         assert config.optimizer_params["algorithm"] == "L-BFGS-B"
+        # Check that fourier_continuation is enabled
+        assert hasattr(config, "fourier_continuation")
+        assert config.fourier_continuation["enabled"] is True
+        assert config.fourier_continuation["orders"] == [4, 8]
     
     def test_basic_W7X_surface_file_exists(self, plasma_surfaces_dir):
         """Test that the W7-X surface file exists."""
