@@ -9,7 +9,7 @@ jobs:
   determine-cases:
     runs-on: ubuntu-24.04
     outputs:
-      cases_to_run: ${{ steps.filter.outputs.cases_to_run }}
+      cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -20,6 +20,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
 
       - name: Fetch latest submissions from main
         run: |
@@ -164,6 +169,9 @@ jobs:
           
           CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['to_run']))")
           echo "Cases to run: $CASES_TO_RUN"
+          
+          # Also output as a simple string for debugging
+          echo "cases_to_run=$CASES_TO_RUN" >> $GITHUB_OUTPUT
 
   run-cases:
     needs: determine-cases
