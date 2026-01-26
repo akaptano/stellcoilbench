@@ -14,4 +14,5 @@ __all__ = [
     "update_db",
     "validate_config",
     "config_scheme",
+    "post_processing",
 ]

@@ -28,6 +28,7 @@ dependencies = [
     "pytest-cov",
     "black",
     "ruff",
+    "mpi4py",
     "psutil",
     "threadpoolctl",
     "matplotlib>=3.5",

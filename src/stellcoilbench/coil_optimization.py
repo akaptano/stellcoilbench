@@ -345,6 +345,19 @@ def optimize_coils(
     if case_cfg is None:
         case_cfg = load_case_config(case_path)
     
+    # Resolve case_path to absolute path before changing directories
+    # This ensures post-processing can find it even after os.chdir(output_dir)
+    case_path_obj = Path(case_path)
+    if case_path_obj.is_file():
+        # It's already the YAML file
+        case_yaml_path_abs = case_path_obj.resolve()
+    elif case_path_obj.is_dir():
+        # It's a directory, look for case.yaml inside
+        case_yaml_path_abs = (case_path_obj / "case.yaml").resolve()
+    else:
+        # Try to resolve it (might be relative path)
+        case_yaml_path_abs = case_path_obj.resolve() if case_path_obj.exists() else None
+    
     coil_params = dict(case_cfg.coils_params)
     optimizer_params = dict(case_cfg.optimizer_params)
     surface_params = dict(case_cfg.surface_params)
@@ -490,6 +503,7 @@ def optimize_coils(
                 coil_objective_terms=coil_objective_terms,
                 surface_resolution=surface_resolution,
                 algorithm_options=algorithm_options,
+                case_path=case_path,  # Pass case_path for post-processing
                 **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                 **threshold_kwargs
             )
@@ -506,6 +520,7 @@ def optimize_coils(
                     coil_objective_terms=coil_objective_terms,
                     surface_resolution=surface_resolution,
                     algorithm_options=algorithm_options,
+                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
                     **threshold_kwargs
                 )
             except TypeError:
@@ -518,6 +533,7 @@ def optimize_coils(
                     coil_objective_terms=coil_objective_terms,
                     algorithm_options=algorithm_options,
                     surface_resolution=surface_resolution,
+                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
                     **threshold_kwargs
                 )
     finally:
@@ -608,10 +624,28 @@ def initialize_coils_loop(
     print(f"  Initial: R0={R0:.3f} m ({R0_scale:.3f}x), R1={R1:.3f} m ({R1_scale:.3f}x)")
     print(f"  Limits: R0_scale <= {max_R0_scale}, R1_scale <= {max_R1_scale}")
     
+    # Track previous values to detect oscillation
+    prev_R0_scale = None
+    prev_R1_scale = None
+    oscillation_count = 0
+    
     for adaptive_iter in range(max_adaptive_iterations):
         print(f"\n  Iteration {adaptive_iter + 1}/{max_adaptive_iterations}:")
         print(f"    R0: {R0:.3f} m (scale: {R0_scale:.3f}x)")
         print(f"    R1: {R1:.3f} m (scale: {R1_scale:.3f}x)")
+        
+        # Check for oscillation (values repeating)
+        if prev_R0_scale is not None and prev_R1_scale is not None:
+            if abs(R0_scale - prev_R0_scale) < 0.01 and abs(R1_scale - prev_R1_scale) < 0.01:
+                oscillation_count += 1
+                if oscillation_count >= 3:
+                    print("    Warning: Detected oscillation (values repeating). Stopping adaptive loop.")
+                    break
+            else:
+                oscillation_count = 0
+        
+        prev_R0_scale = R0_scale
+        prev_R1_scale = R1_scale
         # Create equally spaced curves with current R0 and R1
         base_curves = create_equally_spaced_curves(
             ncoils, s.nfp, stellsym=s.stellsym,
@@ -662,31 +696,61 @@ def initialize_coils_loop(
               f"no_interlink={no_coil_interlink} (LN={linking_number:.4f})")
         
         # For coils to interlink the plasma, they need to pass through the torus hole.
-        # Check this by sampling points on the coils and verifying some are inside the torus.
-        # A coil interlinks the plasma if it has points both inside and outside the torus hole.
-        # We check if the coil extends inward enough: R0 - R1 should be less than the inner edge
-        # of the plasma surface (approximately major_radius - minor_radius).
-        # Also check that some coil points are actually inside the torus hole.
-        coil_points_inside_torus = False
-        for curve in base_curves[:min(2, len(base_curves))]:  # Check first 2 base curves
+        # A coil interlinks the plasma if it has points both:
+        # 1. Inside the torus hole (R < R_min of plasma surface)
+        # 2. Outside the plasma (R > R_max of plasma surface)
+        # This geometric check works for any surface geometry.
+        
+        # Find the R range of the plasma surface
+        gamma = s.gamma()
+        rs = np.sqrt(gamma[:, :, 0]**2 + gamma[:, :, 1]**2)
+        R_min_surface = np.min(rs)  # Inner edge of plasma
+        R_max_surface = np.max(rs)  # Outer edge of plasma
+        
+        # Check if coils interlink the plasma by sampling points on coils
+        # and verifying they have both inside-hole and outside-plasma points
+        coil_interlinks_plasma = False
+        points_inside_hole_count = 0  # R < R_min (inside torus hole)
+        points_outside_plasma_count = 0  # R > R_max (outside plasma)
+        points_in_plasma_count = 0  # R_min <= R <= R_max (in plasma volume)
+        
+        # Sample all base curves to get better statistics
+        for curve in base_curves:
             points = curve.gamma()
             # Calculate radial distance from origin for each point
             radial_distances = np.sqrt(points[:, 0]**2 + points[:, 1]**2)
-            # Estimate inner edge of torus (major_radius - minor_radius approximation)
-            # For a torus, the inner edge is roughly at major_radius - minor_radius
-            inner_edge_estimate = major_radius - minor_radius_component * 1.5  # Conservative estimate
-            # Check if any points are inside the torus hole
-            if np.any(radial_distances < inner_edge_estimate):
-                coil_points_inside_torus = True
-                break
+            
+            # Classify points based on radial position
+            inside_hole_mask = radial_distances < R_min_surface * 0.98  # Inside torus hole (with small margin)
+            outside_plasma_mask = radial_distances > R_max_surface * 1.02  # Outside plasma (with small margin)
+            in_plasma_mask = (radial_distances >= R_min_surface * 0.98) & (radial_distances <= R_max_surface * 1.02)
+            
+            points_inside_hole_count += np.sum(inside_hole_mask)
+            points_outside_plasma_count += np.sum(outside_plasma_mask)
+            points_in_plasma_count += np.sum(in_plasma_mask)
+            
+            # A coil interlinks if it has both inside-hole and outside-plasma points
+            if np.any(inside_hole_mask) and np.any(outside_plasma_mask):
+                coil_interlinks_plasma = True
+                # Don't break - continue to count all points for better diagnostics
         
         # Coils interlink plasma if:
         # 1. They maintain safe distance from surface (cs_ok)
-        # 2. They extend inward enough: R0 - R1 < inner_edge (coil reaches into torus hole)
-        # 3. Some coil points are actually inside the torus hole
-        inner_edge_estimate = major_radius - minor_radius_component * 1.5
-        coil_reaches_into_hole = (R0 - R1) < inner_edge_estimate
-        plasma_interlink_ok = cs_ok and coil_reaches_into_hole and coil_points_inside_torus
+        # 2. They have points both inside and outside the plasma volume
+        plasma_interlink_ok = cs_ok and coil_interlinks_plasma
+        
+        if coil_interlinks_plasma:
+            print(f"    Plasma interlink: OK (found {points_inside_hole_count} in hole, {points_in_plasma_count} in plasma, {points_outside_plasma_count} outside)")
+        else:
+            print(f"    Plasma interlink: FAIL (found {points_inside_hole_count} in hole, {points_in_plasma_count} in plasma, {points_outside_plasma_count} outside)")
+            print(f"      Surface R range: {R_min_surface:.3f} to {R_max_surface:.3f} m")
+            # Additional diagnostics
+            if points_inside_hole_count == 0 and points_outside_plasma_count == 0:
+                print("      -> All coil points are in plasma volume (coils need to extend both inward and outward)")
+            elif points_inside_hole_count == 0:
+                print("      -> No points in torus hole (coils need to extend inward)")
+            elif points_outside_plasma_count == 0:
+                print("      -> No points outside plasma (coils need to extend outward)")
         
         if cs_ok and cc_ok and no_coil_interlink and plasma_interlink_ok:
             # Constraints satisfied, break out of adaptive loop
@@ -705,69 +769,72 @@ def initialize_coils_loop(
             break
         
         # Adjust R0 and R1 based on constraint violations
+        # Use priority-based approach with elif to fix only ONE constraint per iteration
+        # This prevents oscillation by not adjusting multiple constraints simultaneously
+        # Priority: plasma_interlink > cs_ok > cc_ok > no_coil_interlink
+        # (Interlinking is most important - coils must pass through torus hole)
         adjustment_made = False
-        if not cs_ok:
-            # Coils too close to surface, increase R0 slightly but also check R1
-            # If R1 is too small, coils might be intersecting; if too large, might not interlink
-            if R0 - R1 < inner_edge_estimate:
-                # Coil doesn't reach into hole, need to either decrease R0 or increase R1
-                # But if we decrease R0, coils get closer to surface, so increase R1 instead
-                R1_scale *= 1.1
-                R1 = minor_radius_component * R1_scale
-                print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (coil doesn't reach into hole)")
-                adjustment_made = True
-            else:
-                # Coils are intersecting surface, move them outward
-                R0_scale *= 1.1  # Increase by 10% (smaller increment to avoid overshooting)
-                R0 = major_radius * R0_scale
-                print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils too close to surface)")
-                adjustment_made = True
-        
-        if not cc_ok:
-            # Coils too close to each other
-            # Increasing R0 moves coils further from center, which increases separation
-            # Increasing R1 makes coils larger poloidally but doesn't help toroidal separation
-            # So increase R0 to move coils outward
-            R0_scale *= 1.1  # Increase by 10% to move coils further from center
-            R0 = major_radius * R0_scale
-            print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils too close to each other, moving outward)")
-            adjustment_made = True
-        
-        if not no_coil_interlink:
-            # Coils are interlinking with each other
-            # Increase R0 to move coils further from center, which should reduce interlinking
-            R0_scale *= 1.1  # Increase by 10%
-            R0 = major_radius * R0_scale
-            print(f"    Adjusting: R0_scale increased to {R0_scale:.3f} (coils interlinking, moving outward)")
-            adjustment_made = True
         
         if not plasma_interlink_ok:
-            # Coils don't interlink the plasma - need to ensure they pass through torus hole
-            if not coil_reaches_into_hole:
-                # Coil doesn't extend into hole - need larger R1 or smaller R0
-                # Prefer increasing R1 to keep coils away from surface
-                R1_scale *= 1.2  # Increase by 20% to make coil extend more inward
+            # Priority 1: Coils must interlink plasma (most important constraint)
+            # If coils don't interlink, we need to adjust R0 and R1 so coils pass through the torus hole
+            # R0 is the mean radius, R1 is the amplitude (coils extend from R0-R1 to R0+R1)
+            if points_inside_hole_count == 0:
+                # No points in torus hole - coils don't extend inward enough, need to extend inward
+                # Increase R1 to make coil extend more inward, decrease R0 if safe
+                R1_scale *= 1.2  # More aggressive
                 R1 = minor_radius_component * R1_scale
-                print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (coil doesn't reach into hole)")
-                adjustment_made = True
-            elif not coil_points_inside_torus:
-                # Coil geometry suggests it should reach, but points aren't inside
-                # This might mean R0 is too large - try decreasing it slightly
-                # But be careful not to get too close to surface
-                if R0 > major_radius * 1.1:
-                    R0_scale *= 0.95  # Decrease by 5% to bring coils closer to center
+                if min_cs_sep > min_cs_distance * 1.1:  # Small safety margin
+                    R0_scale *= 0.95
                     R0 = major_radius * R0_scale
-                    print(f"    Adjusting: R0_scale decreased to {R0_scale:.3f} (bringing coils closer to center)")
-                    adjustment_made = True
+                    print(f"    Adjusting: R1_scale={R1_scale:.3f}, R0_scale={R0_scale:.3f} (extending inward to reach hole)")
                 else:
-                    # R0 is already close, increase R1 instead
-                    R1_scale *= 1.15
-                    R1 = minor_radius_component * R1_scale
-                    print(f"    Adjusting: R1_scale increased to {R1_scale:.3f} (R0 already close)")
-                    adjustment_made = True
+                    R0 = major_radius * R0_scale
+                    print(f"    Adjusting: R1_scale={R1_scale:.3f} (extending inward to reach hole)")
+                adjustment_made = True
+            elif points_outside_plasma_count == 0:
+                # No points outside plasma - coils don't extend outward enough, need to extend outward
+                # Increase R1 primarily to extend outward (R0+R1 increases)
+                R1_scale *= 1.2  # More aggressive increase for R1
+                R1 = minor_radius_component * R1_scale
+                # Optionally decrease R0 slightly to help extend outward while keeping inner edge similar
+                if min_cs_sep > min_cs_distance * 1.5:  # Large safety margin
+                    R0_scale *= 0.98
+                    R0 = major_radius * R0_scale
+                    print(f"    Adjusting: R1_scale={R1_scale:.3f}, R0_scale={R0_scale:.3f} (extending outward beyond plasma)")
+                else:
+                    R0 = major_radius * R0_scale
+                    print(f"    Adjusting: R1_scale={R1_scale:.3f} (extending outward beyond plasma)")
+                adjustment_made = True
+            else:
+                # Some points in hole and outside but not both - try increasing R1 to extend more
+                R1_scale *= 1.15
+                R1 = minor_radius_component * R1_scale
+                print(f"    Adjusting: R1_scale={R1_scale:.3f} (increasing coil extent)")
+                adjustment_made = True
+        elif not cs_ok:
+            # Priority 2: Coils must not intersect surface (only if interlinking is OK)
+            # Move coils outward to increase distance from surface
+            R0_scale *= 1.1
+            R0 = major_radius * R0_scale
+            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils intersecting surface)")
+            adjustment_made = True
+        elif not cc_ok:
+            # Priority 2: Coils must not be too close to each other
+            # Increase R0 to move coils further from center (increases toroidal separation)
+            R0_scale *= 1.1
+            R0 = major_radius * R0_scale
+            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils too close to each other)")
+            adjustment_made = True
+        elif not no_coil_interlink:
+            # Priority 4: Coils should not interlink each other
+            R0_scale *= 1.1
+            R0 = major_radius * R0_scale
+            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils interlinking)")
+            adjustment_made = True
         
         if not adjustment_made:
-            print("    No adjustment made - constraints may be conflicting")
+            print("    All constraints satisfied!")
     
     # Final coil creation with determined R0 and R1
     print("\nFinal coil positioning parameters:")
@@ -1230,6 +1297,7 @@ def optimize_coils_with_fourier_continuation(
     regularization: Callable | None = regularization_circ,
     coil_objective_terms: Dict[str, Any] | None = None,
     surface_resolution: int = 32,
+    case_path: Path | None = None,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1250,6 +1318,8 @@ def optimize_coils_with_fourier_continuation(
         Target magnetic field strength in Tesla (default: 5.7).
     out_dir: Path | str
         Output directory for saved files.
+    case_path: Path, optional
+        Path to case directory containing case.yaml. Used for post-processing.
     max_iterations: int
         Maximum number of optimization iterations per order (default: 30).
     ncoils: int
@@ -1281,8 +1351,8 @@ def optimize_coils_with_fourier_continuation(
     if fourier_orders != sorted(fourier_orders):
         raise ValueError("fourier_orders must be in ascending order")
     
-    out_dir = Path(out_dir).resolve()
-    out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir_path = Path(out_dir).resolve()
+    out_dir_path.mkdir(parents=True, exist_ok=True)
     
     all_results = []
     coils: list | None = None
@@ -1297,7 +1367,7 @@ def optimize_coils_with_fourier_continuation(
         print(f"{'='*60}")
         
         # Create subdirectory for this order
-        order_dir = out_dir / f"order_{order}"
+        order_dir = out_dir_path / f"order_{order}"
         order_dir.mkdir(exist_ok=True)
         
         if i == 0:
@@ -1314,6 +1384,7 @@ def optimize_coils_with_fourier_continuation(
                 regularization=regularization,
                 coil_objective_terms=coil_objective_terms,
                 surface_resolution=surface_resolution,
+                skip_post_processing=True,  # Skip post-processing for intermediate orders
                 **kwargs
             )
             # Extract cached thresholds from first step for reuse in continuation
@@ -1346,6 +1417,7 @@ def optimize_coils_with_fourier_continuation(
                 coil_objective_terms=coil_objective_terms,
                 initial_coils=coils,  # Pass extended coils as initial condition
                 surface_resolution=surface_resolution,
+                skip_post_processing=True,  # Skip post-processing for intermediate orders
                 **continuation_kwargs
             )
         
@@ -1383,6 +1455,121 @@ def optimize_coils_with_fourier_continuation(
     if coils is None:
         raise RuntimeError("Fourier continuation failed: no coils were produced")
     
+    # Run post-processing on final optimized coils
+    # Use the final order's BiotSavart object if available
+    try:
+        from .post_processing import run_post_processing
+        import yaml as yaml_module
+        
+        # Find case YAML file - try case_path first if provided
+        case_yaml_path = None
+        if case_path is not None:
+            case_yaml_path = Path(case_path) / "case.yaml"
+            if not case_yaml_path.exists():
+                case_yaml_path = None
+        
+        # Try in out_dir if not found yet
+        if case_yaml_path is None or not case_yaml_path.exists():
+            case_yaml_path = out_dir_path / "case.yaml"
+        if not case_yaml_path.exists():
+            case_yaml_path = out_dir_path.parent / "case.yaml"
+        if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
+            # Try to find case YAML relative to the surface file
+            surface_dir = Path(s.filename).parent
+            surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+            potential_case_paths = [
+                surface_dir / "case.yaml",
+                surface_dir.parent / "case.yaml",
+                Path("cases") / surface_stem / "case.yaml",
+            ]
+            for path in potential_case_paths:
+                if path.exists():
+                    case_yaml_path = path
+                    break
+        
+        # If still not found, search for case YAML files that reference this surface
+        if not case_yaml_path.exists():
+            cases_dir = Path("cases")
+            if cases_dir.exists():
+                surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
+                for yaml_file in cases_dir.glob("*.yaml"):
+                    try:
+                        case_data = yaml_module.safe_load(yaml_file.read_text())
+                        if case_data and isinstance(case_data, dict):
+                            surface_in_case = case_data.get("surface_params", {}).get("surface", "")
+                            # Check if this case references the same surface file
+                            if surface_filename and surface_filename in surface_in_case:
+                                case_yaml_path = yaml_file
+                                break
+                            elif surface_in_case in surface_filename:
+                                case_yaml_path = yaml_file
+                                break
+                    except Exception:
+                        continue
+        
+        # Coils JSON path - should be in the final order directory
+        # For Fourier continuation, the biot_savart_optimized.json is saved in the final order_dir
+        final_order_dir = out_dir_path / f"order_{fourier_orders[-1]}"
+        coils_json_path = final_order_dir / "biot_savart_optimized.json"
+        if not coils_json_path.exists():
+            # Fallback: try main out_dir
+            coils_json_path = out_dir_path / "biot_savart_optimized.json"
+        if not coils_json_path.exists():
+            # Also check for coils.json (used by submit-case CLI)
+            coils_json_path = out_dir_path / "coils.json"
+        
+        if coils_json_path.exists():
+            print("\nRunning post-processing on final optimized coils (QFM, Poincaré plots, profiles)...")
+            
+            # Determine helicity_n based on surface type (QA=0, QH=-1)
+            helicity_n = 0
+            if case_yaml_path.exists():
+                import yaml
+                try:
+                    case_data = yaml.safe_load(case_yaml_path.read_text())
+                    surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                    if "qh" in surface_name or "qash" in surface_name:
+                        helicity_n = -1
+                except Exception:
+                    pass
+            
+            # Determine plasma_surfaces_dir - go up from output directory to find repo root
+            plasma_surfaces_dir = None
+            current_dir = out_dir_path
+            for _ in range(5):  # Search up to 5 levels
+                potential_plasma_dir = current_dir / "plasma_surfaces"
+                if potential_plasma_dir.exists():
+                    plasma_surfaces_dir = potential_plasma_dir
+                    break
+                if current_dir.parent == current_dir:  # Reached root
+                    break
+                current_dir = current_dir.parent
+            
+            # Save post-processing outputs to main output directory (same level as order subdirectories)
+            # This ensures QFM surface, Poincaré plots, etc. are easily accessible
+            post_processing_results = run_post_processing(
+                coils_json_path=coils_json_path,
+                output_dir=out_dir_path,  # Save plots in main output directory
+                case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
+                plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
+                run_vmec=True,
+                helicity_m=1,
+                helicity_n=helicity_n,
+                ns=50,
+                plot_boozer=True,
+                plot_poincare=True,
+                nfieldlines=20,
+            )
+            print("Post-processing complete!")
+            if 'quasisymmetry_total' in post_processing_results:
+                print(f"  Quasisymmetry error: {post_processing_results['quasisymmetry_total']:.2e}")
+        else:
+            print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+    except Exception as e:
+        print(f"Warning: Post-processing failed: {e}")
+        import traceback
+        traceback.print_exc()
+    
     return coils, combined_results
 
 
@@ -1395,6 +1582,8 @@ def optimize_coils_loop(
     coil_objective_terms: Dict[str, Any] | None = None,
     initial_coils: list | None = None,
     surface_resolution: int = 32,
+    skip_post_processing: bool = False,
+    case_path: Path | None = None,
     **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
@@ -1427,7 +1616,6 @@ def optimize_coils_loop(
     """
     import time
     from scipy.optimize import minimize
-    from pathlib import Path
     from simsopt.geo import SurfaceRZFourier
     from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance, ArclengthVariation
     from simsopt.geo import LpCurveCurvature, CurveSurfaceDistance, MeanSquaredCurvature
@@ -2250,6 +2438,148 @@ def optimize_coils_loop(
         )
     except Exception as e:
         print(f"Warning: Failed to generate 3D plot: {e}")
+    
+    # Run post-processing: QFM surface, Poincaré plots, iota profiles, quasisymmetry profiles
+    # Skip if this is part of Fourier continuation (will run once at the end)
+    if not skip_post_processing:
+        try:
+            from .post_processing import run_post_processing
+            
+            # Determine case.yaml path for post-processing
+            # case_path should already be resolved to absolute path by optimize_coils
+            case_yaml_path = None
+            if case_path is not None:
+                case_path_obj = Path(case_path) if isinstance(case_path, str) else case_path
+                # If it's already absolute and exists, use it directly
+                if case_path_obj.is_absolute() and case_path_obj.exists():
+                    if case_path_obj.is_file():
+                        case_yaml_path = case_path_obj
+                    elif case_path_obj.is_dir():
+                        case_yaml_path = case_path_obj / "case.yaml"
+                        if not case_yaml_path.exists():
+                            case_yaml_path = None
+                elif case_path_obj.exists():
+                    # Resolve relative path
+                    case_yaml_path = case_path_obj.resolve()
+                    if case_yaml_path.is_dir():
+                        case_yaml_path = case_yaml_path / "case.yaml"
+                        if not case_yaml_path.exists():
+                            case_yaml_path = None
+            
+            # Check if case.yaml is in out_dir (from submit-case)
+            if case_yaml_path is None or not case_yaml_path.exists():
+                case_yaml_path = out_dir / "case.yaml"
+            if not case_yaml_path.exists():
+                # Try parent directory (for Fourier continuation subdirectories)
+                case_yaml_path = out_dir.parent / "case.yaml"
+            
+            # Also try searching relative to surface file and in cases directory
+            if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
+                # Try to find case.yaml relative to the surface file
+                surface_dir = Path(s.filename).parent
+                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+                potential_case_paths = [
+                    surface_dir / "case.yaml",
+                    surface_dir.parent / "case.yaml",
+                    Path("cases") / surface_stem / "case.yaml",
+                ]
+                for path in potential_case_paths:
+                    if path.exists():
+                        case_yaml_path = path
+                        break
+            
+            # If still not found, search cases directory for YAML files that reference this surface
+            # First try to find cases directory relative to repo root (go up from out_dir)
+            if case_yaml_path is None or not case_yaml_path.exists():
+                cases_dir = None
+                current_dir = Path(out_dir)
+                for _ in range(10):  # Search up to 10 levels
+                    potential_cases_dir = current_dir / "cases"
+                    if potential_cases_dir.exists() and potential_cases_dir.is_dir():
+                        cases_dir = potential_cases_dir
+                        break
+                    if current_dir.parent == current_dir:  # Reached root
+                        break
+                    current_dir = current_dir.parent
+                
+                # Also try relative to current working directory
+                if cases_dir is None:
+                    cases_dir = Path("cases")
+                
+                if cases_dir.exists():
+                    import yaml as yaml_module
+                    surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
+                    for yaml_file in cases_dir.glob("*.yaml"):
+                        try:
+                            case_data = yaml_module.safe_load(yaml_file.read_text())
+                            if case_data and isinstance(case_data, dict):
+                                surface_in_case = case_data.get("surface_params", {}).get("surface", "")
+                                # Check if this case references the same surface file
+                                if surface_filename and surface_filename in surface_in_case:
+                                    case_yaml_path = yaml_file.resolve()
+                                    break
+                                elif surface_in_case in surface_filename:
+                                    case_yaml_path = yaml_file.resolve()
+                                    break
+                        except Exception:
+                            continue
+            
+            # Coils JSON path - check both biot_savart_optimized.json and coils.json
+            coils_json_path = out_dir / "biot_savart_optimized.json"
+            if not coils_json_path.exists():
+                coils_json_path = out_dir / "coils.json"
+            
+            if coils_json_path.exists():
+                print("\nRunning post-processing (QFM, Poincaré plots, profiles)...")
+                
+                # Determine helicity_n based on surface type (QA=0, QH=-1)
+                # Default to QA (helicity_n=0)
+                helicity_n = 0
+                if case_yaml_path.exists():
+                    import yaml
+                    try:
+                        case_data = yaml.safe_load(case_yaml_path.read_text())
+                        surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                        # Check for QH surfaces
+                        if "qh" in surface_name or "qash" in surface_name:
+                            helicity_n = -1
+                    except Exception:
+                        pass  # Use default
+                
+                # Determine plasma_surfaces_dir - go up from output directory to find repo root
+                plasma_surfaces_dir = None
+                current_dir = Path(out_dir)
+                for _ in range(5):  # Search up to 5 levels
+                    potential_plasma_dir = current_dir / "plasma_surfaces"
+                    if potential_plasma_dir.exists():
+                        plasma_surfaces_dir = potential_plasma_dir
+                        break
+                    if current_dir.parent == current_dir:  # Reached root
+                        break
+                    current_dir = current_dir.parent
+                
+                post_processing_results = run_post_processing(
+                    coils_json_path=coils_json_path,
+                    output_dir=out_dir,
+                    case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
+                    plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
+                    run_vmec=True,  # Run VMEC for iota and quasisymmetry
+                    helicity_m=1,
+                    helicity_n=helicity_n,
+                    ns=50,
+                    plot_boozer=True,
+                    plot_poincare=True,
+                    nfieldlines=20,
+                )
+                print("Post-processing complete!")
+                if 'quasisymmetry_total' in post_processing_results:
+                    print(f"  Quasisymmetry error: {post_processing_results['quasisymmetry_total']:.2e}")
+            else:
+                print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+        except Exception as e:
+            print(f"Warning: Post-processing failed: {e}")
+            import traceback
+            traceback.print_exc()
     
     # Note: Individual file zipping is disabled - the entire submission directory
     # will be zipped by submit-case command after all files are written

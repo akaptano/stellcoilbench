@@ -5,11 +5,15 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 8
+  order: 16
+
+fourier_continuation:
+  enabled: true
+  orders: [4, 8, 12, 16]
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
-  max_iterations: 200
+  max_iterations: 400
   max_iter_subopt: 20
   verbose: False
 
@@ -24,7 +28,8 @@ coil_objective_terms:
   coil_curvature_p: 2  # defaults to 2 if not specified
   coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
   linking_number: ""  # Whether or not to use the linking number
-  coil_coil_force: "lp_threshold"  # options are lp, lp_threshold
-  coil_coil_force_p: 2  # defaults to 2 if not specified
+  # coil_coil_force: "lp_threshold"  # options are lp, lp_threshold
+  # coil_coil_force_p: 2  # defaults to 2 if not specified
+  coil_arclength_variation: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
   # coil_coil_torque: "lp_threshold"  # options are lp, lp_threshold
   # coil_coil_torque_p: 2  # defaults to 2 if not specified

@@ -93,10 +93,11 @@ def _detect_github_username() -> str:
 
 def _zip_submission_directory(submission_dir: Path) -> Path:
     """
-    Zip the submission files (excluding PDFs) into all_files.zip inside the submission directory.
+    Zip the submission files (excluding PDFs and post-processing outputs) into all_files.zip.
     
     Creates a zip file named "all_files.zip" inside the submission directory.
-    PDF files are kept in the directory alongside the zip file.
+    PDF files and post-processing outputs (QFM surface, Poincaré plots, VMEC plots, etc.)
+    are kept in the directory alongside the zip file.
     
     Parameters
     ----------
@@ -147,20 +148,38 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
     if pdf_files_to_keep:
         typer.echo(f"  Kept {len(pdf_files_to_keep)} PDF file(s) in {submission_dir}")
     
-    # Remove non-PDF files and empty directories from submission directory, but keep PDFs and the zip file
-    # PDFs and the zip file stay in the submission directory
+    # Keep post-processing files in addition to PDFs:
+    # - PDF files (bn_error plots)
+    # - Post-processing outputs: .vts (QFM surface), .png (plots), post_processing_results.json
+    post_processing_patterns = [
+        'qfm_surface',
+        'poincare',
+        'boozer',
+        'iota',
+        'quasisymmetry',
+        'post_processing_results',
+    ]
+    
+    # Remove files that should be zipped, but keep PDFs and post-processing files
     for file_path in files_to_zip:
-        try:
-            file_path.unlink()
-            # Try to remove parent directory if it's empty (but not the submission_dir itself)
-            parent = file_path.parent
-            if parent != submission_dir and parent.exists() and not any(parent.iterdir()):
-                try:
-                    parent.rmdir()
-                except (OSError, FileNotFoundError):
-                    pass  # Directory not empty or other error, skip
-        except (OSError, FileNotFoundError) as e:
-            typer.echo(f"Warning: Failed to remove {file_path}: {e}")
+        # Keep if it's a post-processing file (check filename patterns)
+        is_post_processing_file = any(
+            pattern.lower() in file_path.name.lower() 
+            for pattern in post_processing_patterns
+        ) and file_path.suffix.lower() in {'.vts', '.png', '.json'}
+        
+        if not is_post_processing_file:
+            try:
+                file_path.unlink()
+                # Try to remove parent directory if it's empty (but not the submission_dir itself)
+                parent = file_path.parent
+                if parent != submission_dir and parent.exists() and not any(parent.iterdir()):
+                    try:
+                        parent.rmdir()
+                    except (OSError, FileNotFoundError):
+                        pass  # Directory not empty or other error, skip
+            except (OSError, FileNotFoundError) as e:
+                typer.echo(f"Warning: Failed to remove {file_path}: {e}")
     
     typer.echo(f"  Submission directory structure: {submission_dir}")
     typer.echo(f"    - Zip file: {zip_path.name}")
@@ -598,6 +617,127 @@ def generate_submission(
     submission_out.parent.mkdir(parents=True, exist_ok=True)
     submission_out.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote submission results to {submission_out}")
+
+
+@app.command("post-process")
+def post_process(
+    coils_json: Path = typer.Argument(
+        ...,
+        help="Path to coils JSON file (e.g., biot_savart_optimized.json or coils.json).",
+    ),
+    output_dir: Path = typer.Option(
+        Path("post_processing_output"),
+        "--output-dir",
+        "-o",
+        help="Directory where post-processing results will be saved.",
+    ),
+    case_yaml: Optional[Path] = typer.Option(
+        None,
+        "--case-yaml",
+        help="Path to case.yaml file. If not provided, will search relative to coils JSON.",
+    ),
+    plasma_surfaces_dir: Optional[Path] = typer.Option(
+        None,
+        "--plasma-surfaces-dir",
+        help="Directory containing plasma surface files. Defaults to 'plasma_surfaces'.",
+    ),
+    run_vmec: bool = typer.Option(
+        True,
+        "--run-vmec/--no-vmec",
+        help="Whether to run VMEC equilibrium calculation.",
+    ),
+    helicity_m: int = typer.Option(
+        1,
+        "--helicity-m",
+        help="Poloidal mode number for quasisymmetry evaluation.",
+    ),
+    helicity_n: int = typer.Option(
+        0,
+        "--helicity-n",
+        help="Toroidal mode number for quasisymmetry evaluation.",
+    ),
+    ns: int = typer.Option(
+        50,
+        "--ns",
+        help="Number of radial surfaces for quasisymmetry evaluation.",
+    ),
+    plot_boozer: bool = typer.Option(
+        True,
+        "--plot-bozzer/--no-plot-bozzer",
+        help="Whether to generate Boozer surface plot.",
+    ),
+    plot_iota: bool = typer.Option(
+        True,
+        "--plot-iota/--no-plot-iota",
+        help="Whether to generate iota profile plot.",
+    ),
+    plot_qs: bool = typer.Option(
+        True,
+        "--plot-qs/--no-plot-qs",
+        help="Whether to generate quasisymmetry profile plot.",
+    ),
+    plot_poincare: bool = typer.Option(
+        True,
+        "--plot-poincare/--no-plot-poincare",
+        help="Whether to generate Poincaré plot.",
+    ),
+    nfieldlines: int = typer.Option(
+        20,
+        "--nfieldlines",
+        help="Number of fieldlines to trace for Poincaré plot.",
+    ),
+) -> None:
+    """
+    Run post-processing on optimized coil results.
+    
+    This command performs analysis of optimized coil configurations, including:
+    - Computing QFM (quasi-flux surface) surfaces
+    - Running VMEC equilibrium calculations
+    - Computing quasisymmetry metrics
+    - Generating Boozer surface plots
+    - Generating iota (rotational transform) profiles
+    - Generating quasisymmetry error profiles
+    - Generating Poincaré plots
+    
+    Example:
+        stellcoilbench post-process coils_runs/biot_savart_optimized.json --output-dir post_processing
+    """
+    from .post_processing import run_post_processing
+    
+    typer.echo(f"Running post-processing on {coils_json}")
+    typer.echo(f"Output directory: {output_dir}")
+    
+    try:
+        results = run_post_processing(
+            coils_json_path=coils_json,
+            output_dir=output_dir,
+            case_yaml_path=case_yaml,
+            plasma_surfaces_dir=plasma_surfaces_dir,
+            run_vmec=run_vmec,
+            helicity_m=helicity_m,
+            helicity_n=helicity_n,
+            ns=ns,
+            plot_boozer=plot_boozer,
+            plot_iota=plot_iota,
+            plot_qs=plot_qs,
+            plot_poincare=plot_poincare,
+            nfieldlines=nfieldlines,
+        )
+        
+        typer.echo("\nPost-processing complete!")
+        typer.echo(f"Results saved to: {output_dir}")
+        
+        if 'BdotN' in results:
+            typer.echo(f"B·n on plasma surface: {results['BdotN']:.2e}")
+            typer.echo(f"B·n/|B|: {results['BdotN_over_B']:.2e}")
+        
+        if 'quasisymmetry_total' in results:
+            typer.echo(f"Total quasisymmetry error: {results['quasisymmetry_total']:.2e}")
+        
+    except Exception as e:
+        typer.echo(f"Error during post-processing: {e}", err=True)
+        raise typer.Exit(code=1)
+
 
 def main() -> None:
     app()
