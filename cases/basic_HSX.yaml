@@ -7,6 +7,10 @@ coils_params:
   ncoils: 5
   order: 8
 
+fourier_continuation:
+  enabled: true
+  orders: [4, 8, 16]  # Start with order 4, then 6, then 8
+
 optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 1000
@@ -17,6 +21,7 @@ optimizer_params:
 # Unspecified terms are not included in the objective function.
 # Note that SquaredFlux is always included (can't think of why it would ever be excluded)
 coil_objective_terms: 
+  length_threshold: 15.0
   total_length: "l2_threshold"  
   coil_curvature: "lp_threshold"  # options are lp, lp_threshold
   coil_curvature_p: 2  # defaults to 2 if not specified

@@ -24,6 +24,14 @@ Prerequisites
    - ``typer``: Command-line interface
    - ``vtk``: Visualization output
 
+**Optional Dependencies for Post-Processing**
+   For advanced post-processing features (VMEC equilibrium calculations, Boozer plots, quasisymmetry analysis), you can optionally install:
+   
+   - **VMEC**: Required for VMEC equilibrium calculations and quasisymmetry metrics
+   - **booz_xform**: Required for Boozer surface plots
+   
+   These are optional - StellCoilBench will work without them, but post-processing features that require them will be skipped.
+
 Installation
 ------------
 
@@ -60,6 +68,29 @@ Installation
    
       pip install -e ".[DOCS]"
 
+**Optional: Install VMEC and booz_xform for Post-Processing**
+
+   For full post-processing capabilities (VMEC equilibrium calculations, Boozer plots, quasisymmetry analysis), install the optional dependencies:
+   
+   **VMEC Installation**
+   
+   VMEC installation instructions vary by platform. See the `simsopt wiki <https://github.com/hiddenSymmetries/simsopt/wiki>`_ for platform-specific installation instructions, including:
+   
+   - Mac installation (including M1/M2)
+   - Linux/Ubuntu installation
+   - Various cluster systems (NERSC, PPPL, Princeton, etc.)
+   - Common troubleshooting tips
+   
+   The wiki contains detailed, tested instructions for many computing environments.
+   
+   **Install booz_xform**
+   
+   booz_xform is required for performing calculations in Boozer coordinates, e.g. making Boozer surface plots.
+   
+   .. code-block:: bash
+   
+      pip install -v git+https://github.com/hiddenSymmetries/booz_xform
+   
 **Using Conda**
    
    You can also use conda to create an environment, but pip will still handle
@@ -158,6 +189,12 @@ For local development and testing, you can run cases directly:
    - Initialize coils around the plasma surface
    - Run the optimization
    - Evaluate metrics
+   - Run post-processing (if VMEC/booz_xform installed):
+     * Generate Poincaré plots
+     * Compute QFM surface
+     * Run VMEC equilibrium calculations
+     * Generate iota and quasisymmetry profile plots
+     * Create Boozer surface plots
    - Create a submission directory under ``submissions/``
    - Zip the submission and move PDF plots next to the zip
 

@@ -12,29 +12,21 @@ def _determine_thresholds(coil_objective_terms, cc_threshold, cs_threshold, forc
     """
     Extract threshold determination logic from optimize_coils_loop for testing.
     
-    This mirrors the logic in coil_optimization.py lines 448-484.
+    This mirrors the logic in coil_optimization.py.
+    Note: coil_coil_distance and coil_surface_distance are always included automatically
+    with thresholds, so they are not affected by coil_objective_terms.
     """
-    # Default to using thresholds (for backward compatibility with default behavior)
+    # Distance objectives are always included with thresholds
     cc_thresh = cc_threshold
     cs_thresh = cs_threshold
+    
+    # Force and torque thresholds depend on options
     force_thresh = force_threshold
     torque_thresh = torque_threshold
     
-    # Check if l1 (no threshold) or l1_threshold is specified
+    # Check if lp (no threshold) or lp_threshold is specified for force/torque
     # Only adjust thresholds if the term is explicitly specified in coil_objective_terms
     if coil_objective_terms:
-        coil_coil_dist_option = coil_objective_terms.get("coil_coil_distance")
-        if coil_coil_dist_option == "l1":
-            cc_thresh = 0.0
-        elif coil_coil_dist_option == "l1_threshold":
-            cc_thresh = cc_threshold
-        
-        coil_surf_dist_option = coil_objective_terms.get("coil_surface_distance")
-        if coil_surf_dist_option == "l1":
-            cs_thresh = 0.0
-        elif coil_surf_dist_option == "l1_threshold":
-            cs_thresh = cs_threshold
-        
         coil_force_option = coil_objective_terms.get("coil_coil_force")
         if coil_force_option == "lp":
             force_thresh = 0.0
@@ -73,47 +65,27 @@ class TestThresholdDetermination:
         assert force_thresh == 2.0
         assert torque_thresh == 2.5
     
-    def test_coil_coil_distance_l1_zero_threshold(self):
-        """Test that l1 option sets cc_threshold to 0.0."""
+    def test_coil_coil_distance_always_uses_threshold(self):
+        """Test that coil_coil_distance always uses threshold (always included automatically)."""
+        # Distance objectives are always included with thresholds, regardless of coil_objective_terms
         cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
-            {"coil_coil_distance": "l1"},
+            {},  # Empty - distance objectives still use thresholds
             cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
         )
-        assert cc_thresh == 0.0
-        assert cs_thresh == 1.5  # Unchanged
+        assert cc_thresh == 1.0  # Always uses threshold
+        assert cs_thresh == 1.5  # Always uses threshold
         assert force_thresh == 2.0  # Unchanged
         assert torque_thresh == 2.5  # Unchanged
     
-    def test_coil_coil_distance_l1_threshold_uses_threshold(self):
-        """Test that l1_threshold option uses actual threshold."""
+    def test_coil_surface_distance_always_uses_threshold(self):
+        """Test that coil_surface_distance always uses threshold (always included automatically)."""
+        # Distance objectives are always included with thresholds, regardless of coil_objective_terms
         cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
-            {"coil_coil_distance": "l1_threshold"},
+            {},  # Empty - distance objectives still use thresholds
             cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
         )
-        assert cc_thresh == 1.0
-        assert cs_thresh == 1.5  # Unchanged
-        assert force_thresh == 2.0  # Unchanged
-        assert torque_thresh == 2.5  # Unchanged
-    
-    def test_coil_surface_distance_l1_zero_threshold(self):
-        """Test that l1 option sets cs_threshold to 0.0."""
-        cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
-            {"coil_surface_distance": "l1"},
-            cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
-        )
-        assert cc_thresh == 1.0  # Unchanged
-        assert cs_thresh == 0.0
-        assert force_thresh == 2.0  # Unchanged
-        assert torque_thresh == 2.5  # Unchanged
-    
-    def test_coil_surface_distance_l1_threshold_uses_threshold(self):
-        """Test that l1_threshold option uses actual threshold."""
-        cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
-            {"coil_surface_distance": "l1_threshold"},
-            cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
-        )
-        assert cc_thresh == 1.0  # Unchanged
-        assert cs_thresh == 1.5
+        assert cc_thresh == 1.0  # Always uses threshold
+        assert cs_thresh == 1.5  # Always uses threshold
         assert force_thresh == 2.0  # Unchanged
         assert torque_thresh == 2.5  # Unchanged
     
@@ -161,19 +133,19 @@ class TestThresholdDetermination:
         assert force_thresh == 2.0  # Unchanged
         assert torque_thresh == 2.5
     
-    def test_all_l1_options_together(self):
-        """Test all l1 options together set all thresholds to 0.0."""
+    def test_all_force_torque_lp_options_together(self):
+        """Test all force/torque lp options together."""
         cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
             {
-                "coil_coil_distance": "l1",
-                "coil_surface_distance": "l1",
                 "coil_coil_force": "lp",
                 "coil_coil_torque": "lp",
             },
             cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
         )
-        assert cc_thresh == 0.0
-        assert cs_thresh == 0.0
+        # Distance objectives always use thresholds (always included automatically)
+        assert cc_thresh == 1.0
+        assert cs_thresh == 1.5
+        # Force/torque use zero threshold when lp is specified
         assert force_thresh == 0.0
         assert torque_thresh == 0.0
     
@@ -181,31 +153,31 @@ class TestThresholdDetermination:
         """Test all threshold options together use actual thresholds."""
         cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
             {
-                "coil_coil_distance": "l1_threshold",
-                "coil_surface_distance": "l1_threshold",
                 "coil_coil_force": "lp_threshold",
                 "coil_coil_torque": "lp_threshold",
             },
             cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
         )
+        # Distance objectives always use thresholds (always included automatically)
         assert cc_thresh == 1.0
         assert cs_thresh == 1.5
+        # Force/torque use thresholds when lp_threshold is specified
         assert force_thresh == 2.0
         assert torque_thresh == 2.5
     
     def test_mixed_options(self):
-        """Test mixed l1 and threshold options."""
+        """Test mixed force/torque options."""
         cc_thresh, cs_thresh, force_thresh, torque_thresh = _determine_thresholds(
             {
-                "coil_coil_distance": "l1",  # Zero threshold
-                "coil_surface_distance": "l1_threshold",  # Use threshold
                 "coil_coil_force": "lp",  # Zero threshold
                 "coil_coil_torque": "lp_threshold",  # Use threshold
             },
             cc_threshold=1.0, cs_threshold=1.5, force_threshold=2.0, torque_threshold=2.5
         )
-        assert cc_thresh == 0.0
+        # Distance objectives always use thresholds (always included automatically)
+        assert cc_thresh == 1.0
         assert cs_thresh == 1.5
+        # Force/torque thresholds depend on options
         assert force_thresh == 0.0
         assert torque_thresh == 2.5
     
@@ -274,20 +246,20 @@ coils_params:
 optimizer_params:
   algorithm: l-bfgs
 coil_objective_terms:
-  coil_coil_distance: l1
-  coil_surface_distance: l1
   coil_coil_force: lp
   coil_coil_torque: lp
 """)
         
         config = load_case_config(case_yaml)
-        assert config.coil_objective_terms["coil_coil_distance"] == "l1"
-        assert config.coil_objective_terms["coil_surface_distance"] == "l1"
+        # coil_coil_distance and coil_surface_distance are always included automatically
+        # and should not be specified in coil_objective_terms
+        assert "coil_coil_distance" not in config.coil_objective_terms
+        assert "coil_surface_distance" not in config.coil_objective_terms
         assert config.coil_objective_terms["coil_coil_force"] == "lp"
         assert config.coil_objective_terms["coil_coil_torque"] == "lp"
     
     def test_load_case_with_l1_threshold_options(self, tmp_path):
-        """Test loading case.yaml with l1_threshold options."""
+        """Test loading case.yaml with lp_threshold options."""
         case_yaml = tmp_path / "case.yaml"
         case_yaml.write_text("""description: Test case
 surface_params:
@@ -298,15 +270,15 @@ coils_params:
 optimizer_params:
   algorithm: l-bfgs
 coil_objective_terms:
-  coil_coil_distance: l1_threshold
-  coil_surface_distance: l1_threshold
   coil_coil_force: lp_threshold
   coil_coil_torque: lp_threshold
 """)
         
         config = load_case_config(case_yaml)
-        assert config.coil_objective_terms["coil_coil_distance"] == "l1_threshold"
-        assert config.coil_objective_terms["coil_surface_distance"] == "l1_threshold"
+        # coil_coil_distance and coil_surface_distance are always included automatically
+        # and should not be specified in coil_objective_terms
+        assert "coil_coil_distance" not in config.coil_objective_terms
+        assert "coil_surface_distance" not in config.coil_objective_terms
         assert config.coil_objective_terms["coil_coil_force"] == "lp_threshold"
         assert config.coil_objective_terms["coil_coil_torque"] == "lp_threshold"
     
@@ -323,8 +295,6 @@ optimizer_params:
   algorithm: l-bfgs
 coil_objective_terms:
   total_length: l2_threshold
-  coil_coil_distance: l1
-  coil_surface_distance: l1_threshold
   coil_curvature: lp_threshold
   coil_curvature_p: 2
   coil_mean_squared_curvature: l2
@@ -337,8 +307,10 @@ coil_objective_terms:
         
         config = load_case_config(case_yaml)
         assert config.coil_objective_terms["total_length"] == "l2_threshold"
-        assert config.coil_objective_terms["coil_coil_distance"] == "l1"
-        assert config.coil_objective_terms["coil_surface_distance"] == "l1_threshold"
+        # coil_coil_distance and coil_surface_distance are always included automatically
+        # and should not be specified in coil_objective_terms
+        assert "coil_coil_distance" not in config.coil_objective_terms
+        assert "coil_surface_distance" not in config.coil_objective_terms
         assert config.coil_objective_terms["coil_curvature"] == "lp_threshold"
         assert config.coil_objective_terms["coil_curvature_p"] == 2
         assert config.coil_objective_terms["coil_mean_squared_curvature"] == "l2"
@@ -383,38 +355,42 @@ optimizer_params:
         config = load_case_config(base_case_yaml)
         assert config.coil_objective_terms["total_length"] == "l2_threshold"
     
-    def test_coil_coil_distance_l1(self, base_case_yaml):
-        """Test coil_coil_distance with l1 option."""
+    def test_coil_coil_distance_cannot_be_specified(self, base_case_yaml):
+        """Test that coil_coil_distance cannot be specified (always included automatically)."""
         base_case_yaml.write_text(base_case_yaml.read_text() + """coil_objective_terms:
   coil_coil_distance: l1
 """)
-        config = load_case_config(base_case_yaml)
-        assert config.coil_objective_terms["coil_coil_distance"] == "l1"
+        # Should raise validation error
+        with pytest.raises(ValueError, match="coil_coil_distance.*always included automatically"):
+            load_case_config(base_case_yaml)
     
-    def test_coil_coil_distance_l1_threshold(self, base_case_yaml):
-        """Test coil_coil_distance with l1_threshold option."""
+    def test_coil_coil_distance_empty_string_allowed(self, base_case_yaml):
+        """Test that coil_coil_distance can be specified as empty string (optional, always included)."""
         base_case_yaml.write_text(base_case_yaml.read_text() + """coil_objective_terms:
-  coil_coil_distance: l1_threshold
+  coil_coil_distance: ""
 """)
         config = load_case_config(base_case_yaml)
-        assert config.coil_objective_terms["coil_coil_distance"] == "l1_threshold"
+        # Empty string is allowed but not required
+        assert config.coil_objective_terms.get("coil_coil_distance") == ""
     
     
-    def test_coil_surface_distance_l1(self, base_case_yaml):
-        """Test coil_surface_distance with l1 option."""
+    def test_coil_surface_distance_cannot_be_specified(self, base_case_yaml):
+        """Test that coil_surface_distance cannot be specified (always included automatically)."""
         base_case_yaml.write_text(base_case_yaml.read_text() + """coil_objective_terms:
   coil_surface_distance: l1
 """)
-        config = load_case_config(base_case_yaml)
-        assert config.coil_objective_terms["coil_surface_distance"] == "l1"
+        # Should raise validation error
+        with pytest.raises(ValueError, match="coil_surface_distance.*always included automatically"):
+            load_case_config(base_case_yaml)
     
-    def test_coil_surface_distance_l1_threshold(self, base_case_yaml):
-        """Test coil_surface_distance with l1_threshold option."""
+    def test_coil_surface_distance_empty_string_allowed(self, base_case_yaml):
+        """Test that coil_surface_distance can be specified as empty string (optional, always included)."""
         base_case_yaml.write_text(base_case_yaml.read_text() + """coil_objective_terms:
-  coil_surface_distance: l1_threshold
+  coil_surface_distance: ""
 """)
         config = load_case_config(base_case_yaml)
-        assert config.coil_objective_terms["coil_surface_distance"] == "l1_threshold"
+        # Empty string is allowed but not required
+        assert config.coil_objective_terms.get("coil_surface_distance") == ""
     
     
     def test_coil_curvature_lp(self, base_case_yaml):

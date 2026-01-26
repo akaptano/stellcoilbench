@@ -574,22 +574,37 @@ def plot_boozer_surface(
         return
     
     # Create 2x2 grid of Boozer surfaces at s = 0, 0.25, 0.5, 1.0
-    s_values = [0.0, 0.25, 0.5, 1.0]
+    target_s_values = [0.0, 0.25, 0.5, 1.0]
     
-    # Get number of surfaces from booz_xform output
-    # b2.nsurf gives the number of surfaces
-    nsurf = b2.nsurf
+    # Get actual s values from VMEC equilibrium
+    # equil.wout.iotas has ns+1 elements (including axis at index 0)
+    # The flux coordinate s for each surface can be computed from the surface index
+    vmec_nsurf = len(equil.wout.iotas) - 1  # type: ignore
     
-    # Convert flux coordinate s to surface index js
-    # booz_xform uses 1-indexed surface indices (js ranges from 1 to nsurf)
-    # s ranges from 0 to 1
+    # Compute actual s values for each surface
+    # s = (js - 1) / (nsurf - 1) for js from 1 to nsurf
+    # But s=0 is at the axis (not a surface), so surfaces are at js=1 to js=nsurf
+    if vmec_nsurf > 1:
+        # For surfaces js=1 to js=nsurf, s ranges approximately from 0 to 1
+        # More precisely: s[js] = (js - 1) / (nsurf - 1)
+        actual_s_values = np.linspace(0.0, 1.0, vmec_nsurf)
+        # Surface indices are 1-indexed: js ranges from 1 to nsurf
+        surface_indices = np.arange(1, vmec_nsurf + 1)
+    else:
+        # Only one surface available
+        actual_s_values = np.array([0.5])  # Use middle value
+        surface_indices = np.array([1])
+    
+    # Find surface indices closest to target s values
     js_indices = []
-    for s in s_values:
-        # Map s to surface index: s=0 -> js=1, s=1 -> js=nsurf
-        # Use 1-indexed for booz_xform
-        js_idx = int(round(s * (nsurf - 1))) + 1
-        js_idx = max(1, min(js_idx, nsurf))  # Clamp to valid range [1, nsurf]
+    actual_s_used = []
+    for target_s in target_s_values:
+        # Find the index of the closest actual s value
+        closest_idx = np.argmin(np.abs(actual_s_values - target_s))
+        js_idx = int(surface_indices[closest_idx])
+        actual_s = actual_s_values[closest_idx]
         js_indices.append(js_idx)
+        actual_s_used.append(actual_s)
     
     # Create 2x2 subplot grid
     fig, axes = plt.subplots(2, 2, figsize=(16, 16))
@@ -600,11 +615,15 @@ def plot_boozer_surface(
     axes_flat = axes.flatten()
     
     # Plot each surface
-    for i, (s, js_idx) in enumerate(zip(s_values, js_indices)):
+    for i, (target_s, js_idx, actual_s) in enumerate(zip(target_s_values, js_indices, actual_s_used)):
         ax = axes_flat[i]
         plt.sca(ax)
         bx.surfplot(b2, js=js_idx, fill=False)
-        ax.set_title(f's = {s:.2f}', fontsize=14)
+        # Show both target and actual s value in title
+        if abs(target_s - actual_s) < 1e-6:
+            ax.set_title(f's = {actual_s:.2f}', fontsize=14)
+        else:
+            ax.set_title(f's ≈ {actual_s:.2f} (target: {target_s:.2f})', fontsize=14)
     
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -616,6 +635,7 @@ def plot_iota_profile(
     equil: Any,  # type: ignore
     output_path: Path,
     sign: int = 1,
+    equil_original: Optional[Any] = None,  # type: ignore
     dpi: int = 300,
 ) -> None:
     """
@@ -624,11 +644,13 @@ def plot_iota_profile(
     Parameters
     ----------
     equil : Vmec
-        VMEC equilibrium object.
+        VMEC equilibrium object (self-consistent solution).
     output_path : Path
         Where to save the plot.
     sign : int, default=1
         Sign to apply to iota (1 or -1).
+    equil_original : Vmec, optional
+        Original VMEC equilibrium object for comparison.
     dpi : int, default=300
         Resolution for saved figure.
     """
@@ -644,7 +666,23 @@ def plot_iota_profile(
     plt.grid()
     plt.rcParams["font.family"] = "Times New Roman"
     plt.rc("font", size=15)
-    plt.plot(psi_s, sign * iotas, 'rx')
+    
+    # Plot original surface if provided
+    if equil_original is not None:
+        iotas_orig = equil_original.wout.iotas[1:]  # type: ignore
+        psi_s_orig = np.linspace(
+            0,
+            len(iotas_orig) * equil_original.ds,
+            len(iotas_orig)
+        )
+        plt.plot(psi_s_orig, sign * iotas_orig, 'b-', label='Original surface', linewidth=2)
+    
+    # Plot self-consistent solution
+    plt.plot(psi_s, sign * iotas, 'rx', label='Self-consistent (QFM)', markersize=8)
+    
+    if equil_original is not None:
+        plt.legend()
+    
     plt.ylabel(r'rotational transform $\iota$')
     plt.xlabel('Normalized toroidal flux s')
     plt.tight_layout()
@@ -657,6 +695,8 @@ def plot_quasisymmetry_profile(
     qs_profile: np.ndarray,
     radii: np.ndarray,
     output_path: Path,
+    qs_profile_original: Optional[np.ndarray] = None,
+    radii_original: Optional[np.ndarray] = None,
     dpi: int = 300,
 ) -> None:
     """
@@ -665,18 +705,32 @@ def plot_quasisymmetry_profile(
     Parameters
     ----------
     qs_profile : np.ndarray
-        Quasisymmetry error at each radius.
+        Quasisymmetry error at each radius (self-consistent solution).
     radii : np.ndarray
         Normalized toroidal flux radii.
     output_path : Path
         Where to save the plot.
+    qs_profile_original : np.ndarray, optional
+        Original quasisymmetry error profile for comparison.
+    radii_original : np.ndarray, optional
+        Normalized toroidal flux radii for original profile.
     dpi : int, default=300
         Resolution for saved figure.
     """
     plt.figure(figsize=(10, 6))
     plt.rcParams["font.family"] = "Times New Roman"
     plt.rc("font", size=15)
-    plt.semilogy(radii, qs_profile)
+    
+    # Plot original surface if provided
+    if qs_profile_original is not None and radii_original is not None:
+        plt.semilogy(radii_original, qs_profile_original, 'b-', label='Original surface', linewidth=2)
+    
+    # Plot self-consistent solution
+    plt.semilogy(radii, qs_profile, 'rx', label='Self-consistent (QFM)', markersize=8)
+    
+    if qs_profile_original is not None:
+        plt.legend()
+    
     plt.xlabel('Normalized toroidal flux')
     plt.ylabel('Two-term quasisymmetry error')
     plt.grid()
@@ -1135,6 +1189,37 @@ def run_post_processing(
                 proc0_print("Note: Original surface file is not a VMEC input file.")
                 proc0_print("Using a template VMEC input file and replacing boundary with QFM surface.")
             
+            # Run VMEC for original surface first (for comparison plots)
+            equil_original = None
+            qs_average_original = None
+            qs_profile_original = None
+            radii_original = None
+            
+            # Try to run VMEC for original surface (for comparison)
+            # Use VMEC input file if available, otherwise run_vmec_equilibrium will find a template
+            try:
+                proc0_print("Running VMEC for original plasma surface (for comparison)...")
+                equil_original = run_vmec_equilibrium(
+                    surface,  # Use original surface
+                    vmec_input_path=vmec_input_path if is_vmec_input else None,
+                    mpi=mpi,
+                    plasma_surfaces_dir=plasma_surfaces_dir,
+                )
+                
+                # Compute quasisymmetry for original surface
+                qs_average_original, qs_profile_original = compute_quasisymmetry(
+                    equil_original,
+                    helicity_m=helicity_m,
+                    helicity_n=helicity_n,
+                    ns=ns,
+                )
+                radii_original = np.arange(0, 1.01, 1.01 / ns)
+                proc0_print(f"Original surface average quasisymmetry error: {qs_average_original:.2e}")
+            except Exception as e:
+                proc0_print(f"Warning: Failed to compute original surface profiles: {e}")
+                proc0_print("Proceeding with QFM surface only.")
+            
+            # Run VMEC for QFM surface (self-consistent solution)
             equil = run_vmec_equilibrium(
                 qfm_surface,
                 vmec_input_path=vmec_input_path if is_vmec_input else None,
@@ -1143,7 +1228,7 @@ def run_post_processing(
             )
             results['vmec'] = equil
             
-            # Compute quasisymmetry
+            # Compute quasisymmetry for QFM surface
             proc0_print("Computing quasisymmetry metrics...")
             qs_average, qs_profile = compute_quasisymmetry(
                 equil,
@@ -1164,6 +1249,7 @@ def run_post_processing(
                 equil,
                 output_dir / "iota_profile.png",
                 sign=sign,
+                equil_original=equil_original,
                 dpi=300,  # High resolution for publication
             )
             
@@ -1173,6 +1259,8 @@ def run_post_processing(
                 qs_profile,
                 radii,
                 output_dir / "quasisymmetry_profile.png",
+                qs_profile_original=qs_profile_original,
+                radii_original=radii_original,
                 dpi=300,  # High resolution for publication
             )
             

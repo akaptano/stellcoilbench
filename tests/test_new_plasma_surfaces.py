@@ -37,7 +37,7 @@ class TestNewPlasmaSurfaceCases:
         assert config.surface_params["surface"] == "input.cfqs_2b40"
         assert config.surface_params["range"] == "half period"
         assert config.coils_params["ncoils"] == 4
-        assert config.coils_params["order"] == 4
+        assert config.coils_params["order"] == 8
         assert config.optimizer_params["algorithm"] == "L-BFGS-B"
     
     def test_basic_CFQS_surface_file_exists(self, plasma_surfaces_dir):
@@ -55,9 +55,13 @@ class TestNewPlasmaSurfaceCases:
         assert config.description == "Basic test case"
         assert config.surface_params["surface"] == "input.HSX_QHS_mn1824_ns101"
         assert config.surface_params["range"] == "half period"
-        assert config.coils_params["ncoils"] == 4
-        assert config.coils_params["order"] == 4
+        assert config.coils_params["ncoils"] == 5
+        assert config.coils_params["order"] == 8
         assert config.optimizer_params["algorithm"] == "L-BFGS-B"
+        # Check that fourier_continuation is enabled
+        assert hasattr(config, "fourier_continuation")
+        assert config.fourier_continuation["enabled"] is True
+        assert config.fourier_continuation["orders"] == [4, 8, 16]
     
     def test_basic_HSX_surface_file_exists(self, plasma_surfaces_dir):
         """Test that the HSX surface file exists."""
@@ -75,7 +79,7 @@ class TestNewPlasmaSurfaceCases:
         assert config.surface_params["surface"] == "input.W7-X_without_coil_ripple_beta0p05_d23p4_tm"
         assert config.surface_params["range"] == "half period"
         assert config.coils_params["ncoils"] == 4
-        assert config.coils_params["order"] == 4
+        assert config.coils_params["order"] == 8
         assert config.optimizer_params["algorithm"] == "L-BFGS-B"
     
     def test_basic_W7X_surface_file_exists(self, plasma_surfaces_dir):
@@ -160,6 +164,19 @@ class TestNewPlasmaSurfaceCases:
             "basic_W7X.yaml",
         ]
         
+        # Valid threshold parameter names (these are numeric values, not option strings)
+        valid_threshold_names = {
+            "length_threshold",
+            "cc_threshold",
+            "cs_threshold",
+            "curvature_threshold",
+            "arclength_variation_threshold",
+            "msc_threshold",
+            "force_threshold",
+            "torque_threshold",
+            "flux_threshold",
+        }
+        
         for case_filename in new_cases:
             case_file = cases_dir / case_filename
             config = load_case_config(case_file)
@@ -173,16 +190,20 @@ class TestNewPlasmaSurfaceCases:
                 }
                 
                 for term, value in config.coil_objective_terms.items():
-                    if term.endswith("_p"):
+                    # Skip threshold parameters (they are numeric values)
+                    if term in valid_threshold_names:
+                        assert isinstance(value, (int, float)) and value >= 0, \
+                            f"{case_filename} coil_objective_terms.{term} should be a non-negative number"
+                    elif term.endswith("_p"):
                         # p parameter should be numeric
-                        assert isinstance(value, (int, float)), \
-                            f"{case_filename} coil_objective_terms.{term} should be numeric"
-                    elif term != "linking_number":
-                        # Regular terms should have valid options
-                        assert value in valid_options, \
-                            f"{case_filename} coil_objective_terms.{term} has invalid value '{value}'"
-                    else:
+                        assert isinstance(value, (int, float)) and value > 0, \
+                            f"{case_filename} coil_objective_terms.{term} should be a positive number"
+                    elif term == "linking_number":
                         # linking_number can be empty string
                         assert value == "", \
                             f"{case_filename} coil_objective_terms.linking_number should be empty string"
+                    else:
+                        # Regular terms should have valid options
+                        assert value in valid_options, \
+                            f"{case_filename} coil_objective_terms.{term} has invalid value '{value}'"
 

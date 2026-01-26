@@ -5,13 +5,13 @@ surface_params:
 
 coils_params:
   ncoils: 4
-  order: 4
+  order: 8
 
 optimizer_params:
   algorithm: "L-BFGS-B"
-  max_iterations: 200
+  max_iterations: 1000
   max_iter_subopt: 10
-  verbose: False
+  verbose: True
 
 # options for each term are l2, l2_threshold, l1, l1_threshold.
 # Unspecified terms are not included in the objective function.
@@ -22,3 +22,4 @@ coil_objective_terms:
   coil_curvature_p: 2  # defaults to 2 if not specified
   coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
   linking_number: ""  # Whether or not to use the linking number
+  coil_arclength_variation: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold

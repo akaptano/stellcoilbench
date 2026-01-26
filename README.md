@@ -77,14 +77,20 @@ stellcoilbench submit-case cases/my_case.yaml
 **What this does:**
 1. Runs coil optimization for the case
 2. Evaluates the results
-3. Auto-detects GitHub username from git config (`git config user.name`)
-4. Auto-detects hardware (CPU/GPU) from system information
-5. Creates a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
+3. Runs post-processing (if VMEC and booz_xform are installed):
+   - Generates Poincaré plots
+   - Computes QFM surface
+   - Runs VMEC equilibrium calculations
+   - Generates iota and quasisymmetry profile plots (comparing original and self-consistent solutions)
+   - Creates Boozer surface plots (2x2 grid at s = 0, 0.25, 0.5, 1.0)
+4. Auto-detects GitHub username from git config (`git config user.name`)
+5. Auto-detects hardware (CPU/GPU) from system information
+6. Creates a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
    (e.g., `submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/`)
-6. Writes `results.json`, `coils.json`, `case.yaml`, `biot_savart_optimized.json`, and VTK files (*.vtu, *.vts)
-7. Copies `case.yaml` and adds `source_case_file`
-8. Zips the submission into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip`
-9. Leaves PDF plots **next to** the zip file (not inside the archive)
+7. Writes `results.json`, `coils.json`, `case.yaml`, `biot_savart_optimized.json`, and VTK files (*.vtu, *.vts)
+8. Copies `case.yaml` and adds `source_case_file`
+9. Zips the submission into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip`
+10. Leaves PDF plots **next to** the zip file (not inside the archive)
 
 ### Step 3: Commit and Push
 
