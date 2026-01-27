@@ -15,7 +15,7 @@ class TestMetricShorthand:
     def test_b_field_metrics(self):
         """Test B-field related metric shorthands."""
         assert _metric_shorthand("max_BdotN_over_B") == "max(B_n)"
-        assert _metric_shorthand("avg_BdotN_over_B") == "avg(B_n)"
+        assert _metric_shorthand("avg_BdotN_over_B") == "B̄_n"
         assert _metric_shorthand("final_normalized_squared_flux") == "f_B"
         assert _metric_shorthand("initial_B_field") == "B0"
         assert _metric_shorthand("final_B_field") == "Bf"
@@ -24,13 +24,13 @@ class TestMetricShorthand:
     def test_curvature_metrics(self):
         """Test curvature metric shorthands."""
         assert _metric_shorthand("final_average_curvature") == "κ̄"
-        assert _metric_shorthand("final_max_curvature") == "max(κ)"
+        assert _metric_shorthand("final_max_curvature") == "κ_max"
         assert _metric_shorthand("final_mean_squared_curvature") == "MSC"
     
     def test_separation_metrics(self):
         """Test separation metric shorthands."""
-        assert _metric_shorthand("final_min_cs_separation") == "min(d_cs)"
-        assert _metric_shorthand("final_min_cc_separation") == "min(d_cc)"
+        assert _metric_shorthand("final_min_cs_separation") == "d_cs"
+        assert _metric_shorthand("final_min_cc_separation") == "d_cc"
         assert _metric_shorthand("final_cs_separation") == "d_cs"
         assert _metric_shorthand("final_cc_separation") == "d_cc"
     
@@ -41,9 +41,9 @@ class TestMetricShorthand:
     
     def test_force_torque_metrics(self):
         """Test force and torque metric shorthands."""
-        assert _metric_shorthand("final_max_max_coil_force") == "max(F)"
+        assert _metric_shorthand("final_max_max_coil_force") == "F_max"
         assert _metric_shorthand("final_avg_max_coil_force") == "F̄"
-        assert _metric_shorthand("final_max_max_coil_torque") == "max(τ)"
+        assert _metric_shorthand("final_max_max_coil_torque") == "τ_max"
         assert _metric_shorthand("final_avg_max_coil_torque") == "τ̄"
     
     def test_other_metrics(self):

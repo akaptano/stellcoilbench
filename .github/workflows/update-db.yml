@@ -667,31 +667,11 @@ jobs:
           echo ""
           echo "=== Checking a few submissions for metrics ==="
           # Check first few submissions to see what metrics they have
+          printf 'import zipfile\nimport json\nimport sys\nimport os\nzip_file = sys.argv[1]\ntry:\n    with zipfile.ZipFile(zip_file, "r") as zf:\n        if "results.json" in zf.namelist():\n            data = json.loads(zf.read("results.json").decode("utf-8"))\n            metrics = data.get("metrics", {})\n            print(f"  Metrics keys: {list(metrics.keys())[:10]}")\n            print(f"  Has score_primary: {\"score_primary\" in metrics}")\n            print(f"  Has final_normalized_squared_flux: {\"final_normalized_squared_flux\" in metrics}")\n            print(f"  Has final_flux: {\"final_flux\" in metrics}")\n            if "score_primary" in metrics:\n                print(f"  score_primary value: {metrics[\"score_primary\"]}")\n            elif "final_normalized_squared_flux" in metrics:\n                print(f"  final_normalized_squared_flux value: {metrics[\"final_normalized_squared_flux\"]}")\n        else:\n            print("  No results.json in zip")\nexcept Exception as e:\n    print(f"  Error: {e}")\n' > /tmp/check_metrics.py
           for zip_file in $(find submissions -name "*.zip" -type f | head -5); do
             echo ""
             echo "Checking: $zip_file"
-            python3 -c "
-import zipfile
-import json
-import sys
-try:
-    with zipfile.ZipFile('$zip_file', 'r') as zf:
-        if 'results.json' in zf.namelist():
-            data = json.loads(zf.read('results.json').decode('utf-8'))
-            metrics = data.get('metrics', {})
-            print(f'  Metrics keys: {list(metrics.keys())[:10]}')
-            print(f'  Has score_primary: {\"score_primary\" in metrics}')
-            print(f'  Has final_normalized_squared_flux: {\"final_normalized_squared_flux\" in metrics}')
-            print(f'  Has final_flux: {\"final_flux\" in metrics}')
-            if 'score_primary' in metrics:
-                print(f'  score_primary value: {metrics[\"score_primary\"]}')
-            elif 'final_normalized_squared_flux' in metrics:
-                print(f'  final_normalized_squared_flux value: {metrics[\"final_normalized_squared_flux\"]}')
-        else:
-            print('  No results.json in zip')
-except Exception as e:
-    print(f'  Error: {e}')
-" || echo "  Failed to check"
+            python3 /tmp/check_metrics.py "$zip_file" || echo "  Failed to check"
           done
           echo "===================================="
           

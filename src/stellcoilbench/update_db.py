@@ -1109,32 +1109,37 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     Build a simple leaderboard summary from methods.json-style data.
 
     Sorting by score_primary (ascending - lower normalized squared flux is better).
+    Entries without score_primary are filtered out.
     """
     entries = []
 
     for method_key, md in methods.items():
-        score_primary = md.get("score_primary")
         metrics = md.get("metrics", {})
         path = md.get("path", "")
         
-        # Use score_primary if available, otherwise try final_normalized_squared_flux for sorting
-        if score_primary is None:
-            # Try to use final_normalized_squared_flux as fallback for sorting
-            score_primary = metrics.get("final_normalized_squared_flux")
-            if score_primary is not None and isinstance(score_primary, (int, float)):
-                score_primary = float(score_primary)
-            else:
-                # If still None, use a large value so these entries sort last
-                score_primary = float('inf')
+        # Check if score_primary exists in the dict (distinguish between missing and None)
+        if "score_primary" in md:
+            score_primary = md["score_primary"]
+            # If explicitly None, filter out (don't use fallback)
+            if score_primary is None:
                 import sys
-                print(f"Warning: Entry {path} has no score_primary or final_normalized_squared_flux (metrics keys: {list(metrics.keys())[:5]}), will sort last", file=sys.stderr)
+                print(f"Warning: Entry {path} has score_primary=None, skipping", file=sys.stderr)
+                continue
+        else:
+            # score_primary key doesn't exist, try fallback
+            score_primary = metrics.get("final_normalized_squared_flux")
+            if score_primary is None or not isinstance(score_primary, (int, float)):
+                # Skip entries with no score_primary or final_normalized_squared_flux
+                import sys
+                print(f"Warning: Entry {path} has no score_primary or final_normalized_squared_flux (metrics keys: {list(metrics.keys())[:5]}), skipping", file=sys.stderr)
+                continue
 
         entries.append(
             {
                 "method_key": method_key,
                 "method_name": md.get("method_name", "UNKNOWN"),
                 "method_version": md.get("method_version", ""),
-                "score_primary": float(score_primary) if score_primary != float('inf') else None,
+                "score_primary": float(score_primary),
                 "run_date": md.get("run_date", ""),
                 "contact": md.get("contact", ""),
                 "hardware": md.get("hardware", ""),
@@ -1143,7 +1148,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
             }
         )
 
-    entries.sort(key=lambda e: e["score_primary"] if e["score_primary"] is not None else float('inf'), reverse=False)
+    entries.sort(key=lambda e: e["score_primary"], reverse=False)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
@@ -1919,7 +1924,7 @@ def write_rst_leaderboard(
                             # Find plot files (poincare, boozer, quasisymmetry, iota)
                             # These are typically in the submission directory or post_processing subdirectory
                             plot_files = [
-                                ("poincare_plot.pdf", "poincare"),
+                                ("poincare_plot.png", "poincare"),
                                 ("boozer_surface.png", "boozer"),
                                 ("quasisymmetry_profile.png", "qs"),
                                 ("iota_profile.png", "iota"),

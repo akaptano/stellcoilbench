@@ -129,6 +129,7 @@ class TestRunVmecEquilibrium:
     def test_run_vmec_equilibrium_success(self, tmp_path):
         """Test successful VMEC equilibrium run."""
         pytest.importorskip("simsopt.mhd.vmec", reason="VMEC not available")
+        pytest.importorskip("mpi4py", reason="mpi4py not available")
         from simsopt.geo import SurfaceRZFourier
         
         mock_surface = Mock(spec=SurfaceRZFourier)
@@ -156,6 +157,7 @@ class TestRunVmecEquilibrium:
     def test_run_vmec_equilibrium_failure(self, tmp_path):
         """Test VMEC equilibrium run failure."""
         pytest.importorskip("simsopt.mhd.vmec", reason="VMEC not available")
+        pytest.importorskip("mpi4py", reason="mpi4py not available")
         from simsopt.geo import SurfaceRZFourier
         
         mock_surface = Mock(spec=SurfaceRZFourier)
@@ -184,6 +186,7 @@ class TestRunVmecEquilibrium:
     def test_run_vmec_equilibrium_no_template(self, tmp_path):
         """Test VMEC equilibrium when no template file found."""
         pytest.importorskip("simsopt.mhd.vmec", reason="VMEC not available")
+        pytest.importorskip("mpi4py", reason="mpi4py not available")
         from simsopt.geo import SurfaceRZFourier
         
         mock_surface = Mock(spec=SurfaceRZFourier)
@@ -506,7 +509,7 @@ class TestTraceFieldlines:
         mock_bfield.B.return_value = np.random.rand(100, 3)
         mock_bfield.AbsB.return_value = np.random.rand(100)
         
-        output_path = tmp_path / "poincare.pdf"
+        output_path = tmp_path / "poincare.png"
         
         # Mock fieldline tracing functions
         mock_fieldlines_tys = [np.random.rand(100, 3) for _ in range(5)]

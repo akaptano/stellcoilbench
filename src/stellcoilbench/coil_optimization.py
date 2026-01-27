@@ -2229,28 +2229,30 @@ def _optimize_coils_loop_impl(
         
         # Print initial thresholds and weights for augmented_lagrangian
         # (weights are embedded in Weight() wrappers)
-        print("Initial thresholds and weights:")
-        print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight=1.0")
-        # Print distance objectives (they're always included at indices 1 and 2)
-        # Get weights that were applied (with scaling already applied above)
-        weight_cc = kwargs.get(f'constraint_weight_{cc_distance_idx}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_idx}', 1.0)
-        weight_cs = kwargs.get(f'constraint_weight_{cs_distance_idx}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_idx}', 1.0)
-        # Apply scaling to weights for display (always apply for distance objectives)
-        if cc_distance_idx in constraint_scaling:
-            weight_cc *= constraint_scaling[cc_distance_idx]
-        if cs_distance_idx in constraint_scaling:
-            weight_cs *= constraint_scaling[cs_distance_idx]
-        print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weight_cc:.2e}")
-        print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weight_cs:.2e}")
-        # Print other constraints
-        constraint_idx_offset = 3  # After flux (0), CC distance (1), CS distance (2)
-        for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
-            if i < len(c_list):
-                weight = 1.0
-                if threshold is not None:
-                    print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
-                else:
-                    print(f"  [{i}] {name}: weight={weight:.2e}")
+        if verbose:
+            print("Initial thresholds and weights:")
+            print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight=1.0")
+            # Print distance objectives (they're always included at indices 1 and 2)
+            # Get weights that were applied (with scaling already applied above)
+            weight_cc = kwargs.get(f'constraint_weight_{cc_distance_idx}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_idx}', 1.0)
+            weight_cs = kwargs.get(f'constraint_weight_{cs_distance_idx}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_idx}', 1.0)
+            # Apply scaling to weights for display (always apply for distance objectives)
+            if cc_distance_idx in constraint_scaling:
+                weight_cc *= constraint_scaling[cc_distance_idx]
+            if cs_distance_idx in constraint_scaling:
+                weight_cs *= constraint_scaling[cs_distance_idx]
+            print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weight_cc:.2e}")
+            print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weight_cs:.2e}")
+            # Print other constraints
+            constraint_idx_offset = 3  # After flux (0), CC distance (1), CS distance (2)
+            for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
+                if i < len(c_list):
+                    weight = 1.0
+                    if threshold is not None:
+                        print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
+                    else:
+                        print(f"  [{i}] {name}: weight={weight:.2e}")
+            sys.stdout.flush()  # Ensure output is flushed for test capture
         
         from simsopt.solve import augmented_lagrangian_method
         augmented_lagrangian_options = {
@@ -2318,20 +2320,22 @@ def _optimize_coils_loop_impl(
         JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
         
         # Print initial thresholds and weights
-        print("Initial thresholds and weights:")
-        print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight={weights[0]:.2e}")
-        # Print distance objectives (always included at indices 1 and 2)
-        print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weights[cc_distance_idx]:.2e}")
-        print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weights[cs_distance_idx]:.2e}")
-        
-        # Print other constraints (skip indices 0, 1, 2 which are flux, CC distance, CS distance)
-        constraint_idx_offset = 3
-        for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
-            if i < len(weights):
-                if threshold is not None:
-                    print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weights[i]:.2e}")
-                else:
-                    print(f"  [{i}] {name}: weight={weights[i]:.2e}")
+        if verbose:
+            print("Initial thresholds and weights:")
+            print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight={weights[0]:.2e}")
+            # Print distance objectives (always included at indices 1 and 2)
+            print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weights[cc_distance_idx]:.2e}")
+            print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weights[cs_distance_idx]:.2e}")
+            
+            # Print other constraints (skip indices 0, 1, 2 which are flux, CC distance, CS distance)
+            constraint_idx_offset = 3
+            for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
+                if i < len(weights):
+                    if threshold is not None:
+                        print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weights[i]:.2e}")
+                    else:
+                        print(f"  [{i}] {name}: weight={weights[i]:.2e}")
+            sys.stdout.flush()  # Ensure output is flushed for test capture
         
         # Track iteration number for objective function
         iteration_count = [0]  # Use list to allow modification in nested function
@@ -2413,14 +2417,12 @@ def _optimize_coils_loop_impl(
                 # Error should decrease, so ratio should be < 1.0
                 # We require it to decrease by at least factor of 0.6
                 if error_ratio > 0.6:
-                    import sys
                     print(f"WARNING: Taylor test failed: error ratio {error_ratio:.3f} > 0.6 "
                           f"(ε={epsilons[i]:.1e} -> {epsilons[i+1]:.1e}, "
                           f"error={errors[i]:.2e} -> {errors[i+1]:.2e})", file=sys.stderr)
                     taylor_test_passed = False
         
         if not taylor_test_passed:
-            import sys
             print("Gradient computation may be incorrect!", file=sys.stderr)
         elif verbose:
             print("Taylor test passed: error decreases as expected")

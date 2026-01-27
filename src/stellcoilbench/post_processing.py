@@ -1107,7 +1107,7 @@ def run_post_processing(
             poincare_results = trace_fieldlines(
                 bfield,
                 poincare_surface,
-                output_dir / "poincare_plot.pdf",
+                output_dir / "poincare_plot.png",
                 nfieldlines=nfieldlines,
                 comm=mpi,
             )
