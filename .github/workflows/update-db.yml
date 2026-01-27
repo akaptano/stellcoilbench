@@ -275,18 +275,147 @@ jobs:
 
       - name: Commit submission
         run: |
-          # Check if any submissions were generated
-          if [ -n "$(find submissions -name "*.zip" -type f -newer /proc/self 2>/dev/null || find submissions -name "*.zip" -type f 2>/dev/null)" ]; then
-            echo "Found new submission files, committing..."
-            git add submissions/ || echo "git add failed"
+          CASE_FILE_PATH="${{ matrix.case_file }}"
+          
+          echo "=========================================="
+          echo "Looking for submission for case: $CASE_FILE_PATH"
+          echo "=========================================="
+          
+          # List all zip files found
+          echo "All zip files in submissions/:"
+          find submissions -name "*.zip" -type f 2>/dev/null | sort || echo "No zip files found"
+          
+          # Find zip files and check if they contain case.yaml matching this case
+          FOUND_SUBMISSION=false
+          MATCHING_ZIP=""
+          
+          for zip_file in $(find submissions -name "*.zip" -type f 2>/dev/null | sort); do
+            echo ""
+            echo "Checking zip file: $zip_file"
+            
+            # Extract and check case.yaml from zip to see if it matches this case
+            if python3 << 'PYTHON_SCRIPT'
+import sys
+import zipfile
+import yaml
+from pathlib import Path
+
+zip_path = sys.argv[1]
+case_file_path = sys.argv[2]
+
+try:
+    with zipfile.ZipFile(zip_path, 'r') as zf:
+        if 'case.yaml' not in zf.namelist():
+            print(f"  No case.yaml in zip", file=sys.stderr)
+            sys.exit(1)
+        
+        zip_case_content = zf.read('case.yaml').decode('utf-8')
+        zip_case_data = yaml.safe_load(zip_case_content)
+        
+        submission_source = zip_case_data.get('source_case_file', '')
+        repo_root = Path.cwd()
+        case_file_abs = (repo_root / case_file_path).resolve()
+        case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))
+        
+        # Normalize paths for comparison
+        submission_source_norm = submission_source.replace('\\', '/')
+        case_file_rel_norm = case_file_rel.replace('\\', '/')
+        
+        print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)
+        print(f"  Expected case file: {case_file_rel}", file=sys.stderr)
+        
+        if submission_source == case_file_rel or submission_source_norm == case_file_rel_norm:
+            print('MATCH')
+            sys.exit(0)
+        else:
+            print(f"  No match", file=sys.stderr)
+            sys.exit(1)
+except Exception as e:
+    print(f'Error checking zip: {e}', file=sys.stderr)
+    sys.exit(1)
+PYTHON_SCRIPT
+"$zip_file" "$CASE_FILE_PATH" 2>&1 | grep -q "^MATCH$"; then
+              echo "  ✓ Found matching submission!"
+              FOUND_SUBMISSION=true
+              MATCHING_ZIP="$zip_file"
+              break
+            fi
+          done
+          
+          if [ "$FOUND_SUBMISSION" = "true" ] && [ -n "$MATCHING_ZIP" ]; then
+            echo ""
+            echo "=========================================="
+            echo "Found submission for this case: $MATCHING_ZIP"
+            echo "=========================================="
+            
+            # Add only the submission directory for this specific case
+            SUBMISSION_DIR=$(dirname "$MATCHING_ZIP")
+            echo "Adding submission directory: $SUBMISSION_DIR"
+            
+            # Add the entire directory (including zip and PDFs)
+            git add "$SUBMISSION_DIR" || echo "Warning: git add failed"
+            
+            # Also add parent directories if they're new
+            git add "$(dirname "$SUBMISSION_DIR")" 2>/dev/null || true
+            git add "$(dirname "$(dirname "$SUBMISSION_DIR")")" 2>/dev/null || true
+            
             if ! git diff --staged --quiet; then
-              git commit -m "chore: add CI-generated submission for ${{ matrix.case_file }}" || echo "Commit failed (may already be committed)"
-              git push origin main || echo "Push failed (may already be pushed)"
+              echo "Committing submission..."
+              if git commit -m "chore: add CI-generated submission for ${{ matrix.case_file }}"; then
+                echo "Commit successful"
+                echo "Pushing to main..."
+                # Retry push up to 3 times in case of conflicts with other parallel jobs
+                MAX_RETRIES=3
+                RETRY_COUNT=0
+                while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+                  if git push origin main; then
+                    echo "Push successful"
+                    break
+                  else
+                    RETRY_COUNT=$((RETRY_COUNT + 1))
+                    if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                      echo "Push failed (attempt $RETRY_COUNT/$MAX_RETRIES), fetching and retrying..."
+                      git fetch origin main
+                      # Try to merge remote changes
+                      if git merge origin/main --no-edit; then
+                        echo "Merged remote changes, retrying push..."
+                      else
+                        # Resolve conflicts by keeping our submission
+                        CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+                        if [ -n "$CONFLICTS" ]; then
+                          echo "$CONFLICTS" | grep "^submissions/" | while read file; do
+                            [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                          done
+                          git commit --no-edit || echo "Merge commit failed"
+                        fi
+                      fi
+                    else
+                      echo "Warning: Push failed after $MAX_RETRIES attempts (may be a conflict with other parallel jobs)"
+                      echo "The submission is committed locally and will be picked up by the commit-submissions job"
+                    fi
+                  fi
+                done
+              else
+                echo "Warning: Commit failed (submission may already be committed)"
+              fi
             else
-              echo "No new submissions to commit for this case"
+              echo "No new submissions to commit for this case (already committed or no changes)"
             fi
           else
-            echo "No new submissions generated for this case"
+            echo ""
+            echo "=========================================="
+            echo "WARNING: No submission found for case $CASE_FILE_PATH"
+            echo "=========================================="
+            echo "This might indicate:"
+            echo "  1. The case failed to generate a submission (check logs above)"
+            echo "  2. The submission was generated but not found"
+            echo "  3. The case.yaml in the submission doesn't match"
+            echo ""
+            echo "Checking if submission directory exists:"
+            ls -la submissions/*/ 2>/dev/null | head -20 || echo "No submission directories found"
+            echo ""
+            echo "Checking if case ran successfully (look for errors above)..."
+            echo "This job will continue - if the case failed, it will be retried on the next push."
           fi
 
   commit-submissions:
