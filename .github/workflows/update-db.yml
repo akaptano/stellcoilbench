@@ -101,9 +101,29 @@ jobs:
               if not submissions_dir.exists():
                   return False
               
+              # Check both committed (in git) and uncommitted (local) submissions
+              # This handles cases where submissions were created but not yet committed
               zip_files = list(submissions_dir.rglob("*.zip"))
               if len(zip_files) == 0:
                   return False
+              
+              # Also check git for committed submissions (in case local files were cleaned up)
+              import subprocess
+              try:
+                  git_ls_result = subprocess.run(
+                      ["git", "ls-files", "submissions/**/*.zip"],
+                      capture_output=True,
+                      text=True,
+                      timeout=10
+                  )
+                  if git_ls_result.returncode == 0 and git_ls_result.stdout.strip():
+                      git_zip_files = [Path(f) for f in git_ls_result.stdout.strip().split("\n") if f]
+                      # Add git-tracked files that exist locally
+                      for git_zip in git_zip_files:
+                          if git_zip.exists() and git_zip not in zip_files:
+                              zip_files.append(git_zip)
+              except Exception as e:
+                  print(f"Warning: Could not check git for submissions: {e}", file=sys.stderr)
               
               for zip_path in zip_files:
                   try:
@@ -169,14 +189,21 @@ jobs:
           
           CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['to_run']))")
           echo "Cases to run: $CASES_TO_RUN"
+          echo "Cases already successful: $(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['already_successful']))")"
           
           # Also output as a simple string for debugging
           echo "cases_to_run=$CASES_TO_RUN" >> $GITHUB_OUTPUT
+          
+          # Debug: Show what cases were found
+          echo ""
+          echo "=== Debug: Case filtering results ==="
+          echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(f\"Total cases found: {len(data['to_run']) + len(data['already_successful'])}\"); print(f\"Cases to run: {len(data['to_run'])}\"); print(f\"Cases skipped: {len(data['already_successful'])}\")"
 
   run-cases:
     needs: [determine-cases]
     if: needs.determine-cases.outputs.cases_to_run_json != '[]'
     runs-on: ubuntu-24.04
+    timeout-minutes: 360  # 6 hours - maximum allowed by GitHub Actions for GitHub-hosted runners
     permissions:
       contents: write
     strategy:
@@ -235,6 +262,7 @@ jobs:
           fi
 
       - name: Run case file
+        timeout-minutes: 350  # Slightly less than job timeout (360min) to ensure commit step can run
         run: |
           echo "=========================================="
           echo "Running case: ${{ matrix.case_file }}"
@@ -243,22 +271,39 @@ jobs:
           stellcoilbench submit-case "${{ matrix.case_file }}"
 
       - name: Configure Git
+        if: always()  # Run even if previous step failed or was canceled
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "$GITHUB_ACTOR"
 
       - name: Commit submission
+        if: always()  # Run even if previous step failed or was canceled
+        timeout-minutes: 10  # Quick timeout for commit step
         run: |
           set +e  # Don't exit on error - we'll handle errors explicitly
           CASE_FILE_PATH="${{ matrix.case_file }}"
           
           echo "=========================================="
           echo "Looking for submission for case: $CASE_FILE_PATH"
+          echo "Previous step status: ${{ job.status }}"
           echo "=========================================="
           
-          # List all zip files found
+          # List all zip files found (including any that might have been created before cancellation)
           echo "All zip files in submissions/:"
           find submissions -name "*.zip" -type f 2>/dev/null | sort || echo "No zip files found"
+          
+          # Also check for any submission directories that might have been created but not zipped yet
+          echo "All submission directories (including unzipped):"
+          find submissions -type d -mindepth 3 -maxdepth 3 2>/dev/null | sort || echo "No submission directories found"
+          
+          # Check if there are any unzipped submission directories that should be zipped and committed
+          # This handles the case where the case run was canceled but a submission directory was created
+          for sub_dir in $(find submissions -type d -mindepth 3 -maxdepth 3 2>/dev/null | sort); do
+            if [ ! -f "$sub_dir/all_files.zip" ] && [ -f "$sub_dir/results.json" ]; then
+              echo "Found unzipped submission directory: $sub_dir"
+              echo "This might be from a canceled run - will attempt to zip and commit if it matches this case"
+            fi
+          done
           
           # Create Python script to check case match (using printf to avoid YAML indentation issues)
           # Exit codes: 0 = match, 1 = no match, 2 = error
@@ -515,9 +560,18 @@ jobs:
       - name: Wait for all matrix jobs and fetch submissions
         run: |
           echo "Waiting for all parallel case jobs to complete and commit their submissions..."
+          echo "Note: Some jobs may have been canceled or timed out, but we'll collect any submissions that were committed."
           echo "Fetching latest from origin/main to get all submissions from parallel jobs..."
-          sleep 10  # Give matrix jobs time to commit
+          sleep 30  # Give matrix jobs more time to commit (increased from 10 to 30 seconds)
           git fetch origin main || echo "Fetch failed (non-critical)"
+          
+          # Show what submissions exist locally vs remotely
+          echo ""
+          echo "=== Local submissions (before merge) ==="
+          find submissions -name "*.zip" -type f 2>/dev/null | wc -l || echo "0"
+          echo ""
+          echo "=== Remote submissions (after fetch) ==="
+          git ls-tree -r --name-only origin/main submissions/ 2>/dev/null | grep "\.zip$" | wc -l || echo "0"
           
           # Merge to get all submissions from parallel jobs
           if git rev-parse --verify origin/main > /dev/null 2>&1; then
