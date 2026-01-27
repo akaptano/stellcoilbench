@@ -210,6 +210,7 @@ jobs:
           path: |
             ~/.cache/pip/wheels
             ~/.local/lib/python3.13/site-packages/vmec*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/vmec*
           key: vmec-install-${{ runner.os }}-python-3.13
           restore-keys: |
             vmec-install-${{ runner.os }}-python-3.13-
@@ -222,9 +223,24 @@ jobs:
             ~/.cache/pip/wheels
             ~/.local/lib/python3.13/site-packages/booz_xform*
             ~/.local/lib/python3.13/site-packages/*booz*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/booz_xform*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/*booz*
           key: booz-xform-install-${{ runner.os }}-python-3.13
           restore-keys: |
             booz-xform-install-${{ runner.os }}-python-3.13-
+
+      - name: Cache stellcoilbench installation
+        id: cache-stellcoilbench-install
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/lib/python3.13/site-packages/stellcoilbench.egg-info
+            ~/.local/lib/python3.13/site-packages/stellcoilbench.egg-link
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/stellcoilbench.egg-info
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/stellcoilbench.egg-link
+          key: stellcoilbench-install-${{ runner.os }}-python-3.13-${{ hashFiles('**/pyproject.toml', '**/src/**/*.py') }}
+          restore-keys: |
+            stellcoilbench-install-${{ runner.os }}-python-3.13-
 
       - name: apt-get stuff needed for vmec
         run: |
@@ -261,6 +277,17 @@ jobs:
 
       - name: Verify VMEC installation
         run: python -c "import vmec; print('VMEC module imported successfully')"
+
+      - name: Install stellcoilbench package (setup-vmec installs this once for all jobs)
+        if: steps.cache-stellcoilbench-install.outputs.cache-hit != 'true'
+        run: |
+          pip install -e .
+          python -c "import stellcoilbench; print('stellcoilbench package installed successfully')"
+
+      - name: Verify stellcoilbench installation
+        run: |
+          python -c "import stellcoilbench; print('stellcoilbench module imported successfully')"
+          stellcoilbench --help | head -5 || echo "stellcoilbench CLI available"
 
   run-cases:
     needs: [determine-cases, setup-vmec]
@@ -310,6 +337,7 @@ jobs:
           path: |
             ~/.cache/pip/wheels
             ~/.local/lib/python3.13/site-packages/vmec*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/vmec*
           key: vmec-install-${{ runner.os }}-python-3.13
           restore-keys: |
             vmec-install-${{ runner.os }}-python-3.13-
@@ -322,9 +350,24 @@ jobs:
             ~/.cache/pip/wheels
             ~/.local/lib/python3.13/site-packages/booz_xform*
             ~/.local/lib/python3.13/site-packages/*booz*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/booz_xform*
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/*booz*
           key: booz-xform-install-${{ runner.os }}-python-3.13
           restore-keys: |
             booz-xform-install-${{ runner.os }}-python-3.13-
+
+      - name: Cache stellcoilbench installation
+        id: cache-stellcoilbench-install
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/lib/python3.13/site-packages/stellcoilbench.egg-info
+            ~/.local/lib/python3.13/site-packages/stellcoilbench.egg-link
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/stellcoilbench.egg-info
+            ${{ env.pythonLocation }}/lib/python3.13/site-packages/stellcoilbench.egg-link
+          key: stellcoilbench-install-${{ runner.os }}-python-3.13-${{ hashFiles('**/pyproject.toml', '**/src/**/*.py') }}
+          restore-keys: |
+            stellcoilbench-install-${{ runner.os }}-python-3.13-
 
       - name: Install python dependencies (using cached wheels from setup-vmec)
         run: |
@@ -374,9 +417,21 @@ jobs:
           pip install .
           python -c "import vmec; print('VMEC module imported successfully')"
 
-      - name: Install package
+      - name: Restore stellcoilbench from cache (setup-vmec job already installed it)
+        if: steps.cache-stellcoilbench-install.outputs.cache-hit == 'true'
         run: |
+          echo "stellcoilbench installation metadata restored from cache"
+          # For editable installs, we still need to run pip install -e . to create the link
+          # But pip will use cached .egg-info metadata, making it very fast
+          pip install -e . --no-deps || pip install -e .
+          python -c "import stellcoilbench; print('stellcoilbench module imported successfully')"
+
+      - name: Install stellcoilbench package (fallback - should not be needed)
+        if: steps.cache-stellcoilbench-install.outputs.cache-hit != 'true'
+        run: |
+          echo "WARNING: stellcoilbench cache miss - installing (this should be rare)"
           pip install -e .
+          python -c "import stellcoilbench; print('stellcoilbench package installed successfully')"
 
       - name: Check if surface file exists
         run: |
