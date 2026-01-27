@@ -305,9 +305,93 @@ jobs:
             fi
           done
           
-          # Create Python script to check case match (using printf to avoid YAML indentation issues)
+          # Create Python script to check case match using a heredoc
+          # The sed command strips 10 leading spaces to produce valid Python
           # Exit codes: 0 = match, 1 = no match, 2 = error
-          printf 'import sys\nimport zipfile\nimport yaml\nfrom pathlib import Path\nimport os\n\nzip_path = sys.argv[1]\ncase_file_path = sys.argv[2]\n\ntry:\n    with zipfile.ZipFile(zip_path, "r") as zf:\n        if "case.yaml" not in zf.namelist():\n            print(f"  No case.yaml in zip", file=sys.stderr)\n            sys.exit(2)  # Error, not just no match\n        \n        zip_case_content = zf.read("case.yaml").decode("utf-8")\n        zip_case_data = yaml.safe_load(zip_case_content)\n        \n        if zip_case_data is None:\n            print(f"  case.yaml is empty or invalid", file=sys.stderr)\n            sys.exit(2)  # Error\n        \n        submission_source = zip_case_data.get("source_case_file", "")\n        if not submission_source:\n            print(f"  No source_case_file in case.yaml", file=sys.stderr)\n            sys.exit(2)  # Error\n        \n        repo_root = Path.cwd()\n        \n        # Resolve both paths relative to repo root\n        try:\n            case_file_abs = (repo_root / case_file_path).resolve()\n            case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))\n        except ValueError:\n            case_file_rel = case_file_path\n        \n        # Normalize paths: remove leading/trailing slashes, normalize separators\n        def normalize_path(p):\n            p = str(p).replace("\\\\", "/").replace("\\", "/")\n            p = p.strip("/")  # Remove leading/trailing slashes\n            return p.lower() if os.name == "nt" else p  # Case-insensitive on Windows\n        \n        submission_norm = normalize_path(submission_source)\n        case_file_norm = normalize_path(case_file_rel)\n        \n        # Also try comparing just the filename\n        submission_filename = Path(submission_source).name\n        case_filename = Path(case_file_path).name\n        \n        print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)\n        print(f"  Submission normalized: {submission_norm}", file=sys.stderr)\n        print(f"  Expected case file: {case_file_rel}", file=sys.stderr)\n        print(f"  Expected normalized: {case_file_norm}", file=sys.stderr)\n        print(f"  Submission filename: {submission_filename}", file=sys.stderr)\n        print(f"  Expected filename: {case_filename}", file=sys.stderr)\n        \n        # Try multiple matching strategies\n        match_found = False\n        if submission_source == case_file_rel:\n            match_found = True\n            print(f"  Match: exact path match", file=sys.stderr)\n        elif submission_norm == case_file_norm:\n            match_found = True\n            print(f"  Match: normalized path match", file=sys.stderr)\n        elif submission_filename == case_filename:\n            match_found = True\n            print(f"  Match: filename match ({submission_filename})", file=sys.stderr)\n        elif submission_norm.endswith(case_file_norm) or case_file_norm.endswith(submission_norm):\n            match_found = True\n            print(f"  Match: path suffix match", file=sys.stderr)\n        \n        if match_found:\n            print("MATCH")\n            sys.exit(0)\n        else:\n            print(f"  No match (expected {case_file_rel}, got {submission_source})", file=sys.stderr)\n            sys.exit(1)  # No match, but not an error\nexcept zipfile.BadZipFile:\n    print(f"  Invalid zip file", file=sys.stderr)\n    sys.exit(2)  # Error\nexcept Exception as e:\n    import traceback\n    print(f"  Error checking zip: {e}", file=sys.stderr)\n    print(f"  Traceback: {traceback.format_exc()}", file=sys.stderr)\n    sys.exit(2)  # Error\n' > /tmp/check_case_match.py
+          sed 's/^          //' > /tmp/check_case_match.py << 'PYTHON_EOF'
+          import sys
+          import zipfile
+          import yaml
+          from pathlib import Path
+          import os
+          
+          zip_path = sys.argv[1]
+          case_file_path = sys.argv[2]
+          
+          try:
+              with zipfile.ZipFile(zip_path, "r") as zf:
+                  if "case.yaml" not in zf.namelist():
+                      print(f"  No case.yaml in zip", file=sys.stderr)
+                      sys.exit(2)
+                  
+                  zip_case_content = zf.read("case.yaml").decode("utf-8")
+                  zip_case_data = yaml.safe_load(zip_case_content)
+                  
+                  if zip_case_data is None:
+                      print(f"  case.yaml is empty or invalid", file=sys.stderr)
+                      sys.exit(2)
+                  
+                  submission_source = zip_case_data.get("source_case_file", "")
+                  if not submission_source:
+                      print(f"  No source_case_file in case.yaml", file=sys.stderr)
+                      sys.exit(2)
+                  
+                  repo_root = Path.cwd()
+                  
+                  try:
+                      case_file_abs = (repo_root / case_file_path).resolve()
+                      case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))
+                  except ValueError:
+                      case_file_rel = case_file_path
+                  
+                  def normalize_path(p):
+                      import re
+                      p = re.sub(r'[\\/]+', '/', str(p))
+                      p = p.strip("/")
+                      return p.lower() if os.name == "nt" else p
+                  
+                  submission_norm = normalize_path(submission_source)
+                  case_file_norm = normalize_path(case_file_rel)
+                  
+                  submission_filename = Path(submission_source).name
+                  case_filename = Path(case_file_path).name
+                  
+                  print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)
+                  print(f"  Submission normalized: {submission_norm}", file=sys.stderr)
+                  print(f"  Expected case file: {case_file_rel}", file=sys.stderr)
+                  print(f"  Expected normalized: {case_file_norm}", file=sys.stderr)
+                  print(f"  Submission filename: {submission_filename}", file=sys.stderr)
+                  print(f"  Expected filename: {case_filename}", file=sys.stderr)
+                  
+                  match_found = False
+                  if submission_source == case_file_rel:
+                      match_found = True
+                      print(f"  Match: exact path match", file=sys.stderr)
+                  elif submission_norm == case_file_norm:
+                      match_found = True
+                      print(f"  Match: normalized path match", file=sys.stderr)
+                  elif submission_filename == case_filename:
+                      match_found = True
+                      print(f"  Match: filename match ({submission_filename})", file=sys.stderr)
+                  elif submission_norm.endswith(case_file_norm) or case_file_norm.endswith(submission_norm):
+                      match_found = True
+                      print(f"  Match: path suffix match", file=sys.stderr)
+                  
+                  if match_found:
+                      print("MATCH")
+                      sys.exit(0)
+                  else:
+                      print(f"  No match (expected {case_file_rel}, got {submission_source})", file=sys.stderr)
+                      sys.exit(1)
+          except zipfile.BadZipFile:
+              print(f"  Invalid zip file", file=sys.stderr)
+              sys.exit(2)
+          except Exception as e:
+              import traceback
+              print(f"  Error checking zip: {e}", file=sys.stderr)
+              print(f"  Traceback: {traceback.format_exc()}", file=sys.stderr)
+              sys.exit(2)
+          PYTHON_EOF
           
           # Find zip files and check if they contain case.yaml matching this case
           FOUND_SUBMISSION=false
