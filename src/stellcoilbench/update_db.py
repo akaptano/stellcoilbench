@@ -1111,7 +1111,6 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     Sorting by score_primary (ascending - lower normalized squared flux is better).
     """
     entries = []
-    filtered_count = 0
 
     for method_key, md in methods.items():
         score_primary = md.get("score_primary")
