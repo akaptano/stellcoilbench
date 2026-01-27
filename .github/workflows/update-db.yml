@@ -305,93 +305,10 @@ jobs:
             fi
           done
           
-          # Create Python script to check case match using a heredoc
-          # The sed command strips 10 leading spaces to produce valid Python
+          # Create Python script to check case match
+          # Using base64 encoding to avoid all shell/YAML escaping issues
           # Exit codes: 0 = match, 1 = no match, 2 = error
-          sed 's/^          //' > /tmp/check_case_match.py << 'PYTHON_EOF'
-          import sys
-          import zipfile
-          import yaml
-          from pathlib import Path
-          import os
-          
-          zip_path = sys.argv[1]
-          case_file_path = sys.argv[2]
-          
-          try:
-              with zipfile.ZipFile(zip_path, "r") as zf:
-                  if "case.yaml" not in zf.namelist():
-                      print(f"  No case.yaml in zip", file=sys.stderr)
-                      sys.exit(2)
-                  
-                  zip_case_content = zf.read("case.yaml").decode("utf-8")
-                  zip_case_data = yaml.safe_load(zip_case_content)
-                  
-                  if zip_case_data is None:
-                      print(f"  case.yaml is empty or invalid", file=sys.stderr)
-                      sys.exit(2)
-                  
-                  submission_source = zip_case_data.get("source_case_file", "")
-                  if not submission_source:
-                      print(f"  No source_case_file in case.yaml", file=sys.stderr)
-                      sys.exit(2)
-                  
-                  repo_root = Path.cwd()
-                  
-                  try:
-                      case_file_abs = (repo_root / case_file_path).resolve()
-                      case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))
-                  except ValueError:
-                      case_file_rel = case_file_path
-                  
-                  def normalize_path(p):
-                      import re
-                      p = re.sub(r'[\\/]+', '/', str(p))
-                      p = p.strip("/")
-                      return p.lower() if os.name == "nt" else p
-                  
-                  submission_norm = normalize_path(submission_source)
-                  case_file_norm = normalize_path(case_file_rel)
-                  
-                  submission_filename = Path(submission_source).name
-                  case_filename = Path(case_file_path).name
-                  
-                  print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)
-                  print(f"  Submission normalized: {submission_norm}", file=sys.stderr)
-                  print(f"  Expected case file: {case_file_rel}", file=sys.stderr)
-                  print(f"  Expected normalized: {case_file_norm}", file=sys.stderr)
-                  print(f"  Submission filename: {submission_filename}", file=sys.stderr)
-                  print(f"  Expected filename: {case_filename}", file=sys.stderr)
-                  
-                  match_found = False
-                  if submission_source == case_file_rel:
-                      match_found = True
-                      print(f"  Match: exact path match", file=sys.stderr)
-                  elif submission_norm == case_file_norm:
-                      match_found = True
-                      print(f"  Match: normalized path match", file=sys.stderr)
-                  elif submission_filename == case_filename:
-                      match_found = True
-                      print(f"  Match: filename match ({submission_filename})", file=sys.stderr)
-                  elif submission_norm.endswith(case_file_norm) or case_file_norm.endswith(submission_norm):
-                      match_found = True
-                      print(f"  Match: path suffix match", file=sys.stderr)
-                  
-                  if match_found:
-                      print("MATCH")
-                      sys.exit(0)
-                  else:
-                      print(f"  No match (expected {case_file_rel}, got {submission_source})", file=sys.stderr)
-                      sys.exit(1)
-          except zipfile.BadZipFile:
-              print(f"  Invalid zip file", file=sys.stderr)
-              sys.exit(2)
-          except Exception as e:
-              import traceback
-              print(f"  Error checking zip: {e}", file=sys.stderr)
-              print(f"  Traceback: {traceback.format_exc()}", file=sys.stderr)
-              sys.exit(2)
-          PYTHON_EOF
+          echo 'aW1wb3J0IHN5cwppbXBvcnQgemlwZmlsZQppbXBvcnQgeWFtbApmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgKaW1wb3J0IG9zCmltcG9ydCByZQoKemlwX3BhdGggPSBzeXMuYXJndlsxXQpjYXNlX2ZpbGVfcGF0aCA9IHN5cy5hcmd2WzJdCgp0cnk6CiAgICB3aXRoIHppcGZpbGUuWmlwRmlsZSh6aXBfcGF0aCwgInIiKSBhcyB6ZjoKICAgICAgICBpZiAiY2FzZS55YW1sIiBub3QgaW4gemYubmFtZWxpc3QoKToKICAgICAgICAgICAgcHJpbnQoZiIgIE5vIGNhc2UueWFtbCBpbiB6aXAiLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgICAgIHN5cy5leGl0KDIpCiAgICAgICAgCiAgICAgICAgemlwX2Nhc2VfY29udGVudCA9IHpmLnJlYWQoImNhc2UueWFtbCIpLmRlY29kZSgidXRmLTgiKQogICAgICAgIHppcF9jYXNlX2RhdGEgPSB5YW1sLnNhZmVfbG9hZCh6aXBfY2FzZV9jb250ZW50KQogICAgICAgIAogICAgICAgIGlmIHppcF9jYXNlX2RhdGEgaXMgTm9uZToKICAgICAgICAgICAgcHJpbnQoZiIgIGNhc2UueWFtbCBpcyBlbXB0eSBvciBpbnZhbGlkIiwgZmlsZT1zeXMuc3RkZXJyKQogICAgICAgICAgICBzeXMuZXhpdCgyKQogICAgICAgIAogICAgICAgIHN1Ym1pc3Npb25fc291cmNlID0gemlwX2Nhc2VfZGF0YS5nZXQoInNvdXJjZV9jYXNlX2ZpbGUiLCAiIikKICAgICAgICBpZiBub3Qgc3VibWlzc2lvbl9zb3VyY2U6CiAgICAgICAgICAgIHByaW50KGYiICBObyBzb3VyY2VfY2FzZV9maWxlIGluIGNhc2UueWFtbCIsIGZpbGU9c3lzLnN0ZGVycikKICAgICAgICAgICAgc3lzLmV4aXQoMikKICAgICAgICAKICAgICAgICByZXBvX3Jvb3QgPSBQYXRoLmN3ZCgpCiAgICAgICAgCiAgICAgICAgdHJ5OgogICAgICAgICAgICBjYXNlX2ZpbGVfYWJzID0gKHJlcG9fcm9vdCAvIGNhc2VfZmlsZV9wYXRoKS5yZXNvbHZlKCkKICAgICAgICAgICAgY2FzZV9maWxlX3JlbCA9IHN0cihjYXNlX2ZpbGVfYWJzLnJlbGF0aXZlX3RvKHJlcG9fcm9vdC5yZXNvbHZlKCkpKQogICAgICAgIGV4Y2VwdCBWYWx1ZUVycm9yOgogICAgICAgICAgICBjYXNlX2ZpbGVfcmVsID0gY2FzZV9maWxlX3BhdGgKICAgICAgICAKICAgICAgICBkZWYgbm9ybWFsaXplX3BhdGgocCk6CiAgICAgICAgICAgIHAgPSByZS5zdWIocidbXFwvXSsnLCAnLycsIHN0cihwKSkKICAgICAgICAgICAgcCA9IHAuc3RyaXAoIi8iKQogICAgICAgICAgICByZXR1cm4gcC5sb3dlcigpIGlmIG9zLm5hbWUgPT0gIm50IiBlbHNlIHAKICAgICAgICAKICAgICAgICBzdWJtaXNzaW9uX25vcm0gPSBub3JtYWxpemVfcGF0aChzdWJtaXNzaW9uX3NvdXJjZSkKICAgICAgICBjYXNlX2ZpbGVfbm9ybSA9IG5vcm1hbGl6ZV9wYXRoKGNhc2VfZmlsZV9yZWwpCiAgICAgICAgCiAgICAgICAgc3VibWlzc2lvbl9maWxlbmFtZSA9IFBhdGgoc3VibWlzc2lvbl9zb3VyY2UpLm5hbWUKICAgICAgICBjYXNlX2ZpbGVuYW1lID0gUGF0aChjYXNlX2ZpbGVfcGF0aCkubmFtZQogICAgICAgIAogICAgICAgIHByaW50KGYiICBTdWJtaXNzaW9uIHNvdXJjZV9jYXNlX2ZpbGU6IHtzdWJtaXNzaW9uX3NvdXJjZX0iLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgcHJpbnQoZiIgIFN1Ym1pc3Npb24gbm9ybWFsaXplZDoge3N1Ym1pc3Npb25fbm9ybX0iLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgcHJpbnQoZiIgIEV4cGVjdGVkIGNhc2UgZmlsZToge2Nhc2VfZmlsZV9yZWx9IiwgZmlsZT1zeXMuc3RkZXJyKQogICAgICAgIHByaW50KGYiICBFeHBlY3RlZCBub3JtYWxpemVkOiB7Y2FzZV9maWxlX25vcm19IiwgZmlsZT1zeXMuc3RkZXJyKQogICAgICAgIHByaW50KGYiICBTdWJtaXNzaW9uIGZpbGVuYW1lOiB7c3VibWlzc2lvbl9maWxlbmFtZX0iLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgcHJpbnQoZiIgIEV4cGVjdGVkIGZpbGVuYW1lOiB7Y2FzZV9maWxlbmFtZX0iLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgCiAgICAgICAgbWF0Y2hfZm91bmQgPSBGYWxzZQogICAgICAgIGlmIHN1Ym1pc3Npb25fc291cmNlID09IGNhc2VfZmlsZV9yZWw6CiAgICAgICAgICAgIG1hdGNoX2ZvdW5kID0gVHJ1ZQogICAgICAgICAgICBwcmludChmIiAgTWF0Y2g6IGV4YWN0IHBhdGggbWF0Y2giLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgZWxpZiBzdWJtaXNzaW9uX25vcm0gPT0gY2FzZV9maWxlX25vcm06CiAgICAgICAgICAgIG1hdGNoX2ZvdW5kID0gVHJ1ZQogICAgICAgICAgICBwcmludChmIiAgTWF0Y2g6IG5vcm1hbGl6ZWQgcGF0aCBtYXRjaCIsIGZpbGU9c3lzLnN0ZGVycikKICAgICAgICBlbGlmIHN1Ym1pc3Npb25fZmlsZW5hbWUgPT0gY2FzZV9maWxlbmFtZToKICAgICAgICAgICAgbWF0Y2hfZm91bmQgPSBUcnVlCiAgICAgICAgICAgIHByaW50KGYiICBNYXRjaDogZmlsZW5hbWUgbWF0Y2ggKHtzdWJtaXNzaW9uX2ZpbGVuYW1lfSkiLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgZWxpZiBzdWJtaXNzaW9uX25vcm0uZW5kc3dpdGgoY2FzZV9maWxlX25vcm0pIG9yIGNhc2VfZmlsZV9ub3JtLmVuZHN3aXRoKHN1Ym1pc3Npb25fbm9ybSk6CiAgICAgICAgICAgIG1hdGNoX2ZvdW5kID0gVHJ1ZQogICAgICAgICAgICBwcmludChmIiAgTWF0Y2g6IHBhdGggc3VmZml4IG1hdGNoIiwgZmlsZT1zeXMuc3RkZXJyKQogICAgICAgIAogICAgICAgIGlmIG1hdGNoX2ZvdW5kOgogICAgICAgICAgICBwcmludCgiTUFUQ0giKQogICAgICAgICAgICBzeXMuZXhpdCgwKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIHByaW50KGYiICBObyBtYXRjaCAoZXhwZWN0ZWQge2Nhc2VfZmlsZV9yZWx9LCBnb3Qge3N1Ym1pc3Npb25fc291cmNlfSkiLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgICAgIHN5cy5leGl0KDEpCmV4Y2VwdCB6aXBmaWxlLkJhZFppcEZpbGU6CiAgICBwcmludChmIiAgSW52YWxpZCB6aXAgZmlsZSIsIGZpbGU9c3lzLnN0ZGVycikKICAgIHN5cy5leGl0KDIpCmV4Y2VwdCBFeGNlcHRpb24gYXMgZToKICAgIGltcG9ydCB0cmFjZWJhY2sKICAgIHByaW50KGYiICBFcnJvciBjaGVja2luZyB6aXA6IHtlfSIsIGZpbGU9c3lzLnN0ZGVycikKICAgIHByaW50KGYiICBUcmFjZWJhY2s6IHt0cmFjZWJhY2suZm9ybWF0X2V4YygpfSIsIGZpbGU9c3lzLnN0ZGVycikKICAgIHN5cy5leGl0KDIpCg==' | base64 -d > /tmp/check_case_match.py
           
           # Find zip files and check if they contain case.yaml matching this case
           FOUND_SUBMISSION=false
