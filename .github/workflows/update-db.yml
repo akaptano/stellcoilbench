@@ -249,6 +249,7 @@ jobs:
 
       - name: Commit submission
         run: |
+          set +e  # Don't exit on error - we'll handle errors explicitly
           CASE_FILE_PATH="${{ matrix.case_file }}"
           
           echo "=========================================="
@@ -272,8 +273,12 @@ jobs:
             echo "Checking zip file: $zip_file"
             # Run Python script and capture both stdout and stderr
             # Exit codes: 0 = match, 1 = no match (continue), 2 = error (log but continue)
-            MATCH_RESULT=$(python3 /tmp/check_case_match.py "$zip_file" "$CASE_FILE_PATH" 2>&1)
+            # Use a temporary file to capture output to avoid command substitution issues
+            TEMP_OUTPUT=$(mktemp)
+            python3 /tmp/check_case_match.py "$zip_file" "$CASE_FILE_PATH" > "$TEMP_OUTPUT" 2>&1
             EXIT_CODE=$?
+            MATCH_RESULT=$(cat "$TEMP_OUTPUT")
+            rm -f "$TEMP_OUTPUT"
             
             if [ $EXIT_CODE -eq 0 ]; then
               # Match found!
