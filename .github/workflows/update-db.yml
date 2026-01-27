@@ -294,7 +294,7 @@ jobs:
             echo "Checking zip file: $zip_file"
             
             # Extract and check case.yaml from zip to see if it matches this case
-            if python3 << 'PYTHON_SCRIPT'
+            MATCH_RESULT=$(python3 -c "
 import sys
 import zipfile
 import yaml
@@ -306,7 +306,7 @@ case_file_path = sys.argv[2]
 try:
     with zipfile.ZipFile(zip_path, 'r') as zf:
         if 'case.yaml' not in zf.namelist():
-            print(f"  No case.yaml in zip", file=sys.stderr)
+            print(f'  No case.yaml in zip', file=sys.stderr)
             sys.exit(1)
         
         zip_case_content = zf.read('case.yaml').decode('utf-8')
@@ -318,23 +318,24 @@ try:
         case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))
         
         # Normalize paths for comparison
-        submission_source_norm = submission_source.replace('\\', '/')
-        case_file_rel_norm = case_file_rel.replace('\\', '/')
+        submission_source_norm = submission_source.replace('\\\\', '/')
+        case_file_rel_norm = case_file_rel.replace('\\\\', '/')
         
-        print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)
-        print(f"  Expected case file: {case_file_rel}", file=sys.stderr)
+        print(f'  Submission source_case_file: {submission_source}', file=sys.stderr)
+        print(f'  Expected case file: {case_file_rel}', file=sys.stderr)
         
         if submission_source == case_file_rel or submission_source_norm == case_file_rel_norm:
             print('MATCH')
             sys.exit(0)
         else:
-            print(f"  No match", file=sys.stderr)
+            print(f'  No match', file=sys.stderr)
             sys.exit(1)
 except Exception as e:
     print(f'Error checking zip: {e}', file=sys.stderr)
     sys.exit(1)
-PYTHON_SCRIPT
-"$zip_file" "$CASE_FILE_PATH" 2>&1 | grep -q "^MATCH$"; then
+" "$zip_file" "$CASE_FILE_PATH" 2>&1)
+            
+            if echo "$MATCH_RESULT" | grep -q "^MATCH$"; then
               echo "  ✓ Found matching submission!"
               FOUND_SUBMISSION=true
               MATCHING_ZIP="$zip_file"

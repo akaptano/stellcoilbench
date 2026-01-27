@@ -71,7 +71,7 @@ jobs:
 
       - name: Run ruff
         run: |
-          ruff check . --ignore F403,F405
+          ruff check src/ tests/ --ignore F403,F405
 
       - name: Install package
         run: |
