@@ -58,3 +58,29 @@ Validate a case configuration file and report errors.
 
    stellcoilbench validate-config <case_file>
    stellcoilbench validate-config cases/my_case.yaml
+
+post-process
+------------
+
+Run post-processing on optimized coil results. Generates Poincaré plots, QFM surfaces, VMEC equilibria, and quasisymmetry analysis.
+
+.. code-block:: bash
+
+   stellcoilbench post-process <coils_json> [--output-dir <path>] [--case-yaml <path>] [--plasma-surfaces-dir <path>] [--no-vmec] [--helicity-m <m>] [--helicity-n <n>] [--ns <ns>] [--no-plot-bozzer] [--no-plot-iota] [--no-plot-qs] [--no-plot-poincare] [--nfieldlines <n>]
+
+   stellcoilbench post-process coils_runs/biot_savart_optimized.json --output-dir post_processing
+
+Options:
+
+- ``--output-dir``, ``-o``: Directory where post-processing results will be saved (default: ``post_processing_output``)
+- ``--case-yaml``: Path to case.yaml file (if not provided, searches relative to coils JSON)
+- ``--plasma-surfaces-dir``: Directory containing plasma surface files (default: ``plasma_surfaces``)
+- ``--run-vmec/--no-vmec``: Whether to run VMEC equilibrium calculation (default: enabled)
+- ``--helicity-m``: Poloidal mode number for quasisymmetry evaluation (default: 1)
+- ``--helicity-n``: Toroidal mode number for quasisymmetry evaluation (default: 0)
+- ``--ns``: Number of radial surfaces for quasisymmetry evaluation (default: 50)
+- ``--plot-bozzer/--no-plot-bozzer``: Whether to generate Boozer surface plot (default: enabled)
+- ``--plot-iota/--no-plot-iota``: Whether to generate iota profile plot (default: enabled)
+- ``--plot-qs/--no-plot-qs``: Whether to generate quasisymmetry profile plot (default: enabled)
+- ``--plot-poincare/--no-plot-poincare``: Whether to generate Poincaré plot (default: enabled)
+- ``--nfieldlines``: Number of fieldlines to trace for Poincaré plot (default: 20)

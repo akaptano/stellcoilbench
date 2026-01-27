@@ -132,7 +132,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``coils_out_path``: Where to write optimized coil geometry (JSON)
    - ``case_cfg``: Optional pre-loaded CaseConfig (if None, loads from case_path)
    - ``output_dir``: Directory for VTK and other outputs (default: coils_out_path parent)
-   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
      Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
    
    Returns:
@@ -167,7 +167,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    
    - ``coils``: List of initialized coil objects
 
-**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, surface_resolution: int = 16, **kwargs)**
+**optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, surface_resolution: int = 32, skip_post_processing: bool = False, case_path: Path | None = None, **kwargs)**
    Complete coil optimization including initialization and optimization.
    
    This function combines initialization and optimization into a single call.
@@ -186,8 +186,10 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``regularization``: Regularization function
    - ``coil_objective_terms``: Objective function terms dictionary
    - ``initial_coils``: Optional pre-initialized coils (for Fourier continuation)
-   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
      Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
+   - ``skip_post_processing``: Skip post-processing steps (default: False)
+   - ``case_path``: Path to case directory containing case.yaml (for post-processing)
    - ``**kwargs``: Additional constraint thresholds
    
    Returns:
@@ -195,7 +197,7 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``coils``: Optimized coil objects
    - ``results``: Optimization results dictionary
 
-**optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, surface_resolution: int = 16, **kwargs) -> tuple[list, Dict[str, Any]]**
+**optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, surface_resolution: int = 32, case_path: Path | None = None, **kwargs) -> tuple[list, Dict[str, Any]]**
    Perform coil optimization with Fourier continuation.
    
    This function solves a sequence of coil optimizations, starting with a low
@@ -216,8 +218,9 @@ The ``coil_optimization`` module contains the core optimization logic.
    - ``verbose``: Print progress
    - ``regularization``: Regularization function (can be None)
    - ``coil_objective_terms``: Objective function terms dictionary
-   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+   - ``surface_resolution``: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
      Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
+   - ``case_path``: Path to case directory containing case.yaml (for post-processing)
    - ``**kwargs``: Additional constraint thresholds and algorithm options
    
    Returns:
@@ -459,6 +462,52 @@ The ``update_db`` module handles leaderboard generation and management.
    Returns:
    
    - LaTeX-formatted mathematical definition
+
+Post-Processing Module
+----------------------
+
+.. automodule:: stellcoilbench.post_processing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+The ``post_processing`` module handles post-optimization analysis including VMEC
+equilibrium calculations, Poincaré plots, quasisymmetry analysis, and Boozer surface plots.
+
+**run_post_processing(coils_json_path: Path, output_dir: Path, case_yaml_path: Optional[Path] = None, plasma_surfaces_dir: Optional[Path] = None, run_vmec: bool = True, helicity_m: int = 1, helicity_n: int = 0, ns: int = 50, plot_boozer: bool = True, plot_poincare: bool = True, nfieldlines: int = 20, mpi: Optional[Any] = None) -> Dict[str, Any]**
+   Run complete post-processing pipeline.
+   
+   This function:
+   
+   1. Loads coils and plasma surface
+   2. Generates Poincaré plot (if requested)
+   3. Computes QFM surface
+   4. Optionally runs VMEC equilibrium
+   5. Computes quasisymmetry metrics
+   6. Generates VMEC-dependent plots (Boozer, iota, quasisymmetry)
+   
+   Parameters:
+   
+   - ``coils_json_path``: Path to coils JSON file
+   - ``output_dir``: Directory where output files will be saved
+   - ``case_yaml_path``: Path to case.yaml file (optional)
+   - ``plasma_surfaces_dir``: Directory containing plasma surface files (optional)
+   - ``run_vmec``: Whether to run VMEC equilibrium calculation (default: True)
+   - ``helicity_m``: Poloidal mode number for quasisymmetry (default: 1)
+   - ``helicity_n``: Toroidal mode number for quasisymmetry (default: 0)
+   - ``ns``: Number of radial surfaces for quasisymmetry evaluation (default: 50)
+   - ``plot_boozer``: Whether to generate Boozer surface plot (default: True)
+   - ``plot_poincare``: Whether to generate Poincaré plot (default: True)
+   - ``nfieldlines``: Number of fieldlines to trace for Poincaré plot (default: 20)
+   - ``mpi``: MPI partition for parallel execution (optional)
+   
+   Returns:
+   
+   - ``Dict[str, Any]``: Dictionary containing post-processing results:
+     - ``qfm_surface``: QFM surface object
+     - ``quasisymmetry_average``: Average quasisymmetry error
+     - ``quasisymmetry_profile``: Radial quasisymmetry profile
+     - ``vmec``: VMEC equilibrium object (if run_vmec=True)
 
 Validate Config Module
 ----------------------

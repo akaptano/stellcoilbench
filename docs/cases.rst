@@ -55,7 +55,7 @@ Schema Overview
    
    - ``order``: Fourier order for coil representation
      
-     Coils are represented as Fourier series: :math:`\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}`
+     Coils are represented as Fourier series: :math:`\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]`
      
      Higher order allows more complex coil shapes but increases the number of
      optimization variables. Typical values: 4, 8, 16.
@@ -63,6 +63,99 @@ Schema Overview
      **Note**: This is the final order used if Fourier continuation is disabled.
      If Fourier continuation is enabled, this value is ignored in favor of the
      continuation schedule (see :ref:`fourier-continuation`).
+
+**Fourier Continuation** (optional)
+   
+   Fourier continuation is an advanced optimization technique that solves a sequence
+   of problems with progressively increasing Fourier orders. This helps achieve convergence
+   for complex coil optimization problems.
+   
+   Configuration:
+   
+   .. code-block:: yaml
+   
+      fourier_continuation:
+        enabled: true
+        orders: [4, 8, 16]  # List of Fourier orders in ascending order
+   
+   Parameters:
+   
+   - ``enabled``: Boolean flag to enable/disable Fourier continuation (default: false)
+   - ``orders``: List of positive integers in ascending order (e.g., ``[4, 6, 8]``)
+   
+   How it works:
+   
+   1. Starts with the lowest order (fewer variables, easier to optimize)
+   2. Optimizes coils at that order until convergence
+   3. Extends the solution to the next higher order by copying Fourier coefficients
+      and padding new modes with zeros
+   4. Uses the extended solution as initial condition for the next optimization
+   5. Repeats until all orders are completed
+   
+   Benefits:
+   
+   - Helps achieve convergence for complex problems that may not converge
+     when starting directly at high order
+   - Provides intermediate solutions at lower orders for debugging
+   - Can improve final solution quality by gradually refining coil shapes
+   
+   Output structure:
+   
+   When Fourier continuation is used, results are saved in subdirectories:
+   
+   .. code-block::
+   
+      output_dir/
+      ├── order_4/
+      │   ├── coils.json
+      │   ├── bn_error_3d_plot.pdf
+      │   └── ...
+      ├── order_8/
+      │   ├── coils.json
+      │   ├── bn_error_3d_plot.pdf
+      │   └── ...
+      └── order_16/
+          ├── coils.json
+          ├── bn_error_3d_plot.pdf
+          └── ...
+   
+   Post-processing (VMEC, Poincaré plots, etc.) is only run for the final order
+   to save computation time.
+
+.. _fourier-continuation:
+
+Fourier Continuation
+--------------------
+
+Fourier continuation is an advanced optimization technique that solves a sequence
+of coil optimization problems with progressively increasing Fourier orders. Each step
+uses the converged solution from the previous order as an initial condition for the
+next optimization.
+
+**When to Use**
+   
+   Consider using Fourier continuation when:
+   
+   - High-order optimizations fail to converge
+   - You want to debug intermediate solutions
+   - You need to gradually refine coil shapes
+   - Starting directly at high order produces poor results
+
+**Configuration Example**
+   
+   .. code-block:: yaml
+   
+      coils_params:
+        ncoils: 4
+        order: 16  # Final order (ignored if fourier_continuation.enabled is true)
+      
+      fourier_continuation:
+        enabled: true
+        orders: [4, 8, 16]  # Must be in ascending order
+      
+      optimizer_params:
+        algorithm: "L-BFGS-B"
+        max_iterations: 1000  # Per order
 
 **Optimizer Parameters**
    

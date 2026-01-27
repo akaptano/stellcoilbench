@@ -65,6 +65,10 @@ jobs:
       - name: Try importing vmec module
         run: python -c "import vmec; print('VMEC module imported successfully')"
 
+      - name: Install ruff
+        run: |
+          pip install ruff
+
       - name: Run ruff
         run: |
           ruff check . --ignore F403,F405

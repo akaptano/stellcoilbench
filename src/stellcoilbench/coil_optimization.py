@@ -1334,7 +1334,7 @@ def optimize_coils_with_fourier_continuation(
     coil_objective_terms: Dict[str, Any] | None
         Dictionary specifying which objective terms to include.
     surface_resolution: int
-        Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+        Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
         Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
     **kwargs: Additional keyword arguments
         Same as optimize_coils_loop (thresholds, algorithm options, etc.).
@@ -1652,7 +1652,7 @@ def optimize_coils_loop(
         ncoils: Number of base coils to create (default: 4).
         order: Fourier order for coil curves (default: 16).
         verbose: Print out progress and results (default: False).
-        surface_resolution: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+        surface_resolution: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
             Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
         **kwargs: Additional keyword arguments for constraint thresholds.
             max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 2).

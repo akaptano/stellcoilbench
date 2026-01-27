@@ -8,7 +8,7 @@ Prerequisites
 -------------
 
 **Required Software**
-   - Python 3.8 or higher
+   - Python 3.12 or higher (recommended)
    - Conda (recommended) or pip for package management
    - Git for version control
    - Access to the StellCoilBench repository
@@ -98,7 +98,7 @@ Installation
    
    .. code-block:: bash
    
-      conda create -n stellcoilbench python=3.10
+      conda create -n stellcoilbench python=3.12
       conda activate stellcoilbench
       pip install stellcoilbench
    
@@ -106,7 +106,7 @@ Installation
    
    .. code-block:: bash
    
-      conda create -n stellcoilbench python=3.10
+      conda create -n stellcoilbench python=3.12
       conda activate stellcoilbench
       git clone <repository-url>
       cd stellcoilbench

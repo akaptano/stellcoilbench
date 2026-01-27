@@ -15,7 +15,7 @@ def _metric_shorthand(metric_name: str) -> str:
     shorthand_map = {
         # B-field related
         "max_BdotN_over_B": "max(B_n)",
-        "avg_BdotN_over_B": "avg(B_n)",
+        "avg_BdotN_over_B": "B̄_n",
         "final_normalized_squared_flux": "f_B",
         "initial_B_field": "B0",
         "final_B_field": "Bf",
@@ -23,12 +23,12 @@ def _metric_shorthand(metric_name: str) -> str:
         
         # Curvature
         "final_average_curvature": "κ̄",
-        "final_max_curvature": "max(κ)",
+        "final_max_curvature": "κ_max",
         "final_mean_squared_curvature": "MSC",
         
-        # Separations
-        "final_min_cs_separation": "min(d_cs)",
-        "final_min_cc_separation": "min(d_cc)",
+        # Separations (d_cc and d_cs are already minimum distances)
+        "final_min_cs_separation": "d_cs",
+        "final_min_cc_separation": "d_cc",
         "final_cs_separation": "d_cs",
         "final_cc_separation": "d_cc",
         
@@ -37,9 +37,9 @@ def _metric_shorthand(metric_name: str) -> str:
         "final_arclength_variation": "Var(l_i)",
         
         # Forces/Torques
-        "final_max_max_coil_force": "max(F)",
+        "final_max_max_coil_force": "F_max",
         "final_avg_max_coil_force": "F̄",
-        "final_max_max_coil_torque": "max(τ)",
+        "final_max_max_coil_torque": "τ_max",
         "final_avg_max_coil_torque": "τ̄",
         
         # Time
@@ -170,13 +170,15 @@ def _format_date(date_str: str) -> str:
 
 
 def _shorthand_to_math(shorthand: str) -> str:
-    """
+    r"""
     Convert metric shorthand to RST math mode format.
     
     Examples:
-    - "min(d_cc)" -> ":math:`\\min(d_{cc})`"
+    - "d_cc" -> ":math:`d_{cc}`"
+    - "F_max" -> r":math:`F_\text{max}`"
+    - "B̄_n" -> r":math:`\bar{B}_n`"
     - "f_B" -> ":math:`f_B`"
-    - "κ̄" -> ":math:`\\bar{\\kappa}`"
+    - "κ̄" -> r":math:`\bar{\kappa}`"
     - "n" -> ":math:`n`"
     """
     import re
@@ -185,20 +187,24 @@ def _shorthand_to_math(shorthand: str) -> str:
     if shorthand in ["n", "N", "L", "t"]:
         return f":math:`{shorthand}`"
     
-    # Handle special Unicode characters
+    # Handle special Unicode characters and new formats
     unicode_map = {
         "κ̄": r":math:`\bar{\kappa}`",
         "F̄": r":math:`\bar{F}`",
         "τ̄": r":math:`\bar{\tau}`",
+        "B̄_n": r":math:`\bar{B}_n`",
         "avg(B_n)": r":math:`\text{avg}(B_n)`",
         "max(B_n)": r":math:`\max(B_n)`",
         "Var(l_i)": r":math:`\mathrm{Var}(l_i)`",
         "FC": r":math:`\text{FC}`",  # Fourier continuation
+        "F_max": r":math:`F_\text{max}`",
+        "τ_max": r":math:`\tau_\text{max}`",
+        "κ_max": r":math:`\kappa_\text{max}`",
     }
     if shorthand in unicode_map:
         return unicode_map[shorthand]
     
-    # Handle function calls like "min(d_cc)", "max(κ)", "max(F)", "max(τ)", "avg(B_n)", "max(B_n)"
+    # Handle function calls like "max(κ)", "max(B_n)" (d_cc, d_cs, F_max, τ_max, κ_max are now direct variables)
     func_match = re.match(r'(\w+)\(([^)]+)\)', shorthand)
     if func_match:
         func_name = func_match.group(1)
@@ -256,16 +262,16 @@ def _metric_definition(metric_name: str) -> str:
         # B-field related
         "final_normalized_squared_flux": r"Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)",
         "max_BdotN_over_B": r"Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)",
-        "avg_BdotN_over_B": r"Average normalized normal field component $\text{avg}(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\text{avg}(B_n) = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)",
+        "avg_BdotN_over_B": r"Average normalized normal field component $\bar{B}_n$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)",
         
         # Curvature
         "final_average_curvature": r"Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)",
-        "final_max_curvature": r"Maximum curvature $\max(\kappa)$ across all coils ($\text{m}^{-1}$)",
+        "final_max_curvature": r"Maximum curvature $\kappa_\text{max}$ across all coils ($\text{m}^{-1}$)",
         "final_mean_squared_curvature": r"Mean squared curvature $\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ ($\text{m}^{-2}$)",
         
-        # Separations
-        "final_min_cs_separation": r"Minimum coil-to-surface distance $\min(d_{cs})$ ($\text{m}$)",
-        "final_min_cc_separation": r"Minimum coil-to-coil distance $\min(d_{cc})$ ($\text{m}$)",
+        # Separations (d_cc and d_cs are minimum distances)
+        "final_min_cs_separation": r"Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)",
+        "final_min_cc_separation": r"Minimum coil-to-coil distance $d_{cc}$ ($\text{m}$)",
         "final_cs_separation": r"Average coil-to-surface separation $d_{cs}$ ($\text{m}$)",
         "final_cc_separation": r"Average coil-to-coil separation $d_{cc}$ ($\text{m}$)",
         
@@ -273,9 +279,9 @@ def _metric_definition(metric_name: str) -> str:
         "final_total_length": r"Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)",
         
         # Forces/Torques
-        "final_max_max_coil_force": r"Maximum force magnitude $\max(F)$ across all coils ($\text{N}/\text{m}$)",
+        "final_max_max_coil_force": r"Maximum force magnitude $F_\text{max}$ across all coils ($\text{N}/\text{m}$)",
         "final_avg_max_coil_force": r"Average of maximum force $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ per coil ($\text{N}/\text{m}$)",
-        "final_max_max_coil_torque": r"Maximum torque magnitude $\max(\tau)$ across all coils ($\text{N}$)",
+        "final_max_max_coil_torque": r"Maximum torque magnitude $\tau_\text{max}$ across all coils ($\text{N}$)",
         "final_avg_max_coil_torque": r"Average of maximum torque $\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ per coil ($\text{N}$)",
         
         # Time
@@ -288,17 +294,202 @@ def _metric_definition(metric_name: str) -> str:
         "final_arclength_variation": r"Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)",
         
         # Coil parameters
-        "coil_order": r"Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \sum_{m=-n}^{n} \mathbf{c}_m e^{im\phi}$ (dimensionless)",
+        "coil_order": r"Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)",
         "num_coils": r"Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)",
         
         # Fourier continuation
         "fourier_continuation_orders": r"**Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".",
         
         # Quasisymmetry
-        "quasisymmetry_average": r"Average quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. Quasisymmetry measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces. Lower values indicate better quasisymmetry (dimensionless).",
+        "quasisymmetry_average": r"Average two-term quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. The two-term quasisymmetry error measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces by evaluating the ratio residual $QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}$ where $(m,n)$ is the target helicity. Lower values indicate better quasisymmetry (dimensionless).",
     }
     
     return definitions.get(metric_name, metric_name.replace("_", " ").title())
+
+
+def _metric_detailed_definition(metric_name: str) -> dict | None:
+    """
+    Get detailed mathematical definition for a metric in structured format matching
+    the "Available objectives" page format.
+    
+    Returns a dict with:
+    - 'title': Metric title with symbol (e.g., "Normalized Squared Flux Error (:math:`f_B`)")
+    - 'description': Description text
+    - 'math_forms': List of mathematical expressions (LaTeX strings for .. math:: blocks)
+    - 'units': Units string
+    - 'notes': Optional additional notes
+    Returns None if metric doesn't have a detailed definition.
+    """
+    detailed_defs = {
+        "final_normalized_squared_flux": {
+            "title": "Normalized Squared Flux Error",
+            "symbol": r":math:`f_B`",
+            "description": "Measures the quality of the magnetic field on the plasma surface by quantifying how well the normal component of the magnetic field vanishes.",
+            "math_forms": [r"f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 ds"],
+            "where": r"where :math:`|S|` is the total surface area of the plasma surface :math:`S`.",
+            "units": "dimensionless",
+            "notes": "Lower values indicate better field quality (closer to zero normal field component)."
+        },
+        "avg_BdotN_over_B": {
+            "title": "Average Normalized Normal Field Component",
+            "symbol": r":math:`\bar{B}_n`",
+            "description": "Average of the absolute value of the normalized normal field component across the plasma surface.",
+            "math_forms": [
+                r"B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}",
+                r"\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| ds}{\int_{S} |\mathbf{B}| ds}"
+            ],
+            "units": "dimensionless",
+            "notes": "Lower values indicate better field quality."
+        },
+        "max_BdotN_over_B": {
+            "title": "Maximum Normalized Normal Field Component",
+            "symbol": r":math:`\max(B_n)`",
+            "description": "Maximum value of the normalized normal field component across the plasma surface.",
+            "math_forms": [
+                r"B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}",
+                r"\max(B_n) = \max_{\mathbf{s} \in S} B_n(\mathbf{s})"
+            ],
+            "units": "dimensionless",
+            "notes": "Lower values indicate better field quality."
+        },
+        "coil_order": {
+            "title": "Fourier Order",
+            "symbol": r":math:`n`",
+            "description": "Order of the Fourier series representation used for coil curves.",
+            "math_forms": [r"\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]"],
+            "where": r"where :math:`\mathbf{a}_0`, :math:`\mathbf{a}_m`, and :math:`\mathbf{b}_m` are Fourier coefficients and :math:`\phi` is the parameterization angle.",
+            "units": "dimensionless",
+            "notes": "Higher orders allow more complex coil shapes but increase the number of optimization variables."
+        },
+        "num_coils": {
+            "title": "Number of Base Coils",
+            "symbol": r":math:`N`",
+            "description": "Number of base coils before applying stellarator symmetry.",
+            "units": "dimensionless",
+            "notes": "Typical values: 4, 6, 8, 12. More coils allow more complex field shaping but increase computational cost."
+        },
+        "final_total_length": {
+            "title": "Total Length",
+            "symbol": r":math:`L`",
+            "description": "Total length of all coils.",
+            "math_forms": [r"L = \sum_{i=1}^{N} \int_{C_i} d\ell_i"],
+            "units": r":math:`\text{m}` (meters)",
+            "notes": "Shorter coils are generally preferred for reduced material costs and improved manufacturability."
+        },
+        "final_average_curvature": {
+            "title": "Mean Curvature",
+            "symbol": r":math:`\bar{\kappa}`",
+            "description": "Average curvature across all coils.",
+            "math_forms": [
+                r"\kappa_i(\ell_i) = \left|\mathbf{r}_i''(\ell_i)\right|",
+                r"\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \frac{1}{L_i} \int_{C_i} \kappa_i(\ell_i) ~d\ell_i"
+            ],
+            "where": r"where :math:`\mathbf{r}_i(\ell_i)` is the parameterization of coil curve :math:`C_i` by arclength.",
+            "units": r":math:`\text{m}^{-1}` (inverse meters)",
+            "notes": "Lower curvature values indicate smoother coils that are easier to manufacture."
+        },
+        "final_max_curvature": {
+            "title": "Maximum Curvature",
+            "symbol": r":math:`\kappa_\text{max}`",
+            "description": "Maximum curvature value across all coils.",
+            "math_forms": [r"\kappa_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \kappa_i(\ell_i)"],
+            "units": r":math:`\text{m}^{-1}` (inverse meters)",
+            "notes": "Lower values indicate coils without extreme curvature regions."
+        },
+        "final_mean_squared_curvature": {
+            "title": "Mean Squared Curvature",
+            "symbol": r":math:`\text{MSC}`",
+            "description": "Mean squared curvature per coil, averaged across all coils.",
+            "math_forms": [
+                r"J = \frac{1}{L_i} \int_{C_i} \kappa_i^2(\ell_i) ~d\ell_i",
+                r"\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} J_i"
+            ],
+            "where": r"where :math:`L_i` is the total length of coil curve :math:`C_i`, :math:`\ell_i` is the arclength along the curve, and :math:`\kappa_i` is the curvature.",
+            "units": r":math:`\text{m}^{-2}` (inverse meters squared)",
+            "notes": "This provides a smoother penalty than maximum curvature, encouraging overall smoothness rather than just avoiding extreme values."
+        },
+        "final_arclength_variation": {
+            "title": "Arclength Variation",
+            "symbol": r":math:`J`",
+            "description": "Variance of incremental arclength between coil segments.",
+            "math_forms": [r"J = \text{Var}(l_i)"],
+            "where": r"where :math:`l_i` is the average incremental arclength on interval :math:`I_i` from a partition :math:`\{I_i\}_{i=1}^L` of :math:`[0,1]`.",
+            "units": r":math:`\text{m}^2` (meters squared)",
+            "notes": "Lower values indicate more uniform spacing along coils, which is important for manufacturing and field quality."
+        },
+        "final_min_cc_separation": {
+            "title": "Minimum Coil-to-Coil Distance",
+            "symbol": r":math:`d_{cc}`",
+            "description": "Minimum distance between any two coils.",
+            "math_forms": [r"d_{cc} = \min_{i \neq j} \min_{\mathbf{r}_i \in C_i, \mathbf{r}_j \in C_j} \left\| \mathbf{r}_i - \mathbf{r}_j \right\|_2"],
+            "units": r":math:`\text{m}` (meters)",
+            "notes": "Ensures coils maintain a safe separation distance to prevent collisions."
+        },
+        "final_min_cs_separation": {
+            "title": "Minimum Coil-to-Surface Distance",
+            "symbol": r":math:`d_{cs}`",
+            "description": "Minimum distance between any coil and the plasma surface.",
+            "math_forms": [r"d_{cs} = \min_{i} \min_{\mathbf{r}_i \in C_i, \mathbf{s} \in S} \left\| \mathbf{r}_i - \mathbf{s} \right\|_2"],
+            "units": r":math:`\text{m}` (meters)",
+            "notes": "Ensures coils maintain a safe distance from the plasma surface."
+        },
+        "final_avg_max_coil_force": {
+            "title": "Average of Maximum Force",
+            "symbol": r":math:`\bar{F}`",
+            "description": "Average across coils of the maximum force magnitude per coil.",
+            "math_forms": [r"\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{F}_i}{d\ell_i}\right|"],
+            "where": r"where :math:`\frac{d\vec{F}_i}{d\ell_i}` is the Lorentz force per unit length on coil curve :math:`C_i`.",
+            "units": r":math:`\text{N}/\text{m}` (Newtons per meter)",
+            "notes": "Lower values indicate coils that are easier to support mechanically."
+        },
+        "final_max_max_coil_force": {
+            "title": "Maximum Force Magnitude",
+            "symbol": r":math:`F_\text{max}`",
+            "description": "Maximum force magnitude across all coils.",
+            "math_forms": [r"F_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{F}_i}{d\ell_i}\right|"],
+            "units": r":math:`\text{N}/\text{m}` (Newtons per meter)",
+            "notes": "High forces indicate coils that may be difficult to support mechanically."
+        },
+        "final_avg_max_coil_torque": {
+            "title": "Average of Maximum Torque",
+            "symbol": r":math:`\bar{\tau}`",
+            "description": "Average across coils of the maximum torque magnitude per coil.",
+            "math_forms": [r"\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{T}_i}{d\ell_i}\right|"],
+            "where": r"where :math:`\frac{d\vec{T}_i}{d\ell_i}` is the Lorentz torque per unit length on coil curve :math:`C_i`.",
+            "units": r":math:`\text{N}` (Newtons)",
+            "notes": "Lower values indicate coils with reduced rotational forces that must be resisted by supports."
+        },
+        "final_max_max_coil_torque": {
+            "title": "Maximum Torque Magnitude",
+            "symbol": r":math:`\tau_\text{max}`",
+            "description": "Maximum torque magnitude across all coils.",
+            "math_forms": [r"\tau_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{T}_i}{d\ell_i}\right|"],
+            "units": r":math:`\text{N}` (Newtons)",
+            "notes": "High torques can lead to mechanical instability."
+        },
+        "final_linking_number": {
+            "title": "Linking Number",
+            "symbol": r":math:`\text{LN}`",
+            "description": "Topological measure of how coils are linked together.",
+            "math_forms": [r"\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{\left(\mathbf{r}_i - \mathbf{r}_j\right) \cdot \left(d\mathbf{r}_i \times d\mathbf{r}_j\right)}{\left|\mathbf{r}_i - \mathbf{r}_j\right|^3}"],
+            "units": "dimensionless",
+            "notes": "This metric ensures coils maintain their topological structure during optimization."
+        },
+        "optimization_time": {
+            "title": "Total Optimization Time",
+            "symbol": r":math:`t`",
+            "description": "Total time required to complete the optimization.",
+            "units": r":math:`\text{s}` (seconds)",
+            "notes": "Lower values indicate more efficient optimization algorithms or faster convergence."
+        },
+        "fourier_continuation_orders": {
+            "title": "Fourier Continuation (FC)",
+            "description": "Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems.",
+            "notes": 'Format: comma-separated list of orders (e.g., "4,6,8" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows "—".'
+        }
+    }
+    
+    return detailed_defs.get(metric_name)
 
 
 def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]:
@@ -1198,24 +1389,24 @@ def write_rst_leaderboard(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Define the desired order: N, n, FC, fB, avg(Bn/B), max(Bn/B), L, min(d_cc), min(d_cs), \bar{kappa}, MSC, \bar{F}, \bar{\tau}, max(F), max(\tau), LN, t, avg(QS)
+        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, \bar{F}, \bar{\tau}, F_max, \tau_max, LN, t, avg(QS)
         desired_order = [
             "num_coils",                    # N
             "coil_order",                   # n
             "fourier_continuation_orders",  # FC
             "final_normalized_squared_flux", # fB
-            "avg_BdotN_over_B",             # avg(Bn/B)
-            "max_BdotN_over_B",             # max(Bn/B)
+            "avg_BdotN_over_B",             # \bar{B_n}
+            "max_BdotN_over_B",             # max(B_n)
             "final_total_length",           # L
             "final_arclength_variation",    # Var(l_i)
-            "final_min_cc_separation",      # min(d_cc)
-            "final_min_cs_separation",      # min(d_cs)
+            "final_min_cc_separation",      # d_cc
+            "final_min_cs_separation",      # d_cs
             "final_average_curvature",      # \bar{kappa}
             "final_mean_squared_curvature",  # MSC
             "final_avg_max_coil_force",     # \bar{F}
             "final_avg_max_coil_torque",    # \bar{\tau}
-            "final_max_max_coil_force",     # max(F)
-            "final_max_max_coil_torque",    # max(\tau)
+            "final_max_max_coil_force",     # F_max
+            "final_max_max_coil_torque",    # \tau_max
             "final_linking_number",         # LN
             "optimization_time",            # t
             "quasisymmetry_average",        # avg(QS)
@@ -1326,13 +1517,32 @@ def write_rst_leaderboard(
         "",
         "The following metrics are used to evaluate coil optimization submissions:",
         "",
+        "Notation",
+        "--------",
+        "",
+        "The following notation is used throughout the mathematical definitions:",
+        "",
+        r"- :math:`C_i` denotes coil curve :math:`i`",
+        r"- :math:`S` denotes the plasma surface",
+        r"- :math:`\mathbf{r}_i` denotes a point on coil curve :math:`C_i`",
+        r"- :math:`\mathbf{s}` denotes a point on the plasma surface :math:`S`",
+        r"- :math:`\ell_i` denotes arclength along coil curve :math:`C_i`",
+        r"- :math:`L_i` denotes the total length of coil curve :math:`C_i`",
+        r"- :math:`\kappa_i` denotes curvature along coil curve :math:`C_i`",
+        r"- :math:`\frac{d\vec{F}_i}{d\ell_i}` denotes force per unit length on coil curve :math:`C_i`",
+        r"- :math:`\frac{d\vec{T}_i}{d\ell_i}` denotes torque per unit length on coil curve :math:`C_i`",
+        r"- :math:`N` denotes the number of coils",
+        r"- :math:`d\ell_i` denotes the differential arclength element along coil curve :math:`C_i`",
+        r"- :math:`ds` denotes the differential surface area element on the plasma surface :math:`S`",
+        r"- :math:`\mathbf{B}` denotes the magnetic field vector",
+        r"- :math:`\mathbf{n}` denotes the unit normal vector to the plasma surface",
+        "",
     ]
     
     # Metric definitions (shown once at the top)
     if all_metric_keys:
         
         # Group metrics logically
-        import re
         field_quality = []
         coil_geometry = []
         separations = []
@@ -1342,85 +1552,126 @@ def write_rst_leaderboard(
         config = []
         
         for key in all_metric_keys:
-            definition = _metric_definition(key)
-            shorthand = _metric_shorthand(key)
-            
-            # Convert all LaTeX math ($...$) to RST math (:math:`...`)
-            formatted_def = re.sub(r'\$([^$]+)\$', r':math:`\1`', definition)
-            
-            if "flux" in key.lower() or "BdotN" in key or "B" in key:
-                field_quality.append((shorthand, formatted_def))
-            elif "curvature" in key.lower() or "length" in key.lower() or "arclength" in key.lower() or key in ["coil_order", "num_coils", "fourier_continuation_orders"]:
-                coil_geometry.append((shorthand, formatted_def))
-            elif "separation" in key.lower() or "distance" in key.lower():
-                separations.append((shorthand, formatted_def))
-            elif "force" in key.lower() or "torque" in key.lower():
-                forces_torques.append((shorthand, formatted_def))
-            elif "linking" in key.lower():
-                topology.append((shorthand, formatted_def))
-            elif "time" in key.lower():
-                performance.append((shorthand, formatted_def))
+            detailed_def = _metric_detailed_definition(key)
+            if detailed_def:
+                if "flux" in key.lower() or "BdotN" in key or "B" in key:
+                    field_quality.append((key, detailed_def))
+                elif "curvature" in key.lower() or "length" in key.lower() or "arclength" in key.lower() or key in ["coil_order", "num_coils", "fourier_continuation_orders"]:
+                    coil_geometry.append((key, detailed_def))
+                elif "separation" in key.lower() or "distance" in key.lower():
+                    separations.append((key, detailed_def))
+                elif "force" in key.lower() or "torque" in key.lower():
+                    forces_torques.append((key, detailed_def))
+                elif "linking" in key.lower():
+                    topology.append((key, detailed_def))
+                elif "time" in key.lower():
+                    performance.append((key, detailed_def))
+                else:
+                    config.append((key, detailed_def))
+        
+        def _format_metric_def(key: str, def_dict: dict) -> list[str]:
+            """Format a detailed metric definition into RST lines."""
+            lines = []
+            symbol = def_dict.get("symbol", "")
+            title = def_dict.get("title", key.replace("_", " ").title())
+            if symbol:
+                lines.append(f"**{title}** ({symbol})")
             else:
-                config.append((shorthand, formatted_def))
+                lines.append(f"**{title}**")
+            lines.append("   " + def_dict.get("description", ""))
+            lines.append("   ")
+            
+            math_forms = def_dict.get("math_forms", [])
+            if math_forms:
+                lines.append("   Mathematical form:")
+                lines.append("   ")
+                for math_form in math_forms:
+                    lines.append("   .. math::")
+                    lines.append(f"      {math_form}")
+                    lines.append("   ")
+            
+            where = def_dict.get("where")
+            if where:
+                lines.append(f"   {where}")
+                lines.append("   ")
+            
+            units = def_dict.get("units", "")
+            if units:
+                lines.append(f"   Units: {units}")
+                lines.append("   ")
+            
+            notes = def_dict.get("notes")
+            if notes:
+                lines.append(f"   {notes}")
+            
+            return lines
         
         if field_quality:
-            metric_def_lines.append("**Field Quality Metrics:**")
+            metric_def_lines.append("Field Quality Metrics")
+            metric_def_lines.append("-" * len("Field Quality Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in field_quality:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in field_quality:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if coil_geometry:
-            metric_def_lines.append("**Coil Geometry Metrics:**")
+            metric_def_lines.append("Coil Geometry Metrics")
+            metric_def_lines.append("-" * len("Coil Geometry Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in coil_geometry:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in coil_geometry:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if separations:
-            metric_def_lines.append("**Separation Metrics:**")
+            metric_def_lines.append("Separation Metrics")
+            metric_def_lines.append("-" * len("Separation Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in separations:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in separations:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if forces_torques:
-            metric_def_lines.append("**Force and Torque Metrics:**")
+            metric_def_lines.append("Force and Torque Metrics")
+            metric_def_lines.append("-" * len("Force and Torque Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in forces_torques:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in forces_torques:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if topology:
-            metric_def_lines.append("**Topology Metrics:**")
+            metric_def_lines.append("Topology Metrics")
+            metric_def_lines.append("-" * len("Topology Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in topology:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in topology:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if performance:
-            metric_def_lines.append("**Performance Metrics:**")
+            metric_def_lines.append("Performance Metrics")
+            metric_def_lines.append("-" * len("Performance Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in performance:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in performance:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         if config:
-            metric_def_lines.append("**Configuration Metrics:**")
+            metric_def_lines.append("Configuration Metrics")
+            metric_def_lines.append("-" * len("Configuration Metrics"))
             metric_def_lines.append("")
-            for shorthand, rst_def in config:
-                metric_def_lines.append(f"  - {rst_def}")
-            metric_def_lines.append("")
+            for key, detailed_def in config:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
         
         # Add visualization link definitions
-        metric_def_lines.append("**Visualization Links:**")
+        metric_def_lines.append("Visualization Links")
+        metric_def_lines.append("-" * len("Visualization Links"))
         metric_def_lines.append("")
-        metric_def_lines.append("  - :math:`i`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with initial (pre-optimization) coils")
-        metric_def_lines.append("  - :math:`f`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with final (optimized) coils")
-        metric_def_lines.append("  - **Poincaré**: Link to Poincaré plot showing fieldline trajectories")
-        metric_def_lines.append("  - **Boozer**: Link to Boozer surface plot showing flux surfaces")
-        metric_def_lines.append("  - **QS**: Link to quasisymmetry error profile plot")
-        metric_def_lines.append("  - **ι**: Link to rotational transform (iota) profile plot")
+        metric_def_lines.append("- :math:`i`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with initial (pre-optimization) coils")
+        metric_def_lines.append("- :math:`f`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with final (optimized) coils")
+        metric_def_lines.append("- **PP**: Link to Poincaré plot showing fieldline trajectories")
+        metric_def_lines.append("- **BP**: Link to Boozer surface plot showing flux surfaces")
+        metric_def_lines.append("- **QS**: Link to quasisymmetry error profile plot")
+        metric_def_lines.append("- **iota**: Link to rotational transform (iota) profile plot")
         metric_def_lines.append("")
 
     # Surface-specific leaderboards file
@@ -1478,11 +1729,20 @@ def write_rst_leaderboard(
             # Wrap metric shorthands in math mode for table headers
             for key in surface_metric_keys:
                 shorthand = _metric_shorthand(key)
-                # Convert shorthand to math mode (e.g., "min(d_cc)" -> ":math:`\min(d_{cc})`")
+                # Convert shorthand to math mode (e.g., "d_cc" -> ":math:`d_{cc}`", "F_max" -> ":math:`F_\text{max}`")
                 math_shorthand = _shorthand_to_math(shorthand)
                 surface_header_cols.append(math_shorthand)
-            # Add Date, User, i, f, and plot links at the end
-            surface_header_cols.extend(["Date", "User", "i", "f", "Poincaré", "Boozer", "QS", "ι"])
+            # Add Date, User, i, f, and plot links at the end (use math mode with \text{} to avoid bold formatting)
+            surface_header_cols.extend([
+                r":math:`\text{Date}`",
+                r":math:`\text{User}`",
+                r":math:`\text{i}`",
+                r":math:`\text{f}`",
+                r":math:`\text{PP}`",
+                r":math:`\text{BP}`",
+                r":math:`\text{QS}`",
+                r":math:`\text{iota}`"
+            ])
 
             # Use list-table for surface leaderboard
             lines.append(f".. list-table:: {display_name} Leaderboard")
