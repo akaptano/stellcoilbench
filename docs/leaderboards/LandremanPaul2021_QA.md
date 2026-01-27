@@ -68,6 +68,35 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.4e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.7e+03</td>
 </tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">27/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e-06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.8e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.8e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.7e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.3e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.9e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.4e+02</td>
+</tr>
 </tbody>
 </table>
 
