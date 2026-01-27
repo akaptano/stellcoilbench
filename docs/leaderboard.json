@@ -4,33 +4,33 @@
       "method_key": ":LandremanPaul2021_QA:akaptano:01-27-2026_01-03",
       "method_name": "",
       "method_version": "all_files",
-      "score_primary": 6.839955119579261e-07,
-      "run_date": "2026-01-27T01:03:31.995135",
+      "score_primary": 6.382000562350405e-07,
+      "run_date": "2026-01-27T01:03:46.885260",
       "contact": "akaptano",
       "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 15.6GB",
       "path": "submissions/LandremanPaul2021_QA/akaptano/01-27-2026_01-03/all_files.zip",
       "metrics": {
         "fourier_continuation": 1.0,
         "final_order": 16.0,
-        "initial_B_field": 1.0965610229487117,
-        "final_B_field": 1.096618887288337,
+        "initial_B_field": 1.0966561598706681,
+        "final_B_field": 1.0966124533135726,
         "target_B_field": 1.0,
-        "optimization_time": 277.81195402145386,
-        "final_normalized_squared_flux": 6.839955119579261e-07,
-        "final_min_cs_separation": 0.31757977378478774,
-        "final_min_cc_separation": 0.08003992238723578,
-        "final_total_length": 19.999996810959757,
-        "final_max_curvature": 5.921886351382896,
-        "final_average_curvature": 2.068169515652628,
-        "final_arclength_variation": 3.742159991883976e-05,
-        "final_mean_squared_curvature": 5.98402908309324,
+        "optimization_time": 1697.8530304431915,
+        "final_normalized_squared_flux": 6.382000562350405e-07,
+        "final_min_cs_separation": 0.30812941574722513,
+        "final_min_cc_separation": 0.07989795265165875,
+        "final_total_length": 20.00009494913107,
+        "final_max_curvature": 5.497421923684429,
+        "final_average_curvature": 2.075335355126419,
+        "final_arclength_variation": 0.00010621783398311814,
+        "final_mean_squared_curvature": 5.704353373366152,
         "final_linking_number": 0.0,
-        "final_max_max_coil_force": 579617.924498173,
-        "final_avg_max_coil_force": 437762.7692796029,
-        "final_max_max_coil_torque": 268248.4137823555,
-        "final_avg_max_coil_torque": 171567.4611498907,
-        "avg_BdotN_over_B": 0.00034565212878622767,
-        "max_BdotN_over_B": 0.0014379490808479074,
+        "final_max_max_coil_force": 541805.9957625617,
+        "final_avg_max_coil_force": 427978.2973996722,
+        "final_max_max_coil_torque": 240623.1772817403,
+        "final_avg_max_coil_torque": 167418.99164838565,
+        "avg_BdotN_over_B": 0.000349065079520058,
+        "max_BdotN_over_B": 0.0013612680852857374,
         "flux_threshold": 1e-08,
         "cc_threshold": 0.08,
         "cs_threshold": 0.13,
@@ -40,56 +40,13 @@
         "force_threshold": 1.0,
         "torque_threshold": 1.0,
         "fourier_order": 16.0,
-        "continuation_step": 3.0,
-        "coil_order": 8.0,
+        "continuation_step": 4.0,
+        "coil_order": 16.0,
         "num_coils": 4.0,
-        "fourier_continuation_orders": "4,8,16",
-        "score_primary": 6.839955119579261e-07
+        "fourier_continuation_orders": "4,8,12,16",
+        "score_primary": 6.382000562350405e-07
       },
       "rank": 1
-    },
-    {
-      "method_key": ":LandremanPaul2021_QA:akaptano:01-26-2026_11-37",
-      "method_name": "",
-      "method_version": "all_files",
-      "score_primary": 1.4750388638241268e-06,
-      "run_date": "2026-01-26T11:37:17.461221",
-      "contact": "akaptano",
-      "hardware": "CPU: Apple M3 Pro | RAM: 36.0GB",
-      "path": "submissions/LandremanPaul2021_QA/akaptano/01-26-2026_11-37/all_files.zip",
-      "metrics": {
-        "initial_B_field": 0.9999187287104945,
-        "final_B_field": 1.0961589656251212,
-        "target_B_field": 1.0,
-        "optimization_time": 128.8463408946991,
-        "final_normalized_squared_flux": 1.4750388638241268e-06,
-        "final_min_cs_separation": 0.29564741804055195,
-        "final_min_cc_separation": 0.07998411343443015,
-        "final_total_length": 22.941580242136197,
-        "final_max_curvature": 4.853244659625694,
-        "final_average_curvature": 2.110738661342455,
-        "final_arclength_variation": 0.0002702554366459044,
-        "final_mean_squared_curvature": 7.456385902932283,
-        "final_linking_number": 0.0,
-        "final_max_max_coil_force": 560312.5119839672,
-        "final_avg_max_coil_force": 491363.72549717675,
-        "final_max_max_coil_torque": 282439.9494751662,
-        "final_avg_max_coil_torque": 253944.15916658327,
-        "avg_BdotN_over_B": 0.0004856785383378167,
-        "max_BdotN_over_B": 0.002029913958399026,
-        "flux_threshold": 1e-08,
-        "cc_threshold": 0.08,
-        "cs_threshold": 0.13,
-        "msc_threshold": 10.0,
-        "arclength_variation_threshold": 0.0,
-        "curvature_threshold": 10.0,
-        "force_threshold": 0.03077870113881194,
-        "torque_threshold": 0.03077870113881194,
-        "coil_order": 8.0,
-        "num_coils": 4.0,
-        "score_primary": 1.4750388638241268e-06
-      },
-      "rank": 2
     },
     {
       "method_key": ":cfqs_2b40:akaptano:01-27-2026_01-03",
@@ -132,7 +89,7 @@
         "num_coils": 4.0,
         "score_primary": 8.289101038157536e-05
       },
-      "rank": 3
+      "rank": 2
     },
     {
       "method_key": ":c09r00_B_axis_half_tesla_PM4Stell.focus:akaptano:01-27-2026_01-03",
@@ -180,7 +137,7 @@
         "fourier_continuation_orders": "4,8",
         "score_primary": 0.00010110274628535607
       },
-      "rank": 4
+      "rank": 3
     },
     {
       "method_key": ":circular_tokamak:akaptano:01-26-2026_19-00",
@@ -223,7 +180,7 @@
         "num_coils": 6.0,
         "score_primary": 0.007640753056654067
       },
-      "rank": 5
+      "rank": 4
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:01-27-2026_01-03",
@@ -271,7 +228,7 @@
         "fourier_continuation_orders": "4,8",
         "score_primary": 0.007898723565720103
       },
-      "rank": 6
+      "rank": 5
     }
   ]
 }
