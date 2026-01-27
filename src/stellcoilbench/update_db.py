@@ -1118,20 +1118,24 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
         metrics = md.get("metrics", {})
         path = md.get("path", "")
         
+        # Use score_primary if available, otherwise try final_normalized_squared_flux for sorting
         if score_primary is None:
-            # Skip entries without a primary score
-            # Log which entries are being filtered out for debugging
-            filtered_count += 1
-            import sys
-            print(f"Warning: Filtering out entry {path} (score_primary is None, metrics keys: {list(metrics.keys())[:5]})", file=sys.stderr)
-            continue
+            # Try to use final_normalized_squared_flux as fallback for sorting
+            score_primary = metrics.get("final_normalized_squared_flux")
+            if score_primary is not None and isinstance(score_primary, (int, float)):
+                score_primary = float(score_primary)
+            else:
+                # If still None, use a large value so these entries sort last
+                score_primary = float('inf')
+                import sys
+                print(f"Warning: Entry {path} has no score_primary or final_normalized_squared_flux (metrics keys: {list(metrics.keys())[:5]}), will sort last", file=sys.stderr)
 
         entries.append(
             {
                 "method_key": method_key,
                 "method_name": md.get("method_name", "UNKNOWN"),
                 "method_version": md.get("method_version", ""),
-                "score_primary": float(score_primary),
+                "score_primary": float(score_primary) if score_primary != float('inf') else None,
                 "run_date": md.get("run_date", ""),
                 "contact": md.get("contact", ""),
                 "hardware": md.get("hardware", ""),
@@ -1140,12 +1144,12 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
             }
         )
 
-    entries.sort(key=lambda e: e["score_primary"], reverse=False)
+    entries.sort(key=lambda e: e["score_primary"] if e["score_primary"] is not None else float('inf'), reverse=False)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
     import sys
-    print(f"Leaderboard: {len(entries)} entries included, {filtered_count} filtered out (no score_primary)", file=sys.stderr)
+    print(f"Leaderboard: {len(entries)} entries included", file=sys.stderr)
 
     return {"entries": entries}
 

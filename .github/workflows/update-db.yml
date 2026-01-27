@@ -260,7 +260,8 @@ jobs:
           find submissions -name "*.zip" -type f 2>/dev/null | sort || echo "No zip files found"
           
           # Create Python script to check case match (using printf to avoid YAML indentation issues)
-          printf 'import sys\nimport zipfile\nimport yaml\nfrom pathlib import Path\n\nzip_path = sys.argv[1]\ncase_file_path = sys.argv[2]\n\ntry:\n    with zipfile.ZipFile(zip_path, "r") as zf:\n        if "case.yaml" not in zf.namelist():\n            print(f"  No case.yaml in zip", file=sys.stderr)\n            sys.exit(1)\n        \n        zip_case_content = zf.read("case.yaml").decode("utf-8")\n        zip_case_data = yaml.safe_load(zip_case_content)\n        \n        submission_source = zip_case_data.get("source_case_file", "")\n        repo_root = Path.cwd()\n        case_file_abs = (repo_root / case_file_path).resolve()\n        case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))\n        \n        # Normalize paths for comparison\n        submission_source_norm = submission_source.replace("\\\\", "/")\n        case_file_rel_norm = case_file_rel.replace("\\\\", "/")\n        \n        print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)\n        print(f"  Expected case file: {case_file_rel}", file=sys.stderr)\n        \n        if submission_source == case_file_rel or submission_source_norm == case_file_rel_norm:\n            print("MATCH")\n            sys.exit(0)\n        else:\n            print(f"  No match", file=sys.stderr)\n            sys.exit(1)\nexcept Exception as e:\n    print(f"Error checking zip: {e}", file=sys.stderr)\n    sys.exit(1)\n' > /tmp/check_case_match.py
+          # Exit codes: 0 = match, 1 = no match, 2 = error
+          printf 'import sys\nimport zipfile\nimport yaml\nfrom pathlib import Path\nimport os\n\nzip_path = sys.argv[1]\ncase_file_path = sys.argv[2]\n\ntry:\n    with zipfile.ZipFile(zip_path, "r") as zf:\n        if "case.yaml" not in zf.namelist():\n            print(f"  No case.yaml in zip", file=sys.stderr)\n            sys.exit(2)  # Error, not just no match\n        \n        zip_case_content = zf.read("case.yaml").decode("utf-8")\n        zip_case_data = yaml.safe_load(zip_case_content)\n        \n        if zip_case_data is None:\n            print(f"  case.yaml is empty or invalid", file=sys.stderr)\n            sys.exit(2)  # Error\n        \n        submission_source = zip_case_data.get("source_case_file", "")\n        if not submission_source:\n            print(f"  No source_case_file in case.yaml", file=sys.stderr)\n            sys.exit(2)  # Error\n        \n        repo_root = Path.cwd()\n        \n        # Resolve both paths relative to repo root\n        try:\n            case_file_abs = (repo_root / case_file_path).resolve()\n            case_file_rel = str(case_file_abs.relative_to(repo_root.resolve()))\n        except ValueError:\n            case_file_rel = case_file_path\n        \n        # Normalize paths: remove leading/trailing slashes, normalize separators\n        def normalize_path(p):\n            p = str(p).replace("\\\\", "/").replace("\\", "/")\n            p = p.strip("/")  # Remove leading/trailing slashes\n            return p.lower() if os.name == "nt" else p  # Case-insensitive on Windows\n        \n        submission_norm = normalize_path(submission_source)\n        case_file_norm = normalize_path(case_file_rel)\n        \n        # Also try comparing just the filename\n        submission_filename = Path(submission_source).name\n        case_filename = Path(case_file_path).name\n        \n        print(f"  Submission source_case_file: {submission_source}", file=sys.stderr)\n        print(f"  Submission normalized: {submission_norm}", file=sys.stderr)\n        print(f"  Expected case file: {case_file_rel}", file=sys.stderr)\n        print(f"  Expected normalized: {case_file_norm}", file=sys.stderr)\n        print(f"  Submission filename: {submission_filename}", file=sys.stderr)\n        print(f"  Expected filename: {case_filename}", file=sys.stderr)\n        \n        # Try multiple matching strategies\n        match_found = False\n        if submission_source == case_file_rel:\n            match_found = True\n            print(f"  Match: exact path match", file=sys.stderr)\n        elif submission_norm == case_file_norm:\n            match_found = True\n            print(f"  Match: normalized path match", file=sys.stderr)\n        elif submission_filename == case_filename:\n            match_found = True\n            print(f"  Match: filename match ({submission_filename})", file=sys.stderr)\n        elif submission_norm.endswith(case_file_norm) or case_file_norm.endswith(submission_norm):\n            match_found = True\n            print(f"  Match: path suffix match", file=sys.stderr)\n        \n        if match_found:\n            print("MATCH")\n            sys.exit(0)\n        else:\n            print(f"  No match (expected {case_file_rel}, got {submission_source})", file=sys.stderr)\n            sys.exit(1)  # No match, but not an error\nexcept zipfile.BadZipFile:\n    print(f"  Invalid zip file", file=sys.stderr)\n    sys.exit(2)  # Error\nexcept Exception as e:\n    import traceback\n    print(f"  Error checking zip: {e}", file=sys.stderr)\n    print(f"  Traceback: {traceback.format_exc()}", file=sys.stderr)\n    sys.exit(2)  # Error\n' > /tmp/check_case_match.py
           
           # Find zip files and check if they contain case.yaml matching this case
           FOUND_SUBMISSION=false
@@ -269,9 +270,14 @@ jobs:
           for zip_file in $(find submissions -name "*.zip" -type f 2>/dev/null | sort); do
             echo ""
             echo "Checking zip file: $zip_file"
+            # Run Python script and capture both stdout and stderr
+            # Exit codes: 0 = match, 1 = no match (continue), 2 = error (log but continue)
             MATCH_RESULT=$(python3 /tmp/check_case_match.py "$zip_file" "$CASE_FILE_PATH" 2>&1)
+            EXIT_CODE=$?
             
-            if echo "$MATCH_RESULT" | grep -q "^MATCH$"; then
+            if [ $EXIT_CODE -eq 0 ]; then
+              # Match found!
+              echo "$MATCH_RESULT" | grep -v "^MATCH$" || true  # Show debug messages
               echo "  ✓ Found matching submission!"
               FOUND_SUBMISSION=true
               MATCHING_ZIP="$zip_file"
@@ -279,6 +285,13 @@ jobs:
               echo "FOUND_SUBMISSION=true" >> $GITHUB_ENV
               echo "MATCHING_ZIP=$zip_file" >> $GITHUB_ENV
               break
+            elif [ $EXIT_CODE -eq 1 ]; then
+              # No match - this is expected, just show the message
+              echo "$MATCH_RESULT" | grep -v "^MATCH$" || true
+            else
+              # Error (exit code 2) - log it but continue checking other files
+              echo "  ⚠ Warning: Error checking zip file (exit code $EXIT_CODE):"
+              echo "$MATCH_RESULT" | grep -v "^MATCH$" || true
             fi
           done
           
@@ -647,7 +660,39 @@ jobs:
           stellcoilbench update-db 2>&1 | tee /tmp/update-db-output.log
           echo ""
           echo "=== Update-db diagnostic summary ==="
-          grep -E "(Loaded|skipped|filtered|Warning|Methods dict|Leaderboard:|Surface leaderboards|entries)" /tmp/update-db-output.log | head -20 || echo "No diagnostic output found"
+          grep -E "(Loaded|skipped|filtered|Warning|Methods dict|Leaderboard:|Surface leaderboards|entries|No match|Skipping|score_primary)" /tmp/update-db-output.log | head -50 || echo "No diagnostic output found"
+          echo ""
+          echo "=== Submissions found ==="
+          find submissions -name "*.zip" -type f | sort || echo "No zip files found"
+          echo ""
+          echo "=== Checking a few submissions for metrics ==="
+          # Check first few submissions to see what metrics they have
+          for zip_file in $(find submissions -name "*.zip" -type f | head -5); do
+            echo ""
+            echo "Checking: $zip_file"
+            python3 -c "
+import zipfile
+import json
+import sys
+try:
+    with zipfile.ZipFile('$zip_file', 'r') as zf:
+        if 'results.json' in zf.namelist():
+            data = json.loads(zf.read('results.json').decode('utf-8'))
+            metrics = data.get('metrics', {})
+            print(f'  Metrics keys: {list(metrics.keys())[:10]}')
+            print(f'  Has score_primary: {\"score_primary\" in metrics}')
+            print(f'  Has final_normalized_squared_flux: {\"final_normalized_squared_flux\" in metrics}')
+            print(f'  Has final_flux: {\"final_flux\" in metrics}')
+            if 'score_primary' in metrics:
+                print(f'  score_primary value: {metrics[\"score_primary\"]}')
+            elif 'final_normalized_squared_flux' in metrics:
+                print(f'  final_normalized_squared_flux value: {metrics[\"final_normalized_squared_flux\"]}')
+        else:
+            print('  No results.json in zip')
+except Exception as e:
+    print(f'  Error: {e}')
+" || echo "  Failed to check"
+          done
           echo "===================================="
           
           # Verify all expected leaderboard files were generated
