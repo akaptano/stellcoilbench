@@ -173,7 +173,7 @@ jobs:
           # Also output as a simple string for debugging
           echo "cases_to_run=$CASES_TO_RUN" >> $GITHUB_OUTPUT
 
-  setup-vmec:
+  setup-stellcoilbench:
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -247,7 +247,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libscalapack-mpi-dev libhdf5-dev libhdf5-serial-dev git m4 libfftw3-dev libboost-all-dev libopenblas-dev graphviz graphviz-dev
 
-      - name: Install python dependencies (setup-vmec installs these once for all jobs)
+      - name: Install python dependencies (setup-stellcoilbench installs these once for all jobs)
         run: |
           python -m pip install --upgrade pip
           # Install all dependencies - pip will use cached wheels if available
@@ -278,7 +278,7 @@ jobs:
       - name: Verify VMEC installation
         run: python -c "import vmec; print('VMEC module imported successfully')"
 
-      - name: Install stellcoilbench package (setup-vmec installs this once for all jobs)
+      - name: Install stellcoilbench package (setup-stellcoilbench installs this once for all jobs)
         if: steps.cache-stellcoilbench-install.outputs.cache-hit != 'true'
         run: |
           pip install -e .
@@ -290,7 +290,7 @@ jobs:
           stellcoilbench --help | head -5 || echo "stellcoilbench CLI available"
 
   run-cases:
-    needs: [determine-cases, setup-vmec]
+    needs: [determine-cases, setup-stellcoilbench]
     if: needs.determine-cases.outputs.cases_to_run_json != '[]'
     runs-on: ubuntu-24.04
     permissions:
@@ -311,7 +311,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Cache pip packages and wheels (restore from setup-vmec)
+      - name: Cache pip packages and wheels (restore from setup-stellcoilbench)
         id: cache-pip
         uses: actions/cache@v4
         with:
@@ -369,14 +369,19 @@ jobs:
           restore-keys: |
             stellcoilbench-install-${{ runner.os }}-python-3.13-
 
-      - name: Install python dependencies (using cached wheels from setup-vmec)
+      - name: Install system dependencies (needed for cached booz_xform and VMEC)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libscalapack-mpi-dev libhdf5-dev libhdf5-serial-dev git m4 libfftw3-dev libboost-all-dev libopenblas-dev graphviz graphviz-dev
+
+      - name: Install python dependencies (using cached wheels from setup-stellcoilbench)
         run: |
           python -m pip install --upgrade pip
-          # Install dependencies - pip will use cached wheels from setup-vmec job
+          # Install dependencies - pip will use cached wheels from setup-stellcoilbench job
           # This is much faster than downloading/building from scratch
           pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py f90wrap
 
-      - name: Restore VMEC2000 repository from cache (setup-vmec job already cloned it)
+      - name: Restore VMEC2000 repository from cache (setup-stellcoilbench job already cloned it)
         if: steps.cache-vmec-repo.outputs.cache-hit == 'true'
         run: |
           echo "VMEC2000 repository restored from cache"
@@ -390,10 +395,10 @@ jobs:
       - name: Add to LD_LIBRARY_PATH so scalapack etc can be found
         run: echo "LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu" >> $GITHUB_ENV
 
-      - name: Restore booz_xform from cache (setup-vmec job already installed it)
+      - name: Restore booz_xform from cache (setup-stellcoilbench job already installed it)
         if: steps.cache-booz-xform-install.outputs.cache-hit == 'true'
         run: |
-          echo "booz_xform installation restored from cache (installed by setup-vmec job)"
+          echo "booz_xform installation restored from cache (installed by setup-stellcoilbench job)"
           python -c "import booz_xform; print('booz_xform module imported successfully')"
 
       - name: Install booz_xform (fallback - should not be needed)
@@ -402,10 +407,10 @@ jobs:
           echo "WARNING: booz_xform cache miss - installing (this should be rare)"
           pip install -v git+https://github.com/hiddenSymmetries/booz_xform
 
-      - name: Restore VMEC from cache (setup-vmec job already built it)
+      - name: Restore VMEC from cache (setup-stellcoilbench job already built it)
         if: steps.cache-vmec-install.outputs.cache-hit == 'true'
         run: |
-          echo "VMEC installation restored from cache (built by setup-vmec job)"
+          echo "VMEC installation restored from cache (built by setup-stellcoilbench job)"
           python -c "import vmec; print('VMEC module imported successfully')"
 
       - name: Configure and install VMEC2000 module (fallback - should not be needed)
@@ -417,7 +422,7 @@ jobs:
           pip install .
           python -c "import vmec; print('VMEC module imported successfully')"
 
-      - name: Restore stellcoilbench from cache (setup-vmec job already installed it)
+      - name: Restore stellcoilbench from cache (setup-stellcoilbench job already installed it)
         if: steps.cache-stellcoilbench-install.outputs.cache-hit == 'true'
         run: |
           echo "stellcoilbench installation metadata restored from cache"
