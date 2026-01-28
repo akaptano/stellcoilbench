@@ -15,6 +15,8 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">BdotN</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">BdotN over B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">B̄_n</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">continuation step</th>
@@ -42,21 +44,23 @@
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">27/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.2e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.0e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.4e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.3e+04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.4e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.4e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.1e+04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">7.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e-01</td>
@@ -65,8 +69,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.1e+02</td>
 </tr>
 </tbody>
 </table>
@@ -76,6 +80,8 @@
 - Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
+- Bdotn
+- Bdotn Over B
 - Arclength Variation Threshold
 - Average normalized normal field component $\bar{B}_n$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
 - Continuation Step
