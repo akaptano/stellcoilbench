@@ -56,7 +56,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.6e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.1e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.2e+06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.6e+06</td>
