@@ -91,6 +91,51 @@
       "rank": 2
     },
     {
+      "method_key": ":rotating_ellipse:akaptano:01-28-2026_19-23",
+      "method_name": "",
+      "method_version": "all_files",
+      "score_primary": 0.00017310240113452098,
+      "run_date": "2026-01-28T19:23:04.208493",
+      "contact": "akaptano",
+      "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 15.6GB",
+      "path": "submissions/rotating_ellipse/akaptano/01-28-2026_19-23/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999999829966273,
+        "final_B_field": 1.0294164906554801,
+        "target_B_field": 1.0,
+        "optimization_time": 331.3596022129059,
+        "final_normalized_squared_flux": 0.00017310240113452098,
+        "final_min_cs_separation": 0.6906830415746962,
+        "final_min_cc_separation": 0.3996613843316425,
+        "final_total_length": 99.99957131818323,
+        "final_max_curvature": 1.0214803629645646,
+        "final_average_curvature": 0.3970046354805915,
+        "final_arclength_variation": 0.041358372883019266,
+        "final_mean_squared_curvature": 0.2631804769724587,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9740235.06213411,
+        "final_avg_max_coil_force": 4816906.923184353,
+        "final_max_max_coil_torque": 33372312.44306715,
+        "final_avg_max_coil_torque": 14029116.36638703,
+        "avg_BdotN_over_B": 0.0009532249689983975,
+        "max_BdotN_over_B": 0.004755740631084936,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0008833349178354748,
+        "BdotN_over_B": 0.0009539037027629371,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.00017310240113452098
+      },
+      "rank": 3
+    },
+    {
       "method_key": ":circular_tokamak:akaptano:01-28-2026_19-22",
       "method_name": "",
       "method_version": "all_files",
@@ -133,7 +178,7 @@
         "num_coils": 6.0,
         "score_primary": 0.0076404560115968375
       },
-      "rank": 3
+      "rank": 4
     }
   ]
 }
