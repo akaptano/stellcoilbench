@@ -46,6 +46,51 @@
       "rank": 1
     },
     {
+      "method_key": ":cfqs_2b40:akaptano:01-28-2026_19-22",
+      "method_name": "",
+      "method_version": "all_files",
+      "score_primary": 8.356948552366961e-05,
+      "run_date": "2026-01-28T19:22:59.017860",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
+      "path": "submissions/cfqs_2b40/akaptano/01-28-2026_19-22/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999885429768334,
+        "final_B_field": 1.1305019938308964,
+        "target_B_field": 1.0,
+        "optimization_time": 248.81702136993408,
+        "final_normalized_squared_flux": 8.356948552366961e-05,
+        "final_min_cs_separation": 0.1957155948090771,
+        "final_min_cc_separation": 0.079768357660919,
+        "final_total_length": 20.0001013227403,
+        "final_max_curvature": 5.0242386043250225,
+        "final_average_curvature": 2.091182698217449,
+        "final_arclength_variation": 0.0009563485551594769,
+        "final_mean_squared_curvature": 8.132131244326334,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 429255.73009200173,
+        "final_avg_max_coil_force": 385663.5883069095,
+        "final_max_max_coil_torque": 268111.6954931574,
+        "final_avg_max_coil_torque": 240513.71375696178,
+        "avg_BdotN_over_B": 0.0033758821759705053,
+        "max_BdotN_over_B": 0.02652969457651459,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0017483647695282112,
+        "BdotN_over_B": 0.001845116403071492,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 8.356948552366961e-05
+      },
+      "rank": 2
+    },
+    {
       "method_key": ":circular_tokamak:akaptano:01-28-2026_19-22",
       "method_name": "",
       "method_version": "all_files",
@@ -88,7 +133,7 @@
         "num_coils": 6.0,
         "score_primary": 0.0076404560115968375
       },
-      "rank": 2
+      "rank": 3
     }
   ]
 }
