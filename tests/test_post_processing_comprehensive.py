@@ -18,6 +18,7 @@ from stellcoilbench.post_processing import (
     plot_quasisymmetry_profile,
     trace_fieldlines,
     run_post_processing,
+    run_simple_particle_tracing,
 )
 
 
@@ -744,3 +745,402 @@ optimizer_params:
                     assert results is not None
                     # Should still complete even if Poincaré fails
                     assert 'qfm_surface' in results
+
+
+class TestRunSimpleParticleTracing:
+    """Tests for run_simple_particle_tracing function."""
+    
+    def test_run_simple_particle_tracing_success(self, tmp_path):
+        """Test successful SIMPLE particle tracing execution."""
+        
+        # Create mock VMEC equilibrium
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        # Create mock simple.x executable
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("#!/bin/bash\necho 'SIMPLE completed'\n")
+        simple_x_path.chmod(0o755)
+        
+        # Create mock confined_fraction.dat output
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        confined_file = output_dir / "confined_fraction.dat"
+        # Format: time, confined_passing, confined_trapped, total_particles
+        confined_file.write_text("0.0 0.5 0.3 1000\n0.1 0.45 0.25 1000\n0.2 0.4 0.2 1000\n")
+        
+        with patch('subprocess.run') as mock_run:
+            mock_result = Mock()
+            mock_result.returncode = 0
+            mock_result.stdout = "SIMPLE completed successfully"
+            mock_result.stderr = ""
+            mock_run.return_value = mock_result
+            
+            results = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+            
+            assert results is not None
+            assert 'simple_output_dir' in results
+            assert 'confined_fraction_file' in results
+            assert 'loss_fraction' in results
+            mock_run.assert_called_once()
+            
+            # Check that simple.in was created
+            simple_in_path = output_dir / "simple.in"
+            assert simple_in_path.exists()
+            simple_in_content = simple_in_path.read_text()
+            assert "netcdffile" in simple_in_content
+            assert str(vmec_output_file.resolve()) in simple_in_content
+    
+    def test_run_simple_particle_tracing_executable_not_found(self, tmp_path):
+        """Test SIMPLE particle tracing when executable is not found."""
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        # Don't create simple.x, so it won't be found
+        results = run_simple_particle_tracing(
+            mock_equil,
+            output_dir,
+            simple_executable_path=None,  # Will search and not find
+        )
+        
+        # Should return empty dict when executable not found
+        assert results == {}
+    
+    def test_run_simple_particle_tracing_vmec_file_not_found(self, tmp_path):
+        """Test SIMPLE particle tracing when VMEC output file doesn't exist."""
+        mock_equil = Mock()
+        mock_equil.output_file = str(tmp_path / "nonexistent.nc")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        with pytest.raises(FileNotFoundError):
+            run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+    
+    def test_run_simple_particle_tracing_execution_failure(self, tmp_path):
+        """Test SIMPLE particle tracing when simple.x fails."""
+        
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        with patch('subprocess.run') as mock_run:
+            mock_result = Mock()
+            mock_result.returncode = 1  # Failure
+            mock_result.stdout = "Error occurred"
+            mock_result.stderr = "Error details"
+            mock_run.return_value = mock_result
+            
+            results = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+            
+            # Should return empty dict on failure
+            assert results == {}
+            mock_run.assert_called_once()
+    
+    def test_run_simple_particle_tracing_timeout(self, tmp_path):
+        """Test SIMPLE particle tracing when simple.x times out."""
+        import subprocess
+        
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        with patch('subprocess.run') as mock_run:
+            mock_run.side_effect = subprocess.TimeoutExpired("simple.x", 3600)
+            
+            results = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+            
+            # Should return empty dict on timeout
+            assert results == {}
+    
+    def test_run_simple_particle_tracing_parse_output(self, tmp_path):
+        """Test parsing of confined_fraction.dat output and plot generation."""
+        
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        # Create confined_fraction.dat with proper format
+        confined_file = output_dir / "confined_fraction.dat"
+        # Format: time, confined_passing, confined_trapped, total_particles
+        confined_file.write_text(
+            "0.0 0.5 0.3 1000\n"
+            "0.1 0.45 0.25 1000\n"
+            "0.2 0.4 0.2 1000\n"
+        )
+        
+        with patch('subprocess.run') as mock_run:
+            mock_result = Mock()
+            mock_result.returncode = 0
+            mock_result.stdout = "Success"
+            mock_result.stderr = ""
+            mock_run.return_value = mock_result
+            
+            results = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+            
+            assert results is not None
+            assert 'loss_fraction' in results
+            assert 'confined_fraction' in results
+            assert 'confined_passing' in results
+            assert 'confined_trapped' in results
+            assert 'final_time' in results
+            
+            # Check values from last row: 0.2 0.4 0.2
+            # total_confined = 0.4 + 0.2 = 0.6
+            # loss_fraction = 1.0 - 0.6 = 0.4
+            assert abs(results['loss_fraction'] - 0.4) < 1e-10
+            assert abs(results['confined_fraction'] - 0.6) < 1e-10
+            assert abs(results['confined_passing'] - 0.4) < 1e-10
+            assert abs(results['confined_trapped'] - 0.2) < 1e-10
+            assert abs(results['final_time'] - 0.2) < 1e-10
+            
+            # Check that plot was generated
+            plot_path = output_dir / "simple_loss_fraction.png"
+            assert 'loss_fraction_plot' in results
+            assert plot_path.exists()
+    
+    def test_run_simple_particle_tracing_parse_error(self, tmp_path):
+        """Test handling of parsing errors in confined_fraction.dat."""
+        
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        # Create malformed confined_fraction.dat
+        confined_file = output_dir / "confined_fraction.dat"
+        confined_file.write_text("invalid data\n")
+        
+        with patch('subprocess.run') as mock_run:
+            mock_result = Mock()
+            mock_result.returncode = 0
+            mock_result.stdout = "Success"
+            mock_result.stderr = ""
+            mock_run.return_value = mock_result
+            
+            results = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+            )
+            
+            # Should still return results dict but without parsed metrics
+            assert results is not None
+            assert 'simple_output_dir' in results
+            assert 'loss_fraction' not in results  # Parsing failed
+    
+    def test_run_simple_particle_tracing_custom_parameters(self, tmp_path):
+        """Test SIMPLE particle tracing with custom parameters."""
+        
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
+        with patch('subprocess.run') as mock_run:
+            mock_result = Mock()
+            mock_result.returncode = 0
+            mock_result.stdout = "Success"
+            mock_result.stderr = ""
+            mock_run.return_value = mock_result
+            
+            _ = run_simple_particle_tracing(
+                mock_equil,
+                output_dir,
+                simple_executable_path=simple_x_path,
+                trace_time=1e-3,
+                sbeg=0.5,
+                ntestpart=500,
+                n_d=2,
+                n_e=1,
+                facE_al=2.0,
+                vmec_B_scale=1.5,
+                isw_field_type=1,
+            )
+            
+            # Check that simple.in was created with custom parameters
+            simple_in_path = output_dir / "simple.in"
+            assert simple_in_path.exists()
+            
+            simple_in_content = simple_in_path.read_text()
+            # Check that custom parameters were used (not defaults)
+            # Note: Fortran double precision uses 'd' not 'e' (e.g., 1.0d-03 not 1.0e-03d0)
+            assert "trace_time = 1.000000d-03" in simple_in_content
+            assert "sbeg = 5.000000d-01" in simple_in_content
+            assert "ntestpart = 500" in simple_in_content
+            assert "n_d = 2" in simple_in_content
+            assert "n_e = 1" in simple_in_content
+            assert "facE_al = 2.000000d+00" in simple_in_content
+            assert "vmec_B_scale = 1.500000d+00" in simple_in_content
+            assert "isw_field_type = 1" in simple_in_content
+            
+            # Check that all required parameters are in the file
+            assert "netcdffile" in simple_in_content
+            assert "num_surf" in simple_in_content
+            assert "nper" in simple_in_content
+            assert "npoiper" in simple_in_content
+            assert "ntimstep" in simple_in_content
+            assert "macrostep_time_grid" in simple_in_content
+            
+            # Verify defaults were NOT used for custom parameters
+            assert "trace_time = 1.000000d-01" not in simple_in_content  # Default is 0.1
+            assert "ntestpart = 1024" not in simple_in_content  # Default is 1024
+            assert "npoiper2 = 256" in simple_in_content  # Default should be used since not overridden
+    
+    def test_run_simple_particle_tracing_integration_with_post_processing(self, tmp_path):
+        """Test SIMPLE integration with run_post_processing."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from simsopt.geo import SurfaceRZFourier
+        from simsopt.field import BiotSavart
+        
+        # Create minimal setup
+        coils_json = tmp_path / "coils.json"
+        mock_coils = [Mock()]
+        mock_bfield = Mock(spec=BiotSavart)
+        mock_bfield.B.return_value = np.random.rand(100, 3)
+        
+        with patch('simsopt.save') as mock_save:
+            mock_save(mock_coils, str(coils_json))
+        
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text("""
+surface_params:
+  surface: input.test
+coils_params:
+  ncoils: 2
+  order: 2
+optimizer_params:
+  algorithm: l-bfgs
+""")
+        
+        surface_file = tmp_path / "input.test"
+        surface_file.write_text("dummy")
+        
+        mock_surface = Mock(spec=SurfaceRZFourier)
+        gamma_array = np.random.rand(10, 10, 3)
+        normal_array = np.random.rand(10, 10, 3)
+        mock_surface.gamma = lambda: gamma_array
+        mock_surface.normal = lambda: normal_array
+        mock_surface.unitnormal = lambda: normal_array
+        quadpoints_phi = np.linspace(0, 1, 10)
+        quadpoints_theta = np.linspace(0, 1, 10)
+        mock_surface.quadpoints_phi = quadpoints_phi
+        mock_surface.quadpoints_theta = quadpoints_theta
+        
+        # Create mock VMEC equilibrium with output file
+        mock_equil = Mock()
+        vmec_output_file = tmp_path / "wout_test.nc"
+        vmec_output_file.write_text("dummy VMEC output")
+        mock_equil.output_file = str(vmec_output_file)
+        mock_equil.wout.iotas = np.array([0.0, 0.5, 1.0])
+        
+        # Create mock simple.x
+        simple_x_path = tmp_path / "simple.x"
+        simple_x_path.write_text("dummy")
+        
+        # Create mock confined_fraction.dat
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        confined_file = output_dir / "confined_fraction.dat"
+        confined_file.write_text("0.0 0.5 0.3 1000\n0.2 0.4 0.2 1000\n")
+        
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_bfield.AbsB.return_value = np.random.rand(100)
+            mock_load.return_value = (mock_bfield, mock_surface)
+            
+            with patch('stellcoilbench.post_processing.compute_qfm_surface') as mock_qfm:
+                mock_qfm.return_value = mock_surface
+                
+                with patch('stellcoilbench.post_processing.run_vmec_equilibrium') as mock_vmec:
+                    mock_vmec.return_value = mock_equil
+                    
+                    with patch('subprocess.run') as mock_run:
+                        mock_result = Mock()
+                        mock_result.returncode = 0
+                        mock_result.stdout = "Success"
+                        mock_result.stderr = ""
+                        mock_run.return_value = mock_result
+                        
+                        results = run_post_processing(
+                            coils_json_path=coils_json,
+                            output_dir=output_dir,
+                            case_yaml_path=case_yaml,
+                            plasma_surfaces_dir=tmp_path,
+                            run_vmec=True,
+                            run_simple=True,
+                            simple_executable_path=simple_x_path,
+                            plot_boozer=False,
+                            plot_poincare=False,
+                        )
+                        
+                        assert results is not None
+                        # Should have simple_results if SIMPLE ran successfully
+                        if 'simple_results' in results:
+                            assert 'simple_output_dir' in results['simple_results']
+                            # Check that plot was generated
+                            plot_path = Path(results['simple_results'].get('loss_fraction_plot', ''))
+                            if plot_path and plot_path.exists():
+                                assert plot_path.suffix == '.png'

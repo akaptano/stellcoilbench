@@ -43,6 +43,7 @@ except ImportError:
     TRACING_AVAILABLE = False
 import json
 import yaml
+import subprocess
 
 
 def load_coils_and_surface(
@@ -977,6 +978,377 @@ def trace_fieldlines(
     }
 
 
+def run_simple_particle_tracing(
+    vmec_equil: Any,  # type: ignore
+    output_dir: Path,
+    simple_executable_path: Optional[Path] = None,
+    **kwargs: Any,
+) -> Dict[str, Any]:
+    """
+    Run SIMPLE fast particle tracing using simple.x executable.
+    
+    This function creates a simple.in input file and runs the simple.x Fortran
+    executable to perform fast particle tracing on a VMEC equilibrium.
+    
+    Parameters are based on the SIMPLE simple.in configuration file format.
+    See https://github.com/itpplasma/SIMPLE/blob/main/simple.in for full documentation.
+    
+    Parameters
+    ----------
+    vmec_equil : Vmec
+        VMEC equilibrium object with output_file attribute containing path to wout file.
+    output_dir : Path
+        Directory where simple.in and output files will be written.
+    simple_executable_path : Path, optional
+        Path to simple.x executable. If None, assumes simple.x is in the project root directory.
+    
+    **kwargs : Any
+        SIMPLE configuration parameters (all optional with SIMPLE defaults).
+        Key parameters: trace_time (float, 0.1), sbeg (float/list, 0.5),
+        ntestpart (int, 1024), num_surf (int, 1), n_d (int, 4), n_e (int, 2),
+        facE_al (float, 1.0), nper (int, 1000), npoiper (int, 100),
+        npoiper2 (int, 256), phibeg (float, 0.0), thetabeg (float, 0.0),
+        contr_pp (float, -1.0), netcdffile (str), vmec_B_scale (float, 1.0),
+        vmec_RZ_scale (float, 1.0), isw_field_type (int, 2), ntimstep (int, 10000),
+        integmode (int, 1), relerr (float, 1e-13), ns_s (int, 5), ns_tp (int, 5),
+        multharm (int, 5), startmode (int, 1), grid_density (float, 0.0),
+        special_ants_file (bool, False), generate_start_only (bool, False),
+        tcut (float, -1.0), class_plot (bool, False), cut_in_per (float, 0.0),
+        fast_class (bool, False), swcoll (bool, False), am1 (float, 2.0),
+        am2 (float, 3.0), Z1 (float, 1.0), Z2 (float, 1.0), densi1 (float, 0.5e14),
+        densi2 (float, 0.5e14), tempi1 (float, 1.0e4), tempi2 (float, 1.0e4),
+        tempe (float, 1.0e4), notrace_passing (int, 0), debug (bool, False),
+        deterministic (bool, False), old_axis_healing (bool, True),
+        old_axis_healing_boundary (bool, True), batch_size (int, 2e9),
+        macrostep_time_grid (str, 'linear'), ran_seed (int, 12345),
+        reuse_batch (bool, False), output_orbits_macrostep (bool, False),
+        output_error (bool, False).
+    
+    Returns
+    -------
+    Dict[str, Any]
+        Dictionary containing:
+        - 'simple_output_dir': Path to directory where simple.x outputs were written
+        - 'confined_fraction_file': Path to confined_fraction.dat
+        - 'times_lost_file': Path to times_lost.dat
+        - 'loss_fraction': Final loss fraction (if available)
+        - 'confined_fraction': Final confined fraction (if available)
+        - 'confined_passing': Final confined passing fraction (if available)
+        - 'confined_trapped': Final confined trapped fraction (if available)
+        - 'final_time': Final time value (if available)
+    """
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Note: SIMPLE has a limitation with nfp=1 configurations (both tokamaks and nfp=1 stellarators)
+    # The error "Spline not supported for a Phi period of 1" occurs for any nfp=1 configuration.
+    # We don't preemptively skip here - let SIMPLE try and handle the error gracefully if it occurs.
+    
+    # Get VMEC output file path first (needed for netcdffile default)
+    vmec_output_file = Path(vmec_equil.output_file)
+    if not vmec_output_file.exists():
+        raise FileNotFoundError(f"VMEC output file not found: {vmec_output_file}")
+    
+    # Extract parameters with defaults from SIMPLE params.f90
+    # Defaults match those defined in src/params.f90 of the SIMPLE repository
+    # Note: kwargs.pop() removes the key from kwargs dict, so defaults are only used if key doesn't exist
+    notrace_passing = kwargs.pop('notrace_passing', 0)
+    nper = kwargs.pop('nper', 1000)
+    npoiper = kwargs.pop('npoiper', 100)
+    ntimstep = kwargs.pop('ntimstep', 10000)
+    ntestpart = kwargs.pop('ntestpart', 1024)
+    trace_time = kwargs.pop('trace_time', 0.1)  # 1d-1 in Fortran
+    num_surf = kwargs.pop('num_surf', 1)
+    sbeg = kwargs.pop('sbeg', 0.5)  # Can be float or list
+    phibeg = kwargs.pop('phibeg', 0.0)
+    thetabeg = kwargs.pop('thetabeg', 0.0)
+    contr_pp = kwargs.pop('contr_pp', -1.0)
+    facE_al = kwargs.pop('facE_al', 1.0)
+    npoiper2 = kwargs.pop('npoiper2', 256)
+    n_e = kwargs.pop('n_e', 2)
+    n_d = kwargs.pop('n_d', 4)
+    netcdffile = kwargs.pop('netcdffile', None)
+    ns_s = kwargs.pop('ns_s', 5)
+    ns_tp = kwargs.pop('ns_tp', 5)
+    multharm = kwargs.pop('multharm', 5)
+    isw_field_type = kwargs.pop('isw_field_type', 2)
+    generate_start_only = kwargs.pop('generate_start_only', False)
+    startmode = kwargs.pop('startmode', 1)
+    grid_density = kwargs.pop('grid_density', 0.0)
+    special_ants_file = kwargs.pop('special_ants_file', False)
+    integmode = kwargs.pop('integmode', 1)  # EXPL_IMPL_EULER = 1
+    relerr = kwargs.pop('relerr', 1e-13)
+    tcut = kwargs.pop('tcut', -1.0)
+    debug = kwargs.pop('debug', False)
+    class_plot = kwargs.pop('class_plot', False)
+    cut_in_per = kwargs.pop('cut_in_per', 0.0)
+    fast_class = kwargs.pop('fast_class', False)
+    vmec_B_scale = kwargs.pop('vmec_B_scale', 1.0)
+    vmec_RZ_scale = kwargs.pop('vmec_RZ_scale', 1.0)
+    swcoll = kwargs.pop('swcoll', False)
+    deterministic = kwargs.pop('deterministic', False)
+    old_axis_healing = kwargs.pop('old_axis_healing', True)
+    old_axis_healing_boundary = kwargs.pop('old_axis_healing_boundary', True)
+    am1 = kwargs.pop('am1', 2.0)
+    am2 = kwargs.pop('am2', 3.0)
+    Z1 = kwargs.pop('Z1', 1.0)
+    Z2 = kwargs.pop('Z2', 1.0)
+    densi1 = kwargs.pop('densi1', 0.5e14)
+    densi2 = kwargs.pop('densi2', 0.5e14)
+    tempi1 = kwargs.pop('tempi1', 1.0e4)
+    tempi2 = kwargs.pop('tempi2', 1.0e4)
+    tempe = kwargs.pop('tempe', 1.0e4)
+    batch_size = kwargs.pop('batch_size', 2000000000)  # Very large default (effectively disabled)
+    ran_seed = kwargs.pop('ran_seed', 12345)
+    reuse_batch = kwargs.pop('reuse_batch', False)
+    output_orbits_macrostep = kwargs.pop('output_orbits_macrostep', False)
+    output_error = kwargs.pop('output_error', False)
+    macrostep_time_grid = kwargs.pop('macrostep_time_grid', 'linear')
+    
+    # Use provided netcdffile or default to VMEC output file
+    if netcdffile is None:
+        netcdffile = str(vmec_output_file.resolve())
+    else:
+        netcdffile = str(Path(netcdffile).resolve())
+    
+    # Warn about unused kwargs
+    if kwargs:
+        import warnings
+        warnings.warn(f"Unknown SIMPLE parameters ignored: {list(kwargs.keys())}", UserWarning)
+    
+    # Find simple.x executable
+    if simple_executable_path is None:
+        # Calculate project root: go from src/stellcoilbench/post_processing.py up 3 levels
+        try:
+            # Use __file__ if available (when running as module)
+            project_root = Path(__file__).resolve().parent.parent.parent
+        except NameError:
+            # Fallback: assume we're in project root or use cwd
+            project_root = Path.cwd()
+        
+        # Assume simple.x is in project root
+        simple_executable_path = project_root / "simple.x"
+        
+        if not simple_executable_path.exists() or not simple_executable_path.is_file():
+            proc0_print("Warning: simple.x executable not found. Skipping particle tracing.")
+            proc0_print(f"  Expected location: {simple_executable_path}")
+            proc0_print("  Tip: Copy simple.x to the project root directory.")
+            return {}
+    
+    if not simple_executable_path.exists():
+        proc0_print(f"Warning: simple.x executable not found at {simple_executable_path}. Skipping particle tracing.")
+        return {}
+    
+    # Make executable path absolute
+    simple_executable_path = simple_executable_path.resolve()
+    
+    # Format sbeg - can be single value or list
+    # Fortran double precision uses 'd' not 'e', so replace 'e' with 'd' in scientific notation
+    def format_fortran_double(val: float) -> str:
+        """Format float as Fortran double precision (e.g., 1.0d-1 instead of 1.0e-1)."""
+        formatted = f"{float(val):.6e}"
+        # Replace 'e' with 'd' for double precision
+        if 'e' in formatted:
+            return formatted.replace('e', 'd')
+        else:
+            # If no exponent, add 'd0' suffix
+            return formatted + 'd0'
+    
+    if isinstance(sbeg, (list, tuple, np.ndarray)):
+        sbeg_str = ', '.join(format_fortran_double(s) for s in sbeg)
+    else:
+        sbeg_str = format_fortran_double(sbeg)
+    
+    # Format boolean values for Fortran
+    def fortran_bool(val: bool) -> str:
+        return ".True." if val else ".False."
+    
+    # Create simple.in file
+    simple_in_path = output_dir / "simple.in"
+    
+    simple_in_content = f"""&config
+notrace_passing = {notrace_passing}      ! skip tracing passing prts if notrace_passing=1
+nper = {nper}              ! number of periods for initial field line
+npoiper = {npoiper}            ! number of points per period on this field line
+ntimstep = {ntimstep}         ! number of time steps per slowing down time
+ntestpart = {ntestpart}          ! number of test particles
+trace_time = {format_fortran_double(trace_time)}        ! slowing down time, s
+sbeg = {sbeg_str}     ! starting s (normalized toroidal flux) for particles. The particles will be distributed equally along these flux surfaces.
+num_surf = {num_surf}             ! number of flux surfaces. Value 0, distributes in volume.
+phibeg = {format_fortran_double(phibeg)}            ! starting phi for field line
+thetabeg = {format_fortran_double(thetabeg)}          ! starting theta for field line
+contr_pp = {format_fortran_double(contr_pp)}        ! control of passing particle fraction
+facE_al = {format_fortran_double(facE_al)}            ! test particle energy reduction factor
+npoiper2 = {npoiper2}	         ! points per period for integrator step
+n_e = {n_e}                  ! test particle charge number (the same as Z)
+n_d = {n_d}                  ! test particle mass number (the same as A)
+netcdffile = '{netcdffile}'   ! name of VMEC file in NETCDF format
+ns_s = {ns_s}                 ! spline order for 3D quantities over s variable
+ns_tp = {ns_tp}                ! spline order for 3D quantities over theta and phi
+multharm = {multharm}             ! angular grid factor (n_grid=multharm*n_harm_max where n_harm_max - maximum Fourier index
+isw_field_type = {isw_field_type}       ! -1: Testing, 0: Canonical, 1: VMEC, 2: Boozer, 3: Meiss, 4: Albert
+generate_start_only = {fortran_bool(generate_start_only)} ! If .True., only initialisation is done and particle coordinates are written to file, SIMPLE does not run.
+startmode = {startmode}            !  mode for initial conditions: 
+!                         1=only on one fieldline ("local"),
+!                         2=read and run, 
+!                         3=read ANTS and run
+!                         4=read and run a batch,
+!                         5=distribute in volume ("global")
+grid_density = {format_fortran_double(grid_density)}       ! for startmode 1 only, between 0.0 to 0.99, when 0.0 then no grid is made.
+special_ants_file = {fortran_bool(special_ants_file)} ! if .True., a different start file is read (defined in samplers.f90), .False. uses standard filename (defined in samplers.f90)
+integmode = {integmode}            ! mode for integrator: -1 = RK VMEC, 0 = RK, 1 = EXPL_IMPL_EULER (default), 2 = Euler2, 3 = Midpoint
+relerr = {format_fortran_double(relerr)}           ! tolerance for integrator. Set to 1d-13 for symplectic.
+tcut = {format_fortran_double(tcut)}              ! time when to do cut for classification, usually 1d-1, or -1 if no cuts desired
+debug = {fortran_bool(debug)}          ! produce debugging output (.True./.False.). Use only in non-parallel mode!
+class_plot = {fortran_bool(class_plot)}     ! write starting points at phi=const cut for classification plot (.True./.False.)
+cut_in_per = {format_fortran_double(cut_in_per)}         ! normalized phi-cut position within field period, [0:1], used if class_plot=.True.
+fast_class = {fortran_bool(fast_class)}     ! if .True. quit immeadiately after fast classification and don't trace orbits to the end
+vmec_B_scale = {format_fortran_double(vmec_B_scale)}     ! factor to scale the B field from VMEC
+vmec_RZ_scale = {format_fortran_double(vmec_RZ_scale)}    ! factor to scale the device size from VMEC
+swcoll = {fortran_bool(swcoll)}         ! if .True. enables collisions. This is incompatible with classification.
+am1 = {format_fortran_double(am1)},             ! atomic mass of the first background species for collisions
+am2 = {format_fortran_double(am2)},             ! atomic mass of the second background species for collisions
+Z1 = {format_fortran_double(Z1)},              ! charge number of the first background species for collisions
+Z2 = {format_fortran_double(Z2)},              ! charge number of the second background species for collisions
+densi1 = {format_fortran_double(densi1)},         ! density of the first background species for collisions (cm^-3)
+densi2 = {format_fortran_double(densi2)},         ! density of the second background species for collisions (cm^-3)
+tempi1 = {format_fortran_double(tempi1)},          ! temperature of the first background species for collisions (eV)
+tempi2 = {format_fortran_double(tempi2)},          ! temperature of the second background species for collisions (eV)
+tempe = {format_fortran_double(tempe)}            ! electron temperature for collisions (eV)
+deterministic = {fortran_bool(deterministic)}  ! if .True. put seed for the same random walk
+old_axis_healing = {fortran_bool(old_axis_healing)}  ! How to heal VMEC axis. Leave .True. until new version is fully tested.
+old_axis_healing_boundary = {fortran_bool(old_axis_healing_boundary)}  ! How to heal VMEC axis. Leave .True. until new version is fully tested.
+batch_size = {batch_size} ! Use only a portion of all particles. Ignored if larger than ntestpart.
+ran_seed = {ran_seed}   ! Random seed to get batch_size amounts of random indices from ntestpart.
+reuse_batch = {fortran_bool(reuse_batch)} ! Reuse batch from last run. Previous indices are stored in batch.dat, new batch generated if batch.dat not found.
+output_orbits_macrostep = {fortran_bool(output_orbits_macrostep)} ! Output orbit positions to fort.9XXXX
+output_error = {fortran_bool(output_error)} ! Output additional error diagnostics
+macrostep_time_grid = '{macrostep_time_grid}' ! Macrostep time grid: 'linear' or 'log'
+/
+"""
+    
+    simple_in_path.write_text(simple_in_content)
+    proc0_print(f"Created simple.in file: {simple_in_path}")
+    
+    # Run simple.x
+    proc0_print("Running simple.x particle tracing...")
+    proc0_print(f"  Executable: {simple_executable_path}")
+    proc0_print(f"  VMEC file: {netcdffile}")
+    proc0_print(f"  Working directory: {output_dir}")
+    
+    try:
+        # Change to output_dir to run simple.x (it expects simple.in in current directory)
+        result = subprocess.run(
+            [str(simple_executable_path)],
+            cwd=str(output_dir),
+            capture_output=True,
+            text=True,
+            timeout=3600,  # 1 hour timeout
+        )
+        
+        if result.returncode != 0:
+            proc0_print(f"Warning: simple.x exited with code {result.returncode}")
+            # Check for specific error messages
+            stdout_str = result.stdout or ""
+            stderr_str = result.stderr or ""
+            if "Phi period of 1" in stdout_str or "Phi period of 1" in stderr_str:
+                proc0_print("  Error: SIMPLE does not support configurations with nfp=1 (phi period of 1).")
+                proc0_print("  This limitation affects both tokamaks and nfp=1 stellarators.")
+                proc0_print("  SIMPLE requires configurations with nfp > 1.")
+            else:
+                proc0_print(f"  stdout: {stdout_str[-500:] if stdout_str else '(empty)'}")
+                proc0_print(f"  stderr: {stderr_str[-500:] if stderr_str else '(empty)'}")
+            return {}
+        
+        proc0_print("simple.x completed successfully")
+        if result.stdout:
+            proc0_print(f"  stdout: {result.stdout[-500:]}")  # Last 500 chars
+        
+    except subprocess.TimeoutExpired:
+        proc0_print("Warning: simple.x timed out after 1 hour")
+        return {}
+    except Exception as e:
+        proc0_print(f"Warning: Error running simple.x: {e}")
+        return {}
+    
+    # Parse output files
+    confined_fraction_file = output_dir / "confined_fraction.dat"
+    times_lost_file = output_dir / "times_lost.dat"
+    
+    results = {
+        'simple_output_dir': str(output_dir),
+        'confined_fraction_file': str(confined_fraction_file) if confined_fraction_file.exists() else None,
+        'times_lost_file': str(times_lost_file) if times_lost_file.exists() else None,
+    }
+    
+    # Parse confined_fraction.dat if it exists
+    if confined_fraction_file.exists():
+        try:
+            data = np.loadtxt(str(confined_fraction_file))
+            if len(data.shape) == 2 and data.shape[1] >= 3:
+                # Extract columns: time, confined_passing, confined_trapped, total_particles
+                time = data[:, 0]
+                confined_passing = data[:, 1]
+                confined_trapped = data[:, 2]
+                total_confined = confined_passing + confined_trapped
+                loss_fraction = 1.0 - total_confined
+                
+                # Last row contains final values
+                final_row = data[-1]
+                final_time = final_row[0]
+                final_confined_passing = final_row[1]
+                final_confined_trapped = final_row[2]
+                final_total_confined = final_confined_passing + final_confined_trapped
+                final_loss_fraction = 1.0 - final_total_confined
+                
+                results['loss_fraction'] = float(final_loss_fraction)
+                results['confined_fraction'] = float(final_total_confined)
+                results['confined_passing'] = float(final_confined_passing)
+                results['confined_trapped'] = float(final_confined_trapped)
+                results['final_time'] = float(final_time)
+                
+                proc0_print(f"  Final loss fraction: {final_loss_fraction:.6e}")
+                proc0_print(f"  Final confined fraction: {final_total_confined:.6e}")
+                
+                # Generate loss fraction plot
+                try:
+                    plot_path = output_dir / "simple_loss_fraction.png"
+                    _plot_simple_loss_fraction(time, loss_fraction, plot_path)
+                    results['loss_fraction_plot'] = str(plot_path)
+                    proc0_print(f"  Generated loss fraction plot: {plot_path}")
+                except Exception as e:
+                    proc0_print(f"Warning: Could not generate loss fraction plot: {e}")
+        except Exception as e:
+            proc0_print(f"Warning: Could not parse confined_fraction.dat: {e}")
+    
+    return results
+
+
+def _plot_simple_loss_fraction(time: np.ndarray, loss_fraction: np.ndarray, output_path: Path) -> None:
+    """
+    Plot loss fraction versus time from SIMPLE output.
+    
+    Parameters
+    ----------
+    time : np.ndarray
+        Time array from confined_fraction.dat
+    loss_fraction : np.ndarray
+        Loss fraction array (1.0 - total_confined)
+    output_path : Path
+        Where to save the plot PNG file
+    """
+    plt.figure(figsize=(10, 6))
+    plt.plot(time, loss_fraction, label='Loss Fraction', color='red', linewidth=2)
+    plt.xlabel('Time (s)', fontsize=12)
+    plt.ylabel('Loss Fraction', fontsize=12)
+    plt.title('Particle Loss Fraction Over Time', fontsize=14)
+    plt.legend(fontsize=11)
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(str(output_path), dpi=300, bbox_inches='tight')
+    plt.close()
+
+
 def run_post_processing(
     coils_json_path: Path,
     output_dir: Path,
@@ -990,6 +1362,8 @@ def run_post_processing(
     plot_poincare: bool = True,
     nfieldlines: int = 20,
     mpi: Optional[Any] = None,  # type: ignore
+    run_simple: bool = True,
+    simple_executable_path: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """
     Run complete post-processing pipeline.
@@ -1001,6 +1375,7 @@ def run_post_processing(
     4. Optionally runs VMEC equilibrium
     5. Computes quasisymmetry metrics
     6. Generates VMEC-dependent plots (Boozer, iota, quasisymmetry)
+    7. Optionally runs SIMPLE fast particle tracing (if run_simple=True and VMEC succeeded)
     
     Parameters
     ----------
@@ -1028,6 +1403,10 @@ def run_post_processing(
         Number of fieldlines to trace for Poincaré plot.
     mpi : Any, optional
         MPI partition for parallel execution.
+    run_simple : bool, default=True
+        Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable).
+    simple_executable_path : Path, optional
+        Path to simple.x executable. If None, searches in common locations.
     
     Returns
     -------
@@ -1037,6 +1416,7 @@ def run_post_processing(
         - 'quasisymmetry_average': Average quasisymmetry error
         - 'quasisymmetry_profile': Radial quasisymmetry profile
         - 'vmec': VMEC equilibrium object (if run_vmec=True)
+        - 'simple_results': Dictionary with SIMPLE results (if run_simple=True and VMEC succeeded)
     """
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1320,6 +1700,25 @@ def run_post_processing(
                     js=None,  # None triggers 2x2 grid at s = 0, 0.25, 0.5, 1.0
                     dpi=300,  # High resolution for publication
                 )
+            
+            # Run SIMPLE fast particle tracing if requested
+            if run_simple:
+                try:
+                    proc0_print("Running SIMPLE fast particle tracing...")
+                    simple_results = run_simple_particle_tracing(
+                        equil,
+                        output_dir,
+                        simple_executable_path=simple_executable_path,
+                    )
+                    if simple_results:
+                        results['simple_results'] = simple_results
+                        if 'loss_fraction' in simple_results:
+                            # Add loss_fraction to results dictionary so it appears in metrics
+                            results['loss_fraction'] = simple_results['loss_fraction']
+                            proc0_print(f"  Particle loss fraction: {simple_results['loss_fraction']:.6e}")
+                except Exception as e:
+                    proc0_print(f"Warning: SIMPLE particle tracing failed: {e}")
+                    proc0_print("  Continuing without SIMPLE results.")
         except Exception as e:
             proc0_print(f"Warning: VMEC calculation failed: {e}")
             proc0_print("Skipping VMEC-dependent post-processing.")
@@ -1330,6 +1729,18 @@ def run_post_processing(
         'BdotN_over_B': results.get('BdotN_over_B'),
         'quasisymmetry_average': results.get('quasisymmetry_average'),
     }
+    
+    # Add SIMPLE results if available
+    if 'simple_results' in results:
+        simple_results = results['simple_results']
+        results_json['simple'] = {
+            'loss_fraction': simple_results.get('loss_fraction'),
+            'confined_fraction': simple_results.get('confined_fraction'),
+            'confined_passing': simple_results.get('confined_passing'),
+            'confined_trapped': simple_results.get('confined_trapped'),
+            'final_time': simple_results.get('final_time'),
+            'loss_fraction_plot': simple_results.get('loss_fraction_plot'),  # Path to PNG plot
+        }
     
     with open(output_dir / "post_processing_results.json", 'w') as f:
         json.dump(results_json, f, indent=2)

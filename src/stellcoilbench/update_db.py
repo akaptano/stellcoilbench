@@ -58,6 +58,9 @@ def _metric_shorthand(metric_name: str) -> str:
         # Quasisymmetry
         "quasisymmetry_average": "avg(QS)",
         
+        # Fast Particle Tracing
+        "loss_fraction": "LF",
+        
         # Score (keep for sorting but don't display)
         "score_primary": "score",
     }
@@ -228,12 +231,23 @@ def _shorthand_to_math(shorthand: str) -> str:
             if len(parts) == 2:
                 arg_math = f"{parts[0]}_{{{parts[1]}}}"
             else:
-                arg_math = arg.replace("_", "_{") + "}"
+                # Multiple underscores - convert all to subscripts properly
+                result = parts[0]
+                for part in parts[1:]:
+                    result += f"_{{{part}}}"
+                arg_math = result
         
-        func_math = func_name if func_name in ["min", "max"] else func_name
-        if func_name == "avg":
-            func_math = r"\text{avg}"
-        return f":math:`\\{func_math}({arg_math})`"
+        # Use LaTeX operators for min/max, \text{} for other functions
+        if func_name == "min":
+            func_math = "\\min"
+        elif func_name == "max":
+            func_math = "\\max"
+        elif func_name == "avg":
+            func_math = "\\text{avg}"
+        else:
+            func_math = func_name
+        # Format the math expression - func_math already contains proper escaping
+        return f":math:`{func_math}({arg_math})`"
     
     # Handle simple variable names with underscores (e.g., "d_cc", "d_cs")
     if "_" in shorthand:
@@ -246,6 +260,12 @@ def _shorthand_to_math(shorthand: str) -> str:
             for part in parts[1:]:
                 result += f"_{{{part}}}"
             return f":math:`{result}`"
+    
+    # Handle strings with spaces - wrap in \text{} for RST math mode
+    if " " in shorthand:
+        # Escape spaces by wrapping in \text{}
+        escaped = shorthand.replace(" ", r"\ ")
+        return f":math:`\\text{{{escaped}}}`"
     
     # Default: wrap in math mode
     return f":math:`{shorthand}`"
@@ -302,6 +322,9 @@ def _metric_definition(metric_name: str) -> str:
         
         # Quasisymmetry
         "quasisymmetry_average": r"Average two-term quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. The two-term quasisymmetry error measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces by evaluating the ratio residual $QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}$ where $(m,n)$ is the target helicity. Lower values indicate better quasisymmetry (dimensionless).",
+        
+        # Fast Particle Tracing (SIMPLE)
+        "loss_fraction": r"Final particle loss fraction from SIMPLE fast particle tracing. The loss fraction is computed as $1 - f_c$ where $f_c$ is the confined fraction (sum of confined passing and trapped particles). Lower values indicate better particle confinement (dimensionless).",
     }
     
     return definitions.get(metric_name, metric_name.replace("_", " ").title())
@@ -481,6 +504,24 @@ def _metric_detailed_definition(metric_name: str) -> dict | None:
             "description": "Total time required to complete the optimization.",
             "units": r":math:`\text{s}` (seconds)",
             "notes": "Lower values indicate more efficient optimization algorithms or faster convergence."
+        },
+        "quasisymmetry_average": {
+            "title": "Average Quasisymmetry Error",
+            "symbol": r":math:`\text{avg}(QS)`",
+            "description": "Average two-term quasisymmetry error computed from VMEC equilibrium.",
+            "math_forms": [r"QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}"],
+            "where": r"The two-term quasisymmetry error measures how well the magnetic field strength :math:`|\mathbf{B}|` is constant on flux surfaces by evaluating the ratio residual where :math:`(m,n)` is the target helicity.",
+            "units": "dimensionless",
+            "notes": "Lower values indicate better quasisymmetry, which is important for particle confinement in stellarators."
+        },
+        "loss_fraction": {
+            "title": "Loss Fraction",
+            "symbol": r":math:`\text{LF}`",
+            "description": "Final particle loss fraction from SIMPLE fast particle tracing.",
+            "math_forms": [r"\text{LF} = 1 - f_c"],
+            "where": r"where :math:`f_c` is the confined fraction (sum of confined passing and trapped particles).",
+            "units": "dimensionless",
+            "notes": "Lower values indicate better particle confinement. A value of 0 means all particles are confined, while a value of 1 means all particles are lost. This metric is computed by the SIMPLE code using Monte Carlo particle tracing."
         },
         "fourier_continuation_orders": {
             "title": "Fourier Continuation (FC)",
@@ -1397,7 +1438,7 @@ def write_rst_leaderboard(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, \bar{F}, \bar{\tau}, F_max, \tau_max, LN, t, avg(QS)
+        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, \bar{F}, \bar{\tau}, F_max, \tau_max, LN, t, avg(QS), LF
         desired_order = [
             "num_coils",                    # N
             "coil_order",                   # n
@@ -1418,6 +1459,7 @@ def write_rst_leaderboard(
             "final_linking_number",         # LN
             "optimization_time",            # t
             "quasisymmetry_average",        # avg(QS)
+            "loss_fraction",                # LF
         ]
         
         # Build ordered list: first add metrics in desired order that exist, then add any others
@@ -1557,6 +1599,7 @@ def write_rst_leaderboard(
         forces_torques = []
         topology = []
         performance = []
+        particle_confinement = []
         config = []
         
         for key in all_metric_keys:
@@ -1574,6 +1617,8 @@ def write_rst_leaderboard(
                     topology.append((key, detailed_def))
                 elif "time" in key.lower():
                     performance.append((key, detailed_def))
+                elif key in ["loss_fraction", "quasisymmetry_average"]:
+                    particle_confinement.append((key, detailed_def))
                 else:
                     config.append((key, detailed_def))
         
@@ -1662,6 +1707,14 @@ def write_rst_leaderboard(
                 metric_def_lines.extend(_format_metric_def(key, detailed_def))
                 metric_def_lines.append("")
         
+        if particle_confinement:
+            metric_def_lines.append("Particle Confinement Metrics")
+            metric_def_lines.append("-" * len("Particle Confinement Metrics"))
+            metric_def_lines.append("")
+            for key, detailed_def in particle_confinement:
+                metric_def_lines.extend(_format_metric_def(key, detailed_def))
+                metric_def_lines.append("")
+        
         if config:
             metric_def_lines.append("Configuration Metrics")
             metric_def_lines.append("-" * len("Configuration Metrics"))
@@ -1680,6 +1733,7 @@ def write_rst_leaderboard(
         metric_def_lines.append("- **BP**: Link to Boozer surface plot showing flux surfaces")
         metric_def_lines.append("- **QS**: Link to quasisymmetry error profile plot")
         metric_def_lines.append("- **iota**: Link to rotational transform (iota) profile plot")
+        metric_def_lines.append("- **FPT**: Link to Fast Particle Tracing (SIMPLE) loss fraction plot")
         metric_def_lines.append("")
 
     # Surface-specific leaderboards file
@@ -1690,6 +1744,19 @@ def write_rst_leaderboard(
         "Each plasma surface presents unique challenges for coil optimization. The following",
         "tables show detailed results for each surface, allowing for direct comparison",
         "of methods on specific configurations.",
+        "",
+        "Visualization Links",
+        "--------------------",
+        "",
+        "The leaderboard tables include visualization links in the following columns:",
+        "",
+        "- :math:`i`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with initial (pre-optimization) coils",
+        "- :math:`f`: Link to 3D visualization plot showing :math:`B_N/|B|` error on plasma surface with final (optimized) coils",
+        "- **PP**: Link to Poincaré plot showing fieldline trajectories",
+        "- **BP**: Link to Boozer surface plot showing flux surfaces",
+        "- **QS**: Link to quasisymmetry error profile plot",
+        "- **iota**: Link to rotational transform (iota) profile plot",
+        "- **FPT**: Link to Fast Particle Tracing (SIMPLE) loss fraction plot",
         "",
     ]
     
@@ -1749,7 +1816,8 @@ def write_rst_leaderboard(
                 r":math:`\text{PP}`",
                 r":math:`\text{BP}`",
                 r":math:`\text{QS}`",
-                r":math:`\text{iota}`"
+                r":math:`\text{iota}`",
+                r":math:`\text{FPT}`"
             ])
 
             # Use list-table for surface leaderboard
@@ -1780,6 +1848,7 @@ def write_rst_leaderboard(
                 boozer_link = "—"  # Boozer plot link
                 qs_link = "—"  # Quasisymmetry plot link
                 iota_link = "—"  # Iota plot link
+                fpt_link = "—"  # Fast Particle Tracing plot link
                 
                 # Check if this is a Fourier continuation submission
                 fourier_orders_str = metrics.get("fourier_continuation_orders")
@@ -1921,13 +1990,14 @@ def write_rst_leaderboard(
                                     pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
                                     i_link = f"`{rank_num} <{pdf_url_initial}>`__"
                             
-                            # Find plot files (poincare, boozer, quasisymmetry, iota)
+                            # Find plot files (poincare, boozer, quasisymmetry, iota, simple)
                             # These are typically in the submission directory or post_processing subdirectory
                             plot_files = [
                                 ("poincare_plot.png", "poincare"),
                                 ("boozer_surface.png", "boozer"),
                                 ("quasisymmetry_profile.png", "qs"),
                                 ("iota_profile.png", "iota"),
+                                ("simple_loss_fraction.png", "fpt"),  # Fast Particle Tracing
                             ]
                             
                             # Determine relative paths to check for plot files
@@ -1975,6 +2045,8 @@ def write_rst_leaderboard(
                                             qs_link = f"`{rank_num} <{plot_url}>`__"
                                         elif plot_type == "iota":
                                             iota_link = f"`{rank_num} <{plot_url}>`__"
+                                        elif plot_type == "fpt":
+                                            fpt_link = f"`{rank_num} <{plot_url}>`__"
                                         break
                 
                 # Build row: metrics first, then Date, User, i, f, and plot links at the end
@@ -1993,6 +2065,7 @@ def write_rst_leaderboard(
                     boozer_link,
                     qs_link,
                     iota_link,
+                    fpt_link,
                 ])
                 
                 # First column

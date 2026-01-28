@@ -12,16 +12,10 @@ extensions = [
     "sphinx.ext.autosummary",
 ]
 
-# Enable raw HTML in RST tables
-html_use_smartypants = False
-
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "sphinx_rtd_theme"
-
-# Add custom CSS for better table display
-html_css_files = ["custom.css"]
 
 # Configure ReadTheDocs theme for wider content - allow full width expansion
 html_theme_options = {
@@ -71,3 +65,6 @@ def setup(app):
     """Register event handlers for Sphinx."""
     # Run update-db when builder is initialized (before reading source files)
     app.connect("config-inited", run_update_db)
+    
+    # Add custom CSS for better table display (replaces deprecated html_css_files)
+    app.add_css_file("custom.css")

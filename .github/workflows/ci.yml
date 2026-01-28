@@ -43,6 +43,14 @@ jobs:
       - name: Install booz_xform
         run: pip install -v git+https://github.com/hiddenSymmetries/booz_xform
 
+      - name: Download and build SIMPLE
+        run: |
+          git clone --depth=1 https://github.com/itpplasma/SIMPLE.git
+          cd SIMPLE
+          make -j$(nproc)
+          # Copy simple.x from build directory to project root
+          cp build/simple.x ${{ github.workspace }}/simple.x
+
       - name: ls in /usr/lib/x86_64-linux-gnu
         run: ls -l /usr/lib/x86_64-linux-gnu
   

@@ -1583,10 +1583,20 @@ def optimize_coils_with_fourier_continuation(
                 print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
         else:
             print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+            post_processing_results = {}  # Initialize empty dict if post-processing skipped
     except Exception as e:
         print(f"Warning: Post-processing failed: {e}")
         import traceback
         traceback.print_exc()
+        post_processing_results = {}  # Initialize empty dict if post-processing failed
+    
+    # Merge post-processing results into combined_results
+    if post_processing_results:
+        # Only include numeric/metric values, not objects like 'vmec' or 'qfm_surface'
+        for key, value in post_processing_results.items():
+            if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
+                if isinstance(value, (int, float)):
+                    combined_results[key] = float(value)
     
     return coils, combined_results
 
@@ -1885,7 +1895,11 @@ def _optimize_coils_loop_impl(
     curves = [c.curve for c in coils]
     
     # Save initial coils
-    coils_to_vtk(coils, out_dir / "coils_initial", nturns=nturns)
+    try:
+        coils_to_vtk(coils, out_dir / "coils_initial", nturns=nturns)
+    except Exception as e:
+        print(f"Warning: Failed to save initial coils to VTK: {e}")
+        print("  Continuing optimization without VTK export...")
     
     # Calculate and display initial B-field
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
@@ -2495,7 +2509,11 @@ def _optimize_coils_loop_impl(
     print(f"Total current after optimization: {total_current_final:.0f} A")
     
     # Save optimized coils
-    coils_to_vtk(coils, out_dir / "coils_optimized", nturns=nturns)
+    try:
+        coils_to_vtk(coils, out_dir / "coils_optimized", nturns=nturns)
+    except Exception as e:
+        print(f"Warning: Failed to save optimized coils to VTK: {e}")
+        print("  Continuing without VTK export...")
     bs.save(out_dir / "biot_savart_optimized.json")
     
     # Calculate and display final B-field
@@ -2574,6 +2592,9 @@ def _optimize_coils_loop_impl(
     
     # Run post-processing: QFM surface, Poincaré plots, iota profiles, quasisymmetry profiles
     # Skip if this is part of Fourier continuation (will run once at the end)
+    # Initialize post_processing_results to empty dict
+    post_processing_results = {}
+    
     if not skip_post_processing:
         try:
             from .post_processing import run_post_processing
@@ -2713,6 +2734,7 @@ def _optimize_coils_loop_impl(
             print(f"Warning: Post-processing failed: {e}")
             import traceback
             traceback.print_exc()
+            post_processing_results = {}  # Initialize empty dict if post-processing failed
     
     # Note: Individual file zipping is disabled - the entire submission directory
     # will be zipped by submit-case command after all files are written
@@ -2766,5 +2788,13 @@ def _optimize_coils_loop_impl(
         'force_threshold': force_threshold,
         'torque_threshold': torque_threshold,
     }
+    
+    # Merge post-processing results (quasisymmetry_average, loss_fraction, etc.) into results
+    if post_processing_results:
+        # Only include numeric/metric values, not objects like 'vmec' or 'qfm_surface'
+        for key, value in post_processing_results.items():
+            if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
+                if isinstance(value, (int, float)):
+                    results[key] = float(value)
     
     return coils, results

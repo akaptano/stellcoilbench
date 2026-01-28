@@ -20,7 +20,8 @@ authors = [
 ]
 
 dependencies = [
-    "numpy>=1.24",
+    "numpy>=1.24,<1.26; python_version<\"3.12\"",  # Avoid NumPy 1.26-1.29 (incompatible with JAX 0.8.1)
+    "numpy>=2.0; python_version>=\"3.12\"",  # NumPy 2.0+ works with JAX 0.8.1 (has fallback for copy param)
     "typer[all]>=0.9",
     "PyYAML>=6.0",
     "pandas",

@@ -158,6 +158,8 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
         'iota',
         'quasisymmetry',
         'post_processing_results',
+        'simple_loss_fraction',  # SIMPLE fast particle tracing plot
+        'simple',  # Also match any file with 'simple' in name
     ]
     
     # Remove files that should be zipped, but keep PDFs and post-processing files
