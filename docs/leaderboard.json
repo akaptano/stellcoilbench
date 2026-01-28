@@ -44,6 +44,51 @@
         "score_primary": 1.009275219403138e-06
       },
       "rank": 1
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:01-28-2026_19-22",
+      "method_name": "",
+      "method_version": "all_files",
+      "score_primary": 0.0076404560115968375,
+      "run_date": "2026-01-28T19:22:23.480930",
+      "contact": "akaptano",
+      "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 15.6GB",
+      "path": "submissions/circular_tokamak/akaptano/01-28-2026_19-22/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999852946584371,
+        "target_B_field": 1.0,
+        "optimization_time": 50.90486741065979,
+        "final_normalized_squared_flux": 0.0076404560115968375,
+        "final_min_cs_separation": 1.576230953857027,
+        "final_min_cc_separation": 1.2503456914153024,
+        "final_total_length": 180.02292889857227,
+        "final_max_curvature": 0.2174978764987557,
+        "final_average_curvature": 0.2094051203359749,
+        "final_arclength_variation": 0.0075998510522136235,
+        "final_mean_squared_curvature": 0.044306192076198,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2866752.7549277144,
+        "final_avg_max_coil_force": 2855731.985857134,
+        "final_max_max_coil_torque": 227402.49853085514,
+        "final_avg_max_coil_torque": 226140.257971982,
+        "avg_BdotN_over_B": 0.004121708151732112,
+        "max_BdotN_over_B": 0.014284039289042977,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.004919809047999715,
+        "BdotN_over_B": 0.004516657319161708,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.0076404560115968375
+      },
+      "rank": 2
     }
   ]
 }
