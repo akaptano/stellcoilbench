@@ -72,18 +72,49 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.5e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.9e+02</td>
 </tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">26/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e-06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.8e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.5e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.3e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+02</td>
+</tr>
 </tbody>
 </table>
 
 ### Legend
 
-- Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)
+- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Bdotn
 - Bdotn Over B
 - Arclength Variation Threshold
-- Average normalized normal field component $\bar{B}_n$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
+- Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Continuation Step
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)

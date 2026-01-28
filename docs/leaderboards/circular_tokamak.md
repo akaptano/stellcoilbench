@@ -43,6 +43,84 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">7.6e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">6</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.7e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+01</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.6e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.7e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+01</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.6e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.7e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+01</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.6e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
@@ -67,13 +145,13 @@
 
 ### Legend
 
-- Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)
+- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Bdotn
 - Bdotn Over B
 - Arclength Variation Threshold
-- Average normalized normal field component $\bar{B}_n$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)
+- Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
 - Average of maximum force $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ per coil ($\text{N}/\text{m}$)

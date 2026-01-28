@@ -144,10 +144,10 @@ class TestAdvancedLandremanPaulContinuation:
         for i, step_result in enumerate(continuation_results):
             assert step_result['fourier_order'] == [4, 8, 16][i]
             assert step_result['continuation_step'] == i + 1
-            assert 'final_normalized_squared_flux' in step_result
+            assert 'final_squared_flux' in step_result
             assert 'final_B_field' in step_result
             assert 'optimization_time' in step_result
             
             # Verify values are finite
-            assert np.isfinite(step_result['final_normalized_squared_flux'])
+            assert np.isfinite(step_result['final_squared_flux'])
             assert np.isfinite(step_result['final_B_field'])

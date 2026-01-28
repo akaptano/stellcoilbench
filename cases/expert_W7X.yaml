@@ -9,11 +9,11 @@ coils_params:
 
 fourier_continuation:
   enabled: true
-  orders: [4, 8, 12, 16]
+  orders: [4, 8, 16]
 
 optimizer_params:
   algorithm: "augmented_lagrangian"
-  max_iterations: 1000
+  max_iterations: 500
   max_iter_subopt: 20
   minimize_method: "L-BFGS-B"
   verbose: True
