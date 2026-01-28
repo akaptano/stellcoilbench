@@ -40,7 +40,7 @@ jobs:
                     [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
                   done
                   echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
                   done
                   git commit --no-edit || echo "Merge commit failed"
                 else
@@ -366,11 +366,12 @@ jobs:
             echo "Adding submission directory: $SUBMISSION_DIR"
             
             # Add the entire directory (including zip and PDFs)
-            git add "$SUBMISSION_DIR" || echo "Warning: git add failed"
+            # Use -f to force add since submissions/ is in .gitignore
+            git add -f "$SUBMISSION_DIR" || echo "Warning: git add failed"
             
             # Also add parent directories if they're new
-            git add "$(dirname "$SUBMISSION_DIR")" 2>/dev/null || true
-            git add "$(dirname "$(dirname "$SUBMISSION_DIR")")" 2>/dev/null || true
+            git add -f "$(dirname "$SUBMISSION_DIR")" 2>/dev/null || true
+            git add -f "$(dirname "$(dirname "$SUBMISSION_DIR")")" 2>/dev/null || true
             
             if ! git diff --staged --quiet; then
               echo "Committing submission..."
@@ -397,7 +398,7 @@ jobs:
                         CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
                         if [ -n "$CONFLICTS" ]; then
                           echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                            [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                            [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
                           done
                           git commit --no-edit || echo "Merge commit failed"
                         fi
@@ -456,7 +457,7 @@ jobs:
                   if [ -n "$CONFLICTS" ]; then
                     # Resolve conflicts: keep our submissions, accept their docs
                     echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                      [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                      [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
                     done
                     echo "$CONFLICTS" | grep "^docs/" | while read file; do
                       [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
@@ -592,7 +593,7 @@ jobs:
                 CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
                 if [ -n "$CONFLICTS" ]; then
                   echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
                   done
                   git commit --no-edit || echo "Merge commit failed"
                 else
@@ -691,7 +692,7 @@ jobs:
                 CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
                 if [ -n "$CONFLICTS" ]; then
                   echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
+                    [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
                   done
                   echo "$CONFLICTS" | grep "^docs/" | while read file; do
                     [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
