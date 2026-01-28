@@ -236,6 +236,56 @@
       "rank": 5
     },
     {
+      "method_key": ":HSX_QHS_mn1824_ns101:akaptano:01-28-2026_19-23",
+      "method_name": "",
+      "method_version": "all_files",
+      "score_primary": 0.003315259365999212,
+      "run_date": "2026-01-28T19:23:11.112961",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
+      "path": "submissions/HSX_QHS_mn1824_ns101/akaptano/01-28-2026_19-23/all_files.zip",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 2.404085864268046,
+        "final_B_field": 2.41576894099435,
+        "target_B_field": 2.0,
+        "optimization_time": 690.215253829956,
+        "final_normalized_squared_flux": 0.003315259365999212,
+        "final_min_cs_separation": 0.15302586831685405,
+        "final_min_cc_separation": 0.09446505243505261,
+        "final_total_length": 15.0017885552605,
+        "final_max_curvature": 4.789912883366603,
+        "final_average_curvature": 2.736577394034082,
+        "final_arclength_variation": 0.0032030566187030247,
+        "final_mean_squared_curvature": 8.30309910639432,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 983989.635978615,
+        "final_avg_max_coil_force": 507370.3132190875,
+        "final_max_max_coil_torque": 400928.7410738147,
+        "final_avg_max_coil_torque": 144429.48577216995,
+        "avg_BdotN_over_B": 0.014530971935578034,
+        "max_BdotN_over_B": 0.07046729336675422,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.09692,
+        "cs_threshold": 0.157495,
+        "msc_threshold": 8.254230293025175,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 8.254230293025175,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "BdotN": 0.0013587545076365198,
+        "BdotN_over_B": 0.0008012611217139144,
+        "coil_order": 8.0,
+        "num_coils": 5.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 0.003315259365999212
+      },
+      "rank": 6
+    },
+    {
       "method_key": ":circular_tokamak:akaptano:01-28-2026_19-22",
       "method_name": "",
       "method_version": "all_files",
@@ -278,7 +328,7 @@
         "num_coils": 6.0,
         "score_primary": 0.0076404560115968375
       },
-      "rank": 6
+      "rank": 7
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:01-28-2026_19-22",
@@ -328,7 +378,7 @@
         "fourier_continuation_orders": "4,8",
         "score_primary": 0.007900469444568273
       },
-      "rank": 7
+      "rank": 8
     }
   ]
 }
