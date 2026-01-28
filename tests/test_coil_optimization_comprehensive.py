@@ -736,3 +736,115 @@ class TestOptimizeCoilsLoopEdgeCases:
             
             assert coils is not None
             assert results is not None
+
+
+class TestVirtualCasing:
+    """Tests for virtual casing integration."""
+    
+    def test_virtual_casing_available(self):
+        """Test that virtual casing module is available."""
+        from stellcoilbench.coil_optimization import VIRTUAL_CASING_AVAILABLE
+        # Just check that the constant is defined - it may or may not be True
+        assert isinstance(VIRTUAL_CASING_AVAILABLE, bool)
+    
+    def test_optimize_coils_loop_with_vc_target(self, tmp_path):
+        """Test that optimize_coils_loop accepts vc_target parameter."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from simsopt.geo import SurfaceRZFourier
+        
+        # Create surface with specific quadpoints
+        nfp = 2
+        nphi = 8
+        ntheta = 8
+        quadpoints_phi = list(np.linspace(0, 1/(2*nfp), nphi, endpoint=False))
+        quadpoints_theta = list(np.linspace(0, 1, ntheta, endpoint=False))
+        surface = SurfaceRZFourier(nfp=nfp, stellsym=True, mpol=2, ntor=2,
+                                   quadpoints_phi=quadpoints_phi,
+                                   quadpoints_theta=quadpoints_theta)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(1, 0, 0.1)
+        
+        # Create a mock vc_target array matching surface grid
+        vc_target = np.zeros((nphi, ntheta))  # Zero target (same as no virtual casing)
+        
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(tmp_path),
+            max_iterations=1,
+            ncoils=2,
+            order=2,
+            algorithm="L-BFGS-B",
+            verbose=False,
+            skip_post_processing=True,
+            surface_resolution=nphi,
+            vc_target=vc_target,  # Pass virtual casing target
+        )
+        
+        assert coils is not None
+        assert results is not None
+    
+    def test_virtual_casing_from_vmec_file(self, tmp_path):
+        """Test virtual casing calculation from VMEC wout file."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from stellcoilbench.coil_optimization import VIRTUAL_CASING_AVAILABLE
+        
+        if not VIRTUAL_CASING_AVAILABLE:
+            pytest.skip("virtual_casing package not installed")
+        
+        from simsopt.mhd.virtual_casing import VirtualCasing
+        from simsopt.geo import SurfaceRZFourier
+        import os
+        
+        # Check if the schuetthenneberg wout file exists
+        wout_file = "plasma_surfaces/wout_schuetthenneberg_nfp2.nc"
+        if not os.path.exists(wout_file):
+            pytest.skip(f"VMEC file not found: {wout_file}")
+        
+        # Run virtual casing calculation with small resolution for speed
+        # VirtualCasing.from_vmec auto-computes src_ntheta if not provided
+        vc = VirtualCasing.from_vmec(
+            wout_file,
+            src_nphi=16,  # Small resolution for fast test
+            trgt_nphi=8,
+        )
+        
+        # Check that B_external_normal is computed
+        assert hasattr(vc, 'B_external_normal')
+        assert vc.B_external_normal is not None
+        # Shape is (trgt_nphi, trgt_ntheta)
+        assert vc.B_external_normal.shape[0] == vc.trgt_nphi
+        assert vc.B_external_normal.shape[1] == vc.trgt_ntheta
+        
+        # Load surface from the same wout file with matching resolution
+        nfp = vc.nfp
+        nphi = vc.trgt_nphi
+        ntheta = vc.trgt_ntheta
+        quadpoints_phi = list(np.linspace(0, 1/(2*nfp), nphi, endpoint=False))
+        quadpoints_theta = list(np.linspace(0, 1, ntheta, endpoint=False))
+        
+        surface = SurfaceRZFourier.from_wout(
+            wout_file,
+            range="half period",
+            quadpoints_phi=quadpoints_phi,
+            quadpoints_theta=quadpoints_theta
+        )
+        
+        # Run a minimal optimization with virtual casing target
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(tmp_path),
+            max_iterations=1,
+            ncoils=2,
+            order=2,
+            algorithm="L-BFGS-B",
+            verbose=False,
+            skip_post_processing=True,
+            surface_resolution=nphi,
+            vc_target=vc.B_external_normal,
+        )
+        
+        assert coils is not None
+        assert results is not None
+        assert 'final_squared_flux' in results

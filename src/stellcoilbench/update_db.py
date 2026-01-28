@@ -16,7 +16,8 @@ def _metric_shorthand(metric_name: str) -> str:
         # B-field related
         "max_BdotN_over_B": "max(B_n)",
         "avg_BdotN_over_B": "B̄_n",
-        "final_normalized_squared_flux": "f_B",
+        "final_squared_flux": "f_B",
+        "final_normalized_squared_flux": "f_B",  # Legacy name (backwards compatibility)
         "initial_B_field": "B0",
         "final_B_field": "Bf",
         "target_B_field": "Bt",
@@ -280,9 +281,10 @@ def _metric_definition(metric_name: str) -> str:
     """
     definitions = {
         # B-field related
-        "final_normalized_squared_flux": r"Normalized squared flux error $f_B = \frac{1}{|S|} \int_{S} \left(\frac{\mathbf{B} \cdot \mathbf{n}}{|\mathbf{B}|}\right)^2 dS$ on plasma surface (dimensionless)",
+        "final_squared_flux": r"Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.",
+        "final_normalized_squared_flux": r"Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.",
         "max_BdotN_over_B": r"Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)",
-        "avg_BdotN_over_B": r"Average normalized normal field component $\bar{B}_n$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ and $\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| dS}{\int_{S} |\mathbf{B}| dS}$ (dimensionless)",
+        "avg_BdotN_over_B": r"Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.",
         
         # Curvature
         "final_average_curvature": r"Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)",
@@ -886,7 +888,7 @@ def build_methods_json(
         metrics = data.get("metrics") or {}
         
         # Handle legacy format where metrics are at top level (not in "metrics" key)
-        if not metrics and "final_normalized_squared_flux" in data:
+        if not metrics and ("final_squared_flux" in data or "final_normalized_squared_flux" in data):
             # This is a legacy format - metrics are at top level
             # Extract metrics by excluding metadata fields and internal fields
             metadata_keys = {"metadata", "method_name", "method_version", "contact", "hardware", "notes", "run_date", "output_directory", "lagrange_multipliers"}
@@ -1082,9 +1084,11 @@ def build_methods_json(
         primary_score = metrics_numeric.get("score_primary")
         if primary_score is None:
             # Try multiple fallback options for primary score
-            fallback = metrics.get("final_flux")
+            fallback = metrics.get("final_squared_flux")
             if fallback is None:
-                fallback = metrics.get("final_normalized_squared_flux")
+                fallback = metrics.get("final_flux")
+            if fallback is None:
+                fallback = metrics.get("final_normalized_squared_flux")  # Legacy name
             if isinstance(fallback, (int, float)):
                 primary_score = float(fallback)
                 metrics_numeric["score_primary"] = primary_score
@@ -1167,12 +1171,14 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
                 print(f"Warning: Entry {path} has score_primary=None, skipping", file=sys.stderr)
                 continue
         else:
-            # score_primary key doesn't exist, try fallback
-            score_primary = metrics.get("final_normalized_squared_flux")
+            # score_primary key doesn't exist, try fallback (new name first, then legacy)
+            score_primary = metrics.get("final_squared_flux")
+            if score_primary is None:
+                score_primary = metrics.get("final_normalized_squared_flux")  # Legacy name
             if score_primary is None or not isinstance(score_primary, (int, float)):
-                # Skip entries with no score_primary or final_normalized_squared_flux
+                # Skip entries with no score_primary or final_squared_flux
                 import sys
-                print(f"Warning: Entry {path} has no score_primary or final_normalized_squared_flux (metrics keys: {list(metrics.keys())[:5]}), skipping", file=sys.stderr)
+                print(f"Warning: Entry {path} has no score_primary or final_squared_flux (metrics keys: {list(metrics.keys())[:5]}), skipping", file=sys.stderr)
                 continue
 
         entries.append(
@@ -1230,9 +1236,12 @@ def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
             if key not in exclude_fields:
                 all_keys.add(key)
     
-    # Sort with final_normalized_squared_flux first
+    # Sort with final_squared_flux (or legacy final_normalized_squared_flux) first
     sorted_keys = sorted(all_keys)
-    if "final_normalized_squared_flux" in sorted_keys:
+    if "final_squared_flux" in sorted_keys:
+        sorted_keys.remove("final_squared_flux")
+        sorted_keys.insert(0, "final_squared_flux")
+    elif "final_normalized_squared_flux" in sorted_keys:
         sorted_keys.remove("final_normalized_squared_flux")
         sorted_keys.insert(0, "final_normalized_squared_flux")
     
@@ -1443,7 +1452,8 @@ def write_rst_leaderboard(
             "num_coils",                    # N
             "coil_order",                   # n
             "fourier_continuation_orders",  # FC
-            "final_normalized_squared_flux", # fB
+            "final_squared_flux",           # fB (new name)
+            "final_normalized_squared_flux", # fB (legacy name, for backwards compatibility)
             "avg_BdotN_over_B",             # \bar{B_n}
             "max_BdotN_over_B",             # max(B_n)
             "final_total_length",           # L
@@ -1529,7 +1539,11 @@ def write_rst_leaderboard(
         all_metric_keys_set.update(_get_all_metrics_from_entries(entries))
     
     all_metric_keys = sorted(all_metric_keys_set)
-    if "final_normalized_squared_flux" in all_metric_keys:
+    # Put final_squared_flux (or legacy name) first
+    if "final_squared_flux" in all_metric_keys:
+        all_metric_keys.remove("final_squared_flux")
+        all_metric_keys.insert(0, "final_squared_flux")
+    elif "final_normalized_squared_flux" in all_metric_keys:
         all_metric_keys.remove("final_normalized_squared_flux")
         all_metric_keys.insert(0, "final_normalized_squared_flux")
 
@@ -2290,7 +2304,8 @@ def write_surface_leaderboards(
         
         # Priority order for display
         priority_order = [
-            "final_normalized_squared_flux",  # Primary metric
+            "final_squared_flux",  # Primary metric (new name)
+            "final_normalized_squared_flux",  # Primary metric (legacy name)
             "num_coils",  # Coil configuration
             "coil_order",  # Coil configuration
         ]

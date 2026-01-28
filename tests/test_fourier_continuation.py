@@ -310,12 +310,12 @@ class TestFourierContinuation:
         assert coils[0].curve.order == 3
         
         # Verify results contain expected metrics
-        assert 'final_normalized_squared_flux' in results
+        assert 'final_squared_flux' in results
         assert 'final_B_field' in results
         assert 'optimization_time' in results
         
         # Verify all values are finite
-        assert np.isfinite(results['final_normalized_squared_flux'])
+        assert np.isfinite(results['final_squared_flux'])
         assert np.isfinite(results['final_B_field'])
         
         # Verify continuation metadata
@@ -350,12 +350,12 @@ class TestFourierContinuation:
         for i, step_result in enumerate(results['continuation_results']):
             assert step_result['fourier_order'] == [2, 3][i]
             assert step_result['continuation_step'] == i + 1
-            assert 'final_normalized_squared_flux' in step_result
+            assert 'final_squared_flux' in step_result
             assert 'final_B_field' in step_result
         
         # Check that final step results are also at top level
         final_step = results['continuation_results'][-1]
-        assert results['final_normalized_squared_flux'] == final_step['final_normalized_squared_flux']
+        assert results['final_squared_flux'] == final_step['final_squared_flux']
         assert results['final_B_field'] == final_step['final_B_field']
     
     def test_continuation_creates_subdirectories(self, simple_surface, tmp_path):

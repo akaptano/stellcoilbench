@@ -45,9 +45,13 @@ class TestMetricDefinition:
     
     def test_known_metric_definitions(self):
         """Test definitions for known metrics."""
-        flux_def = _metric_definition("final_normalized_squared_flux")
-        assert "Normalized squared flux" in flux_def
+        flux_def = _metric_definition("final_squared_flux")
+        assert "Squared flux" in flux_def
         assert r"\int" in flux_def  # Check for the integral formula
+        
+        # Legacy name should also work
+        legacy_flux_def = _metric_definition("final_normalized_squared_flux")
+        assert "Squared flux" in legacy_flux_def
         
         ln_def = _metric_definition("final_linking_number")
         assert "Linking number" in ln_def

@@ -33,6 +33,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             valid_surface_params = {
                 "surface",  # Required: surface filename (must match file in plasma_surfaces/)
                 "range",  # Optional: surface range ("half period" or "full torus")
+                "virtual_casing",  # Optional: enable virtual casing (boolean, default: false)
             }
             
             # Check for unknown parameters
@@ -49,6 +50,9 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 valid_ranges = ["half period", "full torus"]
                 if surface_params["range"] not in valid_ranges:
                     errors.append(f"{file_prefix}surface_params.range must be one of {valid_ranges}")
+            if "virtual_casing" in surface_params:
+                if not isinstance(surface_params["virtual_casing"], bool):
+                    errors.append(f"{file_prefix}surface_params.virtual_casing must be a boolean (true/false)")
     
     # Validate coils_params
     if "coils_params" in data:

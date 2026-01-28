@@ -28,6 +28,14 @@ try:
 except ImportError:
     MATPLOTLIB_AVAILABLE = False
     plt = None  # type: ignore
+
+# Virtual casing support (from simsopt.mhd)
+try:
+    from simsopt.mhd.virtual_casing import VirtualCasing
+    VIRTUAL_CASING_AVAILABLE = True
+except ImportError:
+    VIRTUAL_CASING_AVAILABLE = False
+    VirtualCasing = None  # type: ignore
     cm = None  # type: ignore
     Normalize = None  # type: ignore
 
@@ -475,9 +483,85 @@ def optimize_coils(
         target_B = 2.5  # 2.5 T target B-field for W7-X design here
     elif 'HSX' in surface_file:
         target_B = 2.0  # 2 T target B-field for HSX_QH design here
+    elif 'schuetthenneberg' in surface_file.lower():
+        target_B = 5.7  # 5.7 T ARIES-CS target B-field for Schuetthenneberg QA design
     else:
         raise ValueError(f"Unknown surface file: {surface_file}")
     coil_params['target_B'] = target_B
+
+    # Virtual casing support
+    # If enabled, compute B_external_normal from VMEC equilibrium to use as target in SquaredFlux
+    # virtual_casing can be True/False boolean or omitted (defaults to False)
+    vc_target = None
+    vc_target_plot = None  # For plotting on the full surface
+    use_virtual_casing = surface_params.get('virtual_casing', False)
+    if use_virtual_casing:
+        if not VIRTUAL_CASING_AVAILABLE:
+            raise ImportError(
+                "Virtual casing is enabled but the virtual_casing package is not installed. "
+                "Install it with: pip install git+https://github.com/hiddenSymmetries/virtual-casing"
+            )
+        
+        # Find VMEC wout file for virtual casing
+        # Virtual casing requires a VMEC wout file (not input or FOCUS file)
+        vmec_file = None
+        if "wout" in surface_file_lower:
+            vmec_file = surface_file
+        else:
+            # Try to find a corresponding wout file
+            # Common pattern: input.* -> wout_*.nc or focus file -> wout_*.nc
+            surface_path = Path(surface_file)
+            potential_wout_files = [
+                surface_path.parent / f"wout_{surface_path.stem}.nc",
+                surface_path.parent / f"wout_{surface_path.stem.replace('input.', '')}.nc",
+                Path("plasma_surfaces") / f"wout_{surface_path.stem}.nc",
+                Path("plasma_surfaces") / f"wout_{surface_path.stem.replace('input.', '')}.nc",
+            ]
+            for wout_path in potential_wout_files:
+                if wout_path.exists():
+                    vmec_file = str(wout_path)
+                    break
+        
+        if vmec_file is None:
+            raise ValueError(
+                f"Virtual casing is enabled but no VMEC wout file found for surface: {surface_file}. "
+                "Virtual casing requires a VMEC wout file. Either provide a wout file directly "
+                "or ensure a corresponding wout_*.nc file exists."
+            )
+        
+        # Virtual casing resolution must match the surface resolution
+        # The target resolution should match nphi and ntheta of the surface
+        # surface uses surface_resolution for both nphi and ntheta
+        vc_src_nphi = 160  # Higher resolution source for accuracy
+        vc_src_ntheta = 160
+        vc_trgt_nphi = surface_resolution
+        vc_trgt_ntheta = surface_resolution
+        
+        print("Running virtual casing calculation...")
+        print(f"  VMEC file: {vmec_file}")
+        print(f"  Source resolution: {vc_src_nphi} x {vc_src_ntheta}")
+        print(f"  Target resolution (matches surface): {vc_trgt_nphi} x {vc_trgt_ntheta}")
+        
+        vc = VirtualCasing.from_vmec(
+            vmec_file,
+            src_nphi=vc_src_nphi, src_ntheta=vc_src_ntheta,
+            trgt_nphi=vc_trgt_nphi, trgt_ntheta=vc_trgt_ntheta,
+        )
+        vc_target = vc.B_external_normal
+        print(f"  Virtual casing calculation complete. B_external_normal shape: {vc_target.shape}")
+        print(f"  Surface resolution: {surface_resolution} x {surface_resolution}")
+        
+        # Also compute virtual casing for full surface plotting
+        # The plot surface uses 2x upsampling by default, so use 2*surface_resolution
+        plot_resolution = 2 * surface_resolution
+        print(f"  Computing virtual casing for full surface plotting (resolution: {plot_resolution} x {plot_resolution})...")
+        vc_plot = VirtualCasing.from_vmec(
+            vmec_file,
+            src_nphi=vc_src_nphi, src_ntheta=vc_src_ntheta,
+            trgt_nphi=plot_resolution, trgt_ntheta=plot_resolution,
+        )
+        vc_target_plot = vc_plot.B_external_normal
+        print(f"  Virtual casing for plotting complete. B_external_normal shape: {vc_target_plot.shape}")
 
     try:
         os.chdir(output_dir)
@@ -507,6 +591,8 @@ def optimize_coils(
                 surface_resolution=surface_resolution,
                 algorithm_options=algorithm_options,
                 case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
+                vc_target=vc_target,  # Virtual casing B_external_normal target
+                vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
                 **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                 **threshold_kwargs
             )
@@ -524,6 +610,8 @@ def optimize_coils(
                     surface_resolution=surface_resolution,
                     algorithm_options=algorithm_options,
                     case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
+                    vc_target=vc_target,  # Virtual casing B_external_normal target
+                    vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
                     **threshold_kwargs
                 )
             except TypeError:
@@ -537,6 +625,8 @@ def optimize_coils(
                     algorithm_options=algorithm_options,
                     surface_resolution=surface_resolution,
                     case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
+                    vc_target=vc_target,  # Virtual casing B_external_normal target
+                    vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
                     **threshold_kwargs
                 )
     finally:
@@ -958,6 +1048,7 @@ def _plot_bn_error_3d(
     filename: str = "bn_error_3d_plot.pdf",
     title: str = "B_N/|B| Error on Plasma Surface with Optimized Coils",
     plot_upsample: int = 2,
+    vc_target: np.ndarray | None = None,
 ) -> None:
     """
     Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
@@ -1019,12 +1110,18 @@ def _plot_bn_error_3d(
     bs.set_points(surface_points)
     B_field = bs.B().reshape((nphi_plot, ntheta_plot, 3))
     unit_normal = plot_surface.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
-    BdotN = np.sum(B_field * unit_normal, axis=2)
+    BdotN_coils = np.sum(B_field * unit_normal, axis=2)
     abs_B = bs.AbsB().reshape((nphi_plot, ntheta_plot))
+    
+    # If virtual casing target is provided, subtract it from the coil B_N
+    if vc_target is not None:
+        BdotN_error = np.abs(BdotN_coils - vc_target)
+    else:
+        BdotN_error = np.abs(BdotN_coils)
     
     # Avoid division by zero
     abs_B = np.where(abs_B > 1e-10, abs_B, 1e-10)
-    bn_over_b = np.abs(BdotN / abs_B)
+    bn_over_b = BdotN_error / abs_B
     
     # Create figure with 3D subplot
     fig = plt.figure(figsize=(12, 9), dpi=200)  # type: ignore
@@ -1435,7 +1532,7 @@ def optimize_coils_with_fourier_continuation(
         # The files are saved to: order_dir/coils_optimized.* and order_dir/bn_error_3d_plot.pdf
         
         print(f"\nCompleted order={order} optimization:")
-        print(f"  Final flux: {results.get('final_normalized_squared_flux', 'N/A'):.2e}")
+        print(f"  Final flux: {results.get('final_squared_flux', 'N/A'):.2e}")
         print(f"  Final B-field: {results.get('final_B_field', 'N/A'):.3f} T")
         print(f"  Files saved to: {order_dir}")
         print(f"    - VTK files: {order_dir}/coils_optimized.*")
@@ -1934,7 +2031,14 @@ def _optimize_coils_loop_impl(
     bs.set_points(s.gamma().reshape((-1, 3)))
     
     # Main objective: Squared flux (always included)
-    Jf = SquaredFlux(s, bs, threshold=flux_threshold)
+    # If virtual casing target is provided, use B_external_normal as the target
+    # Otherwise use default (zero normal field)
+    vc_target = kwargs.get('vc_target', None)
+    if vc_target is not None:
+        print(f"Using virtual casing target for SquaredFlux (target shape: {vc_target.shape})")
+        Jf = SquaredFlux(s, bs, target=vc_target, threshold=flux_threshold)
+    else:
+        Jf = SquaredFlux(s, bs, threshold=flux_threshold)
     
     # Build constraint terms based on coil_objective_terms configuration
     # If coil_objective_terms is None or empty, omit all constraint objectives (only flux objective included)
@@ -2554,23 +2658,32 @@ def _optimize_coils_loop_impl(
     print(f"  Max forces on each coil: {[f'{f:.2e}' for f in max_force]}")
     
     # Calculate final B_N metrics
-    bs.set_points(s.gamma().reshape((-1, 3)))
-    B_field = bs.B().reshape((-1, 3))
-    unit_normal = s.unitnormal().reshape((-1, 3))
-    BdotN = np.mean(np.abs(np.sum(B_field * unit_normal, axis=1)))
-    abs_B = bs.AbsB().flatten()
-    avg_BdotN_over_B = BdotN / abs_B.mean() if abs_B.mean() > 0 else 0.0
+    # If virtual casing is used, we need to subtract B_external_normal from the coil B_N
+    vc_target = kwargs.get('vc_target', None)
     
-    bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    nphi_plot = len(s_plot.quadpoints_phi)
-    ntheta_plot = len(s_plot.quadpoints_theta)
-    B_plot = bs.B().reshape((nphi_plot, ntheta_plot, 3))
-    unit_normal_plot = s_plot.unitnormal().reshape((nphi_plot, ntheta_plot, 3))
-    BdotN_plot = np.sum(B_plot * unit_normal_plot, axis=2)
-    abs_B_plot = bs.AbsB().reshape((nphi_plot, ntheta_plot))
-    # Avoid division by very small numbers (same protection as in plotting function)
-    abs_B_plot = np.where(abs_B_plot > 1e-10, abs_B_plot, 1e-10)
-    max_BdotN_overB = np.max(np.abs(BdotN_plot / abs_B_plot)) if np.any(abs_B_plot > 0) else 0.0
+    nphi = len(s.quadpoints_phi)
+    ntheta = len(s.quadpoints_theta)
+    bs.set_points(s.gamma().reshape((-1, 3)))
+    B_field = bs.B().reshape((nphi, ntheta, 3))
+    unit_normal = s.unitnormal().reshape((nphi, ntheta, 3))
+    BdotN_coils = np.sum(B_field * unit_normal, axis=2)  # B_N from coils
+    
+    if vc_target is not None:
+        # B_N error = |B_N_coils - B_external_normal|
+        # vc_target is B_external_normal from virtual casing
+        absBn = np.abs(BdotN_coils - vc_target)
+    else:
+        # Standard case: B_N error = |B_N_coils| (target is zero)
+        absBn = np.abs(BdotN_coils)
+    
+    BdotN = np.mean(absBn)
+    abs_B = bs.AbsB().reshape((nphi, ntheta))
+    avg_BdotN_over_B = np.mean(absBn) / np.mean(abs_B) if np.mean(abs_B) > 0 else 0.0
+    
+    # For max calculation, use the same surface (with vc_target if available)
+    # Avoid division by very small numbers
+    abs_B_safe = np.where(abs_B > 1e-10, abs_B, 1e-10)
+    max_BdotN_overB = np.max(absBn / abs_B_safe) if np.any(abs_B > 0) else 0.0
     
     print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")
     print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")    
@@ -2579,6 +2692,8 @@ def _optimize_coils_loop_impl(
     
     # Generate 3D visualization plot
     try:
+        # Get vc_target_plot from kwargs if provided (for virtual casing cases)
+        vc_target_plot = kwargs.get('vc_target_plot', None)
         _plot_bn_error_3d(
             s_plot,
             bs,
@@ -2586,6 +2701,7 @@ def _optimize_coils_loop_impl(
             out_dir,
             filename="bn_error_3d_plot.pdf",
             title="B_N/|B| Error on Plasma Surface with Optimized Coils",
+            vc_target=vc_target_plot,
         )
     except Exception as e:
         print(f"Warning: Failed to generate 3D plot: {e}")
@@ -2761,7 +2877,7 @@ def _optimize_coils_loop_impl(
         'final_B_field': B_final,
         'target_B_field': target_B,
         'optimization_time': end_time - start_time,
-        'final_normalized_squared_flux': Jf.J(),
+        'final_squared_flux': Jf.J(),
         '_cached_thresholds': cached_thresholds,  # Store for continuation steps
         'final_min_cs_separation': Jcsdist.shortest_distance(),
         'final_min_cc_separation': Jccdist.shortest_distance(),

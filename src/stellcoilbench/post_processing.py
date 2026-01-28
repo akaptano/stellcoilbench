@@ -1003,26 +1003,137 @@ def run_simple_particle_tracing(
         Path to simple.x executable. If None, assumes simple.x is in the project root directory.
     
     **kwargs : Any
-        SIMPLE configuration parameters (all optional with SIMPLE defaults).
-        Key parameters: trace_time (float, 0.1), sbeg (float/list, 0.5),
-        ntestpart (int, 1024), num_surf (int, 1), n_d (int, 4), n_e (int, 2),
-        facE_al (float, 1.0), nper (int, 1000), npoiper (int, 100),
-        npoiper2 (int, 256), phibeg (float, 0.0), thetabeg (float, 0.0),
-        contr_pp (float, -1.0), netcdffile (str), vmec_B_scale (float, 1.0),
-        vmec_RZ_scale (float, 1.0), isw_field_type (int, 2), ntimstep (int, 10000),
-        integmode (int, 1), relerr (float, 1e-13), ns_s (int, 5), ns_tp (int, 5),
-        multharm (int, 5), startmode (int, 1), grid_density (float, 0.0),
-        special_ants_file (bool, False), generate_start_only (bool, False),
-        tcut (float, -1.0), class_plot (bool, False), cut_in_per (float, 0.0),
-        fast_class (bool, False), swcoll (bool, False), am1 (float, 2.0),
-        am2 (float, 3.0), Z1 (float, 1.0), Z2 (float, 1.0), densi1 (float, 0.5e14),
-        densi2 (float, 0.5e14), tempi1 (float, 1.0e4), tempi2 (float, 1.0e4),
-        tempe (float, 1.0e4), notrace_passing (int, 0), debug (bool, False),
-        deterministic (bool, False), old_axis_healing (bool, True),
-        old_axis_healing_boundary (bool, True), batch_size (int, 2e9),
-        macrostep_time_grid (str, 'linear'), ran_seed (int, 12345),
-        reuse_batch (bool, False), output_orbits_macrostep (bool, False),
-        output_error (bool, False).
+        SIMPLE configuration parameters. All parameters are optional with defaults
+        matching the SIMPLE simple.in file. Key parameters include:
+        
+        **Particle Tracing Parameters:**
+        - trace_time : float, default=0.1
+            Slowing down time in seconds (1d-1 in Fortran).
+        - sbeg : float or list[float], default=0.5
+            Starting s (normalized toroidal flux) for particles. Can be a single value
+            or list of values (e.g., [0.6, 0.7]) to distribute particles on multiple surfaces.
+        - ntestpart : int, default=1024
+            Number of test particles.
+        - num_surf : int, default=1
+            Number of flux surfaces. Value 0 distributes in volume.
+        - n_d : int, default=4
+            Test particle mass number (the same as A).
+        - n_e : int, default=2
+            Test particle charge number (the same as Z).
+        - facE_al : float, default=1.0
+            Test particle energy reduction factor.
+        
+        **Field Line Parameters:**
+        - nper : int, default=1000
+            Number of periods for initial field line.
+        - npoiper : int, default=100
+            Number of points per period on this field line.
+        - npoiper2 : int, default=256
+            Points per period for integrator step.
+        - phibeg : float, default=0.0
+            Starting phi for field line.
+        - thetabeg : float, default=0.0
+            Starting theta for field line.
+        - contr_pp : float, default=-1.0
+            Control of passing particle fraction.
+        
+        **VMEC File Parameters:**
+        - netcdffile : str, optional
+            Name of VMEC file in NETCDF format. If not provided, uses vmec_equil.output_file.
+        - vmec_B_scale : float, default=1.0
+            Factor to scale the B field from VMEC.
+        - vmec_RZ_scale : float, default=1.0
+            Factor to scale the device size from VMEC.
+        - isw_field_type : int, default=2
+            Field type: -1: Testing, 0: Canonical, 1: VMEC, 2: Boozer, 3: Meiss, 4: Albert.
+        
+        **Integration Parameters:**
+        - ntimstep : int, default=10000
+            Number of time steps per slowing down time.
+        - integmode : int, default=1
+            Mode for integrator: -1 = RK VMEC, 0 = RK, 1 = EXPL_IMPL_EULER (default), 2 = Euler2, 3 = Midpoint.
+        - relerr : float, default=1e-13
+            Tolerance for integrator. Set to 1e-13 for symplectic.
+        
+        **Spline Parameters:**
+        - ns_s : int, default=5
+            Spline order for 3D quantities over s variable.
+        - ns_tp : int, default=5
+            Spline order for 3D quantities over theta and phi.
+        - multharm : int, default=5
+            Angular grid factor (n_grid=multharm*n_harm_max where n_harm_max - maximum Fourier index).
+        
+        **Initial Conditions:**
+        - startmode : int, default=1
+            Mode for initial conditions:
+            1 = only on one fieldline ("local"),
+            2 = read and run,
+            3 = read ANTS and run,
+            4 = read and run a batch,
+            5 = distribute in volume ("global").
+        - grid_density : float, default=0.0
+            For startmode 1 only, between 0.0 to 0.99, when 0.0 then no grid is made.
+        - special_ants_file : bool, default=False
+            If True, a different start file is read (defined in samplers.f90).
+        - generate_start_only : bool, default=False
+            If True, only initialisation is done and particle coordinates are written to file.
+        
+        **Classification Parameters:**
+        - tcut : float, default=-1.0
+            Time when to do cut for classification, usually 1e-1, or -1 if no cuts desired.
+        - class_plot : bool, default=False
+            Write starting points at phi=const cut for classification plot.
+        - cut_in_per : float, default=0.0
+            Normalized phi-cut position within field period, [0:1], used if class_plot=True.
+        - fast_class : bool, default=False
+            If True, quit immediately after fast classification and don't trace orbits to the end.
+        
+        **Collision Parameters:**
+        - swcoll : bool, default=False
+            If True, enables collisions. This is incompatible with classification.
+        - am1 : float, default=2.0
+            Atomic mass of the first background species for collisions.
+        - am2 : float, default=3.0
+            Atomic mass of the second background species for collisions.
+        - Z1 : float, default=1.0
+            Charge number of the first background species for collisions.
+        - Z2 : float, default=1.0
+            Charge number of the second background species for collisions.
+        - densi1 : float, default=0.5e14
+            Density of the first background species for collisions (cm^-3).
+        - densi2 : float, default=0.5e14
+            Density of the second background species for collisions (cm^-3).
+        - tempi1 : float, default=1.0e4
+            Temperature of the first background species for collisions (eV).
+        - tempi2 : float, default=1.0e4
+            Temperature of the second background species for collisions (eV).
+        - tempe : float, default=1.0e4
+            Electron temperature for collisions (eV).
+        
+        **Other Parameters:**
+        - notrace_passing : int, default=0
+            Skip tracing passing particles if notrace_passing=1.
+        - debug : bool, default=False
+            Produce debugging output. Use only in non-parallel mode!
+        - deterministic : bool, default=False
+            If True, put seed for the same random walk.
+        - old_axis_healing : bool, default=True
+            How to heal VMEC axis. Leave True until new version is fully tested.
+        - old_axis_healing_boundary : bool, default=True
+            How to heal VMEC axis. Leave True until new version is fully tested.
+        - batch_size : int, default=2000000000
+            Use only a portion of all particles. Ignored if larger than ntestpart.
+            Very large default effectively disables batch mode.
+        - macrostep_time_grid : str, default='linear'
+            Macrostep time grid: 'linear' (constant steps) or 'log' (logarithmic distribution).
+        - ran_seed : int, default=12345
+            Random seed to get batch_size amounts of random indices from ntestpart.
+        - reuse_batch : bool, default=False
+            Reuse batch from last run. Previous indices are stored in batch.dat.
+        - output_orbits_macrostep : bool, default=False
+            Output orbit positions to fort.9XXXX.
+        - output_error : bool, default=False
+            Output additional error diagnostics.
     
     Returns
     -------

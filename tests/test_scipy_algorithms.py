@@ -47,12 +47,12 @@ class TestScipyAlgorithms:
         assert results is not None
         
         # Verify all critical results are present and finite
-        assert "final_normalized_squared_flux" in results
+        assert "final_squared_flux" in results
         assert "initial_B_field" in results
         assert "final_B_field" in results
         assert "optimization_time" in results
         
-        final_flux = results["final_normalized_squared_flux"]
+        final_flux = results["final_squared_flux"]
         initial_B = results["initial_B_field"]
         final_B = results["final_B_field"]
         opt_time = results["optimization_time"]
@@ -103,7 +103,7 @@ class TestScipyAlgorithms:
         assert results is not None
         
         # Verify optimization completed
-        final_flux = results.get("final_normalized_squared_flux")
+        final_flux = results.get("final_squared_flux")
         opt_time = results.get("optimization_time")
         
         assert final_flux is not None
@@ -176,16 +176,16 @@ class TestScipyAlgorithms:
         assert results2 is not None
         
         # Verify both runs completed
-        assert "final_normalized_squared_flux" in results1
-        assert "final_normalized_squared_flux" in results2
+        assert "final_squared_flux" in results1
+        assert "final_squared_flux" in results2
         assert "final_min_cc_separation" in results1
         assert "final_min_cc_separation" in results2
         
         # Get results
         sep1 = results1.get("final_min_cc_separation", 0.0)
         sep2 = results2.get("final_min_cc_separation", 0.0)
-        flux1 = results1.get("final_normalized_squared_flux", float('inf'))
-        flux2 = results2.get("final_normalized_squared_flux", float('inf'))
+        flux1 = results1.get("final_squared_flux", float('inf'))
+        flux2 = results2.get("final_squared_flux", float('inf'))
         
         assert np.isfinite(sep1)
         assert np.isfinite(sep2)
@@ -275,8 +275,8 @@ class TestScipyAlgorithms:
         assert results2 is not None
         
         # Both should have flux
-        assert "final_normalized_squared_flux" in results1
-        assert "final_normalized_squared_flux" in results2
+        assert "final_squared_flux" in results1
+        assert "final_squared_flux" in results2
         
         # The run with length constraint should have length information
         assert "final_total_length" in results2
@@ -289,8 +289,8 @@ class TestScipyAlgorithms:
         
         # The two optimizations should produce different results
         # (flux-only vs flux+length should optimize differently)
-        flux1 = results1.get("final_normalized_squared_flux")
-        flux2 = results2.get("final_normalized_squared_flux")
+        flux1 = results1.get("final_squared_flux")
+        flux2 = results2.get("final_squared_flux")
         
         assert flux1 is not None
         assert flux2 is not None
@@ -335,7 +335,7 @@ class TestScipyAlgorithms:
         
         # Verify all constraint metrics are present and finite
         required_metrics = [
-            "final_normalized_squared_flux",
+            "final_squared_flux",
             "final_total_length",
             "final_min_cc_separation",
             "final_min_cs_separation",
@@ -352,7 +352,7 @@ class TestScipyAlgorithms:
         assert results["final_total_length"] > 0
         assert results["final_min_cc_separation"] >= 0
         assert results["final_min_cs_separation"] >= 0
-        assert results["final_normalized_squared_flux"] >= 0
+        assert results["final_squared_flux"] >= 0
     
     def test_different_algorithms_produce_different_results(self, tmp_path):
         """Test that different algorithms produce measurably different results."""
@@ -385,18 +385,18 @@ class TestScipyAlgorithms:
             
             assert coils is not None
             assert results is not None
-            assert "final_normalized_squared_flux" in results
+            assert "final_squared_flux" in results
             
             results_dict[algo] = results
         
         # Verify all algorithms produced finite results
         for algo, results in results_dict.items():
-            flux = results["final_normalized_squared_flux"]
+            flux = results["final_squared_flux"]
             assert np.isfinite(flux), f"Algorithm {algo} produced non-finite flux: {flux}"
             assert flux >= 0, f"Algorithm {algo} produced negative flux: {flux}"
         
         # Algorithms should produce different results (or at least converge to similar values)
-        fluxes = [results_dict[algo]["final_normalized_squared_flux"] for algo in algorithms]
+        fluxes = [results_dict[algo]["final_squared_flux"] for algo in algorithms]
         
         # All should be finite and reasonable
         assert all(np.isfinite(f) for f in fluxes)
@@ -538,8 +538,8 @@ class TestScipyAlgorithms:
         assert results is not None
         
         # Flux should always be present and finite
-        assert "final_normalized_squared_flux" in results
-        flux = results["final_normalized_squared_flux"]
+        assert "final_squared_flux" in results
+        flux = results["final_squared_flux"]
         assert flux is not None
         assert np.isfinite(flux)
         assert flux >= 0
@@ -642,12 +642,12 @@ class TestScipyAlgorithms:
         assert results is not None
         
         # Check that optimization completed (Taylor test should not have caused errors)
-        assert "final_normalized_squared_flux" in results
+        assert "final_squared_flux" in results
         
         # Capture output to verify Taylor test ran (it prints warnings if it fails)
         # captured = capsys.readouterr()
         # Taylor test should run silently if it passes, but we verify optimization worked
-        assert "final_normalized_squared_flux" in results
+        assert "final_squared_flux" in results
     
     def test_algorithm_options_valid(self, tmp_path):
         """Test that valid algorithm-specific options are accepted and used."""
@@ -680,7 +680,7 @@ class TestScipyAlgorithms:
         
         assert coils is not None
         assert results is not None
-        assert "final_normalized_squared_flux" in results
+        assert "final_squared_flux" in results
         
         # Test with valid L-BFGS-B options
         out_dir2 = tmp_path / "output2"
@@ -798,4 +798,4 @@ class TestScipyAlgorithms:
         assert coils is not None
         assert results is not None
         # Optimization should complete (may stop early due to maxiter=3)
-        assert "final_normalized_squared_flux" in results
+        assert "final_squared_flux" in results
