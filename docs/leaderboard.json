@@ -46,6 +46,51 @@
       "rank": 1
     },
     {
+      "method_key": ":LandremanPaul2021_QA:akaptano:01-28-2026_19-23",
+      "method_name": "",
+      "method_version": "all_files",
+      "score_primary": 1.3642376496501868e-06,
+      "run_date": "2026-01-28T19:23:33.717389",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-28-2026_19-23/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999187287104947,
+        "final_B_field": 1.096115089699097,
+        "target_B_field": 1.0,
+        "optimization_time": 557.5590953826904,
+        "final_normalized_squared_flux": 1.3642376496501868e-06,
+        "final_min_cs_separation": 0.2979051636141458,
+        "final_min_cc_separation": 0.07997385365541994,
+        "final_total_length": 23.30786582955045,
+        "final_max_curvature": 4.824158343728062,
+        "final_average_curvature": 2.1012062725326137,
+        "final_arclength_variation": 0.00022873770599120228,
+        "final_mean_squared_curvature": 7.87703702968684,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 554216.2951874149,
+        "final_avg_max_coil_force": 489733.11781693326,
+        "final_max_max_coil_torque": 286992.3712244722,
+        "final_avg_max_coil_torque": 256419.9903589253,
+        "avg_BdotN_over_B": 0.00045929388052857914,
+        "max_BdotN_over_B": 0.0019195437364433205,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.000261480415739697,
+        "BdotN_over_B": 0.00027640158324525793,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 1.3642376496501868e-06
+      },
+      "rank": 2
+    },
+    {
       "method_key": ":cfqs_2b40:akaptano:01-28-2026_19-22",
       "method_name": "",
       "method_version": "all_files",
@@ -88,7 +133,7 @@
         "num_coils": 4.0,
         "score_primary": 8.356948552366961e-05
       },
-      "rank": 2
+      "rank": 3
     },
     {
       "method_key": ":rotating_ellipse:akaptano:01-28-2026_19-23",
@@ -133,7 +178,7 @@
         "num_coils": 4.0,
         "score_primary": 0.00017310240113452098
       },
-      "rank": 3
+      "rank": 4
     },
     {
       "method_key": ":circular_tokamak:akaptano:01-28-2026_19-22",
@@ -178,7 +223,7 @@
         "num_coils": 6.0,
         "score_primary": 0.0076404560115968375
       },
-      "rank": 4
+      "rank": 5
     }
   ]
 }
