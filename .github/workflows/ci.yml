@@ -38,7 +38,9 @@ jobs:
       - name: Install python dependencies
         run: |
           sudo apt-get install -y graphviz graphviz-dev
-          pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py f90wrap
+          pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py
+          # Pin f90wrap to 0.2.16 for compatibility with VMEC and SIMPLE builds
+          pip install f90wrap==0.2.16
 
       - name: Install booz_xform
         run: pip install -v git+https://github.com/hiddenSymmetries/booz_xform
@@ -47,7 +49,6 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/itpplasma/SIMPLE.git
           cd SIMPLE
-          pip install f90wrap==0.2.16
           make -j$(nproc)
           # Copy simple.x from build directory to project root
           cp build/simple.x ${{ github.workspace }}/simple.x

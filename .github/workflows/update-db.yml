@@ -230,7 +230,8 @@ jobs:
       - name: Install python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py f90wrap
+          pip install numpy cmake scikit-build f90nml ninja wheel setuptools pyevtk matplotlib mpi4py h5py
+          pip install f90wrap
 
       - name: Download the VMEC2000 standalone repository
         run: git clone --depth=1 https://github.com/hiddensymmetries/VMEC2000.git
@@ -248,7 +249,6 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/itpplasma/SIMPLE.git
           cd SIMPLE
-          pip install f90wrap==0.2.16
           make -j$(nproc)
           # Copy simple.x from build directory to project root
           cp build/simple.x ${{ github.workspace }}/simple.x
