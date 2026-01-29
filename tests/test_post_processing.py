@@ -40,18 +40,22 @@ from stellcoilbench.evaluate import load_case_config
 class TestPostProcessing:
     """Integration tests for post-processing functionality."""
     
-    @pytest.fixture
+    @pytest.fixture(scope="class")
     def case_path(self):
         """Path to the advanced Landreman-Paul QA case."""
         return Path(__file__).parent.parent / "cases" / "advanced_LandremanPaulQA.yaml"
     
-    @pytest.fixture
-    def optimized_coils_and_output(self, case_path, tmp_path):
-        """Run a quick optimization to generate coils for testing."""
+    @pytest.fixture(scope="class")
+    def optimized_coils_and_output(self, case_path, tmp_path_factory):
+        """Run a quick optimization to generate coils for testing.
+        
+        Uses class scope so optimization runs once and is shared by all tests.
+        """
         # Load case config
         case_cfg = load_case_config(case_path)
         
-        # Create output directory
+        # Create output directory using tmp_path_factory (required for class scope)
+        tmp_path = tmp_path_factory.mktemp("optimization")
         output_dir = tmp_path / "optimization_output"
         output_dir.mkdir(parents=True, exist_ok=True)
         
