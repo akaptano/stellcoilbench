@@ -31,10 +31,8 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cc</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cs</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">L</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">LF</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">avg(QS)</th>
 </tr>
 </thead>
 <tbody>
@@ -61,94 +59,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">6.9e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.3e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.2e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.6e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.1e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.8e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.3e-02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.6e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.1e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.7e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.5e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.2e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.1e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.2e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 </tbody>
 </table>
@@ -174,7 +86,5 @@
 - Minimum coil-to-coil distance $d_{cc}$ ($\text{m}$)
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
-- Final particle loss fraction from SIMPLE fast particle tracing. The loss fraction is computed as $1 - f_c$ where $f_c$ is the confined fraction (sum of confined passing and trapped particles). Lower values indicate better particle confinement (dimensionless).
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
-- Average two-term quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. The two-term quasisymmetry error measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces by evaluating the ratio residual $QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}$ where $(m,n)$ is the target helicity. Lower values indicate better quasisymmetry (dimensionless).
