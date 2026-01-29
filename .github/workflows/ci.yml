@@ -7,6 +7,12 @@ on:
   pull_request:
     branches: [ main ]
 
+# Queue new runs instead of canceling in-progress ones
+# This ensures CI runs always complete
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-24.04

@@ -5,6 +5,12 @@ on:
   push:
     branches: [ main ]
 
+# Queue new runs instead of canceling in-progress ones
+# This ensures long-running cases always complete
+concurrency:
+  group: update-db-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   determine-cases:
     runs-on: ubuntu-24.04
