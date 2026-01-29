@@ -591,7 +591,9 @@ def plot_boozer_surface(
         plt.tight_layout()
         output_path.parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(output_path, dpi=dpi)
-        plt.close()
+        plt.close('all')
+        import gc
+        gc.collect()
         return
     
     # Get maximum valid surface index from booz_xform
@@ -676,7 +678,11 @@ def plot_boozer_surface(
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path, dpi=dpi)
-    plt.close()
+    plt.close('all')  # Close all figures to ensure cleanup
+    
+    # Explicit garbage collection to free memory
+    import gc
+    gc.collect()
 
 
 def plot_iota_profile(
@@ -1457,7 +1463,9 @@ def _plot_simple_loss_fraction(time: np.ndarray, loss_fraction: np.ndarray, outp
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.savefig(str(output_path), dpi=300, bbox_inches='tight')
-    plt.close()
+    plt.close('all')
+    import gc
+    gc.collect()
 
 
 def run_post_processing(

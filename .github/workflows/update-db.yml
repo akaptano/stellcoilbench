@@ -275,6 +275,8 @@ jobs:
 
       - name: Run case file
         timeout-minutes: 350  # Slightly less than job timeout (360min) to ensure commit step can run
+        env:
+          MPLBACKEND: Agg  # Ensure matplotlib uses non-interactive backend
         run: |
           echo "=========================================="
           echo "Running case: ${{ matrix.case_file }}"
