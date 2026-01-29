@@ -5,6 +5,12 @@ on:
   push:
     branches: [ main ]
 
+# Prevent new pushes from canceling in-progress runs
+# New runs will queue and wait for current run to complete
+concurrency:
+  group: stellcoilbench-update-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   determine-cases:
     runs-on: ubuntu-24.04
