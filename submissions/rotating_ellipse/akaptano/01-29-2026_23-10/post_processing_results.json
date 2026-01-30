@@ -1,0 +1,13 @@
+{
+  "BdotN": 0.0009038459261239826,
+  "BdotN_over_B": 0.0009760537399795904,
+  "quasisymmetry_average": 0.06266033017748908,
+  "simple": {
+    "loss_fraction": 0.80078125,
+    "confined_fraction": 0.19921875,
+    "confined_passing": 0.1982421875,
+    "confined_trapped": 0.0009765625,
+    "final_time": 0.1,
+    "loss_fraction_plot": "/home/runner/work/stellcoilbench/stellcoilbench/submissions/rotating_ellipse/akaptano/01-29-2026_23-10/simple_loss_fraction.png"
+  }
+}
