@@ -565,7 +565,7 @@ def plot_boozer_surface(
     # If js is explicitly provided, use old behavior for backward compatibility
     if js is not None:
         fig_single = plt.figure(figsize=(10, 8))
-        plt.rcParams["font.family"] = "Times New Roman"
+        plt.rcParams["font.family"] = "serif"
         plt.rc("font", size=18)  # Increased base font size
         ax_single = plt.gca()
         bx.surfplot(b2, js=js, fill=False)
@@ -619,7 +619,7 @@ def plot_boozer_surface(
     
     # Create 2x2 subplot grid
     fig, axes = plt.subplots(2, 2, figsize=(16, 16))
-    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.family"] = "serif"
     plt.rc("font", size=18)  # Increased base font size
     
     # Flatten axes array for easier indexing
@@ -718,7 +718,7 @@ def plot_iota_profile(
     
     plt.figure(figsize=(10, 6))
     plt.grid()
-    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.family"] = "serif"
     plt.rc("font", size=15)
     
     # Plot original surface if provided
@@ -772,7 +772,7 @@ def plot_quasisymmetry_profile(
         Resolution for saved figure.
     """
     plt.figure(figsize=(10, 6))
-    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["font.family"] = "serif"
     plt.rc("font", size=15)
     
     # Plot original surface if provided
