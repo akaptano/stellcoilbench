@@ -21,8 +21,14 @@ env:
   CONDA_ENV: stellcoilbench
   # Path to simple.x executable (adjust as needed)
   SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
+  # Self-hosted runner path
+  RUNNER_DIR: /home/aak572/actions-runner
 
 jobs:
+  # NOTE: Self-hosted runner must be started manually on crunchy5 before this workflow runs.
+  # Start it once with: screen -dmS github-runner bash -c 'while true; do ./run.sh; sleep 10; done'
+  # Check status with: screen -ls
+  
   determine-cases:
     # Only run on the main repository, never on forks
     if: github.repository == 'akaptano/stellcoilbench'
@@ -47,6 +53,9 @@ jobs:
           # Store the conda python path
           CONDA_PYTHON=$(which python3)
           echo "Using Python: $CONDA_PYTHON"
+          
+          # Ensure pyyaml is installed (needed for case filtering)
+          pip install pyyaml --quiet 2>/dev/null || true
           
           ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
           
@@ -167,10 +176,6 @@ jobs:
     if: github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
     runs-on: self-hosted
     timeout-minutes: 720  # 12 hours - more generous for self-hosted
-    strategy:
-      fail-fast: false
-      matrix:
-        case_file: ${{ fromJson(needs.determine-cases.outputs.cases_to_run_json) }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -185,30 +190,20 @@ jobs:
           conda activate $CONDA_ENV
           pip install -e .
 
-      - name: Check if surface file exists
-        shell: bash
-        run: |
-          SURFACE_NAME=$(grep -A 2 "surface_params:" "${{ matrix.case_file }}" | grep "surface:" | awk '{print $2}' | tr -d '"')
-          if [ -n "$SURFACE_NAME" ]; then
-            if [ ! -f "plasma_surfaces/$SURFACE_NAME" ] && [ ! -f "plasma_surfaces/${SURFACE_NAME,,}" ]; then
-              echo "ERROR: Surface file '$SURFACE_NAME' not found in plasma_surfaces/"
-              exit 1
-            fi
-          fi
-
-      - name: Run case file
-        timeout-minutes: 600  # 10 hours per case
+      - name: Run all cases in parallel
         shell: bash
         env:
           MPLBACKEND: Agg
+          CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
+          # Number of parallel jobs - adjust based on machine resources
+          PARALLEL_JOBS: 4
         run: |
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
           
           echo "=========================================="
-          echo "Running case: ${{ matrix.case_file }}"
-          echo "Conda environment: $CONDA_ENV"
-          echo "Python: $(which python)"
+          echo "Running cases in parallel (max $PARALLEL_JOBS jobs)"
+          echo "Cases: $CASES_JSON"
           echo "=========================================="
           
           # Copy simple.x to workspace if it exists
@@ -217,9 +212,58 @@ jobs:
             echo "Copied simple.x from $SIMPLE_EXECUTABLE"
           fi
           
-          stellcoilbench submit-case "${{ matrix.case_file }}"
+          # Convert JSON array to newline-separated list
+          CASE_LIST=$(echo "$CASES_JSON" | python3 -c "import sys, json; print('\n'.join(json.load(sys.stdin)))")
+          
+          # Create a wrapper script for running each case
+          cat > /tmp/run_case.sh << 'SCRIPT'
+          #!/bin/bash
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          export MPLBACKEND=Agg
+          
+          CASE_FILE="$1"
+          WORKSPACE="$2"
+          
+          echo "[$(date)] Starting: $CASE_FILE"
+          cd "$WORKSPACE"
+          
+          # Run the case, capture output to a log file
+          LOG_FILE="/tmp/case_$(basename "$CASE_FILE" .yaml).log"
+          stellcoilbench submit-case "$CASE_FILE" > "$LOG_FILE" 2>&1
+          EXIT_CODE=$?
+          
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "[$(date)] SUCCESS: $CASE_FILE"
+          else
+            echo "[$(date)] FAILED: $CASE_FILE (exit code $EXIT_CODE)"
+            echo "--- Last 50 lines of log ---"
+            tail -50 "$LOG_FILE"
+          fi
+          
+          exit $EXIT_CODE
+          SCRIPT
+          chmod +x /tmp/run_case.sh
+          
+          # Run cases in parallel using GNU parallel (or xargs fallback)
+          if command -v parallel &> /dev/null; then
+            echo "Using GNU parallel"
+            echo "$CASE_LIST" | parallel -j $PARALLEL_JOBS --halt never --joblog /tmp/parallel.log \
+              "CONDA_ENV=$CONDA_ENV /tmp/run_case.sh {} $PWD"
+            
+            echo ""
+            echo "=== Parallel execution summary ==="
+            cat /tmp/parallel.log
+          else
+            echo "GNU parallel not found, using xargs"
+            echo "$CASE_LIST" | xargs -P $PARALLEL_JOBS -I {} bash -c \
+              "CONDA_ENV=$CONDA_ENV /tmp/run_case.sh '{}' '$PWD'"
+          fi
+          
+          echo ""
+          echo "=== All cases completed ==="
 
-      - name: Commit submission directly
+      - name: Commit all submissions
         if: always()
         shell: bash
         run: |
@@ -230,9 +274,9 @@ jobs:
           git add -f submissions/ 2>/dev/null || true
           
           if git diff --staged --quiet; then
-            echo "No new submissions to commit for ${{ matrix.case_file }}"
+            echo "No new submissions to commit"
           else
-            git commit -m "chore: add CI-generated submission for ${{ matrix.case_file }}"
+            git commit -m "chore: add CI-generated submissions (parallel run)"
             
             # Pull and rebase to handle concurrent commits
             git pull --rebase origin main || {
@@ -240,11 +284,11 @@ jobs:
               git rebase --abort 2>/dev/null || true
               git pull origin main --no-edit || true
               git add -f submissions/
-              git commit -m "chore: merge submission for ${{ matrix.case_file }}" || true
+              git commit -m "chore: merge submissions" || true
             }
             
             git push origin main
-            echo "Submission committed for ${{ matrix.case_file }}"
+            echo "Submissions committed"
           fi
 
   update-leaderboard:
