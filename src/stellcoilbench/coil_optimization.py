@@ -547,8 +547,11 @@ def optimize_coils(
             src_nphi=vc_src_nphi, src_ntheta=vc_src_ntheta,
             trgt_nphi=vc_trgt_nphi, trgt_ntheta=vc_trgt_ntheta,
         )
-        vc_target = vc.B_external_normal
+        vc_target = vc.B_external_normal.copy()  # Copy to allow cleanup
         print(f"  Virtual casing calculation complete. B_external_normal shape: {vc_target.shape}")
+        del vc  # Free memory from virtual casing calculation
+        import gc
+        gc.collect()
         print(f"  Surface resolution: {surface_resolution} x {surface_resolution}")
         
         # Also compute virtual casing for full surface plotting
