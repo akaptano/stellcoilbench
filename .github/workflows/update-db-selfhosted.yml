@@ -17,7 +17,7 @@ concurrency:
 # This is defense-in-depth; GitHub also blocks forks by default
 
 env:
-  # Conda environment with VMEC, simsopt, virtual-casing pre-installed
+  # Conda environment with VMEC, simsop (auglag), virtual-casing pre-installed
   CONDA_ENV: stellcoilbench
   # Path to simple.x executable (adjust as needed)
   SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
@@ -195,8 +195,8 @@ jobs:
         env:
           MPLBACKEND: Agg
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
-          # Number of parallel jobs - adjust based on machine resources
-          PARALLEL_JOBS: 4
+          # Number of parallel jobs - crunchy5 has 64 cores
+          PARALLEL_JOBS: 16
         run: |
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
@@ -218,27 +218,40 @@ jobs:
           # Create a wrapper script for running each case
           cat > /tmp/run_case.sh << 'SCRIPT'
           #!/bin/bash
-          source ~/miniconda3/etc/profile.d/conda.sh
-          conda activate $CONDA_ENV
-          export MPLBACKEND=Agg
+          set -e
           
           CASE_FILE="$1"
           WORKSPACE="$2"
           
-          echo "[$(date)] Starting: $CASE_FILE"
+          echo "[$(date)] [$CASE_FILE] Starting..."
+          echo "[$(date)] [$CASE_FILE] Activating conda: $CONDA_ENV"
+          
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV || { echo "ERROR: Failed to activate conda"; exit 1; }
+          
+          # Limit each job to 1 thread (prevents NumPy/BLAS from using all cores)
+          export OMP_NUM_THREADS=1
+          export MKL_NUM_THREADS=1
+          export OPENBLAS_NUM_THREADS=1
+          export NUMEXPR_NUM_THREADS=1
+          export VECLIB_MAXIMUM_THREADS=1
+          
+          export MPLBACKEND=Agg
+          
+          echo "[$(date)] [$CASE_FILE] Python: $(which python)"
+          echo "[$(date)] [$CASE_FILE] Working dir: $WORKSPACE"
+          
           cd "$WORKSPACE"
           
-          # Run the case, capture output to a log file
-          LOG_FILE="/tmp/case_$(basename "$CASE_FILE" .yaml).log"
-          stellcoilbench submit-case "$CASE_FILE" > "$LOG_FILE" 2>&1
+          # Run the case - output goes to stdout/stderr (not captured)
+          echo "[$(date)] [$CASE_FILE] Running stellcoilbench submit-case..."
+          stellcoilbench submit-case "$CASE_FILE"
           EXIT_CODE=$?
           
           if [ $EXIT_CODE -eq 0 ]; then
-            echo "[$(date)] SUCCESS: $CASE_FILE"
+            echo "[$(date)] [$CASE_FILE] SUCCESS"
           else
-            echo "[$(date)] FAILED: $CASE_FILE (exit code $EXIT_CODE)"
-            echo "--- Last 50 lines of log ---"
-            tail -50 "$LOG_FILE"
+            echo "[$(date)] [$CASE_FILE] FAILED (exit code $EXIT_CODE)"
           fi
           
           exit $EXIT_CODE
@@ -248,12 +261,16 @@ jobs:
           # Run cases in parallel using GNU parallel (or xargs fallback)
           if command -v parallel &> /dev/null; then
             echo "Using GNU parallel"
-            echo "$CASE_LIST" | parallel -j $PARALLEL_JOBS --halt never --joblog /tmp/parallel.log \
+            # --will-cite: skip citation notice that blocks on first run
+            # --progress: show progress
+            # --ungroup: don't buffer output (show immediately)
+            echo "$CASE_LIST" | parallel --will-cite -j $PARALLEL_JOBS --halt never \
+              --progress --ungroup --joblog /tmp/parallel.log \
               "CONDA_ENV=$CONDA_ENV /tmp/run_case.sh {} $PWD"
             
             echo ""
             echo "=== Parallel execution summary ==="
-            cat /tmp/parallel.log
+            cat /tmp/parallel.log || true
           else
             echo "GNU parallel not found, using xargs"
             echo "$CASE_LIST" | xargs -P $PARALLEL_JOBS -I {} bash -c \
