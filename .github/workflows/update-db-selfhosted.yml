@@ -44,6 +44,10 @@ jobs:
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
           
+          # Store the conda python path
+          CONDA_PYTHON=$(which python3)
+          echo "Using Python: $CONDA_PYTHON"
+          
           ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
           
           if [ -z "$ALL_CASE_FILES" ]; then
@@ -54,7 +58,9 @@ jobs:
           TEMP_CASES=$(mktemp)
           echo "$ALL_CASE_FILES" > "$TEMP_CASES"
           
-          PYTHON_OUTPUT=$(python3 - "$TEMP_CASES" << 'PYTHON_SCRIPT'
+          # Write Python script to a temp file and execute with conda python
+          TEMP_SCRIPT=$(mktemp --suffix=.py)
+          cat > "$TEMP_SCRIPT" << 'PYTHON_SCRIPT'
           import sys
           import yaml
           import zipfile
@@ -140,9 +146,11 @@ jobs:
           }
           print(json.dumps(result))
           PYTHON_SCRIPT
-          )
           
-          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
+          PYTHON_OUTPUT=$("$CONDA_PYTHON" "$TEMP_SCRIPT" "$TEMP_CASES")
+          rm -f "$TEMP_SCRIPT" "$TEMP_CASES"
+          
+          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | "$CONDA_PYTHON" -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
           
           echo "cases_to_run_json=$CASES_TO_RUN" >> $GITHUB_OUTPUT
           
