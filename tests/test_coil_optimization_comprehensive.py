@@ -787,10 +787,8 @@ class TestVirtualCasing:
     def test_virtual_casing_from_vmec_file(self, tmp_path):
         """Test virtual casing calculation from VMEC wout file."""
         pytest.importorskip("simsopt.geo", reason="simsopt not available")
-        from stellcoilbench.coil_optimization import VIRTUAL_CASING_AVAILABLE
-        
-        if not VIRTUAL_CASING_AVAILABLE:
-            pytest.skip("virtual_casing package not installed")
+        # Import virtual_casing module directly - it's required by VirtualCasing.from_vmec
+        pytest.importorskip("virtual_casing", reason="virtual_casing package not installed")
         
         from simsopt.mhd.virtual_casing import VirtualCasing
         from simsopt.geo import SurfaceRZFourier

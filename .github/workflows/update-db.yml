@@ -5,11 +5,18 @@ on:
   push:
     branches: [ main ]
 
+# Queue new runs instead of canceling in-progress ones
+# This ensures long-running cases always complete
+concurrency:
+  group: update-db-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   determine-cases:
     runs-on: ubuntu-24.04
     outputs:
       cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
+      has_cases: ${{ steps.filter.outputs.has_cases }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -25,30 +32,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pyyaml
-
-      - name: Fetch latest submissions from main
-        run: |
-          git fetch origin main || echo "Fetch failed (non-critical, will check local state)"
-          if git rev-parse --verify origin/main > /dev/null 2>&1; then
-            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
-            if [ "$BEHIND_COUNT" -gt 0 ]; then
-              echo "Merging origin/main to include submissions from previous runs..."
-              git merge origin/main --no-edit --no-ff || {
-                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
-                if [ -n "$CONFLICTS" ]; then
-                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
-                  done
-                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
-                  done
-                  git commit --no-edit || echo "Merge commit failed"
-                else
-                  git merge --abort 2>/dev/null || true
-                fi
-              }
-            fi
-          fi
 
       - name: Filter cases to run
         id: filter
@@ -101,29 +84,9 @@ jobs:
               if not submissions_dir.exists():
                   return False
               
-              # Check both committed (in git) and uncommitted (local) submissions
-              # This handles cases where submissions were created but not yet committed
               zip_files = list(submissions_dir.rglob("*.zip"))
               if len(zip_files) == 0:
                   return False
-              
-              # Also check git for committed submissions (in case local files were cleaned up)
-              import subprocess
-              try:
-                  git_ls_result = subprocess.run(
-                      ["git", "ls-files", "submissions/**/*.zip"],
-                      capture_output=True,
-                      text=True,
-                      timeout=10
-                  )
-                  if git_ls_result.returncode == 0 and git_ls_result.stdout.strip():
-                      git_zip_files = [Path(f) for f in git_ls_result.stdout.strip().split("\n") if f]
-                      # Add git-tracked files that exist locally
-                      for git_zip in git_zip_files:
-                          if git_zip.exists() and git_zip not in zip_files:
-                              zip_files.append(git_zip)
-              except Exception as e:
-                  print(f"Warning: Could not check git for submissions: {e}", file=sys.stderr)
               
               for zip_path in zip_files:
                   try:
@@ -187,25 +150,31 @@ jobs:
           echo "$CASES_TO_RUN_JSON" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['to_run']))")
-          echo "Cases to run: $CASES_TO_RUN"
-          echo "Cases already successful: $(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(' '.join(data['already_successful']))")"
+          # Check if there are cases to run
+          CASES_COUNT=$(echo "$CASES_TO_RUN_JSON" | python3 -c "import sys, json; print(len(json.load(sys.stdin)))")
+          if [ "$CASES_COUNT" -gt 0 ]; then
+            echo "has_cases=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_cases=false" >> $GITHUB_OUTPUT
+          fi
           
-          # Also output as a simple string for debugging
-          echo "cases_to_run=$CASES_TO_RUN" >> $GITHUB_OUTPUT
-          
-          # Debug: Show what cases were found
           echo ""
-          echo "=== Debug: Case filtering results ==="
-          echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(f\"Total cases found: {len(data['to_run']) + len(data['already_successful'])}\"); print(f\"Cases to run: {len(data['to_run'])}\"); print(f\"Cases skipped: {len(data['already_successful'])}\")"
+          echo "=== Case filtering results ==="
+          echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(f\"Total cases: {len(data['to_run']) + len(data['already_successful'])}\"); print(f\"To run: {len(data['to_run'])}\"); print(f\"Skipped: {len(data['already_successful'])}\")"
 
   run-cases:
     needs: [determine-cases]
+<<<<<<< HEAD
     if: needs.determine-cases.outputs.cases_to_run_json != '[]'
     runs-on: ubuntu-24.04-large
     timeout-minutes: 360  # 6 hours - maximum allowed by GitHub Actions for GitHub-hosted runners
     permissions:
       contents: write
+=======
+    if: needs.determine-cases.outputs.has_cases == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+>>>>>>> c82710dafb52af36e00b0a63cf4a349cefeb1287
     strategy:
       fail-fast: false
       matrix:
@@ -213,9 +182,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all history for proper branch operations
-          token: ${{ secrets.GITHUB_TOKEN }}  # Explicit token for write access
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -250,7 +216,6 @@ jobs:
           git clone --depth=1 https://github.com/itpplasma/SIMPLE.git
           cd SIMPLE
           make -j$(nproc)
-          # Copy simple.x from build directory to project root
           cp build/simple.x ${{ github.workspace }}/simple.x
 
       - name: Configure and install VMEC2000 module
@@ -260,8 +225,7 @@ jobs:
           pip install .
 
       - name: Install package
-        run: |
-          pip install -e .
+        run: pip install -e .
 
       - name: Check if surface file exists
         run: |
@@ -274,22 +238,24 @@ jobs:
           fi
 
       - name: Run case file
-        timeout-minutes: 350  # Slightly less than job timeout (360min) to ensure commit step can run
+        timeout-minutes: 350
         env:
-          MPLBACKEND: Agg  # Ensure matplotlib uses non-interactive backend
+          MPLBACKEND: Agg
         run: |
           echo "=========================================="
           echo "Running case: ${{ matrix.case_file }}"
-          echo "(New case or previously failed - will retry until successful)"
           echo "=========================================="
           stellcoilbench submit-case "${{ matrix.case_file }}"
 
-      - name: Configure Git
-        if: always()  # Run even if previous step failed or was canceled
+      - name: Create artifact name from case file
+        id: artifact-name
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "$GITHUB_ACTOR"
+          # Convert case file path to a valid artifact name
+          # e.g., cases/basic_rotating_ellipse.yaml -> basic_rotating_ellipse
+          CASE_NAME=$(basename "${{ matrix.case_file }}" .yaml)
+          echo "name=$CASE_NAME" >> $GITHUB_OUTPUT
 
+<<<<<<< HEAD
       - name: Commit submission
         if: always()  # Run even if previous step failed or was canceled
         timeout-minutes: 10  # Quick timeout for commit step
@@ -564,56 +530,20 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+=======
+      - name: Upload submission as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+>>>>>>> c82710dafb52af36e00b0a63cf4a349cefeb1287
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: submission-${{ steps.artifact-name.outputs.name }}
+          path: submissions/
+          if-no-files-found: warn
+          retention-days: 1
 
-      - name: Configure Git
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "$GITHUB_ACTOR"
-
-      - name: Wait for all matrix jobs and fetch submissions
-        run: |
-          echo "Waiting for all parallel case jobs to complete and commit their submissions..."
-          echo "Note: Some jobs may have been canceled or timed out, but we'll collect any submissions that were committed."
-          echo "Fetching latest from origin/main to get all submissions from parallel jobs..."
-          sleep 30  # Give matrix jobs more time to commit (increased from 10 to 30 seconds)
-          git fetch origin main || echo "Fetch failed (non-critical)"
-          
-          # Show what submissions exist locally vs remotely
-          echo ""
-          echo "=== Local submissions (before merge) ==="
-          find submissions -name "*.zip" -type f 2>/dev/null | wc -l || echo "0"
-          echo ""
-          echo "=== Remote submissions (after fetch) ==="
-          git ls-tree -r --name-only origin/main submissions/ 2>/dev/null | grep "\.zip$" | wc -l || echo "0"
-          
-          # Merge to get all submissions from parallel jobs
-          if git rev-parse --verify origin/main > /dev/null 2>&1; then
-            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
-            if [ "$BEHIND_COUNT" -gt 0 ]; then
-              echo "Merging origin/main to include all submissions from parallel jobs..."
-              git merge origin/main --no-edit --no-ff || {
-                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
-                if [ -n "$CONFLICTS" ]; then
-                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
-                  done
-                  git commit --no-edit || echo "Merge commit failed"
-                else
-                  git merge --abort 2>/dev/null || true
-                fi
-              }
-            fi
-          fi
-          
-          echo "All submissions collected:"
-          find submissions -name "*.zip" -type f | wc -l || echo "0"
-
-  generate-leaderboard:
-    needs: commit-submissions
-    if: always() && needs.commit-submissions.result != 'skipped'
+  commit-all:
+    needs: [determine-cases, run-cases]
+    if: always() && needs.determine-cases.outputs.has_cases == 'true'
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -630,215 +560,167 @@ jobs:
           python-version: "3.13"
 
       - name: Install package
+        run: pip install -e .
+
+      - name: Download all submission artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+          pattern: submission-*
+
+      - name: Merge artifacts into submissions directory
         run: |
-          pip install -e .
+          echo "=== Downloaded artifacts ==="
+          find artifacts/ -type f | head -50
+          
+          echo ""
+          echo "=== Merging into submissions/ ==="
+          
+          # Each artifact is in artifacts/submission-<name>/submissions/<surface>/<user>/<timestamp>/
+          # We need to merge them all into the main submissions/ directory
+          for artifact_dir in artifacts/submission-*/; do
+            if [ -d "$artifact_dir" ]; then
+              echo "Processing artifact: $artifact_dir"
+              # The artifact contains the full submissions/ structure
+              if [ -d "${artifact_dir}submissions" ]; then
+                cp -r "${artifact_dir}submissions/"* submissions/ 2>/dev/null || true
+              else
+                # Files might be directly in artifact_dir
+                cp -r "${artifact_dir}"* submissions/ 2>/dev/null || true
+              fi
+            fi
+          done
+          
+          echo ""
+          echo "=== All submissions after merge ==="
+          find submissions -name "*.zip" -type f | sort
 
       - name: Configure Git
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "$GITHUB_ACTOR"
 
-      - name: Generate and commit leaderboard files to main
+      - name: Commit all submissions
         run: |
-          # Ensure we're on main and have latest submissions
-          echo "Current branch: $(git branch --show-current)"
+          echo "=== Adding submissions to git ==="
           
-          # Step 1 already committed submissions locally and pushed them
-          # Fetch the latest to ensure we have Step 1's commits
-          echo "Fetching latest from origin (including Step 1's commits)..."
-          git fetch origin main || echo "Fetch failed (non-critical)"
+          # Add all submission files
+          git add -f submissions/ 2>/dev/null || true
           
-          # Show what commits we have locally vs remote
-          echo "Local commits:"
-          git log --oneline -5 || echo "No local commits"
-          echo "Remote commits:"
-          git log --oneline origin/main -5 || echo "No remote commits"
-          
-          # Clean up any untracked files in docs/leaderboards/ that would conflict with merge
-          # These are generated files that will be regenerated anyway - always remove them
-          echo "Cleaning untracked files in docs/leaderboards/ that would conflict with merge..."
-          # Aggressively remove all untracked files in docs/leaderboards/
-          if [ -d "docs/leaderboards" ]; then
-            # Remove all untracked .md files
-            find docs/leaderboards -name "*.md" -type f ! -path "*/\.git/*" | while read file; do
-              if ! git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
-                echo "Removing untracked file: $file"
-                rm -f "$file"
-              fi
-            done
-            # Also use git clean as fallback
-            git clean -fd docs/leaderboards/ 2>/dev/null || true
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No new submissions to commit"
+          else
+            echo "Committing submissions..."
+            git commit -m "chore: add CI-generated submissions"
+            
+            echo "Pushing to main..."
+            git push origin main
+            echo "Submissions committed successfully"
           fi
-          # Also remove untracked leaderboard.json if it exists
-          if [ -f "docs/leaderboard.json" ] && ! git ls-files --error-unmatch docs/leaderboard.json >/dev/null 2>&1; then
-            echo "Removing untracked file: docs/leaderboard.json"
-            rm -f docs/leaderboard.json
-          fi
+
+      - name: Generate and commit leaderboard
+        run: |
+          echo "=== Generating leaderboard ==="
           
-          # Step 1 already committed and pushed submissions locally
-          # We need to ensure we have those submissions before generating leaderboards
-          # Check if we're ahead of origin/main (Step 1's commits)
-          LOCAL_COMMITS=$(git rev-list HEAD ^origin/main 2>/dev/null | wc -l || echo "0")
-          echo "Local commits ahead of origin/main: $LOCAL_COMMITS"
-          
-          # If we have local commits, we already have Step 1's submissions
-          # Still fetch to get any other remote updates, but don't merge if it would conflict
-          echo "Fetching latest from origin..."
-          git fetch origin main || echo "Fetch failed (non-critical)"
-          
-          # Only merge if we're behind origin/main (to get submissions from previous runs)
-          # But preserve local commits from Step 1
-          if git rev-parse --verify origin/main > /dev/null 2>&1; then
-            BEHIND_COUNT=$(git rev-list origin/main ^HEAD 2>/dev/null | wc -l || echo "0")
-            if [ "$BEHIND_COUNT" -gt 0 ]; then
-              echo "Merging origin/main to include submissions from previous runs..."
-              git merge origin/main --no-edit --no-ff || {
-                # If merge fails, resolve conflicts by keeping local submissions
-                CONFLICTS=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
-                if [ -n "$CONFLICTS" ]; then
-                  echo "$CONFLICTS" | grep "^submissions/" | while read file; do
-                    [ -n "$file" ] && git checkout --ours "$file" 2>/dev/null && git add -f "$file" 2>/dev/null || true
-                  done
-                  echo "$CONFLICTS" | grep "^docs/" | while read file; do
-                    [ -n "$file" ] && git checkout --theirs "$file" 2>/dev/null && git add "$file" 2>/dev/null || true
-                  done
-                  git commit --no-edit || echo "Merge commit failed"
-                else
-                  git merge --abort 2>/dev/null || true
-                fi
-              }
-            else
-              echo "Already up to date with origin/main, using local state"
-            fi
-          fi
-          
-          # Count submissions (should include both locally committed and merged from remote)
-          # Submissions are now zipped
-          SUBMISSIONS_COUNT=$(find submissions -name "*.zip" -type f 2>/dev/null | wc -l)
-          echo "Submissions found: $SUBMISSIONS_COUNT"
-          echo "All submission zip files:"
-          find submissions -name "*.zip" -type f | sort || echo "No zip files found"
-          
-          # Generate leaderboard files (processes all submissions in submissions/ directory)
-          # Remove old leaderboard files first to ensure clean regeneration
-          echo "Removing old leaderboard files to ensure clean regeneration..."
+          # Remove old leaderboard files
           rm -f docs/leaderboard.json
-          # Remove all existing leaderboard markdown files
           if [ -d "docs/leaderboards" ]; then
             find docs/leaderboards -name "*.md" -type f -delete
-            echo "Removed old leaderboard .md files"
           fi
           
-          echo "Generating leaderboard files..."
-          echo "Running stellcoilbench update-db..."
-          # Capture stderr output which contains diagnostics
-          stellcoilbench update-db 2>&1 | tee /tmp/update-db-output.log
-          echo ""
-          echo "=== Update-db diagnostic summary ==="
-          grep -E "(Loaded|skipped|filtered|Warning|Methods dict|Leaderboard:|Surface leaderboards|entries|No match|Skipping|score_primary)" /tmp/update-db-output.log | head -50 || echo "No diagnostic output found"
-          echo ""
-          echo "=== Submissions found ==="
-          find submissions -name "*.zip" -type f | sort || echo "No zip files found"
-          echo ""
-          echo "=== Checking a few submissions for metrics ==="
-          # Check first few submissions to see what metrics they have
-          printf 'import zipfile\nimport json\nimport sys\nimport os\nzip_file = sys.argv[1]\ntry:\n    with zipfile.ZipFile(zip_file, "r") as zf:\n        if "results.json" in zf.namelist():\n            data = json.loads(zf.read("results.json").decode("utf-8"))\n            metrics = data.get("metrics", {})\n            print(f"  Metrics keys: {list(metrics.keys())[:10]}")\n            print(f"  Has score_primary: {\"score_primary\" in metrics}")\n            print(f"  Has final_normalized_squared_flux: {\"final_normalized_squared_flux\" in metrics}")\n            print(f"  Has final_flux: {\"final_flux\" in metrics}")\n            if "score_primary" in metrics:\n                print(f"  score_primary value: {metrics[\"score_primary\"]}")\n            elif "final_normalized_squared_flux" in metrics:\n                print(f"  final_normalized_squared_flux value: {metrics[\"final_normalized_squared_flux\"]}")\n        else:\n            print("  No results.json in zip")\nexcept Exception as e:\n    print(f"  Error: {e}")\n' > /tmp/check_metrics.py
-          for zip_file in $(find submissions -name "*.zip" -type f | head -5); do
-            echo ""
-            echo "Checking: $zip_file"
-            python3 /tmp/check_metrics.py "$zip_file" || echo "  Failed to check"
-          done
-          echo "===================================="
+          # Generate leaderboard
+          stellcoilbench update-db 2>&1 | tee /tmp/update-db.log
           
-          # Verify all expected leaderboard files were generated
-          echo "Verifying generated leaderboard files..."
+          echo ""
+          echo "=== Generated leaderboard files ==="
+          ls -la docs/leaderboards/*.md 2>/dev/null || echo "No leaderboard files"
+          
+          # Add leaderboard files
+          if [ -f "docs/leaderboard.json" ]; then
+            git add docs/leaderboard.json
+          fi
           if [ -d "docs/leaderboards" ]; then
-            echo "Generated leaderboard files:"
-            ls -la docs/leaderboards/*.md 2>/dev/null || echo "No .md files found"
-            
-            # Check for specific surfaces
-            for surface in rotating_ellipse LandremanPaul2021_QA circular_tokamak muse_focus; do
-              if [ -f "docs/leaderboards/${surface}.md" ]; then
-                echo "✓ ${surface}.md exists"
-              else
-                echo "WARNING: ${surface}.md not found"
-              fi
-            done
+            git add docs/leaderboards/*.md 2>/dev/null || true
           fi
-          
-          # Verify files were generated
-          echo "Checking generated files..."
-          ls -la docs/ 2>/dev/null || echo "docs/ directory not found"
-          ls -la docs/*.md 2>/dev/null | head -5 || echo "No markdown files in docs/"
-          
-          # Add generated leaderboard files
-          # Note: docs/leaderboard.json is optional reference, methods.json and cases.json are not saved
-          echo "Adding leaderboard files..."
-          ADDED_ANY=false
-          
-          # Add individual files if they exist
-          for file in docs/leaderboard.json; do
-            if [ -f "$file" ]; then
-              echo "Adding $file"
-              git add "$file" && ADDED_ANY=true
-            else
-              echo "File not found: $file"
-            fi
-          done
-          
-          # Add leaderboard directories if they exist
-          if [ -d "docs/leaderboards" ]; then
-            echo "Adding all docs/leaderboards/*.md files"
-            # Use find to ensure we get all .md files, including new ones
-            find docs/leaderboards -name "*.md" -type f | while read file; do
-              echo "  Adding: $file"
-              git add "$file" && ADDED_ANY=true
-            done
-          fi
-          
-          # Remove old leaderboard file if it exists (singular .md file, replaced by docs/leaderboards/ directory)
-          if [ -f "docs/leaderboard.md" ]; then
-            echo "Removing old docs/leaderboard.md"
-            git rm -f docs/leaderboard.md 2>/dev/null || true
-          fi
-          # Note: docs/leaderboards/ directory is now tracked, so we don't remove it
-          # Files are added/updated explicitly above, and old files will be overwritten by new generation
-          
-          echo "Files added: $ADDED_ANY"
-          
-          # Show git status before committing
-          echo "Git status before commit:"
-          git status --short | head -20
           
           # Commit if there are changes
-          if ! git diff --staged --quiet; then
-            echo "Committing leaderboard files to main..."
-            git commit -m "chore: update StellCoilBench leaderboard" || echo "Commit failed"
-            echo "Pushing to main..."
-            git push origin main || (echo "ERROR: Failed to push to main" && exit 1)
-            echo "Successfully pushed leaderboard files to main"
-          else
+          if git diff --staged --quiet; then
             echo "No leaderboard changes to commit"
-            echo "Staged files:"
-            git diff --staged --name-only || echo "No staged files"
-            echo "Untracked/modified files:"
-            git status --short | grep -E "(docs/|db/)" | head -10 || echo "No leaderboard files found"
+          else
+            echo "Committing leaderboard..."
+            git commit -m "chore: update StellCoilBench leaderboard"
+            git push origin main
+            echo "Leaderboard committed successfully"
           fi
 
       - name: Trigger ReadTheDocs build
         if: always()
         run: |
-          # Trigger ReadTheDocs build via webhook API if credentials are available
-          # This ensures docs build happens after CI runs complete and PDFs are committed
           if [ -n "${{ secrets.RTDS_WEBHOOK_URL }}" ] && [ -n "${{ secrets.RTDS_WEBHOOK_TOKEN }}" ]; then
             echo "Triggering ReadTheDocs build..."
             curl -X POST "${{ secrets.RTDS_WEBHOOK_URL }}" \
               -H "Authorization: token ${{ secrets.RTDS_WEBHOOK_TOKEN }}" \
               -H "Content-Type: application/json" \
-              -d '{"branches": ["main"]}' || echo "Warning: Failed to trigger ReadTheDocs build (non-critical)"
+              -d '{"branches": ["main"]}' || echo "Warning: Failed to trigger ReadTheDocs build"
           else
-            echo "ReadTheDocs webhook credentials not configured - skipping build trigger"
-            echo "To enable automatic docs builds after CI completes, add RTDS_WEBHOOK_URL and RTDS_WEBHOOK_TOKEN secrets"
-            echo "See: https://docs.readthedocs.com/platform/stable/guides/build/webhooks.html"
+            echo "ReadTheDocs webhook not configured - skipping"
           fi
 
+  # Job that runs when there are no cases to run (just update leaderboard from existing submissions)
+  update-leaderboard-only:
+    needs: [determine-cases]
+    if: needs.determine-cases.outputs.has_cases == 'false'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+
+      - name: Generate and commit leaderboard
+        run: |
+          echo "=== No new cases to run, updating leaderboard from existing submissions ==="
+          
+          # Remove old leaderboard files
+          rm -f docs/leaderboard.json
+          if [ -d "docs/leaderboards" ]; then
+            find docs/leaderboards -name "*.md" -type f -delete
+          fi
+          
+          # Generate leaderboard
+          stellcoilbench update-db 2>&1 | tee /tmp/update-db.log
+          
+          # Add leaderboard files
+          if [ -f "docs/leaderboard.json" ]; then
+            git add docs/leaderboard.json
+          fi
+          if [ -d "docs/leaderboards" ]; then
+            git add docs/leaderboards/*.md 2>/dev/null || true
+          fi
+          
+          # Commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No leaderboard changes to commit"
+          else
+            echo "Committing leaderboard..."
+            git commit -m "chore: update StellCoilBench leaderboard"
+            git push origin main
+            echo "Leaderboard committed successfully"
+          fi

@@ -532,8 +532,8 @@ def optimize_coils(
         # Virtual casing resolution must match the surface resolution
         # The target resolution should match nphi and ntheta of the surface
         # surface uses surface_resolution for both nphi and ntheta
-        vc_src_nphi = 160  # Higher resolution source for accuracy
-        vc_src_ntheta = 160
+        vc_src_nphi = 80
+        vc_src_ntheta = 80
         vc_trgt_nphi = surface_resolution
         vc_trgt_ntheta = surface_resolution
         

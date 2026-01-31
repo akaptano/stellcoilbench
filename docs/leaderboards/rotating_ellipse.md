@@ -31,43 +31,47 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cc</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cs</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">L</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">LF</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">avg(QS)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.7e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">29/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.8e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.5e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.0e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.8e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.1e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.7e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.2e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.8e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.4e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.6e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+07</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.7e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.3e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.4e+06</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.2e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.7e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.9e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.8e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.3e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.3e-02</td>
 </tr>
 </tbody>
 </table>
 
 ### Legend
 
-- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.
+- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Bdotn
@@ -86,5 +90,7 @@
 - Minimum coil-to-coil distance $d_{cc}$ ($\text{m}$)
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
+- Final particle loss fraction from SIMPLE fast particle tracing. The loss fraction is computed as $1 - f_c$ where $f_c$ is the confined fraction (sum of confined passing and trapped particles). Lower values indicate better particle confinement (dimensionless).
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
+- Average two-term quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. The two-term quasisymmetry error measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces by evaluating the ratio residual $QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}$ where $(m,n)$ is the target helicity. Lower values indicate better quasisymmetry (dimensionless).

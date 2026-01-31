@@ -14,7 +14,7 @@ coils_params:
 
 optimizer_params:
   algorithm: "L-BFGS-B"
-  max_iterations: 1000
+  max_iterations: 500
   max_iter_subopt: 10
   verbose: True
 
