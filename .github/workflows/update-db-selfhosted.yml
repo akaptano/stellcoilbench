@@ -1,0 +1,281 @@
+# .github/workflows/update-db-selfhosted.yml
+# Simplified workflow for self-hosted runner with pre-installed dependencies
+name: Update StellCoilBench Database (Self-Hosted)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+    # workflow_dispatch is only available to users with write access
+
+# Queue new runs instead of canceling in-progress ones
+concurrency:
+  group: update-db-selfhosted-${{ github.ref }}
+  cancel-in-progress: false
+
+# SECURITY: Prevent forks from running on self-hosted runner
+# This is defense-in-depth; GitHub also blocks forks by default
+
+env:
+  # Conda environment with VMEC, simsopt, virtual-casing pre-installed
+  CONDA_ENV: stellcoilbench
+  # Path to simple.x executable (adjust as needed)
+  SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
+
+jobs:
+  determine-cases:
+    # Only run on the main repository, never on forks
+    if: github.repository == 'akaptano/stellcoilbench'
+    runs-on: self-hosted
+    outputs:
+      cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
+      has_cases: ${{ steps.filter.outputs.has_cases }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Filter cases to run
+        id: filter
+        shell: bash
+        run: |
+          # Activate conda environment
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          
+          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
+          
+          if [ -z "$ALL_CASE_FILES" ]; then
+            echo "ERROR: No .yaml files found in cases/ directory!"
+            exit 1
+          fi
+          
+          TEMP_CASES=$(mktemp)
+          echo "$ALL_CASE_FILES" > "$TEMP_CASES"
+          
+          PYTHON_OUTPUT=$(python3 - "$TEMP_CASES" << 'PYTHON_SCRIPT'
+          import sys
+          import yaml
+          import zipfile
+          from pathlib import Path
+          import json
+          
+          def normalize_yaml_content(content):
+              try:
+                  data = yaml.safe_load(content)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+          
+          def case_has_successful_submission(case_file_path):
+              case_path = Path(case_file_path)
+              if not case_path.exists():
+                  return False
+              
+              try:
+                  current_case_content = case_path.read_text()
+                  current_case_normalized = normalize_yaml_content(current_case_content)
+              except Exception as e:
+                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
+                  return False
+              
+              try:
+                  repo_root = Path.cwd()
+                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
+              except ValueError:
+                  case_file_rel = str(case_path.resolve())
+              
+              case_file_rel_normalized = case_file_rel.replace("\\", "/")
+              
+              submissions_dir = Path("submissions")
+              if not submissions_dir.exists():
+                  return False
+              
+              zip_files = list(submissions_dir.rglob("*.zip"))
+              if len(zip_files) == 0:
+                  return False
+              
+              for zip_path in zip_files:
+                  try:
+                      with zipfile.ZipFile(zip_path, 'r') as zf:
+                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
+                              continue
+                          
+                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_data = yaml.safe_load(zip_case_content)
+                          
+                          submission_source = zip_case_data.get('source_case_file', '')
+                          submission_source_normalized = submission_source.replace("\\", "/")
+                          
+                          source_filename = Path(submission_source_normalized).name
+                          case_filename = Path(case_file_rel_normalized).name
+                          
+                          if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
+                              zip_case_normalized = normalize_yaml_content(zip_case_content)
+                              if zip_case_normalized == current_case_normalized:
+                                  return True
+                  except Exception as e:
+                      continue
+              
+              return False
+          
+          # Read case files from temp file
+          temp_file = sys.argv[1]
+          with open(temp_file, 'r') as f:
+              case_files = [line.strip() for line in f if line.strip()]
+          
+          to_run = []
+          already_successful = []
+          
+          for case_file in case_files:
+              if case_has_successful_submission(case_file):
+                  already_successful.append(case_file)
+              else:
+                  to_run.append(case_file)
+          
+          result = {
+              "to_run": to_run,
+              "already_successful": already_successful
+          }
+          print(json.dumps(result))
+          PYTHON_SCRIPT
+          )
+          
+          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
+          
+          echo "cases_to_run_json=$CASES_TO_RUN" >> $GITHUB_OUTPUT
+          
+          if [ "$CASES_TO_RUN" = "[]" ]; then
+            echo "has_cases=false" >> $GITHUB_OUTPUT
+            echo "No cases need to be run - all have successful submissions"
+          else
+            echo "has_cases=true" >> $GITHUB_OUTPUT
+            echo "Cases to run: $CASES_TO_RUN"
+          fi
+
+  run-cases:
+    needs: [determine-cases]
+    if: github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
+    runs-on: self-hosted
+    timeout-minutes: 720  # 12 hours - more generous for self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        case_file: ${{ fromJson(needs.determine-cases.outputs.cases_to_run_json) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install stellcoilbench package
+        shell: bash
+        run: |
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          pip install -e .
+
+      - name: Check if surface file exists
+        shell: bash
+        run: |
+          SURFACE_NAME=$(grep -A 2 "surface_params:" "${{ matrix.case_file }}" | grep "surface:" | awk '{print $2}' | tr -d '"')
+          if [ -n "$SURFACE_NAME" ]; then
+            if [ ! -f "plasma_surfaces/$SURFACE_NAME" ] && [ ! -f "plasma_surfaces/${SURFACE_NAME,,}" ]; then
+              echo "ERROR: Surface file '$SURFACE_NAME' not found in plasma_surfaces/"
+              exit 1
+            fi
+          fi
+
+      - name: Run case file
+        timeout-minutes: 600  # 10 hours per case
+        shell: bash
+        env:
+          MPLBACKEND: Agg
+        run: |
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          
+          echo "=========================================="
+          echo "Running case: ${{ matrix.case_file }}"
+          echo "Conda environment: $CONDA_ENV"
+          echo "Python: $(which python)"
+          echo "=========================================="
+          
+          # Copy simple.x to workspace if it exists
+          if [ -f "$SIMPLE_EXECUTABLE" ]; then
+            cp "$SIMPLE_EXECUTABLE" ./simple.x
+            echo "Copied simple.x from $SIMPLE_EXECUTABLE"
+          fi
+          
+          stellcoilbench submit-case "${{ matrix.case_file }}"
+
+      - name: Commit submission directly
+        if: always()
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+          
+          # Add submission files (force add since submissions/ may be in .gitignore)
+          git add -f submissions/ 2>/dev/null || true
+          
+          if git diff --staged --quiet; then
+            echo "No new submissions to commit for ${{ matrix.case_file }}"
+          else
+            git commit -m "chore: add CI-generated submission for ${{ matrix.case_file }}"
+            
+            # Pull and rebase to handle concurrent commits
+            git pull --rebase origin main || {
+              echo "Rebase failed, trying merge..."
+              git rebase --abort 2>/dev/null || true
+              git pull origin main --no-edit || true
+              git add -f submissions/
+              git commit -m "chore: merge submission for ${{ matrix.case_file }}" || true
+            }
+            
+            git push origin main
+            echo "Submission committed for ${{ matrix.case_file }}"
+          fi
+
+  update-leaderboard:
+    needs: [determine-cases, run-cases]
+    if: always() && github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Install stellcoilbench and generate leaderboard
+        shell: bash
+        run: |
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          pip install -e .
+          
+          echo "=== Generating leaderboard ==="
+          stellcoilbench update-leaderboard
+
+      - name: Commit leaderboard
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+          
+          git add docs/leaderboard.json docs/leaderboard.rst docs/leaderboard/ 2>/dev/null || true
+          
+          if git diff --staged --quiet; then
+            echo "No leaderboard changes to commit"
+          else
+            git commit -m "chore: update StellCoilBench leaderboard"
+            git pull --rebase origin main || git pull origin main --no-edit
+            git push origin main
+            echo "Leaderboard updated"
+          fi
