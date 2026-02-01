@@ -127,6 +127,13 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install stellcoilbench
+        shell: bash
+        run: |
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate $CONDA_ENV
+          pip install -e .
+
       - name: Run all cases in parallel
         shell: bash
         env:
