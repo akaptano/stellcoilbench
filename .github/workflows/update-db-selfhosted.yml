@@ -64,92 +64,95 @@ jobs:
           
           # Write Python script to a temp file and execute with conda python
           TEMP_SCRIPT=$(mktemp --suffix=.py)
-          cat > "$TEMP_SCRIPT" << 'PYTHON_SCRIPT'
-import sys
-import yaml
-import zipfile
-from pathlib import Path
-import json
-
-def normalize_yaml_content(content):
-    try:
-        data = yaml.safe_load(content)
-        return yaml.dump(data, sort_keys=True, default_flow_style=False)
-    except:
-        return content
-
-def case_has_successful_submission(case_file_path):
-    case_path = Path(case_file_path)
-    if not case_path.exists():
-        return False
-    
-    try:
-        current_case_content = case_path.read_text()
-        current_case_normalized = normalize_yaml_content(current_case_content)
-    except Exception as e:
-        print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
-        return False
-    
-    try:
-        repo_root = Path.cwd()
-        case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
-    except ValueError:
-        case_file_rel = str(case_path.resolve())
-    
-    case_file_rel_normalized = case_file_rel.replace("\\", "/")
-    
-    submissions_dir = Path("submissions")
-    if not submissions_dir.exists():
-        return False
-    
-    zip_files = list(submissions_dir.rglob("*.zip"))
-    if len(zip_files) == 0:
-        return False
-    
-    for zip_path in zip_files:
-        try:
-            with zipfile.ZipFile(zip_path, 'r') as zf:
-                if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
-                    continue
-                
-                zip_case_content = zf.read('case.yaml').decode('utf-8')
-                zip_case_data = yaml.safe_load(zip_case_content)
-                
-                submission_source = zip_case_data.get('source_case_file', '')
-                submission_source_normalized = submission_source.replace("\\", "/")
-                
-                source_filename = Path(submission_source_normalized).name
-                case_filename = Path(case_file_rel_normalized).name
-                
-                if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
-                    zip_case_normalized = normalize_yaml_content(zip_case_content)
-                    if zip_case_normalized == current_case_normalized:
-                        return True
-        except Exception as e:
-            continue
-    
-    return False
-
-# Read case files from temp file
-temp_file = sys.argv[1]
-with open(temp_file, 'r') as f:
-    case_files = [line.strip() for line in f if line.strip()]
-
-to_run = []
-already_successful = []
-
-for case_file in case_files:
-    if case_has_successful_submission(case_file):
-        already_successful.append(case_file)
-    else:
-        to_run.append(case_file)
-
-result = {
-    "to_run": to_run,
-    "already_successful": already_successful
-}
-print(json.dumps(result))
-PYTHON_SCRIPT
+          cat > "$TEMP_SCRIPT" << 'ENDOFPYTHON'
+          import sys
+          import yaml
+          import zipfile
+          from pathlib import Path
+          import json
+          
+          def normalize_yaml_content(content):
+              try:
+                  data = yaml.safe_load(content)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+          
+          def case_has_successful_submission(case_file_path):
+              case_path = Path(case_file_path)
+              if not case_path.exists():
+                  return False
+              
+              try:
+                  current_case_content = case_path.read_text()
+                  current_case_normalized = normalize_yaml_content(current_case_content)
+              except Exception as e:
+                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
+                  return False
+              
+              try:
+                  repo_root = Path.cwd()
+                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
+              except ValueError:
+                  case_file_rel = str(case_path.resolve())
+              
+              case_file_rel_normalized = case_file_rel.replace("\\", "/")
+              
+              submissions_dir = Path("submissions")
+              if not submissions_dir.exists():
+                  return False
+              
+              zip_files = list(submissions_dir.rglob("*.zip"))
+              if len(zip_files) == 0:
+                  return False
+              
+              for zip_path in zip_files:
+                  try:
+                      with zipfile.ZipFile(zip_path, 'r') as zf:
+                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
+                              continue
+                          
+                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_data = yaml.safe_load(zip_case_content)
+                          
+                          submission_source = zip_case_data.get('source_case_file', '')
+                          submission_source_normalized = submission_source.replace("\\", "/")
+                          
+                          source_filename = Path(submission_source_normalized).name
+                          case_filename = Path(case_file_rel_normalized).name
+                          
+                          if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
+                              zip_case_normalized = normalize_yaml_content(zip_case_content)
+                              if zip_case_normalized == current_case_normalized:
+                                  return True
+                  except Exception as e:
+                      continue
+              
+              return False
+          
+          # Read case files from temp file
+          temp_file = sys.argv[1]
+          with open(temp_file, 'r') as f:
+              case_files = [line.strip() for line in f if line.strip()]
+          
+          to_run = []
+          already_successful = []
+          
+          for case_file in case_files:
+              if case_has_successful_submission(case_file):
+                  already_successful.append(case_file)
+              else:
+                  to_run.append(case_file)
+          
+          result = {
+              "to_run": to_run,
+              "already_successful": already_successful
+          }
+          print(json.dumps(result))
+          ENDOFPYTHON
+          
+          # Strip leading spaces from the Python script (heredoc preserves them)
+          sed -i 's/^          //' "$TEMP_SCRIPT"
           
           PYTHON_OUTPUT=$("$CONDA_PYTHON" "$TEMP_SCRIPT" "$TEMP_CASES")
           rm -f "$TEMP_SCRIPT" "$TEMP_CASES"
@@ -207,68 +210,70 @@ PYTHON_SCRIPT
           mkdir -p /tmp/stellcoilbench_logs
           
           # Create a wrapper script for running each case
-          cat > /tmp/run_case.sh << 'SCRIPT'
-#!/bin/bash
-
-CASE_FILE="$1"
-WORKSPACE="$2"
-
-# Create a safe log filename from case file
-CASE_NAME=$(basename "$CASE_FILE" .yaml)
-LOG_FILE="/tmp/stellcoilbench_logs/${CASE_NAME}.log"
-
-# Function to log with timestamp
-log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$CASE_NAME] $1" | tee -a "$LOG_FILE"
-}
-
-log "Starting..."
-log "Activating conda: $CONDA_ENV"
-
-source ~/miniconda3/etc/profile.d/conda.sh
-if ! conda activate $CONDA_ENV; then
-  log "ERROR: Failed to activate conda"
-  exit 1
-fi
-
-# Limit each job to 1 thread (prevents NumPy/BLAS from using all cores)
-export OMP_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export OPENBLAS_NUM_THREADS=1
-export NUMEXPR_NUM_THREADS=1
-export VECLIB_MAXIMUM_THREADS=1
-export MPLBACKEND=Agg
-export PYTHONUNBUFFERED=1
-
-log "Python: $(which python)"
-log "Working dir: $WORKSPACE"
-log "Log file: $LOG_FILE"
-
-cd "$WORKSPACE"
-
-# Run the case - output to both terminal and log file
-log "Running stellcoilbench submit-case..."
-echo "========== BEGIN OUTPUT ==========" >> "$LOG_FILE"
-
-python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
-EXIT_CODE=${PIPESTATUS[0]}
-
-echo "========== END OUTPUT ==========" >> "$LOG_FILE"
-
-if [ $EXIT_CODE -eq 0 ]; then
-  log "SUCCESS"
-else
-  log "FAILED (exit code $EXIT_CODE)"
-  echo ""
-  echo "=============================================="
-  echo "FULL LOG FOR FAILED CASE: $CASE_FILE"
-  echo "=============================================="
-  cat "$LOG_FILE"
-  echo "=============================================="
-fi
-
-exit $EXIT_CODE
-SCRIPT
+          cat > /tmp/run_case.sh << 'ENDOFSCRIPT'
+          #!/bin/bash
+          
+          CASE_FILE="$1"
+          WORKSPACE="$2"
+          
+          # Create a safe log filename from case file
+          CASE_NAME=$(basename "$CASE_FILE" .yaml)
+          LOG_FILE="/tmp/stellcoilbench_logs/${CASE_NAME}.log"
+          
+          # Function to log with timestamp
+          log() {
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$CASE_NAME] $1" | tee -a "$LOG_FILE"
+          }
+          
+          log "Starting..."
+          log "Activating conda: $CONDA_ENV"
+          
+          source ~/miniconda3/etc/profile.d/conda.sh
+          if ! conda activate $CONDA_ENV; then
+            log "ERROR: Failed to activate conda"
+            exit 1
+          fi
+          
+          # Limit each job to 1 thread (prevents NumPy/BLAS from using all cores)
+          export OMP_NUM_THREADS=1
+          export MKL_NUM_THREADS=1
+          export OPENBLAS_NUM_THREADS=1
+          export NUMEXPR_NUM_THREADS=1
+          export VECLIB_MAXIMUM_THREADS=1
+          export MPLBACKEND=Agg
+          export PYTHONUNBUFFERED=1
+          
+          log "Python: $(which python)"
+          log "Working dir: $WORKSPACE"
+          log "Log file: $LOG_FILE"
+          
+          cd "$WORKSPACE"
+          
+          # Run the case - output to both terminal and log file
+          log "Running stellcoilbench submit-case..."
+          echo "========== BEGIN OUTPUT ==========" >> "$LOG_FILE"
+          
+          python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
+          EXIT_CODE=${PIPESTATUS[0]}
+          
+          echo "========== END OUTPUT ==========" >> "$LOG_FILE"
+          
+          if [ $EXIT_CODE -eq 0 ]; then
+            log "SUCCESS"
+          else
+            log "FAILED (exit code $EXIT_CODE)"
+            echo ""
+            echo "=============================================="
+            echo "FULL LOG FOR FAILED CASE: $CASE_FILE"
+            echo "=============================================="
+            cat "$LOG_FILE"
+            echo "=============================================="
+          fi
+          
+          exit $EXIT_CODE
+          ENDOFSCRIPT
+          # Strip leading spaces from the wrapper script
+          sed -i 's/^          //' /tmp/run_case.sh
           chmod +x /tmp/run_case.sh
           
           # Run cases in parallel using GNU parallel (or xargs fallback)
