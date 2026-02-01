@@ -5,26 +5,17 @@ name: Update StellCoilBench Database (Self-Hosted)
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch:
 
-# Queue new runs instead of canceling in-progress ones
 concurrency:
   group: update-db-selfhosted-${{ github.ref }}
   cancel-in-progress: false
 
-# SECURITY: Prevent forks from running on self-hosted runner
-
 env:
-  # Conda environment with VMEC, simsopt, virtual-casing pre-installed
   CONDA_ENV: stellcoilbench
-  # Path to simple.x executable
   SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
 
 jobs:
-  # NOTE: Self-hosted runner must be started manually on crunchy5 before this workflow runs.
-  # Start it once with: screen -dmS github-runner bash -c 'while true; do ./run.sh; sleep 10; done'
-  # Check status with: screen -ls
-  
   determine-cases:
     if: github.repository == 'akaptano/stellcoilbench'
     runs-on: self-hosted
@@ -41,15 +32,8 @@ jobs:
         id: filter
         shell: bash
         run: |
-          # Activate conda environment
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
-          
-          # Store the conda python path
-          CONDA_PYTHON=$(which python3)
-          echo "Using Python: $CONDA_PYTHON"
-          
-          # Ensure pyyaml is installed (needed for case filtering)
           pip install pyyaml --quiet 2>/dev/null || true
           
           ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
@@ -59,105 +43,67 @@ jobs:
             exit 1
           fi
           
-          TEMP_CASES=$(mktemp)
-          echo "$ALL_CASE_FILES" > "$TEMP_CASES"
-          
-          # Write Python script to a temp file and execute with conda python
+          # Create Python filter script
           TEMP_SCRIPT=$(mktemp --suffix=.py)
-          cat > "$TEMP_SCRIPT" << 'ENDOFPYTHON'
-          import sys
-          import yaml
-          import zipfile
+          echo 'import sys, yaml, zipfile, json
           from pathlib import Path
-          import json
-          
+
           def normalize_yaml_content(content):
               try:
                   data = yaml.safe_load(content)
                   return yaml.dump(data, sort_keys=True, default_flow_style=False)
               except:
                   return content
-          
+
           def case_has_successful_submission(case_file_path):
               case_path = Path(case_file_path)
               if not case_path.exists():
                   return False
-              
               try:
                   current_case_content = case_path.read_text()
                   current_case_normalized = normalize_yaml_content(current_case_content)
               except Exception as e:
-                  print(f"Warning: Failed to read case file {case_file_path}: {e}", file=sys.stderr)
                   return False
-              
               try:
                   repo_root = Path.cwd()
                   case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
               except ValueError:
                   case_file_rel = str(case_path.resolve())
-              
               case_file_rel_normalized = case_file_rel.replace("\\", "/")
-              
               submissions_dir = Path("submissions")
               if not submissions_dir.exists():
                   return False
-              
               zip_files = list(submissions_dir.rglob("*.zip"))
               if len(zip_files) == 0:
                   return False
-              
               for zip_path in zip_files:
                   try:
-                      with zipfile.ZipFile(zip_path, 'r') as zf:
-                          if 'case.yaml' not in zf.namelist() or 'results.json' not in zf.namelist():
+                      with zipfile.ZipFile(zip_path, "r") as zf:
+                          if "case.yaml" not in zf.namelist() or "results.json" not in zf.namelist():
                               continue
-                          
-                          zip_case_content = zf.read('case.yaml').decode('utf-8')
+                          zip_case_content = zf.read("case.yaml").decode("utf-8")
                           zip_case_data = yaml.safe_load(zip_case_content)
-                          
-                          submission_source = zip_case_data.get('source_case_file', '')
+                          submission_source = zip_case_data.get("source_case_file", "")
                           submission_source_normalized = submission_source.replace("\\", "/")
-                          
                           source_filename = Path(submission_source_normalized).name
                           case_filename = Path(case_file_rel_normalized).name
-                          
                           if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
                               zip_case_normalized = normalize_yaml_content(zip_case_content)
                               if zip_case_normalized == current_case_normalized:
                                   return True
-                  except Exception as e:
+                  except:
                       continue
-              
               return False
+
+          case_files = [line.strip() for line in sys.stdin if line.strip()]
+          to_run = [cf for cf in case_files if not case_has_successful_submission(cf)]
+          already_successful = [cf for cf in case_files if case_has_successful_submission(cf)]
+          print(json.dumps({"to_run": to_run, "already_successful": already_successful}))' > "$TEMP_SCRIPT"
           
-          # Read case files from temp file
-          temp_file = sys.argv[1]
-          with open(temp_file, 'r') as f:
-              case_files = [line.strip() for line in f if line.strip()]
+          PYTHON_OUTPUT=$(echo "$ALL_CASE_FILES" | python3 "$TEMP_SCRIPT")
+          rm -f "$TEMP_SCRIPT"
           
-          to_run = []
-          already_successful = []
-          
-          for case_file in case_files:
-              if case_has_successful_submission(case_file):
-                  already_successful.append(case_file)
-              else:
-                  to_run.append(case_file)
-          
-          result = {
-              "to_run": to_run,
-              "already_successful": already_successful
-          }
-          print(json.dumps(result))
-          ENDOFPYTHON
-          
-          # Strip leading spaces from the Python script (heredoc preserves them)
-          sed -i 's/^          //' "$TEMP_SCRIPT"
-          
-          PYTHON_OUTPUT=$("$CONDA_PYTHON" "$TEMP_SCRIPT" "$TEMP_CASES")
-          rm -f "$TEMP_SCRIPT" "$TEMP_CASES"
-          
-          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | "$CONDA_PYTHON" -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
+          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
           
           echo "cases_to_run_json=$CASES_TO_RUN" >> $GITHUB_OUTPUT
           
@@ -173,7 +119,7 @@ jobs:
     needs: [determine-cases]
     if: github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
     runs-on: self-hosted
-    timeout-minutes: 720  # 12 hours
+    timeout-minutes: 720
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -186,8 +132,7 @@ jobs:
         env:
           MPLBACKEND: Agg
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
-          # Number of parallel jobs - crunchy5 has 64 cores
-          PARALLEL_JOBS: 16
+          PARALLEL_JOBS: "16"
         run: |
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
@@ -197,132 +142,68 @@ jobs:
           echo "Cases: $CASES_JSON"
           echo "=========================================="
           
-          # Copy simple.x to workspace if it exists
           if [ -f "$SIMPLE_EXECUTABLE" ]; then
             cp "$SIMPLE_EXECUTABLE" ./simple.x
             echo "Copied simple.x from $SIMPLE_EXECUTABLE"
           fi
           
-          # Convert JSON array to newline-separated list
           CASE_LIST=$(echo "$CASES_JSON" | python3 -c "import sys, json; print('\n'.join(json.load(sys.stdin)))")
           
-          # Create log directory
           mkdir -p /tmp/stellcoilbench_logs
           
-          # Create a wrapper script for running each case
-          cat > /tmp/run_case.sh << 'ENDOFSCRIPT'
-          #!/bin/bash
-          
+          # Create wrapper script using echo
+          echo '#!/bin/bash
           CASE_FILE="$1"
           WORKSPACE="$2"
-          
-          # Create a safe log filename from case file
           CASE_NAME=$(basename "$CASE_FILE" .yaml)
           LOG_FILE="/tmp/stellcoilbench_logs/${CASE_NAME}.log"
           
-          # Function to log with timestamp
-          log() {
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$CASE_NAME] $1" | tee -a "$LOG_FILE"
-          }
+          log() { echo "[$(date +%Y-%m-%d\ %H:%M:%S)] [$CASE_NAME] $1" | tee -a "$LOG_FILE"; }
           
           log "Starting..."
-          log "Activating conda: $CONDA_ENV"
-          
           source ~/miniconda3/etc/profile.d/conda.sh
-          if ! conda activate $CONDA_ENV; then
-            log "ERROR: Failed to activate conda"
-            exit 1
-          fi
+          conda activate $CONDA_ENV || { log "ERROR: conda failed"; exit 1; }
           
-          # Limit each job to 1 thread (prevents NumPy/BLAS from using all cores)
-          export OMP_NUM_THREADS=1
-          export MKL_NUM_THREADS=1
-          export OPENBLAS_NUM_THREADS=1
-          export NUMEXPR_NUM_THREADS=1
-          export VECLIB_MAXIMUM_THREADS=1
-          export MPLBACKEND=Agg
-          export PYTHONUNBUFFERED=1
-          
-          log "Python: $(which python)"
-          log "Working dir: $WORKSPACE"
-          log "Log file: $LOG_FILE"
+          export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+          export MPLBACKEND=Agg PYTHONUNBUFFERED=1
           
           cd "$WORKSPACE"
-          
-          # Run the case - output to both terminal and log file
-          log "Running stellcoilbench submit-case..."
-          echo "========== BEGIN OUTPUT ==========" >> "$LOG_FILE"
+          log "Running stellcoilbench..."
           
           python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
           EXIT_CODE=${PIPESTATUS[0]}
-          
-          echo "========== END OUTPUT ==========" >> "$LOG_FILE"
           
           if [ $EXIT_CODE -eq 0 ]; then
             log "SUCCESS"
           else
             log "FAILED (exit code $EXIT_CODE)"
-            echo ""
-            echo "=============================================="
-            echo "FULL LOG FOR FAILED CASE: $CASE_FILE"
-            echo "=============================================="
-            cat "$LOG_FILE"
-            echo "=============================================="
+            echo "=== FULL LOG FOR $CASE_FILE ===" && cat "$LOG_FILE"
           fi
-          
-          exit $EXIT_CODE
-          ENDOFSCRIPT
-          # Strip leading spaces from the wrapper script
-          sed -i 's/^          //' /tmp/run_case.sh
+          exit $EXIT_CODE' > /tmp/run_case.sh
           chmod +x /tmp/run_case.sh
           
-          # Run cases in parallel using GNU parallel (or xargs fallback)
           if command -v parallel &> /dev/null; then
             echo "Using GNU parallel"
-            # --will-cite: skip citation notice that blocks on first run
-            # --ungroup: don't buffer output (show immediately)
             echo "$CASE_LIST" | parallel --will-cite -j $PARALLEL_JOBS --halt never \
               --ungroup --joblog /tmp/parallel.log \
               "CONDA_ENV=$CONDA_ENV /tmp/run_case.sh {} $PWD"
-            
-            echo ""
-            echo "=== Parallel execution summary ==="
-            cat /tmp/parallel.log || true
+            echo "=== Parallel execution summary ===" && cat /tmp/parallel.log || true
           else
             echo "GNU parallel not found, using xargs"
             echo "$CASE_LIST" | xargs -P $PARALLEL_JOBS -I {} bash -c \
               "CONDA_ENV=$CONDA_ENV /tmp/run_case.sh '{}' '$PWD'"
           fi
           
-          echo ""
           echo "=== All cases completed ==="
-          
-          # Show summary of all logs
-          echo ""
-          echo "=== LOG FILES ==="
-          ls -la /tmp/stellcoilbench_logs/ || true
-          
-          # Check for any failed cases and show their logs
-          if [ -f /tmp/parallel.log ]; then
-            echo ""
-            echo "=== FAILED CASES (if any) ==="
-            # Column 7 in joblog is exit code
-            awk '$7 != 0 {print "FAILED:", $9}' /tmp/parallel.log || true
-          fi
+          echo "=== LOG FILES ===" && ls -la /tmp/stellcoilbench_logs/ || true
 
       - name: Show all logs on failure
         if: failure()
         shell: bash
         run: |
-          echo "=== SHOWING ALL LOG FILES DUE TO FAILURE ==="
-          for log_file in /tmp/stellcoilbench_logs/*.log; do
-            if [ -f "$log_file" ]; then
-              echo ""
-              echo "=============================================="
-              echo "LOG: $log_file"
-              echo "=============================================="
-              cat "$log_file"
-            fi
+          echo "=== SHOWING ALL LOG FILES ==="
+          for f in /tmp/stellcoilbench_logs/*.log; do
+            [ -f "$f" ] && echo "=== $f ===" && cat "$f"
           done
 
       - name: Commit all submissions
@@ -331,24 +212,12 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "$GITHUB_ACTOR"
-          
-          # Add submission files (force add since submissions/ may be in .gitignore)
           git add -f submissions/ 2>/dev/null || true
-          
           if git diff --staged --quiet; then
             echo "No new submissions to commit"
           else
             git commit -m "chore: add CI-generated submissions (parallel run)"
-            
-            # Pull and rebase to handle concurrent commits
-            git pull --rebase origin main || {
-              echo "Rebase failed, trying merge..."
-              git rebase --abort 2>/dev/null || true
-              git pull origin main --no-edit || true
-              git add -f submissions/
-              git commit -m "chore: merge submissions" || true
-            }
-            
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
             git push origin main
             echo "Submissions committed"
           fi
@@ -372,7 +241,6 @@ jobs:
         run: |
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
-          
           echo "=== Generating leaderboard ==="
           stellcoilbench update-db
 
@@ -381,9 +249,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "$GITHUB_ACTOR"
-          
           git add docs/leaderboard.json docs/leaderboard.rst docs/leaderboards/ 2>/dev/null || true
-          
           if git diff --staged --quiet; then
             echo "No leaderboard changes to commit"
           else
