@@ -165,7 +165,7 @@ jobs:
   run-cases:
     needs: [determine-cases]
     if: needs.determine-cases.outputs.cases_to_run_json != '[]'
-    runs-on: ubuntu-24.04-large
+    runs-on: ubuntu-24.04
     timeout-minutes: 360  # 6 hours - maximum allowed by GitHub Actions for GitHub-hosted runners
     permissions:
       contents: write
