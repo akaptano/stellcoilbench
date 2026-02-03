@@ -191,6 +191,18 @@ def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
             'eps': [float],
             'maxls': [int],
         },
+        'L-BFGS-B-custom': {
+            'maxiter': [int],
+            'maxcor': [int],
+            'ftol': [float],
+            'gtol': [float],
+            'maxls': [int],
+            'c1': [float],
+            'c2': [float],
+            'alpha_init': [float],
+            'alpha_min': [float],
+            'verbose': [int],
+        },
         'SLSQP': {
             'ftol': [float],
             'eps': [float],
@@ -471,6 +483,8 @@ def optimize_coils(
         target_B = 0.15 
     elif 'LandremanPaul2021_QA' in surface_file:
         target_B = 1.0
+    elif 'LandremanPaul2021_QH_reactorScale_lowres' in surface_file:
+        target_B = 5.7  # Reactor-scale QH design
     elif 'circular_tokamak' in surface_file:
         target_B = 1.0
     elif 'rotating_ellipse' in surface_file:
@@ -1819,7 +1833,7 @@ def _optimize_coils_loop_impl(
     from simsopt.geo import LpCurveCurvature, CurveSurfaceDistance, MeanSquaredCurvature
     from simsopt.objectives import SquaredFlux, QuadraticPenalty, Weight
     from simsopt.field import BiotSavart, coils_to_vtk
-    from simsopt.field.force import LpCurveForce, LpCurveTorque, coil_force, coil_torque
+    from simsopt.field.force import LpCurveForce, LpCurveTorque
     from simsopt.util import calculate_modB_on_major_radius
 
     out_dir = Path(out_dir).resolve()
@@ -1887,18 +1901,29 @@ def _optimize_coils_loop_impl(
     max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
     algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
     
-    # Extract algorithm-specific options from kwargs
-    # These will be passed to scipy.minimize for scipy algorithms
-    algorithm_options = kwargs.get('algorithm_options', {})
-
     # Normalize algorithm name (handle case variations)
     if isinstance(algorithm, str):
         algorithm_lower = algorithm.lower()
         if algorithm_lower in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
             algorithm = 'L-BFGS-B'
+        elif algorithm_lower in ['l-bfgs-b-custom', 'lbfgs-custom', 'l-bfgs-custom']:
+            algorithm = 'L-BFGS-B-custom'
         elif algorithm_lower == 'augmented_lagrangian':
             algorithm = 'augmented_lagrangian'
         # Keep other algorithm names as-is (they should match scipy method names)
+    
+    # Extract algorithm-specific options from kwargs
+    # These will be passed to scipy.minimize for scipy algorithms
+    # First check for nested 'algorithm_options' dict
+    algorithm_options = kwargs.get('algorithm_options', {}).copy()
+    
+    # Also look for algorithm-specific options directly in kwargs (for convenience)
+    # This allows users to specify options like 'maxls' directly in optimizer_params
+    # instead of requiring a nested algorithm_options dict
+    valid_algo_options = _get_scipy_algorithm_options(algorithm)
+    for opt_name in valid_algo_options:
+        if opt_name in kwargs and opt_name not in algorithm_options:
+            algorithm_options[opt_name] = kwargs[opt_name]
 
     print(f"Starting coil optimization for target B-field: {target_B} T")
     print(f"Surface major radius: {s.get_rc(0, 0):.3f} m")
@@ -1996,7 +2021,7 @@ def _optimize_coils_loop_impl(
     
     # Save initial coils
     try:
-        coils_to_vtk(coils, out_dir / "coils_initial", nturns=nturns)
+        coils_to_vtk(coils, out_dir / "coils_initial")
     except Exception as e:
         print(f"Warning: Failed to save initial coils to VTK: {e}")
         print("  Continuing optimization without VTK export...")
@@ -2162,7 +2187,8 @@ def _optimize_coils_loop_impl(
             "linking_number": {
                 "obj": Jlink,
                 "threshold": None,
-                "": lambda obj, thresh: obj,  # Empty string defaults to including linking number
+                "": lambda obj, thresh: obj,  # Empty string defaults to including linking number as soft constraint
+                # Note: "hard" is NOT in term_map - it's only used as a hard constraint, not added to objective
             },
             "coil_coil_force": {
                 "obj": Jforce,
@@ -2181,6 +2207,7 @@ def _optimize_coils_loop_impl(
     # Map constraint indices to their scaling factors for dimensionless weights
     # Use major_radius (with units [L]) for proper dimensional scaling
     constraint_scaling = {}  # Maps constraint index to scaling factor
+    constraint_idx_to_term = {}  # Maps constraint index to term name for named weights
     major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
     
     # Add scaling for always-included distance objectives
@@ -2307,8 +2334,29 @@ def _optimize_coils_loop_impl(
                     }
                     if term_name in name_map:
                         constraint_names_and_thresholds.append(name_map[term_name])
+                    
+                    # Track constraint index to term name mapping for named weights
+                    constraint_idx_to_term[constraint_idx] = term_name
+                elif term_name == "linking_number" and term_value == "hard":
+                    # "hard" is a valid option for linking_number - it's used as a hard constraint only,
+                    # not added to the objective. Validation happens below.
+                    pass
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
+    
+    # Validate that linking_number: "hard" is only used with L-BFGS-B-custom
+    # (either standalone or as inner solver for augmented_lagrangian)
+    if coil_objective_terms and coil_objective_terms.get("linking_number") == "hard":
+        is_custom_standalone = algorithm == "L-BFGS-B-custom"
+        is_custom_inner = algorithm == "augmented_lagrangian" and kwargs.get("minimize_method") == "L-BFGS-B-custom"
+        
+        if not (is_custom_standalone or is_custom_inner):
+            raise ValueError(
+                "linking_number: 'hard' requires L-BFGS-B-custom algorithm. "
+                "Use either algorithm: 'L-BFGS-B-custom' or "
+                "algorithm: 'augmented_lagrangian' with minimize_method: 'L-BFGS-B-custom'. "
+                f"Got algorithm: '{algorithm}', minimize_method: '{kwargs.get('minimize_method', 'not specified')}'"
+            )
     
     # Step 5: Run optimization
     start_time = time.time()
@@ -2387,39 +2435,86 @@ def _optimize_coils_loop_impl(
             augmented_lagrangian_options["tau"] = kwargs["tau"]
         if "minimize_method" in kwargs.keys():
             augmented_lagrangian_options["minimize_method"] = kwargs["minimize_method"]
+            
+            # If using L-BFGS-B-custom, pass hard constraints (e.g., linking number)
+            if kwargs["minimize_method"] == "L-BFGS-B-custom":
+                # Determine which constraints should be hard constraints
+                # LinkingNumber is the main use case - it's discrete and has zero gradient
+                hard_constraints = []
+                linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
+                if linking_number_option == "hard":
+                    # Linking number explicitly marked as hard constraint
+                    hard_constraints.append(Jlink)
+                
+                if hard_constraints:
+                    augmented_lagrangian_options["hard_constraints"] = hard_constraints
+                    # Feasibility check: LinkingNumber must be < 0.5 in absolute value (effectively zero)
+                    augmented_lagrangian_options["feasibility_check"] = lambda hcs: all(abs(hc.J()) < 0.5 for hc in hcs)
+        
         _, _, lag_mul = augmented_lagrangian_method(
             f=None,  # No main objective function
             **augmented_lagrangian_options,
             equality_constraints=c_list,
         )
-    elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
+    elif algorithm in ['BFGS', 'L-BFGS-B', 'L-BFGS-B-custom', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
         # Build weighted objective function from constraints
         # c_list includes flux first, then other constraints
         # Default weight is 1.0 for all constraints
         weights = []
         
+        # Mapping from term names to their weight parameter names in coil_objective_terms
+        term_to_weight_key = {
+            "total_length": "length_weight",
+            "coil_coil_distance": "cc_weight",
+            "coil_surface_distance": "cs_weight",
+            "coil_curvature": "curvature_weight",
+            "coil_arclength_variation": "arclength_variation_weight",
+            "coil_mean_squared_curvature": "msc_weight",
+            "coil_coil_force": "force_weight",
+            "coil_coil_torque": "torque_weight",
+            "linking_number": "linking_weight",
+        }
+        
         for i, constraint in enumerate(c_list):
             # Map constraint index to weight name (for backward compatibility)
             # Flux (index 0) always has weight 1.0 (dimensionless)
             if i == 0:
-                weights.append(1.0)  # Flux weight
+                # Check for flux_weight in coil_objective_terms
+                if coil_objective_terms and "flux_weight" in coil_objective_terms:
+                    weights.append(float(coil_objective_terms["flux_weight"]))
+                else:
+                    weights.append(1.0)  # Flux weight default
             else:
                 # For other constraints, try to get specific weight or default to 1.0
                 weight_key = f'constraint_weight_{i}'
                 weight_specified = weight_key in kwargs
                 weight = kwargs.get(weight_key, 1.0)
                 
+                # Check for named weight in coil_objective_terms (takes precedence)
+                term_name = constraint_idx_to_term.get(i)
+                if term_name and coil_objective_terms:
+                    weight_param = term_to_weight_key.get(term_name)
+                    if weight_param and weight_param in coil_objective_terms:
+                        weight = float(coil_objective_terms[weight_param])  # Convert to float (handles string "1e3")
+                        weight_specified = True
+                
                 # Apply weight to coil-surface distance and coil-coil distance constraints
                 # Use specified weight or default to 1e3 for distance constraints
                 if cs_distance_index is not None and i == cs_distance_index:
-                    # If weight is specified, use it; otherwise default to 1e3
-                    if cs_weight_specified:
+                    # Check named weight first
+                    if coil_objective_terms and "cs_weight" in coil_objective_terms:
+                        weight = float(coil_objective_terms["cs_weight"])
+                        weight_specified = True
+                    elif cs_weight_specified:
                         weight = kwargs[f'constraint_weight_{i}']
                     else:
                         weight = kwargs.get(f'constraint_weight_{i}', 1e3)
                 elif cc_distance_index is not None and i == cc_distance_index:
-                    # If weight is specified, use it; otherwise default to 1e3
-                    if cc_weight_specified:
+                    # Check named weight first
+                    if coil_objective_terms and "cc_weight" in coil_objective_terms:
+                        weight = float(coil_objective_terms["cc_weight"])
+                        weight_specified = True
+                    elif cc_weight_specified:
                         weight = kwargs[f'constraint_weight_{i}']
                     else:
                         weight = kwargs.get(f'constraint_weight_{i}', 1e3)
@@ -2563,6 +2658,13 @@ def _optimize_coils_loop_impl(
             options.setdefault('ftol', 1e-12)  # scipy default
             options.setdefault('gtol', 1e-12)  # scipy default
             # options.setdefault('tol', 1e-12)  # scipy default
+        elif algorithm == 'L-BFGS-B-custom':
+            # L-BFGS-B-custom uses same options as scipy L-BFGS-B
+            # Use scipy defaults for ftol/gtol to avoid premature convergence
+            options.setdefault('ftol', 2.220446049250313e-09)  # scipy default
+            options.setdefault('gtol', 1e-5)  # scipy default
+            options.setdefault('maxcor', 10)  # scipy default (L-BFGS memory)
+            options.setdefault('maxls', 50)  # scipy default (max line search steps)
         elif algorithm == 'TNC':
             options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
             options.setdefault('gtol', 1e-05)  # scipy default
@@ -2582,13 +2684,46 @@ def _optimize_coils_loop_impl(
             # Merge user options, allowing them to override defaults
             options.update(algorithm_options)
         
-        result = minimize(
-            fun=objective,
-            x0=JF.x,  # type: ignore[attr-defined]
-            method=algorithm,
-            jac=gradient,  # Provide gradient function
-            options=options,
-        )
+        if algorithm == 'L-BFGS-B-custom':
+            # Use constrained L-BFGS-B with hard constraints (e.g., linking number)
+            from simsopt.solve.constrained_lbfgsb import minimize_with_hard_constraints
+            
+            # Determine which constraints should be hard constraints
+            # LinkingNumber is the main use case - it's discrete and has zero gradient
+            hard_constraints = []
+            linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
+            if linking_number_option == "hard":
+                # Linking number explicitly marked as hard constraint
+                hard_constraints.append(Jlink)
+            
+            # Custom feasibility check for linking number (must be zero)
+            def feasibility_check(hcs):
+                return all(abs(hc.J()) < 0.5 for hc in hcs)
+            
+            # Set verbose level for the custom solver if verbose mode is on
+            if verbose and 'verbose' not in options:
+                options['verbose'] = 1  # Basic verbose output from custom solver
+            
+            result = minimize_with_hard_constraints(
+                fun=lambda x: (objective(x), gradient(x)),
+                x0=JF.x,  # type: ignore[attr-defined]
+                hard_constraints=hard_constraints,
+                feasibility_check=feasibility_check,
+                jac=True,  # fun returns (f, g) tuple
+                options=options,
+            )
+            
+            # Print constraint rejection info if any
+            if verbose and hasattr(result, 'n_constraint_rejections'):
+                print(f"  Constraint rejections: {result.n_constraint_rejections}")
+        else:
+            result = minimize(
+                fun=objective,
+                x0=JF.x,  # type: ignore[attr-defined]
+                method=algorithm,
+                jac=gradient,  # Provide gradient function
+                options=options,
+            )
         
         # Print optimization result message to help debug early exits
         if verbose:
@@ -2617,7 +2752,7 @@ def _optimize_coils_loop_impl(
     
     # Save optimized coils
     try:
-        coils_to_vtk(coils, out_dir / "coils_optimized", nturns=nturns)
+        coils_to_vtk(coils, out_dir / "coils_optimized")
     except Exception as e:
         print(f"Warning: Failed to save optimized coils to VTK: {e}")
         print("  Continuing without VTK export...")
@@ -2656,8 +2791,22 @@ def _optimize_coils_loop_impl(
     print(f"  Lengths: {[CurveLength(c).J() for c in base_curves]}")
     
     # Calculate final forces
-    max_force = [np.max(np.linalg.norm(coil_force(c, coils), axis=1)) for c in coils[:ncoils]]
-    max_torque = [np.max(np.linalg.norm(coil_torque(c, coils), axis=1)) for c in coils[:ncoils]]
+    # Try new coil.force() and coil.torque() API (pedro_simsopt), fall back to old API
+    if hasattr(coils[0], 'force') and hasattr(coils[0], 'torque'):
+        # New API: coil.force(coils) and coil.torque(coils)
+        max_force = [np.max(np.linalg.norm(c.force(coils), axis=1)) for c in coils[:ncoils]]
+        max_torque = [np.max(np.linalg.norm(c.torque(coils), axis=1)) for c in coils[:ncoils]]
+    else:
+        # Old API: coil_force(coil, coils) and coil_torque(coil, coils)
+        try:
+            from simsopt.field.force import coil_force, coil_torque
+            max_force = [np.max(np.linalg.norm(coil_force(c, coils), axis=1)) for c in coils[:ncoils]]
+            max_torque = [np.max(np.linalg.norm(coil_torque(c, coils), axis=1)) for c in coils[:ncoils]]
+        except ImportError:
+            # Neither API available, use zeros as placeholder
+            max_force = [0.0] * ncoils
+            max_torque = [0.0] * ncoils
+            print("Warning: coil force/torque calculation not available")
     print(f"  Max forces on each coil: {[f'{f:.2e}' for f in max_force]}")
     
     # Calculate final B_N metrics

@@ -799,3 +799,302 @@ class TestScipyAlgorithms:
         assert results is not None
         # Optimization should complete (may stop early due to maxiter=3)
         assert "final_squared_flux" in results
+    
+    def test_lbfgsb_custom_algorithm(self, tmp_path):
+        """Test that L-BFGS-B-custom algorithm works with hard constraints."""
+        # Skip if constrained_lbfgsb is not available
+        pytest.importorskip("simsopt.solve.constrained_lbfgsb", 
+                           reason="constrained_lbfgsb not available")
+        
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Run optimization with L-BFGS-B-custom
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(out_dir),
+            max_iterations=5,  # Minimal iterations for fast tests
+            ncoils=2,
+            order=2,
+            algorithm="L-BFGS-B-custom",
+            verbose=False,
+            coil_objective_terms={
+                "total_length": "l2",
+                "coil_coil_distance": "l1",
+                "linking_number": "hard",  # Include linking number as hard constraint
+            },
+            surface_resolution=8,
+        )
+        
+        assert coils is not None
+        assert results is not None
+        assert "final_squared_flux" in results
+        assert np.isfinite(results["final_squared_flux"])
+    
+    def test_lbfgsb_custom_algorithm_normalization(self, tmp_path):
+        """Test that L-BFGS-B-custom algorithm name is normalized correctly."""
+        pytest.importorskip("simsopt.solve.constrained_lbfgsb",
+                           reason="constrained_lbfgsb not available")
+        
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Test case normalization (lowercase should work)
+        for algo_name in ['l-bfgs-b-custom', 'L-BFGS-B-custom', 'lbfgs-custom']:
+            coils, results = optimize_coils_loop(
+                s=surface,
+                target_B=1.0,
+                out_dir=str(out_dir),
+                max_iterations=1,
+                ncoils=2,
+                order=2,
+                algorithm=algo_name,
+                verbose=False,
+                coil_objective_terms={"total_length": "l2"},
+                surface_resolution=8,
+            )
+            assert coils is not None
+            assert results is not None
+    
+    def test_augmented_lagrangian_with_custom_solver(self, tmp_path):
+        """Test augmented_lagrangian with L-BFGS-B-custom as minimize_method."""
+        # Skip if constrained_lbfgsb is not available
+        pytest.importorskip("simsopt.solve.constrained_lbfgsb",
+                           reason="constrained_lbfgsb not available")
+        
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Run augmented_lagrangian with L-BFGS-B-custom as the inner minimizer
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(out_dir),
+            max_iterations=5,
+            max_iter_subopt=2,
+            ncoils=2,
+            order=2,
+            algorithm="augmented_lagrangian",
+            minimize_method="L-BFGS-B-custom",  # Use custom solver as inner minimizer
+            verbose=False,
+            coil_objective_terms={
+                "total_length": "l2_threshold",
+                "coil_coil_distance": "l1",
+                "linking_number": "",  # Include linking number as hard constraint
+            },
+            surface_resolution=8,
+        )
+        
+        assert coils is not None
+        assert results is not None
+        assert "final_squared_flux" in results
+        assert np.isfinite(results["final_squared_flux"])
+        # Verify optimization actually ran
+        assert "optimization_time" in results
+        assert results["optimization_time"] > 0
+    
+    def test_augmented_lagrangian_custom_solver_hard_constraints(self, tmp_path):
+        """Test augmented_lagrangian with L-BFGS-B-custom passes hard constraints correctly."""
+        # Skip if constrained_lbfgsb is not available
+        pytest.importorskip("simsopt.solve.constrained_lbfgsb",
+                           reason="constrained_lbfgsb not available")
+        
+        # This test verifies that when using augmented_lagrangian with minimize_method='L-BFGS-B-custom',
+        # the hard_constraints parameter is properly passed to the inner solver.
+        # The linking_number constraint should be enforced as a hard constraint during optimization.
+        
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Run with linking_number included - it should be passed as a hard constraint
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(out_dir),
+            max_iterations=10,
+            max_iter_subopt=3,
+            ncoils=2,
+            order=2,
+            algorithm="augmented_lagrangian",
+            minimize_method="L-BFGS-B-custom",
+            verbose=False,
+            coil_objective_terms={
+                "total_length": "l2_threshold",
+                "coil_coil_distance": "l1",
+                "linking_number": "hard",  # This should become a hard constraint
+            },
+            surface_resolution=8,
+        )
+        
+        assert coils is not None
+        assert results is not None
+        
+        # Verify the final linking number is zero (coils should not be linked)
+        assert "final_linking_number" in results
+        # LinkingNumber should be 0 (unlinked) for properly initialized coils
+        assert abs(results["final_linking_number"]) < 0.5, \
+            f"Linking number should be ~0, got {results['final_linking_number']}"
+
+
+class TestCoilForceAndTorqueAPI:
+    """Tests for the new coil.force() and coil.torque() API."""
+    
+    def test_coil_force_method_exists(self):
+        """Test that coils have the force() method (pedro_simsopt only)."""
+        from simsopt.geo import CurveXYZFourier
+        from simsopt.field import Coil, Current
+        
+        # Create simple test coils
+        curve = CurveXYZFourier(quadpoints=50, order=2)
+        curve.set("xc(0)", 1.0)
+        curve.set("xc(1)", 0.3)
+        curve.set("yc(0)", 0.0)
+        curve.set("ys(1)", 0.3)
+        curve.set("zc(0)", 0.0)
+        curve.set("zs(1)", 0.3)
+        
+        coil = Coil(curve, Current(1e5))
+        coils = [coil]
+        
+        # Skip if force method doesn't exist (requires pedro_simsopt)
+        if not hasattr(coil, 'force'):
+            pytest.skip("coil.force() method not available (requires pedro_simsopt)")
+        
+        assert callable(coil.force), "force should be callable"
+        
+        # Call the method and check result shape
+        force = coil.force(coils)
+        assert force is not None
+        assert isinstance(force, np.ndarray)
+        # Force should be an array of 3D vectors along the coil
+        assert force.ndim == 2
+        assert force.shape[1] == 3  # x, y, z components
+    
+    def test_coil_torque_method_exists(self):
+        """Test that coils have the torque() method (pedro_simsopt only)."""
+        from simsopt.geo import CurveXYZFourier
+        from simsopt.field import Coil, Current
+        
+        # Create simple test coils
+        curve = CurveXYZFourier(quadpoints=50, order=2)
+        curve.set("xc(0)", 1.0)
+        curve.set("xc(1)", 0.3)
+        curve.set("yc(0)", 0.0)
+        curve.set("ys(1)", 0.3)
+        curve.set("zc(0)", 0.0)
+        curve.set("zs(1)", 0.3)
+        
+        coil = Coil(curve, Current(1e5))
+        coils = [coil]
+        
+        # Skip if torque method doesn't exist (requires pedro_simsopt)
+        if not hasattr(coil, 'torque'):
+            pytest.skip("coil.torque() method not available (requires pedro_simsopt)")
+        
+        assert callable(coil.torque), "torque should be callable"
+        
+        # Call the method and check result shape
+        torque = coil.torque(coils)
+        assert torque is not None
+        assert isinstance(torque, np.ndarray)
+        # Torque should be an array of 3D vectors along the coil
+        assert torque.ndim == 2
+        assert torque.shape[1] == 3  # x, y, z components
+    
+    def test_force_and_torque_used_in_optimization(self, tmp_path):
+        """Test that force and torque calculations work in actual optimization."""
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Run optimization with force and torque terms
+        coils, results = optimize_coils_loop(
+            s=surface,
+            target_B=1.0,
+            out_dir=str(out_dir),
+            max_iterations=1,
+            ncoils=2,
+            order=2,
+            algorithm="L-BFGS-B",
+            verbose=False,
+            coil_objective_terms={
+                "total_length": "l2",
+                "coil_coil_force": "lp_threshold",
+                "coil_coil_torque": "lp_threshold",
+            },
+            surface_resolution=8,
+        )
+        
+        assert coils is not None
+        assert results is not None
+        # Verify force and torque metrics are computed
+        assert "final_max_max_coil_force" in results
+        assert "final_max_max_coil_torque" in results
+        assert np.isfinite(results["final_max_max_coil_force"])
+        assert np.isfinite(results["final_max_max_coil_torque"])
+    
+    def test_linking_number_hard_requires_custom_solver(self, tmp_path):
+        """Test that linking_number: 'hard' requires L-BFGS-B-custom algorithm."""
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=2, ntor=2)
+        surface.set_rc(0, 0, 1.0)
+        surface.set_zs(0, 0, 0.0)
+        
+        out_dir = tmp_path / "output"
+        out_dir.mkdir()
+        
+        # Test 1: Using "hard" with L-BFGS-B (not L-BFGS-B-custom) should fail
+        with pytest.raises(ValueError, match="linking_number: 'hard' requires L-BFGS-B-custom algorithm"):
+            optimize_coils_loop(
+                s=surface,
+                target_B=1.0,
+                out_dir=str(out_dir),
+                max_iterations=1,
+                ncoils=2,
+                order=2,
+                algorithm="L-BFGS-B",  # Wrong algorithm - not L-BFGS-B-custom
+                verbose=False,
+                coil_objective_terms={
+                    "total_length": "l2_threshold",
+                    "linking_number": "hard",
+                },
+                surface_resolution=8,
+            )
+        
+        # Test 2: Using "hard" with augmented_lagrangian but without L-BFGS-B-custom should fail
+        with pytest.raises(ValueError, match="linking_number: 'hard' requires L-BFGS-B-custom algorithm"):
+            optimize_coils_loop(
+                s=surface,
+                target_B=1.0,
+                out_dir=str(out_dir),
+                max_iterations=1,
+                ncoils=2,
+                order=2,
+                algorithm="augmented_lagrangian",
+                minimize_method="L-BFGS-B",  # Wrong minimize_method - not L-BFGS-B-custom
+                verbose=False,
+                coil_objective_terms={
+                    "total_length": "l2_threshold",
+                    "linking_number": "hard",
+                },
+                surface_resolution=8,
+            )

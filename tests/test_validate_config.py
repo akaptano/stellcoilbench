@@ -213,6 +213,117 @@ class TestValidateCaseConfig:
         }
         errors = validate_case_config(data)
         assert any("coil_curvature_p must be a positive number" in e for e in errors)
+    
+    def test_valid_named_weights(self):
+        """Test validation with valid named weight parameters."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "L-BFGS-B-custom"},
+            "coil_objective_terms": {
+                "total_length": "l2_threshold",
+                "length_weight": 2.0,
+                "linking_number": "hard",
+                "linking_weight": 1000.0,
+                "flux_weight": 1.5,
+            }
+        }
+        errors = validate_case_config(data)
+        assert errors == []
+    
+    def test_all_named_weights_valid(self):
+        """Test validation with all named weight parameters."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "length_weight": 1.0,
+                "cc_weight": 100.0,
+                "cs_weight": 50.0,
+                "curvature_weight": 0.5,
+                "arclength_variation_weight": 0.1,
+                "msc_weight": 2.0,
+                "force_weight": 10.0,
+                "torque_weight": 5.0,
+                "flux_weight": 1.0,
+                "linking_weight": 1000.0,
+            }
+        }
+        errors = validate_case_config(data)
+        assert errors == []
+    
+    def test_invalid_negative_weight(self):
+        """Test validation with negative weight parameter."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "linking_weight": -1.0,
+            }
+        }
+        errors = validate_case_config(data)
+        assert any("linking_weight must be a non-negative number" in e for e in errors)
+    
+    def test_invalid_string_weight(self):
+        """Test validation with non-numeric string weight parameter."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "length_weight": "high",
+            }
+        }
+        errors = validate_case_config(data)
+        assert any("length_weight must be a non-negative number" in e for e in errors)
+    
+    def test_valid_scientific_notation_weight(self):
+        """Test validation with scientific notation weight (as string from YAML)."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "linking_weight": "1e3",  # YAML sometimes parses this as string
+            }
+        }
+        errors = validate_case_config(data)
+        assert errors == []
+    
+    def test_zero_weight_valid(self):
+        """Test validation with zero weight (should be valid - disables the term)."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "length_weight": 0.0,
+            }
+        }
+        errors = validate_case_config(data)
+        assert errors == []
+    
+    def test_unknown_weight_rejected(self):
+        """Test that unknown weight parameters are rejected."""
+        data = {
+            "description": "Test case",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+            "coil_objective_terms": {
+                "unknown_weight": 1.0,
+            }
+        }
+        errors = validate_case_config(data)
+        assert any("Unknown coil_objective_terms key" in e for e in errors)
 
 
 class TestValidateCaseYamlFile:

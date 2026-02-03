@@ -153,6 +153,20 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 "flux_threshold",
             }
             
+            # Valid weight parameter names (allow specifying weights for each term)
+            valid_weight_names = {
+                "length_weight",
+                "cc_weight",
+                "cs_weight",
+                "curvature_weight",
+                "arclength_variation_weight",
+                "msc_weight",
+                "force_weight",
+                "torque_weight",
+                "flux_weight",
+                "linking_weight",
+            }
+            
             # Valid options for each term type
             valid_options_l2 = ["l2", "l2_threshold"]
             # valid_options_l1 = ["l1", "l1_threshold"]
@@ -163,10 +177,31 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             valid_options_arclength = ["l2", "l2_threshold", "l1", "l1_threshold"]
             valid_options_force_torque = ["lp", "lp_threshold"]
             
+            def is_valid_non_negative_number(value):
+                """Check if value is a valid non-negative number (int, float, or parseable string)."""
+                if isinstance(value, bool):  # bool is subclass of int, reject it
+                    return False
+                if isinstance(value, (int, float)):
+                    return value >= 0
+                if isinstance(value, str):
+                    try:
+                        return float(value) >= 0
+                    except ValueError:
+                        return False
+                return False
+            
             for term_name, term_value in obj_terms.items():
                 # Skip threshold parameters (they are validated separately)
                 if term_name in valid_threshold_names:
-                    if not isinstance(term_value, (int, float)) or term_value < 0:
+                    if not is_valid_non_negative_number(term_value):
+                        errors.append(
+                            f"{file_prefix}coil_objective_terms.{term_name} must be a non-negative number"
+                        )
+                    continue
+                
+                # Skip weight parameters (they are validated separately)
+                if term_name in valid_weight_names:
+                    if not is_valid_non_negative_number(term_value):
                         errors.append(
                             f"{file_prefix}coil_objective_terms.{term_name} must be a non-negative number"
                         )
@@ -176,13 +211,24 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 if term_name not in valid_term_names and not term_name.endswith("_p"):
                     errors.append(
                         f"{file_prefix}Unknown coil_objective_terms key: '{term_name}'. "
-                        f"Valid keys: {sorted(valid_term_names | valid_threshold_names)}"
+                        f"Valid keys: {sorted(valid_term_names | valid_threshold_names | valid_weight_names)}"
                     )
                     continue
                 
                 # Skip _p parameters (handled separately)
                 if term_name.endswith("_p"):
-                    if not isinstance(term_value, (int, float)) or term_value <= 0:
+                    # _p parameters must be positive (> 0), not just non-negative
+                    valid = False
+                    if isinstance(term_value, bool):
+                        valid = False
+                    elif isinstance(term_value, (int, float)):
+                        valid = term_value > 0
+                    elif isinstance(term_value, str):
+                        try:
+                            valid = float(term_value) > 0
+                        except ValueError:
+                            valid = False
+                    if not valid:
                         errors.append(
                             f"{file_prefix}coil_objective_terms.{term_name} must be a positive number"
                         )
@@ -230,10 +276,11 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "linking_number":
-                    # Empty string means include it (defaults to l2), otherwise should be a valid option
-                    if term_value != "" and term_value not in ["l2", "l2_threshold"]:
+                    # Empty string means include as soft constraint, "hard" means hard constraint with L-BFGS-B-custom
+                    valid_linking_options = ["", "hard"]
+                    if term_value not in valid_linking_options:
                         errors.append(
-                            f"{file_prefix}coil_objective_terms.linking_number must be empty string or one of ['l2', 'l2_threshold'], "
+                            f"{file_prefix}coil_objective_terms.linking_number must be one of {valid_linking_options}, "
                             f"got '{term_value}'"
                         )
                 elif term_name == "coil_coil_force":
