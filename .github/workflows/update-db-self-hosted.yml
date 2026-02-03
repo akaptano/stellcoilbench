@@ -12,8 +12,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  CONDA_ENV: stellcoilbench_vmec
-  SIMPLE_EXECUTABLE: /Users/akaptanoglu/SIMPLE/build/simple.x
+  CONDA_ENV: stellcoilbench
+  SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
 
 jobs:
   determine-cases:
