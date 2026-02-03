@@ -13,7 +13,7 @@ Fourier continuation:
 
 optimizer_params:
   # algorithm: "augmented_lagrangian"
-  minimize_method: "L-BFGS-B"
+  algorithm: "L-BFGS-B"
   max_iterations: 1000
   # max_iter_subopt: 10
   verbose: True
