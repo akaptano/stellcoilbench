@@ -11,6 +11,9 @@ concurrency:
   group: update-db-selfhosted-${{ github.ref }}
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 env:
   CONDA_ENV: stellcoilbench
   SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
