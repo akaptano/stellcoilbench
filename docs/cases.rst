@@ -35,7 +35,7 @@ Schema Overview
      - ``input.HSX_QHS_mn1824_ns101``
      - ``input.cfqs_2b40``
      - ``input.rotating_ellipse``
-     - ``c09r00_B_axis_half_tesla_PM4Stell.focus``
+     - ``c09r00_B_axis_half_tesla_NCSX.focus``
      - ``muse.focus``
    
    - ``range``: Surface range to use

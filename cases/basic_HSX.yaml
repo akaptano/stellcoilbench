@@ -5,11 +5,11 @@ surface_params:
 
 coils_params:
   ncoils: 5
-  order: 8
+  order: 4
 
 fourier_continuation:
   enabled: true
-  orders: [4, 8, 16]  # Start with order 4, then 6, then 8
+  orders: [4, 8]  # Start with order 4, then 6, then 8
 
 optimizer_params:
   algorithm: "L-BFGS-B"

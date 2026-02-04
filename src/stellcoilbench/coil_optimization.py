@@ -17,6 +17,14 @@ try:
 except ImportError:  # pragma: no cover - fallback for older simsopt
     regularization_circ = None
 
+# MPI support for parallel post-processing
+try:
+    from simsopt.util import comm_world, proc0_print
+except ImportError:
+    comm_world = None  # Not available in non-MPI builds
+    def proc0_print(*args, **kwargs):
+        print(*args, **kwargs)
+
 try:
     import matplotlib
     matplotlib.use('Agg')  # Use non-interactive backend for PDF generation
@@ -328,6 +336,7 @@ def optimize_coils(
     case_cfg: CaseConfig | None = None,
     output_dir: Path | None = None,
     surface_resolution: int = 32,
+    skip_post_processing: bool = False,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -349,6 +358,9 @@ def optimize_coils(
     surface_resolution:
         Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
         Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
+    skip_post_processing:
+        If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
+        Useful for faster testing and debugging of optimization alone (default: False).
 
     Returns
     -------
@@ -360,10 +372,32 @@ def optimize_coils(
     - The benchmark repository doesn't need to know the details of your optimizer; it just
       calls this function.
     - You can dispatch on `optimizer_params["algorithm"]` to different backends.
+    - When running with MPI, coil optimization runs only on rank 0, while post-processing
+      uses all MPI processes for VMEC and fieldline tracing.
     """
     from simsopt.geo import SurfaceRZFourier
     from simsopt import save
     from .evaluate import load_case_config
+    
+    # Check MPI rank - coil optimization runs only on rank 0
+    is_mpi_parallel = comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1
+    is_proc0 = comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
+    
+    # Create MPI partition for post-processing (will be used after optimization)
+    # Only create if MPI is available and we're using multiple processes
+    mpi_partition = None
+    if is_mpi_parallel:
+        try:
+            from simsopt.util.mpi import MpiPartition
+            mpi_partition = MpiPartition(ngroups=1)  # Use all processes for VMEC
+        except ImportError:
+            mpi_partition = None  # MPI not available
+        proc0_print(f"Running with MPI: {comm_world.size} processes")
+        proc0_print("Coil optimization will run on rank 0 only; post-processing will use all processes")
+        if not is_proc0:
+            # Non-rank-0 processes wait here until rank 0 finishes optimization
+            comm_world.Barrier()  # Wait for rank 0 to start
+            # Rank 0 will call Barrier again after optimization, then we continue to post-processing
     
     if case_cfg is None:
         case_cfg = load_case_config(case_path)
@@ -580,6 +614,8 @@ def optimize_coils(
         vc_target_plot = vc_plot.B_external_normal
         print(f"  Virtual casing for plotting complete. B_external_normal shape: {vc_target_plot.shape}")
 
+    # Coil optimization runs only on rank 0 when using MPI
+    # Other ranks will skip optimization and wait at the barrier after optimization
     try:
         os.chdir(output_dir)
         
@@ -587,65 +623,81 @@ def optimize_coils(
         # This allows users to specify algorithm-specific hyperparameters
         algorithm_options = optimizer_params.pop('algorithm_options', {})
         
-        # Check if Fourier continuation is enabled
-        fourier_continuation = case_cfg.fourier_continuation
-        if fourier_continuation and fourier_continuation.get('enabled', False):
-            # Use Fourier continuation
-            fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
-            if not isinstance(fourier_orders, list) or not all(isinstance(o, int) for o in fourier_orders):
-                raise ValueError("fourier_continuation.orders must be a list of integers")
-            
-            coils, results_dict = optimize_coils_with_fourier_continuation(
-                surface,
-                fourier_orders=fourier_orders,
-                target_B=coil_params.get('target_B', 5.7),
-                out_dir=str(output_dir),
-                max_iterations=optimizer_params.get('max_iterations', 30),
-                ncoils=coil_params.get('ncoils', 4),
-                verbose=optimizer_params.get('verbose', False),
-                regularization=regularization_circ if regularization_circ is not None else lambda x: None,
-                coil_objective_terms=coil_objective_terms,
-                surface_resolution=surface_resolution,
-                algorithm_options=algorithm_options,
-                case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
-                vc_target=vc_target,  # Virtual casing B_external_normal target
-                vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
-                **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
-                **threshold_kwargs
-            )
-        else:
-            # Standard optimization without continuation
-            # Pass output_dir to optimize_coils_loop for VTK file output
-            # optimize_coils_loop saves VTK files to output_dir during optimization
-            try:
-                coils, results_dict = optimize_coils_loop(
-                    surface, 
-                    **coil_params, 
-                    **optimizer_params, 
-                    output_dir=str(output_dir),
+        # Only rank 0 runs the actual optimization
+        # When using MPI, skip post-processing in the loop (will run after barrier)
+        coils = None
+        results_dict = {}
+        
+        # When using MPI, post-processing must run after the barrier so all processes participate
+        # So we skip it in the optimization loop and run it separately
+        skip_post_processing_in_loop = skip_post_processing or is_mpi_parallel
+        
+        if is_proc0:
+            # Check if Fourier continuation is enabled
+            fourier_continuation = case_cfg.fourier_continuation
+            if fourier_continuation and fourier_continuation.get('enabled', False):
+                # Use Fourier continuation
+                fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
+                if not isinstance(fourier_orders, list) or not all(isinstance(o, int) for o in fourier_orders):
+                    raise ValueError("fourier_continuation.orders must be a list of integers")
+                
+                coils, results_dict = optimize_coils_with_fourier_continuation(
+                    surface,
+                    fourier_orders=fourier_orders,
+                    target_B=coil_params.get('target_B', 5.7),
+                    out_dir=str(output_dir),
+                    max_iterations=optimizer_params.get('max_iterations', 30),
+                    ncoils=coil_params.get('ncoils', 4),
+                    verbose=optimizer_params.get('verbose', False),
+                    regularization=regularization_circ if regularization_circ is not None else lambda x: None,
                     coil_objective_terms=coil_objective_terms,
                     surface_resolution=surface_resolution,
                     algorithm_options=algorithm_options,
                     case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
                     vc_target=vc_target,  # Virtual casing B_external_normal target
                     vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
+                    skip_post_processing=skip_post_processing_in_loop,  # Skip in loop when using MPI
+                    **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                     **threshold_kwargs
                 )
-            except TypeError:
-                # Fallback if optimize_coils_loop doesn't accept output_dir parameter
-                # Files will be saved to current directory (which is now output_dir)
-                coils, results_dict = optimize_coils_loop(
-                    surface, 
-                    **coil_params, 
-                    **optimizer_params, 
-                    coil_objective_terms=coil_objective_terms,
-                    algorithm_options=algorithm_options,
-                    surface_resolution=surface_resolution,
-                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
-                    vc_target=vc_target,  # Virtual casing B_external_normal target
-                    vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
-                    **threshold_kwargs
-                )
+            else:
+                # Standard optimization without continuation
+                # Pass output_dir to optimize_coils_loop for VTK file output
+                # optimize_coils_loop saves VTK files to output_dir during optimization
+                try:
+                    coils, results_dict = optimize_coils_loop(
+                        surface, 
+                        **coil_params, 
+                        **optimizer_params, 
+                        output_dir=str(output_dir),
+                        coil_objective_terms=coil_objective_terms,
+                        surface_resolution=surface_resolution,
+                        algorithm_options=algorithm_options,
+                        case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
+                        vc_target=vc_target,  # Virtual casing B_external_normal target
+                        vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
+                        skip_post_processing=skip_post_processing_in_loop,  # Skip in loop when using MPI
+                        **threshold_kwargs
+                    )
+                except TypeError:
+                    # Fallback if optimize_coils_loop doesn't accept output_dir parameter
+                    # Files will be saved to current directory (which is now output_dir)
+                    coils, results_dict = optimize_coils_loop(
+                        surface, 
+                        **coil_params, 
+                        **optimizer_params, 
+                        coil_objective_terms=coil_objective_terms,
+                        algorithm_options=algorithm_options,
+                        surface_resolution=surface_resolution,
+                        case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
+                        vc_target=vc_target,  # Virtual casing B_external_normal target
+                        vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
+                        **threshold_kwargs
+                    )
+        
+        # Barrier: wait for rank 0 to finish optimization before proceeding
+        if is_mpi_parallel:
+            comm_world.Barrier()  # All processes wait here until rank 0 finishes optimization
     finally:
         # Always restore original working directory
         os.chdir(original_cwd)
@@ -654,9 +706,103 @@ def optimize_coils(
     if not str(coils_out_path).endswith('.json'):
         coils_out_path = coils_out_path.with_suffix('.json')
     
-    # Save coils to JSON file (use absolute path to ensure correct location)
+    # Save coils to JSON file (only rank 0 writes, but all ranks need to wait)
+    # Use absolute path to ensure correct location
     abs_coils_path = coils_out_path if coils_out_path.is_absolute() else (output_dir / coils_out_path.name)
-    save(coils, abs_coils_path)
+    if is_proc0:
+        if coils is None:
+            raise RuntimeError("Coil optimization failed: no coils were produced")
+        save(coils, abs_coils_path)
+        proc0_print(f"Saved optimized coils to {abs_coils_path}")
+    
+    # Barrier: ensure coils file is written before any process proceeds
+    if is_mpi_parallel:
+        comm_world.Barrier()  # All processes wait until coils file is written
+    
+    # Run post-processing after barrier (so all MPI processes can participate)
+    # This only runs if we skipped it in the loop (i.e., when using MPI)
+    if not skip_post_processing and is_mpi_parallel:
+        try:
+            from .post_processing import run_post_processing
+            
+            # Find coils JSON file (all processes need to do this)
+            coils_json_path = abs_coils_path
+            if not coils_json_path.exists():
+                # Try alternative names
+                coils_json_path = output_dir / "biot_savart_optimized.json"
+                if not coils_json_path.exists():
+                    coils_json_path = output_dir / "coils.json"
+            
+            if coils_json_path.exists():
+                proc0_print("\nRunning post-processing (QFM, Poincaré plots, profiles)...")
+                
+                # Determine helicity_n based on surface type (QA=0, QH=-1)
+                # Only rank 0 needs to read the file, but all processes need the value
+                helicity_n = 0
+                if is_proc0 and case_yaml_path_abs and case_yaml_path_abs.exists():
+                    import yaml
+                    try:
+                        case_data = yaml.safe_load(case_yaml_path_abs.read_text())
+                        surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                        if "qh" in surface_name or "qash" in surface_name:
+                            helicity_n = -1
+                    except Exception:
+                        pass
+                
+                # Broadcast helicity_n to all processes (simple approach: all processes read)
+                # Actually, run_post_processing will handle this, so we can just use default
+                # But let's read it on all processes for simplicity
+                if not is_proc0 and case_yaml_path_abs and case_yaml_path_abs.exists():
+                    import yaml
+                    try:
+                        case_data = yaml.safe_load(case_yaml_path_abs.read_text())
+                        surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                        if "qh" in surface_name or "qash" in surface_name:
+                            helicity_n = -1
+                    except Exception:
+                        pass
+                
+                # Find plasma_surfaces_dir (all processes need this)
+                plasma_surfaces_dir = None
+                current_dir = Path(output_dir)
+                for _ in range(5):
+                    potential_plasma_dir = current_dir / "plasma_surfaces"
+                    if potential_plasma_dir.exists():
+                        plasma_surfaces_dir = potential_plasma_dir
+                        break
+                    if current_dir.parent == current_dir:
+                        break
+                    current_dir = current_dir.parent
+                
+                # Run post-processing (ALL MPI processes participate - function handles MPI internally)
+                post_processing_results = run_post_processing(
+                    coils_json_path=coils_json_path,
+                    output_dir=output_dir,
+                    case_yaml_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else None,
+                    plasma_surfaces_dir=plasma_surfaces_dir,
+                    run_vmec=True,
+                    helicity_m=1,
+                    helicity_n=helicity_n,
+                    ns=50,
+                    plot_boozer=True,
+                    plot_poincare=True,
+                    nfieldlines=20,
+                    mpi=mpi_partition,  # Pass MPI partition explicitly
+                )
+                proc0_print("Post-processing complete!")
+                if is_proc0 and 'quasisymmetry_average' in post_processing_results:
+                    proc0_print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
+                
+                # Add post-processing results to results_dict (only rank 0 returns this)
+                if is_proc0:
+                    results_dict['post_processing'] = post_processing_results
+            else:
+                proc0_print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+        except Exception as e:
+            proc0_print(f"Warning: Post-processing failed: {e}")
+            if is_proc0:
+                import traceback
+                traceback.print_exc()
     
     return results_dict
 
@@ -1415,6 +1561,7 @@ def optimize_coils_with_fourier_continuation(
     coil_objective_terms: Dict[str, Any] | None = None,
     surface_resolution: int = 32,
     case_path: Path | None = None,
+    skip_post_processing: bool = False,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1450,6 +1597,9 @@ def optimize_coils_with_fourier_continuation(
     surface_resolution: int
         Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
         Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
+    skip_post_processing: bool
+        If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
+        Useful for faster testing and debugging of optimization alone (default: False).
     **kwargs: Additional keyword arguments
         Same as optimize_coils_loop (thresholds, algorithm options, etc.).
         plot_upsample_factor: Factor for upsampling plotting surface (default: 4).
@@ -1574,14 +1724,15 @@ def optimize_coils_with_fourier_continuation(
     
     # Run post-processing on final optimized coils
     # Use the final order's BiotSavart object if available
-    try:
-        from .post_processing import run_post_processing
-        import yaml as yaml_module
-        
-        # Find case YAML file - try case_path first if provided
-        case_yaml_path = None
-        if case_path is not None:
-            case_path_obj = Path(case_path)
+    if not skip_post_processing:
+        try:
+            from .post_processing import run_post_processing
+            import yaml as yaml_module
+            
+            # Find case YAML file - try case_path first if provided
+            case_yaml_path = None
+            if case_path is not None:
+                case_path_obj = Path(case_path)
             if case_path_obj.is_file():
                 # It's already the YAML file
                 case_yaml_path = case_path_obj.resolve()
@@ -1599,110 +1750,112 @@ def optimize_coils_with_fourier_continuation(
                     case_yaml_path = (case_path_obj / "case.yaml").resolve()
                     if not case_yaml_path.exists():
                         case_yaml_path = None
-        
-        # Try in out_dir if not found yet
-        if case_yaml_path is None or not case_yaml_path.exists():
-            case_yaml_path = out_dir_path / "case.yaml"
-        if not case_yaml_path.exists():
-            case_yaml_path = out_dir_path.parent / "case.yaml"
-        if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
-            # Try to find case YAML relative to the surface file
-            surface_dir = Path(s.filename).parent
-            surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
-            potential_case_paths = [
-                surface_dir / "case.yaml",
-                surface_dir.parent / "case.yaml",
-                Path("cases") / surface_stem / "case.yaml",
-            ]
-            for path in potential_case_paths:
-                if path.exists():
-                    case_yaml_path = path
-                    break
-        
-        # If still not found, search for case YAML files that reference this surface
-        if case_yaml_path is None or not case_yaml_path.exists():
-            cases_dir = Path("cases")
-            if cases_dir.exists():
-                surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
-                for yaml_file in cases_dir.glob("*.yaml"):
+            
+            # Try in out_dir if not found yet
+            if case_yaml_path is None or not case_yaml_path.exists():
+                case_yaml_path = out_dir_path / "case.yaml"
+            if not case_yaml_path.exists():
+                case_yaml_path = out_dir_path.parent / "case.yaml"
+            if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
+                # Try to find case YAML relative to the surface file
+                surface_dir = Path(s.filename).parent
+                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+                potential_case_paths = [
+                    surface_dir / "case.yaml",
+                    surface_dir.parent / "case.yaml",
+                    Path("cases") / surface_stem / "case.yaml",
+                ]
+                for path in potential_case_paths:
+                    if path.exists():
+                        case_yaml_path = path
+                        break
+            
+            # If still not found, search for case YAML files that reference this surface
+            if case_yaml_path is None or not case_yaml_path.exists():
+                cases_dir = Path("cases")
+                if cases_dir.exists():
+                    surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
+                    for yaml_file in cases_dir.glob("*.yaml"):
+                        try:
+                            case_data = yaml_module.safe_load(yaml_file.read_text())
+                            if case_data and isinstance(case_data, dict):
+                                surface_in_case = case_data.get("surface_params", {}).get("surface", "")
+                                # Check if this case references the same surface file
+                                if surface_filename and surface_filename in surface_in_case:
+                                    case_yaml_path = yaml_file
+                                    break
+                                elif surface_in_case in surface_filename:
+                                    case_yaml_path = yaml_file
+                                    break
+                        except Exception:
+                            continue
+            
+            # Coils JSON path - should be in the final order directory
+            # For Fourier continuation, the biot_savart_optimized.json is saved in the final order_dir
+            final_order_dir = out_dir_path / f"order_{fourier_orders[-1]}"
+            coils_json_path = final_order_dir / "biot_savart_optimized.json"
+            if not coils_json_path.exists():
+                # Fallback: try main out_dir
+                coils_json_path = out_dir_path / "biot_savart_optimized.json"
+            if not coils_json_path.exists():
+                # Also check for coils.json (used by submit-case CLI)
+                coils_json_path = out_dir_path / "coils.json"
+            
+            if coils_json_path.exists():
+                print("\nRunning post-processing on final optimized coils (QFM, Poincaré plots, profiles)...")
+                
+                # Determine helicity_n based on surface type (QA=0, QH=-1)
+                helicity_n = 0
+                if case_yaml_path.exists():
+                    import yaml
                     try:
-                        case_data = yaml_module.safe_load(yaml_file.read_text())
-                        if case_data and isinstance(case_data, dict):
-                            surface_in_case = case_data.get("surface_params", {}).get("surface", "")
-                            # Check if this case references the same surface file
-                            if surface_filename and surface_filename in surface_in_case:
-                                case_yaml_path = yaml_file
-                                break
-                            elif surface_in_case in surface_filename:
-                                case_yaml_path = yaml_file
-                                break
+                        case_data = yaml.safe_load(case_yaml_path.read_text())
+                        surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                        if "qh" in surface_name or "qash" in surface_name:
+                            helicity_n = -1
                     except Exception:
-                        continue
-        
-        # Coils JSON path - should be in the final order directory
-        # For Fourier continuation, the biot_savart_optimized.json is saved in the final order_dir
-        final_order_dir = out_dir_path / f"order_{fourier_orders[-1]}"
-        coils_json_path = final_order_dir / "biot_savart_optimized.json"
-        if not coils_json_path.exists():
-            # Fallback: try main out_dir
-            coils_json_path = out_dir_path / "biot_savart_optimized.json"
-        if not coils_json_path.exists():
-            # Also check for coils.json (used by submit-case CLI)
-            coils_json_path = out_dir_path / "coils.json"
-        
-        if coils_json_path.exists():
-            print("\nRunning post-processing on final optimized coils (QFM, Poincaré plots, profiles)...")
-            
-            # Determine helicity_n based on surface type (QA=0, QH=-1)
-            helicity_n = 0
-            if case_yaml_path.exists():
-                import yaml
-                try:
-                    case_data = yaml.safe_load(case_yaml_path.read_text())
-                    surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
-                    if "qh" in surface_name or "qash" in surface_name:
-                        helicity_n = -1
-                except Exception:
-                    pass
-            
-            # Determine plasma_surfaces_dir - go up from output directory to find repo root
-            plasma_surfaces_dir = None
-            current_dir = out_dir_path
-            for _ in range(5):  # Search up to 5 levels
-                potential_plasma_dir = current_dir / "plasma_surfaces"
-                if potential_plasma_dir.exists():
-                    plasma_surfaces_dir = potential_plasma_dir
-                    break
-                if current_dir.parent == current_dir:  # Reached root
-                    break
-                current_dir = current_dir.parent
-            
-            # Save post-processing outputs to main output directory (same level as order subdirectories)
-            # This ensures QFM surface, Poincaré plots, etc. are easily accessible
-            post_processing_results = run_post_processing(
-                coils_json_path=coils_json_path,
-                output_dir=out_dir_path,  # Save plots in main output directory
-                case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
-                plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
-                run_vmec=True,
-                helicity_m=1,
-                helicity_n=helicity_n,
-                ns=50,
-                plot_boozer=True,
-                plot_poincare=True,
-                nfieldlines=20,
-            )
-            print("Post-processing complete!")
-            if 'quasisymmetry_average' in post_processing_results:
-                print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
-        else:
-            print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
-            post_processing_results = {}  # Initialize empty dict if post-processing skipped
-    except Exception as e:
-        print(f"Warning: Post-processing failed: {e}")
-        import traceback
-        traceback.print_exc()
-        post_processing_results = {}  # Initialize empty dict if post-processing failed
+                        pass
+                
+                # Determine plasma_surfaces_dir - go up from output directory to find repo root
+                plasma_surfaces_dir = None
+                current_dir = out_dir_path
+                for _ in range(5):  # Search up to 5 levels
+                    potential_plasma_dir = current_dir / "plasma_surfaces"
+                    if potential_plasma_dir.exists():
+                        plasma_surfaces_dir = potential_plasma_dir
+                        break
+                    if current_dir.parent == current_dir:  # Reached root
+                        break
+                    current_dir = current_dir.parent
+                
+                # Save post-processing outputs to main output directory (same level as order subdirectories)
+                # This ensures QFM surface, Poincaré plots, etc. are easily accessible
+                post_processing_results = run_post_processing(
+                    coils_json_path=coils_json_path,
+                    output_dir=out_dir_path,  # Save plots in main output directory
+                    case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
+                    plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
+                    run_vmec=True,
+                    helicity_m=1,
+                    helicity_n=helicity_n,
+                    ns=50,
+                    plot_boozer=True,
+                    plot_poincare=True,
+                    nfieldlines=20,
+                )
+                print("Post-processing complete!")
+                if 'quasisymmetry_average' in post_processing_results:
+                    print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
+            else:
+                print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+                post_processing_results = {}  # Initialize empty dict if post-processing skipped
+        except Exception as e:
+            print(f"Warning: Post-processing failed: {e}")
+            import traceback
+            traceback.print_exc()
+            post_processing_results = {}  # Initialize empty dict if post-processing failed
+    else:
+        post_processing_results = {}  # Skip post-processing if flag is set
     
     # Merge post-processing results into combined_results
     if post_processing_results:

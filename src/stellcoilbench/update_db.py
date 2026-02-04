@@ -1502,8 +1502,8 @@ def write_rst_leaderboard(
             "input.cfqs_2b40": "CFQS",
             "rotating_ellipse": "Rotating Ellipse",
             "input.rotating_ellipse": "Rotating Ellipse",
-            "c09r00_B_axis_half_tesla_PM4Stell.focus": "0.5 Tesla NCSX Design",
-            "c09r00_B_axis_half_tesla_PM4Stell": "0.5 Tesla NCSX Design",
+            "c09r00_B_axis_half_tesla_NCSX.focus": "0.5 Tesla NCSX Design",
+            "c09r00_B_axis_half_tesla_NCSX": "0.5 Tesla NCSX Design",
             "muse.focus": "MUSE",
             "muse": "MUSE",
         }

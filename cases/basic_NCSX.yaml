@@ -1,6 +1,6 @@
 description: "Basic test case"
 surface_params:
-  surface: "c09r00_B_axis_half_tesla_PM4Stell.focus"
+  surface: "c09r00_B_axis_half_tesla_NCSX.focus"
   range: "half period"
 
 coils_params:

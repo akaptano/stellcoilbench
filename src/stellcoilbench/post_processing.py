@@ -31,6 +31,10 @@ from simsopt.mhd import QuasisymmetryRatioResidual  # type: ignore
 from simsopt.util.mpi import MpiPartition  # type: ignore
 from simsopt.util import proc0_print
 try:
+    from simsopt.util import comm_world  # MPI communicator for parallel operations
+except ImportError:
+    comm_world = None  # Not available in non-MPI builds
+try:
     from simsopt.field.tracing import (
         compute_fieldlines,
         plot_poincare_data,
@@ -44,6 +48,109 @@ except ImportError:
 import json
 import yaml
 import subprocess
+import sys
+import os
+import time
+from contextlib import contextmanager
+
+
+# Global dictionary to store timing results
+_timing_results: Dict[str, float] = {}
+
+
+@contextmanager
+def timed_section(name: str, print_time: bool = True):
+    """
+    Context manager for timing code sections.
+    
+    Parameters
+    ----------
+    name : str
+        Name of the section being timed.
+    print_time : bool, default=True
+        Whether to print the elapsed time immediately.
+    
+    Yields
+    ------
+    None
+    
+    Example
+    -------
+    >>> with timed_section("my_computation"):
+    ...     # code to time
+    ...     pass
+    """
+    global _timing_results
+    start_time = time.perf_counter()
+    try:
+        yield
+    finally:
+        elapsed = time.perf_counter() - start_time
+        _timing_results[name] = elapsed
+        if print_time:
+            proc0_print(f"[TIMING] {name}: {elapsed:.2f}s")
+
+
+def get_timing_results() -> Dict[str, float]:
+    """Return a copy of the timing results dictionary."""
+    return _timing_results.copy()
+
+
+def clear_timing_results() -> None:
+    """Clear all timing results."""
+    global _timing_results
+    _timing_results = {}
+
+
+def print_timing_summary() -> None:
+    """Print a formatted summary of all timing results."""
+    global _timing_results
+    if not _timing_results:
+        proc0_print("No timing data recorded.")
+        return
+    
+    proc0_print("\n" + "=" * 60)
+    proc0_print("TIMING SUMMARY")
+    proc0_print("=" * 60)
+    
+    # Sort by time (descending)
+    sorted_times = sorted(_timing_results.items(), key=lambda x: x[1], reverse=True)
+    
+    total_time = sum(_timing_results.values())
+    
+    for name, elapsed in sorted_times:
+        pct = (elapsed / total_time * 100) if total_time > 0 else 0
+        proc0_print(f"  {name:40s} {elapsed:8.2f}s ({pct:5.1f}%)")
+    
+    proc0_print("-" * 60)
+    proc0_print(f"  {'TOTAL':40s} {total_time:8.2f}s")
+    proc0_print("=" * 60 + "\n")
+
+
+@contextmanager
+def suppress_output():
+    """Context manager to suppress stdout and stderr (for VMEC, booz_xform, etc.)."""
+    # Save original file descriptors
+    stdout_fd = sys.stdout.fileno()
+    stderr_fd = sys.stderr.fileno()
+    saved_stdout_fd = os.dup(stdout_fd)
+    saved_stderr_fd = os.dup(stderr_fd)
+    
+    # Open /dev/null
+    devnull = os.open(os.devnull, os.O_WRONLY)
+    
+    try:
+        # Redirect stdout and stderr to /dev/null
+        os.dup2(devnull, stdout_fd)
+        os.dup2(devnull, stderr_fd)
+        yield
+    finally:
+        # Restore original file descriptors
+        os.dup2(saved_stdout_fd, stdout_fd)
+        os.dup2(saved_stderr_fd, stderr_fd)
+        os.close(saved_stdout_fd)
+        os.close(saved_stderr_fd)
+        os.close(devnull)
 
 
 def load_coils_and_surface(
@@ -375,6 +482,7 @@ def load_surface_with_range(
 def compute_qfm_surface(
     surface: SurfaceRZFourier,
     bfield: BiotSavart,
+    n_iters: int = 50,
 ) -> SurfaceRZFourier:
     """
     Compute QFM (quasi-flux surface) from plasma surface and magnetic field.
@@ -391,7 +499,7 @@ def compute_qfm_surface(
     SurfaceRZFourier
         QFM surface.
     """
-    qfm_surf = make_qfm(surface, bfield, n_iters=100)
+    qfm_surf = make_qfm(surface, bfield, n_iters=n_iters)
     return qfm_surf.surface
 
 
@@ -483,7 +591,8 @@ def run_vmec_equilibrium(
     equil = Vmec(str(template_vmec_path), mpi)
     # Replace the boundary with our QFM surface
     equil.boundary = qfm_surface
-    equil.run()
+    with suppress_output():
+        equil.run()
     
     return equil
 
@@ -558,12 +667,23 @@ def plot_boozer_surface(
             "Install with: pip install booz-xform"
         )
     
-    b2 = bx.Booz_xform()
-    b2.read_wout(equil.output_file)
-    b2.run()
+    with timed_section("booz_xform_read_wout"):
+        b2 = bx.Booz_xform()
+        b2.read_wout(equil.output_file)
+    
+    # Get maximum valid surface index from VMEC
+    # booz_xform uses 1-indexed surface indices (js ranges from 1 to nsurf)
+    vmec_nsurf = len(equil.wout.iotas) - 1  # type: ignore
+    max_js = max(1, vmec_nsurf - 1)  # Conservative default
     
     # If js is explicitly provided, use old behavior for backward compatibility
     if js is not None:
+        # Only compute the specific surface needed
+        b2.compute_surfs = [js]
+        with timed_section("booz_xform_run"):
+            with suppress_output():
+                b2.run()
+        
         fig_single = plt.figure(figsize=(10, 8))
         plt.rcParams["font.family"] = "serif"
         plt.rc("font", size=18)  # Increased base font size
@@ -596,26 +716,20 @@ def plot_boozer_surface(
         gc.collect()
         return
     
-    # Get maximum valid surface index from booz_xform
-    # booz_xform uses 1-indexed surface indices (js ranges from 1 to nsurf)
-    # If booz_xform's arrays have size N, max valid js is typically N-1 (conservative)
-    vmec_nsurf = len(equil.wout.iotas) - 1  # type: ignore
-    
-    # Determine max_js from booz_xform's wout data
-    max_js = max(1, vmec_nsurf - 1)  # Conservative default
-    try:
-        if hasattr(b2, 'wout') and hasattr(b2.wout, 'iotas'):
-            # Array size tells us the maximum - use size - 1 to be safe
-            array_size = len(b2.wout.iotas)
-            max_js = max(1, array_size - 1)
-    except Exception:
-        pass
-    
     # Sample 4 evenly spaced surfaces between first (1) and last (max_js)
     if max_js == 1:
         js_indices = [1, 1, 1, 1]
     else:
         js_indices = np.linspace(1, max_js, 4, dtype=int).tolist()
+    
+    # Only compute booz_xform on the specific surfaces we need to plot
+    # This is much faster than computing all surfaces
+    b2.compute_surfs = js_indices
+    proc0_print(f"Computing Boozer transform on surfaces: {js_indices} (of {max_js} total)")
+    
+    with timed_section("booz_xform_run"):
+        with suppress_output():
+            b2.run()
     
     # Create 2x2 subplot grid
     fig, axes = plt.subplots(2, 2, figsize=(16, 16))
@@ -798,9 +912,9 @@ def trace_fieldlines(
     bfield: BiotSavart,
     surface: SurfaceRZFourier,
     output_path: Path,
-    nfieldlines: int = 20,
-    tmax: float = 50000,
-    tol: float = 1e-12,
+    nfieldlines: int = 10,
+    tmax: float = 20000,
+    tol: float = 1e-6,
     n_phi_slices: int = 4,
     use_interpolated_field: bool = True,
     markersize: int = 1,
@@ -821,11 +935,11 @@ def trace_fieldlines(
         Plasma boundary surface.
     output_path : Path
         Where to save the Poincaré plot.
-    nfieldlines : int, default=20
+    nfieldlines : int, default=10
         Number of fieldlines to trace.
     tmax : float, default=10000
         Maximum integration time for fieldline tracing.
-    tol : float, default=1e-10
+    tol : float, default=1e-8
         Tolerance for fieldline integration.
     n_phi_slices : int, default=4
         Number of toroidal angles at which to record Poincaré sections.
@@ -849,6 +963,10 @@ def trace_fieldlines(
             "Fieldline tracing requires simsopt.field.tracing. "
             "Please ensure simsopt is installed with tracing capabilities."
         )
+    
+    # Debug output for MPI
+    if comm is not None:
+        print(f"[DEBUG Rank {comm.rank}] trace_fieldlines called, use_interpolated_field={use_interpolated_field}", flush=True)
     
     # Set up initial fieldline starting points
     # Sample R0 between innermost and outermost point along phi = 0, Z = 0 line
@@ -901,81 +1019,126 @@ def trace_fieldlines(
         R_end = R_mid + R_range * 0.4
     
     R0 = np.linspace(R_start, R_end, nfieldlines)
-    print(f"R0 values: {R0}")
+    proc0_print(f"R0 values: {R0}")
     Z0 = np.zeros(nfieldlines)
     
     # Toroidal angles for Poincaré sections
     phis = [(i / n_phi_slices) * (2 * np.pi / surface.nfp) for i in range(n_phi_slices)]
     
+    # Ensure all processes are synchronized before SurfaceClassifier creation
+    if comm is not None:
+        comm.Barrier()
+        proc0_print("Creating SurfaceClassifier for fieldline stopping criteria...")
+    
     # Create surface classifier for stopping criteria
-    sc_fieldline = SurfaceClassifier(surface, h=0.02, p=2)
+    with timed_section("SurfaceClassifier_init"):
+        sc_fieldline = SurfaceClassifier(surface, h=0.04 * surface.get_rc(0, 0), p=2)
+    
+    proc0_print("SurfaceClassifier created successfully.")
     
     # Use interpolated field for faster tracing if requested
     if use_interpolated_field:
         proc0_print("Creating interpolated field for faster tracing...")
-        # Determine bounds for interpolation
-        gamma = surface.gamma()
-        rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
-        zs = gamma[:, :, 2]
         
-        n = 20  # Grid resolution
-        rrange = (np.min(rs), np.max(rs), n)
-        phirange = (0, 2 * np.pi / surface.nfp, n * 2)
-        zrange = (np.min(zs), np.max(zs), n // 2)
-        if surface.stellsym:
-            zrange = (0.0, np.max(zs), n // 2)
+        # Ensure all processes are synchronized before creating InterpolatedField
+        # InterpolatedField creation involves field evaluation which should be coordinated
+        if comm is not None:
+            comm.Barrier()
         
-        # Skip function to avoid evaluating outside domain
-        def skip(rs, phis, zs):
-            rphiz = np.asarray([rs, phis, zs]).T.copy()
-            dists = sc_fieldline.evaluate_rphiz(rphiz)
-            skip_mask = list((dists < -0.05).flatten())
-            return skip_mask
+        with timed_section("InterpolatedField_setup"):
+            # Determine bounds for interpolation
+            gamma = surface.gamma()
+            rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
+            zs = gamma[:, :, 2]
+            
+            n = 20  # Grid resolution
+            rrange = (np.min(rs), np.max(rs), n)
+            phirange = (0, 2 * np.pi / surface.nfp, n * 2)
+            zrange = (np.min(zs), np.max(zs), n // 2)
+            if surface.stellsym:
+                zrange = (0.0, np.max(zs), n // 2)
+            
+            # Skip function to avoid evaluating outside domain
+            def skip(rs, phis, zs):
+                rphiz = np.asarray([rs, phis, zs]).T.copy()
+                dists = sc_fieldline.evaluate_rphiz(rphiz)
+                skip_mask = list((dists < -0.05).flatten())
+                return skip_mask
+            
+            # Create interpolated field
+            # All processes need to set points before InterpolatedField creation
+            bfield.set_points(surface.gamma().reshape((-1, 3)))
         
-        # Create interpolated field
-        bfield.set_points(surface.gamma().reshape((-1, 3)))
-        bfield_interp = InterpolatedField(
-            bfield,
-            degree=2,
-            rrange=rrange,
-            phirange=phirange,
-            zrange=zrange,
-            nfp=surface.nfp,
-            stellsym=surface.stellsym,
-            skip=skip
-        )
-        bfield_interp.set_points(surface.gamma().reshape((-1, 3)))
+        # Barrier before InterpolatedField creation to ensure all processes are ready
+        if comm is not None:
+            comm.Barrier()
+        
+        with timed_section("InterpolatedField_create"):
+            bfield_interp = InterpolatedField(
+                bfield,
+                degree=2,
+                rrange=rrange,
+                phirange=phirange,
+                zrange=zrange,
+                nfp=surface.nfp,
+                stellsym=surface.stellsym,
+                skip=skip
+            )
+            bfield_interp.set_points(surface.gamma().reshape((-1, 3)))
         field_to_trace = bfield_interp
     else:
         field_to_trace = bfield
     
     # Compute fieldlines
     proc0_print(f"Tracing {nfieldlines} fieldlines...")
-    fieldlines_tys, fieldlines_phi_hits = compute_fieldlines(
-        field_to_trace,
-        R0,
-        Z0,
-        tmax=tmax,
-        tol=tol,
-        comm=comm,
-        phis=phis,
-        stopping_criteria=[
-            LevelsetStoppingCriterion(sc_fieldline.dist),
-        ],
-    )
+    if comm is not None:
+        proc0_print(f"Using MPI communicator with {comm.size} processes for fieldline tracing")
+        # Add debug output from all ranks before barrier
+        rank = comm.rank
+        print(f"[DEBUG Rank {rank}] About to call Barrier before compute_fieldlines", flush=True)
     
-    # Generate Poincaré plot
-    proc0_print("Generating Poincaré plot...")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    plot_poincare_data(
-        fieldlines_phi_hits,
-        phis,
-        str(output_path),
-        dpi=dpi,
-        s=markersize,
-        # surf=surface,
-        aspect='equal',
-    )
+    # Ensure all processes are synchronized before fieldline tracing
+    if comm is not None:
+        comm.Barrier()
+        print(f"[DEBUG Rank {comm.rank}] Barrier passed, starting fieldline tracing...", flush=True)
+        proc0_print("All processes synchronized, starting fieldline tracing...")
+        print(f"[DEBUG Rank {comm.rank}] About to call compute_fieldlines...", flush=True)
+    
+    with timed_section("compute_fieldlines"):
+        if comm is not None:
+            print(f"[DEBUG Rank {comm.rank}] Inside timed_section, calling compute_fieldlines...", flush=True)
+        fieldlines_tys, fieldlines_phi_hits = compute_fieldlines(
+            field_to_trace,
+            R0,
+            Z0,
+            tmax=tmax,
+            tol=tol,
+            comm=comm,
+            phis=phis,
+            stopping_criteria=[
+                LevelsetStoppingCriterion(sc_fieldline.dist),
+            ],
+        )
+    
+    if comm is not None:
+        print(f"[DEBUG Rank {comm.rank}] compute_fieldlines completed, traced {len(fieldlines_tys)} fieldlines", flush=True)
+    
+    proc0_print(f"Fieldline tracing completed. Traced {len(fieldlines_tys)} fieldlines.")
+    
+    # Generate Poincaré plot (only on rank 0 for MPI runs)
+    if comm is None or comm.rank == 0:
+        proc0_print("Generating Poincaré plot...")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with timed_section("plot_poincare_data"):
+            plot_poincare_data(
+                fieldlines_phi_hits,
+                phis,
+                str(output_path),
+                dpi=dpi,
+                s=markersize,
+                # surf=surface,
+                aspect='equal',
+            )
     
     return {
         'fieldlines_tys': fieldlines_tys,
@@ -1483,6 +1646,7 @@ def run_post_processing(
     mpi: Optional[Any] = None,  # type: ignore
     run_simple: bool = True,
     simple_executable_path: Optional[Path] = None,
+    run_vmec_original: bool = False,
 ) -> Dict[str, Any]:
     """
     Run complete post-processing pipeline.
@@ -1521,11 +1685,20 @@ def run_post_processing(
     nfieldlines : int, default=20
         Number of fieldlines to trace for Poincaré plot.
     mpi : Any, optional
-        MPI partition for parallel execution.
+        MPI partition for parallel execution. If None, one is created based on ngroups.
     run_simple : bool, default=True
         Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable).
     simple_executable_path : Path, optional
         Path to simple.x executable. If None, searches in common locations.
+    run_vmec_original : bool, default=False
+        Whether to also run VMEC on the original plasma surface for comparison.
+        This doubles the VMEC computation time but provides comparison plots.
+    
+    Notes
+    -----
+    MPI parallelization is automatically used when available:
+    - Fieldline tracing uses all available MPI processes via comm_world
+    - VMEC uses all available MPI processes via MpiPartition(ngroups=1)
     
     Returns
     -------
@@ -1540,113 +1713,164 @@ def run_post_processing(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
+    # Clear previous timing results
+    clear_timing_results()
+    
+    # Set up MPI parallelization
+    # For VMEC, ngroups=1 means all processes work together on one VMEC run (parallel VMEC)
+    # ngroups > 1 would run multiple independent VMEC runs (useful for optimization, not here)
+    if mpi is None:
+        # For post-processing, always use ngroups=1 so VMEC uses all available processes
+        mpi = MpiPartition(ngroups=1)
+    
+    # Check if we're running with MPI
+    is_mpi_parallel = comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1
+    is_proc0 = comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
+    
+    if is_mpi_parallel:
+        proc0_print(f"Running with MPI: {comm_world.size} processes")  # type: ignore
+        proc0_print("Note: Only VMEC and fieldline tracing use MPI parallelization")
+    
     results = {}
     
     # Load coils and surface
     proc0_print("Loading coils and plasma surface...")
-    bfield, surface = load_coils_and_surface(
-        coils_json_path,
-        case_yaml_path=case_yaml_path,
-        plasma_surfaces_dir=plasma_surfaces_dir,
-    )
+    with timed_section("load_coils_and_surface"):
+        bfield, surface = load_coils_and_surface(
+            coils_json_path,
+            case_yaml_path=case_yaml_path,
+            plasma_surfaces_dir=plasma_surfaces_dir,
+        )
     
     # Generate Poincaré plot if requested (do this first, before QFM)
     if plot_poincare:
         try:
             proc0_print("Generating Poincaré plot...")
-            # Load surface with 'full torus' range for Poincaré plots
-            # Get the original surface file path
-            if hasattr(surface, 'filename') and surface.filename:
-                surface_path = Path(surface.filename)
-                if surface_path.exists():
-                    proc0_print("Loading surface with 'full torus' range for Poincaré plot...")
-                    poincare_surface = load_surface_with_range(surface_path, surface_range="full torus")
-                else:
-                    # Fallback: use the original surface if path not found
-                    proc0_print("Warning: Could not find surface file for full torus loading, using original surface")
-                    poincare_surface = surface
-            else:
-                # Fallback: try to find surface file from case YAML
-                if case_yaml_path and case_yaml_path.exists():
-                    import yaml
-                    try:
-                        case_data = yaml.safe_load(case_yaml_path.read_text())
-                        surface_file = case_data.get("surface_params", {}).get("surface", "")
-                        if surface_file:
-                            # Search for surface file
-                            search_dirs = []
-                            if plasma_surfaces_dir:
-                                search_dirs.append(plasma_surfaces_dir)
-                            search_dirs.extend([
-                                Path("plasma_surfaces"),
-                                Path.cwd() / "plasma_surfaces",
-                                case_yaml_path.parent / "plasma_surfaces",
-                            ])
-                            
-                            surface_path = None
-                            for search_dir in search_dirs:
-                                potential_path = search_dir / surface_file
-                                if potential_path.exists():
-                                    surface_path = potential_path
-                                    break
-                            
-                            if surface_path:
-                                proc0_print("Loading surface with 'full torus' range for Poincaré plot...")
-                                poincare_surface = load_surface_with_range(surface_path, surface_range="full torus")
-                            else:
-                                proc0_print("Warning: Could not find surface file, using original surface")
+            with timed_section("poincare_total", print_time=False):
+                # Load surface with 'full torus' range for Poincaré plots
+                # Get the original surface file path
+                with timed_section("poincare_load_surface"):
+                    if hasattr(surface, 'filename') and surface.filename:
+                        surface_path = Path(surface.filename)
+                        if surface_path.exists():
+                            proc0_print("Loading surface with 'full torus' range for Poincaré plot...")
+                            poincare_surface = load_surface_with_range(surface_path, surface_range="full torus")
+                        else:
+                            # Fallback: use the original surface if path not found
+                            proc0_print("Warning: Could not find surface file for full torus loading, using original surface")
+                            poincare_surface = surface
+                    else:
+                        # Fallback: try to find surface file from case YAML
+                        if case_yaml_path and case_yaml_path.exists():
+                            import yaml
+                            try:
+                                case_data = yaml.safe_load(case_yaml_path.read_text())
+                                surface_file = case_data.get("surface_params", {}).get("surface", "")
+                                if surface_file:
+                                    # Search for surface file
+                                    search_dirs = []
+                                    if plasma_surfaces_dir:
+                                        search_dirs.append(plasma_surfaces_dir)
+                                    search_dirs.extend([
+                                        Path("plasma_surfaces"),
+                                        Path.cwd() / "plasma_surfaces",
+                                        case_yaml_path.parent / "plasma_surfaces",
+                                    ])
+                                    
+                                    surface_path = None
+                                    for search_dir in search_dirs:
+                                        potential_path = search_dir / surface_file
+                                        if potential_path.exists():
+                                            surface_path = potential_path
+                                            break
+                                    
+                                    if surface_path:
+                                        proc0_print("Loading surface with 'full torus' range for Poincaré plot...")
+                                        poincare_surface = load_surface_with_range(surface_path, surface_range="full torus")
+                                    else:
+                                        proc0_print("Warning: Could not find surface file, using original surface")
+                                        poincare_surface = surface
+                                else:
+                                    poincare_surface = surface
+                            except Exception:
                                 poincare_surface = surface
                         else:
                             poincare_surface = surface
-                    except Exception:
-                        poincare_surface = surface
-                else:
-                    poincare_surface = surface
-            
-            poincare_results = trace_fieldlines(
-                bfield,
-                poincare_surface,
-                output_dir / "poincare_plot.png",
-                nfieldlines=nfieldlines,
-                comm=mpi,
-            )
-            results['poincare_results'] = poincare_results
+                
+                poincare_results = trace_fieldlines(
+                    bfield,
+                    poincare_surface,
+                    output_dir / "poincare_plot.png",
+                    nfieldlines=nfieldlines,
+                    comm=comm_world,  # Use MPI communicator for parallel fieldline tracing
+                )
+                results['poincare_results'] = poincare_results
+            proc0_print(f"[TIMING] poincare_total: {_timing_results.get('poincare_total', 0):.2f}s")
         except Exception as e:
             proc0_print(f"Warning: Poincaré plot generation failed: {e}")
             proc0_print("Skipping Poincaré plot.")
     
-    # Compute QFM surface
-    proc0_print("Computing QFM surface...")
-    qfm_surface = compute_qfm_surface(surface, bfield)
-    results['qfm_surface'] = qfm_surface
+    # Compute QFM surface (only on rank 0 - not MPI parallelized)
+    qfm_surface = None
+    BdotN = 0.0
+    BdotN_over_B = 0.0
     
-    # Save QFM surface as VTK file
-    proc0_print("Saving QFM surface as VTK file...")
-    qfm_vtk_path = output_dir / "qfm_surface"
-    try:
-        qfm_surface.to_vtk(str(qfm_vtk_path))
-        proc0_print(f"Saved QFM surface to {qfm_vtk_path}.vts")
-        results['qfm_vtk_path'] = str(qfm_vtk_path)
-    except Exception as e:
-        proc0_print(f"Warning: Failed to save QFM surface as VTK: {e}")
+    if is_proc0:
+        proc0_print("Computing QFM surface...")
+        with timed_section("compute_qfm_surface"):
+            qfm_surface = compute_qfm_surface(surface, bfield)
+        results['qfm_surface'] = qfm_surface
+        
+        # Save QFM surface as VTK file
+        proc0_print("Saving QFM surface as VTK file...")
+        with timed_section("save_qfm_vtk"):
+            qfm_vtk_path = output_dir / "qfm_surface"
+            try:
+                qfm_surface.to_vtk(str(qfm_vtk_path))
+                proc0_print(f"Saved QFM surface to {qfm_vtk_path}.vts")
+                results['qfm_vtk_path'] = str(qfm_vtk_path)
+            except Exception as e:
+                proc0_print(f"Warning: Failed to save QFM surface as VTK: {e}")
+        
+        # Compute B·n on plasma surface
+        with timed_section("compute_BdotN"):
+            bfield.set_points(surface.gamma().reshape((-1, 3)))
+            B = bfield.B()
+            n = surface.unitnormal()
+            # Reshape to match surface grid dimensions
+            nphi = surface.quadpoints_phi.size
+            ntheta = surface.quadpoints_theta.size
+            B_reshaped = B.reshape((nphi, ntheta, 3))
+            n_reshaped = n.reshape((nphi, ntheta, 3))
+            BdotN = np.mean(np.abs(np.sum(B_reshaped * n_reshaped, axis=2)))
+            BdotN_over_B = BdotN / np.mean(bfield.AbsB())
+        
+        proc0_print(f"B·n on plasma surface: {BdotN:.2e}")
+        proc0_print(f"B·n/|B|: {BdotN_over_B:.2e}")
+        
+        results['BdotN'] = float(BdotN)
+        results['BdotN_over_B'] = float(BdotN_over_B)
     
-    # Compute B·n on plasma surface
-    bfield.set_points(surface.gamma().reshape((-1, 3)))
-    B = bfield.B()
-    n = surface.unitnormal()
-    # Reshape to match surface grid dimensions
-    nphi = surface.quadpoints_phi.size
-    ntheta = surface.quadpoints_theta.size
-    B_reshaped = B.reshape((nphi, ntheta, 3))
-    n_reshaped = n.reshape((nphi, ntheta, 3))
-    BdotN = np.mean(np.abs(np.sum(B_reshaped * n_reshaped, axis=2)))
-    BdotN_over_B = BdotN / np.mean(bfield.AbsB())
-    
-    proc0_print(f"B·n on plasma surface: {BdotN:.2e}")
-    proc0_print(f"B·n/|B|: {BdotN_over_B:.2e}")
-    
-    results['BdotN'] = float(BdotN)
-    results['BdotN_over_B'] = float(BdotN_over_B)
+    # Share QFM surface with all ranks for subsequent VMEC run
+    if is_mpi_parallel:
+        # Rank 0 saves QFM surface to file, other ranks load it
+        qfm_temp_path = output_dir / "_qfm_surface_temp.json"
+        if is_proc0:
+            # Save surface using simsopt serialization
+            from simsopt._core import save
+            save(qfm_surface, str(qfm_temp_path))
+        
+        # Wait for rank 0 to finish writing
+        comm_world.Barrier()  # type: ignore
+        
+        # All ranks load the surface
+        if not is_proc0:
+            from simsopt._core import load
+            qfm_surface = load(str(qfm_temp_path))
+        
+        # Broadcast scalar values
+        BdotN = comm_world.bcast(BdotN, root=0)  # type: ignore
+        BdotN_over_B = comm_world.bcast(BdotN_over_B, root=0)  # type: ignore
     
     # Run VMEC if requested
     if run_vmec:
@@ -1735,135 +1959,157 @@ def run_post_processing(
                 proc0_print("Note: Original surface file is not a VMEC input file.")
                 proc0_print("Using a template VMEC input file and replacing boundary with QFM surface.")
             
-            # Run VMEC for original surface first (for comparison plots)
+            # Run VMEC for original surface first (for comparison plots) - only if requested
             equil_original = None
             qs_average_original = None
             qs_profile_original = None
             radii_original = None
             
-            # Try to run VMEC for original surface (for comparison)
-            # Use VMEC input file if available, otherwise run_vmec_equilibrium will find a template
-            try:
-                proc0_print("Running VMEC for original plasma surface (for comparison)...")
-                equil_original = run_vmec_equilibrium(
-                    surface,  # Use original surface
+            # Optionally run VMEC for original surface (for comparison)
+            # This is disabled by default to save time (~50% of total VMEC time)
+            if run_vmec_original:
+                try:
+                    proc0_print("Running VMEC for original plasma surface (for comparison)...")
+                    with timed_section("vmec_original_surface"):
+                        equil_original = run_vmec_equilibrium(
+                            surface,  # Use original surface
+                            vmec_input_path=vmec_input_path if is_vmec_input else None,
+                            mpi=mpi,
+                            plasma_surfaces_dir=plasma_surfaces_dir,
+                        )
+                    
+                    # Compute quasisymmetry for original surface (only on rank 0)
+                    if is_proc0:
+                        with timed_section("quasisymmetry_original"):
+                            qs_average_original, qs_profile_original = compute_quasisymmetry(
+                                equil_original,
+                                helicity_m=helicity_m,
+                                helicity_n=helicity_n,
+                                ns=ns,
+                            )
+                        radii_original = np.arange(0, 1.01, 1.01 / ns)
+                        proc0_print(f"Original surface average quasisymmetry error: {qs_average_original:.2e}")
+                except Exception as e:
+                    proc0_print(f"Warning: Failed to compute original surface profiles: {e}")
+                    proc0_print("Proceeding with QFM surface only.")
+            
+            # Run VMEC for QFM surface (self-consistent solution) - uses all MPI ranks
+            with timed_section("vmec_qfm_surface"):
+                equil = run_vmec_equilibrium(
+                    qfm_surface,
                     vmec_input_path=vmec_input_path if is_vmec_input else None,
                     mpi=mpi,
                     plasma_surfaces_dir=plasma_surfaces_dir,
                 )
-                
-                # Compute quasisymmetry for original surface
-                qs_average_original, qs_profile_original = compute_quasisymmetry(
-                    equil_original,
-                    helicity_m=helicity_m,
-                    helicity_n=helicity_n,
-                    ns=ns,
-                )
-                radii_original = np.arange(0, 1.01, 1.01 / ns)
-                proc0_print(f"Original surface average quasisymmetry error: {qs_average_original:.2e}")
-            except Exception as e:
-                proc0_print(f"Warning: Failed to compute original surface profiles: {e}")
-                proc0_print("Proceeding with QFM surface only.")
-            
-            # Run VMEC for QFM surface (self-consistent solution)
-            equil = run_vmec_equilibrium(
-                qfm_surface,
-                vmec_input_path=vmec_input_path if is_vmec_input else None,
-                mpi=mpi,
-                plasma_surfaces_dir=plasma_surfaces_dir,
-            )
             results['vmec'] = equil
             
-            # Compute quasisymmetry for QFM surface
-            proc0_print("Computing quasisymmetry metrics...")
-            qs_average, qs_profile = compute_quasisymmetry(
-                equil,
-                helicity_m=helicity_m,
-                helicity_n=helicity_n,
-                ns=ns,
-            )
-            results['quasisymmetry_average'] = float(qs_average)
-            results['quasisymmetry_profile'] = qs_profile.tolist()
-            
-            proc0_print(f"Average quasisymmetry error: {qs_average:.2e}")
-            
-            # Always generate iota and quasisymmetry plots vs flux coordinate
-            proc0_print("Generating iota profile plot vs flux coordinate...")
-            # Determine sign based on helicity
-            sign = -1 if helicity_n == -1 else 1
-            plot_iota_profile(
-                equil,
-                output_dir / "iota_profile.png",
-                sign=sign,
-                equil_original=equil_original,
-                dpi=300,  # High resolution for publication
-            )
-            
-            proc0_print("Generating quasisymmetry profile plot vs flux coordinate...")
-            radii = np.arange(0, 1.01, 1.01 / ns)
-            plot_quasisymmetry_profile(
-                qs_profile,
-                radii,
-                output_dir / "quasisymmetry_profile.png",
-                qs_profile_original=qs_profile_original,
-                radii_original=radii_original,
-                dpi=300,  # High resolution for publication
-            )
-            
-            # Generate Boozer plot if requested
-            if plot_boozer:
-                proc0_print("Generating Boozer surface plot (2x2 grid at s = 0, 0.25, 0.5, 1.0)...")
-                plot_boozer_surface(
-                    equil,
-                    output_dir / "boozer_surface.png",
-                    js=None,  # None triggers 2x2 grid at s = 0, 0.25, 0.5, 1.0
-                    dpi=300,  # High resolution for publication
-                )
-            
-            # Run SIMPLE fast particle tracing if requested
-            if run_simple:
-                try:
-                    proc0_print("Running SIMPLE fast particle tracing...")
-                    simple_results = run_simple_particle_tracing(
+            # Post-VMEC analysis: only run on rank 0 (not MPI parallelized)
+            if is_proc0:
+                # Compute quasisymmetry for QFM surface
+                proc0_print("Computing quasisymmetry metrics...")
+                with timed_section("quasisymmetry_qfm"):
+                    qs_average, qs_profile = compute_quasisymmetry(
                         equil,
-                        output_dir,
-                        simple_executable_path=simple_executable_path,
+                        helicity_m=helicity_m,
+                        helicity_n=helicity_n,
+                        ns=ns,
                     )
-                    if simple_results:
-                        results['simple_results'] = simple_results
-                        if 'loss_fraction' in simple_results:
-                            # Add loss_fraction to results dictionary so it appears in metrics
-                            results['loss_fraction'] = simple_results['loss_fraction']
-                            proc0_print(f"  Particle loss fraction: {simple_results['loss_fraction']:.6e}")
-                except Exception as e:
-                    proc0_print(f"Warning: SIMPLE particle tracing failed: {e}")
-                    proc0_print("  Continuing without SIMPLE results.")
+                results['quasisymmetry_average'] = float(qs_average)
+                results['quasisymmetry_profile'] = qs_profile.tolist()
+                
+                proc0_print(f"Average quasisymmetry error: {qs_average:.2e}")
+                
+                # Always generate iota and quasisymmetry plots vs flux coordinate
+                proc0_print("Generating iota profile plot vs flux coordinate...")
+                # Determine sign based on helicity
+                sign = -1 if helicity_n == -1 else 1
+                with timed_section("plot_iota_profile"):
+                    plot_iota_profile(
+                        equil,
+                        output_dir / "iota_profile.png",
+                        sign=sign,
+                        equil_original=equil_original,
+                        dpi=300,  # High resolution for publication
+                    )
+                
+                proc0_print("Generating quasisymmetry profile plot vs flux coordinate...")
+                radii = np.arange(0, 1.01, 1.01 / ns)
+                with timed_section("plot_quasisymmetry_profile"):
+                    plot_quasisymmetry_profile(
+                        qs_profile,
+                        radii,
+                        output_dir / "quasisymmetry_profile.png",
+                        qs_profile_original=qs_profile_original,
+                        radii_original=radii_original,
+                        dpi=300,  # High resolution for publication
+                    )
+                
+                # Generate Boozer plot if requested
+                if plot_boozer:
+                    proc0_print("Generating Boozer surface plot (2x2 grid at s = 0, 0.25, 0.5, 1.0)...")
+                    with timed_section("plot_boozer_surface_total"):
+                        plot_boozer_surface(
+                            equil,
+                            output_dir / "boozer_surface.png",
+                            js=None,  # None triggers 2x2 grid at s = 0, 0.25, 0.5, 1.0
+                            dpi=300,  # High resolution for publication
+                        )
+                
+                # Run SIMPLE fast particle tracing if requested
+                if run_simple:
+                    try:
+                        proc0_print("Running SIMPLE fast particle tracing...")
+                        with timed_section("simple_particle_tracing"):
+                            simple_results = run_simple_particle_tracing(
+                                equil,
+                                output_dir,
+                                simple_executable_path=simple_executable_path,
+                            )
+                        if simple_results:
+                            results['simple_results'] = simple_results
+                            if 'loss_fraction' in simple_results:
+                                # Add loss_fraction to results dictionary so it appears in metrics
+                                results['loss_fraction'] = simple_results['loss_fraction']
+                                proc0_print(f"  Particle loss fraction: {simple_results['loss_fraction']:.6e}")
+                    except Exception as e:
+                        proc0_print(f"Warning: SIMPLE particle tracing failed: {e}")
+                        proc0_print("  Continuing without SIMPLE results.")
         except Exception as e:
             proc0_print(f"Warning: VMEC calculation failed: {e}")
             proc0_print("Skipping VMEC-dependent post-processing.")
     
-    # Save results to JSON
-    results_json = {
-        'BdotN': results.get('BdotN'),
-        'BdotN_over_B': results.get('BdotN_over_B'),
-        'quasisymmetry_average': results.get('quasisymmetry_average'),
-    }
-    
-    # Add SIMPLE results if available
-    if 'simple_results' in results:
-        simple_results = results['simple_results']
-        results_json['simple'] = {
-            'loss_fraction': simple_results.get('loss_fraction'),
-            'confined_fraction': simple_results.get('confined_fraction'),
-            'confined_passing': simple_results.get('confined_passing'),
-            'confined_trapped': simple_results.get('confined_trapped'),
-            'final_time': simple_results.get('final_time'),
-            'loss_fraction_plot': simple_results.get('loss_fraction_plot'),  # Path to PNG plot
+    # Save results to JSON (only on rank 0)
+    if is_proc0:
+        results_json = {
+            'BdotN': results.get('BdotN'),
+            'BdotN_over_B': results.get('BdotN_over_B'),
+            'quasisymmetry_average': results.get('quasisymmetry_average'),
         }
-    
-    with open(output_dir / "post_processing_results.json", 'w') as f:
-        json.dump(results_json, f, indent=2)
-    
-    proc0_print(f"Post-processing complete. Results saved to {output_dir}")
+        
+        # Add SIMPLE results if available
+        if 'simple_results' in results:
+            simple_results = results['simple_results']
+            results_json['simple'] = {
+                'loss_fraction': simple_results.get('loss_fraction'),
+                'confined_fraction': simple_results.get('confined_fraction'),
+                'confined_passing': simple_results.get('confined_passing'),
+                'confined_trapped': simple_results.get('confined_trapped'),
+                'final_time': simple_results.get('final_time'),
+                'loss_fraction_plot': simple_results.get('loss_fraction_plot'),  # Path to PNG plot
+            }
+        
+        # Add timing results to JSON
+        results_json['timing'] = get_timing_results()
+        
+        with open(output_dir / "post_processing_results.json", 'w') as f:
+            json.dump(results_json, f, indent=2)
+        
+        # Print timing summary
+        print_timing_summary()
+        
+        # Store timing results in return dict
+        results['timing'] = get_timing_results()
+        
+        proc0_print(f"Post-processing complete. Results saved to {output_dir}")
     
     return results

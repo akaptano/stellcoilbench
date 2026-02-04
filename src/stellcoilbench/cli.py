@@ -364,7 +364,7 @@ def submit_case(
         surface_name = surface_name[5:]  # Remove "wout." prefix
     
     # Remove file extensions like ".focus" from surface name
-    # Keep only the base name (e.g., "c09r00_B_axis_half_tesla_PM4Stell" from "c09r00_B_axis_half_tesla_PM4Stell.focus")
+    # Keep only the base name (e.g., "c09r00_B_axis_half_tesla_NCSX" from "c09r00_B_axis_half_tesla_NCSX.focus")
     if "." in surface_name:
         # Split on first dot and take the part before it
         surface_name = surface_name.split(".", 1)[0]
@@ -374,8 +374,11 @@ def submit_case(
     run_date = now.isoformat()
     datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
     
-    # Write to submissions directory: submissions/<surface>/<username>/<datetime>/
-    submission_dir = submissions_dir / surface_name / github_username / datetime_str
+    # Get case name from case file (e.g., "basic_LandremanPaulQA" from "basic_LandremanPaulQA.yaml")
+    case_name = case_path.stem if case_path.suffix == ".yaml" else case_path.name
+    
+    # Write to submissions directory: submissions/<surface>/<username>/<case_name>/<datetime>/
+    submission_dir = submissions_dir / surface_name / github_username / case_name / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
     # Coils filename is always coils.json
@@ -492,12 +495,16 @@ def run_case(
         github_username = "unknown_user"
         typer.echo("Warning: Could not auto-detect GitHub username. Using 'unknown_user'.")
 
-    # Create timestamp-based subdirectory
+    # Create submission directory with case name to avoid race conditions
     now = datetime.now()
     datetime_str = now.strftime("%m-%d-%Y_%H-%M")  # Format: MM-DD-YYYY_HH-MM
     
-    # Create submission directory: submissions/<surface>/<username>/<datetime>/
-    submission_dir = submissions_dir / surface_name / github_username / datetime_str
+    # Get case name from case file (e.g., "basic_LandremanPaulQA" from "basic_LandremanPaulQA.yaml")
+    case_name = case_path.stem if case_path.suffix == ".yaml" else case_path.name
+    
+    # Create submission directory: submissions/<surface>/<username>/<case_name>/<datetime>/
+    # Including case_name prevents race conditions when multiple cases use the same surface
+    submission_dir = submissions_dir / surface_name / github_username / case_name / datetime_str
     submission_dir.mkdir(parents=True, exist_ok=True)
 
     # Coils filename is always coils.json
