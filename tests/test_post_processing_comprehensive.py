@@ -1039,16 +1039,14 @@ class TestRunSimpleParticleTracing:
             
             # Check that all required parameters are in the file
             assert "netcdffile" in simple_in_content
-            assert "num_surf" in simple_in_content
-            assert "nper" in simple_in_content
-            assert "npoiper" in simple_in_content
-            assert "ntimstep" in simple_in_content
-            assert "macrostep_time_grid" in simple_in_content
+            assert "integmode = 3" in simple_in_content  # Always written (Midpoint integrator)
+            # Note: num_surf, nper, npoiper, ntimstep, macrostep_time_grid are only written
+            # if they differ from SIMPLE defaults (to keep input file minimal)
             
             # Verify defaults were NOT used for custom parameters
             assert "trace_time = 1.000000d-01" not in simple_in_content  # Default is 0.1
             assert "ntestpart = 1024" not in simple_in_content  # Default is 1024
-            assert "npoiper2 = 256" in simple_in_content  # Default should be used since not overridden
+            assert "npoiper2 = 128" in simple_in_content  # Default (128) should be used since not overridden
     
     def test_run_simple_particle_tracing_integration_with_post_processing(self, tmp_path):
         """Test SIMPLE integration with run_post_processing."""

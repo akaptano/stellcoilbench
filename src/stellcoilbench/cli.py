@@ -12,6 +12,16 @@ from typing import Optional
 import numpy as np
 import typer
 
+# MPI utilities for rank-aware file operations
+try:
+    from simsopt.util import comm_world
+except ImportError:
+    comm_world = None
+
+def _is_proc0() -> bool:
+    """Check if this is rank 0 (or non-MPI environment)."""
+    return comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
+
 
 class NumpyJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles numpy types and arrays."""
@@ -34,6 +44,10 @@ class NumpyJSONEncoder(json.JSONEncoder):
                 return np.asarray(o).tolist()
             except (TypeError, ValueError):
                 pass
+        # Handle simsopt objects (SurfaceRZFourier, Vmec, etc.) by converting to string
+        # These are not JSON serializable but we want to include them in results
+        elif hasattr(o, '__module__') and 'simsopt' in str(o.__module__):
+            return str(o)
         return super().default(o)
 
 app = typer.Typer(help="CoilBench: benchmarking framework for stellarator coil optimization.")
@@ -386,13 +400,21 @@ def submit_case(
     coils_out_path = submission_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path and VTK files to submission_dir.
-    typer.echo("Running optimizer...")
+    # Note: optimize_coils handles MPI internally - only rank 0 runs optimization,
+    # but all ranks participate in post-processing (fieldline tracing)
+    if _is_proc0():
+        typer.echo("Running optimizer...")
     results_dict = optimize_coils(
         case_path=case_path, 
         coils_out_path=coils_out_path, 
         case_cfg=case_cfg,
         output_dir=submission_dir  # VTK files will be saved here
     )
+    
+    # Only rank 0 should write files and print messages
+    if not _is_proc0():
+        return  # Non-rank-0 processes exit after optimization/post-processing
+    
     typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
@@ -512,8 +534,16 @@ def run_case(
     coils_out_path = submission_dir / coils_filename
 
     # 1) Run the optimizer, writing coils_out_path.
-    typer.echo("Running optimizer...")
+    # Note: optimize_coils handles MPI internally - only rank 0 runs optimization,
+    # but all ranks participate in post-processing (fieldline tracing)
+    if _is_proc0():
+        typer.echo("Running optimizer...")
     results_dict = optimize_coils(case_path=case_path, coils_out_path=coils_out_path, case_cfg=case_cfg)
+    
+    # Only rank 0 should write files and print messages
+    if not _is_proc0():
+        return  # Non-rank-0 processes exit after optimization/post-processing
+    
     typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.

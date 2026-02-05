@@ -964,10 +964,6 @@ def trace_fieldlines(
             "Please ensure simsopt is installed with tracing capabilities."
         )
     
-    # Debug output for MPI
-    if comm is not None:
-        print(f"[DEBUG Rank {comm.rank}] trace_fieldlines called, use_interpolated_field={use_interpolated_field}", flush=True)
-    
     # Set up initial fieldline starting points
     # Sample R0 between innermost and outermost point along phi = 0, Z = 0 line
     gamma = surface.gamma()  # Shape: (nphi, ntheta, 3)
@@ -1019,111 +1015,63 @@ def trace_fieldlines(
         R_end = R_mid + R_range * 0.4
     
     R0 = np.linspace(R_start, R_end, nfieldlines)
-    proc0_print(f"R0 values: {R0}")
+    if comm is None or (comm is not None and comm.rank == 0):
+        proc0_print(f"R0 values: {R0}")
     Z0 = np.zeros(nfieldlines)
     
     # Toroidal angles for Poincaré sections
     phis = [(i / n_phi_slices) * (2 * np.pi / surface.nfp) for i in range(n_phi_slices)]
     
-    # Ensure all processes are synchronized before SurfaceClassifier creation
-    if comm is not None:
-        comm.Barrier()
-        proc0_print("Creating SurfaceClassifier for fieldline stopping criteria...")
-    
     # Create surface classifier for stopping criteria
-    with timed_section("SurfaceClassifier_init"):
-        sc_fieldline = SurfaceClassifier(surface, h=0.04 * surface.get_rc(0, 0), p=2)
-    
-    proc0_print("SurfaceClassifier created successfully.")
+    # Following simsopt example: examples/1_Simple/tracing_fieldlines_QA.py
+    sc_fieldline = SurfaceClassifier(surface, h=0.03, p=2)
     
     # Use interpolated field for faster tracing if requested
     if use_interpolated_field:
-        proc0_print("Creating interpolated field for faster tracing...")
+        proc0_print("Initializing InterpolatedField")
         
-        # Ensure all processes are synchronized before creating InterpolatedField
-        # InterpolatedField creation involves field evaluation which should be coordinated
-        if comm is not None:
-            comm.Barrier()
+        # Bounds for interpolation chosen so surface is entirely contained
+        n = 20
+        gamma = surface.gamma()
+        rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
+        zs = gamma[:, :, 2]
+        rrange = (np.min(rs), np.max(rs), n)
+        phirange = (0, 2 * np.pi / surface.nfp, n * 2)
+        # Exploit stellarator symmetry and only consider positive z values if applicable
+        zrange = (0, np.max(zs), n // 2) if surface.stellsym else (np.min(zs), np.max(zs), n // 2)
         
-        with timed_section("InterpolatedField_setup"):
-            # Determine bounds for interpolation
-            gamma = surface.gamma()
-            rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
-            zs = gamma[:, :, 2]
-            
-            n = 20  # Grid resolution
-            rrange = (np.min(rs), np.max(rs), n)
-            phirange = (0, 2 * np.pi / surface.nfp, n * 2)
-            zrange = (np.min(zs), np.max(zs), n // 2)
-            if surface.stellsym:
-                zrange = (0.0, np.max(zs), n // 2)
-            
-            # Skip function to avoid evaluating outside domain
-            def skip(rs, phis, zs):
-                rphiz = np.asarray([rs, phis, zs]).T.copy()
-                dists = sc_fieldline.evaluate_rphiz(rphiz)
-                skip_mask = list((dists < -0.05).flatten())
-                return skip_mask
-            
-            # Create interpolated field
-            # All processes need to set points before InterpolatedField creation
-            bfield.set_points(surface.gamma().reshape((-1, 3)))
+        # Skip function to avoid evaluating outside domain
+        def skip(rs, phis, zs):
+            rphiz = np.asarray([rs, phis, zs]).T.copy()
+            dists = sc_fieldline.evaluate_rphiz(rphiz)
+            skip_mask = list((dists < -0.05).flatten())
+            proc0_print("Skip", sum(skip_mask), "cells out of", len(skip_mask), flush=True)
+            return skip_mask
         
-        # Barrier before InterpolatedField creation to ensure all processes are ready
-        if comm is not None:
-            comm.Barrier()
+        # Create interpolated field - matching simsopt example signature exactly
+        bfield_interp = InterpolatedField(
+            bfield, 2, rrange, phirange, zrange, True,
+            nfp=surface.nfp, stellsym=surface.stellsym, skip=skip
+        )
+        proc0_print("Done initializing InterpolatedField.")
         
-        with timed_section("InterpolatedField_create"):
-            bfield_interp = InterpolatedField(
-                bfield,
-                degree=2,
-                rrange=rrange,
-                phirange=phirange,
-                zrange=zrange,
-                nfp=surface.nfp,
-                stellsym=surface.stellsym,
-                skip=skip
-            )
-            bfield_interp.set_points(surface.gamma().reshape((-1, 3)))
+        bfield_interp.set_points(surface.gamma().reshape((-1, 3)))
+        bfield.set_points(surface.gamma().reshape((-1, 3)))
+        proc0_print("Mean(|B|) on plasma surface =", np.mean(bfield.AbsB()), flush=True)
+        
         field_to_trace = bfield_interp
     else:
         field_to_trace = bfield
     
-    # Compute fieldlines
-    proc0_print(f"Tracing {nfieldlines} fieldlines...")
-    if comm is not None:
-        proc0_print(f"Using MPI communicator with {comm.size} processes for fieldline tracing")
-        # Add debug output from all ranks before barrier
-        rank = comm.rank
-        print(f"[DEBUG Rank {rank}] About to call Barrier before compute_fieldlines", flush=True)
-    
-    # Ensure all processes are synchronized before fieldline tracing
-    if comm is not None:
-        comm.Barrier()
-        print(f"[DEBUG Rank {comm.rank}] Barrier passed, starting fieldline tracing...", flush=True)
-        proc0_print("All processes synchronized, starting fieldline tracing...")
-        print(f"[DEBUG Rank {comm.rank}] About to call compute_fieldlines...", flush=True)
-    
-    with timed_section("compute_fieldlines"):
-        if comm is not None:
-            print(f"[DEBUG Rank {comm.rank}] Inside timed_section, calling compute_fieldlines...", flush=True)
-        fieldlines_tys, fieldlines_phi_hits = compute_fieldlines(
-            field_to_trace,
-            R0,
-            Z0,
-            tmax=tmax,
-            tol=tol,
-            comm=comm,
-            phis=phis,
-            stopping_criteria=[
-                LevelsetStoppingCriterion(sc_fieldline.dist),
-            ],
-        )
-    
-    if comm is not None:
-        print(f"[DEBUG Rank {comm.rank}] compute_fieldlines completed, traced {len(fieldlines_tys)} fieldlines", flush=True)
-    
-    proc0_print(f"Fieldline tracing completed. Traced {len(fieldlines_tys)} fieldlines.")
+    # Compute fieldlines - exactly matching simsopt example
+    proc0_print(f"Beginning fieldline tracing ({nfieldlines} fieldlines)...", flush=True)
+    t1 = time.time()
+    fieldlines_tys, fieldlines_phi_hits = compute_fieldlines(
+        field_to_trace, R0, Z0, tmax=tmax, tol=tol, comm=comm,
+        phis=phis, stopping_criteria=[LevelsetStoppingCriterion(sc_fieldline.dist)]
+    )
+    t2 = time.time()
+    proc0_print(f"Time for fieldline tracing={t2-t1:.3f}s. Num steps={sum([len(ll) for ll in fieldlines_tys])//nfieldlines}", flush=True)
     
     # Generate Poincaré plot (only on rank 0 for MPI runs)
     if comm is None or comm.rank == 0:
@@ -1331,7 +1279,10 @@ def run_simple_particle_tracing(
     
     # Extract parameters with defaults from SIMPLE params.f90
     # Defaults match those defined in src/params.f90 of the SIMPLE repository
-    # Note: kwargs.pop() removes the key from kwargs dict, so defaults are only used if key doesn't exist
+    # Track which parameters were explicitly provided (before popping)
+    provided_params = set(kwargs.keys())
+    
+    # Extract parameters (pop removes from kwargs)
     notrace_passing = kwargs.pop('notrace_passing', 0)
     nper = kwargs.pop('nper', 1000)
     npoiper = kwargs.pop('npoiper', 100)
@@ -1344,7 +1295,7 @@ def run_simple_particle_tracing(
     thetabeg = kwargs.pop('thetabeg', 0.0)
     contr_pp = kwargs.pop('contr_pp', -1.0)
     facE_al = kwargs.pop('facE_al', 1.0)
-    npoiper2 = kwargs.pop('npoiper2', 256)
+    npoiper2 = kwargs.pop('npoiper2', 128)  # Points per period for integrator step
     n_e = kwargs.pop('n_e', 2)
     n_d = kwargs.pop('n_d', 4)
     netcdffile = kwargs.pop('netcdffile', None)
@@ -1356,7 +1307,7 @@ def run_simple_particle_tracing(
     startmode = kwargs.pop('startmode', 1)
     grid_density = kwargs.pop('grid_density', 0.0)
     special_ants_file = kwargs.pop('special_ants_file', False)
-    integmode = kwargs.pop('integmode', 1)  # EXPL_IMPL_EULER = 1
+    integmode = kwargs.pop('integmode', 3)  # 3 = Midpoint (recommended), 1 = Euler (unstable)
     relerr = kwargs.pop('relerr', 1e-13)
     tcut = kwargs.pop('tcut', -1.0)
     debug = kwargs.pop('debug', False)
@@ -1395,6 +1346,49 @@ def run_simple_particle_tracing(
     if kwargs:
         import warnings
         warnings.warn(f"Unknown SIMPLE parameters ignored: {list(kwargs.keys())}", UserWarning)
+    
+    # Auto-scale device to ARIES-CS reactor parameters for SIMPLE particle tracing
+    # SIMPLE traces 3.5 MeV alpha particles, which require reactor-scale devices
+    # with proper field strength for meaningful confinement results.
+    # Reference: ARIES-CS compact stellarator reactor design
+    # (Ku et al., Fusion Science and Technology, 2008)
+    # ARIES_CS_R0 = 7.75  # ARIES-CS major radius in meters
+    ARIES_CS_MINOR_RADIUS = 1.7  # ARIES-CS minor radius in meters (aspect ratio ~4.5)
+    ARIES_CS_B0 = 5.7   # ARIES-CS on-axis magnetic field in Tesla
+    
+    try:
+        from scipy.io import netcdf_file
+        with netcdf_file(netcdffile, 'r', mmap=False) as f:
+            r0 = float(f.variables['raxis_cc'].data[0])  # Major radius in meters
+            aminor = float(f.variables['Aminor_p'].data)  # Minor radius in meters
+            # Get B-field: use boundary B_00 (m=0,n=0) component
+            bmnc = f.variables['bmnc'].data
+            xm = f.variables['xm'].data
+            xn = f.variables['xn'].data
+            idx_00 = np.where((xm == 0) & (xn == 0))[0][0]
+            b0 = abs(float(bmnc[-1, idx_00]))  # Boundary B_00
+        
+        if aminor < ARIES_CS_MINOR_RADIUS:
+            # Auto-scale to ARIES-CS reactor parameters based on minor radius
+            # This matches the approach in Landreman & Paul 2021
+            proc0_print(f"Scaling to ARIES-CS reactor (a={ARIES_CS_MINOR_RADIUS}m, B0={ARIES_CS_B0}T)")
+            
+            # Auto-scale geometry based on minor radius ratio
+            if 'vmec_RZ_scale' not in provided_params:
+                vmec_RZ_scale = ARIES_CS_MINOR_RADIUS / aminor
+                scaled_r0 = r0 * vmec_RZ_scale
+                proc0_print(f"  Geometry: a={aminor:.3f}m -> {ARIES_CS_MINOR_RADIUS}m (vmec_RZ_scale={vmec_RZ_scale:.2f})")
+                proc0_print(f"            R0={r0:.2f}m -> {scaled_r0:.2f}m")
+            
+            # Auto-scale B-field if not explicitly provided
+            if 'vmec_B_scale' not in provided_params and b0 > 0:
+                vmec_B_scale = ARIES_CS_B0 / b0
+                proc0_print(f"  B-field: B0={b0:.2f}T -> {ARIES_CS_B0}T (vmec_B_scale={vmec_B_scale:.2f})")
+        else:
+            proc0_print(f"Device at reactor scale: a={aminor:.2f}m, R0={r0:.2f}m, B0={b0:.2f}T (no scaling applied)")
+    except Exception as e:
+        proc0_print(f"Warning: Could not read VMEC file for auto-scaling: {e}")
+        proc0_print("  Using default scaling (vmec_RZ_scale=1.0, vmec_B_scale=1.0)")
     
     # Find simple.x executable
     if simple_executable_path is None:
@@ -1444,68 +1438,108 @@ def run_simple_particle_tracing(
         return ".True." if val else ".False."
     
     # Create simple.in file
+    # Only include essential parameters (matching typical simple.in files)
+    # Other parameters will use SIMPLE defaults unless explicitly provided via kwargs
     simple_in_path = output_dir / "simple.in"
     
-    simple_in_content = f"""&config
-notrace_passing = {notrace_passing}      ! skip tracing passing prts if notrace_passing=1
-nper = {nper}              ! number of periods for initial field line
-npoiper = {npoiper}            ! number of points per period on this field line
-ntimstep = {ntimstep}         ! number of time steps per slowing down time
-ntestpart = {ntestpart}          ! number of test particles
-trace_time = {format_fortran_double(trace_time)}        ! slowing down time, s
-sbeg = {sbeg_str}     ! starting s (normalized toroidal flux) for particles. The particles will be distributed equally along these flux surfaces.
-num_surf = {num_surf}             ! number of flux surfaces. Value 0, distributes in volume.
-phibeg = {format_fortran_double(phibeg)}            ! starting phi for field line
-thetabeg = {format_fortran_double(thetabeg)}          ! starting theta for field line
-contr_pp = {format_fortran_double(contr_pp)}        ! control of passing particle fraction
-facE_al = {format_fortran_double(facE_al)}            ! test particle energy reduction factor
-npoiper2 = {npoiper2}	         ! points per period for integrator step
-n_e = {n_e}                  ! test particle charge number (the same as Z)
-n_d = {n_d}                  ! test particle mass number (the same as A)
-netcdffile = '{netcdffile}'   ! name of VMEC file in NETCDF format
-ns_s = {ns_s}                 ! spline order for 3D quantities over s variable
-ns_tp = {ns_tp}                ! spline order for 3D quantities over theta and phi
-multharm = {multharm}             ! angular grid factor (n_grid=multharm*n_harm_max where n_harm_max - maximum Fourier index
-isw_field_type = {isw_field_type}       ! -1: Testing, 0: Canonical, 1: VMEC, 2: Boozer, 3: Meiss, 4: Albert
-generate_start_only = {fortran_bool(generate_start_only)} ! If .True., only initialisation is done and particle coordinates are written to file, SIMPLE does not run.
-startmode = {startmode}            !  mode for initial conditions: 
-!                         1=only on one fieldline ("local"),
-!                         2=read and run, 
-!                         3=read ANTS and run
-!                         4=read and run a batch,
-!                         5=distribute in volume ("global")
-grid_density = {format_fortran_double(grid_density)}       ! for startmode 1 only, between 0.0 to 0.99, when 0.0 then no grid is made.
-special_ants_file = {fortran_bool(special_ants_file)} ! if .True., a different start file is read (defined in samplers.f90), .False. uses standard filename (defined in samplers.f90)
-integmode = {integmode}            ! mode for integrator: -1 = RK VMEC, 0 = RK, 1 = EXPL_IMPL_EULER (default), 2 = Euler2, 3 = Midpoint
-relerr = {format_fortran_double(relerr)}           ! tolerance for integrator. Set to 1d-13 for symplectic.
-tcut = {format_fortran_double(tcut)}              ! time when to do cut for classification, usually 1d-1, or -1 if no cuts desired
-debug = {fortran_bool(debug)}          ! produce debugging output (.True./.False.). Use only in non-parallel mode!
-class_plot = {fortran_bool(class_plot)}     ! write starting points at phi=const cut for classification plot (.True./.False.)
-cut_in_per = {format_fortran_double(cut_in_per)}         ! normalized phi-cut position within field period, [0:1], used if class_plot=.True.
-fast_class = {fortran_bool(fast_class)}     ! if .True. quit immeadiately after fast classification and don't trace orbits to the end
-vmec_B_scale = {format_fortran_double(vmec_B_scale)}     ! factor to scale the B field from VMEC
-vmec_RZ_scale = {format_fortran_double(vmec_RZ_scale)}    ! factor to scale the device size from VMEC
-swcoll = {fortran_bool(swcoll)}         ! if .True. enables collisions. This is incompatible with classification.
-am1 = {format_fortran_double(am1)},             ! atomic mass of the first background species for collisions
-am2 = {format_fortran_double(am2)},             ! atomic mass of the second background species for collisions
-Z1 = {format_fortran_double(Z1)},              ! charge number of the first background species for collisions
-Z2 = {format_fortran_double(Z2)},              ! charge number of the second background species for collisions
-densi1 = {format_fortran_double(densi1)},         ! density of the first background species for collisions (cm^-3)
-densi2 = {format_fortran_double(densi2)},         ! density of the second background species for collisions (cm^-3)
-tempi1 = {format_fortran_double(tempi1)},          ! temperature of the first background species for collisions (eV)
-tempi2 = {format_fortran_double(tempi2)},          ! temperature of the second background species for collisions (eV)
-tempe = {format_fortran_double(tempe)}            ! electron temperature for collisions (eV)
-deterministic = {fortran_bool(deterministic)}  ! if .True. put seed for the same random walk
-old_axis_healing = {fortran_bool(old_axis_healing)}  ! How to heal VMEC axis. Leave .True. until new version is fully tested.
-old_axis_healing_boundary = {fortran_bool(old_axis_healing_boundary)}  ! How to heal VMEC axis. Leave .True. until new version is fully tested.
-batch_size = {batch_size} ! Use only a portion of all particles. Ignored if larger than ntestpart.
-ran_seed = {ran_seed}   ! Random seed to get batch_size amounts of random indices from ntestpart.
-reuse_batch = {fortran_bool(reuse_batch)} ! Reuse batch from last run. Previous indices are stored in batch.dat, new batch generated if batch.dat not found.
-output_orbits_macrostep = {fortran_bool(output_orbits_macrostep)} ! Output orbit positions to fort.9XXXX
-output_error = {fortran_bool(output_error)} ! Output additional error diagnostics
-macrostep_time_grid = '{macrostep_time_grid}' ! Macrostep time grid: 'linear' or 'log'
-/
-"""
+    # Build simple.in content with only essential parameters
+    simple_in_lines = ["&config"]
+    
+    # Essential parameters (always include)
+    simple_in_lines.append(f"trace_time = {format_fortran_double(trace_time)}        ! slowing down time, s")
+    simple_in_lines.append(f"sbeg = {sbeg_str}     ! starting s (normalized toroidal flux) for particles")
+    simple_in_lines.append(f"ntestpart = {ntestpart}          ! number of test particles")
+    simple_in_lines.append(f"n_d = {n_d}")
+    simple_in_lines.append(f"n_e = {n_e}")
+    simple_in_lines.append(f"facE_al = {format_fortran_double(facE_al)}")
+    simple_in_lines.append(f"vmec_B_scale = {format_fortran_double(vmec_B_scale)}")
+    simple_in_lines.append(f"netcdffile = '{netcdffile}'   ! name of VMEC file in NETCDF format")
+    simple_in_lines.append(f"isw_field_type = {isw_field_type}       ! -1: Testing, 0: Canonical, 1: VMEC, 2: Boozer, 3: Meiss, 4: Albert")
+    
+    # Only include other parameters if they differ from defaults or are explicitly provided
+    if 'notrace_passing' in provided_params or notrace_passing != 0:
+        simple_in_lines.append(f"notrace_passing = {notrace_passing}      ! skip tracing passing prts if notrace_passing=1")
+    if 'nper' in provided_params or nper != 1000:
+        simple_in_lines.append(f"nper = {nper}              ! number of periods for initial field line")
+    if 'npoiper' in provided_params or npoiper != 100:
+        simple_in_lines.append(f"npoiper = {npoiper}            ! number of points per period on this field line")
+    if 'ntimstep' in provided_params or ntimstep != 10000:
+        simple_in_lines.append(f"ntimstep = {ntimstep}         ! number of time steps per slowing down time")
+    if 'num_surf' in provided_params or num_surf != 1:
+        simple_in_lines.append(f"num_surf = {num_surf}             ! number of flux surfaces. Value 0, distributes in volume.")
+    if 'phibeg' in provided_params or phibeg != 0.0:
+        simple_in_lines.append(f"phibeg = {format_fortran_double(phibeg)}            ! starting phi for field line")
+    if 'thetabeg' in provided_params or thetabeg != 0.0:
+        simple_in_lines.append(f"thetabeg = {format_fortran_double(thetabeg)}          ! starting theta for field line")
+    if 'contr_pp' in provided_params or contr_pp != -1.0:
+        simple_in_lines.append(f"contr_pp = {format_fortran_double(contr_pp)}        ! control of passing particle fraction")
+    if 'npoiper2' in provided_params or npoiper2 != 256:
+        simple_in_lines.append(f"npoiper2 = {npoiper2}	         ! points per period for integrator step")
+    if 'ns_s' in provided_params or ns_s != 5:
+        simple_in_lines.append(f"ns_s = {ns_s}                 ! spline order for 3D quantities over s variable")
+    if 'ns_tp' in provided_params or ns_tp != 5:
+        simple_in_lines.append(f"ns_tp = {ns_tp}                ! spline order for 3D quantities over theta and phi")
+    if 'multharm' in provided_params or multharm != 5:
+        simple_in_lines.append(f"multharm = {multharm}             ! angular grid factor")
+    if 'vmec_RZ_scale' in provided_params or vmec_RZ_scale != 1.0:
+        simple_in_lines.append(f"vmec_RZ_scale = {format_fortran_double(vmec_RZ_scale)}    ! factor to scale the device size from VMEC")
+    if generate_start_only:
+        simple_in_lines.append(f"generate_start_only = {fortran_bool(generate_start_only)} ! If .True., only initialisation is done")
+    if 'startmode' in provided_params or startmode != 1:
+        simple_in_lines.append(f"startmode = {startmode}            ! mode for initial conditions")
+    if 'grid_density' in provided_params or grid_density != 0.0:
+        simple_in_lines.append(f"grid_density = {format_fortran_double(grid_density)}       ! for startmode 1 only")
+    if special_ants_file:
+        simple_in_lines.append(f"special_ants_file = {fortran_bool(special_ants_file)}")
+    # Always write integmode since default=3 (Midpoint) differs from SIMPLE's built-in default=1 (Euler)
+    simple_in_lines.append(f"integmode = {integmode}            ! mode for integrator: 0=RK, 1=Euler1, 2=Euler2, 3=Midpoint")
+    if 'relerr' in provided_params or relerr != 1e-13:
+        simple_in_lines.append(f"relerr = {format_fortran_double(relerr)}           ! tolerance for integrator")
+    if 'tcut' in provided_params or tcut != -1.0:
+        simple_in_lines.append(f"tcut = {format_fortran_double(tcut)}              ! time when to do cut for classification")
+    if debug:
+        simple_in_lines.append(f"debug = {fortran_bool(debug)}          ! produce debugging output")
+    if class_plot:
+        simple_in_lines.append(f"class_plot = {fortran_bool(class_plot)}     ! write starting points at phi=const cut")
+    if 'cut_in_per' in provided_params or cut_in_per != 0.0:
+        simple_in_lines.append(f"cut_in_per = {format_fortran_double(cut_in_per)}         ! normalized phi-cut position")
+    if fast_class:
+        simple_in_lines.append(f"fast_class = {fortran_bool(fast_class)}     ! quit immediately after fast classification")
+    if swcoll:
+        simple_in_lines.append(f"swcoll = {fortran_bool(swcoll)}         ! enables collisions")
+    if deterministic:
+        simple_in_lines.append(f"deterministic = {fortran_bool(deterministic)}  ! put seed for the same random walk")
+    if not old_axis_healing:
+        simple_in_lines.append(f"old_axis_healing = {fortran_bool(old_axis_healing)}")
+    if not old_axis_healing_boundary:
+        simple_in_lines.append(f"old_axis_healing_boundary = {fortran_bool(old_axis_healing_boundary)}")
+    if 'batch_size' in provided_params or batch_size != 2000000000:
+        simple_in_lines.append(f"batch_size = {batch_size} ! Use only a portion of all particles")
+    if 'ran_seed' in provided_params or ran_seed != 12345:
+        simple_in_lines.append(f"ran_seed = {ran_seed}   ! Random seed")
+    if reuse_batch:
+        simple_in_lines.append(f"reuse_batch = {fortran_bool(reuse_batch)}")
+    if output_orbits_macrostep:
+        simple_in_lines.append(f"output_orbits_macrostep = {fortran_bool(output_orbits_macrostep)}")
+    if output_error:
+        simple_in_lines.append(f"output_error = {fortran_bool(output_error)}")
+    if 'macrostep_time_grid' in provided_params or macrostep_time_grid != 'linear':
+        simple_in_lines.append(f"macrostep_time_grid = '{macrostep_time_grid}'")
+    
+    # Collision parameters (only if collisions are enabled)
+    if swcoll:
+        simple_in_lines.append(f"am1 = {format_fortran_double(am1)},             ! atomic mass of the first background species")
+        simple_in_lines.append(f"am2 = {format_fortran_double(am2)},             ! atomic mass of the second background species")
+        simple_in_lines.append(f"Z1 = {format_fortran_double(Z1)},              ! charge number of the first background species")
+        simple_in_lines.append(f"Z2 = {format_fortran_double(Z2)},              ! charge number of the second background species")
+        simple_in_lines.append(f"densi1 = {format_fortran_double(densi1)},         ! density of the first background species (cm^-3)")
+        simple_in_lines.append(f"densi2 = {format_fortran_double(densi2)},         ! density of the second background species (cm^-3)")
+        simple_in_lines.append(f"tempi1 = {format_fortran_double(tempi1)},          ! temperature of the first background species (eV)")
+        simple_in_lines.append(f"tempi2 = {format_fortran_double(tempi2)},          ! temperature of the second background species (eV)")
+        simple_in_lines.append(f"tempe = {format_fortran_double(tempe)}            ! electron temperature (eV)")
+    
+    simple_in_lines.append("/")
+    simple_in_content = "\n".join(simple_in_lines) + "\n"
     
     simple_in_path.write_text(simple_in_content)
     proc0_print(f"Created simple.in file: {simple_in_path}")
@@ -1516,11 +1550,32 @@ macrostep_time_grid = '{macrostep_time_grid}' ! Macrostep time grid: 'linear' or
     proc0_print(f"  VMEC file: {netcdffile}")
     proc0_print(f"  Working directory: {output_dir}")
     
+    # Set up environment for SIMPLE OpenMP parallelization
+    # Use MPI world size as number of OpenMP threads (SIMPLE uses OpenMP, not MPI)
+    env = os.environ.copy()
+    try:
+        if comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1:
+            nthreads = comm_world.size
+        else:
+            # Fallback to number of CPUs if MPI not available or single process
+            nthreads = os.cpu_count() or 4
+    except Exception:
+        nthreads = os.cpu_count() or 4
+    
+    env['OMP_NUM_THREADS'] = str(nthreads)
+    env['OMP_STACKSIZE'] = '64M'  # SIMPLE may need larger stack for particle tracing
+    # Also set library-specific thread counts for consistency
+    env['MKL_NUM_THREADS'] = str(nthreads)
+    env['OPENBLAS_NUM_THREADS'] = str(nthreads)
+    
+    proc0_print(f"  OpenMP threads: {nthreads}")
+    
     try:
         # Change to output_dir to run simple.x (it expects simple.in in current directory)
         result = subprocess.run(
             [str(simple_executable_path)],
             cwd=str(output_dir),
+            env=env,  # Use environment with OpenMP settings
             capture_output=True,
             text=True,
             timeout=3600,  # 1 hour timeout
@@ -1642,7 +1697,7 @@ def run_post_processing(
     ns: int = 50,
     plot_boozer: bool = True,
     plot_poincare: bool = True,
-    nfieldlines: int = 20,
+    nfieldlines: int = 10,
     mpi: Optional[Any] = None,  # type: ignore
     run_simple: bool = True,
     simple_executable_path: Optional[Path] = None,

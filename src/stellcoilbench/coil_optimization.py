@@ -394,10 +394,8 @@ def optimize_coils(
             mpi_partition = None  # MPI not available
         proc0_print(f"Running with MPI: {comm_world.size} processes")
         proc0_print("Coil optimization will run on rank 0 only; post-processing will use all processes")
-        if not is_proc0:
-            # Non-rank-0 processes wait here until rank 0 finishes optimization
-            comm_world.Barrier()  # Wait for rank 0 to start
-            # Rank 0 will call Barrier again after optimization, then we continue to post-processing
+        # Note: All ranks proceed together; the if is_proc0 block handles which rank does work
+        # Barriers are called uniformly by ALL ranks to ensure synchronization
     
     if case_cfg is None:
         case_cfg = load_case_config(case_path)
