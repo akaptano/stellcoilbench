@@ -1551,24 +1551,39 @@ def run_simple_particle_tracing(
     proc0_print(f"  Working directory: {output_dir}")
     
     # Set up environment for SIMPLE OpenMP parallelization
-    # Use MPI world size as number of OpenMP threads (SIMPLE uses OpenMP, not MPI)
+    # SIMPLE uses OpenMP (not MPI), and runs as a subprocess after MPI work is done
+    # We must remove MPI environment variables that impose CPU affinity restrictions
     env = os.environ.copy()
-    try:
-        if comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1:
-            nthreads = comm_world.size
-        else:
-            # Fallback to number of CPUs if MPI not available or single process
-            nthreads = os.cpu_count() or 4
-    except Exception:
+    
+    # Remove OpenMPI/MPICH environment variables that can cause CPU affinity conflicts
+    # These variables may restrict OpenMP threads to the same core(s) as the parent MPI process
+    mpi_vars_to_remove = [k for k in env.keys() if k.startswith(('OMPI_', 'PMIX_', 'MPI_', 'MPICH_', 'I_MPI_', 'SLURM_'))]
+    for var in mpi_vars_to_remove:
+        del env[var]
+    
+    # Determine number of threads for SIMPLE:
+    # 1. Check for explicit SIMPLE_NUM_THREADS env var (user override)
+    # 2. Use MPI world size (matches allocated cores in typical HPC setups)
+    # 3. Fall back to os.cpu_count() for local runs without MPI
+    if 'SIMPLE_NUM_THREADS' in os.environ:
+        nthreads = int(os.environ['SIMPLE_NUM_THREADS'])
+        thread_source = "SIMPLE_NUM_THREADS env var"
+    elif comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1:
+        nthreads = comm_world.size
+        thread_source = "MPI world size"
+    else:
         nthreads = os.cpu_count() or 4
+        thread_source = "os.cpu_count()"
     
     env['OMP_NUM_THREADS'] = str(nthreads)
     env['OMP_STACKSIZE'] = '64M'  # SIMPLE may need larger stack for particle tracing
+    env['OMP_PROC_BIND'] = 'false'  # Disable thread binding to avoid affinity issues
+    env['OMP_PLACES'] = 'threads'  # Allow threads to use any available hardware threads
     # Also set library-specific thread counts for consistency
     env['MKL_NUM_THREADS'] = str(nthreads)
     env['OPENBLAS_NUM_THREADS'] = str(nthreads)
     
-    proc0_print(f"  OpenMP threads: {nthreads}")
+    proc0_print(f"  OpenMP threads: {nthreads} ({thread_source})")
     
     try:
         # Change to output_dir to run simple.x (it expects simple.in in current directory)
