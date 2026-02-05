@@ -15,8 +15,8 @@ permissions:
   contents: write
 
 env:
-  CONDA_ENV: stellcoilbench
-  SIMPLE_EXECUTABLE: /home/aak572/SIMPLE/build/simple.x
+  CONDA_ENV: stellcoilbench_vmec
+  SIMPLE_EXECUTABLE: /Users/akaptanoglu/SIMPLE/build/simple.x
 
 jobs:
   determine-cases:
@@ -35,7 +35,10 @@ jobs:
         id: filter
         shell: bash
         run: |
-          source ~/miniconda3/etc/profile.d/conda.sh
+          # Source conda (supports both miniconda3 and anaconda3)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
           conda activate $CONDA_ENV
           pip install pyyaml --quiet 2>/dev/null || true
           
@@ -46,8 +49,8 @@ jobs:
             exit 1
           fi
           
-          # Create Python filter script
-          TEMP_SCRIPT=$(mktemp --suffix=.py)
+          # Create Python filter script (use .py suffix for clarity)
+          TEMP_SCRIPT=$(mktemp).py
           echo 'import sys, yaml, zipfile, json
           from pathlib import Path
 
@@ -133,7 +136,10 @@ jobs:
       - name: Install stellcoilbench
         shell: bash
         run: |
-          source ~/miniconda3/etc/profile.d/conda.sh
+          # Source conda (supports both miniconda3 and anaconda3)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
           conda activate $CONDA_ENV
           pip install -e .
 
@@ -144,7 +150,10 @@ jobs:
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
           PARALLEL_JOBS: "4"
         run: |
-          source ~/miniconda3/etc/profile.d/conda.sh
+          # Source conda (supports both miniconda3 and anaconda3)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
           conda activate $CONDA_ENV
           
           echo "=========================================="
@@ -171,7 +180,10 @@ jobs:
           log() { echo "[$(date +%Y-%m-%d\ %H:%M:%S)] [$CASE_NAME] $1" | tee -a "$LOG_FILE"; }
           
           log "Starting..."
-          source ~/miniconda3/etc/profile.d/conda.sh
+          # Source conda (supports both miniconda3 and anaconda3)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
           conda activate $CONDA_ENV || { log "ERROR: conda failed"; exit 1; }
           
           export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
@@ -180,7 +192,7 @@ jobs:
           cd "$WORKSPACE"
           log "Running stellcoilbench with 2 MPI processes..."
           
-          mpirun -n 2 --bind-to core --map-by core python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
+          mpirun -n 2 python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
           EXIT_CODE=${PIPESTATUS[0]}
           
           if [ $EXIT_CODE -eq 0 ]; then
@@ -249,7 +261,10 @@ jobs:
       - name: Generate leaderboard
         shell: bash
         run: |
-          source ~/miniconda3/etc/profile.d/conda.sh
+          # Source conda (supports both miniconda3 and anaconda3)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
           conda activate $CONDA_ENV
           echo "=== Generating leaderboard ==="
           stellcoilbench update-db
