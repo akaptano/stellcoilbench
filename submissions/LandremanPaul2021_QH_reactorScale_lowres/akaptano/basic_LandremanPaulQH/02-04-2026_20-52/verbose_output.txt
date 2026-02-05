@@ -1,0 +1,235 @@
+Starting coil optimization for target B-field: 5.7 T
+Surface major radius: 13.674 m
+Surface minor radius component: 1.888 m
+Number of base coils: 5
+Fourier order: 4
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=13.674 m (1.000x), R1=4.719 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 4.719 m (scale: 2.500x)
+    Constraints: cs_ok=False (min=0.0813 m, required=1.2306 m), cc_ok=True (min=1.4052 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 1155 in plasma, 125 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=3.000 (extending inward to reach hole)
+
+  Iteration 2/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 5.663 m (scale: 3.000x)
+    Constraints: cs_ok=False (min=0.9852 m, required=1.2306 m), cc_ok=True (min=1.2571 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 215 in hole, 800 in plasma, 265 outside)
+    Adjusting: R1_scale=3.450 (increasing coil extent)
+
+  Iteration 3/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 6.512 m (scale: 3.450x)
+    Constraints: cs_ok=True (min=1.8283 m, required=1.2306 m), cc_ok=False (min=1.1238 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 295 in hole, 660 in plasma, 325 outside)
+    Adjusting: R0_scale=1.100 (coils too close to each other)
+
+  Iteration 4/50:
+    R0: 15.041 m (scale: 1.100x)
+    R1: 6.512 m (scale: 3.450x)
+    Constraints: cs_ok=False (min=0.4873 m, required=1.2306 m), cc_ok=True (min=1.3384 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 115 in hole, 730 in plasma, 435 outside)
+    Adjusting: R1_scale=3.967 (increasing coil extent)
+
+  Iteration 5/50:
+    R0: 15.041 m (scale: 1.100x)
+    R1: 7.489 m (scale: 3.967x)
+    Constraints: cs_ok=True (min=1.4472 m, required=1.2306 m), cc_ok=False (min=1.1851 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 235 in hole, 580 in plasma, 465 outside)
+    Adjusting: R0_scale=1.210 (coils too close to each other)
+
+  Iteration 6/50:
+    R0: 16.545 m (scale: 1.210x)
+    R1: 7.489 m (scale: 3.967x)
+    Constraints: cs_ok=False (min=0.0696 m, required=1.2306 m), cc_ok=True (min=1.4211 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 725 in plasma, 555 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=4.761 (extending inward to reach hole)
+
+  Iteration 7/50:
+    R0: 16.545 m (scale: 1.210x)
+    R1: 8.986 m (scale: 4.761x)
+    Constraints: cs_ok=True (min=1.4439 m, required=1.2306 m), cc_ok=False (min=1.1861 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 215 in hole, 500 in plasma, 565 outside)
+    Adjusting: R0_scale=1.331 (coils too close to each other)
+
+  Iteration 8/50:
+    R0: 18.200 m (scale: 1.331x)
+    R1: 8.986 m (scale: 4.761x)
+    Constraints: cs_ok=False (min=0.1128 m, required=1.2306 m), cc_ok=True (min=1.4457 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 635 in plasma, 645 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=5.713 (extending inward to reach hole)
+
+  Iteration 9/50:
+    R0: 18.200 m (scale: 1.331x)
+    R1: 10.784 m (scale: 5.713x)
+    Constraints: cs_ok=True (min=1.5910 m, required=1.2306 m), cc_ok=False (min=1.1637 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 205 in hole, 430 in plasma, 645 outside)
+    Warning: R0_scale (1.331) or R1_scale (5.713) exceeded maximum.
+    Stopping adaptive loop to prevent coils from going too far.
+
+Final coil positioning parameters:
+  R0: 18.200 m (scale: 1.331x major radius)
+  R1: 9.438 m (scale: 5.000x minor radius)
+  Major radius: 13.674 m
+  Minor radius component: 1.888 m
+Bmag at R =  13.67375147766 , Z = 0:  [5.85062539 5.85062555 5.85062572 5.85062576 5.85062562 5.85062544
+ 5.85062537 5.85062547 5.85062566 5.85062576 5.85062569 5.85062551
+ 5.85062538 5.85062541 5.85062559 5.85062574 5.85062574 5.85062559
+ 5.85062541 5.85062538 5.85062551 5.85062569 5.85062576 5.85062566
+ 5.85062547 5.85062537 5.85062544 5.85062562 5.85062576 5.85062572
+ 5.85062555 5.85062539]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.850625567584944
+Bmag at R =  13.67375147766 , Z = 0:  [5.69999983 5.69999998 5.70000015 5.70000018 5.70000006 5.69999988
+ 5.69999981 5.69999991 5.70000009 5.70000019 5.70000012 5.69999994
+ 5.69999982 5.69999985 5.70000002 5.70000017 5.70000017 5.70000002
+ 5.69999985 5.69999982 5.69999994 5.70000012 5.70000019 5.70000009
+ 5.69999991 5.69999981 5.69999988 5.70000006 5.70000018 5.70000015
+ 5.69999998 5.69999983]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.699999999999999
+
+Coil currents before optimization (unique base coils):
+  Coil 1: 9.74e+06 A
+  Coil 2: 9.74e+06 A
+  Coil 3: 9.74e+06 A
+  Coil 4: 9.74e+06 A
+  Coil 5: 9.74e+06 A
+  Total: 4.87e+07 A
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=13.674 m (1.000x), R1=4.719 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 4.719 m (scale: 2.500x)
+    Constraints: cs_ok=False (min=0.0813 m, required=1.2306 m), cc_ok=True (min=1.4052 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 1155 in plasma, 125 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=3.000 (extending inward to reach hole)
+
+  Iteration 2/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 5.663 m (scale: 3.000x)
+    Constraints: cs_ok=False (min=0.9852 m, required=1.2306 m), cc_ok=True (min=1.2571 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 215 in hole, 800 in plasma, 265 outside)
+    Adjusting: R1_scale=3.450 (increasing coil extent)
+
+  Iteration 3/50:
+    R0: 13.674 m (scale: 1.000x)
+    R1: 6.512 m (scale: 3.450x)
+    Constraints: cs_ok=True (min=1.8283 m, required=1.2306 m), cc_ok=False (min=1.1238 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 295 in hole, 660 in plasma, 325 outside)
+    Adjusting: R0_scale=1.100 (coils too close to each other)
+
+  Iteration 4/50:
+    R0: 15.041 m (scale: 1.100x)
+    R1: 6.512 m (scale: 3.450x)
+    Constraints: cs_ok=False (min=0.4873 m, required=1.2306 m), cc_ok=True (min=1.3384 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 115 in hole, 730 in plasma, 435 outside)
+    Adjusting: R1_scale=3.967 (increasing coil extent)
+
+  Iteration 5/50:
+    R0: 15.041 m (scale: 1.100x)
+    R1: 7.489 m (scale: 3.967x)
+    Constraints: cs_ok=True (min=1.4472 m, required=1.2306 m), cc_ok=False (min=1.1851 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 235 in hole, 580 in plasma, 465 outside)
+    Adjusting: R0_scale=1.210 (coils too close to each other)
+
+  Iteration 6/50:
+    R0: 16.545 m (scale: 1.210x)
+    R1: 7.489 m (scale: 3.967x)
+    Constraints: cs_ok=False (min=0.0696 m, required=1.2306 m), cc_ok=True (min=1.4211 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 725 in plasma, 555 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=4.761 (extending inward to reach hole)
+
+  Iteration 7/50:
+    R0: 16.545 m (scale: 1.210x)
+    R1: 8.986 m (scale: 4.761x)
+    Constraints: cs_ok=True (min=1.4439 m, required=1.2306 m), cc_ok=False (min=1.1861 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 215 in hole, 500 in plasma, 565 outside)
+    Adjusting: R0_scale=1.331 (coils too close to each other)
+
+  Iteration 8/50:
+    R0: 18.200 m (scale: 1.331x)
+    R1: 8.986 m (scale: 4.761x)
+    Constraints: cs_ok=False (min=0.1128 m, required=1.2306 m), cc_ok=True (min=1.4457 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: FAIL (found 0 in hole, 635 in plasma, 645 outside)
+      Surface R range: 8.978 to 17.823 m
+      -> No points in torus hole (coils need to extend inward)
+    Adjusting: R1_scale=5.713 (extending inward to reach hole)
+
+  Iteration 9/50:
+    R0: 18.200 m (scale: 1.331x)
+    R1: 10.784 m (scale: 5.713x)
+    Constraints: cs_ok=True (min=1.5910 m, required=1.2306 m), cc_ok=False (min=1.1637 m, required=1.2306 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 205 in hole, 430 in plasma, 645 outside)
+    Warning: R0_scale (1.331) or R1_scale (5.713) exceeded maximum.
+    Stopping adaptive loop to prevent coils from going too far.
+
+Final coil positioning parameters:
+  R0: 18.200 m (scale: 1.331x major radius)
+  R1: 9.438 m (scale: 5.000x minor radius)
+  Major radius: 13.674 m
+  Minor radius component: 1.888 m
+Bmag at R =  13.67375147766 , Z = 0:  [5.85062539 5.85062555 5.85062572 5.85062576 5.85062562 5.85062544
+ 5.85062537 5.85062547 5.85062566 5.85062576 5.85062569 5.85062551
+ 5.85062538 5.85062541 5.85062559 5.85062574 5.85062574 5.85062559
+ 5.85062541 5.85062538 5.85062551 5.85062569 5.85062576 5.85062566
+ 5.85062547 5.85062537 5.85062544 5.85062562 5.85062576 5.85062572
+ 5.85062555 5.85062539]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.850625567584944
+Bmag at R =  13.67375147766 , Z = 0:  [5.69999983 5.69999998 5.70000015 5.70000018 5.70000006 5.69999988
+ 5.69999981 5.69999991 5.70000009 5.70000019 5.70000012 5.69999994
+ 5.69999982 5.69999985 5.70000002 5.70000017 5.70000017 5.70000002
+ 5.69999985 5.69999982 5.69999994 5.70000012 5.70000019 5.70000009
+ 5.69999991 5.69999981 5.69999988 5.70000006 5.70000018 5.70000015
+ 5.69999998 5.69999983]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.699999999999999
+Bmag at R =  13.67375147766 , Z = 0:  [5.69999983 5.69999998 5.70000015 5.70000018 5.70000006 5.69999988
+ 5.69999981 5.69999991 5.70000009 5.70000019 5.70000012 5.69999994
+ 5.69999982 5.69999985 5.70000002 5.70000017 5.70000017 5.70000002
+ 5.69999985 5.69999982 5.69999994 5.70000012 5.70000019 5.70000009
+ 5.69999991 5.69999981 5.69999988 5.70000006 5.70000018 5.70000015
+ 5.69999998 5.69999983]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.699999999999999
+  Total current: 48712740 A
+  B-field averaged along major radius: 5.700 T
+  Number of coils: 40
+Bmag at R =  13.67375147766 , Z = 0:  [5.69999981 5.70000013 5.70000002 5.69999984 5.70000019 5.69999991
+ 5.69999993 5.70000018 5.69999983 5.70000004 5.70000011 5.69999981
+ 5.70000014 5.7        5.69999985 5.70000019 5.6999999  5.69999995
+ 5.70000017 5.69999982 5.70000006 5.7000001  5.69999981 5.70000015
+ 5.69999999 5.69999987 5.70000019 5.69999988 5.69999997 5.70000016
+ 5.69999982 5.70000008 5.70000008 5.69999982 5.70000016 5.69999997
+ 5.69999988 5.70000019 5.69999987 5.69999999 5.70000015 5.69999981
+ 5.7000001  5.70000006 5.69999982 5.70000017 5.69999995 5.6999999
+ 5.70000019 5.69999985 5.7        5.70000014 5.69999981 5.70000011
+ 5.70000004 5.69999983 5.70000018 5.69999993 5.69999991 5.70000019
+ 5.69999984 5.70000002 5.70000013 5.69999981]
+toroidally averaged Bmag at R =  13.67375147766 , Z = 0:  5.699999996994872
+
+Initial B-field on-axis: 5.700 T
+  Saved 3D B_N/|B| error plot to: /data/aak572/actions-runner/_work/stellcoilbench/stellcoilbench/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-04-2026_20-52/bn_error_3d_plot_initial.pdf
+Initial thresholds and weights:
+  [0] Flux: threshold=1.00e-08, weight=1.00e+00
+  [1] CC Distance: threshold=1.09e+00, weight=5.35e+00
+  [2] CS Distance: threshold=1.78e+00, weight=5.35e+00
+  [3] Length: threshold=1.80e+02, weight=5.35e-03
+  [4] κ: threshold=7.31e-01, weight=1.37e+01
+  [5] MSC: threshold=7.31e-01, weight=3.50e+04
+  [6] Link #: weight=1.00e+00
+  [7] Arclength Var: threshold=0.00e+00, weight=2.86e-05

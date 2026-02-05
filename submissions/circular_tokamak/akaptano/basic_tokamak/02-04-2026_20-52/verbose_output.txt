@@ -1,0 +1,124 @@
+Starting coil optimization for target B-field: 1.0 T
+Surface major radius: 6.000 m
+Surface minor radius component: 2.000 m
+Number of base coils: 6
+Fourier order: 4
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=6.000 m (1.000x), R1=5.000 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 6.000 m (scale: 1.000x)
+    R1: 5.000 m (scale: 2.500x)
+    Constraints: cs_ok=True (min=3.0000 m, required=0.5400 m), cc_ok=False (min=0.5176 m, required=0.5400 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 558 in hole, 432 in plasma, 546 outside)
+    Adjusting: R0_scale=1.100 (coils too close to each other)
+
+  Iteration 2/50:
+    R0: 6.600 m (scale: 1.100x)
+    R1: 5.000 m (scale: 2.500x)
+    Constraints: cs_ok=True (min=2.4000 m, required=0.5400 m), cc_ok=True (min=0.8282 m, required=0.5400 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 486 in hole, 432 in plasma, 618 outside)
+    All constraints satisfied! Breaking out of adaptive loop.
+
+Final coil positioning parameters:
+  R0: 6.600 m (scale: 1.100x major radius)
+  R1: 5.000 m (scale: 2.500x minor radius)
+  Major radius: 6.000 m
+  Minor radius component: 2.000 m
+Bmag at R =  6.0 , Z = 0:  [3.33016195 3.3355772  3.33333327 3.33109056 3.33650703 3.33109056
+ 3.33333327 3.3355772  3.33016195 3.3355772  3.33333327 3.33109056
+ 3.33650703 3.33109056 3.33333327 3.3355772  3.33016195 3.3355772
+ 3.33333327 3.33109056 3.33650703 3.33109056 3.33333327 3.3355772
+ 3.33016195 3.3355772  3.33333327 3.33109056 3.33650703 3.33109056
+ 3.33333327 3.3355772 ]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  3.333333881013254
+Bmag at R =  6.0 , Z = 0:  [0.99904842 1.000673   0.99999982 0.999327   1.00095194 0.999327
+ 0.99999982 1.000673   0.99904842 1.000673   0.99999982 0.999327
+ 1.00095194 0.999327   0.99999982 1.000673   0.99904842 1.000673
+ 0.99999982 0.999327   1.00095194 0.999327   0.99999982 1.000673
+ 0.99904842 1.000673   0.99999982 0.999327   1.00095194 0.999327
+ 0.99999982 1.000673  ]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  1.0
+
+Coil currents before optimization (unique base coils):
+  Coil 1: 2.50e+06 A
+  Coil 2: 2.50e+06 A
+  Coil 3: 2.50e+06 A
+  Coil 4: 2.50e+06 A
+  Coil 5: 2.50e+06 A
+  Coil 6: 2.50e+06 A
+  Total: 1.50e+07 A
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=6.000 m (1.000x), R1=5.000 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 6.000 m (scale: 1.000x)
+    R1: 5.000 m (scale: 2.500x)
+    Constraints: cs_ok=True (min=3.0000 m, required=0.5400 m), cc_ok=False (min=0.5176 m, required=0.5400 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 558 in hole, 432 in plasma, 546 outside)
+    Adjusting: R0_scale=1.100 (coils too close to each other)
+
+  Iteration 2/50:
+    R0: 6.600 m (scale: 1.100x)
+    R1: 5.000 m (scale: 2.500x)
+    Constraints: cs_ok=True (min=2.4000 m, required=0.5400 m), cc_ok=True (min=0.8282 m, required=0.5400 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 486 in hole, 432 in plasma, 618 outside)
+    All constraints satisfied! Breaking out of adaptive loop.
+
+Final coil positioning parameters:
+  R0: 6.600 m (scale: 1.100x major radius)
+  R1: 5.000 m (scale: 2.500x minor radius)
+  Major radius: 6.000 m
+  Minor radius component: 2.000 m
+Bmag at R =  6.0 , Z = 0:  [3.33016195 3.3355772  3.33333327 3.33109056 3.33650703 3.33109056
+ 3.33333327 3.3355772  3.33016195 3.3355772  3.33333327 3.33109056
+ 3.33650703 3.33109056 3.33333327 3.3355772  3.33016195 3.3355772
+ 3.33333327 3.33109056 3.33650703 3.33109056 3.33333327 3.3355772
+ 3.33016195 3.3355772  3.33333327 3.33109056 3.33650703 3.33109056
+ 3.33333327 3.3355772 ]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  3.333333881013254
+Bmag at R =  6.0 , Z = 0:  [5.694576   5.70383608 5.69999896 5.69616392 5.70542608 5.69616392
+ 5.69999896 5.70383608 5.694576   5.70383608 5.69999896 5.69616392
+ 5.70542608 5.69616392 5.69999896 5.70383608 5.694576   5.70383608
+ 5.69999896 5.69616392 5.70542608 5.69616392 5.69999896 5.70383608
+ 5.694576   5.70383608 5.69999896 5.69616392 5.70542608 5.69616392
+ 5.69999896 5.70383608]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  5.700000000000001
+Bmag at R =  6.0 , Z = 0:  [0.99904842 1.000673   0.99999982 0.999327   1.00095194 0.999327
+ 0.99999982 1.000673   0.99904842 1.000673   0.99999982 0.999327
+ 1.00095194 0.999327   0.99999982 1.000673   0.99904842 1.000673
+ 0.99999982 0.999327   1.00095194 0.999327   0.99999982 1.000673
+ 0.99904842 1.000673   0.99999982 0.999327   1.00095194 0.999327
+ 0.99999982 1.000673  ]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  1.0
+  Total current: 14999998 A
+  B-field averaged along major radius: 1.000 T
+  Number of coils: 12
+Bmag at R =  6.0 , Z = 0:  [0.99904842 0.99965215 1.0006977  1.00085762 0.99992869 0.99909067
+ 0.99940655 1.00047579 1.00094131 1.00021162 0.99921368 0.99921368
+ 1.00021162 1.00094131 1.00047579 0.99940655 0.99909067 0.99992869
+ 1.00085762 1.0006977  0.99965215 0.99904842 0.99965215 1.0006977
+ 1.00085762 0.99992869 0.99909067 0.99940655 1.00047579 1.00094131
+ 1.00021162 0.99921368 0.99921368 1.00021162 1.00094131 1.00047579
+ 0.99940655 0.99909067 0.99992869 1.00085762 1.0006977  0.99965215
+ 0.99904842 0.99965215 1.0006977  1.00085762 0.99992869 0.99909067
+ 0.99940655 1.00047579 1.00094131 1.00021162 0.99921368 0.99921368
+ 1.00021162 1.00094131 1.00047579 0.99940655 0.99909067 0.99992869
+ 1.00085762 1.0006977  0.99965215 0.99904842]
+toroidally averaged Bmag at R =  6.0 , Z = 0:  0.9999851315887807
+
+Initial B-field on-axis: 1.000 T
+  Saved 3D B_N/|B| error plot to: /data/aak572/actions-runner/_work/stellcoilbench/stellcoilbench/submissions/circular_tokamak/akaptano/basic_tokamak/02-04-2026_20-52/bn_error_3d_plot_initial.pdf
+Initial thresholds and weights:
+  [0] Flux: threshold=1.00e-08, weight=1.00e+00
+  [1] CC Distance: threshold=4.80e-01, weight=2.78e+01
+  [2] CS Distance: threshold=7.80e-01, weight=2.78e+01
+  [3] Length: threshold=1.80e+02, weight=2.78e-02
+  [4] κ: threshold=1.67e+00, weight=6.00e+00
+  [5] MSC: threshold=1.67e+00, weight=1.30e+03
+  [6] Link #: weight=1.00e+00
+  [7] Arclength Var: threshold=0.00e+00, weight=7.72e-04
