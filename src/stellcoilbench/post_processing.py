@@ -482,7 +482,7 @@ def load_surface_with_range(
 def compute_qfm_surface(
     surface: SurfaceRZFourier,
     bfield: BiotSavart,
-    n_iters: int = 50,
+    n_iters: int = 20,
 ) -> SurfaceRZFourier:
     """
     Compute QFM (quasi-flux surface) from plasma surface and magnetic field.
@@ -1024,35 +1024,37 @@ def trace_fieldlines(
     
     # Create surface classifier for stopping criteria
     # Following simsopt example: examples/1_Simple/tracing_fieldlines_QA.py
-    sc_fieldline = SurfaceClassifier(surface, h=0.03, p=2)
+    with timed_section("surface_classifier_setup"):
+        sc_fieldline = SurfaceClassifier(surface, h=0.03, p=2)
     
     # Use interpolated field for faster tracing if requested
     if use_interpolated_field:
         proc0_print("Initializing InterpolatedField")
         
-        # Bounds for interpolation chosen so surface is entirely contained
-        n = 20
-        gamma = surface.gamma()
-        rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
-        zs = gamma[:, :, 2]
-        rrange = (np.min(rs), np.max(rs), n)
-        phirange = (0, 2 * np.pi / surface.nfp, n * 2)
-        # Exploit stellarator symmetry and only consider positive z values if applicable
-        zrange = (0, np.max(zs), n // 2) if surface.stellsym else (np.min(zs), np.max(zs), n // 2)
-        
-        # Skip function to avoid evaluating outside domain
-        def skip(rs, phis, zs):
-            rphiz = np.asarray([rs, phis, zs]).T.copy()
-            dists = sc_fieldline.evaluate_rphiz(rphiz)
-            skip_mask = list((dists < -0.05).flatten())
-            proc0_print("Skip", sum(skip_mask), "cells out of", len(skip_mask), flush=True)
-            return skip_mask
-        
-        # Create interpolated field - matching simsopt example signature exactly
-        bfield_interp = InterpolatedField(
-            bfield, 2, rrange, phirange, zrange, True,
-            nfp=surface.nfp, stellsym=surface.stellsym, skip=skip
-        )
+        with timed_section("interpolated_field_setup"):
+            # Bounds for interpolation chosen so surface is entirely contained
+            n = 20
+            gamma = surface.gamma()
+            rs = np.linalg.norm(gamma[:, :, 0:2], axis=2)
+            zs = gamma[:, :, 2]
+            rrange = (np.min(rs), np.max(rs), n)
+            phirange = (0, 2 * np.pi / surface.nfp, n * 2)
+            # Exploit stellarator symmetry and only consider positive z values if applicable
+            zrange = (0, np.max(zs), n // 2) if surface.stellsym else (np.min(zs), np.max(zs), n // 2)
+            
+            # Skip function to avoid evaluating outside domain
+            def skip(rs, phis, zs):
+                rphiz = np.asarray([rs, phis, zs]).T.copy()
+                dists = sc_fieldline.evaluate_rphiz(rphiz)
+                skip_mask = list((dists < -0.05).flatten())
+                proc0_print("Skip", sum(skip_mask), "cells out of", len(skip_mask), flush=True)
+                return skip_mask
+            
+            # Create interpolated field - matching simsopt example signature exactly
+            bfield_interp = InterpolatedField(
+                bfield, 2, rrange, phirange, zrange, True,
+                nfp=surface.nfp, stellsym=surface.stellsym, skip=skip
+            )
         proc0_print("Done initializing InterpolatedField.")
         
         bfield_interp.set_points(surface.gamma().reshape((-1, 3)))
@@ -1124,9 +1126,9 @@ def run_simple_particle_tracing(
         matching the SIMPLE simple.in file. Key parameters include:
         
         **Particle Tracing Parameters:**
-        - trace_time : float, default=0.1
-            Slowing down time in seconds (1d-1 in Fortran).
-        - sbeg : float or list[float], default=0.5
+        - trace_time : float, default=0.2
+            Slowing down time in seconds (2d-1 in Fortran).
+        - sbeg : float or list[float], default=0.25
             Starting s (normalized toroidal flux) for particles. Can be a single value
             or list of values (e.g., [0.6, 0.7]) to distribute particles on multiple surfaces.
         - ntestpart : int, default=1024
@@ -1288,9 +1290,9 @@ def run_simple_particle_tracing(
     npoiper = kwargs.pop('npoiper', 100)
     ntimstep = kwargs.pop('ntimstep', 10000)
     ntestpart = kwargs.pop('ntestpart', 1024)
-    trace_time = kwargs.pop('trace_time', 0.1)  # 1d-1 in Fortran
+    trace_time = kwargs.pop('trace_time', 0.2)  # 2d-1 in Fortran
     num_surf = kwargs.pop('num_surf', 1)
-    sbeg = kwargs.pop('sbeg', 0.5)  # Can be float or list
+    sbeg = kwargs.pop('sbeg', 0.25)  # Can be float or list
     phibeg = kwargs.pop('phibeg', 0.0)
     thetabeg = kwargs.pop('thetabeg', 0.0)
     contr_pp = kwargs.pop('contr_pp', -1.0)

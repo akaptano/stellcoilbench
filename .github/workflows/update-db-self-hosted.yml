@@ -142,7 +142,7 @@ jobs:
         env:
           MPLBACKEND: Agg
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
-          PARALLEL_JOBS: "16"
+          PARALLEL_JOBS: "4"
         run: |
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate $CONDA_ENV
@@ -178,9 +178,9 @@ jobs:
           export MPLBACKEND=Agg PYTHONUNBUFFERED=1
           
           cd "$WORKSPACE"
-          log "Running stellcoilbench with 4 MPI processes..."
+          log "Running stellcoilbench with 2 MPI processes..."
           
-          mpirun -n 4 --bind-to core --map-by core python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
+          mpirun -n 2 --bind-to core --map-by core python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
           EXIT_CODE=${PIPESTATUS[0]}
           
           if [ $EXIT_CODE -eq 0 ]; then
