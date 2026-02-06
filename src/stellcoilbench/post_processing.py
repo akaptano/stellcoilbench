@@ -908,146 +908,6 @@ def plot_quasisymmetry_profile(
     plt.close()
 
 
-def _plot_poincare_data_custom(
-    fieldlines_phi_hits: list,
-    phis: list,
-    filename: str,
-    aspect: str = 'equal',
-    dpi: int = 300,
-    xlims: Optional[tuple] = None,
-    ylims: Optional[tuple] = None,
-    surf: Any = None,  # type: ignore
-    s: int = 2,
-    marker: str = 'o',
-) -> None:
-    """
-    Create a Poincaré plot with proper aspect ratio handling.
-    
-    This is a custom implementation that fixes aspect ratio issues in the
-    simsopt plot_poincare_data function, which uses a hardcoded figure size
-    that can squash plots for tokamaks.
-    
-    Parameters
-    ----------
-    fieldlines_phi_hits : list
-        List of phi hits from compute_fieldlines.
-    phis : list
-        List of toroidal angles for Poincaré sections.
-    filename : str
-        Output file path.
-    aspect : str, default='equal'
-        Aspect ratio for subplots.
-    dpi : int, default=300
-        DPI for saved figure.
-    xlims : tuple, optional
-        X-axis limits (r_min, r_max).
-    ylims : tuple, optional
-        Y-axis limits (z_min, z_max).
-    surf : Surface, optional
-        If provided, plot plasma surface outline.
-    s : int, default=2
-        Marker size.
-    marker : str, default='o'
-        Marker style.
-    """
-    import matplotlib.pyplot as plt
-    from math import ceil, sqrt
-    
-    # Compute data bounds to determine proper figure aspect ratio
-    all_r = []
-    all_z = []
-    for j in range(len(fieldlines_phi_hits)):
-        for i in range(len(phis)):
-            data_this_phi = fieldlines_phi_hits[j][np.where(fieldlines_phi_hits[j][:, 1] == i)[0], :]
-            if data_this_phi.size > 0:
-                r = np.sqrt(data_this_phi[:, 2]**2 + data_this_phi[:, 3]**2)
-                all_r.extend(r)
-                all_z.extend(data_this_phi[:, 4])
-    
-    if all_r and all_z:
-        r_min, r_max = min(all_r), max(all_r)
-        z_min, z_max = min(all_z), max(all_z)
-        
-        # Add padding
-        r_range = r_max - r_min
-        z_range = z_max - z_min
-        r_pad = r_range * 0.05
-        z_pad = z_range * 0.05
-        
-        if xlims is None:
-            xlims = (r_min - r_pad, r_max + r_pad)
-        if ylims is None:
-            ylims = (z_min - z_pad, z_max + z_pad)
-        
-        # Data aspect ratio (height / width for each subplot)
-        data_aspect = (ylims[1] - ylims[0]) / (xlims[1] - xlims[0])
-    else:
-        data_aspect = 1.0
-    
-    nrowcol = ceil(sqrt(len(phis)))
-    
-    # Use square subplots - with aspect='auto', matplotlib will scale axes to fill space
-    subplot_size = 4.0  # inches per subplot
-    fig_width = subplot_size * nrowcol + 1.0
-    fig_height = subplot_size * nrowcol + 1.0
-    
-    fig, axs = plt.subplots(nrowcol, nrowcol, figsize=(fig_width, fig_height))
-    
-    # Handle case of single subplot
-    if nrowcol == 1:
-        axs = np.array([[axs]])
-    
-    for ax in axs.ravel():
-        ax.set_aspect(aspect)
-    
-    for i in range(len(phis)):
-        row = i // nrowcol
-        col = i % nrowcol
-        
-        if i != len(phis) - 1:
-            axs[row, col].set_title(f"$\\phi = {phis[i]/np.pi:.2f}\\pi$ ", loc='left', y=0.0)
-        else:
-            axs[row, col].set_title(f"$\\phi = {phis[i]/np.pi:.2f}\\pi$ ", loc='right', y=0.0)
-        
-        if row == nrowcol - 1:
-            axs[row, col].set_xlabel("$r$")
-        if col == 0:
-            axs[row, col].set_ylabel("$z$")
-        if col == 1 and nrowcol > 1:
-            axs[row, col].set_yticklabels([])
-        if xlims is not None:
-            axs[row, col].set_xlim(xlims)
-        if ylims is not None:
-            axs[row, col].set_ylim(ylims)
-        
-        for j in range(len(fieldlines_phi_hits)):
-            data_this_phi = fieldlines_phi_hits[j][np.where(fieldlines_phi_hits[j][:, 1] == i)[0], :]
-            if data_this_phi.size == 0:
-                continue
-            r = np.sqrt(data_this_phi[:, 2]**2 + data_this_phi[:, 3]**2)
-            axs[row, col].scatter(r, data_this_phi[:, 4], marker=marker, s=s, linewidths=0)
-        
-        plt.rc('axes', axisbelow=True)
-        axs[row, col].grid(True, linewidth=0.5)
-        
-        # Plot surface outline if provided
-        if surf is not None:
-            cross_section = surf.cross_section(phi=phis[i])
-            r_interp = np.sqrt(cross_section[:, 0] ** 2 + cross_section[:, 1] ** 2)
-            z_interp = cross_section[:, 2]
-            axs[row, col].plot(r_interp, z_interp, linewidth=1, c='k')
-    
-    # Hide unused subplots
-    for i in range(len(phis), nrowcol * nrowcol):
-        row = i // nrowcol
-        col = i % nrowcol
-        axs[row, col].set_visible(False)
-    
-    plt.tight_layout()
-    plt.savefig(filename, dpi=dpi)
-    plt.close()
-
-
 def trace_fieldlines(
     bfield: BiotSavart,
     surface: SurfaceRZFourier,
@@ -1220,18 +1080,14 @@ def trace_fieldlines(
         proc0_print("Generating Poincaré plot...")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with timed_section("plot_poincare_data"):
-            # Use custom plotting function that handles aspect ratios properly
-            # (simsopt's plot_poincare_data has hardcoded figure size that squashes tokamak plots)
-            # Use aspect='auto' so plots fill available space - 'equal' squashes tokamaks
-            # where Z range << R range
-            _plot_poincare_data_custom(
+            plot_poincare_data(
                 fieldlines_phi_hits,
                 phis,
                 str(output_path),
                 dpi=dpi,
                 s=markersize,
                 surf=surface,
-                aspect='auto',
+                aspect='equal',
             )
     
     # Return only metadata, not the raw trajectory data (which can be huge)
