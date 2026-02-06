@@ -44,40 +44,71 @@
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">6.4e-07</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.3e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.4e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.3e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.5e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.5e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.3e+05</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.7e+05</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.4e+05</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e+05</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.9e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.1e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.0e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,12,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.3e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.5e+03</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.0e-07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.3e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.5e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.5e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.2e-05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.4e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.7e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.8e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.7e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.0e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
 </tr>
 </tbody>
 </table>
 
 ### Legend
 
-- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.
+- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Bdotn

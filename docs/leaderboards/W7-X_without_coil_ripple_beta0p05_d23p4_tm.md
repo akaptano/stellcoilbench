@@ -44,12 +44,12 @@
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">7.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.1e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.9e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.3e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.0e+00</td>
@@ -69,21 +69,21 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.4e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.4e+02</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">2</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.1e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.2e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.5e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.2e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e+06</td>
@@ -98,17 +98,17 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4,8,12,16</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.5e+03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+03</td>
 </tr>
 </tbody>
 </table>
 
 ### Legend
 
-- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). Legacy name for final_squared_flux.
+- Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Bdotn
