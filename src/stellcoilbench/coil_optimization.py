@@ -21,8 +21,10 @@ except ImportError:  # pragma: no cover - fallback for older simsopt
 # MPI support for parallel post-processing
 try:
     from simsopt.util import comm_world, proc0_print
-except ImportError:
-    comm_world = None  # Not available in non-MPI builds
+except (ImportError, RuntimeError):
+    # ImportError: simsopt not installed
+    # RuntimeError: mpi4py installed but MPI library not available
+    comm_world = None
     def proc0_print(*args, **kwargs):
         print(*args, **kwargs)
 

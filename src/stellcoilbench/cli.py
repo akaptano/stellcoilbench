@@ -13,9 +13,12 @@ import numpy as np
 import typer
 
 # MPI utilities for rank-aware file operations
+# Use lazy import to avoid MPI library loading issues on systems without MPI (e.g., ReadTheDocs)
 try:
     from simsopt.util import comm_world
-except ImportError:
+except (ImportError, RuntimeError):
+    # ImportError: simsopt not installed
+    # RuntimeError: mpi4py installed but MPI library not available
     comm_world = None
 
 def _is_proc0() -> bool:

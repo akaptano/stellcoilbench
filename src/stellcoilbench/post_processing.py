@@ -28,12 +28,18 @@ except ImportError:
         )
 from simsopt.mhd.vmec import Vmec  # type: ignore
 from simsopt.mhd import QuasisymmetryRatioResidual  # type: ignore
-from simsopt.util.mpi import MpiPartition  # type: ignore
-from simsopt.util import proc0_print
+
+# MPI imports - wrapped to handle systems without MPI (e.g., ReadTheDocs)
 try:
-    from simsopt.util import comm_world  # MPI communicator for parallel operations
-except ImportError:
-    comm_world = None  # Not available in non-MPI builds
+    from simsopt.util.mpi import MpiPartition  # type: ignore
+    from simsopt.util import proc0_print, comm_world
+except (ImportError, RuntimeError):
+    # ImportError: simsopt MPI utils not installed
+    # RuntimeError: mpi4py installed but MPI library not available
+    MpiPartition = None  # type: ignore
+    comm_world = None
+    def proc0_print(*args, **kwargs):
+        print(*args, **kwargs)
 try:
     from simsopt.field.tracing import (
         compute_fieldlines,
@@ -530,7 +536,9 @@ def run_vmec_equilibrium(
         VMEC equilibrium object.
     """
     if mpi is None:
-        mpi = MpiPartition(ngroups=1)  # type: ignore
+        if MpiPartition is not None:
+            mpi = MpiPartition(ngroups=1)  # type: ignore
+        # If MpiPartition is None (no MPI available), mpi stays None
     
     # Check if we have a valid VMEC input file
     is_vmec_input_file = False
@@ -1792,7 +1800,7 @@ def run_post_processing(
     # Set up MPI parallelization
     # For VMEC, ngroups=1 means all processes work together on one VMEC run (parallel VMEC)
     # ngroups > 1 would run multiple independent VMEC runs (useful for optimization, not here)
-    if mpi is None:
+    if mpi is None and MpiPartition is not None:
         # For post-processing, always use ngroups=1 so VMEC uses all available processes
         mpi = MpiPartition(ngroups=1)
     
