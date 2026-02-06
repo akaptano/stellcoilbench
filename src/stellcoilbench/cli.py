@@ -26,6 +26,219 @@ def _is_proc0() -> bool:
     return comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
 
 
+def _get_version_info() -> dict:
+    """Get version information for reproducibility tracking.
+    
+    Returns a dict with:
+    - stellcoilbench_commit: git commit hash of stellcoilbench repo
+    - simsopt_version: simsopt package version
+    - simsopt_git_info: simsopt git info if installed from source (branch, commit)
+    """
+    info = {}
+    
+    # Get stellcoilbench git commit hash
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode == 0:
+            info["stellcoilbench_commit"] = result.stdout.strip()
+        
+        # Also get branch name
+        result = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode == 0:
+            info["stellcoilbench_branch"] = result.stdout.strip()
+    except Exception:
+        info["stellcoilbench_commit"] = "unknown"
+    
+    # Get simsopt version
+    try:
+        import simsopt
+        version = getattr(simsopt, "__version__", "unknown")
+        info["simsopt_version"] = version
+        
+        # Try to extract git commit from version string (e.g., "0.1.dev5270+gee055f063")
+        # The format is: version.devN+gCOMMIT where COMMIT is the abbreviated hash
+        if "+g" in version:
+            # Extract commit hash after +g
+            commit_part = version.split("+g")[-1]
+            # Remove any additional suffixes (e.g., .dirty)
+            commit_hash = commit_part.split(".")[0]
+            info["simsopt_commit"] = commit_hash
+        
+        # Try to get simsopt git info if installed from source (editable install)
+        simsopt_file = getattr(simsopt, "__file__", None)
+        if simsopt_file is None:
+            return info
+        simsopt_path = Path(simsopt_file).parent
+        # Check both parent and grandparent for .git (handles different install layouts)
+        for parent in [simsopt_path.parent, simsopt_path.parent.parent]:
+            simsopt_git_dir = parent / ".git"
+            if simsopt_git_dir.exists():
+                # Installed from source - get git info
+                try:
+                    result = subprocess.run(
+                        ["git", "-C", str(parent), "rev-parse", "HEAD"],
+                        capture_output=True, text=True, timeout=5
+                    )
+                    if result.returncode == 0:
+                        info["simsopt_commit"] = result.stdout.strip()
+                    
+                    result = subprocess.run(
+                        ["git", "-C", str(parent), "rev-parse", "--abbrev-ref", "HEAD"],
+                        capture_output=True, text=True, timeout=5
+                    )
+                    if result.returncode == 0:
+                        info["simsopt_branch"] = result.stdout.strip()
+                    
+                    # Get remote URL to identify fork
+                    result = subprocess.run(
+                        ["git", "-C", str(parent), "remote", "get-url", "origin"],
+                        capture_output=True, text=True, timeout=5
+                    )
+                    if result.returncode == 0:
+                        info["simsopt_remote"] = result.stdout.strip()
+                    break  # Found git info, stop searching
+                except Exception:
+                    pass
+    except ImportError:
+        info["simsopt_version"] = "not installed"
+    
+    return info
+
+
+# Standard reactor-scale reference parameters (ARIES-CS)
+REACTOR_REFERENCE = {
+    "major_radius": 7.5,  # meters (ARIES-CS baseline)
+    "B_field": 5.7,  # Tesla (ARIES-CS on-axis field)
+    "description": "ARIES-CS reactor-scale reference"
+}
+
+
+def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
+    """Convert final metrics to reactor-scale equivalents.
+    
+    Scaling relationships:
+    - Length scale factor: L_reactor / L_device
+    - B-field scale factor: B_reactor / B_device
+    
+    For different quantities:
+    - Lengths (d_cc, d_cs, total_length): multiply by length scale factor
+    - Curvature (κ): divide by length scale factor (κ ~ 1/L)
+    - Forces: scale by (B_reactor/B_device)² * (L_reactor/L_device)
+    - Torques: scale by (B_reactor/B_device)² * (L_reactor/L_device)²
+    - Normalized quantities (B·n/|B|, etc.): no scaling needed
+    
+    Returns dict with reactor-scale metrics and scaling factors used.
+    """
+    reactor_metrics: dict = {
+        "reference": REACTOR_REFERENCE.copy(),
+    }
+    
+    # Get device parameters from metrics
+    target_B = metrics.get("target_B_field", None)
+    
+    # Try to get major radius from cached thresholds (R0 is stored there)
+    cached = metrics.get("_cached_thresholds", {})
+    device_R0 = cached.get("R0", None)
+    
+    # If not in metrics, try to get from case_cfg
+    if device_R0 is None and case_cfg is not None:
+        try:
+            # Load surface to get major radius
+            from stellcoilbench.config_scheme import CaseConfig
+            if isinstance(case_cfg, CaseConfig):
+                surface_params = case_cfg.surface_params
+                if hasattr(surface_params, 'surface'):
+                    # Would need to load surface - skip for now
+                    pass
+        except Exception:
+            pass
+    
+    if device_R0 is None or target_B is None:
+        reactor_metrics["error"] = "Could not determine device scale parameters"
+        return reactor_metrics
+    
+    # Compute scaling factors
+    L_scale = REACTOR_REFERENCE["major_radius"] / device_R0  # Length scale factor
+    B_scale = REACTOR_REFERENCE["B_field"] / target_B  # B-field scale factor
+    
+    reactor_metrics["scaling_factors"] = {
+        "length_scale": float(L_scale),
+        "B_field_scale": float(B_scale),
+        "device_major_radius": float(device_R0),
+        "device_target_B": float(target_B),
+    }
+    
+    # Scale length quantities (multiply by L_scale)
+    length_metrics = [
+        "final_min_cs_separation",
+        "final_min_cc_separation", 
+        "final_total_length",
+    ]
+    for key in length_metrics:
+        if key in metrics:
+            reactor_key = key.replace("final_", "reactor_scale_")
+            reactor_metrics[reactor_key] = float(metrics[key]) * L_scale
+    
+    # Scale curvature quantities (divide by L_scale, since κ ~ 1/L)
+    curvature_metrics = [
+        "final_max_curvature",
+        "final_average_curvature",
+        "final_mean_squared_curvature",  # This scales as 1/L²
+    ]
+    for key in curvature_metrics:
+        if key in metrics:
+            reactor_key = key.replace("final_", "reactor_scale_")
+            if "mean_squared" in key:
+                # MSC scales as 1/L²
+                reactor_metrics[reactor_key] = float(metrics[key]) / (L_scale ** 2)
+            else:
+                reactor_metrics[reactor_key] = float(metrics[key]) / L_scale
+    
+    # Scale force quantities: F ~ B² * L (for current-carrying conductors in external field)
+    # More precisely: F/L ~ j × B, and total force ~ B² * L for fixed current density
+    force_scale = (B_scale ** 2) * L_scale
+    force_metrics = [
+        "final_max_max_coil_force",
+        "final_avg_max_coil_force",
+    ]
+    for key in force_metrics:
+        if key in metrics:
+            reactor_key = key.replace("final_", "reactor_scale_")
+            reactor_metrics[reactor_key] = float(metrics[key]) * force_scale
+    
+    # Scale torque quantities: τ ~ B² * L² (torque has extra length factor)
+    torque_scale = (B_scale ** 2) * (L_scale ** 2)
+    torque_metrics = [
+        "final_max_max_coil_torque",
+        "final_avg_max_coil_torque",
+    ]
+    for key in torque_metrics:
+        if key in metrics:
+            reactor_key = key.replace("final_", "reactor_scale_")
+            reactor_metrics[reactor_key] = float(metrics[key]) * torque_scale
+    
+    # Arclength variation scales as L² (since it's variance of length)
+    if "final_arclength_variation" in metrics:
+        reactor_metrics["reactor_scale_arclength_variation"] = float(metrics["final_arclength_variation"]) * (L_scale ** 2)
+    
+    # Flux objective scales as B² * L⁴ (integral of B² over area)
+    # But final_squared_flux is already somewhat normalized, so include it for reference
+    if "final_squared_flux" in metrics:
+        flux_scale = (B_scale ** 2) * (L_scale ** 4)
+        reactor_metrics["reactor_scale_squared_flux"] = float(metrics["final_squared_flux"]) * flux_scale
+    
+    # Dimensionless quantities - no scaling needed
+    # (BdotN_over_B, linking_number, etc. are already normalized)
+    
+    return reactor_metrics
+
+
 class NumpyJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles numpy types and arrays."""
     def default(self, o):
@@ -444,7 +657,11 @@ def submit_case(
     # 2) Evaluate the resulting coils.
     metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
-    # 3) Build submission results.json
+    # 3) Compute reactor-scale equivalent metrics
+    reactor_scale_metrics = _compute_reactor_scale_metrics(metrics, case_cfg)
+
+    # 4) Build submission results.json
+    version_info = _get_version_info()
     submission = {
         "metadata": {
             "method_name": method_name or "",
@@ -453,7 +670,9 @@ def submit_case(
             "notes": notes,
             "run_date": run_date,
         },
+        "version_info": version_info,
         "metrics": metrics,
+        "reactor_scale_metrics": reactor_scale_metrics,
     }
     
     # Write results.json
@@ -573,6 +792,9 @@ def run_case(
     # 2) Evaluate the resulting coils.
     metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
+    # 3) Compute reactor-scale equivalent metrics
+    reactor_scale_metrics = _compute_reactor_scale_metrics(metrics, case_cfg)
+
     # Decide results filename.
     if results_out is None:
         results_out = submission_dir / "results.json"
@@ -581,8 +803,20 @@ def run_case(
     if not str(results_out).endswith('.json'):
         results_out = results_out.with_suffix('.json')
 
+    # Build submission with version info
+    version_info = _get_version_info()
+    run_date = datetime.now().isoformat()
+    submission = {
+        "metadata": {
+            "run_date": run_date,
+        },
+        "version_info": version_info,
+        "metrics": metrics,
+        "reactor_scale_metrics": reactor_scale_metrics,
+    }
+
     results_out.parent.mkdir(parents=True, exist_ok=True)
-    results_out.write_text(json.dumps(metrics, indent=2, cls=NumpyJSONEncoder))
+    results_out.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote evaluation results to {results_out}")
 
 
@@ -655,8 +889,12 @@ def generate_submission(
     
     metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
 
+    # Compute reactor-scale equivalent metrics
+    reactor_scale_metrics = _compute_reactor_scale_metrics(metrics, case_cfg)
+
     # Build submission results
     run_date = datetime.now().isoformat()
+    version_info = _get_version_info()
     submission = {
         "metadata": {
             "method_name": metadata.method_name,
@@ -666,7 +904,9 @@ def generate_submission(
             "notes": metadata.notes,
             "run_date": run_date,
         },
+        "version_info": version_info,
         "metrics": metrics,
+        "reactor_scale_metrics": reactor_scale_metrics,
     }
 
     # Write output

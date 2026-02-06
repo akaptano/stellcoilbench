@@ -237,7 +237,11 @@ def test_run_case_writes_results_json(tmp_path, monkeypatch):
     assert "TestSurface" in str(results_path)
     assert "testuser" in str(results_path)
     data = json.loads(results_path.read_text())
-    assert data["final_normalized_squared_flux"] == 0.123
+    # Results are now wrapped in a structured format with metrics, metadata, version_info
+    assert "metrics" in data
+    assert "version_info" in data
+    assert "reactor_scale_metrics" in data
+    assert data["metrics"]["final_normalized_squared_flux"] == 0.123
 
 
 def test_run_case_ensures_json_extension(tmp_path, monkeypatch):
