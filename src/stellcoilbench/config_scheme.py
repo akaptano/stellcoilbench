@@ -16,6 +16,7 @@ class CaseConfig:
     scoring: Dict[str, Any] | None = None
     coil_objective_terms: Dict[str, Any] | None = None
     fourier_continuation: Dict[str, Any] | None = None
+    post_processing_params: Dict[str, Any] | None = None
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "CaseConfig":
@@ -27,6 +28,7 @@ class CaseConfig:
             scoring=data.get("scoring"),
             coil_objective_terms=data.get("coil_objective_terms"),
             fourier_continuation=data.get("fourier_continuation"),
+            post_processing_params=data.get("post_processing_params"),
         )
 
 

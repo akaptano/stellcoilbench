@@ -908,13 +908,153 @@ def plot_quasisymmetry_profile(
     plt.close()
 
 
+def _plot_poincare_data_custom(
+    fieldlines_phi_hits: list,
+    phis: list,
+    filename: str,
+    aspect: str = 'equal',
+    dpi: int = 300,
+    xlims: Optional[tuple] = None,
+    ylims: Optional[tuple] = None,
+    surf: Any = None,  # type: ignore
+    s: int = 2,
+    marker: str = 'o',
+) -> None:
+    """
+    Create a Poincaré plot with proper aspect ratio handling.
+    
+    This is a custom implementation that fixes aspect ratio issues in the
+    simsopt plot_poincare_data function, which uses a hardcoded figure size
+    that can squash plots for tokamaks.
+    
+    Parameters
+    ----------
+    fieldlines_phi_hits : list
+        List of phi hits from compute_fieldlines.
+    phis : list
+        List of toroidal angles for Poincaré sections.
+    filename : str
+        Output file path.
+    aspect : str, default='equal'
+        Aspect ratio for subplots.
+    dpi : int, default=300
+        DPI for saved figure.
+    xlims : tuple, optional
+        X-axis limits (r_min, r_max).
+    ylims : tuple, optional
+        Y-axis limits (z_min, z_max).
+    surf : Surface, optional
+        If provided, plot plasma surface outline.
+    s : int, default=2
+        Marker size.
+    marker : str, default='o'
+        Marker style.
+    """
+    import matplotlib.pyplot as plt
+    from math import ceil, sqrt
+    
+    # Compute data bounds to determine proper figure aspect ratio
+    all_r = []
+    all_z = []
+    for j in range(len(fieldlines_phi_hits)):
+        for i in range(len(phis)):
+            data_this_phi = fieldlines_phi_hits[j][np.where(fieldlines_phi_hits[j][:, 1] == i)[0], :]
+            if data_this_phi.size > 0:
+                r = np.sqrt(data_this_phi[:, 2]**2 + data_this_phi[:, 3]**2)
+                all_r.extend(r)
+                all_z.extend(data_this_phi[:, 4])
+    
+    if all_r and all_z:
+        r_min, r_max = min(all_r), max(all_r)
+        z_min, z_max = min(all_z), max(all_z)
+        
+        # Add padding
+        r_range = r_max - r_min
+        z_range = z_max - z_min
+        r_pad = r_range * 0.05
+        z_pad = z_range * 0.05
+        
+        if xlims is None:
+            xlims = (r_min - r_pad, r_max + r_pad)
+        if ylims is None:
+            ylims = (z_min - z_pad, z_max + z_pad)
+        
+        # Data aspect ratio (height / width for each subplot)
+        data_aspect = (ylims[1] - ylims[0]) / (xlims[1] - xlims[0])
+    else:
+        data_aspect = 1.0
+    
+    nrowcol = ceil(sqrt(len(phis)))
+    
+    # Use square subplots - with aspect='auto', matplotlib will scale axes to fill space
+    subplot_size = 4.0  # inches per subplot
+    fig_width = subplot_size * nrowcol + 1.0
+    fig_height = subplot_size * nrowcol + 1.0
+    
+    fig, axs = plt.subplots(nrowcol, nrowcol, figsize=(fig_width, fig_height))
+    
+    # Handle case of single subplot
+    if nrowcol == 1:
+        axs = np.array([[axs]])
+    
+    for ax in axs.ravel():
+        ax.set_aspect(aspect)
+    
+    for i in range(len(phis)):
+        row = i // nrowcol
+        col = i % nrowcol
+        
+        if i != len(phis) - 1:
+            axs[row, col].set_title(f"$\\phi = {phis[i]/np.pi:.2f}\\pi$ ", loc='left', y=0.0)
+        else:
+            axs[row, col].set_title(f"$\\phi = {phis[i]/np.pi:.2f}\\pi$ ", loc='right', y=0.0)
+        
+        if row == nrowcol - 1:
+            axs[row, col].set_xlabel("$r$")
+        if col == 0:
+            axs[row, col].set_ylabel("$z$")
+        if col == 1 and nrowcol > 1:
+            axs[row, col].set_yticklabels([])
+        if xlims is not None:
+            axs[row, col].set_xlim(xlims)
+        if ylims is not None:
+            axs[row, col].set_ylim(ylims)
+        
+        for j in range(len(fieldlines_phi_hits)):
+            data_this_phi = fieldlines_phi_hits[j][np.where(fieldlines_phi_hits[j][:, 1] == i)[0], :]
+            if data_this_phi.size == 0:
+                continue
+            r = np.sqrt(data_this_phi[:, 2]**2 + data_this_phi[:, 3]**2)
+            axs[row, col].scatter(r, data_this_phi[:, 4], marker=marker, s=s, linewidths=0)
+        
+        plt.rc('axes', axisbelow=True)
+        axs[row, col].grid(True, linewidth=0.5)
+        
+        # Plot surface outline if provided
+        if surf is not None:
+            cross_section = surf.cross_section(phi=phis[i])
+            r_interp = np.sqrt(cross_section[:, 0] ** 2 + cross_section[:, 1] ** 2)
+            z_interp = cross_section[:, 2]
+            axs[row, col].plot(r_interp, z_interp, linewidth=1, c='k')
+    
+    # Hide unused subplots
+    for i in range(len(phis), nrowcol * nrowcol):
+        row = i // nrowcol
+        col = i % nrowcol
+        axs[row, col].set_visible(False)
+    
+    plt.tight_layout()
+    plt.savefig(filename, dpi=dpi)
+    plt.close()
+
+
 def trace_fieldlines(
     bfield: BiotSavart,
     surface: SurfaceRZFourier,
     output_path: Path,
     nfieldlines: int = 10,
-    tmax: float = 20000,
-    tol: float = 1e-6,
+    tmax: float = 40000,
+    tol: float = 1e-12,
     n_phi_slices: int = 4,
     use_interpolated_field: bool = True,
     markersize: int = 1,
@@ -954,9 +1094,9 @@ def trace_fieldlines(
     -------
     Dict[str, Any]
         Dictionary containing:
-        - 'fieldlines_tys': Fieldline trajectories
-        - 'fieldlines_phi_hits': Poincaré section data
-        - 'phis': Toroidal angles used
+        - 'poincare_plot_path': Path to the generated Poincaré plot
+        - 'nfieldlines': Number of fieldlines traced
+        - 'tmax': Maximum integration time used
     """
     if not TRACING_AVAILABLE:
         raise ImportError(
@@ -1025,7 +1165,7 @@ def trace_fieldlines(
     # Create surface classifier for stopping criteria
     # Following simsopt example: examples/1_Simple/tracing_fieldlines_QA.py
     with timed_section("surface_classifier_setup"):
-        sc_fieldline = SurfaceClassifier(surface, h=0.03, p=2)
+        sc_fieldline = SurfaceClassifier(surface, h=0.04 * surface.get_rc(0, 0), p=2)
     
     # Use interpolated field for faster tracing if requested
     if use_interpolated_field:
@@ -1080,20 +1220,25 @@ def trace_fieldlines(
         proc0_print("Generating Poincaré plot...")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with timed_section("plot_poincare_data"):
-            plot_poincare_data(
+            # Use custom plotting function that handles aspect ratios properly
+            # (simsopt's plot_poincare_data has hardcoded figure size that squashes tokamak plots)
+            # Use aspect='auto' so plots fill available space - 'equal' squashes tokamaks
+            # where Z range << R range
+            _plot_poincare_data_custom(
                 fieldlines_phi_hits,
                 phis,
                 str(output_path),
                 dpi=dpi,
                 s=markersize,
-                # surf=surface,
-                aspect='equal',
+                surf=surface,
+                aspect='auto',
             )
     
+    # Return only metadata, not the raw trajectory data (which can be huge)
     return {
-        'fieldlines_tys': fieldlines_tys,
-        'fieldlines_phi_hits': fieldlines_phi_hits,
-        'phis': phis,
+        'poincare_plot_path': str(output_path),
+        'nfieldlines': nfieldlines,
+        'tmax': tmax,
     }
 
 
@@ -1708,7 +1853,7 @@ def run_post_processing(
     output_dir: Path,
     case_yaml_path: Optional[Path] = None,
     plasma_surfaces_dir: Optional[Path] = None,
-    run_vmec: bool = True,
+    run_vmec: bool = False,
     helicity_m: int = 1,
     helicity_n: int = 0,
     ns: int = 50,
@@ -1716,7 +1861,7 @@ def run_post_processing(
     plot_poincare: bool = True,
     nfieldlines: int = 10,
     mpi: Optional[Any] = None,  # type: ignore
-    run_simple: bool = True,
+    run_simple: bool = False,
     simple_executable_path: Optional[Path] = None,
     run_vmec_original: bool = False,
 ) -> Dict[str, Any]:
@@ -1725,12 +1870,10 @@ def run_post_processing(
     
     This function:
     1. Loads coils and plasma surface
-    2. Generates Poincaré plot (if requested)
-    3. Computes QFM surface
-    4. Optionally runs VMEC equilibrium
-    5. Computes quasisymmetry metrics
-    6. Generates VMEC-dependent plots (Boozer, iota, quasisymmetry)
-    7. Optionally runs SIMPLE fast particle tracing (if run_simple=True and VMEC succeeded)
+    2. Computes B·n on plasma surface
+    3. Generates Poincaré plot (if requested)
+    4. Optionally computes QFM surface and runs VMEC equilibrium (if run_vmec=True)
+    5. Optionally runs SIMPLE fast particle tracing (if run_simple=True and VMEC succeeded)
     
     Parameters
     ----------
@@ -1742,8 +1885,9 @@ def run_post_processing(
         Path to case.yaml file.
     plasma_surfaces_dir : Path, optional
         Directory containing plasma surface files.
-    run_vmec : bool, default=True
-        Whether to run VMEC equilibrium calculation.
+    run_vmec : bool, default=False
+        Whether to run QFM surface computation and VMEC equilibrium calculation.
+        This is computationally expensive and disabled by default.
     helicity_m : int, default=1
         Poloidal mode number for quasisymmetry.
     helicity_n : int, default=0
@@ -1751,15 +1895,16 @@ def run_post_processing(
     ns : int, default=50
         Number of radial surfaces for quasisymmetry evaluation.
     plot_boozer : bool, default=True
-        Whether to generate Boozer surface plot.
+        Whether to generate Boozer surface plot (requires run_vmec=True).
     plot_poincare : bool, default=True
         Whether to generate Poincaré plot.
-    nfieldlines : int, default=20
+    nfieldlines : int, default=10
         Number of fieldlines to trace for Poincaré plot.
     mpi : Any, optional
         MPI partition for parallel execution. If None, one is created based on ngroups.
-    run_simple : bool, default=True
-        Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable).
+    run_simple : bool, default=False
+        Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable
+        and run_vmec=True). Disabled by default.
     simple_executable_path : Path, optional
         Path to simple.x executable. If None, searches in common locations.
     run_vmec_original : bool, default=False
@@ -1882,29 +2027,11 @@ def run_post_processing(
             proc0_print(f"Warning: Poincaré plot generation failed: {e}")
             proc0_print("Skipping Poincaré plot.")
     
-    # Compute QFM surface (only on rank 0 - not MPI parallelized)
-    qfm_surface = None
+    # Compute B·n on plasma surface (always done - it's cheap and useful)
     BdotN = 0.0
     BdotN_over_B = 0.0
     
     if is_proc0:
-        proc0_print("Computing QFM surface...")
-        with timed_section("compute_qfm_surface"):
-            qfm_surface = compute_qfm_surface(surface, bfield)
-        results['qfm_surface'] = qfm_surface
-        
-        # Save QFM surface as VTK file
-        proc0_print("Saving QFM surface as VTK file...")
-        with timed_section("save_qfm_vtk"):
-            qfm_vtk_path = output_dir / "qfm_surface"
-            try:
-                qfm_surface.to_vtk(str(qfm_vtk_path))
-                proc0_print(f"Saved QFM surface to {qfm_vtk_path}.vts")
-                results['qfm_vtk_path'] = str(qfm_vtk_path)
-            except Exception as e:
-                proc0_print(f"Warning: Failed to save QFM surface as VTK: {e}")
-        
-        # Compute B·n on plasma surface
         with timed_section("compute_BdotN"):
             bfield.set_points(surface.gamma().reshape((-1, 3)))
             B = bfield.B()
@@ -1923,26 +2050,48 @@ def run_post_processing(
         results['BdotN'] = float(BdotN)
         results['BdotN_over_B'] = float(BdotN_over_B)
     
-    # Share QFM surface with all ranks for subsequent VMEC run
+    # Broadcast B·n values to all ranks
     if is_mpi_parallel:
-        # Rank 0 saves QFM surface to file, other ranks load it
-        qfm_temp_path = output_dir / "_qfm_surface_temp.json"
-        if is_proc0:
-            # Save surface using simsopt serialization
-            from simsopt._core import save
-            save(qfm_surface, str(qfm_temp_path))
-        
-        # Wait for rank 0 to finish writing
-        comm_world.Barrier()  # type: ignore
-        
-        # All ranks load the surface
-        if not is_proc0:
-            from simsopt._core import load
-            qfm_surface = load(str(qfm_temp_path))
-        
-        # Broadcast scalar values
         BdotN = comm_world.bcast(BdotN, root=0)  # type: ignore
         BdotN_over_B = comm_world.bcast(BdotN_over_B, root=0)  # type: ignore
+    
+    # Compute QFM surface (only if run_vmec=True, as it's expensive and only needed for VMEC)
+    qfm_surface = None
+    
+    if run_vmec:
+        if is_proc0:
+            proc0_print("Computing QFM surface...")
+            with timed_section("compute_qfm_surface"):
+                qfm_surface = compute_qfm_surface(surface, bfield)
+            results['qfm_surface'] = qfm_surface
+            
+            # Save QFM surface as VTK file
+            proc0_print("Saving QFM surface as VTK file...")
+            with timed_section("save_qfm_vtk"):
+                qfm_vtk_path = output_dir / "qfm_surface"
+                try:
+                    qfm_surface.to_vtk(str(qfm_vtk_path))
+                    proc0_print(f"Saved QFM surface to {qfm_vtk_path}.vts")
+                    results['qfm_vtk_path'] = str(qfm_vtk_path)
+                except Exception as e:
+                    proc0_print(f"Warning: Failed to save QFM surface as VTK: {e}")
+        
+        # Share QFM surface with all ranks for subsequent VMEC run
+        if is_mpi_parallel:
+            # Rank 0 saves QFM surface to file, other ranks load it
+            qfm_temp_path = output_dir / "_qfm_surface_temp.json"
+            if is_proc0:
+                # Save surface using simsopt serialization
+                from simsopt._core import save
+                save(qfm_surface, str(qfm_temp_path))
+            
+            # Wait for rank 0 to finish writing
+            comm_world.Barrier()  # type: ignore
+            
+            # All ranks load the surface
+            if not is_proc0:
+                from simsopt._core import load
+                qfm_surface = load(str(qfm_temp_path))
     
     # Run VMEC if requested
     if run_vmec:

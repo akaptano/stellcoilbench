@@ -148,7 +148,7 @@ jobs:
         env:
           MPLBACKEND: Agg
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
-          PARALLEL_JOBS: "4"
+          PARALLEL_JOBS: "8"
         run: |
           # Source conda (supports both miniconda3 and anaconda3)
           for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
@@ -190,9 +190,9 @@ jobs:
           export MPLBACKEND=Agg PYTHONUNBUFFERED=1
           
           cd "$WORKSPACE"
-          log "Running stellcoilbench with 2 MPI processes..."
+          log "Running stellcoilbench..."
           
-          mpirun -n 2 python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
+          python -u -m stellcoilbench.cli submit-case "$CASE_FILE" 2>&1 | tee -a "$LOG_FILE"
           EXIT_CODE=${PIPESTATUS[0]}
           
           if [ $EXIT_CODE -eq 0 ]; then

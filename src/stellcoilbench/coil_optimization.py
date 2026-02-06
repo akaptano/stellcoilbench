@@ -10,6 +10,7 @@ import os
 import sys
 from contextlib import contextmanager
 from .config_scheme import CaseConfig
+from .post_processing import timed_section, get_timing_results
 
 from simsopt.geo import SurfaceRZFourier
 try:
@@ -337,6 +338,9 @@ def optimize_coils(
     output_dir: Path | None = None,
     surface_resolution: int = 32,
     skip_post_processing: bool = False,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = True,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -361,6 +365,14 @@ def optimize_coils(
     skip_post_processing:
         If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
         Useful for faster testing and debugging of optimization alone (default: False).
+    run_vmec:
+        If True, run QFM and VMEC equilibrium calculation during post-processing.
+        This is expensive and disabled by default (default: False).
+    run_simple:
+        If True, run SIMPLE fast particle tracing during post-processing.
+        Requires run_vmec=True. Disabled by default (default: False).
+    plot_poincare:
+        If True, generate Poincaré plot during post-processing (default: True).
 
     Returns
     -------
@@ -399,6 +411,19 @@ def optimize_coils(
     
     if case_cfg is None:
         case_cfg = load_case_config(case_path)
+    
+    # Merge post_processing_params from case.yaml with function parameters
+    # Case.yaml settings override function defaults, but CLI flags (passed as function args) take precedence
+    pp_params = case_cfg.post_processing_params or {}
+    # Only use case.yaml values if they were not explicitly set via CLI (check against defaults)
+    if not run_vmec and pp_params.get("run_vmec", False):
+        run_vmec = True
+    if not run_simple and pp_params.get("run_simple", False):
+        run_simple = True
+    if plot_poincare and not pp_params.get("plot_poincare", True):
+        plot_poincare = False
+    # Additional params that can only come from case.yaml
+    plot_boozer = pp_params.get("plot_boozer", True)
     
     # Resolve case_path to absolute path before changing directories
     # This ensures post-processing can find it even after os.chdir(output_dir)
@@ -675,6 +700,10 @@ def optimize_coils(
                         vc_target=vc_target,  # Virtual casing B_external_normal target
                         vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
                         skip_post_processing=skip_post_processing_in_loop,  # Skip in loop when using MPI
+                        run_vmec=run_vmec,
+                        run_simple=run_simple,
+                        plot_poincare=plot_poincare,
+                        plot_boozer=plot_boozer,
                         **threshold_kwargs
                     )
                 except TypeError:
@@ -690,6 +719,10 @@ def optimize_coils(
                         case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,  # Pass resolved absolute path
                         vc_target=vc_target,  # Virtual casing B_external_normal target
                         vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
+                        run_vmec=run_vmec,
+                        run_simple=run_simple,
+                        plot_poincare=plot_poincare,
+                        plot_boozer=plot_boozer,
                         **threshold_kwargs
                     )
         
@@ -778,13 +811,14 @@ def optimize_coils(
                     output_dir=output_dir,
                     case_yaml_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else None,
                     plasma_surfaces_dir=plasma_surfaces_dir,
-                    run_vmec=True,
+                    run_vmec=run_vmec,
                     helicity_m=1,
                     helicity_n=helicity_n,
                     ns=50,
-                    plot_boozer=True,
-                    plot_poincare=True,
+                    plot_boozer=plot_boozer,
+                    plot_poincare=plot_poincare,
                     nfieldlines=20,
+                    run_simple=run_simple,
                     mpi=mpi_partition,  # Pass MPI partition explicitly
                 )
                 proc0_print("Post-processing complete!")
@@ -1560,6 +1594,10 @@ def optimize_coils_with_fourier_continuation(
     surface_resolution: int = 32,
     case_path: Path | None = None,
     skip_post_processing: bool = False,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = True,
+    plot_boozer: bool = True,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1833,13 +1871,14 @@ def optimize_coils_with_fourier_continuation(
                     output_dir=out_dir_path,  # Save plots in main output directory
                     case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
                     plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
-                    run_vmec=True,
+                    run_vmec=run_vmec,
                     helicity_m=1,
                     helicity_n=helicity_n,
                     ns=50,
-                    plot_boozer=True,
-                    plot_poincare=True,
+                    plot_boozer=plot_boozer,
+                    plot_poincare=plot_poincare,
                     nfieldlines=20,
+                    run_simple=run_simple,
                 )
                 print("Post-processing complete!")
                 if 'quasisymmetry_average' in post_processing_results:
@@ -1913,6 +1952,10 @@ def optimize_coils_loop(
     surface_resolution: int = 32,
     skip_post_processing: bool = False,
     case_path: Path | None = None,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = True,
+    plot_boozer: bool = True,
     **kwargs):
     """
     Performs complete coil optimization including initialization and optimization.
@@ -1957,7 +2000,8 @@ def optimize_coils_loop(
         return _optimize_coils_loop_impl(
             s, target_B, out_dir, max_iterations, ncoils, order, verbose,
             regularization, coil_objective_terms, initial_coils, surface_resolution,
-            skip_post_processing, case_path, **kwargs
+            skip_post_processing, case_path, run_vmec, run_simple, plot_poincare,
+            plot_boozer, **kwargs
         )
 
 
@@ -1972,6 +2016,10 @@ def _optimize_coils_loop_impl(
     surface_resolution: int = 32,
     skip_post_processing: bool = False,
     case_path: Path | None = None,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = True,
+    plot_boozer: bool = True,
     **kwargs):
     """
     Internal implementation of optimize_coils_loop.
@@ -2087,10 +2135,11 @@ def _optimize_coils_loop_impl(
     # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
     is_continuation_step = initial_coils is not None
     
-    if initial_coils is None:
-        coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
-    else:
-        coils = initial_coils
+    with timed_section("coil_initialization"):
+        if initial_coils is None:
+            coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+        else:
+            coils = initial_coils
 
     # Calculate total_current (needed for later printing and possibly for threshold scaling)
     # Sum the unique base coils (coils[:ncoils]) to get total current
@@ -2163,50 +2212,52 @@ def _optimize_coils_loop_impl(
 
     # Step 3: Create BiotSavart object and save initial state
     # print("Step 3: Creating BiotSavart object and saving initial state...")
-    bs = BiotSavart(coils)
-    B_avg = calculate_modB_on_major_radius(bs, s)
-    print(f"  Total current: {total_current:.0f} A")
-    print(f"  B-field averaged along major radius: {B_avg:.3f} T")
-    print(f"  Number of coils: {len(coils)}")
-    curves = [c.curve for c in coils]
-    
-    # Save initial coils
-    try:
-        coils_to_vtk(coils, out_dir / "coils_initial")
-    except Exception as e:
-        print(f"Warning: Failed to save initial coils to VTK: {e}")
-        print("  Continuing optimization without VTK export...")
-    
-    # Calculate and display initial B-field
-    bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    B_initial = calculate_modB_on_major_radius(bs, s_plot)
-    print(f"\nInitial B-field on-axis: {B_initial:.3f} T")
-    
-    # Save initial surface data
-    bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    pointData = {
-        "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
-                          s_plot.unitnormal(), axis=2)[:, :, None] / 
-                        bs.AbsB().reshape((qphi, qtheta, 1)),
-        "modB": bs.AbsB().reshape((qphi, qtheta, 1))
-    }
-    s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
-    
-    # Generate 3D visualization plot for initial coils
-    try:
-        _plot_bn_error_3d(
-            s_plot,
-            bs,
-            coils,
-            out_dir,
-            filename="bn_error_3d_plot_initial.pdf",
-            title="B_N/|B| Error on Plasma Surface with Initial Coils",
-        )
-    except Exception as e:
-        print(f"Warning: Failed to generate initial 3D plot: {e}")
+    with timed_section("biotsavart_setup"):
+        bs = BiotSavart(coils)
+        B_avg = calculate_modB_on_major_radius(bs, s)
+        print(f"  Total current: {total_current:.0f} A")
+        print(f"  B-field averaged along major radius: {B_avg:.3f} T")
+        print(f"  Number of coils: {len(coils)}")
+        curves = [c.curve for c in coils]
+        
+        # Save initial coils
+        try:
+            coils_to_vtk(coils, out_dir / "coils_initial")
+        except Exception as e:
+            print(f"Warning: Failed to save initial coils to VTK: {e}")
+            print("  Continuing optimization without VTK export...")
+        
+        # Calculate and display initial B-field
+        bs.set_points(s_plot.gamma().reshape((-1, 3)))
+        B_initial = calculate_modB_on_major_radius(bs, s_plot)
+        print(f"\nInitial B-field on-axis: {B_initial:.3f} T")
+        
+        # Save initial surface data
+        bs.set_points(s_plot.gamma().reshape((-1, 3)))
+        pointData = {
+            "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
+                              s_plot.unitnormal(), axis=2)[:, :, None] / 
+                            bs.AbsB().reshape((qphi, qtheta, 1)),
+            "modB": bs.AbsB().reshape((qphi, qtheta, 1))
+        }
+        s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
+        
+        # Generate 3D visualization plot for initial coils
+        try:
+            _plot_bn_error_3d(
+                s_plot,
+                bs,
+                coils,
+                out_dir,
+                filename="bn_error_3d_plot_initial.pdf",
+                title="B_N/|B| Error on Plasma Surface with Initial Coils",
+            )
+        except Exception as e:
+            print(f"Warning: Failed to generate initial 3D plot: {e}")
 
     # Step 4: Define objective function and constraints
     # print("Step 4: Setting up optimization objectives and constraints...")
+    objective_setup_start = time.perf_counter()
     bs.set_points(s.gamma().reshape((-1, 3)))
     
     # Main objective: Squared flux (always included)
@@ -2509,7 +2560,14 @@ def _optimize_coils_loop_impl(
                 f"Got algorithm: '{algorithm}', minimize_method: '{kwargs.get('minimize_method', 'not specified')}'"
             )
     
+    # Record objective setup time
+    objective_setup_time = time.perf_counter() - objective_setup_start
+    from .post_processing import _timing_results
+    _timing_results["objective_setup"] = objective_setup_time
+    proc0_print(f"[TIMING] objective_setup: {objective_setup_time:.2f}s")
+    
     # Step 5: Run optimization
+    optimization_start = time.perf_counter()
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
     
@@ -2886,7 +2944,12 @@ def _optimize_coils_loop_impl(
                 print(f"  Gradient evaluations: {result.njev}")
     
     end_time = time.time()
-    print(f"Optimization completed in {end_time - start_time:.1f} seconds")
+    optimization_time = time.perf_counter() - optimization_start
+    _timing_results["coil_optimization"] = optimization_time
+    proc0_print(f"[TIMING] coil_optimization: {optimization_time:.2f}s")
+    
+    # Start timing for save and metrics section
+    save_metrics_start = time.perf_counter()
     
     # Calculate and print final total current
     # Sum the unique base coils (coils[:ncoils]) to get total current
@@ -3008,6 +3071,11 @@ def _optimize_coils_loop_impl(
         )
     except Exception as e:
         print(f"Warning: Failed to generate 3D plot: {e}")
+    
+    # Record save and metrics time
+    save_metrics_time = time.perf_counter() - save_metrics_start
+    _timing_results["save_and_metrics"] = save_metrics_time
+    proc0_print(f"[TIMING] save_and_metrics: {save_metrics_time:.2f}s")
     
     # Run post-processing: QFM surface, Poincaré plots, iota profiles, quasisymmetry profiles
     # Skip if this is part of Fourier continuation (will run once at the end)
@@ -3136,13 +3204,14 @@ def _optimize_coils_loop_impl(
                     output_dir=out_dir,
                     case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
                     plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
-                    run_vmec=True,  # Run VMEC for iota and quasisymmetry
+                    run_vmec=run_vmec,
                     helicity_m=1,
                     helicity_n=helicity_n,
                     ns=50,
-                    plot_boozer=True,
-                    plot_poincare=True,
+                    plot_boozer=plot_boozer,
+                    plot_poincare=plot_poincare,
                     nfieldlines=20,
+                    run_simple=run_simple,
                 )
                 print("Post-processing complete!")
                 if 'quasisymmetry_average' in post_processing_results:
@@ -3215,5 +3284,22 @@ def _optimize_coils_loop_impl(
             if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
                 if isinstance(value, (int, float)):
                     results[key] = float(value)
+    
+    # Add timing results to output
+    results['timing'] = get_timing_results()
+    
+    # Print timing summary for coil optimization
+    proc0_print("\n" + "=" * 50)
+    proc0_print("COIL OPTIMIZATION TIMING SUMMARY")
+    proc0_print("=" * 50)
+    coil_opt_timing_keys = ['coil_initialization', 'biotsavart_setup', 'objective_setup', 'coil_optimization', 'save_and_metrics']
+    total_coil_opt_time = 0.0
+    for key in coil_opt_timing_keys:
+        if key in _timing_results:
+            total_coil_opt_time += _timing_results[key]
+            proc0_print(f"  {key}: {_timing_results[key]:.2f}s")
+    proc0_print(f"  {'=' * 30}")
+    proc0_print(f"  Total coil optimization: {total_coil_opt_time:.2f}s")
+    proc0_print("=" * 50 + "\n")
     
     return coils, results

@@ -322,6 +322,21 @@ def submit_case(
         "--submissions-dir",
         help="Directory where submission results.json will be written.",
     ),
+    run_vmec: bool = typer.Option(
+        False,
+        "--run-vmec/--no-vmec",
+        help="Run QFM and VMEC equilibrium calculation (expensive, disabled by default).",
+    ),
+    run_simple: bool = typer.Option(
+        False,
+        "--run-simple/--no-simple",
+        help="Run SIMPLE fast particle tracing (requires --run-vmec, expensive).",
+    ),
+    plot_poincare: bool = typer.Option(
+        True,
+        "--plot-poincare/--no-plot-poincare",
+        help="Generate Poincaré plot (enabled by default).",
+    ),
 ) -> None:
     """
     Run a case and generate a submission results.json file.
@@ -329,14 +344,17 @@ def submit_case(
     This command:
     1. Loads case.yaml from cases/
     2. Runs the coil optimization
-    3. Evaluates the results
-    4. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
+    3. Evaluates the results (B·n, Poincaré plot by default)
+    4. Optionally runs QFM/VMEC/SIMPLE (with --run-vmec --run-simple)
+    5. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
     
     Directory structure: submissions/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip
     GitHub username and hardware are auto-detected if not provided.
     
-    Example:
+    Examples:
         stellcoilbench submit-case cases/case.yaml
+        stellcoilbench submit-case cases/case.yaml --run-vmec
+        stellcoilbench submit-case cases/case.yaml --run-vmec --run-simple
     """
     from .coil_optimization import optimize_coils
     from .evaluate import load_case_config, evaluate_case
@@ -408,7 +426,10 @@ def submit_case(
         case_path=case_path, 
         coils_out_path=coils_out_path, 
         case_cfg=case_cfg,
-        output_dir=submission_dir  # VTK files will be saved here
+        output_dir=submission_dir,  # VTK files will be saved here
+        run_vmec=run_vmec,
+        run_simple=run_simple,
+        plot_poincare=plot_poincare,
     )
     
     # Only rank 0 should write files and print messages
@@ -681,9 +702,9 @@ def post_process(
         help="Directory containing plasma surface files. Defaults to 'plasma_surfaces'.",
     ),
     run_vmec: bool = typer.Option(
-        True,
+        False,
         "--run-vmec/--no-vmec",
-        help="Whether to run VMEC equilibrium calculation.",
+        help="Whether to run QFM and VMEC equilibrium calculation (expensive, disabled by default).",
     ),
     helicity_m: int = typer.Option(
         1,
@@ -725,21 +746,27 @@ def post_process(
         "--nfieldlines",
         help="Number of fieldlines to trace for Poincaré plot.",
     ),
+    run_simple: bool = typer.Option(
+        False,
+        "--run-simple/--no-simple",
+        help="Whether to run SIMPLE fast particle tracing (requires --run-vmec, expensive).",
+    ),
 ) -> None:
     """
     Run post-processing on optimized coil results.
     
     This command performs analysis of optimized coil configurations, including:
-    - Computing QFM (quasi-flux surface) surfaces
-    - Running VMEC equilibrium calculations
-    - Computing quasisymmetry metrics
-    - Generating Boozer surface plots
-    - Generating iota (rotational transform) profiles
-    - Generating quasisymmetry error profiles
-    - Generating Poincaré plots
+    - Computing B·n on plasma surface (always)
+    - Generating Poincaré plots (by default)
+    - Computing QFM surfaces (with --run-vmec)
+    - Running VMEC equilibrium calculations (with --run-vmec)
+    - Computing quasisymmetry metrics (with --run-vmec)
+    - Generating Boozer/iota/quasisymmetry plots (with --run-vmec)
+    - Running SIMPLE particle tracing (with --run-vmec --run-simple)
     
     Example:
-        stellcoilbench post-process coils_runs/biot_savart_optimized.json --output-dir post_processing
+        stellcoilbench post-process coils.json --output-dir results
+        stellcoilbench post-process coils.json --run-vmec --output-dir results
     """
     from .post_processing import run_post_processing
     
@@ -757,10 +784,9 @@ def post_process(
             helicity_n=helicity_n,
             ns=ns,
             plot_boozer=plot_boozer,
-            plot_iota=plot_iota,
-            plot_qs=plot_qs,
             plot_poincare=plot_poincare,
             nfieldlines=nfieldlines,
+            run_simple=run_simple,
         )
         
         typer.echo("\nPost-processing complete!")

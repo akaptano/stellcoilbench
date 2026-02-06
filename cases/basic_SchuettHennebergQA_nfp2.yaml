@@ -4,6 +4,11 @@ surface_params:
   range: "half period"
   virtual_casing: true
 
+# Disable Boozer and Poincaré plots for this case (surface geometry issues)
+post_processing_params:
+  plot_boozer: false
+  plot_poincare: false
+
 coils_params:
   ncoils: 4
   order: 8
