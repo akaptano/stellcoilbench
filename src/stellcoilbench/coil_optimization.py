@@ -682,6 +682,10 @@ def optimize_coils(
                     vc_target=vc_target,  # Virtual casing B_external_normal target
                     vc_target_plot=vc_target_plot,  # Virtual casing target for plotting
                     skip_post_processing=skip_post_processing_in_loop,  # Skip in loop when using MPI
+                    run_vmec=run_vmec,
+                    run_simple=run_simple,
+                    plot_poincare=plot_poincare,
+                    plot_boozer=plot_boozer,
                     **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                     **threshold_kwargs
                 )

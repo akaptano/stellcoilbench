@@ -1506,6 +1506,8 @@ def write_rst_leaderboard(
             "c09r00_B_axis_half_tesla_NCSX": "0.5 Tesla NCSX Design",
             "muse.focus": "MUSE",
             "muse": "MUSE",
+            "wout_schuetthenneberg_nfp2.nc": "Schuett-Henneberg QA",
+            "wout_schuetthenneberg_nfp2": "Schuett-Henneberg QA",
         }
         
         # Check for exact match first

@@ -1,4 +1,4 @@
-# Wout Schuetthenneberg Nfp2.Nc Leaderboard
+# Schuett-Henneberg QA Leaderboard
 
 **Plasma Surface:** `wout_schuetthenneberg_nfp2.nc`
 

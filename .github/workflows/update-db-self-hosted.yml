@@ -54,9 +54,15 @@ jobs:
           echo 'import sys, yaml, zipfile, json
           from pathlib import Path
 
-          def normalize_yaml_content(content):
+          # Fields added during submission that should be ignored when comparing
+          SUBMISSION_FIELDS = ["source_case_file", "submission_timestamp", "submission_user"]
+
+          def normalize_yaml_content(content, strip_submission_fields=False):
               try:
                   data = yaml.safe_load(content)
+                  if strip_submission_fields and isinstance(data, dict):
+                      for field in SUBMISSION_FIELDS:
+                          data.pop(field, None)
                   return yaml.dump(data, sort_keys=True, default_flow_style=False)
               except:
                   return content
@@ -94,7 +100,8 @@ jobs:
                           source_filename = Path(submission_source_normalized).name
                           case_filename = Path(case_file_rel_normalized).name
                           if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
-                              zip_case_normalized = normalize_yaml_content(zip_case_content)
+                              # Strip submission-specific fields before comparing
+                              zip_case_normalized = normalize_yaml_content(zip_case_content, strip_submission_fields=True)
                               if zip_case_normalized == current_case_normalized:
                                   return True
                   except:
