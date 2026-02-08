@@ -394,3 +394,181 @@ optimizer_params:
         finally:
             file_path.unlink()
 
+    def test_non_dict_root_in_file(self):
+        """Test validation when YAML root is a list, not a dict."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+            f.write("- item1\n- item2\n")
+            f.flush()
+            file_path = Path(f.name)
+        try:
+            errors = validate_case_yaml_file(file_path)
+            assert len(errors) > 0
+            assert any("Root element must be a dictionary" in e for e in errors)
+        finally:
+            file_path.unlink()
+
+    def test_file_not_found(self):
+        """Test validation when file does not exist."""
+        errors = validate_case_yaml_file(Path("/nonexistent/file.yaml"))
+        assert len(errors) > 0
+        assert any("Error reading file" in e for e in errors)
+
+
+class TestValidateCaseConfigEdgeCases:
+    """Tests for edge case validation branches in validate_case_config."""
+
+    def _base_config(self):
+        return {
+            "description": "Test",
+            "surface_params": {"surface": "input.test"},
+            "coils_params": {"ncoils": 4, "order": 16},
+            "optimizer_params": {"algorithm": "l-bfgs"},
+        }
+
+    def test_virtual_casing_non_boolean(self):
+        """virtual_casing must be boolean."""
+        data = self._base_config()
+        data["surface_params"]["virtual_casing"] = "yes"
+        errors = validate_case_config(data)
+        assert any("virtual_casing must be a boolean" in e for e in errors)
+
+    def test_threshold_boolean_rejected(self):
+        """Boolean values should be rejected for threshold parameters."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"length_threshold": True}
+        errors = validate_case_config(data)
+        assert any("must be a non-negative number" in e for e in errors)
+
+    def test_threshold_unsupported_type(self):
+        """List/dict/None should be rejected for threshold parameters."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"length_threshold": [1, 2]}
+        errors = validate_case_config(data)
+        assert any("must be a non-negative number" in e for e in errors)
+
+    def test_threshold_negative_value(self):
+        """Negative threshold value should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"length_threshold": -5}
+        errors = validate_case_config(data)
+        assert any("must be a non-negative number" in e for e in errors)
+
+    def test_p_param_boolean_rejected(self):
+        """Boolean values should be rejected for _p parameters."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"curvature_p": True}
+        errors = validate_case_config(data)
+        assert any("must be a positive number" in e for e in errors)
+
+    def test_p_param_valid_string(self):
+        """Valid string _p parameter should pass."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"curvature_p": "2.5"}
+        errors = validate_case_config(data)
+        assert not any("curvature_p" in e for e in errors)
+
+    def test_p_param_invalid_string(self):
+        """Invalid string _p parameter should fail."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"curvature_p": "abc"}
+        errors = validate_case_config(data)
+        assert any("must be a positive number" in e for e in errors)
+
+    def test_p_param_zero_rejected(self):
+        """Zero _p parameter should fail (must be positive)."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"curvature_p": "0"}
+        errors = validate_case_config(data)
+        assert any("must be a positive number" in e for e in errors)
+
+    def test_invalid_coil_curvature(self):
+        """Invalid coil_curvature value should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"coil_curvature": "invalid"}
+        errors = validate_case_config(data)
+        assert any("coil_curvature must be one of" in e for e in errors)
+
+    def test_invalid_coil_arclength_variation(self):
+        """Invalid coil_arclength_variation should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"coil_arclength_variation": "invalid"}
+        errors = validate_case_config(data)
+        assert any("coil_arclength_variation" in e and "must be one of" in e for e in errors)
+
+    def test_invalid_coil_mean_squared_curvature(self):
+        """Invalid coil_mean_squared_curvature should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"coil_mean_squared_curvature": "invalid"}
+        errors = validate_case_config(data)
+        assert any("coil_mean_squared_curvature must be one of" in e for e in errors)
+
+    def test_invalid_linking_number(self):
+        """Invalid linking_number should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"linking_number": "soft"}
+        errors = validate_case_config(data)
+        assert any("linking_number must be one of" in e for e in errors)
+
+    def test_invalid_coil_coil_force(self):
+        """Invalid coil_coil_force should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"coil_coil_force": "invalid"}
+        errors = validate_case_config(data)
+        assert any("coil_coil_force must be one of" in e for e in errors)
+
+    def test_invalid_coil_coil_torque(self):
+        """Invalid coil_coil_torque should be rejected."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"coil_coil_torque": "invalid"}
+        errors = validate_case_config(data)
+        assert any("coil_coil_torque must be one of" in e for e in errors)
+
+    def test_fourier_continuation_not_dict(self):
+        """fourier_continuation must be a dict."""
+        data = self._base_config()
+        data["fourier_continuation"] = "not a dict"
+        errors = validate_case_config(data)
+        assert any("fourier_continuation must be a dictionary" in e for e in errors)
+
+    def test_fourier_continuation_enabled_not_bool(self):
+        """fourier_continuation.enabled must be boolean."""
+        data = self._base_config()
+        data["fourier_continuation"] = {"enabled": "yes"}
+        errors = validate_case_config(data)
+        assert any("enabled must be a boolean" in e for e in errors)
+
+    def test_fourier_continuation_orders_not_list(self):
+        """fourier_continuation.orders must be a list."""
+        data = self._base_config()
+        data["fourier_continuation"] = {"orders": "3,5"}
+        errors = validate_case_config(data)
+        assert any("orders must be a list" in e for e in errors)
+
+    def test_fourier_continuation_orders_empty(self):
+        """fourier_continuation.orders must be non-empty."""
+        data = self._base_config()
+        data["fourier_continuation"] = {"orders": []}
+        errors = validate_case_config(data)
+        assert any("must be non-empty" in e for e in errors)
+
+    def test_fourier_continuation_orders_invalid_values(self):
+        """fourier_continuation.orders must contain only positive integers."""
+        data = self._base_config()
+        data["fourier_continuation"] = {"orders": [0, 1, 2]}
+        errors = validate_case_config(data)
+        assert any("positive integers" in e for e in errors)
+
+    def test_fourier_continuation_orders_unsorted(self):
+        """fourier_continuation.orders must be in ascending order."""
+        data = self._base_config()
+        data["fourier_continuation"] = {"orders": [5, 3]}
+        errors = validate_case_config(data)
+        assert any("ascending order" in e for e in errors)
+
+    def test_weight_boolean_rejected(self):
+        """Boolean values should be rejected for weight parameters."""
+        data = self._base_config()
+        data["coil_objective_terms"] = {"cc_weight": False}
+        errors = validate_case_config(data)
+        assert any("must be a non-negative number" in e for e in errors)
+

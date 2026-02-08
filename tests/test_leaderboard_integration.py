@@ -197,7 +197,7 @@ optimizer_params:
                 "run_date": "2024-01-01T12:00:00"
             },
             "metrics": {
-                "final_normalized_squared_flux": 0.001
+                "final_squared_flux": 0.001
             }
         }))
         

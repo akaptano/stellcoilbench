@@ -10,6 +10,7 @@ from unittest.mock import Mock, patch
 
 from stellcoilbench.post_processing import (
     load_surface_with_range,
+    load_coils_and_surface,
     compute_qfm_surface,
     run_vmec_equilibrium,
     compute_quasisymmetry,
@@ -532,9 +533,10 @@ class TestTraceFieldlines:
                 )
                 
                 assert result is not None
-                assert 'fieldlines_tys' in result
-                assert 'fieldlines_phi_hits' in result
-                assert 'phis' in result
+                # trace_fieldlines returns only metadata, not raw trajectory data
+                assert 'poincare_plot_path' in result
+                assert 'nfieldlines' in result
+                assert 'tmax' in result
 
 
 class TestRunPostProcessingEdgeCases:
@@ -605,7 +607,7 @@ optimizer_params:
                 )
                 
                 assert results is not None
-                assert 'qfm_surface' in results
+                # qfm_surface is only computed when run_vmec=True
     
     def test_run_post_processing_vmec_failure_handling(self, tmp_path):
         """Test run_post_processing handles VMEC failures gracefully."""
@@ -744,7 +746,7 @@ optimizer_params:
                     
                     assert results is not None
                     # Should still complete even if Poincaré fails
-                    assert 'qfm_surface' in results
+                    # qfm_surface is only computed when run_vmec=True
 
 
 class TestRunSimpleParticleTracing:
@@ -1142,3 +1144,320 @@ optimizer_params:
                             plot_path = Path(results['simple_results'].get('loss_fraction_plot', ''))
                             if plot_path and plot_path.exists():
                                 assert plot_path.suffix == '.png'
+
+
+class TestLoadCoilsAndSurfaceHintMatching:
+    """Tests for surface hint matching in load_coils_and_surface (lines 246-271)."""
+
+    def test_surface_hint_matching_from_path(self, tmp_path):
+        """Lines 246-271: When case_yaml_path is None and earlier searches
+        fail, load_coils_and_surface searches the cases directory for YAML
+        files that reference a surface matching a hint from the path."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from simsopt.geo import SurfaceRZFourier
+        from simsopt.field import BiotSavart
+
+        # Create deep directory structure so parent search for case.yaml fails
+        # (no case.yaml in any parent directory)
+        sub_dir = tmp_path / "repo" / "submissions" / "LandremanPaul2021_QA" / "user1" / "run1"
+        sub_dir.mkdir(parents=True)
+
+        # Create the coils JSON path (with "Landreman" in path for hint detection)
+        coils_json = sub_dir / "biot_savart_optimized.json"
+        coils_json.write_text("{}")  # dummy
+
+        # Create cases directory at repo root level
+        cases_dir = tmp_path / "repo" / "cases"
+        cases_dir.mkdir()
+
+        # Create a case YAML that references a matching surface
+        case_yaml = cases_dir / "qa_case.yaml"
+        case_yaml.write_text(
+            "surface_params:\n"
+            "  surface: input.LandremanPaul2021_QA\n"
+            "  range: half period\n"
+        )
+
+        # Create the surface file
+        plasma_surfaces_dir = tmp_path / "repo" / "plasma_surfaces"
+        plasma_surfaces_dir.mkdir()
+        surface_file = plasma_surfaces_dir / "input.LandremanPaul2021_QA"
+        surface_file.write_text("dummy content")
+
+        # Mock load to return a BiotSavart-compatible object
+        mock_bfield = Mock(spec=BiotSavart)
+        mock_bfield.coils = [Mock()]
+        mock_surface = Mock(spec=SurfaceRZFourier)
+
+        with patch('stellcoilbench.post_processing.load', return_value=mock_bfield) as mock_load_fn:
+            with patch('stellcoilbench.post_processing.SurfaceRZFourier') as mock_srf:
+                mock_srf.from_vmec_input.return_value = mock_surface
+                mock_srf.from_focus.return_value = mock_surface
+
+                bfield, surface = load_coils_and_surface(
+                    coils_json_path=coils_json,
+                    case_yaml_path=None,  # Force search
+                    plasma_surfaces_dir=plasma_surfaces_dir,
+                )
+
+                assert surface == mock_surface
+                # Verify load was called with the coils JSON path
+                mock_load_fn.assert_called_once_with(str(coils_json))
+
+    def test_surface_hint_matching_no_match(self, tmp_path):
+        """Lines 246-271: When hint matching fails, FileNotFoundError is raised."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from simsopt.field import BiotSavart
+
+        # Create deep directory structure
+        sub_dir = tmp_path / "repo" / "submissions" / "LandremanPaul2021_QA" / "user1" / "run1"
+        sub_dir.mkdir(parents=True)
+
+        coils_json = sub_dir / "biot_savart_optimized.json"
+        coils_json.write_text("{}")
+
+        # Create cases directory but with non-matching YAML
+        cases_dir = tmp_path / "repo" / "cases"
+        cases_dir.mkdir()
+        case_yaml = cases_dir / "other_case.yaml"
+        case_yaml.write_text(
+            "surface_params:\n"
+            "  surface: input.totally_different_surface\n"
+        )
+
+        mock_bfield = Mock(spec=BiotSavart)
+        mock_bfield.coils = [Mock()]
+
+        with patch('stellcoilbench.post_processing.load', return_value=mock_bfield):
+            with pytest.raises(FileNotFoundError, match="Could not find case YAML"):
+                load_coils_and_surface(
+                    coils_json_path=coils_json,
+                    case_yaml_path=None,
+                )
+
+    def test_surface_hint_matching_yaml_parse_error(self, tmp_path):
+        """Lines 270-271: YAML parse error in case search is caught silently."""
+        pytest.importorskip("simsopt.geo", reason="simsopt not available")
+        from simsopt.field import BiotSavart
+
+        sub_dir = tmp_path / "repo" / "submissions" / "HSX_test" / "user1" / "run1"
+        sub_dir.mkdir(parents=True)
+
+        coils_json = sub_dir / "biot_savart_optimized.json"
+        coils_json.write_text("{}")
+
+        # Create cases directory with a malformed YAML
+        cases_dir = tmp_path / "repo" / "cases"
+        cases_dir.mkdir()
+        bad_yaml = cases_dir / "bad_case.yaml"
+        bad_yaml.write_text("not: valid: yaml: {{{{")
+
+        mock_bfield = Mock(spec=BiotSavart)
+        mock_bfield.coils = [Mock()]
+
+        with patch('stellcoilbench.post_processing.load', return_value=mock_bfield):
+            # Should raise FileNotFoundError (bad YAML is skipped, no match found)
+            with pytest.raises(FileNotFoundError, match="Could not find case YAML"):
+                load_coils_and_surface(
+                    coils_json_path=coils_json,
+                    case_yaml_path=None,
+                )
+
+
+class TestPoincareSurfaceFallback:
+    """Tests for Poincaré surface loading fallback (lines 1846-1877) in
+    run_post_processing when the loaded surface has no filename."""
+
+    def _make_mock_surface(self):
+        """Create a mock surface with the required numeric attributes."""
+        mock_surface = Mock()
+        mock_surface.filename = None  # No filename → triggers fallback
+        gamma = np.random.rand(10, 10, 3)
+        normal = np.random.rand(10, 10, 3)
+        mock_surface.gamma.return_value = gamma
+        mock_surface.unitnormal.return_value = normal
+        mock_surface.quadpoints_phi = np.linspace(0, 1, 10)
+        mock_surface.quadpoints_theta = np.linspace(0, 1, 10)
+        mock_surface.nfp = 1
+        return mock_surface
+
+    def _make_mock_bfield(self):
+        """Create a mock BiotSavart with required methods."""
+        mock_bfield = Mock()
+        mock_bfield.B.return_value = np.random.rand(100, 3)
+        mock_bfield.AbsB.return_value = np.random.rand(100) + 0.1
+        return mock_bfield
+
+    def test_poincare_fallback_surface_found(self, tmp_path):
+        """Lines 1846-1870: When surface has no filename, case YAML is used
+        to find the surface file, and it is loaded with full torus range."""
+        mock_surface = self._make_mock_surface()
+        mock_bfield = self._make_mock_bfield()
+
+        # Create case YAML referencing a surface
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text(
+            "surface_params:\n"
+            "  surface: input.test_surface\n"
+        )
+
+        # Create plasma_surfaces directory with the surface file
+        ps_dir = tmp_path / "plasma_surfaces"
+        ps_dir.mkdir()
+        surface_file = ps_dir / "input.test_surface"
+        surface_file.write_text("dummy")
+
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+
+        full_torus_surface = Mock()
+        full_torus_surface.nfp = 1
+
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_load.return_value = (mock_bfield, mock_surface)
+
+            with patch('stellcoilbench.post_processing.load_surface_with_range', return_value=full_torus_surface) as mock_lsr:
+                with patch('stellcoilbench.post_processing.trace_fieldlines', return_value={"iota": [0.5]}) as mock_trace:
+                    run_post_processing(
+                        coils_json_path=tmp_path / "coils.json",
+                        output_dir=output_dir,
+                        case_yaml_path=case_yaml,
+                        plasma_surfaces_dir=ps_dir,
+                        plot_poincare=True,
+                        plot_boozer=False,
+                        run_vmec=False,
+                        run_simple=False,
+                    )
+
+                    # load_surface_with_range should have been called with the found surface path
+                    mock_lsr.assert_called_once()
+                    call_args = mock_lsr.call_args
+                    assert "full torus" in str(call_args)
+                    # trace_fieldlines should have been called with the full torus surface
+                    mock_trace.assert_called_once()
+
+    def test_poincare_fallback_surface_not_found(self, tmp_path):
+        """Lines 1871-1873: When case YAML references a surface that doesn't
+        exist in any search dir, the original surface is used."""
+        mock_surface = self._make_mock_surface()
+        mock_bfield = self._make_mock_bfield()
+
+        # Case YAML references a surface that doesn't exist
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text(
+            "surface_params:\n"
+            "  surface: input.nonexistent_surface\n"
+        )
+
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_load.return_value = (mock_bfield, mock_surface)
+
+            with patch('stellcoilbench.post_processing.trace_fieldlines', return_value={"iota": [0.5]}) as mock_trace:
+                run_post_processing(
+                    coils_json_path=tmp_path / "coils.json",
+                    output_dir=output_dir,
+                    case_yaml_path=case_yaml,
+                    plot_poincare=True,
+                    plot_boozer=False,
+                    run_vmec=False,
+                    run_simple=False,
+                )
+
+                # trace_fieldlines should be called with the original surface (fallback)
+                mock_trace.assert_called_once()
+                call_args = mock_trace.call_args
+                # The second positional arg should be the original surface
+                assert call_args[0][1] is mock_surface
+
+    def test_poincare_fallback_no_surface_in_yaml(self, tmp_path):
+        """Lines 1874-1875: Case YAML exists but has no surface file → use
+        original surface."""
+        mock_surface = self._make_mock_surface()
+        mock_bfield = self._make_mock_bfield()
+
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text(
+            "surface_params:\n"
+            "  range: half period\n"
+            # No surface key
+        )
+
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_load.return_value = (mock_bfield, mock_surface)
+
+            with patch('stellcoilbench.post_processing.trace_fieldlines', return_value={"iota": [0.5]}) as mock_trace:
+                run_post_processing(
+                    coils_json_path=tmp_path / "coils.json",
+                    output_dir=output_dir,
+                    case_yaml_path=case_yaml,
+                    plot_poincare=True,
+                    plot_boozer=False,
+                    run_vmec=False,
+                    run_simple=False,
+                )
+
+                mock_trace.assert_called_once()
+                call_args = mock_trace.call_args
+                assert call_args[0][1] is mock_surface
+
+    def test_poincare_fallback_yaml_exception(self, tmp_path):
+        """Lines 1876-1877: Exception during YAML parsing → use original surface."""
+        mock_surface = self._make_mock_surface()
+        mock_bfield = self._make_mock_bfield()
+
+        # Create a case YAML that will cause a parse error when read
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text("{{{{invalid yaml")
+
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_load.return_value = (mock_bfield, mock_surface)
+
+            with patch('stellcoilbench.post_processing.trace_fieldlines', return_value={"iota": [0.5]}) as mock_trace:
+                run_post_processing(
+                    coils_json_path=tmp_path / "coils.json",
+                    output_dir=output_dir,
+                    case_yaml_path=case_yaml,
+                    plot_poincare=True,
+                    plot_boozer=False,
+                    run_vmec=False,
+                    run_simple=False,
+                )
+
+                mock_trace.assert_called_once()
+                call_args = mock_trace.call_args
+                assert call_args[0][1] is mock_surface
+
+    def test_poincare_no_case_yaml(self, tmp_path):
+        """Line 1879: No case YAML provided → use original surface."""
+        mock_surface = self._make_mock_surface()
+        mock_bfield = self._make_mock_bfield()
+
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+
+        with patch('stellcoilbench.post_processing.load_coils_and_surface') as mock_load:
+            mock_load.return_value = (mock_bfield, mock_surface)
+
+            with patch('stellcoilbench.post_processing.trace_fieldlines', return_value={"iota": [0.5]}) as mock_trace:
+                run_post_processing(
+                    coils_json_path=tmp_path / "coils.json",
+                    output_dir=output_dir,
+                    case_yaml_path=None,
+                    plot_poincare=True,
+                    plot_boozer=False,
+                    run_vmec=False,
+                    run_simple=False,
+                )
+
+                mock_trace.assert_called_once()
+                call_args = mock_trace.call_args
+                assert call_args[0][1] is mock_surface

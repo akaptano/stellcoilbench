@@ -249,7 +249,7 @@ coil_objective_terms:
                                             run_post_processing(
                                                 coils_json,
                                                 output_dir,
-                                                run_vmec=False,
+                                                run_vmec=True,
                                                 plot_poincare=False,
                                                 plot_boozer=False,
                                             )
@@ -282,7 +282,7 @@ coil_objective_terms:
                                                     run_post_processing(
                                                         coils_json,
                                                         output_dir,
-                                                        run_vmec=False,
+                                                        run_vmec=True,
                                                         plot_poincare=False,
                                                         plot_boozer=False,
                                                     )

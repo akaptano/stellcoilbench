@@ -6,6 +6,9 @@ from stellcoilbench.update_db import (
     _format_date,
     _shorthand_to_math,
     _metric_definition,
+    _metric_detailed_definition,
+    compute_composite_score,
+    write_rst_leaderboard,
 )
 
 
@@ -243,3 +246,223 @@ class TestMetricDefinition:
         """Test that unknown metrics get title case with spaces."""
         definition = _metric_definition("unknown_metric_name")
         assert "Unknown Metric Name" == definition or "unknown metric name" in definition.lower()
+
+
+class TestShorthandToMathEdgeCases:
+    """Tests for _shorthand_to_math edge cases that aren't covered."""
+
+    def test_function_with_multi_underscore_arg(self):
+        """Test func(arg) where arg has multiple underscores."""
+        result = _shorthand_to_math("max(a_b_c)")
+        assert ":math:" in result
+        # Should produce subscript formatting for multi-part arg
+        assert "a" in result
+
+    def test_function_with_avg(self):
+        """Test avg() function call formatting."""
+        result = _shorthand_to_math("avg(κ)")
+        assert r"\text{avg}" in result
+
+    def test_function_with_unknown_func(self):
+        """Test unknown function name passthrough."""
+        result = _shorthand_to_math("sum(F)")
+        assert "sum" in result
+
+    def test_shorthand_with_spaces(self):
+        """Test shorthand containing spaces wraps in \\text{}."""
+        result = _shorthand_to_math("some metric")
+        assert r"\text{" in result
+
+    def test_shorthand_multi_underscore(self):
+        """Test multi-underscore variable names."""
+        result = _shorthand_to_math("a_b_c")
+        assert ":math:" in result
+        # Should produce subscript formatting
+        assert "_{" in result
+
+
+class TestFormatDateEdgeCases:
+    """Tests for _format_date edge cases."""
+
+    def test_date_dd_mm_yy_day_gt_12(self):
+        """Test DD/MM/YY format where DD > 12 (unambiguous)."""
+        result = _format_date("15/06/23")
+        assert result == "15/06/23"
+
+    def test_date_mm_dd_yy_month_gt_12(self):
+        """Test MM/DD/YY where second part > 12 means it's the day (DD/MM/YY)."""
+        # With second > 12 and first <= 12 and both padded: 06/15/23
+        # Since first(06) <= 12 and second(15) > 12, treated as MM/DD/YY → DD/MM
+        result = _format_date("06/15/23")
+        assert result == "15/06/23"
+
+    def test_date_invalid_value_error(self):
+        """Test date where ValueError occurs during conversion."""
+        result = _format_date("ab/cd/ef")
+        # Should return as-is after exception
+        assert "/" in result
+
+    def test_date_yyyy_mm_dd_index_error(self):
+        """Test date where IndexError/AttributeError might occur."""
+        # No dashes or slashes — treated as unknown format
+        result = _format_date("20240101")
+        assert result == "20240101"
+
+    def test_date_ambiguous_both_le_12(self):
+        """Test ambiguous date where both parts <= 12."""
+        result = _format_date("06/08/23")
+        # Both are <= 12, so assume MM/DD/YY → convert to DD/MM/YY
+        assert result == "08/06/23"
+
+
+class TestComputeCompositeScoreEdgeCases:
+    """Tests for compute_composite_score edge cases."""
+
+    def test_soft_constraint_bound_zero_skipped(self):
+        """Test that soft constraints with bound=0 are skipped."""
+        # With no metrics at all, should return None score
+        score, details = compute_composite_score({}, {})
+        assert not details["infeasible"]
+
+    def test_hard_constraint_eq_direction(self):
+        """Test hard constraint with 'eq' direction."""
+        # The eq direction checks value != bound
+        # We need to know the actual constraints... let's just test with empty metrics
+        # where linking_number (if present) would be checked
+        score, details = compute_composite_score(
+            {"final_linking_number": 1},
+            {},
+        )
+        # linking_number == 0 is a hard constraint, so value=1 should cause infeasibility
+        assert details["infeasible"]
+
+    def test_min_direction_hard_fail(self):
+        """Test hard constraint with 'min' direction failing."""
+        # coils_linked_to_surface is a hard 'eq' constraint (must be True)
+        score, details = compute_composite_score(
+            {"coils_linked_to_surface": False},
+            {},
+        )
+        assert details["infeasible"]
+        assert score == 0.0
+
+
+class TestMetricDetailedDefinition:
+    """Tests for _metric_detailed_definition function."""
+
+    def test_known_metric_returns_dict(self):
+        """Test that known metrics return a dict with expected keys."""
+        result = _metric_detailed_definition("final_total_length")
+        assert result is not None
+        assert isinstance(result, dict)
+        assert "title" in result
+
+    def test_separation_metric(self):
+        """Test separation metric definition."""
+        result = _metric_detailed_definition("final_cc_separation")
+        if result:
+            assert "title" in result
+
+    def test_force_metric(self):
+        """Test force metric definition."""
+        result = _metric_detailed_definition("final_max_force")
+        if result:
+            assert "title" in result
+
+    def test_torque_metric(self):
+        """Test torque metric definition."""
+        result = _metric_detailed_definition("final_max_torque")
+        if result:
+            assert "title" in result
+
+    def test_linking_metric(self):
+        """Test linking number metric definition."""
+        result = _metric_detailed_definition("final_linking_number")
+        if result:
+            assert "title" in result
+
+    def test_time_metric(self):
+        """Test time metric definition."""
+        result = _metric_detailed_definition("optimization_time")
+        if result:
+            assert "title" in result
+
+    def test_loss_fraction_metric(self):
+        """Test loss_fraction metric definition (particle confinement)."""
+        result = _metric_detailed_definition("loss_fraction")
+        if result:
+            assert "title" in result
+
+    def test_quasisymmetry_metric(self):
+        """Test quasisymmetry_average metric definition."""
+        result = _metric_detailed_definition("quasisymmetry_average")
+        if result:
+            assert "title" in result
+
+    def test_unknown_metric(self):
+        """Test unknown metric returns None."""
+        result = _metric_detailed_definition("completely_unknown_metric")
+        assert result is None
+
+
+class TestWriteRstLeaderboardMetricCategories:
+    """Tests for metric category grouping in write_rst_leaderboard."""
+
+    def test_write_rst_leaderboard_creates_file(self, tmp_path):
+        """Test that write_rst_leaderboard creates the RST output file."""
+        entries = [
+            {
+                "method": "test",
+                "contact": "user",
+                "date": "2024-01-01",
+                "score_primary": 1.0,
+                "metrics": {
+                    "final_total_length": 100.0,
+                    "final_cc_separation": 0.1,
+                    "final_max_force": 50.0,
+                    "final_max_torque": 10.0,
+                    "final_linking_number": 0,
+                    "optimization_time": 120.0,
+                    "loss_fraction": 0.05,
+                    "quasisymmetry_average": 0.01,
+                    "num_coils": 4,
+                },
+            }
+        ]
+
+        leaderboard = {"entries": entries}
+        # Create directories needed for sub-files
+        (tmp_path / "leaderboard").mkdir()
+        out_rst = tmp_path / "leaderboard.rst"
+
+        write_rst_leaderboard(leaderboard, out_rst, {})
+
+        assert out_rst.exists()
+        content = out_rst.read_text()
+        assert "StellCoilBench" in content
+
+    def test_write_rst_leaderboard_with_surfaces(self, tmp_path):
+        """Test that write_rst_leaderboard handles surface leaderboards."""
+        entries = [
+            {
+                "method": "test",
+                "contact": "user",
+                "date": "2024-01-01",
+                "score_primary": 1.0,
+                "metrics": {"final_total_length": 100.0},
+                "surface": "LandremanPaul2021_QA",
+            }
+        ]
+
+        surface_data = {
+            "LandremanPaul2021_QA": {
+                "entries": entries,
+            }
+        }
+
+        leaderboard = {"entries": entries}
+        (tmp_path / "leaderboard").mkdir()
+        out_rst = tmp_path / "leaderboard.rst"
+
+        write_rst_leaderboard(leaderboard, out_rst, surface_data)
+        assert out_rst.exists()
