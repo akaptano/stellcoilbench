@@ -10,14 +10,12 @@
 <thead>
 <tr>
 <th style="font-size: 0.9em; padding: 4px 8px;">#</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">Score</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">User</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Date</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN over B</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">B̄_n</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
@@ -38,14 +36,12 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.947</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">9.4e-07</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e-06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.4e+00</td>
@@ -64,14 +60,12 @@
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.947</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">9.4e-07</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e-06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.4e+00</td>
@@ -90,14 +84,12 @@
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">3</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0.813</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">02/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e-06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.8e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.9e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.2e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.6e-06</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.4e+00</td>
@@ -122,9 +114,6 @@
 - Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
-- Bdotn
-- Bdotn Over B
-- Arclength Variation Threshold
 - Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)

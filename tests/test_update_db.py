@@ -6,6 +6,7 @@ import tempfile
 import zipfile
 from pathlib import Path
 from stellcoilbench.update_db import (
+    N_TURNS_MODEL,
     _metric_shorthand,
     _metric_definition,
     _format_date,
@@ -15,7 +16,10 @@ from stellcoilbench.update_db import (
     build_methods_json,
     build_leaderboard_json,
     build_surface_leaderboards,
+    check_reactor_constraints,
+    compute_composite_score,
     write_markdown_leaderboard,
+    write_reactor_scale_leaderboard,
     write_rst_leaderboard,
     write_surface_leaderboards,
     write_surface_leaderboard_index,
@@ -361,7 +365,8 @@ class TestBuildLeaderboardJson:
     def test_build_leaderboard_json_empty(self):
         """Test building leaderboard from empty methods."""
         leaderboard = build_leaderboard_json({})
-        assert leaderboard == {"entries": []}
+        assert leaderboard["entries"] == []
+        assert leaderboard["excluded_entries"] == []
     
     def test_build_leaderboard_json_single_entry(self):
         """Test building leaderboard with single entry."""
@@ -433,7 +438,7 @@ class TestBuildLeaderboardJson:
             }
         }
         leaderboard = build_leaderboard_json(methods)
-        assert leaderboard == {"entries": []}
+        assert leaderboard["entries"] == []
 
 
 
@@ -477,16 +482,23 @@ class TestLeaderboardMarkdown:
             {
                 "metrics": {
                     "final_total_length": 10.0,
-                    "final_normalized_squared_flux": 0.01,
+                    "final_squared_flux": 0.01,
                     "score_primary": 0.01,
                     "initial_B_field": 1.0,
+                    "BdotN": 0.001,  # Raw post-processing duplicate
+                    "BdotN_over_B": 0.002,  # Raw post-processing duplicate
+                    "final_normalized_squared_flux": 0.01,  # Legacy duplicate
+                    "coils_linked_to_surface": 1.0,  # Boolean-like, excluded
                 }
             }
         ]
         keys = _get_all_metrics_from_entries(entries)
-        assert keys[0] == "final_normalized_squared_flux"
+        assert keys[0] == "final_squared_flux"
         assert "score_primary" not in keys
         assert "initial_B_field" not in keys
+        assert "BdotN" not in keys
+        assert "BdotN_over_B" not in keys
+        assert "final_normalized_squared_flux" not in keys
         assert "final_total_length" in keys
 
     def test_write_markdown_leaderboard(self, tmp_path):
@@ -498,12 +510,13 @@ class TestLeaderboardMarkdown:
                     "method_name": "method1",
                     "method_version": "v1",
                     "score_primary": 0.01,
+                    "composite_score": 1.5,
                     "run_date": "2024-01-01T12:00:00",
                     "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
-                        "final_normalized_squared_flux": 0.01,
+                        "final_squared_flux": 0.01,
                         "final_linking_number": 0,
                     },
                 }
@@ -515,6 +528,8 @@ class TestLeaderboardMarkdown:
         assert "CoilBench Leaderboard" in content
         assert "Legend" in content
         assert "f_B" in content
+        assert "Score" in content  # Score column header
+        assert "1.500" in content  # Composite score value
 
     def test_write_rst_leaderboard(self, tmp_path):
         # Create submission directory structure and case.yaml for surface extraction
@@ -1101,12 +1116,13 @@ class TestWriteMarkdownLeaderboardComprehensive:
                     "method_name": "method1",
                     "method_version": "v1",
                     "score_primary": 0.001,
+                    "composite_score": 1.8,
                     "run_date": "2024-01-01T12:00:00",
                     "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
-                        "final_normalized_squared_flux": 0.001,
+                        "final_squared_flux": 0.001,
                         "final_total_length": 100.0,
                         "num_coils": 4.0,
                     },
@@ -1117,12 +1133,13 @@ class TestWriteMarkdownLeaderboardComprehensive:
                     "method_name": "method2",
                     "method_version": "v2",
                     "score_primary": 0.002,
+                    "composite_score": 1.2,
                     "run_date": "2024-01-02T12:00:00",
                     "contact": "user2",
                     "hardware": "GPU",
                     "path": "submissions/surface/user2/ts2/results.json",
                     "metrics": {
-                        "final_normalized_squared_flux": 0.002,
+                        "final_squared_flux": 0.002,
                         "final_total_length": 200.0,
                         "num_coils": 6.0,
                     },
@@ -1135,8 +1152,9 @@ class TestWriteMarkdownLeaderboardComprehensive:
         # Markdown uses user names, not method names in the table
         assert "user1" in content
         assert "user2" in content
-        assert "0.001" in content or "1.0e-03" in content
-        assert "0.002" in content or "2.0e-03" in content
+        # Check metric values are present
+        assert "1.0e-3" in content or "1.0e-03" in content
+        assert "2.0e-3" in content or "2.0e-03" in content
 
 
 class TestWriteRstLeaderboardComprehensive:
@@ -1370,7 +1388,7 @@ class TestUpdateDatabase:
         leaderboard_file = docs_dir / "leaderboard.json"
         assert leaderboard_file.exists()
         leaderboard = json.loads(leaderboard_file.read_text())
-        assert leaderboard == {"entries": []}
+        assert leaderboard["entries"] == []
         
         # Should create leaderboard.rst
         leaderboard_rst = docs_dir / "leaderboard.rst"
@@ -1458,3 +1476,728 @@ class TestUpdateDatabase:
         assert leaderboard_file.exists()
         leaderboard = json.loads(leaderboard_file.read_text())
         assert "entries" in leaderboard
+
+
+# ---------------------------------------------------------------------------
+# Tests for check_reactor_constraints
+# ---------------------------------------------------------------------------
+
+class TestCheckReactorConstraints:
+    """Tests for check_reactor_constraints function."""
+
+    def _good_metrics(self):
+        """Return metrics that pass all constraints."""
+        return {
+            "avg_BdotN_over_B": 5e-3,       # < 1e-2
+            "final_linking_number": 0,        # abs(0) < 0.5
+            "coils_linked_to_surface": True,  # must be True
+        }
+
+    def _good_reactor(self):
+        """Return reactor-scale metrics that pass all constraints."""
+        return {
+            "reactor_scale_min_cs_separation": 2.0,   # > 1.3
+            "reactor_scale_min_cc_separation": 1.0,    # > 0.7
+            "reactor_scale_total_length": 180.0,       # < 220
+            "reactor_scale_max_curvature": 0.8,        # < 1.0
+            "reactor_scale_mean_squared_curvature": 0.5,  # sqrt(0.5) ≈ 0.71 < 1.0
+            "reactor_scale_max_max_coil_force": 0.3,   # < 0.5 MN/m
+            "reactor_scale_arclength_variation": 0.5,   # sqrt(0.5) ≈ 0.71 < 1.0
+            "N_turns_per_coil": [2, 3, 2],             # max 3 < 500
+            "finite_build_cc_clearance": 0.5,           # > 0 (no overlap)
+        }
+
+    def test_all_pass(self):
+        passes, violations = check_reactor_constraints(
+            self._good_metrics(), self._good_reactor()
+        )
+        assert passes is True
+        assert violations == []
+
+    def test_empty_metrics_pass(self):
+        """Missing metrics are skipped, not penalized."""
+        passes, violations = check_reactor_constraints({}, {})
+        assert passes is True
+        assert violations == []
+
+    def test_finite_build_cc_overlap_violation(self):
+        """Negative clearance (winding packs overlap) should be a hard failure."""
+        reactor = self._good_reactor()
+        reactor["finite_build_cc_clearance"] = -0.1  # overlap!
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is False
+        hard_vs = [v for v in violations if v.get("hard")]
+        assert any(v["metric"] == "finite_build_cc_clearance" for v in hard_vs)
+
+    def test_finite_build_cc_clearance_at_zero_pass(self):
+        """Clearance exactly 0 (touching but not overlapping) should pass."""
+        reactor = self._good_reactor()
+        reactor["finite_build_cc_clearance"] = 0.0  # exactly at bound
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        # direction=min, bound=0: value < 0 violates, value >= 0 passes
+        fb_violations = [v for v in violations if v["metric"] == "finite_build_cc_clearance"]
+        assert len(fb_violations) == 0
+
+    def test_finite_build_cc_clearance_missing_skipped(self):
+        """If finite_build_cc_clearance is absent, skip without penalty."""
+        reactor = self._good_reactor()
+        del reactor["finite_build_cc_clearance"]
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True
+
+    def test_n_turns_violation(self):
+        """max(N_turns_per_coil) > 500 should be a hard constraint violation."""
+        reactor = self._good_reactor()
+        reactor["N_turns_per_coil"] = [100, 600, 200]  # max 600 > 500
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is False
+        assert any(v["metric"] == "N_turns_per_coil" for v in violations)
+        nturn_v = [v for v in violations if v["metric"] == "N_turns_per_coil"][0]
+        assert nturn_v["value"] == 600  # transformed: max of list
+        assert nturn_v["bound"] == N_TURNS_MODEL
+        assert nturn_v["hard"] is True
+
+    def test_n_turns_at_bound_pass(self):
+        """max(N_turns_per_coil) == 500 should pass."""
+        reactor = self._good_reactor()
+        reactor["N_turns_per_coil"] = [400, 500, 300]  # max 500 == bound
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True
+
+    def test_cs_separation_violation(self):
+        """Soft constraint: violation recorded but passes_hard stays True."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_min_cs_separation"] = 1.0  # < 1.3
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "reactor_scale_min_cs_separation" for v in violations)
+        assert not any(v["hard"] for v in violations)
+
+    def test_cc_separation_violation(self):
+        """Soft constraint: violation recorded but passes_hard stays True."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_min_cc_separation"] = 0.5  # < 0.7
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "reactor_scale_min_cc_separation" for v in violations)
+
+    def test_total_length_violation(self):
+        """Soft constraint: violation recorded but passes_hard stays True."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_total_length"] = 250.0  # > 220
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "reactor_scale_total_length" for v in violations)
+
+    def test_curvature_violation(self):
+        """Soft constraint: violation recorded but passes_hard stays True."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_max_curvature"] = 1.5  # > 1.0
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "reactor_scale_max_curvature" for v in violations)
+
+    def test_msc_sqrt_violation(self):
+        """MSC bound is on sqrt(MSC), so MSC=4 -> sqrt=2 > 1.0.  Soft constraint."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_mean_squared_curvature"] = 4.0  # sqrt(4) = 2 > 1.0
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "reactor_scale_mean_squared_curvature" for v in violations)
+
+    def test_msc_sqrt_pass(self):
+        """MSC=0.81 -> sqrt=0.9 < 1.0, should pass."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_mean_squared_curvature"] = 0.81  # sqrt(0.81) = 0.9 < 1.0
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True
+
+    def test_linking_violation(self):
+        metrics = self._good_metrics()
+        metrics["final_linking_number"] = 2  # abs(2) > 0.5
+        passes, violations = check_reactor_constraints(metrics, self._good_reactor())
+        assert passes is False
+        assert any(v["metric"] == "final_linking_number" for v in violations)
+
+    def test_linking_negative_violation(self):
+        """Negative linking number should also be caught via abs transform."""
+        metrics = self._good_metrics()
+        metrics["final_linking_number"] = -1  # abs(-1) > 0.5
+        passes, violations = check_reactor_constraints(metrics, self._good_reactor())
+        assert passes is False
+        assert any(v["metric"] == "final_linking_number" for v in violations)
+
+    def test_coils_not_linked_to_surface(self):
+        """Coils delinked from plasma surface should fail."""
+        metrics = self._good_metrics()
+        metrics["coils_linked_to_surface"] = False
+        passes, violations = check_reactor_constraints(metrics, self._good_reactor())
+        assert passes is False
+        assert any(v["metric"] == "coils_linked_to_surface" for v in violations)
+        # Should be a hard constraint
+        assert any(v.get("hard") for v in violations)
+
+    def test_coils_linked_to_surface_pass(self):
+        """Coils linked to surface should pass."""
+        metrics = self._good_metrics()
+        metrics["coils_linked_to_surface"] = True
+        passes, violations = check_reactor_constraints(metrics, self._good_reactor())
+        assert passes is True
+
+    def test_bn_violation(self):
+        """Soft constraint: violation recorded but passes_hard stays True."""
+        metrics = self._good_metrics()
+        metrics["avg_BdotN_over_B"] = 5e-2  # > 1e-2
+        passes, violations = check_reactor_constraints(metrics, self._good_reactor())
+        assert passes is True  # soft → still passes hard check
+        assert any(v["metric"] == "avg_BdotN_over_B" for v in violations)
+
+    def test_arclength_variation_violation(self):
+        """Soft constraint: sqrt(arclength_variation) > 1.0 m recorded but passes."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_arclength_variation"] = 4.0  # sqrt(4) = 2.0 > 1.0
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True  # soft → still passes
+        assert any(v["metric"] == "reactor_scale_arclength_variation" for v in violations)
+        av_v = [v for v in violations if v["metric"] == "reactor_scale_arclength_variation"][0]
+        assert abs(av_v["value"] - 2.0) < 1e-10  # transformed via sqrt
+
+    def test_arclength_variation_at_bound_pass(self):
+        """sqrt(arclength_variation) == 1.0 should pass with no violation."""
+        reactor = self._good_reactor()
+        reactor["reactor_scale_arclength_variation"] = 1.0  # sqrt(1.0) = 1.0, at bound
+        passes, violations = check_reactor_constraints(self._good_metrics(), reactor)
+        assert passes is True
+        assert not any(v["metric"] == "reactor_scale_arclength_variation" for v in violations)
+
+    def test_multiple_soft_violations_still_pass(self):
+        """Multiple soft violations should NOT cause passes=False."""
+        metrics = self._good_metrics()
+        metrics["avg_BdotN_over_B"] = 1e-1  # soft violation
+        reactor = self._good_reactor()
+        reactor["reactor_scale_min_cs_separation"] = 0.5   # soft violation
+        reactor["reactor_scale_total_length"] = 300.0      # soft violation
+        passes, violations = check_reactor_constraints(metrics, reactor)
+        assert passes is True  # no hard violations → passes
+        assert len(violations) == 3
+        assert not any(v["hard"] for v in violations)
+
+    def test_multiple_violations_with_hard(self):
+        """Mix of hard and soft violations → passes=False (hard drives it)."""
+        metrics = self._good_metrics()
+        metrics["avg_BdotN_over_B"] = 1e-1  # soft violation
+        reactor = self._good_reactor()
+        reactor["N_turns_per_coil"] = [600]  # max 600 > 500 → hard violation
+        reactor["reactor_scale_min_cs_separation"] = 0.5   # soft violation
+        passes, violations = check_reactor_constraints(metrics, reactor)
+        assert passes is False  # hard violation present
+        assert len(violations) == 3
+
+    def test_exact_bounds_pass(self):
+        """Values exactly at the bound should pass."""
+        metrics = {"avg_BdotN_over_B": 1e-2, "final_linking_number": 0,
+                   "coils_linked_to_surface": True}
+        reactor = {
+            "reactor_scale_min_cs_separation": 1.3,
+            "reactor_scale_min_cc_separation": 0.7,
+            "reactor_scale_total_length": 220.0,
+            "reactor_scale_max_curvature": 1.0,
+            "reactor_scale_mean_squared_curvature": 1.0,  # sqrt(1.0) = 1.0
+            "reactor_scale_arclength_variation": 1.0,      # sqrt(1.0) = 1.0
+            "N_turns_per_coil": [500, 400],  # max 500, exactly at bound
+            "finite_build_cc_clearance": 0.0,  # exactly at bound (touching)
+        }
+        passes, violations = check_reactor_constraints(metrics, reactor)
+        assert passes is True
+
+
+class TestLeaderboardConstraintFiltering:
+    """Tests for constraint filtering in build_leaderboard_json."""
+
+    def test_passing_entry_included(self):
+        methods = {
+            "good_method": {
+                "method_name": "good",
+                "score_primary": 0.001,
+                "metrics": {"final_squared_flux": 0.001},
+                "passes_constraints": True,
+                "constraint_violations": [],
+            }
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 1
+        assert len(lb["excluded_entries"]) == 0
+
+    def test_failing_entry_excluded(self):
+        methods = {
+            "bad_method": {
+                "method_name": "bad",
+                "score_primary": 0.001,
+                "metrics": {"final_squared_flux": 0.001},
+                "passes_constraints": False,
+                "constraint_violations": [
+                    {"label": "Max turns per coil", "metric": "N_turns_per_coil",
+                     "value": 600, "bound": 500, "direction": "max",
+                     "units": "(turns)", "hard": True}
+                ],
+            }
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 0
+        assert len(lb["excluded_entries"]) == 1
+        assert lb["excluded_entries"][0]["method_name"] == "bad"
+        assert len(lb["excluded_entries"][0]["constraint_violations"]) == 1
+
+    def test_mixed_entries(self):
+        methods = {
+            "good": {
+                "method_name": "good",
+                "score_primary": 0.002,
+                "metrics": {"final_squared_flux": 0.002},
+                "passes_constraints": True,
+                "constraint_violations": [],
+            },
+            "bad": {
+                "method_name": "bad",
+                "score_primary": 0.001,
+                "metrics": {"final_squared_flux": 0.001},
+                "passes_constraints": False,
+                "constraint_violations": [
+                    {"label": "test", "metric": "x", "value": 1, "bound": 0,
+                     "direction": "max", "units": ""}
+                ],
+            },
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 1
+        assert lb["entries"][0]["method_name"] == "good"
+        assert len(lb["excluded_entries"]) == 1
+        assert lb["excluded_entries"][0]["method_name"] == "bad"
+
+    def test_legacy_entry_without_constraint_field(self):
+        """Legacy entries without passes_constraints default to included."""
+        methods = {
+            "legacy": {
+                "method_name": "legacy",
+                "score_primary": 0.005,
+                "metrics": {"final_squared_flux": 0.005},
+                # No passes_constraints key
+            }
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 1
+        assert len(lb["excluded_entries"]) == 0
+
+    def test_composite_score_zero_excluded(self):
+        """Entries with composite_score=0 should be excluded even if passes_constraints is True."""
+        methods = {
+            "infeasible": {
+                "method_name": "infeasible",
+                "composite_score": 0.0,
+                "score_primary": 0.001,
+                "metrics": {"final_squared_flux": 0.001},
+                "passes_constraints": True,  # Constraints say OK but score is 0
+            }
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 0
+        assert len(lb["excluded_entries"]) == 1
+
+    def test_soft_violation_entry_not_excluded(self):
+        """Entries with only soft violations should stay in main leaderboard."""
+        methods = {
+            "soft_fail": {
+                "method_name": "soft_fail",
+                "composite_score": 0.7,  # below 1 due to soft violations
+                "score_primary": 0.003,
+                "metrics": {"final_squared_flux": 0.003},
+                "passes_constraints": True,  # soft-only → still passes hard check
+                "constraint_violations": [
+                    {"label": "Total coil length",
+                     "metric": "reactor_scale_total_length",
+                     "value": 250.0, "bound": 220.0,
+                     "direction": "max", "units": "m", "hard": False},
+                ],
+            }
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 1  # NOT excluded
+        assert len(lb["excluded_entries"]) == 0
+        # Soft violations should be carried through
+        assert len(lb["entries"][0].get("constraint_violations", [])) == 1
+
+    def test_sort_by_composite_score_descending(self):
+        """Leaderboard should sort by composite_score descending (higher is better)."""
+        methods = {
+            "medium": {
+                "method_name": "medium",
+                "composite_score": 1.5,
+                "score_primary": 0.002,
+                "metrics": {"final_squared_flux": 0.002},
+                "passes_constraints": True,
+                "constraint_violations": [],
+            },
+            "best": {
+                "method_name": "best",
+                "composite_score": 2.5,
+                "score_primary": 0.001,
+                "metrics": {"final_squared_flux": 0.001},
+                "passes_constraints": True,
+                "constraint_violations": [],
+            },
+            "worst": {
+                "method_name": "worst",
+                "composite_score": 0.8,
+                "score_primary": 0.003,
+                "metrics": {"final_squared_flux": 0.003},
+                "passes_constraints": True,
+                "constraint_violations": [],
+            },
+        }
+        lb = build_leaderboard_json(methods)
+        assert len(lb["entries"]) == 3
+        assert lb["entries"][0]["method_name"] == "best"
+        assert lb["entries"][0]["rank"] == 1
+        assert lb["entries"][1]["method_name"] == "medium"
+        assert lb["entries"][1]["rank"] == 2
+        assert lb["entries"][2]["method_name"] == "worst"
+        assert lb["entries"][2]["rank"] == 3
+
+
+class TestCompositeScore:
+    """Tests for compute_composite_score function."""
+
+    def _good_metrics(self):
+        """Return metrics that pass all constraints."""
+        return {
+            "avg_BdotN_over_B": 5e-3,  # < 1e-2
+            "final_linking_number": 0,
+            "coils_linked_to_surface": True,
+        }
+
+    def _good_reactor(self):
+        """Return reactor-scale metrics that pass all constraints."""
+        return {
+            "reactor_scale_min_cs_separation": 2.0,
+            "reactor_scale_min_cc_separation": 1.0,
+            "reactor_scale_total_length": 180.0,
+            "reactor_scale_max_curvature": 0.8,
+            "reactor_scale_mean_squared_curvature": 0.5,  # sqrt(0.5) ≈ 0.71
+            "reactor_scale_max_max_coil_force": 0.3,
+            "reactor_scale_arclength_variation": 0.5,      # sqrt(0.5) ≈ 0.71 < 1.0
+            "N_turns_per_coil": [2, 3, 2],  # max 3 < 500
+            "finite_build_cc_clearance": 0.5,              # > 0 (no overlap)
+        }
+
+    def test_feasible_score_positive(self):
+        """Feasible submissions should get a positive score."""
+        score, details = compute_composite_score(
+            self._good_metrics(), self._good_reactor()
+        )
+        assert score > 0
+        assert not details["infeasible"]
+        assert details["n_factors"] > 0
+
+    def test_feasible_score_above_one(self):
+        """Submissions with good margin should score above 1."""
+        score, details = compute_composite_score(
+            self._good_metrics(), self._good_reactor()
+        )
+        assert score > 1.0  # Good margins on all constraints
+
+    def test_coils_delinked_score_zero(self):
+        """Delinked coils (hard constraint) should give score = 0."""
+        metrics = self._good_metrics()
+        metrics["coils_linked_to_surface"] = False
+        score, details = compute_composite_score(metrics, self._good_reactor())
+        assert score == 0.0
+        assert details["infeasible"] is True
+        assert "linked" in details["reason"].lower()
+
+    def test_linking_number_nonzero_score_zero(self):
+        """Non-zero coil-coil linking number should give score = 0."""
+        metrics = self._good_metrics()
+        metrics["final_linking_number"] = 2
+        score, details = compute_composite_score(metrics, self._good_reactor())
+        assert score == 0.0
+        assert details["infeasible"] is True
+
+    def test_linking_number_negative_score_zero(self):
+        """Negative linking number should also give score = 0 (abs check)."""
+        metrics = self._good_metrics()
+        metrics["final_linking_number"] = -1
+        score, details = compute_composite_score(metrics, self._good_reactor())
+        assert score == 0.0
+        assert details["infeasible"] is True
+
+    def test_at_bounds_score_one(self):
+        """Values exactly at bounds should give score ≈ 1."""
+        metrics = {
+            "avg_BdotN_over_B": 1e-2,
+            "final_linking_number": 0,
+            "coils_linked_to_surface": True,
+        }
+        reactor = {
+            "reactor_scale_min_cs_separation": 1.3,
+            "reactor_scale_min_cc_separation": 0.7,
+            "reactor_scale_total_length": 220.0,
+            "reactor_scale_max_curvature": 1.0,
+            "reactor_scale_mean_squared_curvature": 1.0,  # sqrt(1.0) = 1.0
+            "reactor_scale_arclength_variation": 1.0,      # sqrt(1.0) = 1.0
+            "N_turns_per_coil": [100],       # hard constraint, not in soft score
+            "finite_build_cc_clearance": 0.5, # hard constraint, not in soft score
+        }
+        score, details = compute_composite_score(metrics, reactor)
+        # All margins are 0, so score = exp(0) = 1.0
+        assert abs(score - 1.0) < 1e-10
+
+    def test_score_factors_correctness(self):
+        """Verify individual factor computations."""
+        import math
+        metrics = {
+            "avg_BdotN_over_B": 5e-3,  # 50% of bound (1e-2)
+            "final_linking_number": 0,
+            "coils_linked_to_surface": True,
+        }
+        reactor = {
+            "reactor_scale_min_cs_separation": 2.6,  # 2x bound → margin = 1.0
+            "reactor_scale_min_cc_separation": 0.7,   # at bound → margin = 0.0
+        }
+        score, details = compute_composite_score(metrics, reactor)
+        factors = details["factors"]
+
+        # BdotN: max constraint, margin = 1 - 5e-3/1e-2 = 0.5
+        assert abs(factors["avg_BdotN_over_B"]["margin"] - 0.5) < 1e-10
+
+        # CS separation: min constraint, margin = 2.6/1.3 - 1 = 1.0
+        assert abs(factors["reactor_scale_min_cs_separation"]["margin"] - 1.0) < 1e-10
+
+        # CC separation: min constraint, margin = 0.7/0.7 - 1 = 0.0
+        assert abs(factors["reactor_scale_min_cc_separation"]["margin"] - 0.0) < 1e-10
+
+        # Score = exp(mean(0.5, 1.0, 0.0)) = exp(0.5)
+        expected_score = math.exp((0.5 + 1.0 + 0.0) / 3)
+        assert abs(score - expected_score) < 1e-10
+
+    def test_empty_metrics_score_none(self):
+        """No metrics at all should give score None (not infeasible, just unknown)."""
+        score, details = compute_composite_score({}, {})
+        assert score is None
+        assert "No metrics" in details.get("reason", "")
+
+    def test_missing_some_metrics(self):
+        """Score should be computed from available metrics only."""
+        metrics = {
+            "avg_BdotN_over_B": 5e-3,  # < 1e-2
+            "final_linking_number": 0,
+            "coils_linked_to_surface": True,
+        }
+        reactor = {
+            "reactor_scale_min_cs_separation": 2.0,
+            # Only 2 soft constraints available (BdotN + CS)
+        }
+        score, details = compute_composite_score(metrics, reactor)
+        assert score > 0
+        assert details["n_factors"] == 2  # BdotN + CS separation
+
+    def test_sqrt_msc_transform(self):
+        """MSC factor should use sqrt transform."""
+        metrics = self._good_metrics()
+        reactor = self._good_reactor()
+        reactor["reactor_scale_mean_squared_curvature"] = 0.64  # sqrt(0.64)=0.8, bound=1.0
+        score, details = compute_composite_score(metrics, reactor)
+        msc_factor = details["factors"]["reactor_scale_mean_squared_curvature"]
+        # margin = 1 - sqrt(0.64)/1.0 = 1 - 0.8 = 0.2
+        assert abs(msc_factor["margin"] - 0.2) < 1e-10
+        assert abs(msc_factor["value"] - 0.8) < 1e-10
+
+    def test_worse_design_lower_score(self):
+        """Design closer to bounds should score lower."""
+        metrics = self._good_metrics()
+        good_reactor = self._good_reactor()
+        bad_reactor = self._good_reactor()
+        # Worse total length — closer to the 220 m bound
+        bad_reactor["reactor_scale_total_length"] = 215.0  # close to 220
+
+        score_good, _ = compute_composite_score(metrics, good_reactor)
+        score_bad, _ = compute_composite_score(metrics, bad_reactor)
+        assert score_good > score_bad
+
+    def test_hard_constraint_takes_precedence(self):
+        """Hard constraint failure should override even excellent soft metrics."""
+        metrics = self._good_metrics()
+        metrics["coils_linked_to_surface"] = False  # Hard fail
+        reactor = self._good_reactor()
+        score, details = compute_composite_score(metrics, reactor)
+        assert score == 0.0
+        assert details["infeasible"] is True
+
+    def test_n_turns_hard_constraint_score_zero(self):
+        """N_turns exceeding 500 should give score = 0 (hard constraint)."""
+        metrics = self._good_metrics()
+        reactor = self._good_reactor()
+        reactor["N_turns_per_coil"] = [100, 600, 200]  # max 600 > 500
+        score, details = compute_composite_score(metrics, reactor)
+        assert score == 0.0
+        assert details["infeasible"] is True
+
+
+class TestReactorScaleLeaderboard:
+    """Tests for write_reactor_scale_leaderboard."""
+
+    def test_writes_rst_file(self, tmp_path):
+        """write_reactor_scale_leaderboard should produce an RST file."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.5,
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                            "reactor_scale_max_max_coil_force": 0.3,
+                            "reactor_scale_total_length": 180.0,
+                            "total_superconductor_length_km": 54.0,
+                            "reactor_scale_arclength_variation": 0.05,
+                            "max_winding_pack_width": 0.035,
+                            "per_turn_max_force": 0.15,
+                            "per_turn_max_torque": 0.08,
+                            "N_turns_per_coil": [2, 3],
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        assert out_rst.exists()
+        content = out_rst.read_text()
+        assert "Reactor-Scale Leaderboard" in content
+        assert "Test Surface" in content  # display_name
+        assert "1.500" in content  # composite_score
+        assert "pass" in content  # status column (no violations)
+        assert "user1" in content
+        # Units should appear in column headers, not as subscripts
+        assert r"[\text{m}]" in content  # e.g. d_{cs}\ [\text{m}]
+        assert r"[\text{MN/m}]" in content  # e.g. F_turn\ [\text{MN/m}]
+        # Per-turn force and torque columns should appear
+        assert r"F_\text{turn}" in content
+        assert r"\tau_\text{turn}" in content
+        # Superconductor length column should appear
+        assert r"L_\text{SC}" in content
+        assert r"[\text{km}]" in content
+        assert "54.0" in content  # the SC length value
+        # N_turns_per_coil should appear as a comma-separated column
+        assert r"N_{\text{turns},i}" in content
+        assert "2, 3" in content  # per-coil turns values
+        # Single-turn F_max / tau_max should NOT appear (replaced by per-turn)
+        assert r"F_\text{max}" not in content
+        assert r"\tau_\text{max}" not in content
+        # Average force/torque should NOT appear
+        assert r"\bar{F}" not in content
+        assert r"\bar{\tau}" not in content
+        # Arclength variation should appear
+        assert r"\mathrm{Var}(l_i)" in content
+        assert r"[\text{m}^2]" in content
+        # Winding-pack width column should appear
+        assert r"w_\text{WP}" in content
+        assert "3.50e-02" in content  # the max WP width value (sci notation)
+        # Finite-build clearance constraint should appear in the constraint table
+        assert "Finite-build" in content
+        assert "clearance" in content.lower()
+
+    def test_excluded_entry_shows_fail(self, tmp_path):
+        """Entries with hard constraint violations should show FAIL status."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 0.0,
+                        "constraint_violations": [
+                            {"label": "Max turns per coil",
+                             "metric": "N_turns_per_coil",
+                             "hard": True}
+                        ],
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 0.5,
+                            "reactor_scale_max_max_coil_force": 300.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        assert "FAIL" in content
+        assert ":red:" in content
+
+    def test_soft_violation_shows_orange_not_fail(self, tmp_path):
+        """Soft violations should show orange cells but NOT FAIL status."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 0.8,
+                        "constraint_violations": [
+                            {"label": "Total coil length",
+                             "metric": "reactor_scale_total_length",
+                             "hard": False}
+                        ],
+                        "reactor_scale_metrics": {
+                            "reactor_scale_total_length": 250.0,
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        # Soft violation → orange highlight, NOT red FAIL
+        assert ":orange:" in content
+        assert "pass" in content  # status should be pass
+        # Should NOT show FAIL for a pure soft violation
+        lines_with_fail = [line for line in content.splitlines()
+                           if "FAIL" in line and "hard" not in line.lower()
+                           and "constraint" not in line.lower()]
+        # The only lines with FAIL should be in the explanatory text, not data rows
+        for line in lines_with_fail:
+            assert "* -" not in line, f"Data row incorrectly shows FAIL: {line}"
+
+    def test_empty_surface(self, tmp_path):
+        """Surfaces with no entries should show a placeholder."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {"empty_surf": {"entries": []}}
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        assert "No submissions" in content
+
+    def test_no_reactor_scale_data(self, tmp_path):
+        """Entries without reactor_scale_metrics should show a message."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "surf": {
+                "entries": [
+                    {"rank": 1, "method_name": "m1", "contact": "u",
+                     "composite_score": None, "reactor_scale_metrics": {}}
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        assert "No reactor-scale data" in content

@@ -2066,6 +2066,7 @@ def _optimize_coils_loop_impl(
         torque_threshold = cached['torque_threshold']
         coil_width = cached['coil_width']
         R0 = cached['R0']
+        major_radius = cached.get('major_radius', 10.0 / R0 if R0 != 0 else 1.0)
     else:
         # First step or no cache: compute thresholds normally
         # Set default constraint thresholds if not provided
@@ -3058,7 +3059,26 @@ def _optimize_coils_loop_impl(
     max_BdotN_overB = np.max(absBn / abs_B_safe) if np.any(abs_B > 0) else 0.0
     
     print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")
-    print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")    
+    print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")
+
+    # Check coil-surface interlinking: each base coil must encircle the plasma
+    # by having points both inside the torus hole (R < R_min_surface) and
+    # outside the plasma (R > R_max_surface).
+    surface_gamma = s.gamma()
+    R_surface = np.sqrt(surface_gamma[:, :, 0]**2 + surface_gamma[:, :, 1]**2)
+    R_min_surface = np.min(R_surface)
+    R_max_surface = np.max(R_surface)
+    coils_linked_to_surface = True
+    for c in base_curves:
+        gamma = c.gamma()
+        R_coil = np.sqrt(gamma[:, 0]**2 + gamma[:, 1]**2)
+        has_inside = np.any(R_coil < R_min_surface)
+        has_outside = np.any(R_coil > R_max_surface)
+        if not (has_inside and has_outside):
+            coils_linked_to_surface = False
+            break
+    print(f"  Coils linked to surface: {coils_linked_to_surface}")
+
     print("Optimization completed successfully!")
     print(f"Results saved to: {out_dir}")
     
@@ -3245,7 +3265,8 @@ def _optimize_coils_loop_impl(
         'force_threshold': force_threshold,
         'torque_threshold': torque_threshold,
         'coil_width': coil_width,
-        'R0': R0,
+        'R0': R0,                        # dimensionless scaling factor (10/major_radius)
+        'major_radius': major_radius,    # actual device major radius [m]
     }
     
     # Prepare results dictionary
@@ -3259,14 +3280,19 @@ def _optimize_coils_loop_impl(
         '_cached_thresholds': cached_thresholds,  # Store for continuation steps
         'final_min_cs_separation': Jcsdist.shortest_distance(),
         'final_min_cc_separation': Jccdist.shortest_distance(),
+        'final_length_per_coil': [float(CurveLength(c).J()) for c in base_curves],
+        'final_current_per_coil': [float(abs(coils[i].current.get_value())) for i in range(ncoils)],
         'final_total_length': sum(CurveLength(c).J() for c in base_curves),
         'final_max_curvature': max(np.max(c.kappa()) for c in base_curves),
         'final_average_curvature': np.mean([c.kappa() for c in base_curves]),
         'final_arclength_variation': np.mean([ArclengthVariation(c).J() for c in base_curves]),
         'final_mean_squared_curvature': np.max([np.mean(c.kappa() ** 2) for c in base_curves]),
         'final_linking_number': Jlink.J(),
+        'coils_linked_to_surface': coils_linked_to_surface,
         'final_max_max_coil_force': np.max(max_force),
         'final_avg_max_coil_force': np.mean(max_force),
+        'final_max_force_per_coil': [float(f) for f in max_force],
+        'final_max_torque_per_coil': [float(t) for t in max_torque],
         'final_max_max_coil_torque': np.max(max_torque),
         'final_avg_max_coil_torque': np.mean(max_torque),
         'avg_BdotN_over_B': avg_BdotN_over_B,

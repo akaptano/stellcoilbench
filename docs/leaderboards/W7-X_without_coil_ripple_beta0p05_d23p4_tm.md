@@ -10,16 +10,13 @@
 <thead>
 <tr>
 <th style="font-size: 0.9em; padding: 4px 8px;">#</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">Score</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">User</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Date</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN over B</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">B̄_n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">continuation step</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">F̄</th>
@@ -31,11 +28,8 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">MSC</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cc</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cs</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">final order</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">L</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">fourier continuation</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">FC</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">fourier order</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
 </tr>
@@ -43,16 +37,13 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.850</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">7.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.6e+06</td>
@@ -64,26 +55,20 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.5e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.3e+02</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.850</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">7.9e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.6e+06</td>
@@ -95,26 +80,20 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.5e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.4e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.4e+02</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">3</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.836</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.1e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.5e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.2e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e+06</td>
@@ -126,26 +105,20 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.2e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e+03</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.836</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8.1e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.5e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.2e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e+06</td>
@@ -157,11 +130,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.5e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.2e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.3e+03</td>
 </tr>
@@ -173,11 +143,7 @@
 - Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
-- Bdotn
-- Bdotn Over B
-- Arclength Variation Threshold
 - Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
-- Continuation Step
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
 - Average of maximum force $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ per coil ($\text{N}/\text{m}$)
@@ -189,10 +155,7 @@
 - Mean squared curvature $\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i^2$ ($\text{m}^{-2}$)
 - Minimum coil-to-coil distance $d_{cc}$ ($\text{m}$)
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
-- Final Order
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
-- Fourier Continuation
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
-- Fourier Order
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)

@@ -119,21 +119,252 @@ REACTOR_REFERENCE = {
 }
 
 
+############################################################################
+# REBCO critical-current model and Stellaris-style winding-pack parameters
+# -------------------------------------------------------------------------
+# Following Lion et al., "Stellaris: A high-field quasi-isodynamic
+# stellarator for a prototypical fusion power plant", Fusion Engineering
+# and Design 214 (2025) 114868, Table 8 and Section 2.9.
+############################################################################
+
+# Stellaris-style winding-pack constants
+STELLARIS_T_OP = 20.0          # Operating temperature [K]
+STELLARIS_ETA = 0.80           # Utilization cap  j_op / j_crit ≤ η
+STELLARIS_I_LEAD_MAX = 50e3    # Current-lead limit [A]  (50 kA)
+STELLARIS_A_TURN = 400e-6      # Turn cross-section area [m²]  (20 mm × 20 mm)
+STELLARIS_A_HTS = 36e-6        # HTS tape-stack area [m²]  (6 mm × 6 mm)
+
+# Winding-pack self-field enhancement factor.
+# B_peak ≈ f_wp × B_external.  For typical stellarator winding packs with
+# hundreds of turns the self-field adds ~20-40% to the background field at
+# the inner edge of the pack (validated against Stellaris Table 8).
+WP_B_ENHANCEMENT = 1.3
+
+
+def _rebco_jc_tape_stack(B: float, T_op: float = 20.0) -> float:
+    """Engineering critical-current density of an optimally-aligned REBCO
+    tape stack at temperature *T_op* and peak field *B* [T].
+
+    Returns j_crit in **A/m²** (SI).
+
+    The model is a Kim-like parametrization calibrated to the Stellaris
+    magneto-angular Jc data at 20 K with field-aligned tapes
+    (Lion et al., FED 214, 2025, Table 8 / Fig. 42).
+
+    Model:  j_crit(B) = C₀ / (1 + (B/B₀)^α)
+
+    At T = 20 K the fitted constants are:
+        C₀ = 5.0 × 10⁹  A/m²   (≈ 5000 A/mm²  at self-field)
+        B₀ = 18.14 T
+        α  = 0.902
+
+    Validation against Stellaris Table 8 (tape-stack j_op/j_crit):
+        B=20 T → j_crit ≈ 2450 A/mm²,  B=25 T → j_crit ≈ 2200 A/mm²
+
+    For temperatures other than 20 K a simple linear scaling
+    Jc(T) ∝ (1 − T/Tc) with Tc = 92 K is applied.
+    """
+    # --- Fitted parameters at T_ref = 20 K ---
+    T_REF = 20.0
+    T_C = 92.0          # REBCO critical temperature [K]
+    C0 = 5.0e9           # A/m²  (= 5000 A/mm²)
+    B0 = 18.14           # T
+    ALPHA = 0.902
+
+    if B < 0:
+        B = 0.0
+
+    jc_20K = C0 / (1.0 + (B / B0) ** ALPHA)
+
+    # Temperature correction (linear in reduced temperature)
+    if abs(T_op - T_REF) > 0.01:
+        jc = jc_20K * (1.0 - T_op / T_C) / (1.0 - T_REF / T_C)
+    else:
+        jc = jc_20K
+
+    return max(jc, 0.0)
+
+
+def _compute_N_turns_critical_current(
+    per_coil_forces: list,
+    per_coil_currents: list | None,
+    per_coil_lengths: list | None,
+    L_scale: float,
+    B_scale: float,
+    target_B: float,
+    *,
+    T_op: float = STELLARIS_T_OP,
+    eta: float = STELLARIS_ETA,
+    I_lead_max: float = STELLARIS_I_LEAD_MAX,
+    A_HTS: float = STELLARIS_A_HTS,
+    wp_enhancement: float = WP_B_ENHANCEMENT,
+) -> dict:
+    """Compute per-coil turn counts based on critical-current density.
+
+    Following the Stellaris winding-pack model (Lion et al., FED 2025):
+      - 20 K operating temperature
+      - 80 % utilization margin (η = j_op / j_crit)
+      - 50 kA current-lead limit
+      - 6 mm × 6 mm HTS tape-stack cross-section
+
+    Algorithm for each coil *i*:
+
+    1. **Required ampere-turns** at reactor scale::
+
+           NI_i = I_device_i × B_scale × L_scale
+
+       where ``I_device_i`` is the simsopt single-turn current.  If
+       per-coil currents are unavailable, *NI* is estimated from
+       the force data:  ``NI_i ∝ sqrt(F_i / (μ₀ / (4π L_i)))``.
+
+    2. **Peak field estimate** at the conductor::
+
+           B_ext_i  = (F/L)_device_i / I_device_i × B_scale
+           B_peak_i = B_ext_i × wp_enhancement
+
+       The winding-pack self-field enhancement (*wp_enhancement*, default
+       1.3) accounts for the additional field produced by the multi-turn
+       pack itself.
+
+    3. **Critical current of the HTS cable** (tape-stack area A_HTS)::
+
+           Ic_cable = j_crit(B_peak, T_op) × A_HTS
+
+    4. **Operating current per turn** (lead-limited or tape-limited)::
+
+           I_turn = min(I_lead_max, η × Ic_cable)
+
+    5. **Number of turns**::
+
+           N_turns_jc_i = ⌈ NI_i / I_turn_i ⌉
+
+    Parameters
+    ----------
+    per_coil_forces : list[float]
+        Device-scale maximum force/length per base coil [N/m].
+    per_coil_currents : list[float] | None
+        Device-scale current per base coil [A].  If *None*, currents
+        are estimated from force data.
+    per_coil_lengths : list[float] | None
+        Device-scale centreline length per base coil [m].
+    L_scale, B_scale : float
+        Geometric and magnetic-field scaling ratios (reactor / device).
+    target_B : float
+        Device-scale target B-field [T].
+
+    Returns
+    -------
+    dict with keys:
+        N_turns_jc : list[int]
+            Per-coil turn count from Jc requirements.
+        NI_reactor : list[float]
+            Required ampere-turns per coil at reactor scale [A].
+        I_turn : list[float]
+            Operating current per turn [A].
+        B_peak_estimate : list[float]
+            Estimated peak conductor field [T].
+        jc_tape_stack : list[float]
+            Tape-stack j_crit at the peak field [A/m²].
+        Ic_cable : list[float]
+            Critical current of the HTS cable [A].
+        model_params : dict
+            Constants used (T_op, eta, I_lead_max, A_HTS, wp_enhancement).
+    """
+    n_coils = len(per_coil_forces)
+
+    # ----- per-coil device currents -----
+    if per_coil_currents is not None and len(per_coil_currents) == n_coils:
+        I_dev = [abs(float(c)) for c in per_coil_currents]
+    else:
+        # Fallback: estimate I from F/L and B_device.
+        # F/L ≈ I × B_ext and B_ext ≈ target_B at the coil location
+        # → I ≈ (F/L) / target_B   (rough but usable).
+        I_dev = [abs(float(f)) / max(target_B, 0.01) for f in per_coil_forces]
+
+    # ----- compute per-coil quantities -----
+    NI_list: list[float] = []
+    I_turn_list: list[float] = []
+    B_peak_list: list[float] = []
+    jc_list: list[float] = []
+    Ic_list: list[float] = []
+    N_turns_jc: list[int] = []
+
+    for i in range(n_coils):
+        # 1. Required ampere-turns at reactor scale
+        NI_i = I_dev[i] * B_scale * L_scale
+        NI_list.append(float(NI_i))
+
+        # 2. Peak field estimate
+        #    B_ext ≈ (F/L)_device / I_device × B_scale
+        if I_dev[i] > 0:
+            B_ext_i = (per_coil_forces[i] / I_dev[i]) * B_scale
+        else:
+            B_ext_i = target_B * B_scale  # fallback to on-axis field
+        B_peak_i = B_ext_i * wp_enhancement
+        B_peak_list.append(float(B_peak_i))
+
+        # 3. Critical current
+        jc_i = _rebco_jc_tape_stack(B_peak_i, T_op)
+        jc_list.append(float(jc_i))
+        Ic_cable_i = jc_i * A_HTS
+        Ic_list.append(float(Ic_cable_i))
+
+        # 4. Operating current per turn
+        I_turn_i = min(I_lead_max, eta * Ic_cable_i)
+        I_turn_list.append(float(I_turn_i))
+
+        # 5. Number of turns
+        if I_turn_i > 0:
+            n_i = max(1, int(np.ceil(NI_i / I_turn_i)))
+        else:
+            n_i = 1  # degenerate case
+        N_turns_jc.append(n_i)
+
+    return {
+        "N_turns_jc": N_turns_jc,
+        "NI_reactor": NI_list,
+        "I_turn": I_turn_list,
+        "B_peak_estimate": B_peak_list,
+        "jc_tape_stack": jc_list,
+        "Ic_cable": Ic_list,
+        "model_params": {
+            "T_op_K": T_op,
+            "eta": eta,
+            "I_lead_max_A": I_lead_max,
+            "A_HTS_m2": A_HTS,
+            "wp_enhancement": wp_enhancement,
+        },
+    }
+
+
 def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
-    """Convert final metrics to reactor-scale equivalents.
-    
-    Scaling relationships:
-    - Length scale factor: L_reactor / L_device
-    - B-field scale factor: B_reactor / B_device
-    
-    For different quantities:
-    - Lengths (d_cc, d_cs, total_length): multiply by length scale factor
-    - Curvature (κ): divide by length scale factor (κ ~ 1/L)
-    - Forces: scale by (B_reactor/B_device)² * (L_reactor/L_device)
-    - Torques: scale by (B_reactor/B_device)² * (L_reactor/L_device)²
-    - Normalized quantities (B·n/|B|, etc.): no scaling needed
-    
-    Returns dict with reactor-scale metrics and scaling factors used.
+    """Convert final device-scale metrics to reactor-scale equivalents.
+
+    Scaling relationships (L = L_reactor/L_device, B = B_reactor/B_device):
+
+    - Lengths [m] (d_cc, d_cs, total_length): × L
+    - Curvature [1/m] (κ): × 1/L
+    - Mean squared curvature [1/m²]: × 1/L²
+    - Force/length [N/m → MN/m]: × B²L / 1e6
+    - Torque/length [N → MN]: × B²L² / 1e6
+    - Arclength variation [m²]: × L²
+    - SquaredFlux [T²m²]: × B²L²
+    - Normalised quantities (B·n/|B|, linking_number): no scaling
+
+    Also computes per-coil quantities:
+
+    - **N_turns_per_coil** = max(N_force, N_jc) — force-based and REBCO-Jc-
+      based turn counts (see ``_compute_N_turns_critical_current``).
+    - **winding_pack_width_per_coil** — finite-build side length
+      w = sqrt(N_turns) × 20 mm (Stellaris geometry).
+    - **finite_build_cc_clearance** — d_cc_min − w_max.  Negative values
+      indicate the finite-build winding packs would physically overlap.
+    - **total_superconductor_length_km** — Σ_i N_turns_i × length_i / 1000.
+
+    Returns
+    -------
+    dict
+        Reactor-scale metrics, scaling factors, and derived winding-pack data.
     """
     reactor_metrics: dict = {
         "reference": REACTOR_REFERENCE.copy(),
@@ -142,12 +373,21 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     # Get device parameters from metrics
     target_B = metrics.get("target_B_field", None)
     
-    # Try to get major radius from cached thresholds (R0 is stored there)
+    # Get the actual device major radius [m].
+    # NOTE: _cached_thresholds["R0"] is a dimensionless scaling factor
+    # (10 / major_radius), *not* the real major radius.  The true value
+    # is stored under the "major_radius" key.
     cached = metrics.get("_cached_thresholds", {})
-    device_R0 = cached.get("R0", None)
+    major_radius = cached.get("major_radius", None)
+    
+    # Fallback: try to compute from the R0 scaling factor (legacy entries)
+    if major_radius is None:
+        r0_scale = cached.get("R0", None)
+        if r0_scale is not None and r0_scale != 0:
+            major_radius = 10.0 / r0_scale  # invert: R0_scale = 10 / major_radius
     
     # If not in metrics, try to get from case_cfg
-    if device_R0 is None and case_cfg is not None:
+    if major_radius is None and case_cfg is not None:
         try:
             # Load surface to get major radius
             from stellcoilbench.config_scheme import CaseConfig
@@ -159,18 +399,18 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
         except Exception:
             pass
     
-    if device_R0 is None or target_B is None:
+    if major_radius is None or target_B is None:
         reactor_metrics["error"] = "Could not determine device scale parameters"
         return reactor_metrics
     
     # Compute scaling factors
-    L_scale = REACTOR_REFERENCE["major_radius"] / device_R0  # Length scale factor
+    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius  # Length scale factor
     B_scale = REACTOR_REFERENCE["B_field"] / target_B  # B-field scale factor
     
     reactor_metrics["scaling_factors"] = {
         "length_scale": float(L_scale),
         "B_field_scale": float(B_scale),
-        "device_major_radius": float(device_R0),
+        "device_major_radius": float(major_radius),
         "device_target_B": float(target_B),
     }
     
@@ -200,8 +440,9 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
             else:
                 reactor_metrics[reactor_key] = float(metrics[key]) / L_scale
     
-    # Scale force quantities: F ~ B² * L (for current-carrying conductors in external field)
-    # More precisely: F/L ~ j × B, and total force ~ B² * L for fixed current density
+    # Scale force-per-length quantities [N/m]: dF/dℓ = I × B
+    # I ∝ B·L (current scales to maintain field), B_ext ∝ B → dF/dℓ ∝ B²·L
+    # Report in MN/m (divide by 1e6).
     force_scale = (B_scale ** 2) * L_scale
     force_metrics = [
         "final_max_max_coil_force",
@@ -210,9 +451,11 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     for key in force_metrics:
         if key in metrics:
             reactor_key = key.replace("final_", "reactor_scale_")
-            reactor_metrics[reactor_key] = float(metrics[key]) * force_scale
+            reactor_metrics[reactor_key] = float(metrics[key]) * force_scale / 1e6  # MN/m
     
-    # Scale torque quantities: τ ~ B² * L² (torque has extra length factor)
+    # Scale torque-per-length quantities [N]: dτ/dℓ = r × dF/dℓ
+    # r ∝ L (lever arm), dF/dℓ ∝ B²·L → dτ/dℓ ∝ B²·L²
+    # Report in MN (divide by 1e6).
     torque_scale = (B_scale ** 2) * (L_scale ** 2)
     torque_metrics = [
         "final_max_max_coil_torque",
@@ -221,16 +464,149 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     for key in torque_metrics:
         if key in metrics:
             reactor_key = key.replace("final_", "reactor_scale_")
-            reactor_metrics[reactor_key] = float(metrics[key]) * torque_scale
+            reactor_metrics[reactor_key] = float(metrics[key]) * torque_scale / 1e6  # MN
     
+    # Per-coil reactor-scale force [MN/m] and N_turns required.
+    #
+    # Two independent requirements set N_turns for each coil:
+    #
+    # (A) **Force limit** — simsopt models single-turn coils carrying total
+    #     current I.  With N turns each carrying I/N the Lorentz force per
+    #     turn drops by a factor of N.  Therefore:
+    #         N_turns_force_i = ⌈ F_reactor_i / F_limit ⌉
+    #
+    # (B) **Critical-current density** — following the Stellaris winding-pack
+    #     model (Lion et al., FED 214, 2025):  at 20 K with 80 % utilisation,
+    #     50 kA lead limit, and a 6 mm × 6 mm REBCO tape stack, the number
+    #     of turns is:
+    #         N_turns_jc_i = ⌈ NI_reactor_i / I_turn_i ⌉
+    #     where NI is the total reactor-scale ampere-turns and I_turn is
+    #     constrained by the REBCO Jc at the estimated peak conductor field.
+    #
+    # The reported N_turns is the element-wise maximum:
+    #     N_turns_i = max(N_turns_force_i, N_turns_jc_i)
+    #
+    FORCE_LIMIT_MN_PER_M = 0.5  # MN/m engineering limit
+    per_coil_forces = metrics.get("final_max_force_per_coil")
+    if per_coil_forces is not None and len(per_coil_forces) > 0:
+        reactor_force_per_coil = [f * force_scale / 1e6 for f in per_coil_forces]  # MN/m
+        n_turns_force = [max(1, int(np.ceil(f / FORCE_LIMIT_MN_PER_M)))
+                         for f in reactor_force_per_coil]
+
+        # --- Critical-current–based turn count ---
+        per_coil_currents = metrics.get("final_current_per_coil")
+        per_coil_lengths = metrics.get("final_length_per_coil")
+        jc_result = _compute_N_turns_critical_current(
+            per_coil_forces=per_coil_forces,
+            per_coil_currents=per_coil_currents,
+            per_coil_lengths=per_coil_lengths,
+            L_scale=L_scale,
+            B_scale=B_scale,
+            target_B=target_B,
+        )
+        n_turns_jc = jc_result["N_turns_jc"]
+
+        # --- Element-wise maximum of the two requirements ---
+        n_turns_per_coil = [max(nf, nj) for nf, nj in zip(n_turns_force, n_turns_jc)]
+
+        reactor_metrics["reactor_scale_force_per_coil_MN_per_m"] = reactor_force_per_coil
+        reactor_metrics["N_turns_per_coil"] = n_turns_per_coil
+        reactor_metrics["N_turns_force"] = n_turns_force
+        reactor_metrics["N_turns_jc"] = n_turns_jc
+        reactor_metrics["force_limit_MN_per_m"] = FORCE_LIMIT_MN_PER_M
+        reactor_metrics["jc_model"] = {
+            "NI_reactor": jc_result["NI_reactor"],
+            "I_turn": jc_result["I_turn"],
+            "B_peak_estimate": jc_result["B_peak_estimate"],
+            "jc_tape_stack_A_per_m2": jc_result["jc_tape_stack"],
+            "Ic_cable_A": jc_result["Ic_cable"],
+            "params": jc_result["model_params"],
+        }
+
+        # --- Finite-build (winding-pack) estimate ---
+        # Stellaris turn geometry: each turn occupies A_turn = 20 mm × 20 mm
+        # = 400 mm² = 400e-6 m².  This includes HTS tape stack, copper
+        # stabiliser, solder, structural steel jacket, and helium cooling
+        # channel (Lion et al., FED 2025, Table 7).
+        #
+        # For a square winding pack with N turns:
+        #   side_length = sqrt(N) × 20 mm
+        #
+        # Validation against Stellaris Table 8:
+        #   Coil 0: N=324 → w = sqrt(324)×20 mm = 18×20 = 360 mm  ✓
+        #   Coil 5: N=225 → w = sqrt(225)×20 mm = 15×20 = 300 mm  ✓
+        turn_side_m = np.sqrt(STELLARIS_A_TURN)  # = 0.020 m = 20 mm
+        wp_widths = [float(np.sqrt(n) * turn_side_m) for n in n_turns_per_coil]
+        reactor_metrics["winding_pack_width_per_coil"] = wp_widths
+        max_wp = float(max(wp_widths)) if wp_widths else 0.0
+        reactor_metrics["max_winding_pack_width"] = max_wp
+
+        # --- Finite-build coil-coil clearance ---
+        # simsopt's CurveCurveDistance measures centreline-to-centreline
+        # distance.  Each coil's winding pack extends w/2 from the
+        # centreline, so for two packs not to intersect we need:
+        #
+        #     d_cc > w_i/2 + w_j/2
+        #
+        # We don't know which pair is the closest, so conservatively use
+        # the largest winding pack for both:
+        #
+        #     d_cc_min > w_max/2 + w_max/2 = w_max
+        #
+        # The *clearance* is the remaining gap after accounting for the
+        # finite build:
+        #
+        #     clearance = d_cc_min − w_max
+        #
+        # Negative clearance → winding packs would physically overlap.
+        d_cc_rs = reactor_metrics.get("reactor_scale_min_cc_separation")
+        if d_cc_rs is not None and max_wp > 0:
+            reactor_metrics["finite_build_cc_clearance"] = float(d_cc_rs - max_wp)
+
+        # --- Per-turn force and torque after multi-turn winding pack ---
+        # With N_turns turns each carrying I/N, the force per turn on
+        # coil i is F_reactor_i / N_turns_i (force scales linearly with
+        # the current carried by a single turn).  Similarly for torque.
+        # These are the engineering-relevant quantities: the structural
+        # load on each individual turn of the winding pack.
+        per_turn_forces = [f / n for f, n in zip(reactor_force_per_coil, n_turns_per_coil)]
+        reactor_metrics["per_turn_max_force"] = float(max(per_turn_forces))  # MN/m
+
+        per_coil_torques = metrics.get("final_max_torque_per_coil")
+        if per_coil_torques is not None and len(per_coil_torques) == len(n_turns_per_coil):
+            reactor_torque_per_coil = [t * torque_scale / 1e6 for t in per_coil_torques]  # MN
+            per_turn_torques = [t / n for t, n in zip(reactor_torque_per_coil, n_turns_per_coil)]
+            reactor_metrics["per_turn_max_torque"] = float(max(per_turn_torques))  # MN
+        elif "reactor_scale_max_max_coil_torque" in reactor_metrics:
+            # Fallback: divide the overall max torque by the min N_turns
+            # (conservative — actual per-turn torque could be lower)
+            max_tau = reactor_metrics["reactor_scale_max_max_coil_torque"]
+            min_n = min(n_turns_per_coil)
+            reactor_metrics["per_turn_max_torque"] = float(max_tau / min_n)  # MN
+
+        # Total superconductor length [km]:
+        #   Σ_i  N_turns_i × reactor_scale_length_i
+        # where reactor_scale_length_i = device_length_i × L_scale
+        if per_coil_lengths is not None and len(per_coil_lengths) == len(n_turns_per_coil):
+            reactor_lengths = [ln * L_scale for ln in per_coil_lengths]
+            total_sc_km = sum(n * ln for n, ln in zip(n_turns_per_coil, reactor_lengths)) / 1e3
+            reactor_metrics["total_superconductor_length_km"] = float(total_sc_km)
+        elif "final_total_length" in metrics:
+            # Fallback: assume uniform coil length (total_length / num_coils)
+            num_coils = len(n_turns_per_coil)
+            avg_len = float(metrics["final_total_length"]) * L_scale / num_coils
+            total_sc_km = sum(n * avg_len for n in n_turns_per_coil) / 1e3
+            reactor_metrics["total_superconductor_length_km"] = float(total_sc_km)
+
     # Arclength variation scales as L² (since it's variance of length)
     if "final_arclength_variation" in metrics:
         reactor_metrics["reactor_scale_arclength_variation"] = float(metrics["final_arclength_variation"]) * (L_scale ** 2)
     
-    # Flux objective scales as B² * L⁴ (integral of B² over area)
-    # But final_squared_flux is already somewhat normalized, so include it for reference
+    # SquaredFlux [T²m²]: J = ½∫(B·n̂)²dS where n̂ is the unit normal
+    # (B·n̂)² [T²] scales as B², surface element dS [m²] scales as L²
+    # → J scales as B²·L²
     if "final_squared_flux" in metrics:
-        flux_scale = (B_scale ** 2) * (L_scale ** 4)
+        flux_scale = (B_scale ** 2) * (L_scale ** 2)
         reactor_metrics["reactor_scale_squared_flux"] = float(metrics["final_squared_flux"]) * flux_scale
     
     # Dimensionless quantities - no scaling needed

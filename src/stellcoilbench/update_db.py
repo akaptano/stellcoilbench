@@ -2,8 +2,324 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
-from typing import Any, Dict, Iterable, Tuple
+from typing import Any, Dict, Iterable, List, Tuple
+
+
+# ---------------------------------------------------------------------------
+# Reactor-scale engineering constraints
+# ---------------------------------------------------------------------------
+# Submissions violating a *hard* constraint are infeasible (score = 0) and
+# excluded from the main leaderboard.  Soft constraints contribute to the
+# composite score via exponential margin factors but do not cause exclusion.
+#
+# Hard constraints:
+#   - Coil-surface linking (topological)
+#   - Coil-coil linking number (topological)
+#   - Max turns per coil ≤ N_TURNS_MODEL
+#   - Finite-build coil-coil clearance ≥ 0  (winding packs must not overlap)
+#
+# Each constraint is a dict with:
+#   metric     – key inside reactor_scale_metrics or metrics (for dimensionless)
+#   source     – "reactor_scale_metrics" or "metrics"
+#   bound      – numeric bound
+#   direction  – "max" (value ≤ bound), "min" (value ≥ bound), or "eq"
+#   transform  – optional callable applied to the raw value before comparison
+#   hard       – if True, violation sets score = 0 (default False → soft)
+#   label      – human-readable name for messages / docs
+#   units      – unit string for display
+
+# Number of turns assumed per coil for force feasibility assessment.
+# With N turns the current per turn is I/N, so the Lorentz force per
+# unit length on each turn drops by a factor of N relative to the
+# single-turn value reported by simsopt.
+N_TURNS_MODEL: int = 500
+REACTOR_SCALE_CONSTRAINTS: List[Dict[str, Any]] = [
+    # ---- Hard feasibility constraints (infeasible if violated) ----
+    {
+        "metric": "coils_linked_to_surface",
+        "source": "metrics",
+        "bound": True,
+        "direction": "eq",       # value must equal bound exactly
+        "hard": True,            # infeasibility → composite score = 0
+        "label": "Coils linked to plasma surface",
+        "units": "(boolean)",
+    },
+    {
+        "metric": "final_linking_number",
+        "source": "metrics",
+        "bound": 0.5,
+        "direction": "max",
+        "transform": abs,        # linking number can be negative; check |LN| < 0.5
+        "hard": True,
+        "label": "Coil-coil linking number (\\|LN\\| ≈ 0)",
+        "units": "(dimensionless)",
+    },
+    # ---- Soft engineering constraints (contribute to composite score) ----
+    {
+        "metric": "avg_BdotN_over_B",
+        "source": "metrics",
+        "bound": 1e-2,
+        "direction": "max",
+        "label": "avg ⟨B·n⟩/⟨B⟩",
+        "units": "(dimensionless)",
+    },
+    {
+        "metric": "reactor_scale_min_cs_separation",
+        "source": "reactor_scale_metrics",
+        "bound": 1.3,
+        "direction": "min",
+        "label": "Minimum coil-surface distance",
+        "units": "m",
+    },
+    {
+        "metric": "reactor_scale_min_cc_separation",
+        "source": "reactor_scale_metrics",
+        "bound": 0.7,
+        "direction": "min",
+        "label": "Minimum coil-coil distance",
+        "units": "m",
+    },
+    {
+        "metric": "reactor_scale_total_length",
+        "source": "reactor_scale_metrics",
+        "bound": 220.0,
+        "direction": "max",
+        "label": "Total coil length",
+        "units": "m",
+    },
+    {
+        "metric": "reactor_scale_max_curvature",
+        "source": "reactor_scale_metrics",
+        "bound": 1.0,
+        "direction": "max",
+        "label": "Max curvature κ",
+        "units": "m⁻¹",
+    },
+    {
+        "metric": "reactor_scale_mean_squared_curvature",
+        "source": "reactor_scale_metrics",
+        "bound": 1.0,
+        "direction": "max",
+        "transform": math.sqrt,  # compare sqrt(MSC) since MSC is in m⁻²
+        "label": "Max √MSC (RMS curvature)",
+        "units": "m⁻¹",
+    },
+    {
+        "metric": "reactor_scale_arclength_variation",
+        "source": "reactor_scale_metrics",
+        "bound": 1.0,
+        "direction": "max",
+        "transform": math.sqrt,  # compare sqrt(Var) since Var is in m²
+        "label": "Arclength variation √Var",
+        "units": "m",
+    },
+    # ---- Hard feasibility constraints (additional) ----
+    {
+        "metric": "N_turns_per_coil",
+        "source": "reactor_scale_metrics",
+        "bound": N_TURNS_MODEL,
+        "direction": "max",
+        "transform": lambda x: max(x) if isinstance(x, list) and x else 0,
+        "hard": True,
+        "label": f"Max turns per coil (N_turns ≤ {N_TURNS_MODEL})",
+        "units": "(turns)",
+    },
+    {
+        "metric": "finite_build_cc_clearance",
+        "source": "reactor_scale_metrics",
+        "bound": 0.0,
+        "direction": "min",       # clearance must be ≥ 0  (non-negative)
+        "hard": True,
+        "label": "Finite-build coil-coil clearance (d_cc > w_WP)",
+        "units": "m",
+    },
+]
+
+
+def check_reactor_constraints(
+    metrics: Dict[str, Any],
+    reactor_scale_metrics: Dict[str, Any],
+) -> Tuple[bool, List[Dict[str, Any]]]:
+    """Check whether a submission meets all reactor-scale engineering constraints.
+
+    Parameters
+    ----------
+    metrics : dict
+        Device-scale metrics dict (from results.json ``"metrics"``).
+    reactor_scale_metrics : dict
+        Reactor-scale metrics dict (from results.json ``"reactor_scale_metrics"``).
+
+    Returns
+    -------
+    passes_hard : bool
+        True if all **hard** constraints are satisfied.  Soft-constraint
+        violations do *not* affect this flag — they only lower the
+        composite score.
+    violations : list[dict]
+        List of *all* violated constraints (hard **and** soft).  Each
+        entry has keys ``label``, ``value``, ``bound``, ``direction``,
+        ``units``, and ``hard`` (True for infeasibility constraints).
+    """
+    violations: List[Dict[str, Any]] = []
+
+    for constraint in REACTOR_SCALE_CONSTRAINTS:
+        source_dict = (
+            reactor_scale_metrics if constraint["source"] == "reactor_scale_metrics"
+            else metrics
+        )
+        raw_value = source_dict.get(constraint["metric"])
+        if raw_value is None:
+            # Metric not available – skip (don't penalize old submissions)
+            continue
+
+        transform = constraint.get("transform")
+        value = transform(raw_value) if transform is not None else raw_value
+
+        direction = constraint["direction"]
+        bound = constraint["bound"]
+
+        violated = False
+        if direction == "max" and value > bound:
+            violated = True
+        elif direction == "min" and value < bound:
+            violated = True
+        elif direction == "eq" and value != bound:
+            violated = True
+
+        if violated:
+            violations.append({
+                "label": constraint["label"],
+                "metric": constraint["metric"],
+                "value": value,
+                "bound": bound,
+                "direction": direction,
+                "units": constraint.get("units", ""),
+                "hard": constraint.get("hard", False),
+            })
+
+    has_hard_violation = any(v["hard"] for v in violations)
+    return (not has_hard_violation), violations
+
+
+def compute_composite_score(
+    metrics: Dict[str, Any],
+    reactor_scale_metrics: Dict[str, Any],
+) -> Tuple[Any, Dict[str, Any]]:
+    """Compute a composite feasibility/quality score.
+
+    The score combines all engineering constraints into a single number via
+    a geometric mean of exponential margin factors:
+
+    .. math::
+
+        \\text{score} = \\exp\\!\\left(\\frac{1}{n}\\sum_i m_i\\right)
+                      = \\left(\\prod_i e^{m_i}\\right)^{1/n}
+
+    where the margin *m_i* for each constraint is:
+
+    * **"max" constraints** (value ≤ bound): ``m = 1 − value / bound``
+    * **"min" constraints** (value ≥ bound): ``m = value / bound − 1``
+
+    Interpretation:
+
+    * score = 0  → hard infeasibility (coils delinked, coils interlinked)
+    * score < 1  → one or more soft constraints violated on average
+    * score = 1  → constraints met exactly on average
+    * score > 1  → constraints met with engineering margin
+
+    Parameters
+    ----------
+    metrics : dict
+        Device-scale metrics dict.
+    reactor_scale_metrics : dict
+        Reactor-scale metrics dict.
+
+    Returns
+    -------
+    score : float | None
+        Composite score: 0.0 for hard infeasibility, > 0 for feasible
+        designs, or None when no soft-constraint metrics are available.
+    details : dict
+        Diagnostic information: per-factor margins, hard-constraint status.
+    """
+    details: Dict[str, Any] = {"factors": {}, "infeasible": False}
+
+    # ---- Hard feasibility checks (score = 0 if any fail) ----
+    for c in REACTOR_SCALE_CONSTRAINTS:
+        if not c.get("hard", False):
+            continue
+        source_dict = (
+            reactor_scale_metrics if c["source"] == "reactor_scale_metrics"
+            else metrics
+        )
+        raw_value = source_dict.get(c["metric"])
+        if raw_value is None:
+            continue  # missing → don't penalize
+
+        transform = c.get("transform")
+        value = transform(raw_value) if transform is not None else raw_value
+        bound = c["bound"]
+        direction = c["direction"]
+
+        hard_fail = False
+        if direction == "max" and value > bound:
+            hard_fail = True
+        elif direction == "min" and value < bound:
+            hard_fail = True
+        elif direction == "eq" and value != bound:
+            hard_fail = True
+
+        if hard_fail:
+            details["infeasible"] = True
+            details["reason"] = f"{c['label']}: value={value}, bound={bound}"
+            return 0.0, details
+
+    # ---- Soft constraint factors (geometric mean) ----
+    exponents: List[float] = []
+    for c in REACTOR_SCALE_CONSTRAINTS:
+        if c.get("hard", False):
+            continue  # hard constraints handled above
+        bound = c["bound"]
+        if bound == 0:
+            continue  # can't form ratio with zero bound
+
+        source_dict = (
+            reactor_scale_metrics if c["source"] == "reactor_scale_metrics"
+            else metrics
+        )
+        raw_value = source_dict.get(c["metric"])
+        if raw_value is None:
+            continue
+
+        transform = c.get("transform")
+        value = transform(raw_value) if transform is not None else raw_value
+
+        if c["direction"] == "max":
+            exponent = 1.0 - value / bound
+        else:  # "min"
+            exponent = value / bound - 1.0
+
+        exponents.append(exponent)
+        details["factors"][c["metric"]] = {
+            "value": float(value),
+            "bound": float(bound),
+            "direction": c["direction"],
+            "margin": float(exponent),
+            "factor": float(math.exp(exponent)),
+        }
+
+    if not exponents:
+        details["reason"] = "No metrics available for scoring"
+        return None, details  # None = no data (not infeasible, just unknown)
+
+    mean_exponent = sum(exponents) / len(exponents)
+    score = math.exp(mean_exponent)
+    details["n_factors"] = len(exponents)
+    details["mean_margin"] = float(mean_exponent)
+
+    return float(score), details
 
 
 def _metric_shorthand(metric_name: str) -> str:
@@ -64,6 +380,24 @@ def _metric_shorthand(metric_name: str) -> str:
         
         # Score (keep for sorting but don't display)
         "score_primary": "score",
+
+        # Reactor-scale metrics (displayed in the reactor-scale leaderboard)
+        "reactor_scale_min_cs_separation": "d_cs",
+        "reactor_scale_min_cc_separation": "d_cc",
+        "reactor_scale_total_length": "L",
+        "reactor_scale_max_curvature": "κ_max",
+        "reactor_scale_average_curvature": "κ̄",
+        "reactor_scale_mean_squared_curvature": "MSC",
+        "reactor_scale_max_max_coil_force": "F_max",
+        "reactor_scale_avg_max_coil_force": "F̄",
+        "reactor_scale_max_max_coil_torque": "τ_max",
+        "reactor_scale_avg_max_coil_torque": "τ̄",
+        "reactor_scale_arclength_variation": "Var(l_i)",
+        "reactor_scale_squared_flux": "f_B",
+        "total_superconductor_length_km": "L_SC",
+        "max_winding_pack_width": "w_WP",
+        "per_turn_max_force": "F_turn",
+        "per_turn_max_torque": "τ_turn",
     }
     
     return shorthand_map.get(metric_name, metric_name.replace("_", " "))
@@ -204,6 +538,10 @@ def _shorthand_to_math(shorthand: str) -> str:
         "F_max": r":math:`F_\text{max}`",
         "τ_max": r":math:`\tau_\text{max}`",
         "κ_max": r":math:`\kappa_\text{max}`",
+        "L_SC": r":math:`L_\text{SC}`",
+        "w_WP": r":math:`w_\text{WP}`",
+        "F_turn": r":math:`F_\text{turn}`",
+        "τ_turn": r":math:`\tau_\text{turn}`",
     }
     if shorthand in unicode_map:
         return unicode_map[shorthand]
@@ -270,6 +608,27 @@ def _shorthand_to_math(shorthand: str) -> str:
     
     # Default: wrap in math mode
     return f":math:`{shorthand}`"
+
+
+# Units for reactor-scale metric columns (LaTeX math fragments)
+_RS_UNITS: Dict[str, str] = {
+    "reactor_scale_squared_flux": r"\text{T}^2\text{m}^2",
+    "reactor_scale_min_cs_separation": r"\text{m}",
+    "reactor_scale_min_cc_separation": r"\text{m}",
+    "reactor_scale_total_length": r"\text{m}",
+    "reactor_scale_max_curvature": r"\text{m}^{-1}",
+    "reactor_scale_average_curvature": r"\text{m}^{-1}",
+    "reactor_scale_mean_squared_curvature": r"\text{m}^{-2}",
+    "reactor_scale_max_max_coil_force": r"\text{MN/m}",
+    "reactor_scale_avg_max_coil_force": r"\text{MN/m}",
+    "reactor_scale_max_max_coil_torque": r"\text{MN}",
+    "reactor_scale_avg_max_coil_torque": r"\text{MN}",
+    "per_turn_max_force": r"\text{MN/m}",
+    "per_turn_max_torque": r"\text{MN}",
+    "total_superconductor_length_km": r"\text{km}",
+    "max_winding_pack_width": r"\text{m}",
+    "reactor_scale_arclength_variation": r"\text{m}^2",
+}
 
 
 def _metric_definition(metric_name: str) -> str:
@@ -882,10 +1241,13 @@ def build_methods_json(
     skipped_no_score = 0
     duplicate_keys = {}  # Track duplicate method_keys
     
+    skipped_constraints = 0
+
     for method_key, path, data in _load_submissions(submissions_root):
         loaded_count += 1
         meta = data.get("metadata") or {}
         metrics = data.get("metrics") or {}
+        reactor_scale = data.get("reactor_scale_metrics") or {}
         
         # Handle legacy format where metrics are at top level (not in "metrics" key)
         if not metrics and ("final_squared_flux" in data or "final_normalized_squared_flux" in data):
@@ -1123,7 +1485,125 @@ def build_methods_json(
 
         if primary_score is None:
             skipped_no_score += 1
-        
+
+        # ---- Backfill Jc-based N_turns and total SC length for older submissions ----
+        if ("N_turns_jc" not in reactor_scale
+                and "N_turns_per_coil" in reactor_scale):
+            # Older submissions have force-only N_turns.  Re-derive using
+            # the REBCO Jc model so that N_turns = max(force, Jc).
+            n_turns_force = reactor_scale["N_turns_per_coil"]
+            per_coil_forces_dev = metrics.get("final_max_force_per_coil")
+            if (isinstance(n_turns_force, list) and n_turns_force
+                    and isinstance(per_coil_forces_dev, list)
+                    and len(per_coil_forces_dev) == len(n_turns_force)):
+                # Estimate L_scale and B_scale from stored scaling_factors
+                sf = reactor_scale.get("scaling_factors", {})
+                L_scale_est = sf.get("length_scale")
+                B_scale_est = sf.get("B_field_scale")
+                target_B_est = sf.get("device_target_B", metrics.get("target_B_field"))
+                if L_scale_est and B_scale_est and target_B_est:
+                    from stellcoilbench.cli import _compute_N_turns_critical_current
+                    per_coil_currents = metrics.get("final_current_per_coil")
+                    per_coil_lengths = metrics.get("final_length_per_coil")
+                    jc_result = _compute_N_turns_critical_current(
+                        per_coil_forces=per_coil_forces_dev,
+                        per_coil_currents=per_coil_currents,
+                        per_coil_lengths=per_coil_lengths,
+                        L_scale=L_scale_est,
+                        B_scale=B_scale_est,
+                        target_B=target_B_est,
+                    )
+                    n_turns_jc = jc_result["N_turns_jc"]
+                    # Element-wise max(force, Jc)
+                    new_n_turns = [max(nf, nj)
+                                   for nf, nj in zip(n_turns_force, n_turns_jc)]
+                    reactor_scale["N_turns_per_coil"] = new_n_turns
+                    reactor_scale["N_turns_force"] = list(n_turns_force)
+                    reactor_scale["N_turns_jc"] = n_turns_jc
+
+        # ---- Backfill winding_pack_width_per_coil ----
+        n_turns_wp = reactor_scale.get("N_turns_per_coil")
+        if (isinstance(n_turns_wp, list) and n_turns_wp
+                and "max_winding_pack_width" not in reactor_scale):
+            import numpy as _np
+            from stellcoilbench.cli import STELLARIS_A_TURN
+            turn_side = _np.sqrt(STELLARIS_A_TURN)
+            wp_widths = [float(_np.sqrt(n) * turn_side) for n in n_turns_wp]
+            reactor_scale["winding_pack_width_per_coil"] = wp_widths
+            reactor_scale["max_winding_pack_width"] = float(max(wp_widths))
+
+        # ---- Backfill finite_build_cc_clearance ----
+        max_wp = reactor_scale.get("max_winding_pack_width")
+        d_cc_rs = reactor_scale.get("reactor_scale_min_cc_separation")
+        if (max_wp is not None and d_cc_rs is not None
+                and "finite_build_cc_clearance" not in reactor_scale):
+            reactor_scale["finite_build_cc_clearance"] = float(d_cc_rs - max_wp)
+
+        # ---- Backfill per_turn_max_force and per_turn_max_torque ----
+        n_turns_pt = reactor_scale.get("N_turns_per_coil")
+        if (isinstance(n_turns_pt, list) and n_turns_pt
+                and "per_turn_max_force" not in reactor_scale):
+            # Force: divide per-coil reactor-scale force by N_turns
+            rs_forces = reactor_scale.get("reactor_scale_force_per_coil_MN_per_m")
+            if isinstance(rs_forces, list) and len(rs_forces) == len(n_turns_pt):
+                per_turn_f = [f / n for f, n in zip(rs_forces, n_turns_pt)]
+                reactor_scale["per_turn_max_force"] = float(max(per_turn_f))
+            elif reactor_scale.get("reactor_scale_max_max_coil_force") is not None:
+                # Fallback: divide overall max by min N_turns (conservative)
+                reactor_scale["per_turn_max_force"] = float(
+                    reactor_scale["reactor_scale_max_max_coil_force"] / min(n_turns_pt)
+                )
+        if (isinstance(n_turns_pt, list) and n_turns_pt
+                and "per_turn_max_torque" not in reactor_scale):
+            # Torque: try per-coil, then overall max fallback
+            rs_torque_max = reactor_scale.get("reactor_scale_max_max_coil_torque")
+            if rs_torque_max is not None:
+                reactor_scale["per_turn_max_torque"] = float(
+                    rs_torque_max / min(n_turns_pt)
+                )
+
+        # ---- Backfill total_superconductor_length_km ----
+        n_turns = reactor_scale.get("N_turns_per_coil")
+        if (isinstance(n_turns, list) and n_turns
+                and "total_superconductor_length_km" not in reactor_scale):
+            per_coil_len = metrics.get("final_length_per_coil")
+            if isinstance(per_coil_len, list) and len(per_coil_len) == len(n_turns):
+                rs_total_len = reactor_scale.get("reactor_scale_total_length")
+                if rs_total_len is not None:
+                    device_total = metrics.get("final_total_length")
+                    if device_total and device_total > 0:
+                        L_scale_est = rs_total_len / device_total
+                    else:
+                        L_scale_est = rs_total_len / sum(per_coil_len) if sum(per_coil_len) > 0 else 1.0
+                    reactor_lengths = [ln * L_scale_est for ln in per_coil_len]
+                    reactor_scale["total_superconductor_length_km"] = float(
+                        sum(n * ln for n, ln in zip(n_turns, reactor_lengths)) / 1e3
+                    )
+            elif "reactor_scale_total_length" in reactor_scale:
+                # Fallback: assume uniform coil length
+                rs_total = reactor_scale["reactor_scale_total_length"]
+                num_coils = len(n_turns)
+                avg_len = rs_total / num_coils
+                reactor_scale["total_superconductor_length_km"] = float(
+                    sum(n * avg_len for n in n_turns) / 1e3
+                )
+
+        # Check reactor-scale engineering constraints
+        passes_constraints, violations = check_reactor_constraints(metrics, reactor_scale)
+        if not passes_constraints:
+            skipped_constraints += 1
+            import sys
+            print(f"Warning: {path} fails reactor-scale constraints:", file=sys.stderr)
+            for v in violations:
+                op = "≤" if v["direction"] == "max" else "≥"
+                if v["direction"] == "eq":
+                    op = "=="
+                print(f"  {v['label']}: {v['value']} (bound {op} {v['bound']} {v['units']})"
+                      f"{' [HARD]' if v.get('hard') else ''}", file=sys.stderr)
+
+        # Compute composite score (0 for infeasible, geometric mean of margins otherwise)
+        composite_score, score_details = compute_composite_score(metrics, reactor_scale)
+
         methods[method_key] = {
             "method_name": meta.get("method_name", "UNKNOWN"),
             "method_version": meta.get("method_version", path.stem if path.suffix == ".zip" else path.parent.name),
@@ -1132,13 +1612,18 @@ def build_methods_json(
             "run_date": meta.get("run_date", ""),
             "path": rel_path,
             "score_primary": primary_score,
+            "composite_score": composite_score,
+            "score_details": score_details,
             "metrics": metrics_numeric,
+            "reactor_scale_metrics": reactor_scale,
+            "passes_constraints": passes_constraints,
+            "constraint_violations": violations,
         }
     
     # Log summary
     import sys
     total_duplicates = sum(len(paths) - 1 for paths in duplicate_keys.values())  # -1 because first one isn't a duplicate
-    print(f"Loaded {loaded_count} submissions, skipped {skipped_no_metrics} (no metrics), {skipped_no_score} will be filtered (no score)", file=sys.stderr)
+    print(f"Loaded {loaded_count} submissions, skipped {skipped_no_metrics} (no metrics), {skipped_no_score} will be filtered (no score), {skipped_constraints} fail constraints", file=sys.stderr)
     if duplicate_keys:
         print(f"Found {len(duplicate_keys)} duplicate method_keys ({total_duplicates} overwrites):", file=sys.stderr)
         for key, paths in duplicate_keys.items():
@@ -1153,81 +1638,139 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     """
     Build a simple leaderboard summary from methods.json-style data.
 
-    Sorting by score_primary (ascending - lower normalized squared flux is better).
-    Entries without score_primary are filtered out.
+    Ranking uses the **composite score** (higher is better).  The composite
+    score is a geometric mean of exponential margin factors over all soft
+    engineering constraints.  Entries that fail hard feasibility constraints
+    receive a composite score of 0 and are excluded from the main leaderboard.
+
+    Entries without any usable score (neither composite_score nor
+    score_primary) are also filtered out.
     """
     entries = []
+    excluded_entries = []  # entries that fail constraints (kept for documentation)
 
     for method_key, md in methods.items():
         metrics = md.get("metrics", {})
         path = md.get("path", "")
-        
-        # Check if score_primary exists in the dict (distinguish between missing and None)
-        if "score_primary" in md:
-            score_primary = md["score_primary"]
-            # If explicitly None, filter out (don't use fallback)
-            if score_primary is None:
-                import sys
-                print(f"Warning: Entry {path} has score_primary=None, skipping", file=sys.stderr)
-                continue
-        else:
-            # score_primary key doesn't exist, try fallback (new name first, then legacy)
-            score_primary = metrics.get("final_squared_flux")
-            if score_primary is None:
-                score_primary = metrics.get("final_normalized_squared_flux")  # Legacy name
-            if score_primary is None or not isinstance(score_primary, (int, float)):
-                # Skip entries with no score_primary or final_squared_flux
-                import sys
-                print(f"Warning: Entry {path} has no score_primary or final_squared_flux (metrics keys: {list(metrics.keys())[:5]}), skipping", file=sys.stderr)
-                continue
 
-        entries.append(
-            {
-                "method_key": method_key,
-                "method_name": md.get("method_name", "UNKNOWN"),
-                "method_version": md.get("method_version", ""),
-                "score_primary": float(score_primary),
-                "run_date": md.get("run_date", ""),
-                "contact": md.get("contact", ""),
-                "hardware": md.get("hardware", ""),
-                "path": md.get("path", ""),
-                "metrics": metrics,
-            }
-        )
+        # Determine the composite score (preferred) or fall back to score_primary
+        composite_score = md.get("composite_score")
+        score_primary = md.get("score_primary")
 
-    entries.sort(key=lambda e: e["score_primary"], reverse=False)
+        # If composite_score is missing, try to derive one from score_primary
+        if composite_score is None:
+            if "score_primary" in md:
+                if score_primary is None:
+                    import sys
+                    print(f"Warning: Entry {path} has score_primary=None, skipping", file=sys.stderr)
+                    continue
+            else:
+                # score_primary key doesn't exist, try fallback
+                score_primary = metrics.get("final_squared_flux")
+                if score_primary is None:
+                    score_primary = metrics.get("final_normalized_squared_flux")
+                if score_primary is None or not isinstance(score_primary, (int, float)):
+                    import sys
+                    print(f"Warning: Entry {path} has no composite_score or score_primary (metrics keys: {list(metrics.keys())[:5]}), skipping", file=sys.stderr)
+                    continue
+
+        entry = {
+            "method_key": method_key,
+            "method_name": md.get("method_name", "UNKNOWN"),
+            "method_version": md.get("method_version", ""),
+            "composite_score": float(composite_score) if composite_score is not None else None,
+            "score_primary": float(score_primary) if score_primary is not None else None,
+            "run_date": md.get("run_date", ""),
+            "contact": md.get("contact", ""),
+            "hardware": md.get("hardware", ""),
+            "path": md.get("path", ""),
+            "metrics": metrics,
+            "reactor_scale_metrics": md.get("reactor_scale_metrics", {}),
+        }
+
+        # Exclude entries that fail *hard* reactor-scale constraints
+        # (passes_constraints is False only for hard violations).
+        # Soft-constraint violations are captured by composite_score < 1
+        # but the entry remains in the main leaderboard.
+        # composite_score == None means no data (legacy) → keep.
+        all_violations = md.get("constraint_violations", [])
+        if not md.get("passes_constraints", True):
+            entry["constraint_violations"] = all_violations
+            excluded_entries.append(entry)
+            continue
+        if composite_score is not None and composite_score == 0.0:
+            entry["constraint_violations"] = all_violations
+            excluded_entries.append(entry)
+            continue
+        # Carry soft violations through so the reactor-scale table can
+        # highlight them, but the entry stays in the main leaderboard.
+        if all_violations:
+            entry["constraint_violations"] = all_violations
+
+        entries.append(entry)
+
+    # Sort by composite_score descending (higher = better engineering margin).
+    # Fall back to score_primary ascending for legacy entries without composite_score.
+    def _sort_key(e):
+        cs = e.get("composite_score")
+        if cs is not None:
+            return (1, cs)  # group 1: has composite_score, higher is better
+        sp = e.get("score_primary")
+        if sp is not None:
+            return (0, -sp)  # group 0: legacy, lower squared flux is better
+        return (-1, 0)
+
+    entries.sort(key=_sort_key, reverse=True)
     for i, e in enumerate(entries, start=1):
         e["rank"] = i
 
     import sys
-    print(f"Leaderboard: {len(entries)} entries included", file=sys.stderr)
+    print(f"Leaderboard: {len(entries)} entries included, {len(excluded_entries)} excluded (failed constraints)", file=sys.stderr)
 
-    return {"entries": entries}
+    return {"entries": entries, "excluded_entries": excluded_entries}
+
+
+# Metrics that should never appear in device-scale leaderboard tables.
+# These are either internal bookkeeping, duplicates of other columns, or
+# belong exclusively in the reactor-scale leaderboard.
+_DEVICE_LEADERBOARD_EXCLUDE: set[str] = {
+    # Sorting / scoring keys (shown as dedicated Score column)
+    "score_primary",
+    "composite_score",
+    # B-field bookkeeping (not useful for ranking)
+    "initial_B_field",
+    "final_B_field",
+    "target_B_field",
+    # Threshold / configuration parameters
+    "flux_threshold",
+    "cc_threshold",
+    "cs_threshold",
+    "msc_threshold",
+    "curvature_threshold",
+    "force_threshold",
+    "torque_threshold",
+    "arclength_variation_threshold",
+    # Raw post-processing B·n (duplicates avg_BdotN_over_B / max_BdotN_over_B)
+    "BdotN",
+    "BdotN_over_B",
+    # Legacy duplicate of final_squared_flux (both map to f_B shorthand)
+    "final_normalized_squared_flux",
+    # Internal / non-display fields
+    "coils_linked_to_surface",  # boolean, shown via constraint check
+    "arclength_variation",  # intermediate, keep only final_arclength_variation
+    # Fourier continuation internals (keep only fourier_continuation_orders)
+    "final_order",
+    "continuation_step",
+    "fourier_continuation",
+    "fourier_order",
+    # Legacy reactor-scale internals (superseded by total_superconductor_length_km)
+    "N_turns_required",
+}
 
 
 def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
     """Get all unique metric keys from overall leaderboard entries."""
-    # Fields to exclude from display
-    exclude_fields = {
-        "score_primary",  # Used for sorting only
-        "initial_B_field",  # B0 - removed per request
-        "final_B_field",  # Bf - removed per request
-        "target_B_field",  # Bt - removed per request
-        # Threshold parameters - these are configuration, not results
-        "flux_threshold",
-        "cc_threshold",
-        "cs_threshold",
-        "msc_threshold",
-        "curvature_threshold",
-        "force_threshold",
-        "torque_threshold",
-        "arclength_variation",  # Exclude intermediate arclength variation, keep only final
-        "arclength_variation_threshold",  # Exclude threshold parameter
-        "final_order",  # Exclude final_order, keep only fourier_continuation_orders (FC)
-        "continuation_step",  # Exclude continuation_step, keep only fourier_continuation_orders (FC)
-        "fourier_continuation",  # Exclude fourier_continuation, keep only fourier_continuation_orders (FC)
-        "fourier_order",  # Exclude fourier_order, keep only fourier_continuation_orders (FC)
-    }
+    exclude_fields = _DEVICE_LEADERBOARD_EXCLUDE
     
     all_keys = set()
     for entry in entries:
@@ -1291,8 +1834,8 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         # Get all unique metric keys across all entries
         all_metric_keys = _get_all_metrics_from_entries(entries)
         
-        # Build header: Rank, User, Date, then all metrics (compact)
-        header_cols = ["#", "User", "Date"]
+        # Build header: Rank, Score, User, Date, then all metrics (compact)
+        header_cols = ["#", "Score", "User", "Date"]
         # Add metric shorthands
         header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
         
@@ -1347,9 +1890,12 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
             
             run_date = _format_date(e.get("run_date") or "_unknown_")
             
-            # Build row: Rank, User, Date, then all metrics
+            # Build row: Rank, Score, User, Date, then all metrics
+            cs = e.get("composite_score")
+            score_str = f"{cs:.3f}" if cs is not None else "—"
             row_parts = [
                 str(e['rank']),
+                score_str,
                 e.get('contact', e.get('method_name', '?'))[:15],  # Truncate long names
                 run_date,
             ]
@@ -1421,25 +1967,7 @@ def write_rst_leaderboard(
 
     def _get_metrics_for_surface(entries_for_surface: list[Dict[str, Any]]) -> list[str]:
         """Extract all unique metric keys from entries for a specific surface."""
-        exclude_fields = {
-            "score_primary",
-            "initial_B_field",
-            "final_B_field",
-            "target_B_field",
-            "flux_threshold",
-            "cc_threshold",
-            "cs_threshold",
-            "msc_threshold",
-            "curvature_threshold",
-            "force_threshold",
-            "torque_threshold",
-            "arclength_variation",  # Exclude intermediate arclength variation, keep only final
-            "arclength_variation_threshold",  # Exclude threshold parameter
-            "final_order",  # Exclude final_order, keep only fourier_continuation_orders (FC)
-            "continuation_step",  # Exclude continuation_step, keep only fourier_continuation_orders (FC)
-            "fourier_continuation",  # Exclude fourier_continuation, keep only fourier_continuation_orders (FC)
-            "fourier_order",  # Exclude fourier_order, keep only fourier_continuation_orders (FC)
-        }
+        exclude_fields = _DEVICE_LEADERBOARD_EXCLUDE
         all_keys = set()
         for entry in entries_for_surface:
             metrics = entry.get("metrics", {})
@@ -1488,45 +2016,7 @@ def write_rst_leaderboard(
 
     def _get_surface_display_name(surface_name: str) -> str:
         """Convert surface file name to a descriptive display name."""
-        # Mapping of file names (with and without extensions) to display names
-        name_map = {
-            "LandremanPaul2021_QA": "Landreman-Paul QA",
-            "input.LandremanPaul2021_QA": "Landreman-Paul QA",
-            "circular_tokamak": "Circular Tokamak",
-            "input.circular_tokamak": "Circular Tokamak",
-            "W7-X_without_coil_ripple_beta0p05_d23p4_tm": "W7-X",
-            "input.W7-X_without_coil_ripple_beta0p05_d23p4_tm": "W7-X",
-            "HSX_QHS_mn1824_ns101": "HSX",
-            "input.HSX_QHS_mn1824_ns101": "HSX",
-            "cfqs_2b40": "CFQS",
-            "input.cfqs_2b40": "CFQS",
-            "rotating_ellipse": "Rotating Ellipse",
-            "input.rotating_ellipse": "Rotating Ellipse",
-            "c09r00_B_axis_half_tesla_NCSX.focus": "0.5 Tesla NCSX Design",
-            "c09r00_B_axis_half_tesla_NCSX": "0.5 Tesla NCSX Design",
-            "muse.focus": "MUSE",
-            "muse": "MUSE",
-            "wout_schuetthenneberg_nfp2.nc": "Schuett-Henneberg QA",
-            "wout_schuetthenneberg_nfp2": "Schuett-Henneberg QA",
-        }
-        
-        # Check for exact match first
-        if surface_name in name_map:
-            return name_map[surface_name]
-        
-        # Check for partial matches (without extension)
-        name_no_ext = surface_name.replace(".focus", "").replace("input.", "")
-        if name_no_ext in name_map:
-            return name_map[name_no_ext]
-        
-        # Check for partial matches in keys
-        for key, display in name_map.items():
-            key_base = key.replace(".focus", "").replace("input.", "")
-            if key_base in surface_name or surface_name in key_base:
-                return display
-        
-        # Fallback: clean up the name
-        return surface_name.replace("input.", "").replace(".focus", "").replace("_", " ").title()
+        return _surface_display_name(surface_name)
 
     # Collect all unique metrics across all surfaces for definitions
     all_metric_keys_set = set()
@@ -1573,6 +2063,7 @@ def write_rst_leaderboard(
         "",
         "   leaderboard/metric_definitions",
         "   leaderboard/surface_specific",
+        "   leaderboard/reactor_scale",
         "",
     ]
     
@@ -1739,6 +2230,358 @@ def write_rst_leaderboard(
                 metric_def_lines.extend(_format_metric_def(key, detailed_def))
                 metric_def_lines.append("")
         
+        # ---- Composite Score section ----
+        metric_def_lines.extend([
+            "Composite Score",
+            "---------------",
+            "",
+            "The **Score** column in the leaderboard is a composite feasibility/quality",
+            "metric that summarizes how well a design satisfies all reactor-scale",
+            "engineering constraints.  It is computed as a geometric mean of exponential",
+            "margin factors:",
+            "",
+            ".. math::",
+            "",
+            r"   \text{Score}"
+            r"     = \exp\!\left(\frac{1}{n}\sum_{i=1}^{n} m_i\right)"
+            r"     = \left(\prod_{i=1}^{n} e^{m_i}\right)^{\!1/n}",
+            "",
+            "where the margin :math:`m_i` for each soft constraint is:",
+            "",
+            '- **"max" constraints** (value :math:`\\leq` bound):',
+            r"  :math:`m_i = 1 - \text{value}/\text{bound}`",
+            '- **"min" constraints** (value :math:`\\geq` bound):',
+            r"  :math:`m_i = \text{value}/\text{bound} - 1`",
+            "",
+            "Interpretation:",
+            "",
+            "- **Score = 0** — hard infeasibility (e.g. coils delinked from plasma, coils interlinked)",
+            "- **Score < 1** — one or more soft constraints violated on average",
+            "- **Score = 1** — all constraints met exactly on average",
+            "- **Score > 1** — constraints met with engineering margin (better)",
+            "",
+            "Entries are sorted by composite score **descending** (higher is better).",
+            "",
+        ])
+
+        # ---- Reactor-Scale Constraints section ----
+        metric_def_lines.extend([
+            "Reactor-Scale Constraints",
+            "-" * len("Reactor-Scale Constraints"),
+            "",
+            "All submissions are scaled to the ARIES-CS reference reactor",
+            r"(major radius :math:`R_0 = 7.5\,\text{m}`, on-axis field",
+            r":math:`B_0 = 5.7\,\text{T}`) before engineering feasibility is assessed.",
+            "",
+            "**Hard feasibility constraints** — any violation makes the design infeasible",
+            "(score = 0, excluded from the main leaderboard):",
+            "",
+        ])
+        # Dynamically build hard constraints table
+        metric_def_lines.extend([
+            ".. list-table::",
+            "   :header-rows: 1",
+            "",
+            "   * - Constraint",
+            "     - Bound",
+            "     - Description",
+        ])
+        for c in REACTOR_SCALE_CONSTRAINTS:
+            if not c.get("hard", False):
+                continue
+            label = c["label"]
+            bound = c["bound"]
+            units = c.get("units", "")
+            direction = c["direction"]
+            if direction == "eq":
+                bound_str = f"= {bound}"
+            elif direction == "max":
+                bound_str = f"≤ {bound}"
+            elif direction == "min":
+                bound_str = f"≥ {bound}"
+            else:
+                bound_str = str(bound)
+            if units and units not in ("(boolean)", "(turns)"):
+                bound_str += f" {units}"
+            desc = ""
+            if "linked to" in label.lower():
+                desc = "Every base coil must topologically encircle the plasma."
+            elif "linking" in label.lower():
+                desc = "Coils must not interlink with one another."
+            elif "turn" in label.lower():
+                desc = (
+                    f"With :math:`N_{{\\text{{turns}}}}` chosen to keep per-turn force "
+                    f"≤ 0.5 MN/m, no coil may require more than {N_TURNS_MODEL} turns."
+                )
+            elif "finite" in label.lower() or "clearance" in label.lower():
+                desc = (
+                    "Centreline distance :math:`d_{\\text{cc,min}}` must exceed "
+                    "the largest winding-pack width :math:`w_{\\text{WP,max}}` "
+                    "to prevent physical overlap of finite-build coils."
+                )
+            metric_def_lines.extend([
+                f"   * - {label}",
+                f"     - {bound_str}",
+                f"     - {desc}",
+            ])
+        metric_def_lines.extend([""])
+
+        metric_def_lines.extend([
+            "**Soft engineering constraints** — contribute to the composite score via",
+            "exponential margin factors.  Violations lower the score below 1 but do not",
+            "set it to zero:",
+            "",
+            ".. list-table::",
+            "   :header-rows: 1",
+            "",
+            "   * - Metric",
+            "     - Bound",
+            "     - Direction",
+            "     - Units",
+        ])
+        for c in REACTOR_SCALE_CONSTRAINTS:
+            if c.get("hard", False):
+                continue  # already listed above
+            label = c["label"]
+            bound = c["bound"]
+            units = c.get("units", "")
+            direction = c["direction"]
+            if direction == "max":
+                bound_str = f":math:`\\leq {bound}`"
+            elif direction == "min":
+                bound_str = f":math:`\\geq {bound}`"
+            else:
+                bound_str = str(bound)
+            metric_def_lines.extend([
+                f"   * - {label}",
+                f"     - {bound_str}",
+                f"     - {direction}",
+                f"     - {units}",
+            ])
+        metric_def_lines.extend([
+            "",
+            "Winding-Pack Turn-Count Model",
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+            "",
+            "The *simsopt* optimiser models each coil as a single filamentary turn",
+            "carrying the total current :math:`I`.  In a real reactor the winding pack",
+            "contains :math:`N_{\\text{turns}}` turns, each carrying :math:`I / N_{\\text{turns}}`.",
+            "We estimate the required number of turns from **two independent criteria**",
+            "and take the element-wise maximum:",
+            "",
+            ".. math::",
+            "",
+            r"   N_{\text{turns},\,i}"
+            r"     = \max\!\bigl(N_{\text{turns},\,i}^{(\text{force})},\;"
+            r"                    N_{\text{turns},\,i}^{(J_c)}\bigr)",
+            "",
+            "1. Force-based turns",
+            "^^^^^^^^^^^^^^^^^^^^",
+            "",
+            "With :math:`N` turns the Lorentz force per unit length on each turn is",
+            "",
+            ".. math::",
+            "",
+            r"   F_{\text{turn}} = \frac{F_{\text{reactor,single-turn}}}{N_{\text{turns}}}",
+            "",
+            "For each coil we find the minimum :math:`N` to keep",
+            ":math:`F_{\\text{turn}} \\leq 0.5\\,\\text{MN/m}`:",
+            "",
+            ".. math::",
+            "",
+            r"   N_{\text{turns},\,i}^{(\text{force})}"
+            r"     = \left\lceil \frac{F_{\text{reactor},\,i}}{0.5\;\text{MN/m}} \right\rceil",
+            "",
+            "2. Critical-current-density-based turns",
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "",
+            "This criterion ensures the HTS superconductor operates within its critical",
+            "envelope.  The model follows the Stellaris winding-pack design",
+            "(Lion *et al.*, *Fusion Engineering and Design* **214**, 2025, 114868,",
+            "Table 7\u20138 and Section 2.9).",
+            "",
+            "**REBCO tape-stack** :math:`J_c` **model.**",
+            "A Kim-like parametrisation calibrated to tape-stack data at 20 K",
+            "(field-aligned tapes):",
+            "",
+            ".. math::",
+            "",
+            r"   J_c(B, T) = \frac{C_0}{1 + (B/B_0)^\alpha}"
+            r"     \;\times\;\frac{1 - T/T_c}{1 - T_{\text{ref}}/T_c}",
+            "",
+            "with fitted constants at :math:`T_{\\text{ref}} = 20\\,\\text{K}`:",
+            "",
+            ".. list-table::",
+            "   :header-rows: 1",
+            "",
+            "   * - Parameter",
+            "     - Value",
+            "     - Description",
+            "   * - :math:`C_0`",
+            "     - :math:`5.0 \\times 10^{9}\\;\\text{A/m}^2`",
+            "     - Zero-field engineering :math:`J_c` (\u2248 5000 A/mm\u00b2)",
+            "   * - :math:`B_0`",
+            "     - 18.14 T",
+            "     - Characteristic field",
+            "   * - :math:`\\alpha`",
+            "     - 0.902",
+            "     - Field exponent",
+            "   * - :math:`T_c`",
+            "     - 92 K",
+            "     - REBCO critical temperature",
+            "",
+            "Validation against Stellaris Table 8:",
+            ":math:`B = 20\\,\\text{T} \\rightarrow J_c \\approx 2450\\;\\text{A/mm}^2`,",
+            ":math:`B = 25\\,\\text{T} \\rightarrow J_c \\approx 2200\\;\\text{A/mm}^2`.",
+            "",
+            "**Stellaris winding-pack parameters.**",
+            "",
+            ".. list-table::",
+            "   :header-rows: 1",
+            "",
+            "   * - Parameter",
+            "     - Value",
+            "     - Description",
+            "   * - :math:`T_{\\text{op}}`",
+            "     - 20 K",
+            "     - Operating temperature",
+            "   * - :math:`\\eta`",
+            "     - 0.80",
+            "     - Utilisation cap (:math:`J_{\\text{op}} / J_c \\leq \\eta`)",
+            "   * - :math:`I_{\\text{lead,max}}`",
+            "     - 50 kA",
+            "     - Current-lead limit",
+            "   * - :math:`A_{\\text{HTS}}`",
+            "     - :math:`36\\;\\text{mm}^2` (6 mm \u00d7 6 mm)",
+            "     - HTS tape-stack cross-section per turn",
+            "   * - :math:`A_{\\text{turn}}`",
+            "     - :math:`400\\;\\text{mm}^2` (20 mm \u00d7 20 mm)",
+            "     - Total turn cross-section (incl. stabiliser, insulation, structure)",
+            "   * - :math:`f_{\\text{WP}}`",
+            "     - 1.3",
+            "     - Winding-pack self-field enhancement factor",
+            "",
+            "**Algorithm for each coil** :math:`i`:",
+            "",
+            "1. **Required ampere-turns** at reactor scale:",
+            "",
+            "   .. math::",
+            "",
+            r"      NI_i = I_{\text{device},i} \times B_{\text{scale}} \times L_{\text{scale}}",
+            "",
+            "   where :math:`I_{\\text{device},i}` is the *simsopt* single-turn current.",
+            "   If per-coil currents are unavailable, :math:`I` is estimated from",
+            "   the force data: :math:`I \\approx (F/L) / B_{\\text{device}}`.",
+            "",
+            "2. **Peak conductor field** estimate:",
+            "",
+            "   .. math::",
+            "",
+            r"      B_{\text{ext},i} = \frac{(F/L)_{\text{device},i}}{I_{\text{device},i}} \times B_{\text{scale}},"
+            r"      \qquad"
+            r"      B_{\text{peak},i} = f_{\text{WP}} \times B_{\text{ext},i}",
+            "",
+            "   The factor :math:`f_{\\text{WP}} = 1.3` accounts for the additional",
+            "   self-field produced by the multi-turn winding pack at its inner edge.",
+            "",
+            "3. **Critical current of the HTS cable**:",
+            "",
+            "   .. math::",
+            "",
+            r"      I_{c,\text{cable}} = J_c(B_{\text{peak}},\; T_{\text{op}}) \times A_{\text{HTS}}",
+            "",
+            "4. **Operating current per turn** (lead- or tape-limited):",
+            "",
+            "   .. math::",
+            "",
+            r"      I_{\text{turn}} = \min\!\bigl(I_{\text{lead,max}},\; \eta \times I_{c,\text{cable}}\bigr)",
+            "",
+            "5. **Number of turns** from :math:`J_c` requirements:",
+            "",
+            "   .. math::",
+            "",
+            r"      N_{\text{turns},\,i}^{(J_c)} = \left\lceil \frac{NI_i}{I_{\text{turn},i}} \right\rceil",
+            "",
+            "**Hard constraint.**",
+            "The final :math:`N_{\\text{turns},i}` (element-wise maximum of force and",
+            ":math:`J_c` requirements) must satisfy",
+            f":math:`\\max_i N_{{\\text{{turns}},\\,i}} \\leq {N_TURNS_MODEL}`.",
+            "",
+            "3. Finite-build (winding-pack) extent",
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "",
+            "With each turn occupying :math:`A_{\\text{turn}} = 20\\;\\text{mm} \\times",
+            "20\\;\\text{mm} = 400\\;\\text{mm}^2` (Table 7 of Lion *et al.*: this area",
+            "includes the REBCO tape stack, copper stabiliser, solder, steel jacket,",
+            "and helium cooling channel), a square winding pack with :math:`N` turns",
+            "has side length",
+            "",
+            ".. math::",
+            "",
+            r"   w_{\text{WP}} = \sqrt{N_{\text{turns}}} \times 20\;\text{mm}",
+            "",
+            "Validation against Stellaris Table 8:",
+            "",
+            "- Coil 0: :math:`N = 324 \\;\\Rightarrow\\; w = 18 \\times 20\\;\\text{mm} = 360\\;\\text{mm} \\;\\checkmark`",
+            "- Coil 5: :math:`N = 225 \\;\\Rightarrow\\; w = 15 \\times 20\\;\\text{mm} = 300\\;\\text{mm} \\;\\checkmark`",
+            "",
+            "The leaderboard reports :math:`w_{\\text{WP}}` \u2014 the **maximum** winding-pack",
+            "side length across all coils (in metres).  This gives the finite-build extent",
+            "that must be accommodated by the coil-surface and coil-coil separation gaps.",
+            "",
+            "4. Finite-build coil-coil intersection check",
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "",
+            "*simsopt*'s ``CurveCurveDistance`` penalty measures the **centreline-to-centreline**",
+            "distance between coil filaments.  Once the winding-pack extent is known, we",
+            "can check whether the finite-build coils would physically overlap.",
+            "",
+            "Each coil's winding pack extends :math:`w_i / 2` from the centreline in every",
+            "direction.  For two coils *i* and *j* separated by centreline distance",
+            ":math:`d_{ij}`, the clearance between their outer edges is",
+            "",
+            ".. math::",
+            "",
+            r"   \text{clearance}_{ij} = d_{ij} - \frac{w_i}{2} - \frac{w_j}{2}",
+            "",
+            "Because we only store the **global minimum** coil-coil distance",
+            ":math:`d_{\\text{cc,min}} = \\min_{i<j} d_{ij}`, the most conservative",
+            "check uses the largest winding-pack width for both coils:",
+            "",
+            ".. math::",
+            "",
+            r"   \text{clearance} = d_{\text{cc,min}} - w_{\text{WP,max}}",
+            "",
+            "where :math:`w_{\\text{WP,max}} = \\max_i w_{\\text{WP},i}`.  This is a **hard",
+            "constraint**: if the clearance is negative (:math:`d_{\\text{cc,min}} <",
+            "w_{\\text{WP,max}}`), the winding packs would intersect and the design is",
+            "infeasible (score = 0).",
+            "",
+            "5. Per-turn force and torque",
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "",
+            "Once :math:`N_{\\text{turns},i}` is known for each coil, the engineering-relevant",
+            "structural loads are the per-turn quantities:",
+            "",
+            ".. math::",
+            "",
+            r"   F_{\text{turn},i} = \frac{F_{\text{reactor},i}}{N_{\text{turns},i}},"
+            r"   \qquad"
+            r"   \tau_{\text{turn},i} = \frac{\tau_{\text{reactor},i}}{N_{\text{turns},i}}",
+            "",
+            "The leaderboard reports:",
+            "",
+            "- :math:`F_{\\text{turn}}` \u2014 :math:`\\max_i F_{\\text{turn},i}` (MN/m), the",
+            "  maximum per-turn force across all coils.",
+            "- :math:`\\tau_{\\text{turn}}` \u2014 :math:`\\max_i \\tau_{\\text{turn},i}` (MN), the",
+            "  maximum per-turn torque across all coils.",
+            "",
+            "These replace the single-turn :math:`F_{\\max}` and :math:`\\tau_{\\max}` in the",
+            "reactor-scale leaderboard, since the single-turn values are not physically",
+            "meaningful for a multi-turn winding pack.",
+            "",
+        ])
+
         # Add visualization link definitions
         metric_def_lines.append("Visualization Links")
         metric_def_lines.append("-" * len("Visualization Links"))
@@ -1815,8 +2658,8 @@ def write_rst_leaderboard(
                 continue
 
             surface_metric_keys = _get_metrics_for_surface(entries_for_surface)
-            # Build header columns: metrics first, then Date, User, IC, # at the end
-            surface_header_cols = []
+            # Build header columns: Score, metrics, then Date, User, IC, # at the end
+            surface_header_cols = [r":math:`\text{Score}`"]  # Composite score column first
             # Wrap metric shorthands in math mode for table headers
             for key in surface_metric_keys:
                 shorthand = _metric_shorthand(key)
@@ -2065,8 +2908,10 @@ def write_rst_leaderboard(
                                             fpt_link = f"`{rank_num} <{plot_url}>`__"
                                         break
                 
-                # Build row: metrics first, then Date, User, i, f, and plot links at the end
+                # Build row: Score, metrics, then Date, User, i, f, and plot links at the end
                 row_parts = []
+                cs = entry.get("composite_score")
+                row_parts.append(f"{cs:.3f}" if cs is not None else "—")
                 for key in surface_metric_keys:
                     value = metrics.get(key)
                     formatted = _format_value(value, metric_key=key) if value is not None else "—"
@@ -2234,13 +3079,20 @@ def build_surface_leaderboards(
         
         surface_leaderboards[surface_name]["entries"].append(entry)
     
-    # Sort entries within each surface by score_primary
+    # Sort entries within each surface by composite_score descending (higher = better)
+    # Fall back to score_primary ascending for legacy entries
+    def _surface_sort_key(e):
+        cs = e.get("composite_score")
+        if cs is not None:
+            return (1, cs)
+        sp = e.get("score_primary")
+        if sp is not None:
+            return (0, -sp)
+        return (-1, 0)
+
     for surface, surf_data in surface_leaderboards.items():
         entries = surf_data["entries"]
-        entries.sort(
-            key=lambda e: e.get("score_primary", float('inf')),  # Use inf for missing scores (sort last)
-            reverse=False  # Ascending order - lower normalized squared flux is better
-        )
+        entries.sort(key=_surface_sort_key, reverse=True)
         for i, entry in enumerate(entries, start=1):
             entry["rank"] = i
     
@@ -2278,21 +3130,7 @@ def write_surface_leaderboards(
     
     def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:
         """Get all unique metric keys for a surface."""
-        # Fields to exclude from display
-        exclude_fields = {
-            "score_primary",  # Used for sorting only
-            "initial_B_field",  # B0 - removed per request
-            "final_B_field",  # Bf - removed per request
-            "target_B_field",  # Bt - removed per request
-            # Threshold parameters - these are configuration, not results
-            "flux_threshold",
-            "cc_threshold",
-            "cs_threshold",
-            "msc_threshold",
-            "curvature_threshold",
-            "force_threshold",
-            "torque_threshold",
-        }
+        exclude_fields = _DEVICE_LEADERBOARD_EXCLUDE
         
         all_keys = set()
         for entry in surf_data.get("entries", []):
@@ -2353,7 +3191,7 @@ def write_surface_leaderboards(
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
             # Build header (compact)
-            header_cols = ["#", "User", "Date"]
+            header_cols = ["#", "Score", "User", "Date"]
             # Add metric shorthands
             header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
             
@@ -2373,8 +3211,11 @@ def write_surface_leaderboards(
                 
                 run_date = _format_date(entry.get("run_date", "_unknown_"))
                 
+                cs = entry.get("composite_score")
+                score_str = f"{cs:.3f}" if cs is not None else "—"
                 row_parts = [
                     str(entry.get("rank", "-")),
+                    score_str,
                     entry.get('contact', entry.get('method_name', '?'))[:15],  # Truncate long names
                     run_date,
                 ]
@@ -2425,6 +3266,292 @@ def write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) ->
     This function is kept for API compatibility but does nothing.
     """
     pass
+
+
+# Friendly surface display names (used by multiple leaderboard writers).
+_SURFACE_DISPLAY_NAMES: Dict[str, str] = {
+    "LandremanPaul2021_QA": "Landreman-Paul QA",
+    "LandremanPaul2021_QH_reactorScale_lowres": "Landreman-Paul QH",
+    "circular_tokamak": "Circular Tokamak",
+    "W7-X_without_coil_ripple_beta0p05_d23p4_tm": "W7-X",
+    "HSX_QHS_mn1824_ns101": "HSX",
+    "cfqs_2b40": "CFQS",
+    "rotating_ellipse": "Rotating Ellipse",
+    "c09r00_B_axis_half_tesla_NCSX.focus": "0.5 Tesla NCSX Design",
+    "c09r00_B_axis_half_tesla_NCSX": "0.5 Tesla NCSX Design",
+    "muse.focus": "MUSE",
+    "muse": "MUSE",
+    "wout_schuetthenneberg_nfp2.nc": "Schuett-Henneberg QA",
+    "wout_schuetthenneberg_nfp2": "Schuett-Henneberg QA",
+}
+
+
+def _surface_display_name(surface_name: str) -> str:
+    """Return a human-friendly display name for a plasma surface."""
+    if surface_name in _SURFACE_DISPLAY_NAMES:
+        return _SURFACE_DISPLAY_NAMES[surface_name]
+    base = surface_name.replace("input.", "").replace(".focus", "")
+    if base in _SURFACE_DISPLAY_NAMES:
+        return _SURFACE_DISPLAY_NAMES[base]
+    return surface_name.replace("_", " ").title()
+
+
+# Reactor-scale metrics to display, in order.
+_REACTOR_SCALE_DISPLAY_ORDER: list[str] = [
+    "reactor_scale_squared_flux",
+    "reactor_scale_min_cs_separation",
+    "reactor_scale_min_cc_separation",
+    "reactor_scale_total_length",
+    "total_superconductor_length_km",
+    "reactor_scale_max_curvature",
+    "reactor_scale_average_curvature",
+    "reactor_scale_mean_squared_curvature",
+    "per_turn_max_force",
+    "per_turn_max_torque",
+    "max_winding_pack_width",
+    "reactor_scale_arclength_variation",
+]
+
+# Internal reactor-scale keys that should NOT be shown as columns
+_REACTOR_SCALE_EXCLUDE: set[str] = {
+    "reference",
+    "scaling_factors",
+    "reactor_scale_force_per_coil_MN_per_m",  # list, not a scalar
+    "N_turns_per_coil",                        # list, shown as dedicated column
+    "N_turns_force",                           # internal detail (force-based turns)
+    "N_turns_jc",                              # internal detail (Jc-based turns)
+    "jc_model",                                # internal model parameters dict
+    "winding_pack_width_per_coil",             # list, shown via max_winding_pack_width
+    "finite_build_cc_clearance",               # derived diagnostic (d_cc - w_max)
+    "force_limit_MN_per_m",                    # constant, not a result
+    "N_turns_required",                        # legacy, superseded
+    "reactor_scale_max_max_coil_force",        # single-turn; replaced by per_turn_max_force
+    "reactor_scale_max_max_coil_torque",       # single-turn; replaced by per_turn_max_torque
+    "reactor_scale_avg_max_coil_force",        # avg not needed
+    "reactor_scale_avg_max_coil_torque",       # avg not needed
+}
+
+
+def write_reactor_scale_leaderboard(
+    leaderboard: Dict[str, Any],
+    surface_leaderboards: Dict[str, Dict[str, Any]],
+    out_rst: Path,
+) -> None:
+    """Write a reactor-scale leaderboard RST file with per-surface tables.
+
+    Each table shows reactor-scale engineering metrics (MN/m forces,
+    curvatures in 1/m, etc.) alongside the composite score and constraint
+    status.  These are the values that matter for assessing whether a
+    design is viable at the ARIES-CS reference scale.
+    """
+
+    def _rs_format(value: Any) -> str:
+        if value is None:
+            return "—"
+        if isinstance(value, (dict, list)):
+            return "—"
+        v = float(value)
+        if abs(v) < 1e-100:
+            return "0"
+        if abs(v) >= 100:
+            return f"{v:.1f}"
+        if abs(v) >= 1:
+            return f"{v:.2f}"
+        return f"{v:.2e}"
+
+    def _get_rs_keys(entries: list[Dict[str, Any]]) -> list[str]:
+        """Collect reactor-scale metric keys present in entries, in display order."""
+        available: set[str] = set()
+        for e in entries:
+            rs = e.get("reactor_scale_metrics") or {}
+            for k in rs:
+                if k not in _REACTOR_SCALE_EXCLUDE:
+                    available.add(k)
+        ordered = [k for k in _REACTOR_SCALE_DISPLAY_ORDER if k in available]
+        # Append any remaining keys not in the predefined order
+        for k in sorted(available - set(ordered)):
+            ordered.append(k)
+        return ordered
+
+    lines: list[str] = [
+        "Reactor-Scale Leaderboard",
+        "=========================",
+        "",
+        ".. role:: red",
+        ".. role:: orange",
+        "",
+        ".. raw:: html",
+        "",
+        "   <style>",
+        "   .red { color: #dc3545; font-weight: bold; }",
+        "   .orange { color: #e67e22; font-weight: bold; }",
+        "   </style>",
+        "",
+        "All values are scaled to the **ARIES-CS reference** "
+        "(major radius :math:`R_0 = 7.5` m, on-axis field :math:`B_0 = 5.7` T).",
+        "",
+        "Entries are ranked by **composite score** (higher = better engineering margin). "
+        "See :doc:`metric_definitions` for constraint bounds and the scoring formula.",
+        "",
+        "How constraints are applied",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        "",
+        "**Hard constraints** make a design *infeasible*.  Any hard-constraint violation "
+        "sets the composite score to **0** and marks the entry **FAIL**.  Hard constraints "
+        "test topological validity (coils must encircle the plasma, coils must not "
+        "interlink) and engineering limits on the winding-pack turns.",
+        "",
+        "**Soft constraints** encode engineering preferences.  Each soft constraint "
+        "contributes an exponential margin factor to the composite score "
+        "(see :doc:`metric_definitions`).  A soft-constraint violation lowers the score "
+        "below 1 but does **not** cause FAIL or exclusion.  Violated soft-constraint "
+        "cells are highlighted in :orange:`orange`; hard-constraint violations appear "
+        "in :red:`red`.",
+        "",
+    ]
+
+    # ---- Build a summary constraints table from REACTOR_SCALE_CONSTRAINTS ----
+    lines.extend([
+        "Engineering Constraints",
+        "-----------------------",
+        "",
+        ".. list-table::",
+        "   :header-rows: 1",
+        "   :widths: auto",
+        "",
+        "   * - Constraint",
+        "     - Bound",
+        "     - Type",
+    ])
+    for c in REACTOR_SCALE_CONSTRAINTS:
+        label = c["label"]
+        bound = c["bound"]
+        units = c.get("units", "")
+        direction = c["direction"]
+        hard = c.get("hard", False)
+        ctype = "hard" if hard else "soft"
+
+        if direction == "eq":
+            bound_str = f"= {bound}"
+        elif direction == "max":
+            bound_str = f"≤ {bound}"
+        elif direction == "min":
+            bound_str = f"≥ {bound}"
+        else:
+            bound_str = str(bound)
+        if units and units != "(boolean)":
+            bound_str += f" {units}"
+
+        lines.append(f"   * - {label}")
+        lines.append(f"     - {bound_str}")
+        lines.append(f"     - {ctype}")
+
+    lines.extend(["", ""])
+
+    # Iterate over surfaces
+    for surface_name, surf_data in sorted(surface_leaderboards.items()):
+        entries = surf_data.get("entries", [])
+        display_name = _surface_display_name(surface_name)
+        lines.extend([
+            display_name,
+            "-" * len(display_name),
+            "",
+        ])
+
+        if not entries:
+            lines.extend(["No submissions for this surface.", ""])
+            continue
+
+        rs_keys = _get_rs_keys(entries)
+        if not rs_keys:
+            lines.extend(["No reactor-scale data available for this surface.", ""])
+            continue
+
+        # Build header — metric symbol + units in a single :math: element
+        header_cols = [r":math:`\text{Score}`", r":math:`\text{Status}`"]
+        for k in rs_keys:
+            shorthand = _metric_shorthand(k)
+            math_sh = _shorthand_to_math(shorthand)
+            unit_math = _RS_UNITS.get(k)
+            if unit_math:
+                # Inject unit inside the closing backtick:
+                # `:math:`X`` → `:math:`X\ [\text{unit}]``
+                math_sh = math_sh[:-1] + r"\ [" + unit_math + r"]`"
+            header_cols.append(math_sh)
+        header_cols.extend([
+            r":math:`N_{\text{turns},i}`",
+            r":math:`\text{User}`",
+        ])
+
+        lines.append(f".. list-table:: {display_name} — Reactor Scale")
+        lines.append("   :header-rows: 1")
+        lines.append("   :widths: auto")
+        lines.append("")
+
+        # Header row
+        lines.append("   * - " + header_cols[0])
+        for col in header_cols[1:]:
+            lines.append("     - " + col)
+
+        # Data rows
+        for entry in entries:
+            rs = entry.get("reactor_scale_metrics") or {}
+            cs = entry.get("composite_score")
+            score_str = f"{cs:.3f}" if cs is not None else "—"
+
+            # Status: FAIL only for hard-constraint violations.
+            # Soft violations lower the score but do NOT cause FAIL.
+            violations = entry.get("constraint_violations", [])
+            hard_violated = [v for v in violations if v.get("hard")]
+            soft_violated = [v for v in violations if not v.get("hard")]
+            hard_metric_set: set = {v["metric"] for v in hard_violated}
+            soft_metric_set: set = {v["metric"] for v in soft_violated}
+
+            if hard_violated:
+                reasons = ", ".join(v["label"].split("(")[0].strip()
+                                    for v in hard_violated)
+                status_str = f":red:`FAIL` ({reasons})"
+            elif cs is not None and cs == 0.0:
+                status_str = ":red:`FAIL`"
+            else:
+                status_str = "pass"
+
+            row = [score_str, status_str]
+            for k in rs_keys:
+                val_str = _rs_format(rs.get(k))
+                if k in hard_metric_set:
+                    val_str = f":red:`{val_str}`"
+                elif k in soft_metric_set:
+                    val_str = f":orange:`{val_str}`"
+                row.append(val_str)
+
+            # N_turns_per_coil column (comma-separated list)
+            n_turns = rs.get("N_turns_per_coil")
+            if isinstance(n_turns, list) and n_turns:
+                n_turns_str = ", ".join(str(n) for n in n_turns)
+            else:
+                n_turns_str = "—"
+            if "N_turns_per_coil" in hard_metric_set:
+                n_turns_str = f":red:`{n_turns_str}`"
+            row.append(n_turns_str)
+
+            row.append(entry.get("contact", entry.get("method_name", "?"))[:15])
+
+            lines.append("   * - " + row[0])
+            for val in row[1:]:
+                lines.append("     - " + val)
+
+        lines.extend(["", ""])
+
+    # Footer
+    lines.extend([
+        ".. note::",
+        "   Last updated: run ``stellcoilbench update-db`` to refresh locally.",
+        "",
+    ])
+
+    out_rst.parent.mkdir(parents=True, exist_ok=True)
+    out_rst.write_text("\n".join(lines))
 
 
 def update_database(
@@ -2504,6 +3631,21 @@ def update_database(
     
     # Write ReadTheDocs-friendly leaderboard (includes surface list)
     write_rst_leaderboard(leaderboard, docs_dir / "leaderboard.rst", surface_leaderboards)
+
+    # Write separate reactor-scale leaderboard.
+    # This view should include ALL entries with reactor-scale data, even those
+    # excluded from the main leaderboard for constraint violations — it's a
+    # diagnostic/engineering view, not a ranking.
+    all_entries_leaderboard = {
+        "entries": (leaderboard.get("entries") or [])
+                   + (leaderboard.get("excluded_entries") or []),
+    }
+    rs_surface_leaderboards = build_surface_leaderboards(
+        all_entries_leaderboard, submissions_root, plasma_surfaces_dir
+    )
+    write_reactor_scale_leaderboard(
+        leaderboard, rs_surface_leaderboards, docs_dir / "leaderboard" / "reactor_scale.rst"
+    )
     
     print(f"Generated {len(surface_names)} surface leaderboard files: {sorted(surface_names)}", file=sys.stderr)
 

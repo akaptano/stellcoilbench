@@ -1,4 +1,4 @@
-# Schuett-Henneberg QA Leaderboard
+# Wout Schuetthenneberg Nfp2.Nc Leaderboard
 
 **Plasma Surface:** `wout_schuetthenneberg_nfp2.nc`
 
@@ -10,14 +10,12 @@
 <thead>
 <tr>
 <th style="font-size: 0.9em; padding: 4px 8px;">#</th>
+<th style="font-size: 0.9em; padding: 4px 8px;">Score</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">User</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Date</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">N</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">BdotN over B</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">arclength variation threshold</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">B̄_n</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
@@ -38,14 +36,36 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.586</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">28/01/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.0e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.5e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.6e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.2e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.4e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.7e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.5e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.2e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.3e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.5e+01</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.582</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.3e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.1e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.6e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.4e-01</td>
@@ -63,15 +83,13 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">8.0e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.582</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.3e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.1e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.6e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.4e-01</td>
@@ -89,15 +107,37 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">7.9e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.582</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">04/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.8e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.1e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.5e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.0e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.3e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.4e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.8e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.7e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.5e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3.6e+01</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">5</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.581</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">29/01/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5.2e-04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.6e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.5e-01</td>
@@ -122,9 +162,6 @@
 - Squared flux objective $f_B = \int_{S} (\mathbf{B} \cdot \mathbf{n} - B_\text{target})^2 dS$ on plasma surface ($\text{T}^2 \text{m}^2$). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Number of base coils $N$ (before applying stellarator symmetry) (dimensionless)
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
-- Bdotn
-- Bdotn Over B
-- Arclength Variation Threshold
 - Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
 - Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
