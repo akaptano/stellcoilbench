@@ -37,34 +37,9 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.603</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.163</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.7e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.9e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.5e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.7e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.6e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0.603</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">06/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">08/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.7e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">5</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4</td>

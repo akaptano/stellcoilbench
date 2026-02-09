@@ -894,6 +894,123 @@ def _metric_detailed_definition(metric_name: str) -> dict | None:
     return detailed_defs.get(metric_name)
 
 
+def _recompute_coils_linked_to_surface(
+    submission_path: Path,
+    surface_name: str,
+    repo_root: Path,
+) -> bool | None:
+    """Recompute *coils_linked_to_surface* from stored coil/surface data.
+
+    Uses the per-phi-slice R check (matching the fix in coil_optimization.py)
+    to determine whether each coil topologically encircles the plasma at its
+    local toroidal position.
+
+    Returns True/False on success, or None if the data cannot be loaded
+    (missing files, simsopt not installed, etc.).
+    """
+    try:
+        from simsopt._core import load as simsopt_load  # type: ignore
+        from simsopt.geo import SurfaceRZFourier  # type: ignore
+        import numpy as np
+        import zipfile
+        import tempfile
+        import os
+    except ImportError:
+        return None
+
+    # ---- locate BiotSavart JSON inside the submission ----
+    bs_json_bytes: bytes | None = None
+    try:
+        if submission_path.suffix == ".zip":
+            with zipfile.ZipFile(submission_path, "r") as zf:
+                bs_files = [
+                    n for n in zf.namelist()
+                    if n.endswith("biot_savart_optimized.json")
+                ]
+                if not bs_files:
+                    return None
+                # Prefer highest order (order_16 > order_8 > order_4 > root)
+                bs_files.sort(reverse=True)
+                bs_json_bytes = zf.read(bs_files[0])
+        else:
+            # Regular directory – look for biot_savart in parent
+            submission_dir = submission_path.parent
+            candidates = sorted(
+                submission_dir.rglob("biot_savart_optimized.json"),
+                key=lambda p: str(p),
+                reverse=True,
+            )
+            if candidates:
+                bs_json_bytes = candidates[0].read_bytes()
+    except Exception:
+        return None
+
+    if bs_json_bytes is None:
+        return None
+
+    # ---- load BiotSavart ----
+    try:
+        fd, tmpfile = tempfile.mkstemp(suffix=".json")
+        os.write(fd, bs_json_bytes)
+        os.close(fd)
+        bs = simsopt_load(tmpfile)
+    except Exception:
+        try:
+            os.unlink(tmpfile)
+        except Exception:
+            pass
+        return None
+    finally:
+        try:
+            os.unlink(tmpfile)
+        except Exception:
+            pass
+
+    # ---- locate and load the plasma surface ----
+    plasma_surfaces_dir = repo_root / "plasma_surfaces"
+    surface_file = None
+    for prefix in ["input.", ""]:
+        candidate = plasma_surfaces_dir / f"{prefix}{surface_name}"
+        if candidate.exists():
+            surface_file = candidate
+            break
+    if surface_file is None:
+        return None
+
+    try:
+        s = SurfaceRZFourier.from_vmec_input(str(surface_file), range="full torus")
+    except Exception:
+        return None
+
+    # ---- per-phi-slice linking check ----
+    try:
+        surface_gamma = s.gamma()
+        R_surface = np.sqrt(
+            surface_gamma[:, :, 0] ** 2 + surface_gamma[:, :, 1] ** 2
+        )
+        R_min_per_phi = np.min(R_surface, axis=1)
+        R_max_per_phi = np.max(R_surface, axis=1)
+        phi_surface_slices = np.arctan2(
+            surface_gamma[:, 0, 1], surface_gamma[:, 0, 0]
+        )
+
+        coils = bs.coils
+        for coil in coils:
+            gamma = coil.curve.gamma()
+            R_coil = np.sqrt(gamma[:, 0] ** 2 + gamma[:, 1] ** 2)
+            phi_coil = np.arctan2(gamma[:, 1], gamma[:, 0])
+            dphi = phi_coil[:, None] - phi_surface_slices[None, :]
+            dphi = np.abs(np.arctan2(np.sin(dphi), np.cos(dphi)))
+            nearest = np.argmin(dphi, axis=1)
+            local_R_min = R_min_per_phi[nearest]
+            local_R_max = R_max_per_phi[nearest]
+            if not (np.any(R_coil < local_R_min) and np.any(R_coil > local_R_max)):
+                return False
+        return True
+    except Exception:
+        return None
+
+
 def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]:
     """
     Iterate over all submission results.json files under submissions_root.
@@ -1587,6 +1704,29 @@ def build_methods_json(
                 reactor_scale["total_superconductor_length_km"] = float(
                     sum(n * avg_len for n in n_turns) / 1e3
                 )
+
+        # ---- Recompute coils_linked_to_surface using per-phi-slice check ----
+        # The original computation used a global R_min/R_max check that gives
+        # false negatives on strongly-shaped stellarators (e.g. HSX).
+        # Recompute from stored BiotSavart and plasma surface data.
+        key_parts = method_key.split(":")
+        surface_from_key = key_parts[1] if len(key_parts) >= 2 else ""
+        if surface_from_key and surface_from_key != "unknown":
+            corrected = _recompute_coils_linked_to_surface(
+                path, surface_from_key, repo_root
+            )
+            if corrected is not None:
+                old_val = metrics_numeric.get("coils_linked_to_surface")
+                new_val = float(corrected)
+                metrics_numeric["coils_linked_to_surface"] = new_val
+                metrics["coils_linked_to_surface"] = corrected
+                if old_val is not None and old_val != new_val:
+                    import sys
+                    print(
+                        f"  Recomputed coils_linked_to_surface: "
+                        f"{old_val} → {new_val} for {path}",
+                        file=sys.stderr,
+                    )
 
         # Check reactor-scale engineering constraints
         passes_constraints, violations = check_reactor_constraints(metrics, reactor_scale)
@@ -3298,7 +3438,7 @@ def _surface_display_name(surface_name: str) -> str:
 
 # Reactor-scale metrics to display, in order.
 _REACTOR_SCALE_DISPLAY_ORDER: list[str] = [
-    "reactor_scale_squared_flux",
+    "avg_BdotN_over_B",
     "reactor_scale_min_cs_separation",
     "reactor_scale_min_cc_separation",
     "reactor_scale_total_length",
@@ -3329,6 +3469,7 @@ _REACTOR_SCALE_EXCLUDE: set[str] = {
     "reactor_scale_avg_max_coil_force",        # avg not needed
     "reactor_scale_avg_max_coil_torque",       # avg not needed
     "reactor_scale_arclength_variation",       # constraint retained; column removed
+    "reactor_scale_squared_flux",              # replaced by avg_BdotN_over_B
 }
 
 
@@ -3361,12 +3502,22 @@ def write_reactor_scale_leaderboard(
         return f"{v:.2e}"
 
     def _get_rs_keys(entries: list[Dict[str, Any]]) -> list[str]:
-        """Collect reactor-scale metric keys present in entries, in display order."""
+        """Collect reactor-scale metric keys present in entries, in display order.
+
+        Keys may live in either ``reactor_scale_metrics`` or device-scale
+        ``metrics`` (e.g. ``avg_BdotN_over_B`` is dimensionless and stored
+        at device scale only).
+        """
         available: set[str] = set()
         for e in entries:
             rs = e.get("reactor_scale_metrics") or {}
+            ms = e.get("metrics") or {}
             for k in rs:
                 if k not in _REACTOR_SCALE_EXCLUDE:
+                    available.add(k)
+            # Also include device-scale metrics that are in the display order
+            for k in _REACTOR_SCALE_DISPLAY_ORDER:
+                if k in ms:
                     available.add(k)
         ordered = [k for k in _REACTOR_SCALE_DISPLAY_ORDER if k in available]
         # Append any remaining keys not in the predefined order
@@ -3529,7 +3680,11 @@ def write_reactor_scale_leaderboard(
 
             row = [score_str, status_str]
             for k in rs_keys:
-                val_str = _rs_format(rs.get(k))
+                # Look in reactor_scale_metrics first, fall back to metrics
+                raw_val = rs.get(k)
+                if raw_val is None:
+                    raw_val = metrics.get(k)
+                val_str = _rs_format(raw_val)
                 if k in hard_metric_set:
                     val_str = f":red:`{val_str}`"
                 elif k in soft_metric_set:
