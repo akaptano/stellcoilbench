@@ -1,10 +1,11 @@
 """
-Validation functions for case.yaml configuration files.
+Validation functions for case.yaml configuration files and CI autopilot case JSON.
 """
 from __future__ import annotations
 
 from typing import Any, Dict, List
 from pathlib import Path
+import json
 import yaml
 
 
@@ -341,4 +342,132 @@ def validate_case_yaml_file(file_path: Path) -> List[str]:
         return [f"{file_path}: YAML parsing error: {e}"]
     except Exception as e:
         return [f"{file_path}: Error reading file: {e}"]
+
+
+# ---------------------------------------------------------------------------
+# CI autopilot case JSON validation
+# ---------------------------------------------------------------------------
+
+# Default resource caps (can be overridden by policy)
+_DEFAULT_MAX_TOTAL_ITERATIONS = 10000
+_DEFAULT_TIMEOUT_MINUTES_MIN = 5
+_DEFAULT_TIMEOUT_MINUTES_MAX = 180
+
+
+def validate_ci_case(
+    data: Dict[str, Any],
+    policy: Dict[str, Any] | None = None,
+    file_path: Path | None = None,
+) -> List[str]:
+    """
+    Validate a CI autopilot case JSON dictionary.
+
+    The CI case wraps a standard case config inside a ``case_config`` key and
+    adds ``case_id``, ``resource``, and optional ``parent_ids`` / ``tags`` /
+    ``random_seed`` fields.
+
+    Parameters
+    ----------
+    data : dict
+        Parsed JSON for the CI case.
+    policy : dict, optional
+        Proposer policy (from ``policy/proposer_policy.yaml``).  If provided,
+        resource caps are taken from ``policy["resource_caps"]``.
+    file_path : Path, optional
+        Used for error-message prefixes.
+
+    Returns
+    -------
+    list[str]
+        Error messages.  Empty list means validation passed.
+    """
+    errors: List[str] = []
+    pfx = f"{file_path}: " if file_path else ""
+
+    caps = (policy or {}).get("resource_caps", {})
+    max_iter_cap = caps.get("max_total_iterations", _DEFAULT_MAX_TOTAL_ITERATIONS)
+    timeout_min = caps.get("timeout_minutes_min", _DEFAULT_TIMEOUT_MINUTES_MIN)
+    timeout_max = caps.get("timeout_minutes_max", _DEFAULT_TIMEOUT_MINUTES_MAX)
+
+    # ---- required top-level keys ----
+    if "case_id" not in data:
+        errors.append(f"{pfx}Missing required field: case_id")
+    elif not isinstance(data["case_id"], str) or not data["case_id"]:
+        errors.append(f"{pfx}case_id must be a non-empty string")
+
+    # ---- resource block ----
+    resource = data.get("resource", {})
+    if not isinstance(resource, dict):
+        errors.append(f"{pfx}resource must be a dictionary")
+    else:
+        mti = resource.get("max_total_iterations")
+        if mti is not None:
+            if not isinstance(mti, int) or mti < 1:
+                errors.append(f"{pfx}resource.max_total_iterations must be a positive integer")
+            elif mti > max_iter_cap:
+                errors.append(
+                    f"{pfx}resource.max_total_iterations ({mti}) exceeds cap ({max_iter_cap})"
+                )
+
+        tm = resource.get("timeout_minutes")
+        if tm is not None:
+            if not isinstance(tm, (int, float)) or tm <= 0:
+                errors.append(f"{pfx}resource.timeout_minutes must be a positive number")
+            elif tm < timeout_min or tm > timeout_max:
+                errors.append(
+                    f"{pfx}resource.timeout_minutes ({tm}) outside allowed range "
+                    f"[{timeout_min}, {timeout_max}]"
+                )
+
+    # ---- optional typed fields ----
+    if "parent_ids" in data:
+        if not isinstance(data["parent_ids"], list):
+            errors.append(f"{pfx}parent_ids must be a list")
+    if "tags" in data:
+        if not isinstance(data["tags"], list):
+            errors.append(f"{pfx}tags must be a list")
+    if "random_seed" in data:
+        if not isinstance(data["random_seed"], int):
+            errors.append(f"{pfx}random_seed must be an integer")
+
+    # ---- case_config (the actual optimisation specification) ----
+    cc = data.get("case_config")
+    if cc is None:
+        errors.append(f"{pfx}Missing required field: case_config")
+    elif not isinstance(cc, dict):
+        errors.append(f"{pfx}case_config must be a dictionary")
+    else:
+        inner = validate_case_config(cc, file_path)
+        errors.extend(inner)
+
+        # ---- cross-check: maxiter vs resource cap ----
+        opt = cc.get("optimizer_params", {})
+        maxiter = opt.get("max_iterations")
+        if isinstance(maxiter, int) and maxiter > max_iter_cap:
+            errors.append(
+                f"{pfx}case_config.optimizer_params.max_iterations ({maxiter}) "
+                f"exceeds cap ({max_iter_cap})"
+            )
+
+    return errors
+
+
+def validate_ci_case_file(file_path: Path, policy: Dict[str, Any] | None = None) -> List[str]:
+    """
+    Validate a CI autopilot case JSON file on disk.
+
+    Returns a list of error messages.  Empty list means validation passed.
+    """
+    try:
+        with open(file_path, "r") as fh:
+            data = json.load(fh)
+    except json.JSONDecodeError as exc:
+        return [f"{file_path}: JSON parse error: {exc}"]
+    except Exception as exc:
+        return [f"{file_path}: Error reading file: {exc}"]
+
+    if not isinstance(data, dict):
+        return [f"{file_path}: Root element must be a JSON object"]
+
+    return validate_ci_case(data, policy=policy, file_path=file_path)
 

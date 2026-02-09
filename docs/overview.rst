@@ -187,6 +187,29 @@ StellCoilBench uses a CI-driven workflow for automated benchmarking:
 This workflow ensures that leaderboards are always up-to-date and that all submissions
 are evaluated consistently.
 
+Nonstop CI Autopilot
+---------------------
+
+In addition to the human-driven workflow above, StellCoilBench includes a
+**nonstop CI autopilot** that continuously proposes, runs, and records
+coil optimisation cases without human intervention.
+
+The autopilot uses a **propose → run → record** loop:
+
+- ``tools/propose_batch.py`` generates batches of 8 cases (half mutations
+  of top results, half random explorations).
+- The CI workflow runs each case via ``stellcoilbench run-ci-case``.
+- Results are committed to ``cases/done/`` and feed back into the next
+  proposal round.
+
+Hard guardrails prevent runaway failures: a sliding-window failure rate check,
+per-class failure counters, and an emergency ``PAUSE_AUTORUN`` stop file.
+
+All parameters — mutation noise, exploration ranges, resource caps, guardrail
+thresholds — are configured in ``policy/proposer_policy.yaml``.
+
+See :doc:`autopilot` for full documentation.
+
 Key Features
 ------------
 

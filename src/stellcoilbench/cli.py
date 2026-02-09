@@ -1196,6 +1196,184 @@ def run_case(
     typer.echo(f"Wrote evaluation results to {results_out}")
 
 
+@app.command("run-ci-case")
+def run_ci_case(
+    case_file: Path = typer.Argument(
+        ...,
+        help="Path to a CI case JSON file (cases/pending/<case_id>.json).",
+    ),
+    output_dir: Path = typer.Option(
+        Path("cases/done"),
+        "--output-dir",
+        "-o",
+        help="Root directory for completed case results.",
+    ),
+    policy_file: Optional[Path] = typer.Option(
+        None,
+        "--policy",
+        help="Path to proposer_policy.yaml for resource-cap validation.",
+    ),
+) -> None:
+    """
+    Run a single CI autopilot case from a JSON file and write a summary.
+
+    This command is used by the CI runner workflow.  It:
+
+    1. Validates the case JSON against resource caps.
+    2. Writes a temporary case.yaml from the embedded ``case_config``.
+    3. Runs the coil optimisation via ``optimize_coils``.
+    4. Writes ``cases/done/<case_id>/summary.json`` with metrics, timing, and
+       the original ``case_config`` for traceability.
+    """
+    import time as _time
+    import yaml as _yaml
+
+    from .coil_optimization import optimize_coils
+    from .config_scheme import CaseConfig
+    from .validate_config import validate_ci_case
+
+    # ---- load & validate -------------------------------------------------
+    case_text = case_file.read_text()
+    try:
+        case_data = json.loads(case_text)
+    except json.JSONDecodeError as exc:
+        typer.echo(f"ERROR: invalid JSON in {case_file}: {exc}", err=True)
+        raise typer.Exit(code=1)
+
+    policy: dict | None = None
+    if policy_file and policy_file.exists():
+        policy = _yaml.safe_load(policy_file.read_text())
+
+    errors = validate_ci_case(case_data, policy=policy, file_path=case_file)
+    if errors:
+        for err in errors:
+            typer.echo(f"VALIDATION ERROR: {err}", err=True)
+        # Write a failure summary so the CI can still commit something
+        case_id = case_data.get("case_id", case_file.stem)
+        _write_ci_summary(
+            output_dir / case_id / "summary.json",
+            case_id=case_id,
+            success=False,
+            failure_reason="validation_error",
+            failure_class="validation",
+            case_config=case_data.get("case_config", {}),
+        )
+        raise typer.Exit(code=1)
+
+    case_id = case_data["case_id"]
+    case_config_dict = case_data["case_config"]
+    resource = case_data.get("resource", {})
+    random_seed = case_data.get("random_seed")
+
+    # ---- seed ------------------------------------------------------------
+    if random_seed is not None:
+        np.random.seed(random_seed)
+
+    # ---- write temp case.yaml and run ------------------------------------
+    case_cfg = CaseConfig.from_dict(case_config_dict)
+    out = output_dir / case_id
+    out.mkdir(parents=True, exist_ok=True)
+
+    # Write case.yaml into the output directory for traceability
+    case_yaml_path = out / "case.yaml"
+    import yaml as _yaml2
+    case_yaml_path.write_text(_yaml2.dump(case_config_dict, default_flow_style=False))
+
+    coils_out_path = out / "coils.json"
+    wall_start = _time.time()
+
+    try:
+        timeout_sec = resource.get("timeout_minutes", 120) * 60
+        results_dict = optimize_coils(
+            case_path=case_yaml_path,
+            coils_out_path=coils_out_path,
+            case_cfg=case_cfg,
+            output_dir=out,
+            skip_post_processing=True,
+        )
+        wall_end = _time.time()
+        walltime = wall_end - wall_start
+
+        # Check timeout (informational; the runner workflow should also enforce)
+        timed_out = walltime > timeout_sec
+        if timed_out:
+            typer.echo(
+                f"WARNING: case {case_id} exceeded timeout "
+                f"({walltime:.0f}s > {timeout_sec}s)"
+            )
+
+        # ---- Build summary -----------------------------------------------
+        # Extract the key metrics the proposer / guardrails need
+        metrics = {
+            k: v for k, v in results_dict.items()
+            if isinstance(v, (int, float)) and not k.startswith("_")
+        }
+
+        summary: dict = {
+            "case_id": case_id,
+            "success": True,
+            "total_score": float(results_dict.get("final_squared_flux", float("inf"))),
+            "iterations_used": int(results_dict.get("iterations_used", 0)),
+            "walltime_sec": round(walltime, 2),
+            "failure_reason": "",
+            "failure_class": "",
+            "metrics": metrics,
+            "case_config": case_config_dict,
+        }
+        if "timing" in results_dict:
+            summary["timing"] = results_dict["timing"]
+
+    except Exception as exc:
+        wall_end = _time.time()
+        import traceback
+        tb = traceback.format_exc()
+        typer.echo(f"ERROR running case {case_id}: {exc}\n{tb}", err=True)
+        summary = {
+            "case_id": case_id,
+            "success": False,
+            "total_score": float("inf"),
+            "iterations_used": 0,
+            "walltime_sec": round(wall_end - wall_start, 2),
+            "failure_reason": str(exc),
+            "failure_class": type(exc).__name__,
+            "metrics": {},
+            "case_config": case_config_dict,
+        }
+
+    summary_path = out / "summary.json"
+    summary_path.write_text(json.dumps(summary, indent=2, cls=NumpyJSONEncoder))
+    typer.echo(f"Wrote summary to {summary_path}")
+
+
+def _write_ci_summary(
+    path: Path,
+    *,
+    case_id: str,
+    success: bool,
+    failure_reason: str = "",
+    failure_class: str = "",
+    case_config: dict | None = None,
+    metrics: dict | None = None,
+    total_score: float = float("inf"),
+    iterations_used: int = 0,
+    walltime_sec: float = 0.0,
+) -> None:
+    """Helper to write a CI summary JSON (success or failure)."""
+    summary = {
+        "case_id": case_id,
+        "success": success,
+        "total_score": total_score,
+        "iterations_used": iterations_used,
+        "walltime_sec": walltime_sec,
+        "failure_reason": failure_reason,
+        "failure_class": failure_class,
+        "metrics": metrics or {},
+        "case_config": case_config or {},
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(summary, indent=2))
+
+
 @app.command("generate-submission")
 def generate_submission(
     case_path: Path = typer.Argument(

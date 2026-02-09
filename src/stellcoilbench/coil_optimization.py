@@ -2103,6 +2103,15 @@ def _optimize_coils_loop_impl(
         # coil_width is not a threshold parameter, so always scale it
         coil_width /= R0
 
+    # CI autopilot hard cap: clamp max_iterations to 10 000
+    _CI_MAX_ITER_CAP = 10_000
+    if max_iterations > _CI_MAX_ITER_CAP:
+        print(
+            f"Warning: max_iterations ({max_iterations}) exceeds CI cap "
+            f"({_CI_MAX_ITER_CAP}); clamping."
+        )
+        max_iterations = _CI_MAX_ITER_CAP
+
     # If there is a suboptimization, set the max iterations 
     max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
     algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
@@ -2577,6 +2586,7 @@ def _optimize_coils_loop_impl(
     optimization_start = time.perf_counter()
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
+    iterations_used = 0  # Track total iterations for CI reporting
     
     # Check if weight is specified for coil-surface distance and coil-coil distance constraints
     cs_weight_specified = False
@@ -2672,6 +2682,8 @@ def _optimize_coils_loop_impl(
             **augmented_lagrangian_options,
             equality_constraints=c_list,
         )
+        # augmented_lagrangian_method doesn't return nit; estimate from settings
+        iterations_used = max_iterations
     elif algorithm in ['BFGS', 'L-BFGS-B', 'L-BFGS-B-custom', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
         # Build weighted objective function from constraints
         # c_list includes flux first, then other constraints
@@ -2941,6 +2953,9 @@ def _optimize_coils_loop_impl(
                 options=options,
             )
         
+        # Record iterations from scipy result
+        iterations_used = getattr(result, 'nit', 0)
+
         # Print optimization result message to help debug early exits
         if verbose:
             print(f"Optimization result: {result.message}")
@@ -3061,19 +3076,41 @@ def _optimize_coils_loop_impl(
     print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")
     print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")
 
-    # Check coil-surface interlinking: each base coil must encircle the plasma
-    # by having points both inside the torus hole (R < R_min_surface) and
-    # outside the plasma (R > R_max_surface).
+    # Check coil-surface interlinking: each base coil must encircle the
+    # plasma by having points both inside the torus hole and outside the
+    # plasma.  We compare each coil against the *local* surface
+    # cross-section at the coil's toroidal angle, not against the global
+    # R_min/R_max of the entire surface.  The global check fails on
+    # strongly-shaped stellarators (e.g. HSX) where the surface
+    # cross-section varies substantially with toroidal angle.
     surface_gamma = s.gamma()
     R_surface = np.sqrt(surface_gamma[:, :, 0]**2 + surface_gamma[:, :, 1]**2)
-    R_min_surface = np.min(R_surface)
-    R_max_surface = np.max(R_surface)
+
+    # Per-phi-slice R_min and R_max  (axis 1 = theta)
+    R_min_per_phi = np.min(R_surface, axis=1)   # (nphi,)
+    R_max_per_phi = np.max(R_surface, axis=1)   # (nphi,)
+
+    # Toroidal angle of each phi slice (use first theta point)
+    phi_surface_slices = np.arctan2(
+        surface_gamma[:, 0, 1], surface_gamma[:, 0, 0]
+    )  # (nphi,)
+
     coils_linked_to_surface = True
     for c in base_curves:
         gamma = c.gamma()
         R_coil = np.sqrt(gamma[:, 0]**2 + gamma[:, 1]**2)
-        has_inside = np.any(R_coil < R_min_surface)
-        has_outside = np.any(R_coil > R_max_surface)
+        phi_coil = np.arctan2(gamma[:, 1], gamma[:, 0])  # (npts,)
+
+        # For each coil point find the nearest surface phi slice
+        dphi = phi_coil[:, None] - phi_surface_slices[None, :]
+        dphi = np.abs(np.arctan2(np.sin(dphi), np.cos(dphi)))
+        nearest_phi_idx = np.argmin(dphi, axis=1)  # (npts,)
+
+        local_R_min = R_min_per_phi[nearest_phi_idx]  # (npts,)
+        local_R_max = R_max_per_phi[nearest_phi_idx]  # (npts,)
+
+        has_inside = np.any(R_coil < local_R_min)
+        has_outside = np.any(R_coil > local_R_max)
         if not (has_inside and has_outside):
             coils_linked_to_surface = False
             break
@@ -3276,6 +3313,8 @@ def _optimize_coils_loop_impl(
         'final_B_field': B_final,
         'target_B_field': target_B,
         'optimization_time': end_time - start_time,
+        'walltime_sec': end_time - start_time,
+        'iterations_used': iterations_used,
         'final_squared_flux': Jf.J(),
         '_cached_thresholds': cached_thresholds,  # Store for continuation steps
         'final_min_cs_separation': Jcsdist.shortest_distance(),

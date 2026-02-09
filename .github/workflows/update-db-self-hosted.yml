@@ -1,14 +1,23 @@
 # .github/workflows/update-db-selfhosted.yml
-# Simplified workflow for self-hosted runner with pre-installed dependencies
-name: Update StellCoilBench Database (Self-Hosted)
+# Self-hosted runner workflow: benchmark cases + nonstop CI autopilot.
+#
+# Standard benchmark path (push to main):
+#   determine-cases → run-cases → update-leaderboard
+#
+# Autopilot path (schedule every 15 min, or manual):
+#   propose-autopilot-batch  → (pushes cases/pending/*.json)
+#   run-autopilot-cases      → (consumes pending, writes cases/done/)
+name: StellCoilBench CI (Self-Hosted)
 
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '*/15 * * * *'   # autopilot proposer: every 15 minutes
   workflow_dispatch:
 
 concurrency:
-  group: update-db-selfhosted-${{ github.ref }}
+  group: stellcoilbench-selfhosted-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
@@ -289,4 +298,187 @@ jobs:
             git pull --rebase origin main || git pull origin main --no-edit
             git push origin main
             echo "Leaderboard updated"
+          fi
+
+  # =========================================================================
+  # Nonstop CI autopilot: run pending cases from cases/pending/*.json
+  # =========================================================================
+  run-autopilot-cases:
+    if: github.repository == 'akaptano/stellcoilbench'
+    runs-on: self-hosted
+    timeout-minutes: 180
+    outputs:
+      ran_cases: ${{ steps.run.outputs.ran_cases }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for pending cases
+        id: pending
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(cases/pending/*.json)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No pending autopilot cases."
+            echo "has_pending=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found ${#files[@]} pending autopilot case(s)."
+            echo "has_pending=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run autopilot cases
+        id: run
+        if: steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        env:
+          MPLBACKEND: Agg
+        run: |
+          # Source conda
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
+          conda activate $CONDA_ENV
+          pip install -e . --quiet 2>/dev/null || true
+
+          if [ -f "$SIMPLE_EXECUTABLE" ]; then
+            cp "$SIMPLE_EXECUTABLE" ./simple.x
+          fi
+
+          export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+
+          shopt -s nullglob
+          PENDING_FILES=(cases/pending/*.json)
+          # Cap at 8 cases per batch
+          COUNT=0
+          PIDS=()
+          CASE_FILES=()
+          mkdir -p /tmp/autopilot_logs
+
+          for CASE_FILE in "${PENDING_FILES[@]}"; do
+            if [ $COUNT -ge 8 ]; then break; fi
+            CASE_ID=$(basename "$CASE_FILE" .json)
+            LOG="/tmp/autopilot_logs/${CASE_ID}.log"
+
+            echo "Launching autopilot case: $CASE_ID"
+            (
+              stellcoilbench run-ci-case "$CASE_FILE" \
+                --output-dir cases/done \
+                --policy policy/proposer_policy.yaml \
+                > "$LOG" 2>&1
+              EXIT=$?
+              if [ $EXIT -eq 0 ]; then
+                echo "[OK]  $CASE_ID" >> /tmp/autopilot_logs/_status.txt
+              else
+                echo "[FAIL] $CASE_ID (exit $EXIT)" >> /tmp/autopilot_logs/_status.txt
+              fi
+              # Remove the pending file regardless of success/failure
+              # (summary.json is written either way)
+              rm -f "$CASE_FILE"
+            ) &
+            PIDS+=($!)
+            CASE_FILES+=("$CASE_FILE")
+            COUNT=$((COUNT + 1))
+          done
+
+          echo "Waiting for $COUNT autopilot case(s)..."
+          for pid in "${PIDS[@]}"; do
+            wait "$pid" || true
+          done
+
+          echo "=== Autopilot status ==="
+          cat /tmp/autopilot_logs/_status.txt 2>/dev/null || echo "(no status)"
+
+          echo "ran_cases=true" >> "$GITHUB_OUTPUT"
+
+      - name: Show autopilot logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          for f in /tmp/autopilot_logs/*.log; do
+            [ -f "$f" ] && echo "=== $f ===" && cat "$f"
+          done
+
+      - name: Commit autopilot results
+        if: steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "ci-autopilot[bot]"
+          git add cases/done/ cases/pending/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No autopilot results to commit"
+          else
+            git commit -m "ci: autopilot batch results"
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
+            git push origin main
+            echo "Autopilot results committed"
+          fi
+
+  # =========================================================================
+  # Nonstop CI autopilot: propose next batch (only on schedule / dispatch)
+  # =========================================================================
+  propose-autopilot-batch:
+    needs: [run-autopilot-cases]
+    if: >
+      always() &&
+      github.repository == 'akaptano/stellcoilbench' &&
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest (after autopilot run)
+        run: git pull origin main
+
+      - name: Propose batch
+        shell: bash
+        run: |
+          # Exit early if paused
+          if [ -f PAUSE_AUTORUN ]; then
+            echo "PAUSE_AUTORUN file exists — skipping proposal."
+            exit 0
+          fi
+
+          # Exit early if pending dir still has cases (shouldn't happen after
+          # run-autopilot-cases, but safety check)
+          shopt -s nullglob
+          pending=(cases/pending/*.json)
+          if [ ${#pending[@]} -gt 0 ]; then
+            echo "Pending directory not empty (${#pending[@]} cases). Skipping."
+            exit 0
+          fi
+
+          # Source conda
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
+          conda activate $CONDA_ENV
+
+          python tools/propose_batch.py \
+            --batch-size 8 \
+            --done-dir cases/done \
+            --pending-dir cases/pending \
+            --policy policy/proposer_policy.yaml
+
+      - name: Commit proposed cases
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "ci-autopilot[bot]"
+          git add cases/pending/ PAUSE_AUTORUN 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No new cases proposed"
+          else
+            git commit -m "ci: propose next autopilot batch"
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
+            git push origin main
+            echo "Proposed cases committed"
           fi

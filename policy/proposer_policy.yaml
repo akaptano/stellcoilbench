@@ -1,0 +1,98 @@
+# Nonstop CI autopilot proposer policy
+# Controls batch composition, mutation parameters, guardrails, and resource limits.
+
+# --- Batch settings ---
+batch_size: 8
+exploit_fraction: 0.5          # fraction of batch that is mutation/exploit
+top_k_parents: 10              # number of top feasible parents to consider for mutation
+
+# --- Resource caps (hard limits, enforced by validator and runner) ---
+resource_caps:
+  max_total_iterations: 10000
+  max_maxiter: 10000            # per-stage maxiter cap
+  timeout_minutes_min: 5
+  timeout_minutes_max: 180
+  timeout_minutes_default: 120
+
+# --- Mutation (exploit) parameters ---
+mutation:
+  weight_sigma: 0.15           # lognormal sigma for weight jitter (15% typical change)
+  weight_min: 1.0e-6           # minimum weight value after jitter
+  weight_max: 10000.0          # maximum weight value after jitter
+  threshold_sigma: 0.10        # lognormal sigma for threshold jitter (10% typical change)
+  threshold_min: 0.01          # minimum threshold value
+  threshold_max: 1000.0        # maximum threshold value
+  ncoils_choices: [2, 3, 4, 5, 6, 8]
+  order_choices: [4, 6, 8, 10, 12, 16]
+  max_iterations_range: [500, 10000]
+
+# --- Exploration parameters ---
+exploration:
+  # Weight ranges for random sampling (log-uniform)
+  length_weight_range: [0.005, 0.10]
+  curvature_weight_range: [0.02, 0.30]
+  msc_weight_range: [0.01, 0.20]
+  flux_weight_range: [0.5, 5.0]
+  arclength_variation_weight_range: [0.01, 0.20]
+  linking_weight_range: [0.1, 10.0]
+  # Threshold ranges
+  length_threshold_range: [10.0, 100.0]
+  cc_threshold_range: [0.1, 2.0]
+  cs_threshold_range: [0.1, 3.0]
+  curvature_threshold_range: [0.5, 10.0]
+  msc_threshold_range: [0.1, 5.0]
+  # Coil parameter ranges
+  ncoils_choices: [2, 3, 4, 5, 6, 8]
+  order_choices: [4, 6, 8, 12, 16]
+  max_iterations_range: [1000, 10000]
+  # Available surfaces (must correspond to files in plasma_surfaces/)
+  surfaces:
+    - "input.LandremanPaul2021_QA"
+    - "input.LandremanPaul2021_QH_reactorScale_lowres"
+    - "input.circular_tokamak"
+    - "input.rotating_ellipse"
+    - "input.W7-X_without_coil_ripple_beta0p05_d23p4_tm"
+    - "input.HSX_QHS_mn1824_ns101"
+    - "input.cfqs_2b40"
+    - "c09r00_B_axis_half_tesla_NCSX.focus"
+    - "muse.focus"
+  # Available algorithms
+  algorithms:
+    - "L-BFGS-B"
+    - "augmented_lagrangian"
+  # Available objective term types
+  objective_term_options:
+    total_length: ["l2_threshold"]
+    coil_curvature: ["lp_threshold"]
+    coil_mean_squared_curvature: ["l2_threshold"]
+    coil_arclength_variation: ["l2_threshold"]
+    linking_number: [""]
+
+# --- Guardrails ---
+guardrails:
+  sliding_window: 30           # number of recent completed cases to consider
+  max_fail_rate: 0.6           # stop proposing if fail_rate exceeds this
+  max_common_failure_count: 12 # stop if most common failure_reason repeats this many times
+  max_critical_class_count: 10 # stop if a critical failure_class repeats this many times
+  critical_failure_classes:    # failure classes to track separately
+    - "vmec_nonconverged"
+    - "nan_in_objective"
+    - "timeout"
+
+# --- Safe mode ---
+# Activated when fail_rate is elevated (> safe_mode_threshold) but below max_fail_rate
+safe_mode:
+  threshold: 0.35              # enter safe mode if fail_rate > this
+  # In safe mode, clamp exploration ranges tighter
+  weight_sigma_override: 0.08  # smaller mutations
+  max_iterations_cap: 5000     # limit iterations in safe mode
+  # Prefer more conservative surfaces (simpler geometries)
+  preferred_surfaces:
+    - "input.LandremanPaul2021_QA"
+    - "input.circular_tokamak"
+    - "input.rotating_ellipse"
+
+# --- Cooldown ---
+cooldown:
+  batches_after_guardrail: 3   # pause for N scheduled cycles after guardrail trigger
+  write_pause_file: true       # create PAUSE_AUTORUN on guardrail trigger

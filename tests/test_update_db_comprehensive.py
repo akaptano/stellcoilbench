@@ -3044,7 +3044,7 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                         "contact": "user1",
                         "composite_score": 1.0,
                         "reactor_scale_metrics": {
-                            "reactor_scale_arclength_variation": 0,
+                            "reactor_scale_squared_flux": 0,
                         },
                     }
                 ]

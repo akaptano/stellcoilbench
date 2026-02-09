@@ -3309,7 +3309,6 @@ _REACTOR_SCALE_DISPLAY_ORDER: list[str] = [
     "per_turn_max_force",
     "per_turn_max_torque",
     "max_winding_pack_width",
-    "reactor_scale_arclength_variation",
 ]
 
 # Internal reactor-scale keys that should NOT be shown as columns
@@ -3329,6 +3328,7 @@ _REACTOR_SCALE_EXCLUDE: set[str] = {
     "reactor_scale_max_max_coil_torque",       # single-turn; replaced by per_turn_max_torque
     "reactor_scale_avg_max_coil_force",        # avg not needed
     "reactor_scale_avg_max_coil_torque",       # avg not needed
+    "reactor_scale_arclength_variation",       # constraint retained; column removed
 }
 
 
@@ -3336,6 +3336,7 @@ def write_reactor_scale_leaderboard(
     leaderboard: Dict[str, Any],
     surface_leaderboards: Dict[str, Dict[str, Any]],
     out_rst: Path,
+    repo_root: Path | None = None,
 ) -> None:
     """Write a reactor-scale leaderboard RST file with per-surface tables.
 
@@ -3467,6 +3468,12 @@ def write_reactor_scale_leaderboard(
             lines.extend(["No reactor-scale data available for this surface.", ""])
             continue
 
+        # Resolve repo_root for visualization links
+        resolved_repo_root = repo_root
+        if resolved_repo_root is None:
+            # out_rst is docs/leaderboard/reactor_scale.rst → go up 3 levels
+            resolved_repo_root = Path(out_rst.parent.parent.parent).resolve()
+
         # Build header — metric symbol + units in a single :math: element
         header_cols = [r":math:`\text{Score}`", r":math:`\text{Status}`"]
         for k in rs_keys:
@@ -3479,8 +3486,12 @@ def write_reactor_scale_leaderboard(
                 math_sh = math_sh[:-1] + r"\ [" + unit_math + r"]`"
             header_cols.append(math_sh)
         header_cols.extend([
+            r":math:`\text{LN}`",
             r":math:`N_{\text{turns},i}`",
             r":math:`\text{User}`",
+            r":math:`\text{i}`",
+            r":math:`\text{f}`",
+            r":math:`\text{PP}`",
         ])
 
         lines.append(f".. list-table:: {display_name} — Reactor Scale")
@@ -3494,8 +3505,10 @@ def write_reactor_scale_leaderboard(
             lines.append("     - " + col)
 
         # Data rows
+        github_base_url = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
         for entry in entries:
             rs = entry.get("reactor_scale_metrics") or {}
+            metrics = entry.get("metrics") or {}
             cs = entry.get("composite_score")
             score_str = f"{cs:.3f}" if cs is not None else "—"
 
@@ -3508,9 +3521,7 @@ def write_reactor_scale_leaderboard(
             soft_metric_set: set = {v["metric"] for v in soft_violated}
 
             if hard_violated:
-                reasons = ", ".join(v["label"].split("(")[0].strip()
-                                    for v in hard_violated)
-                status_str = f":red:`FAIL` ({reasons})"
+                status_str = ":red:`FAIL`"
             elif cs is not None and cs == 0.0:
                 status_str = ":red:`FAIL`"
             else:
@@ -3525,6 +3536,16 @@ def write_reactor_scale_leaderboard(
                     val_str = f":orange:`{val_str}`"
                 row.append(val_str)
 
+            # LN column (from device-scale metrics)
+            ln_val = metrics.get("final_linking_number")
+            if ln_val is not None:
+                ln_str = str(int(round(float(ln_val))))
+            else:
+                ln_str = "—"
+            if "final_linking_number" in hard_metric_set:
+                ln_str = f":red:`{ln_str}`"
+            row.append(ln_str)
+
             # N_turns_per_coil column (comma-separated list)
             n_turns = rs.get("N_turns_per_coil")
             if isinstance(n_turns, list) and n_turns:
@@ -3536,6 +3557,106 @@ def write_reactor_scale_leaderboard(
             row.append(n_turns_str)
 
             row.append(entry.get("contact", entry.get("method_name", "?"))[:15])
+
+            # ---- Visualization link columns: i (initial), f (final), PP (Poincaré) ----
+            rank_num = str(entry.get("rank", "-"))
+            entry_path = entry.get("path", "")
+            if entry_path.startswith("/"):
+                entry_path = entry_path[1:]
+            i_link = "—"
+            f_link = "—"
+            poincare_link = "—"
+
+            if entry_path:
+                path_obj = Path(entry_path)
+                submission_dir = None
+                if path_obj.name == "all_files.zip":
+                    submission_dir = path_obj.parent
+                elif path_obj.suffix == ".zip":
+                    submission_dir = path_obj.parent
+                else:
+                    submission_dir = path_obj.parent
+
+                if submission_dir:
+                    if submission_dir.is_absolute():
+                        try:
+                            submission_dir = submission_dir.relative_to(resolved_repo_root.resolve())
+                        except ValueError:
+                            submission_str = str(submission_dir)
+                            if "submissions" in submission_str:
+                                idx = submission_str.find("submissions")
+                                submission_dir = Path(submission_str[idx:])
+                            else:
+                                submission_dir = None
+
+                    if submission_dir:
+                        sd_str = str(submission_dir).replace("\\", "/").lstrip("/")
+                        if sd_str.startswith("./"):
+                            sd_str = sd_str[2:]
+                        sd_str = sd_str.lstrip("/")
+                        submission_dir = Path(sd_str)
+
+                        full_sd = (resolved_repo_root / submission_dir).resolve()
+
+                        # Fourier continuation check
+                        fourier_orders_str = metrics.get("fourier_continuation_orders")
+                        is_fc = fourier_orders_str and fourier_orders_str != "—"
+                        orders: list[int] = []
+
+                        if is_fc and isinstance(fourier_orders_str, str):
+                            try:
+                                orders = [int(o.strip()) for o in fourier_orders_str.split(",")]
+                            except (ValueError, AttributeError):
+                                orders = []
+                            if orders:
+                                order_dirs = []
+                                for order in orders:
+                                    od = full_sd / f"order_{order}"
+                                    if od.exists() and od.is_dir():
+                                        order_dirs.append((order, f"order_{order}"))
+                                if order_dirs:
+                                    first_order, first_od = order_dirs[0]
+                                    init_pdf = submission_dir / first_od / "bn_error_3d_plot_initial.pdf"
+                                    if (resolved_repo_root / init_pdf).exists():
+                                        url = f"{github_base_url}/{str(init_pdf).replace(chr(92), '/')}"
+                                        i_link = f"`{rank_num} <{url}>`__"
+                                    f_links = []
+                                    for order, od_name in order_dirs:
+                                        fp = submission_dir / od_name / "bn_error_3d_plot.pdf"
+                                        if (resolved_repo_root / fp).exists():
+                                            url = f"{github_base_url}/{str(fp).replace(chr(92), '/')}"
+                                            f_links.append(f"`{order} <{url}>`__")
+                                    if f_links:
+                                        f_link = " ".join(f_links)
+                        else:
+                            pdf_final = submission_dir / "bn_error_3d_plot.pdf"
+                            pdf_init = submission_dir / "bn_error_3d_plot_initial.pdf"
+                            if (resolved_repo_root / pdf_final).exists():
+                                url = f"{github_base_url}/{str(pdf_final).replace(chr(92), '/')}"
+                                f_link = f"`{rank_num} <{url}>`__"
+                            if (resolved_repo_root / pdf_init).exists():
+                                url = f"{github_base_url}/{str(pdf_init).replace(chr(92), '/')}"
+                                i_link = f"`{rank_num} <{url}>`__"
+
+                        # Poincaré plot
+                        poincare_dirs = []
+                        if is_fc and orders:
+                            highest = max(orders)
+                            poincare_dirs.append(submission_dir / f"order_{highest}")
+                            poincare_dirs.append(submission_dir / f"order_{highest}" / "post_processing")
+                        poincare_dirs.append(submission_dir)
+                        poincare_dirs.append(submission_dir / "post_processing")
+                        for pd in poincare_dirs:
+                            pp_path = pd / "poincare_plot.png"
+                            if (resolved_repo_root / pp_path).exists():
+                                url_path = str(pp_path).replace("\\", "/").lstrip("/")
+                                if url_path.startswith("./"):
+                                    url_path = url_path[2:]
+                                url = f"{github_base_url}/{url_path}"
+                                poincare_link = f"`{rank_num} <{url}>`__"
+                                break
+
+            row.extend([i_link, f_link, poincare_link])
 
             lines.append("   * - " + row[0])
             for val in row[1:]:
@@ -3644,7 +3765,8 @@ def update_database(
         all_entries_leaderboard, submissions_root, plasma_surfaces_dir
     )
     write_reactor_scale_leaderboard(
-        leaderboard, rs_surface_leaderboards, docs_dir / "leaderboard" / "reactor_scale.rst"
+        leaderboard, rs_surface_leaderboards, docs_dir / "leaderboard" / "reactor_scale.rst",
+        repo_root=repo_root,
     )
     
     print(f"Generated {len(surface_names)} surface leaderboard files: {sorted(surface_names)}", file=sys.stderr)

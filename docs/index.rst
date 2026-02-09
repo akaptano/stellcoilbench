@@ -14,5 +14,6 @@ methods can be compared consistently.
    cases
    submissions
    cli
+   autopilot
    api
    leaderboard

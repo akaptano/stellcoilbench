@@ -2099,9 +2099,14 @@ class TestReactorScaleLeaderboard:
         # Average force/torque should NOT appear
         assert r"\bar{F}" not in content
         assert r"\bar{\tau}" not in content
-        # Arclength variation should appear
-        assert r"\mathrm{Var}(l_i)" in content
-        assert r"[\text{m}^2]" in content
+        # Arclength variation should NOT appear as a column (removed from display)
+        assert r"\mathrm{Var}(l_i)" not in content
+        # LN column should appear
+        assert r"\text{LN}" in content
+        # Visualization link columns should appear in header
+        assert r"\text{i}" in content
+        assert r"\text{f}" in content
+        assert r"\text{PP}" in content
         # Winding-pack width column should appear
         assert r"w_\text{WP}" in content
         assert "3.50e-02" in content  # the max WP width value (sci notation)
