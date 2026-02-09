@@ -414,6 +414,32 @@ jobs:
           done
 
           echo "Waiting for $COUNT autopilot case(s)..."
+
+          # Poll every 60s so CI output shows progress (not "stuck")
+          while true; do
+            ALL_DONE=true
+            for pid in "${PIDS[@]}"; do
+              if kill -0 "$pid" 2>/dev/null; then
+                ALL_DONE=false
+              fi
+            done
+            if $ALL_DONE; then break; fi
+
+            # Show which cases are still running and log file sizes
+            echo "--- $(date '+%H:%M:%S') still running ---"
+            for i in "${!PIDS[@]}"; do
+              pid="${PIDS[$i]}"
+              cfile="${CASE_FILES[$i]}"
+              cid=$(basename "$cfile" .json)
+              if kill -0 "$pid" 2>/dev/null; then
+                sz=$(wc -c < "/tmp/autopilot_logs/${cid}.log" 2>/dev/null || echo 0)
+                echo "  [$pid] $cid  log=${sz}B"
+              fi
+            done
+            sleep 60
+          done
+
+          # Collect exit statuses
           for pid in "${PIDS[@]}"; do
             wait "$pid" || true
           done

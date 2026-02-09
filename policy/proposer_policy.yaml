@@ -12,7 +12,7 @@ resource_caps:
   max_maxiter: 10000            # per-stage maxiter cap
   timeout_minutes_min: 5
   timeout_minutes_max: 180
-  timeout_minutes_default: 120
+  timeout_minutes_default: 30   # 30 min default per case
 
 # --- Mutation (exploit) parameters ---
 mutation:
@@ -24,7 +24,7 @@ mutation:
   threshold_max: 1000.0        # maximum threshold value
   ncoils_choices: [2, 3, 4, 5, 6, 8]
   order_choices: [4, 6, 8, 10, 12, 16]
-  max_iterations_range: [500, 10000]
+  max_iterations_range: [100, 2000]
 
 # --- Exploration parameters ---
 exploration:
@@ -44,7 +44,7 @@ exploration:
   # Coil parameter ranges
   ncoils_choices: [2, 3, 4, 5, 6, 8]
   order_choices: [4, 6, 8, 12, 16]
-  max_iterations_range: [1000, 10000]
+  max_iterations_range: [200, 2000]
   # Available surfaces (must correspond to files in plasma_surfaces/)
   surfaces:
     - "input.LandremanPaul2021_QA"
