@@ -168,11 +168,12 @@ def mutate_case(
     # New seed always
     new_seed = rng.randint(0, 2**31 - 1)
 
-    # Resource block
+    # Resource block — respect policy caps
+    caps = policy.get("resource_caps", {})
     max_iter = opt.get("max_iterations", 2000)
     resource = {
-        "max_total_iterations": min(max_iter, 10000),
-        "timeout_minutes": 120,
+        "max_total_iterations": min(max_iter, caps.get("max_total_iterations", 10000)),
+        "timeout_minutes": caps.get("timeout_minutes_max", 60),
     }
 
     return {
@@ -271,9 +272,10 @@ def explore_case(
     }
 
     new_seed = rng.randint(0, 2**31 - 1)
+    caps = policy.get("resource_caps", {})
     resource = {
-        "max_total_iterations": min(max_iterations, 10000),
-        "timeout_minutes": 120,
+        "max_total_iterations": min(max_iterations, caps.get("max_total_iterations", 10000)),
+        "timeout_minutes": caps.get("timeout_minutes_max", 60),
     }
 
     return {
