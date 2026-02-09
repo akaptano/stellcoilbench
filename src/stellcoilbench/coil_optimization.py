@@ -1139,7 +1139,7 @@ def initialize_coils_loop(
     
     base_curves = create_equally_spaced_curves(
         ncoils, s.nfp, stellsym=s.stellsym,
-        R0=R0, R1=R1, order=order, numquadpoints=256)
+        R0=R0, R1=R1, order=order, numquadpoints=200)
     base_currents = [(Current(total_current / ncoils * 1e-7) * 1e7) for _ in range(ncoils - 1)]
     total_current_obj = Current(total_current)
     total_current_obj.fix_all()
@@ -1979,7 +1979,7 @@ def optimize_coils_loop(
         surface_resolution: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
             Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
         **kwargs: Additional keyword arguments for constraint thresholds.
-            max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 2).
+            max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 50).
             length_threshold: Threshold for the length objective (default: 200.0).
             flux_threshold: Threshold for the flux objective (default: 1e-8).
             cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
@@ -2113,7 +2113,7 @@ def _optimize_coils_loop_impl(
         max_iterations = _CI_MAX_ITER_CAP
 
     # If there is a suboptimization, set the max iterations 
-    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 2)
+    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 50)
     algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
     
     # Normalize algorithm name (handle case variations)

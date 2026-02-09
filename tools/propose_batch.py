@@ -160,7 +160,9 @@ def mutate_case(
     # Fix max_iterations to policy default (not scanned)
     mut_policy = policy.get("mutation", {})
     opt["max_iterations"] = mut_policy.get("max_iterations", 1000)
-    opt["max_iter_subopt"] = max(10, opt["max_iterations"] // 50)
+    opt["verbose"] = True
+    # Don't set max_iter_subopt -- let the code default to max_iterations // 50
+    opt.pop("max_iter_subopt", None)
     child_cfg["optimizer_params"] = opt
 
     # New seed always
@@ -264,7 +266,6 @@ def explore_case(
             "algorithm": algorithm,
             "max_iterations": max_iterations,
             "verbose": True,
-            "max_iter_subopt": max(10, max_iterations // 50),
         },
         "coil_objective_terms": coil_objective_terms,
     }

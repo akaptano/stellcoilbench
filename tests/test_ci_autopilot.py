@@ -9,7 +9,6 @@ Tests for the nonstop CI autopilot components:
 from __future__ import annotations
 
 import json
-import math
 import sys
 from pathlib import Path
 from typing import Any, Dict
@@ -444,34 +443,32 @@ class TestMutateCase:
         cc = child["case_config"].get("coil_objective_terms", {})
         assert cc.get("length_weight") != 0.05 or cc.get("length_threshold") != 24.0
 
-    def test_safe_mode_smaller_sigma(self):
-        """In safe mode, mutations should be smaller on average."""
+    def test_weights_removed_from_child(self):
+        """Mutate should strip weight keys from parent (auglag auto-tunes them)."""
         parent = _make_summary(case_config={
             "description": "parent",
             "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
             "coils_params": {"ncoils": 4, "order": 8},
             "optimizer_params": {"algorithm": "L-BFGS-B", "max_iterations": 2000},
-            "coil_objective_terms": {"length_weight": 1.0},
+            "coil_objective_terms": {
+                "length_weight": 1.0,
+                "curvature_weight": 0.5,
+                "length_threshold": 50.0,
+                "cc_threshold": 0.8,
+            },
         })
-        policy = {
-            "mutation": {"weight_sigma": 0.5, "weight_min": 1e-6, "weight_max": 1e4,
-                         "threshold_sigma": 0.1, "threshold_min": 0.01, "threshold_max": 1000.0},
-            "safe_mode": {"weight_sigma_override": 0.01, "max_iterations_cap": 5000},
-        }
-        # Gather deviations for safe=True vs safe=False
-        deviations_safe = []
-        deviations_normal = []
-        for seed in range(50):
-            rng_s = _rng(seed)
-            rng_n = _rng(seed)
-            child_safe = mutate_case(parent, policy, rng_s, safe=True)
-            child_norm = mutate_case(parent, policy, rng_n, safe=False)
-            ws = child_safe["case_config"].get("coil_objective_terms", {}).get("length_weight", 1.0)
-            wn = child_norm["case_config"].get("coil_objective_terms", {}).get("length_weight", 1.0)
-            deviations_safe.append(abs(math.log(ws)))
-            deviations_normal.append(abs(math.log(wn)))
-        # Safe deviations should generally be smaller
-        assert sum(deviations_safe) < sum(deviations_normal)
+        policy = {"mutation": {"threshold_sigma": 0.1, "max_iterations": 1000}}
+        rng = _rng(42)
+        child = mutate_case(parent, policy, rng)
+        obj = child["case_config"].get("coil_objective_terms", {})
+        # No weight keys should remain
+        weight_keys = [k for k in obj if k.endswith("_weight")]
+        assert weight_keys == [], f"Expected no weight keys, got {weight_keys}"
+        # Threshold keys should still be present (and jittered)
+        assert "length_threshold" in obj
+        assert "cc_threshold" in obj
+        # Algorithm should be augmented_lagrangian
+        assert child["case_config"]["optimizer_params"]["algorithm"] == "augmented_lagrangian"
 
 
 class TestExploreCase:

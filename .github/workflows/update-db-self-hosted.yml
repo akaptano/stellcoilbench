@@ -409,6 +409,8 @@ jobs:
 
             echo "Launching autopilot case: $CASE_ID (timeout: ${CASE_TIMEOUT_MIN}m)"
             (
+              # PYTHONUNBUFFERED ensures output is written to log immediately
+              export PYTHONUNBUFFERED=1
               stellcoilbench run-ci-case "$CASE_FILE" \
                 --output-dir cases/done \
                 --policy policy/proposer_policy.yaml \
@@ -459,16 +461,23 @@ jobs:
             done
             if $ALL_DONE; then break; fi
 
-            # Show which cases are still running and log file sizes
+            # Show which cases are still running, log sizes, and last log line
             echo "--- $(date '+%H:%M:%S') elapsed=${ELAPSED}s still running ---"
             for i in "${!PIDS[@]}"; do
               pid="${PIDS[$i]}"
               cfile="${CASE_FILES[$i]}"
               cid=$(basename "$cfile" .json)
               if kill -0 "$pid" 2>/dev/null; then
-                sz=$(wc -c < "/tmp/autopilot_logs/${cid}.log" 2>/dev/null || echo 0)
+                LOGF="/tmp/autopilot_logs/${cid}.log"
+                sz=$(wc -c < "$LOGF" 2>/dev/null | tr -d ' ' || echo 0)
                 tmo="${CASE_TIMEOUTS[$i]}"
                 echo "  [$pid] $cid  log=${sz}B  timeout=${tmo}s"
+                # Show last 3 non-empty lines of the log for progress
+                if [ -s "$LOGF" ]; then
+                  echo "        --- last output ---"
+                  tail -3 "$LOGF" 2>/dev/null | sed 's/^/        /'
+                  echo "        ---"
+                fi
               fi
             done
             sleep 60
@@ -481,6 +490,32 @@ jobs:
 
           echo "=== Autopilot status ==="
           cat /tmp/autopilot_logs/_status.txt 2>/dev/null || echo "(no status)"
+
+          # Dump full logs for failed/timed-out cases
+          echo "=== Failed/Timed-out case logs ==="
+          while IFS= read -r line; do
+            case "$line" in
+              *FAIL*|*TIMEOUT*)
+                cid=$(echo "$line" | awk '{print $2}')
+                echo "--- Full log: $cid ---"
+                cat "/tmp/autopilot_logs/${cid}.log" 2>/dev/null || echo "(no log)"
+                echo "--- End log: $cid ---"
+                ;;
+            esac
+          done < /tmp/autopilot_logs/_status.txt 2>/dev/null || true
+
+          # Show last 20 lines of successful case logs too (summary)
+          echo "=== Successful case log tails ==="
+          while IFS= read -r line; do
+            case "$line" in
+              *OK*)
+                cid=$(echo "$line" | awk '{print $2}')
+                echo "--- Last 20 lines: $cid ---"
+                tail -20 "/tmp/autopilot_logs/${cid}.log" 2>/dev/null || echo "(no log)"
+                echo "--- End: $cid ---"
+                ;;
+            esac
+          done < /tmp/autopilot_logs/_status.txt 2>/dev/null || true
 
           echo "ran_cases=true" >> "$GITHUB_OUTPUT"
 
