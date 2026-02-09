@@ -120,32 +120,30 @@ def mutate_case(
 ) -> Dict[str, Any]:
     """Create a mutated child case from a parent's ``case_config``.
 
-    The child gets a new ``case_id``, ``random_seed``, and jittered weights/
-    thresholds.  The parent ``case_id`` is stored in ``parent_ids``.
+    The child gets a new ``case_id``, ``random_seed``, and jittered thresholds.
+    Weights are NOT mutated -- augmented_lagrangian auto-tunes them.
+    Any leftover weight keys from the parent are removed.
+    The parent ``case_id`` is stored in ``parent_ids``.
     """
     parent_cfg = parent.get("case_config", {})
     child_cfg = copy.deepcopy(parent_cfg)
 
     mut = policy.get("mutation", {})
-    sm = policy.get("safe_mode", {})
+    # sm = policy.get("safe_mode", {})
 
-    w_sigma = sm.get("weight_sigma_override", mut.get("weight_sigma", 0.15)) if safe else mut.get("weight_sigma", 0.15)
-    w_min = float(mut.get("weight_min", 1e-6))
-    w_max = float(mut.get("weight_max", 1e4))
     t_sigma = float(mut.get("threshold_sigma", 0.10))
-    t_min = float(mut.get("threshold_min", 0.01))
-    t_max = float(mut.get("threshold_max", 1000.0))
 
-    # Jitter weights
+    # Ensure algorithm is augmented_lagrangian
+    opt = child_cfg.get("optimizer_params", {})
+    opt["algorithm"] = "augmented_lagrangian"
+
+    # Remove any weight keys from parent (augmented_lagrangian handles weights)
     obj = child_cfg.get("coil_objective_terms", {})
     if obj is None:
         obj = {}
     weight_keys = [k for k in obj if k.endswith("_weight")]
     for wk in weight_keys:
-        old = obj[wk]
-        if isinstance(old, (int, float)) and not isinstance(old, bool) and old > 0:
-            new_val = old * math.exp(rng.gauss(0, w_sigma))
-            obj[wk] = round(_clamp(new_val, w_min, w_max), 6)
+        del obj[wk]
 
     # Jitter thresholds (only numeric values, skip string term-type values)
     threshold_keys = [k for k in obj if k.endswith("_threshold")]
@@ -153,19 +151,16 @@ def mutate_case(
         old = obj[tk]
         if isinstance(old, (int, float)) and not isinstance(old, bool) and old > 0:
             new_val = old * math.exp(rng.gauss(0, t_sigma))
-            obj[tk] = round(_clamp(new_val, t_min, t_max), 6)
+            # Keep thresholds positive but don't clamp to arbitrary bounds --
+            # the code will auto-scale if needed
+            obj[tk] = round(max(1e-6, new_val), 6)
 
     child_cfg["coil_objective_terms"] = obj
 
-    # Possibly change max_iterations slightly
-    opt = child_cfg.get("optimizer_params", {})
-    if "max_iterations" in opt:
-        old_iter = opt["max_iterations"]
-        # jitter ±20%
-        new_iter = int(old_iter * math.exp(rng.gauss(0, 0.10)))
-        iter_cap = sm.get("max_iterations_cap", 10000) if safe else 10000
-        new_iter = max(100, min(iter_cap, new_iter))
-        opt["max_iterations"] = new_iter
+    # Fix max_iterations to policy default (not scanned)
+    mut_policy = policy.get("mutation", {})
+    opt["max_iterations"] = mut_policy.get("max_iterations", 1000)
+    opt["max_iter_subopt"] = max(10, opt["max_iterations"] // 50)
     child_cfg["optimizer_params"] = opt
 
     # New seed always
@@ -199,7 +194,12 @@ def explore_case(
     *,
     safe: bool = False,
 ) -> Dict[str, Any]:
-    """Generate a random exploration case from the policy parameter ranges."""
+    """Generate a random exploration case from the policy parameter ranges.
+
+    Uses augmented_lagrangian by default (auto-tunes weights).
+    Thresholds can either be left to the code's auto-scaling (recommended)
+    or sampled from policy ranges.
+    """
     expl = policy.get("exploration", {})
     sm = policy.get("safe_mode", {})
 
@@ -210,35 +210,45 @@ def explore_case(
         surfaces = expl.get("surfaces", ["input.LandremanPaul2021_QA"])
     surface = rng.choice(surfaces)
 
-    # Pick algorithm
-    algorithms = expl.get("algorithms", ["L-BFGS-B"])
+    # Pick algorithm (default: augmented_lagrangian only)
+    algorithms = expl.get("algorithms", ["augmented_lagrangian"])
     algorithm = rng.choice(algorithms)
 
     # Pick coils/order
     ncoils = rng.choice(expl.get("ncoils_choices", [4]))
     order = rng.choice(expl.get("order_choices", [8]))
 
-    # Max iterations
-    iter_range = expl.get("max_iterations_range", [1000, 10000])
-    iter_cap = sm.get("max_iterations_cap", 10000) if safe else 10000
-    max_iterations = rng.randint(iter_range[0], min(iter_range[1], iter_cap))
+    # Max iterations (fixed, not scanned)
+    max_iterations = expl.get("max_iterations", 1000)
 
-    # Sample weights (log-uniform)
-    def _sample_range(key: str, default: list) -> float:
-        lo, hi = expl.get(key, default)
-        return round(_log_uniform(rng, lo, hi), 6)
+    # Build coil_objective_terms -- NO weights (augmented_lagrangian handles them)
+    # Only specify which objective terms to use and their types.
+    coil_objective_terms: Dict[str, Any] = {
+        "total_length": "l2_threshold",
+        "coil_curvature": "lp_threshold",
+        "coil_curvature_p": 2,
+        "coil_mean_squared_curvature": "l2_threshold",
+        "coil_arclength_variation": "l2_threshold",
+        "linking_number": "",
+    }
 
-    length_w = _sample_range("length_weight_range", [0.005, 0.10])
-    curvature_w = _sample_range("curvature_weight_range", [0.02, 0.30])
-    msc_w = _sample_range("msc_weight_range", [0.01, 0.20])
-    arclength_w = _sample_range("arclength_variation_weight_range", [0.01, 0.20])
-
-    # Sample thresholds (log-uniform)
-    length_t = round(_log_uniform(rng, *expl.get("length_threshold_range", [10, 100])), 2)
-    cc_t = round(_log_uniform(rng, *expl.get("cc_threshold_range", [0.1, 2.0])), 3)
-    cs_t = round(_log_uniform(rng, *expl.get("cs_threshold_range", [0.1, 3.0])), 3)
-    curvature_t = round(_log_uniform(rng, *expl.get("curvature_threshold_range", [0.5, 10.0])), 3)
-    msc_t = round(_log_uniform(rng, *expl.get("msc_threshold_range", [0.1, 5.0])), 3)
+    # Thresholds: either let the code auto-scale per surface (recommended)
+    # or sample from policy ranges for explicit control.
+    use_defaults = expl.get("use_default_thresholds", True)
+    if not use_defaults:
+        # Sample thresholds at 10 m reference scale (code will NOT auto-scale
+        # because they are passed explicitly).
+        coil_objective_terms["length_threshold"] = round(
+            _log_uniform(rng, *expl.get("length_threshold_range", [100, 300])), 2)
+        coil_objective_terms["cc_threshold"] = round(
+            _log_uniform(rng, *expl.get("cc_threshold_range", [0.4, 1.5])), 3)
+        coil_objective_terms["cs_threshold"] = round(
+            _log_uniform(rng, *expl.get("cs_threshold_range", [0.5, 2.5])), 3)
+        coil_objective_terms["curvature_threshold"] = round(
+            _log_uniform(rng, *expl.get("curvature_threshold_range", [0.5, 5.0])), 3)
+        coil_objective_terms["msc_threshold"] = round(
+            _log_uniform(rng, *expl.get("msc_threshold_range", [0.1, 5.0])), 3)
+    # else: thresholds omitted -> code uses defaults and auto-scales by major radius
 
     case_config: Dict[str, Any] = {
         "description": f"Exploration case: {surface} ncoils={ncoils} order={order}",
@@ -254,29 +264,10 @@ def explore_case(
             "algorithm": algorithm,
             "max_iterations": max_iterations,
             "verbose": True,
+            "max_iter_subopt": max(10, max_iterations // 50),
         },
-        "coil_objective_terms": {
-            "total_length": "l2_threshold",
-            "length_threshold": length_t,
-            "length_weight": length_w,
-            "cc_threshold": cc_t,
-            "cs_threshold": cs_t,
-            "coil_curvature": "lp_threshold",
-            "coil_curvature_p": 2,
-            "curvature_threshold": curvature_t,
-            "curvature_weight": curvature_w,
-            "coil_mean_squared_curvature": "l2_threshold",
-            "msc_threshold": msc_t,
-            "msc_weight": msc_w,
-            "coil_arclength_variation": "l2_threshold",
-            "arclength_variation_weight": arclength_w,
-            "linking_number": "",
-        },
+        "coil_objective_terms": coil_objective_terms,
     }
-
-    # Add augmented_lagrangian-specific options
-    if algorithm == "augmented_lagrangian":
-        case_config["optimizer_params"]["max_iter_subopt"] = max(10, max_iterations // 50)
 
     new_seed = rng.randint(0, 2**31 - 1)
     resource = {

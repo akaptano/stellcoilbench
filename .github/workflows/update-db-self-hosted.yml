@@ -335,7 +335,7 @@ jobs:
   run-autopilot-cases:
     if: github.repository == 'akaptano/stellcoilbench'
     runs-on: self-hosted
-    timeout-minutes: 180
+    timeout-minutes: 150  # Must be > max per-case timeout (120m) + buffer for commit
     outputs:
       ran_cases: ${{ steps.run.outputs.ran_cases }}
     steps:
@@ -379,12 +379,18 @@ jobs:
 
           export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
+          # Per-case timeout in seconds (read from each case's resource.timeout_minutes,
+          # default 120 min).  Cases exceeding this are killed so one slow case
+          # cannot block the commit step.
+          DEFAULT_CASE_TIMEOUT_SEC=$((120 * 60))
+
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
           # Cap at 8 cases per batch
           COUNT=0
           PIDS=()
           CASE_FILES=()
+          CASE_TIMEOUTS=()
           mkdir -p /tmp/autopilot_logs
 
           for CASE_FILE in "${PENDING_FILES[@]}"; do
@@ -392,7 +398,16 @@ jobs:
             CASE_ID=$(basename "$CASE_FILE" .json)
             LOG="/tmp/autopilot_logs/${CASE_ID}.log"
 
-            echo "Launching autopilot case: $CASE_ID"
+            # Read per-case timeout from the JSON (resource.timeout_minutes)
+            CASE_TIMEOUT_MIN=$(python3 -c "
+          import json, sys
+          try:
+              d = json.load(open('$CASE_FILE'))
+              print(d.get('resource', {}).get('timeout_minutes', 120))
+          except: print(120)" 2>/dev/null || echo 120)
+            CASE_TIMEOUT_SEC=$((CASE_TIMEOUT_MIN * 60))
+
+            echo "Launching autopilot case: $CASE_ID (timeout: ${CASE_TIMEOUT_MIN}m)"
             (
               stellcoilbench run-ci-case "$CASE_FILE" \
                 --output-dir cases/done \
@@ -410,30 +425,50 @@ jobs:
             ) &
             PIDS+=($!)
             CASE_FILES+=("$CASE_FILE")
+            CASE_TIMEOUTS+=($CASE_TIMEOUT_SEC)
             COUNT=$((COUNT + 1))
           done
 
           echo "Waiting for $COUNT autopilot case(s)..."
 
-          # Poll every 60s so CI output shows progress (not "stuck")
+          # Record launch time for per-case timeout enforcement
+          LAUNCH_TIME=$(date +%s)
+
+          # Poll every 60s; enforce per-case timeouts
           while true; do
             ALL_DONE=true
-            for pid in "${PIDS[@]}"; do
+            NOW=$(date +%s)
+            ELAPSED=$((NOW - LAUNCH_TIME))
+            for i in "${!PIDS[@]}"; do
+              pid="${PIDS[$i]}"
               if kill -0 "$pid" 2>/dev/null; then
-                ALL_DONE=false
+                cid=$(basename "${CASE_FILES[$i]}" .json)
+                timeout="${CASE_TIMEOUTS[$i]}"
+                if [ $ELAPSED -gt $timeout ]; then
+                  echo "TIMEOUT: killing case $cid (pid $pid) after ${ELAPSED}s > ${timeout}s"
+                  kill -TERM "$pid" 2>/dev/null || true
+                  sleep 5
+                  kill -9 "$pid" 2>/dev/null || true
+                  echo "[TIMEOUT] $cid (killed after ${ELAPSED}s)" >> /tmp/autopilot_logs/_status.txt
+                  # Still remove the pending file so it doesn't loop forever
+                  rm -f "${CASE_FILES[$i]}"
+                else
+                  ALL_DONE=false
+                fi
               fi
             done
             if $ALL_DONE; then break; fi
 
             # Show which cases are still running and log file sizes
-            echo "--- $(date '+%H:%M:%S') still running ---"
+            echo "--- $(date '+%H:%M:%S') elapsed=${ELAPSED}s still running ---"
             for i in "${!PIDS[@]}"; do
               pid="${PIDS[$i]}"
               cfile="${CASE_FILES[$i]}"
               cid=$(basename "$cfile" .json)
               if kill -0 "$pid" 2>/dev/null; then
                 sz=$(wc -c < "/tmp/autopilot_logs/${cid}.log" 2>/dev/null || echo 0)
-                echo "  [$pid] $cid  log=${sz}B"
+                tmo="${CASE_TIMEOUTS[$i]}"
+                echo "  [$pid] $cid  log=${sz}B  timeout=${tmo}s"
               fi
             done
             sleep 60
@@ -441,7 +476,7 @@ jobs:
 
           # Collect exit statuses
           for pid in "${PIDS[@]}"; do
-            wait "$pid" || true
+            wait "$pid" 2>/dev/null || true
           done
 
           echo "=== Autopilot status ==="
@@ -458,14 +493,14 @@ jobs:
           done
 
       - name: Commit autopilot results
-        if: steps.pending.outputs.has_pending == 'true'
+        if: always() && steps.pending.outputs.has_pending == 'true'
         shell: bash
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "ci-autopilot[bot]"
-          # Add each path separately so a missing path doesn't block the others
+          # Stage done results AND deleted pending files
           git add cases/done/  2>/dev/null || true
-          git add cases/pending/ 2>/dev/null || true
+          git add -u cases/pending/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No autopilot results to commit"
           else
