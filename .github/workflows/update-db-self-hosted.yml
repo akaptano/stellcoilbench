@@ -1,19 +1,32 @@
 # .github/workflows/update-db-selfhosted.yml
 # Self-hosted runner workflow: benchmark cases + nonstop CI autopilot.
 #
-# Standard benchmark path (push to main):
-#   determine-cases → run-cases → update-leaderboard
+# TRIGGER → JOB MAPPING:
 #
-# Autopilot path (schedule every 15 min, or manual):
-#   propose-autopilot-batch  → (pushes cases/pending/*.json)
-#   run-autopilot-cases      → (consumes pending, writes cases/done/)
+#   push (human code / case changes):
+#     determine-cases → run-cases → update-leaderboard   (benchmark path)
+#     run-autopilot-cases                                 (checks pending; usually no-op)
+#
+#   schedule (every 15 min) or workflow_dispatch:
+#     run-autopilot-cases       → runs pending cases, commits results
+#     propose-autopilot-batch   → proposes next 8 cases, commits to pending
+#
+#   Autopilot commits (cases/done/, cases/pending/) are excluded via
+#   paths-ignore so they do NOT re-trigger the benchmark pipeline.
 name: StellCoilBench CI (Self-Hosted)
 
 on:
   push:
     branches: [ main ]
+    # Ignore autopilot-only commits so they don't re-trigger the full
+    # benchmark pipeline (determine-cases → run-cases → update-leaderboard).
+    # If ALL changed files match these patterns the workflow is skipped.
+    paths-ignore:
+      - 'cases/pending/**'
+      - 'cases/done/**'
+      - 'PAUSE_AUTORUN'
   schedule:
-    - cron: '*/15 * * * *'   # autopilot proposer: every 15 minutes
+    - cron: '*/15 * * * *'   # autopilot: every 15 minutes
   workflow_dispatch:
 
 concurrency:
@@ -28,8 +41,9 @@ env:
   SIMPLE_EXECUTABLE: /Users/akaptanoglu/SIMPLE/build/simple.x
 
 jobs:
+  # ---- Standard benchmark path (only on push) ----
   determine-cases:
-    if: github.repository == 'akaptano/stellcoilbench'
+    if: github.repository == 'akaptano/stellcoilbench' && github.event_name == 'push'
     runs-on: self-hosted
     outputs:
       cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
@@ -139,7 +153,10 @@ jobs:
 
   run-cases:
     needs: [determine-cases]
-    if: github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
+    if: >
+      github.repository == 'akaptano/stellcoilbench' &&
+      github.event_name == 'push' &&
+      needs.determine-cases.outputs.has_cases == 'true'
     runs-on: self-hosted
     timeout-minutes: 1440  # 24 hours
     steps:
@@ -262,7 +279,11 @@ jobs:
 
   update-leaderboard:
     needs: [determine-cases, run-cases]
-    if: always() && github.repository == 'akaptano/stellcoilbench' && needs.determine-cases.outputs.has_cases == 'true'
+    if: >
+      always() &&
+      github.repository == 'akaptano/stellcoilbench' &&
+      github.event_name == 'push' &&
+      needs.determine-cases.outputs.has_cases == 'true'
     runs-on: self-hosted
     steps:
       - name: Check out repository
