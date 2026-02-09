@@ -1,0 +1,43 @@
+{
+  "case_id": "2026-02-08_200359_95860",
+  "success": false,
+  "total_score": Infinity,
+  "iterations_used": 0,
+  "walltime_sec": 0.0,
+  "failure_reason": "validation_error",
+  "failure_class": "validation",
+  "metrics": {},
+  "case_config": {
+    "description": "Exploration case: input.rotating_ellipse ncoils=4 order=12",
+    "surface_params": {
+      "surface": "input.rotating_ellipse",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 4,
+      "order": 12
+    },
+    "optimizer_params": {
+      "algorithm": "L-BFGS-B",
+      "max_iterations": 7706,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "length_threshold": 37.26,
+      "length_weight": 0.03684,
+      "cc_threshold": 0.607,
+      "cs_threshold": 2.454,
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "curvature_threshold": 1.456,
+      "curvature_weight": 0.131153,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "msc_threshold": 0.6,
+      "msc_weight": 0.014011,
+      "coil_arclength_variation": "l2_threshold",
+      "arclength_variation_weight": 0.051924,
+      "linking_number": ""
+    }
+  }
+}
