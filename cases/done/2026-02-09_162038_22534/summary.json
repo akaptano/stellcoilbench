@@ -1,0 +1,71 @@
+{
+  "case_id": "2026-02-09_162038_22534",
+  "success": true,
+  "total_score": 3.467402728631218e-06,
+  "iterations_used": 500,
+  "walltime_sec": 202.37,
+  "failure_reason": "",
+  "failure_class": "",
+  "metrics": {
+    "initial_B_field": 0.9999187287104948,
+    "final_B_field": 1.0967894324041851,
+    "target_B_field": 1.0,
+    "optimization_time": 195.62609219551086,
+    "walltime_sec": 195.62609219551086,
+    "iterations_used": 500,
+    "final_squared_flux": 3.467402728631218e-06,
+    "final_min_cs_separation": 0.2706625133469453,
+    "final_min_cc_separation": 0.0798034209037953,
+    "final_max_curvature": 4.495545852868925,
+    "final_average_curvature": 2.1101650538687786,
+    "final_arclength_variation": 0.0005740838011404069,
+    "final_mean_squared_curvature": 6.253055817825095,
+    "final_linking_number": 0,
+    "coils_linked_to_surface": true,
+    "final_max_max_coil_force": 754281.7113668008,
+    "final_avg_max_coil_force": 485981.32640685956,
+    "final_max_max_coil_torque": 514497.74875770166,
+    "final_avg_max_coil_torque": 249162.17612835547,
+    "avg_BdotN_over_B": 0.0008140855432500518,
+    "max_BdotN_over_B": 0.0030018511214298703,
+    "flux_threshold": 1e-08,
+    "cc_threshold": 0.08,
+    "cs_threshold": 0.13,
+    "msc_threshold": 10.0,
+    "arclength_variation_threshold": 0.0,
+    "curvature_threshold": 10.0,
+    "force_threshold": 0.03077870113881195,
+    "torque_threshold": 0.03077870113881195
+  },
+  "case_config": {
+    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=4 order=8",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QA",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 4,
+      "order": 8
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 500,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "coil_arclength_variation": "l2_threshold",
+      "linking_number": ""
+    }
+  },
+  "timing": {
+    "coil_initialization": 0.18183041596785188,
+    "biotsavart_setup": 3.2114322083070874,
+    "objective_setup": 0.02074108412489295,
+    "coil_optimization": 195.6263264589943,
+    "save_and_metrics": 3.1629996658302844
+  }
+}
