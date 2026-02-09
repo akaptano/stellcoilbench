@@ -1,0 +1,46 @@
+{
+  "case_id": "2026-02-08_200359_85346",
+  "parent_ids": [],
+  "tags": [
+    "explore"
+  ],
+  "resource": {
+    "max_total_iterations": 8119,
+    "timeout_minutes": 120
+  },
+  "case_config": {
+    "description": "Exploration case: input.circular_tokamak ncoils=5 order=6",
+    "surface_params": {
+      "surface": "input.circular_tokamak",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 5,
+      "order": 6
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 8119,
+      "verbose": true,
+      "max_iter_subopt": 162
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "length_threshold": 75.28,
+      "length_weight": 0.007298,
+      "cc_threshold": 0.826,
+      "cs_threshold": 1.192,
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "curvature_threshold": 7.137,
+      "curvature_weight": 0.035362,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "msc_threshold": 3.336,
+      "msc_weight": 0.050789,
+      "coil_arclength_variation": "l2_threshold",
+      "arclength_variation_weight": 0.05782,
+      "linking_number": ""
+    }
+  },
+  "random_seed": 795705830
+}

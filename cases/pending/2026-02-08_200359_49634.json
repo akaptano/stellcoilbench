@@ -1,0 +1,45 @@
+{
+  "case_id": "2026-02-08_200359_49634",
+  "parent_ids": [],
+  "tags": [
+    "explore"
+  ],
+  "resource": {
+    "max_total_iterations": 5426,
+    "timeout_minutes": 120
+  },
+  "case_config": {
+    "description": "Exploration case: muse.focus ncoils=6 order=16",
+    "surface_params": {
+      "surface": "muse.focus",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 6,
+      "order": 16
+    },
+    "optimizer_params": {
+      "algorithm": "L-BFGS-B",
+      "max_iterations": 5426,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "length_threshold": 61.63,
+      "length_weight": 0.059538,
+      "cc_threshold": 1.202,
+      "cs_threshold": 0.249,
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "curvature_threshold": 1.773,
+      "curvature_weight": 0.034364,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "msc_threshold": 0.472,
+      "msc_weight": 0.076412,
+      "coil_arclength_variation": "l2_threshold",
+      "arclength_variation_weight": 0.02829,
+      "linking_number": ""
+    }
+  },
+  "random_seed": 1463637727
+}
