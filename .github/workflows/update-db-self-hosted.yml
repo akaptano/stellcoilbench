@@ -377,6 +377,9 @@ jobs:
             cp "$SIMPLE_EXECUTABLE" ./simple.x
           fi
 
+          # Force unbuffered Python output so log files stream in real-time
+          # (without this, Python block-buffers to files and logs stay at 0B)
+          export PYTHONUNBUFFERED=1
           export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
           # Per-case timeout in seconds (read from each case's resource.timeout_minutes,
@@ -461,25 +464,37 @@ jobs:
             done
             if $ALL_DONE; then break; fi
 
-            # Show which cases are still running, log sizes, and last log line
-            echo "--- $(date '+%H:%M:%S') elapsed=${ELAPSED}s still running ---"
+            # Show progress for ALL cases (running + completed)
+            STILL_RUNNING=0
+            COMPLETED=0
+            echo "--- $(date '+%H:%M:%S') elapsed=${ELAPSED}s ---"
             for i in "${!PIDS[@]}"; do
               pid="${PIDS[$i]}"
               cfile="${CASE_FILES[$i]}"
               cid=$(basename "$cfile" .json)
               if kill -0 "$pid" 2>/dev/null; then
+                STILL_RUNNING=$((STILL_RUNNING + 1))
                 LOGF="/tmp/autopilot_logs/${cid}.log"
                 sz=$(wc -c < "$LOGF" 2>/dev/null | tr -d ' ' || echo 0)
                 tmo="${CASE_TIMEOUTS[$i]}"
-                echo "  [$pid] $cid  log=${sz}B  timeout=${tmo}s"
-                # Show last 3 non-empty lines of the log for progress
+                echo "  [running] $cid  log=${sz}B  timeout=${tmo}s"
+                # Show last non-empty line from log for progress
                 if [ -s "$LOGF" ]; then
-                  echo "        --- last output ---"
-                  tail -3 "$LOGF" 2>/dev/null | sed 's/^/        /'
-                  echo "        ---"
+                  last=$(grep -v '^$' "$LOGF" 2>/dev/null | tail -1 | head -c 140)
+                  [ -n "$last" ] && echo "            $last"
+                fi
+              else
+                COMPLETED=$((COMPLETED + 1))
+                # Show result from summary.json if available
+                if [ -f "cases/done/$cid/summary.json" ]; then
+                  result=$(python3 -c "import json; d=json.load(open('cases/done/$cid/summary.json')); print('OK  score=%.4e  iters=%d  wall=%.0fs' % (d['total_score'],d['iterations_used'],d['walltime_sec']) if d['success'] else 'FAIL  %s: %s' % (d.get('failure_class','?'),d.get('failure_reason','?')[:80]))" 2>/dev/null || echo "summary written")
+                  echo "  [done]    $cid  $result"
+                else
+                  echo "  [exited]  $cid  (no summary.json)"
                 fi
               fi
             done
+            echo "  === $STILL_RUNNING running, $COMPLETED completed of $COUNT ==="
             sleep 60
           done
 
