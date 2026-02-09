@@ -58,11 +58,16 @@ interfere with each other.
    * - ``push`` to main (human code / case changes)
      - **Benchmark:** ``determine-cases`` → ``run-cases`` → ``update-leaderboard``.
        **Autopilot:** ``run-autopilot-cases`` → ``propose-autopilot-batch``.
+   * - ``push`` (autopilot proposer adds ``cases/pending/``)
+     - **Autopilot:** ``run-autopilot-cases`` → ``propose-autopilot-batch``.
+       Benchmark jobs run ``determine-cases`` but find no new ``.yaml`` cases.
+       This is the **nonstop loop** trigger.
+   * - ``push`` (autopilot runner adds ``cases/done/`` only)
+     - **Nothing** — excluded by ``paths-ignore``.
    * - ``schedule`` (cron, every 15 min) or ``workflow_dispatch``
      - **Autopilot only:** ``run-autopilot-cases`` → ``propose-autopilot-batch``.
        Benchmark jobs are skipped (filtered by ``event_name == 'push'``).
-   * - Autopilot commits (only touch ``cases/done/``, ``cases/pending/``)
-     - **Nothing** — excluded by ``paths-ignore`` on the push trigger.
+       Cron acts as a safety net if the push-based loop stalls.
 
 The proposer (``propose-autopilot-batch``) runs on **every** event type —
 push, schedule, and dispatch.  This is safe because it has multiple built-in
@@ -84,23 +89,31 @@ in the workflow's ``paths-ignore``.  GitHub skips the workflow entirely for
 such pushes, so the benchmark pipeline (``determine-cases``, ``run-cases``,
 ``update-leaderboard``) never re-runs on autopilot commits.
 
-**Typical autopilot cycle (every 15 minutes):**
+**Nonstop loop (self-sustaining):**
 
-1. Cron fires the workflow.
-2. ``run-autopilot-cases`` finds pending cases (proposed in the previous cycle),
-   runs them in parallel, commits results to ``cases/done/``, deletes the
-   pending files, pushes.  (That push is ignored due to ``paths-ignore``.)
-3. ``propose-autopilot-batch`` pulls the latest results, checks guardrails,
-   proposes 8 new cases, commits to ``cases/pending/``, pushes.  (Also
-   ignored.)
-4. 15 minutes later, the next cron fires and the cycle repeats.
+Once bootstrapped, the autopilot runs continuously without waiting for cron:
+
+1. ``propose-autopilot-batch`` proposes 8 cases, commits to ``cases/pending/``,
+   pushes to main.
+2. That push triggers a new workflow run (``cases/pending/**`` is **not** in
+   ``paths-ignore`` for the self-hosted workflow).
+3. ``run-autopilot-cases`` finds the 8 pending cases, runs them in parallel,
+   commits results to ``cases/done/``, deletes the pending files, pushes.
+4. ``propose-autopilot-batch`` in the same run proposes 8 more, pushes.
+5. Goto step 2.
+
+The runner's push (touching ``cases/done/`` and ``cases/pending/``) may also
+trigger a queued run.  This is harmless: the batch barrier ensures the proposer
+never double-proposes, and extra runs where pending is empty are quick no-ops.
+
+The cron schedule (every 15 minutes) acts as a **safety net** in case the loop
+stalls (e.g. due to a transient GitHub outage that drops a push event).
 
 **Kickstarting the loop:**
 
 The loop starts automatically on the first ``git push`` that includes the
 autopilot code.  The ``propose-autopilot-batch`` job runs, proposes 8 cases,
-and commits them to ``cases/pending/``.  The next cron tick (within 15 minutes)
-runs those cases and proposes 8 more.
+and pushes — which immediately triggers a new run that executes them.
 
 You can also trigger manually: **GitHub → Actions → "StellCoilBench CI
 (Self-Hosted)" → "Run workflow"** (the ``workflow_dispatch`` button).

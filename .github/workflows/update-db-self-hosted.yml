@@ -7,23 +7,30 @@
 #     determine-cases → run-cases → update-leaderboard   (benchmark path)
 #     run-autopilot-cases  → propose-autopilot-batch      (autopilot path)
 #
+#   push (autopilot proposer commits cases/pending/):
+#     run-autopilot-cases  → propose-autopilot-batch      (nonstop loop!)
+#     benchmark jobs skipped (event_name==push but no new cases/*.yaml)
+#
+#   push (autopilot runner commits cases/done/ only):
+#     SKIPPED entirely via paths-ignore
+#
 #   schedule (every 15 min) or workflow_dispatch:
 #     run-autopilot-cases  → propose-autopilot-batch      (autopilot path only)
 #
-#   Autopilot commits (cases/done/, cases/pending/) are excluded via
-#   paths-ignore so they do NOT re-trigger the benchmark pipeline.
-#   The proposer has built-in guards (PAUSE_AUTORUN, batch barrier,
-#   guardrails) so it's safe to run on every event.
+# The proposer's push of cases/pending/ intentionally triggers a new run
+# so the runner picks up the cases immediately.  This creates the nonstop
+# loop.  The batch barrier (proposer skips when pending is non-empty)
+# prevents duplicate proposals.
 name: StellCoilBench CI (Self-Hosted)
 
 on:
   push:
     branches: [ main ]
-    # Ignore autopilot-only commits so they don't re-trigger the full
-    # benchmark pipeline (determine-cases → run-cases → update-leaderboard).
-    # If ALL changed files match these patterns the workflow is skipped.
+    # Ignore autopilot result-only commits so they don't re-trigger the
+    # benchmark pipeline.  cases/pending/** is intentionally NOT ignored:
+    # when the proposer pushes new pending cases, that push must trigger a
+    # run so the runner picks them up immediately (nonstop loop).
     paths-ignore:
-      - 'cases/pending/**'
       - 'cases/done/**'
       - 'PAUSE_AUTORUN'
   schedule:
