@@ -430,7 +430,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "ci-autopilot[bot]"
-          git add cases/done/ cases/pending/ 2>/dev/null || true
+          # Add each path separately so a missing path doesn't block the others
+          git add cases/done/  2>/dev/null || true
+          git add cases/pending/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No autopilot results to commit"
           else
@@ -498,7 +500,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "ci-autopilot[bot]"
-          git add cases/pending/ PAUSE_AUTORUN 2>/dev/null || true
+          # Add each path separately so a missing PAUSE_AUTORUN doesn't
+          # prevent cases/pending/ from being staged (git add fails entirely
+          # if ANY pathspec is missing).
+          git add cases/pending/ 2>/dev/null || true
+          git add PAUSE_AUTORUN 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No new cases proposed"
           else
