@@ -56,13 +56,25 @@ interfere with each other.
    * - Trigger
      - Jobs that run
    * - ``push`` to main (human code / case changes)
-     - ``determine-cases`` → ``run-cases`` → ``update-leaderboard`` (benchmark).
-       ``run-autopilot-cases`` also runs but usually finds nothing pending.
+     - **Benchmark:** ``determine-cases`` → ``run-cases`` → ``update-leaderboard``.
+       **Autopilot:** ``run-autopilot-cases`` → ``propose-autopilot-batch``.
    * - ``schedule`` (cron, every 15 min) or ``workflow_dispatch``
-     - ``run-autopilot-cases`` (runs any pending cases, commits results).
-       ``propose-autopilot-batch`` (proposes next 8 cases, commits to pending).
+     - **Autopilot only:** ``run-autopilot-cases`` → ``propose-autopilot-batch``.
+       Benchmark jobs are skipped (filtered by ``event_name == 'push'``).
    * - Autopilot commits (only touch ``cases/done/``, ``cases/pending/``)
      - **Nothing** — excluded by ``paths-ignore`` on the push trigger.
+
+The proposer (``propose-autopilot-batch``) runs on **every** event type —
+push, schedule, and dispatch.  This is safe because it has multiple built-in
+guards:
+
+- ``PAUSE_AUTORUN`` file check
+- Batch barrier (refuses to propose while ``cases/pending/`` is non-empty)
+- Guardrails (failure-rate and repeated-failure checks)
+
+Running on push solves the **bootstrap problem**: the first push after merging
+the autopilot code immediately proposes 8 cases, without waiting for a cron
+tick.
 
 **Why autopilot commits don't cascade:**
 
@@ -70,7 +82,7 @@ When the autopilot runner commits results to ``cases/done/`` or the proposer
 commits new cases to ``cases/pending/``, those pushes only touch paths listed
 in the workflow's ``paths-ignore``.  GitHub skips the workflow entirely for
 such pushes, so the benchmark pipeline (``determine-cases``, ``run-cases``,
-``update-leaderboard``) never runs on autopilot commits.
+``update-leaderboard``) never re-runs on autopilot commits.
 
 **Typical autopilot cycle (every 15 minutes):**
 
@@ -85,9 +97,12 @@ such pushes, so the benchmark pipeline (``determine-cases``, ``run-cases``,
 
 **Kickstarting the loop:**
 
-After the first ``git push`` of the autopilot code, no pending cases exist
-yet.  The loop starts automatically at the next cron tick (within 15 minutes).
-To start immediately, go to **GitHub → Actions → "StellCoilBench CI
+The loop starts automatically on the first ``git push`` that includes the
+autopilot code.  The ``propose-autopilot-batch`` job runs, proposes 8 cases,
+and commits them to ``cases/pending/``.  The next cron tick (within 15 minutes)
+runs those cases and proposes 8 more.
+
+You can also trigger manually: **GitHub → Actions → "StellCoilBench CI
 (Self-Hosted)" → "Run workflow"** (the ``workflow_dispatch`` button).
 
 **Concurrency:**

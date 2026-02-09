@@ -4,6 +4,12 @@ name: CI
 on:
   push:
     branches: [ main ]
+    # Skip CI for autopilot-only commits (cases/pending, cases/done, PAUSE_AUTORUN).
+    # These commits don't touch source code or tests.
+    paths-ignore:
+      - 'cases/pending/**'
+      - 'cases/done/**'
+      - 'PAUSE_AUTORUN'
   pull_request:
     branches: [ main ]
 

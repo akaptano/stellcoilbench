@@ -5,14 +5,15 @@
 #
 #   push (human code / case changes):
 #     determine-cases → run-cases → update-leaderboard   (benchmark path)
-#     run-autopilot-cases                                 (checks pending; usually no-op)
+#     run-autopilot-cases  → propose-autopilot-batch      (autopilot path)
 #
 #   schedule (every 15 min) or workflow_dispatch:
-#     run-autopilot-cases       → runs pending cases, commits results
-#     propose-autopilot-batch   → proposes next 8 cases, commits to pending
+#     run-autopilot-cases  → propose-autopilot-batch      (autopilot path only)
 #
 #   Autopilot commits (cases/done/, cases/pending/) are excluded via
 #   paths-ignore so they do NOT re-trigger the benchmark pipeline.
+#   The proposer has built-in guards (PAUSE_AUTORUN, batch barrier,
+#   guardrails) so it's safe to run on every event.
 name: StellCoilBench CI (Self-Hosted)
 
 on:
@@ -440,14 +441,17 @@ jobs:
           fi
 
   # =========================================================================
-  # Nonstop CI autopilot: propose next batch (only on schedule / dispatch)
+  # Nonstop CI autopilot: propose next batch
+  # Runs on ALL event types (push, schedule, dispatch).  The proposer has
+  # its own guards (PAUSE_AUTORUN, batch barrier, guardrails) so running
+  # it on push is safe and solves the bootstrap problem: the first push
+  # after merging the autopilot code immediately proposes 8 cases.
   # =========================================================================
   propose-autopilot-batch:
     needs: [run-autopilot-cases]
     if: >
       always() &&
-      github.repository == 'akaptano/stellcoilbench' &&
-      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+      github.repository == 'akaptano/stellcoilbench'
     runs-on: self-hosted
     steps:
       - name: Check out repository
