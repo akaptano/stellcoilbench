@@ -1,0 +1,46 @@
+{
+  "case_id": "2026-02-08_200359_43937",
+  "parent_ids": [],
+  "tags": [
+    "explore"
+  ],
+  "resource": {
+    "max_total_iterations": 6440,
+    "timeout_minutes": 120
+  },
+  "case_config": {
+    "description": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=2 order=12",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QH_reactorScale_lowres",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 2,
+      "order": 12
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 6440,
+      "verbose": true,
+      "max_iter_subopt": 128
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "length_threshold": 21.61,
+      "length_weight": 0.065611,
+      "cc_threshold": 1.617,
+      "cs_threshold": 0.829,
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "curvature_threshold": 1.437,
+      "curvature_weight": 0.028086,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "msc_threshold": 3.525,
+      "msc_weight": 0.05694,
+      "coil_arclength_variation": "l2_threshold",
+      "arclength_variation_weight": 0.022602,
+      "linking_number": ""
+    }
+  },
+  "random_seed": 530140657
+}
