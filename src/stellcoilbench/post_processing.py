@@ -1135,6 +1135,7 @@ def run_simple_particle_tracing(
         matching the SIMPLE simple.in file. Key parameters include:
         
         **Particle Tracing Parameters:**
+
         - trace_time : float, default=0.2
             Slowing down time in seconds (2d-1 in Fortran).
         - sbeg : float or list[float], default=0.25
@@ -1152,6 +1153,7 @@ def run_simple_particle_tracing(
             Test particle energy reduction factor.
         
         **Field Line Parameters:**
+
         - nper : int, default=1000
             Number of periods for initial field line.
         - npoiper : int, default=100
@@ -1166,6 +1168,7 @@ def run_simple_particle_tracing(
             Control of passing particle fraction.
         
         **VMEC File Parameters:**
+
         - netcdffile : str, optional
             Name of VMEC file in NETCDF format. If not provided, uses vmec_equil.output_file.
         - vmec_B_scale : float, default=1.0
@@ -1176,6 +1179,7 @@ def run_simple_particle_tracing(
             Field type: -1: Testing, 0: Canonical, 1: VMEC, 2: Boozer, 3: Meiss, 4: Albert.
         
         **Integration Parameters:**
+
         - ntimstep : int, default=10000
             Number of time steps per slowing down time.
         - integmode : int, default=1
@@ -1184,6 +1188,7 @@ def run_simple_particle_tracing(
             Tolerance for integrator. Set to 1e-13 for symplectic.
         
         **Spline Parameters:**
+
         - ns_s : int, default=5
             Spline order for 3D quantities over s variable.
         - ns_tp : int, default=5
@@ -1192,6 +1197,7 @@ def run_simple_particle_tracing(
             Angular grid factor (n_grid=multharm*n_harm_max where n_harm_max - maximum Fourier index).
         
         **Initial Conditions:**
+
         - startmode : int, default=1
             Mode for initial conditions:
             1 = only on one fieldline ("local"),
@@ -1207,6 +1213,7 @@ def run_simple_particle_tracing(
             If True, only initialisation is done and particle coordinates are written to file.
         
         **Classification Parameters:**
+
         - tcut : float, default=-1.0
             Time when to do cut for classification, usually 1e-1, or -1 if no cuts desired.
         - class_plot : bool, default=False
@@ -1217,6 +1224,7 @@ def run_simple_particle_tracing(
             If True, quit immediately after fast classification and don't trace orbits to the end.
         
         **Collision Parameters:**
+
         - swcoll : bool, default=False
             If True, enables collisions. This is incompatible with classification.
         - am1 : float, default=2.0
@@ -1239,6 +1247,7 @@ def run_simple_particle_tracing(
             Electron temperature for collisions (eV).
         
         **Other Parameters:**
+
         - notrace_passing : int, default=0
             Skip tracing passing particles if notrace_passing=1.
         - debug : bool, default=False

@@ -39,7 +39,7 @@ on:
 
 concurrency:
   group: stellcoilbench-selfhosted-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   contents: write

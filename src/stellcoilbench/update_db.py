@@ -3492,7 +3492,12 @@ def write_reactor_scale_leaderboard(
             return "—"
         if isinstance(value, (dict, list)):
             return "—"
-        v = float(value)
+        if isinstance(value, str):
+            return "—"
+        try:
+            v = float(value)
+        except (ValueError, TypeError):
+            return "—"
         if abs(v) < 1e-100:
             return "0"
         if abs(v) >= 100:
@@ -3626,7 +3631,12 @@ def write_reactor_scale_leaderboard(
             resolved_repo_root = Path(out_rst.parent.parent.parent).resolve()
 
         # Build header — metric symbol + units in a single :math: element
-        header_cols = [r":math:`\text{Score}`", r":math:`\text{Status}`"]
+        header_cols = [
+            r":math:`\text{Score}`",
+            r":math:`\text{Status}`",
+            r":math:`N`",
+            r":math:`n`",
+        ]
         for k in rs_keys:
             shorthand = _metric_shorthand(k)
             math_sh = _shorthand_to_math(shorthand)
@@ -3678,7 +3688,13 @@ def write_reactor_scale_leaderboard(
             else:
                 status_str = "pass"
 
-            row = [score_str, status_str]
+            # N (num_coils) and n (coil_order) from device-scale metrics
+            n_coils_val = metrics.get("num_coils")
+            n_coils_str = str(int(round(float(n_coils_val)))) if n_coils_val is not None else "—"
+            c_order_val = metrics.get("coil_order")
+            c_order_str = str(int(round(float(c_order_val)))) if c_order_val is not None else "—"
+
+            row = [score_str, status_str, n_coils_str, c_order_str]
             for k in rs_keys:
                 # Look in reactor_scale_metrics first, fall back to metrics
                 raw_val = rs.get(k)

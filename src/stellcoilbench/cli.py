@@ -386,16 +386,43 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
         if r0_scale is not None and r0_scale != 0:
             major_radius = 10.0 / r0_scale  # invert: R0_scale = 10 / major_radius
     
-    # If not in metrics, try to get from case_cfg
+    # If not in metrics, try to load the plasma surface to get major radius
     if major_radius is None and case_cfg is not None:
         try:
-            # Load surface to get major radius
             from stellcoilbench.config_scheme import CaseConfig
             if isinstance(case_cfg, CaseConfig):
-                surface_params = case_cfg.surface_params
-                if hasattr(surface_params, 'surface'):
-                    # Would need to load surface - skip for now
-                    pass
+                surface_name = case_cfg.surface_params.get("surface", "")
+            elif isinstance(case_cfg, dict):
+                surface_name = case_cfg.get("surface_params", {}).get("surface", "")
+            else:
+                surface_name = ""
+            if surface_name:
+                # Search for surface file in plasma_surfaces/
+                candidates = [
+                    Path("plasma_surfaces") / surface_name,
+                    Path.cwd() / "plasma_surfaces" / surface_name,
+                ]
+                surface_path = None
+                for p in candidates:
+                    if p.exists():
+                        surface_path = p
+                        break
+                # Case-insensitive fallback
+                if surface_path is None:
+                    ps_dir = Path("plasma_surfaces")
+                    if not ps_dir.exists():
+                        ps_dir = Path.cwd() / "plasma_surfaces"
+                    if ps_dir.exists():
+                        for f in ps_dir.iterdir():
+                            if f.name.lower() == surface_name.lower():
+                                surface_path = f
+                                break
+                if surface_path is not None:
+                    from simsopt.geo import SurfaceRZFourier
+                    s = SurfaceRZFourier.from_vmec_input(
+                        str(surface_path), range="half period", nphi=16, ntheta=16,
+                    )
+                    major_radius = float(s.get_rc(0, 0))
         except Exception:
             pass
     
@@ -1290,7 +1317,10 @@ def run_ci_case(
             coils_out_path=coils_out_path,
             case_cfg=case_cfg,
             output_dir=out,
-            skip_post_processing=True,
+            skip_post_processing=False,
+            run_vmec=False,
+            run_simple=False,
+            plot_poincare=True,
         )
         wall_end = _time.time()
         walltime = wall_end - wall_start
@@ -1355,6 +1385,7 @@ def run_ci_case(
                 case_config_dict=case_config_dict,
                 walltime=summary["walltime_sec"],
                 repo_root=Path.cwd(),
+                case_output_dir=out,
             )
         except Exception as exc:
             typer.echo(
@@ -1371,12 +1402,15 @@ def _write_autopilot_submission(
     walltime: float,
     repo_root: Path,
     submissions_dir: Path | None = None,
+    case_output_dir: Path | None = None,
 ) -> None:
     """Create a ``submissions/`` entry so autopilot results appear on the leaderboard.
 
-    Directory structure mirrors human submissions:
-    ``submissions/<surface>/autopilot/<case_id>/results.json``
+    The entry is formatted identically to human submissions so that no extra
+    columns appear.  Directory structure:
+    ``submissions/<surface>/auto/<case_id>/results.json``
     """
+    import shutil
     from datetime import datetime as _dt
 
     submissions_dir = submissions_dir or (repo_root / "submissions")
@@ -1398,17 +1432,23 @@ def _write_autopilot_submission(
     if "." in surface_name:
         surface_name = surface_name.split(".", 1)[0]
 
-    # --- build results.json in the standard format ---
-    version_info = _get_version_info()
-    full_metrics = dict(results_dict)  # preserve lists, arrays, etc.
+    # --- build metrics that match the human-submission format ---
+    # Strip fields that human submissions don't have so no extra columns
+    # appear on the leaderboard.
+    _STRIP_KEYS = {"iterations_used", "walltime_sec", "output_directory"}
+    full_metrics = {
+        k: v for k, v in results_dict.items()
+        if k not in _STRIP_KEYS
+    }
 
+    version_info = _get_version_info()
     reactor_scale_metrics = _compute_reactor_scale_metrics(full_metrics, case_cfg)
 
     submission = {
         "metadata": {
             "method_name": case_config_dict.get("description", f"autopilot_{case_id}"),
-            "contact": "autopilot",
-            "hardware": f"CPU: self-hosted runner",
+            "contact": "auto",
+            "hardware": "CPU: self-hosted runner",
             "notes": f"Autopilot case {case_id}",
             "run_date": _dt.now().isoformat(),
         },
@@ -1417,10 +1457,30 @@ def _write_autopilot_submission(
         "reactor_scale_metrics": reactor_scale_metrics,
     }
 
-    sub_dir = submissions_dir / surface_name / "autopilot" / case_id
+    sub_dir = submissions_dir / surface_name / "auto" / case_id
     sub_dir.mkdir(parents=True, exist_ok=True)
     sub_path = sub_dir / "results.json"
     sub_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
+
+    # Write case.yaml so the leaderboard can extract N (ncoils) and n (order)
+    import yaml as _yaml_mod
+    case_yaml_path = sub_dir / "case.yaml"
+    case_yaml_path.write_text(
+        _yaml_mod.dump(case_config_dict, default_flow_style=False)
+    )
+
+    # Copy plot files so leaderboard links (i, f, PP) work.
+    # Only Poincaré + Bnormal PDFs are generated by CI runs (VMEC/SIMPLE are off).
+    if case_output_dir and case_output_dir.is_dir():
+        for plot_name in (
+            "bn_error_3d_plot.pdf",
+            "bn_error_3d_plot_initial.pdf",
+            "poincare_plot.png",
+        ):
+            src = case_output_dir / plot_name
+            if src.exists():
+                shutil.copy2(src, sub_dir / plot_name)
+
     typer.echo(f"Wrote submission to {sub_path}")
 
 
