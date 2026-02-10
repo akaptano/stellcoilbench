@@ -48,7 +48,7 @@ Bmag at R =  1.0 , Z = 0:  [0.99999091 1.00000554 1.00001125 0.99999885 0.999988
  1.00000746 1.00001037 0.99999659 0.9999883  0.99999885 1.00001125
  1.00000554 0.99999091]
 toroidally averaged Bmag at R =  1.0 , Z = 0:  0.9999999999999998
-[TIMING] coil_initialization: 0.63s
+[TIMING] coil_initialization: 0.46s
 
 Coil currents before optimization (unique base coils):
   Coil 1: 1.79e+05 A
@@ -129,7 +129,7 @@ toroidally averaged Bmag at R =  1.0 , Z = 0:  0.9999998162945555
 
 Initial B-field on-axis: 1.000 T
   Saved 3D B_N/|B| error plot to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_082302_23111/bn_error_3d_plot_initial.pdf
-[TIMING] biotsavart_setup: 3.72s
+[TIMING] biotsavart_setup: 3.25s
 [TIMING] objective_setup: 0.02s
 Initial thresholds and weights:
   [0] Flux: threshold=1.00e-08, weight=1.0
@@ -331,7 +331,7 @@ LAGRANGE MULTIPLIERS: [-18.13501314  -1.22371599  -1.09408201  -0.30384603  -0.
 --------------------------------------------------------------------------------------------------------------------------------------------
 While loop finished because something became false: 
  grad_tol_check =  True , c_tol_check =  True , maxiter_check =  False
-[TIMING] coil_optimization: 649.33s
+[TIMING] coil_optimization: 547.86s
 
 Coil currents after optimization (unique base coils):
   Coil 1: 2.40e+05 A
@@ -377,11 +377,11 @@ Final constraint values:
 Optimization completed successfully!
 Results saved to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_082302_23111
   Saved 3D B_N/|B| error plot to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_082302_23111/bn_error_3d_plot.pdf
-[TIMING] save_and_metrics: 3.48s
+[TIMING] save_and_metrics: 3.31s
 
 Running post-processing (QFM, Poincaré plots, profiles)...
 Loading coils and plasma surface...
-[TIMING] load_coils_and_surface: 0.02s
+[TIMING] load_coils_and_surface: 0.01s
 Generating Poincaré plot...
 Loading surface with 'full torus' range for Poincaré plot...
 [TIMING] poincare_load_surface: 0.01s
@@ -389,10 +389,51 @@ R0 values: [1.15834671 1.1651402  1.17193369 1.17872717 1.18552066 1.19231415
  1.19910764 1.20590112 1.21269461 1.2194881  1.22628159 1.23307507
  1.23986856 1.24666205 1.25345554 1.26024902 1.26704251 1.273836
  1.28062949 1.28742297]
-[TIMING] surface_classifier_setup: 8.59s
+[TIMING] surface_classifier_setup: 8.33s
 Initializing InterpolatedField
 [TIMING] interpolated_field_setup: 0.00s
 Done initializing InterpolatedField.
 Mean(|B|) on plasma surface = 0.9460727210172553
 Beginning fieldline tracing (20 fieldlines)...
 Skip 6752 cells out of 9471
+Time for fieldline tracing=285.600s. Num steps=5501119
+Generating Poincaré plot...
+0 0 0 0.0
+1 0 1 0.7853981633974483
+2 1 0 1.5707963267948966
+3 1 1 2.356194490192345
+[TIMING] plot_poincare_data: 0.50s
+[TIMING] poincare_total: 294.90s
+[TIMING] compute_BdotN: 0.47s
+B·n on plasma surface: 1.59e-03
+B·n/|B|: 1.68e-03
+
+============================================================
+TIMING SUMMARY
+============================================================
+  poincare_total                             294.90s ( 96.9%)
+  surface_classifier_setup                     8.33s (  2.7%)
+  plot_poincare_data                           0.50s (  0.2%)
+  compute_BdotN                                0.47s (  0.2%)
+  load_coils_and_surface                       0.01s (  0.0%)
+  poincare_load_surface                        0.01s (  0.0%)
+  interpolated_field_setup                     0.00s (  0.0%)
+------------------------------------------------------------
+  TOTAL                                      304.21s
+============================================================
+
+Post-processing complete. Results saved to /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_082302_23111
+Post-processing complete!
+
+==================================================
+COIL OPTIMIZATION TIMING SUMMARY
+==================================================
+  coil_initialization: 0.46s
+  biotsavart_setup: 3.25s
+  objective_setup: 0.02s
+  coil_optimization: 547.86s
+  save_and_metrics: 3.31s
+  ==============================
+  Total coil optimization: 554.90s
+==================================================
+
