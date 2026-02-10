@@ -1887,12 +1887,15 @@ def run_post_processing(
                         else:
                             poincare_surface = surface
                 
+                # Only pass MPI comm when genuinely running in parallel;
+                # a single-rank comm can trigger MPI_ERR_ARG on some builds.
+                _poincare_comm = comm_world if is_mpi_parallel else None
                 poincare_results = trace_fieldlines(
                     bfield,
                     poincare_surface,
                     output_dir / "poincare_plot.png",
                     nfieldlines=nfieldlines,
-                    comm=comm_world,  # Use MPI communicator for parallel fieldline tracing
+                    comm=_poincare_comm,
                 )
                 results['poincare_results'] = poincare_results
             proc0_print(f"[TIMING] poincare_total: {_timing_results.get('poincare_total', 0):.2f}s")

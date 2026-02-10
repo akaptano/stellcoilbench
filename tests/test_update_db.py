@@ -2104,7 +2104,6 @@ class TestReactorScaleLeaderboard:
         assert "Reactor-Scale Leaderboard" in content
         assert "Test Surface" in content  # display_name
         assert "1.500" in content  # composite_score
-        assert "pass" in content  # status column (no violations)
         assert "user1" in content
         # Units should appear in column headers, not as subscripts
         assert r"[\text{m}]" in content  # e.g. d_{cs}\ [\text{m}]
@@ -2116,9 +2115,9 @@ class TestReactorScaleLeaderboard:
         assert r"L_\text{SC}" in content
         assert r"[\text{km}]" in content
         assert "54.0" in content  # the SC length value
-        # N_turns_per_coil should appear as a comma-separated column
-        assert r"N_{\text{turns},i}" in content
-        assert "2, 3" in content  # per-coil turns values
+        # max N_turns should appear as a column with just the max value
+        assert r"\max_i N_{\text{turns}}" in content
+        assert "3" in content  # max of [2, 3]
         # Single-turn F_max / tau_max should NOT appear (replaced by per-turn)
         assert r"F_\text{max}" not in content
         assert r"\tau_\text{max}" not in content
@@ -2140,8 +2139,8 @@ class TestReactorScaleLeaderboard:
         assert "Finite-build" in content
         assert "clearance" in content.lower()
 
-    def test_excluded_entry_shows_fail(self, tmp_path):
-        """Entries with hard constraint violations should show FAIL status."""
+    def test_excluded_entry_shows_red_for_hard_violation(self, tmp_path):
+        """Entries with hard constraint violations should highlight cells in red."""
         leaderboard = {"entries": []}
         surface_leaderboards = {
             "test_surface": {
@@ -2167,11 +2166,10 @@ class TestReactorScaleLeaderboard:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        assert "FAIL" in content
         assert ":red:" in content
 
-    def test_soft_violation_shows_orange_not_fail(self, tmp_path):
-        """Soft violations should show orange cells but NOT FAIL status."""
+    def test_soft_violation_shows_orange(self, tmp_path):
+        """Soft violations should show orange cells for violated metrics."""
         leaderboard = {"entries": []}
         surface_leaderboards = {
             "test_surface": {
@@ -2197,16 +2195,8 @@ class TestReactorScaleLeaderboard:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        # Soft violation → orange highlight, NOT red FAIL
+        # Soft violation → orange highlight on the specific metric cell
         assert ":orange:" in content
-        assert "pass" in content  # status should be pass
-        # Should NOT show FAIL for a pure soft violation
-        lines_with_fail = [line for line in content.splitlines()
-                           if "FAIL" in line and "hard" not in line.lower()
-                           and "constraint" not in line.lower()]
-        # The only lines with FAIL should be in the explanatory text, not data rows
-        for line in lines_with_fail:
-            assert "* -" not in line, f"Data row incorrectly shows FAIL: {line}"
 
     def test_empty_surface(self, tmp_path):
         """Surfaces with no entries should show a placeholder."""
@@ -2263,10 +2253,10 @@ class TestReactorScaleLeaderboard:
         assert r":math:`n`" in content
         # Data values (integer-formatted)
         lines = content.splitlines()
-        data_lines = [l.strip() for l in lines if l.strip().startswith("- ")]
+        data_lines = [ln.strip() for ln in lines if ln.strip().startswith("- ")]
         # N=4 and n=8 should appear as data cells
-        assert any("4" in l for l in data_lines)
-        assert any("8" in l for l in data_lines)
+        assert any("4" in ln for ln in data_lines)
+        assert any("8" in ln for ln in data_lines)
 
     def test_n_and_n_missing_shows_dash(self, tmp_path):
         """Missing N and n should render as dashes."""
@@ -2309,9 +2299,9 @@ class TestReactorScaleLeaderboard:
                 cells.append(stripped[2:])
             else:
                 break
-        # cells: [score, status, N, n, metric(s)..., LN, N_turns, User, i, f, PP]
-        assert cells[2] == "\u2014", f"N should be dash, got: {cells[2]}"
-        assert cells[3] == "\u2014", f"n should be dash, got: {cells[3]}"
+        # cells: [score, N, n, metric(s)..., LN, N_turns, User, i, f, PP]
+        assert cells[1] == "\u2014", f"N should be dash, got: {cells[1]}"
+        assert cells[2] == "\u2014", f"n should be dash, got: {cells[2]}"
 
     def test_visualization_links_in_reactor_scale(self, tmp_path):
         """Visualization links (i, f, PP) should be generated when files exist."""

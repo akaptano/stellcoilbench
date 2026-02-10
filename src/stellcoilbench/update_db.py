@@ -3470,7 +3470,85 @@ _REACTOR_SCALE_EXCLUDE: set[str] = {
     "reactor_scale_avg_max_coil_torque",       # avg not needed
     "reactor_scale_arclength_variation",       # constraint retained; column removed
     "reactor_scale_squared_flux",              # replaced by avg_BdotN_over_B
+    "error",                                   # legacy error message from old backfills
 }
+
+
+def _generate_score_vs_time_plot(
+    surface_leaderboards: Dict[str, Dict[str, Any]],
+    out_dir: Path,
+) -> Path | None:
+    """Generate a best-score-over-time plot as a PNG.
+
+    For each surface, collects (run_date, composite_score) pairs from all
+    entries, sorts by date, computes the running-best score, and plots the
+    envelope.  Returns the path to the written PNG, or *None* on failure.
+    """
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        import matplotlib.dates as mdates
+        from datetime import datetime as _dt
+    except ImportError:
+        return None
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    has_data = False
+
+    for surface_name, data in sorted(surface_leaderboards.items()):
+        entries = data.get("entries", [])
+        points: list[tuple[_dt, float]] = []
+        for e in entries:
+            cs = e.get("composite_score")
+            rd = e.get("run_date", "")
+            if cs is None or not rd:
+                continue
+            try:
+                # Handle ISO date with or without time
+                if "T" in rd:
+                    dt = _dt.fromisoformat(rd.replace("Z", "+00:00").split("+")[0])
+                else:
+                    dt = _dt.strptime(rd.split("T")[0], "%Y-%m-%d")
+                points.append((dt, float(cs)))
+            except (ValueError, TypeError):
+                continue
+
+        if not points:
+            continue
+
+        # Sort by date and compute running best
+        points.sort(key=lambda p: p[0])
+        dates = [p[0] for p in points]
+        scores = [p[1] for p in points]
+        best_so_far: list[float] = []
+        running_best = -float("inf")
+        for s in scores:
+            running_best = max(running_best, s)
+            best_so_far.append(running_best)
+
+        display = _surface_display_name(surface_name)
+        ax.plot(mdates.date2num(dates), best_so_far, "o-", markersize=3, label=display, alpha=0.8)
+        has_data = True
+
+    if not has_data:
+        plt.close(fig)
+        return None
+
+    ax.set_xlabel("Run date")
+    ax.set_ylabel("Best composite score")
+    ax.set_title("Best Reactor-Scale Score Over Time")
+    ax.legend(fontsize=8, loc="best")
+    ax.grid(True, alpha=0.3)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%m/%d"))
+    fig.autofmt_xdate()
+    fig.tight_layout()
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    plot_path = out_dir / "score_vs_time.png"
+    fig.savefig(plot_path, dpi=150)
+    plt.close(fig)
+    return plot_path
 
 
 def write_reactor_scale_leaderboard(
@@ -3633,7 +3711,6 @@ def write_reactor_scale_leaderboard(
         # Build header — metric symbol + units in a single :math: element
         header_cols = [
             r":math:`\text{Score}`",
-            r":math:`\text{Status}`",
             r":math:`N`",
             r":math:`n`",
         ]
@@ -3648,7 +3725,7 @@ def write_reactor_scale_leaderboard(
             header_cols.append(math_sh)
         header_cols.extend([
             r":math:`\text{LN}`",
-            r":math:`N_{\text{turns},i}`",
+            r":math:`\max_i N_{\text{turns}}`",
             r":math:`\text{User}`",
             r":math:`\text{i}`",
             r":math:`\text{f}`",
@@ -3673,20 +3750,12 @@ def write_reactor_scale_leaderboard(
             cs = entry.get("composite_score")
             score_str = f"{cs:.3f}" if cs is not None else "—"
 
-            # Status: FAIL only for hard-constraint violations.
-            # Soft violations lower the score but do NOT cause FAIL.
+            # Constraint violation sets (still used for cell highlighting)
             violations = entry.get("constraint_violations", [])
             hard_violated = [v for v in violations if v.get("hard")]
             soft_violated = [v for v in violations if not v.get("hard")]
             hard_metric_set: set = {v["metric"] for v in hard_violated}
             soft_metric_set: set = {v["metric"] for v in soft_violated}
-
-            if hard_violated:
-                status_str = ":red:`FAIL`"
-            elif cs is not None and cs == 0.0:
-                status_str = ":red:`FAIL`"
-            else:
-                status_str = "pass"
 
             # N (num_coils) and n (coil_order) from device-scale metrics
             n_coils_val = metrics.get("num_coils")
@@ -3694,7 +3763,7 @@ def write_reactor_scale_leaderboard(
             c_order_val = metrics.get("coil_order")
             c_order_str = str(int(round(float(c_order_val)))) if c_order_val is not None else "—"
 
-            row = [score_str, status_str, n_coils_str, c_order_str]
+            row = [score_str, n_coils_str, c_order_str]
             for k in rs_keys:
                 # Look in reactor_scale_metrics first, fall back to metrics
                 raw_val = rs.get(k)
@@ -3717,10 +3786,10 @@ def write_reactor_scale_leaderboard(
                 ln_str = f":red:`{ln_str}`"
             row.append(ln_str)
 
-            # N_turns_per_coil column (comma-separated list)
+            # N_turns_per_coil column — show max only
             n_turns = rs.get("N_turns_per_coil")
             if isinstance(n_turns, list) and n_turns:
-                n_turns_str = ", ".join(str(n) for n in n_turns)
+                n_turns_str = str(max(n_turns))
             else:
                 n_turns_str = "—"
             if "N_turns_per_coil" in hard_metric_set:
@@ -3834,6 +3903,20 @@ def write_reactor_scale_leaderboard(
                 lines.append("     - " + val)
 
         lines.extend(["", ""])
+
+    # ---- Score-vs-time plot ----
+    plot_path = _generate_score_vs_time_plot(surface_leaderboards, out_rst.parent)
+    if plot_path is not None:
+        rel_plot = plot_path.name
+        lines.extend([
+            "Best Score Over Time",
+            "--------------------",
+            "",
+            f".. image:: {rel_plot}",
+            "   :width: 100%",
+            "   :alt: Best composite score over time per surface",
+            "",
+        ])
 
     # Footer
     lines.extend([
