@@ -2050,7 +2050,7 @@ def _optimize_coils_loop_impl(
     is_continuation_step = kwargs.get('initial_coils') is not None
     
     # nturns is constant for all cases (defined here so it's always available)
-    nturns = 1  # nturns = 1 for standardization
+    nturns = 200 # nturns = 200 to give reasonable upper bound on reactor scale forces
     
     # For continuation steps, reuse pre-computed thresholds/weights from kwargs if available
     # This avoids recalculating thresholds and weights that don't change between continuation steps
