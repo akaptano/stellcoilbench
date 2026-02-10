@@ -1,5 +1,5 @@
 {
-  "case_id": "2026-02-10_075100_59400",
+  "case_id": "2026-02-10_082302_23111",
   "parent_ids": [],
   "tags": [
     "explore"
@@ -9,14 +9,14 @@
     "timeout_minutes": 60
   },
   "case_config": {
-    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=4 order=8",
+    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=12",
     "surface_params": {
       "surface": "input.LandremanPaul2021_QA",
       "range": "half period"
     },
     "coils_params": {
-      "ncoils": 4,
-      "order": 8
+      "ncoils": 7,
+      "order": 12
     },
     "optimizer_params": {
       "algorithm": "augmented_lagrangian",
@@ -32,5 +32,5 @@
       "linking_number": ""
     }
   },
-  "random_seed": 1416046120
+  "random_seed": 508515151
 }
