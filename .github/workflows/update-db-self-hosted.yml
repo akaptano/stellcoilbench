@@ -542,22 +542,31 @@ jobs:
             [ -f "$f" ] && echo "=== $f ===" && cat "$f"
           done
 
-      - name: Commit autopilot results
+      - name: Commit autopilot results and update leaderboard
         if: always() && steps.pending.outputs.has_pending == 'true'
         shell: bash
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "ci-autopilot[bot]"
-          # Stage done results AND deleted pending files
+
+          # Rebuild the leaderboard so autopilot results appear online.
+          # run-ci-case already wrote submissions/<surface>/autopilot/<id>/results.json.
+          echo "Rebuilding leaderboard from submissions/ ..."
+          stellcoilbench update-db 2>&1 || echo "WARNING: update-db failed, leaderboard may be stale"
+
+          # Stage everything in one commit: done results, deleted pending
+          # files, new submission entries, and updated leaderboard docs.
           git add cases/done/  2>/dev/null || true
           git add -u cases/pending/ 2>/dev/null || true
+          git add submissions/ 2>/dev/null || true
+          git add docs/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No autopilot results to commit"
           else
-            git commit -m "ci: autopilot batch results"
+            git commit -m "ci: autopilot batch results + leaderboard update"
             git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
             git push origin main
-            echo "Autopilot results committed"
+            echo "Autopilot results and leaderboard committed"
           fi
 
   # =========================================================================

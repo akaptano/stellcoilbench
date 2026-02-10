@@ -1281,6 +1281,7 @@ def run_ci_case(
 
     coils_out_path = out / "coils.json"
     wall_start = _time.time()
+    results_dict: dict = {}  # set before try so it's always bound
 
     try:
         timeout_sec = resource.get("timeout_minutes", 120) * 60
@@ -1343,6 +1344,84 @@ def run_ci_case(
     summary_path = out / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote summary to {summary_path}")
+
+    # ---- Also create a proper submissions/ entry for the leaderboard ------
+    if summary.get("success"):
+        try:
+            _write_autopilot_submission(
+                case_id=case_id,
+                results_dict=results_dict,
+                case_cfg=case_cfg,
+                case_config_dict=case_config_dict,
+                walltime=summary["walltime_sec"],
+                repo_root=Path.cwd(),
+            )
+        except Exception as exc:
+            typer.echo(
+                f"WARNING: could not create submission entry: {exc}", err=True
+            )
+
+
+def _write_autopilot_submission(
+    *,
+    case_id: str,
+    results_dict: dict,
+    case_cfg,
+    case_config_dict: dict,
+    walltime: float,
+    repo_root: Path,
+    submissions_dir: Path | None = None,
+) -> None:
+    """Create a ``submissions/`` entry so autopilot results appear on the leaderboard.
+
+    Directory structure mirrors human submissions:
+    ``submissions/<surface>/autopilot/<case_id>/results.json``
+    """
+    from datetime import datetime as _dt
+
+    submissions_dir = submissions_dir or (repo_root / "submissions")
+
+    # --- extract surface name (same logic as submit-case) ---
+    surface_file = ""
+    sp = case_config_dict.get("surface_params", {})
+    if isinstance(sp, dict):
+        surface_file = sp.get("surface", "")
+    elif hasattr(sp, "get"):
+        surface_file = sp.get("surface", "")
+    if not surface_file:
+        raise ValueError("case_config must specify surface_params.surface")
+    surface_name = Path(surface_file).name
+    for prefix in ("input.", "wout."):
+        if surface_name.startswith(prefix):
+            surface_name = surface_name[len(prefix):]
+            break
+    if "." in surface_name:
+        surface_name = surface_name.split(".", 1)[0]
+
+    # --- build results.json in the standard format ---
+    version_info = _get_version_info()
+    full_metrics = dict(results_dict)  # preserve lists, arrays, etc.
+
+    reactor_scale_metrics = _compute_reactor_scale_metrics(full_metrics, case_cfg)
+
+    submission = {
+        "metadata": {
+            "method_name": case_config_dict.get("description", f"autopilot_{case_id}"),
+            "contact": "autopilot",
+            "hardware": f"CPU: self-hosted runner",
+            "notes": f"Autopilot case {case_id}",
+            "run_date": _dt.now().isoformat(),
+        },
+        "version_info": version_info,
+        "metrics": full_metrics,
+        "reactor_scale_metrics": reactor_scale_metrics,
+    }
+
+    sub_dir = submissions_dir / surface_name / "autopilot" / case_id
+    sub_dir.mkdir(parents=True, exist_ok=True)
+    sub_path = sub_dir / "results.json"
+    sub_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
+    typer.echo(f"Wrote submission to {sub_path}")
 
 
 def _write_ci_summary(
