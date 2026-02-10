@@ -1,0 +1,14 @@
+{
+  "BdotN": 0.0007585080126285113,
+  "BdotN_over_B": 0.0008017471591101852,
+  "quasisymmetry_average": null,
+  "timing": {
+    "load_coils_and_surface": 0.014039291068911552,
+    "poincare_load_surface": 0.0074720000848174095,
+    "surface_classifier_setup": 8.749745583627373,
+    "interpolated_field_setup": 0.0012679588980972767,
+    "plot_poincare_data": 0.5337858749553561,
+    "poincare_total": 250.9613022087142,
+    "compute_BdotN": 0.3681210419163108
+  }
+}
