@@ -1,0 +1,74 @@
+{
+  "case_id": "2026-02-10_014640_32941",
+  "success": true,
+  "total_score": 4.306338895472743e-06,
+  "iterations_used": 500,
+  "walltime_sec": 761.15,
+  "failure_reason": "",
+  "failure_class": "",
+  "metrics": {
+    "initial_B_field": 0.9999964969197142,
+    "final_B_field": 1.0955376022472083,
+    "target_B_field": 1.0,
+    "optimization_time": 482.98637795448303,
+    "walltime_sec": 482.98637795448303,
+    "iterations_used": 500,
+    "final_squared_flux": 4.306338895472743e-06,
+    "final_min_cs_separation": 0.2195088566579857,
+    "final_min_cc_separation": 0.12713727543403783,
+    "final_max_curvature": 4.72871033341094,
+    "final_average_curvature": 2.285826840795537,
+    "final_arclength_variation": 0.00010963964279666584,
+    "final_mean_squared_curvature": 7.108194717552283,
+    "final_linking_number": 0,
+    "coils_linked_to_surface": true,
+    "final_max_max_coil_force": 171163.55587341922,
+    "final_avg_max_coil_force": 153682.40197531023,
+    "final_max_max_coil_torque": 53804.04057433234,
+    "final_avg_max_coil_torque": 39359.2260359263,
+    "avg_BdotN_over_B": 0.0009737896269846054,
+    "max_BdotN_over_B": 0.003660859964353556,
+    "flux_threshold": 1e-08,
+    "cc_threshold": 0.08,
+    "cs_threshold": 0.13,
+    "msc_threshold": 10.0,
+    "arclength_variation_threshold": 0.0,
+    "curvature_threshold": 10.0,
+    "force_threshold": 0.03077870113881195,
+    "torque_threshold": 0.03077870113881195,
+    "BdotN": 0.0009237973956911356,
+    "BdotN_over_B": 0.0009764590706037186
+  },
+  "case_config": {
+    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=12",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QA",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 6,
+      "order": 12
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 500,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "coil_arclength_variation": "l2_threshold",
+      "linking_number": ""
+    }
+  },
+  "timing": {
+    "load_coils_and_surface": 0.014708084054291248,
+    "poincare_load_surface": 0.007332916837185621,
+    "surface_classifier_setup": 8.532836250029504,
+    "interpolated_field_setup": 0.0011322088539600372,
+    "poincare_total": 270.1292484169826,
+    "compute_BdotN": 0.42165133310481906
+  }
+}
