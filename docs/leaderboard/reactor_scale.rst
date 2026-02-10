@@ -167,26 +167,26 @@ Landreman-Paul QA
      - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf>`__
      - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot.pdf>`__
      - —
-   * - 1.740
+   * - 1.828
      - pass
-     - 4
-     - 4
-     - 7.77e-04
-     - 2.13
-     - :orange:`5.98e-01`
+     - 3
+     - 8
+     - 3.88e-04
+     - 2.52
+     - :orange:`6.00e-01`
      - 150.0
-     - 43.99
-     - 3.75e-01
-     - 2.33e-01
-     - 8.36e-02
-     - 4.96e-01
-     - 1.94
-     - 4.12e-01
+     - 53.75
+     - 4.46e-01
+     - 2.24e-01
+     - 8.08e-02
+     - 4.20e-01
+     - 2.27
+     - 4.19e-01
      - 0
-     - 425, 124, 330, 224
+     - 298, 438, 334
      - auto
-     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_19033/bn_error_3d_plot_initial.pdf>`__
-     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_19033/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_75508/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_75508/bn_error_3d_plot.pdf>`__
      - —
    * - 1.718
      - pass
@@ -251,26 +251,68 @@ Landreman-Paul QA
      - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf>`__
      - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot.pdf>`__
      - —
-   * - 1.624
+   * - 1.596
      - pass
-     - 4
+     - 7
      - 6
-     - 8.24e-04
-     - 1.87
-     - :orange:`5.98e-01`
+     - 1.68e-03
+     - :orange:`1.14`
+     - 1.02
      - 150.0
-     - 42.84
-     - 5.86e-01
-     - 2.54e-01
-     - 1.31e-01
-     - 4.99e-01
-     - 2.33
-     - 3.93e-01
+     - 23.86
+     - 6.44e-01
+     - 3.46e-01
+     - 1.78e-01
+     - 2.13e-01
+     - 4.70e-01
+     - 2.92e-01
      - 0
-     - 239, 387, 91, 377
+     - 213, 195, 175, 145, 115, 113, 116
      - auto
-     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_16273/bn_error_3d_plot_initial.pdf>`__
-     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_16273/bn_error_3d_plot.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_58092/bn_error_3d_plot_initial.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_58092/bn_error_3d_plot.pdf>`__
+     - —
+   * - 1.562
+     - pass
+     - 5
+     - 8
+     - 7.74e-04
+     - 1.66
+     - :orange:`6.00e-01`
+     - 150.0
+     - 32.83
+     - 7.33e-01
+     - 2.84e-01
+     - 1.44e-01
+     - 4.39e-01
+     - 1.35
+     - 3.63e-01
+     - 0
+     - 219, 208, 96, 330, 218
+     - auto
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_78646/bn_error_3d_plot_initial.pdf>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_78646/bn_error_3d_plot.pdf>`__
+     - —
+   * - 1.523
+     - pass
+     - 5
+     - 12
+     - 6.97e-04
+     - 1.71
+     - :orange:`6.01e-01`
+     - 150.0
+     - 32.44
+     - 9.55e-01
+     - 3.09e-01
+     - 1.78e-01
+     - 3.49e-01
+     - 9.07e-01
+     - 3.29e-01
+     - 0
+     - 190, 214, 137, 270, 260
+     - auto
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_84983/bn_error_3d_plot_initial.pdf>`__
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_84983/bn_error_3d_plot.pdf>`__
      - —
    * - 1.522
      - pass
@@ -290,8 +332,29 @@ Landreman-Paul QA
      - 0
      - 228, 210, 173, 130, 105, 113, 114
      - auto
-     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_75984/bn_error_3d_plot_initial.pdf>`__
-     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_75984/bn_error_3d_plot.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_56907/bn_error_3d_plot_initial.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_56907/bn_error_3d_plot.pdf>`__
+     - —
+   * - 1.498
+     - pass
+     - 3
+     - 16
+     - 3.45e-03
+     - 2.34
+     - :orange:`5.94e-01`
+     - 125.9
+     - 46.19
+     - :orange:`1.06`
+     - 3.73e-01
+     - 1.79e-01
+     - 4.99e-01
+     - 2.53
+     - 4.32e-01
+     - 0
+     - 291, 325, 467
+     - auto
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_19148/bn_error_3d_plot_initial.pdf>`__
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_19148/bn_error_3d_plot.pdf>`__
      - —
    * - 1.445
      - pass
@@ -311,92 +374,29 @@ Landreman-Paul QA
      - 0
      - 164, 166, 182, 167, 182, 211
      - akaptano
-     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
-     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
-     - —
-   * - 1.432
-     - pass
-     - 7
-     - 16
-     - 1.99e-03
-     - 1.34
-     - :orange:`5.96e-01`
-     - 150.0
-     - 22.96
-     - 8.97e-01
-     - 3.69e-01
-     - 1.78e-01
-     - 3.51e-01
-     - 4.04e-01
-     - 2.58e-01
-     - 0
-     - 155, 156, 140, 150, 160, 144, 166
-     - auto
-     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_72770/bn_error_3d_plot_initial.pdf>`__
-     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_72770/bn_error_3d_plot.pdf>`__
-     - —
-   * - 1.432
-     - pass
-     - 7
-     - 16
-     - 1.99e-03
-     - 1.34
-     - :orange:`5.96e-01`
-     - 150.0
-     - 22.96
-     - 8.97e-01
-     - 3.69e-01
-     - 1.78e-01
-     - 3.51e-01
-     - 4.04e-01
-     - 2.58e-01
-     - 0
-     - 155, 156, 140, 150, 160, 144, 166
-     - auto
-     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_74807/bn_error_3d_plot_initial.pdf>`__
-     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_74807/bn_error_3d_plot.pdf>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
      - :red:`FAIL`
-     - 3
-     - 4
-     - 9.72e-04
-     - 2.01
-     - :orange:`5.95e-01`
+     - 2
+     - 16
+     - 3.62e-04
+     - 2.68
+     - :orange:`6.00e-01`
      - 150.0
-     - 69.13
-     - 3.37e-01
-     - 1.97e-01
-     - 6.76e-02
-     - 4.99e-01
-     - 2.97
-     - 5.36e-01
+     - 85.96
+     - 9.02e-01
+     - 2.55e-01
+     - 1.14e-01
+     - 5.00e-01
+     - 3.51
+     - 4.80e-01
      - 0
-     - :red:`718, 130, 337`
+     - :red:`575, 571`
      - auto
-     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_23124/bn_error_3d_plot_initial.pdf>`__
-     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_23124/bn_error_3d_plot.pdf>`__
-     - —
-   * - 0.000
-     - :red:`FAIL`
-     - 3
-     - 4
-     - 9.72e-04
-     - 2.01
-     - :orange:`5.95e-01`
-     - 150.0
-     - 69.13
-     - 3.37e-01
-     - 1.97e-01
-     - 6.76e-02
-     - 4.99e-01
-     - 2.97
-     - 5.36e-01
-     - 0
-     - :red:`718, 130, 337`
-     - auto
-     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_27066/bn_error_3d_plot_initial.pdf>`__
-     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_27066/bn_error_3d_plot.pdf>`__
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_98567/bn_error_3d_plot_initial.pdf>`__
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_98567/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
      - :red:`FAIL`
@@ -416,8 +416,8 @@ Landreman-Paul QA
      - 0
      - :red:`196, 537, 348`
      - auto
-     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_90109/bn_error_3d_plot_initial.pdf>`__
-     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_063211_90109/bn_error_3d_plot.pdf>`__
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_53795/bn_error_3d_plot_initial.pdf>`__
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_070001_53795/bn_error_3d_plot.pdf>`__
      - —
 
 
