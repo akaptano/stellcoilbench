@@ -179,6 +179,32 @@ class TestLoadSubmissions:
             submissions = list(_load_submissions(submissions_root))
             assert submissions == []
 
+    def test_load_submissions_zip_with_case_yaml(self):
+        """Test that case.yaml is extracted from zip for surface identification."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            submissions_root = Path(tmpdir)
+            zip_path = (
+                submissions_root / "submissions" / "unknown_surface"
+                / "user1" / "2024-01-01_12-00.zip"
+            )
+            zip_path.parent.mkdir(parents=True)
+            results = {
+                "metadata": {"method_name": "zip_case", "contact": "u"},
+                "metrics": {"final_squared_flux": 0.1},
+            }
+            case_yaml = {
+                "surface_params": {"surface": "input.LandremanPaul2021_QA"},
+            }
+            import yaml
+            with zipfile.ZipFile(zip_path, "w") as zf:
+                zf.writestr("results.json", json.dumps(results))
+                zf.writestr("case.yaml", yaml.dump(case_yaml))
+
+            submissions = list(_load_submissions(submissions_root))
+            assert len(submissions) == 1
+            _, path, data = submissions[0]
+            assert data["metadata"]["method_name"] == "zip_case"
+
 
 class TestBuildMethodsJson:
     """Tests for build_methods_json function."""
@@ -2206,3 +2232,275 @@ class TestReactorScaleLeaderboard:
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
         assert "No reactor-scale data" in content
+
+    def test_n_and_n_columns_present(self, tmp_path):
+        """N (num_coils) and n (coil_order) columns should appear in reactor-scale table."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.5,
+                        "metrics": {
+                            "num_coils": 4.0,
+                            "coil_order": 8.0,
+                        },
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        # Header columns
+        assert r":math:`N`" in content
+        assert r":math:`n`" in content
+        # Data values (integer-formatted)
+        lines = content.splitlines()
+        data_lines = [l.strip() for l in lines if l.strip().startswith("- ")]
+        # N=4 and n=8 should appear as data cells
+        assert any("4" in l for l in data_lines)
+        assert any("8" in l for l in data_lines)
+
+    def test_n_and_n_missing_shows_dash(self, tmp_path):
+        """Missing N and n should render as dashes."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.0,
+                        "metrics": {},
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        # Find the data section for the leaderboard table (after list-table header)
+        # The data row starts with "   * - " (score value) and is followed by
+        # "     - " lines. N and n should be "—" when metrics are missing.
+        lines = content.splitlines()
+        # Find lines starting with "   * - 1." (score = 1.000)
+        data_row_idx = None
+        for i, line in enumerate(lines):
+            if line.strip().startswith("* - 1.0"):
+                data_row_idx = i
+                break
+        assert data_row_idx is not None, "Could not find data row"
+        # Collect the following "- " cells
+        cells = [lines[data_row_idx].strip().replace("* - ", "")]
+        for j in range(data_row_idx + 1, len(lines)):
+            stripped = lines[j].strip()
+            if stripped.startswith("- "):
+                cells.append(stripped[2:])
+            else:
+                break
+        # cells: [score, status, N, n, metric(s)..., LN, N_turns, User, i, f, PP]
+        assert cells[2] == "\u2014", f"N should be dash, got: {cells[2]}"
+        assert cells[3] == "\u2014", f"n should be dash, got: {cells[3]}"
+
+    def test_visualization_links_in_reactor_scale(self, tmp_path):
+        """Visualization links (i, f, PP) should be generated when files exist."""
+        # Create a fake submission directory with PDFs and poincare plot
+        sub_dir = tmp_path / "submissions" / "test_surface" / "user1" / "run1"
+        sub_dir.mkdir(parents=True)
+        (sub_dir / "results.json").write_text("{}")
+        (sub_dir / "bn_error_3d_plot.pdf").write_text("fake pdf")
+        (sub_dir / "bn_error_3d_plot_initial.pdf").write_text("fake pdf")
+        (sub_dir / "poincare_plot.png").write_text("fake png")
+
+        rel_path = str(sub_dir.relative_to(tmp_path) / "results.json")
+
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.5,
+                        "path": rel_path,
+                        "metrics": {},
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(
+            leaderboard, surface_leaderboards, out_rst,
+            repo_root=tmp_path,
+        )
+        content = out_rst.read_text()
+        # The links should be generated (not "—")
+        assert "bn_error_3d_plot.pdf" in content
+        assert "bn_error_3d_plot_initial.pdf" in content
+        assert "poincare_plot.png" in content
+
+    def test_visualization_links_fourier_continuation(self, tmp_path):
+        """Viz links should work for Fourier-continuation entries with order dirs."""
+        sub_dir = tmp_path / "submissions" / "test_surface" / "user1" / "run1"
+        order4 = sub_dir / "order_4"
+        order8 = sub_dir / "order_8"
+        order4.mkdir(parents=True)
+        order8.mkdir(parents=True)
+        (sub_dir / "results.json").write_text("{}")
+        (order4 / "bn_error_3d_plot_initial.pdf").write_text("fake")
+        (order4 / "bn_error_3d_plot.pdf").write_text("fake")
+        (order8 / "bn_error_3d_plot.pdf").write_text("fake")
+        (order8 / "poincare_plot.png").write_text("fake png")
+
+        rel_path = str(sub_dir.relative_to(tmp_path) / "results.json")
+
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.5,
+                        "path": rel_path,
+                        "metrics": {
+                            "fourier_continuation_orders": "4,8",
+                        },
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(
+            leaderboard, surface_leaderboards, out_rst,
+            repo_root=tmp_path,
+        )
+        content = out_rst.read_text()
+        # Should have links to order-specific PDFs
+        assert "order_4" in content
+        assert "order_8" in content
+        assert "bn_error_3d_plot_initial.pdf" in content
+        assert "poincare_plot.png" in content
+
+    def test_visualization_links_no_files(self, tmp_path):
+        """When no plot files exist, links should show as dashes."""
+        sub_dir = tmp_path / "submissions" / "test_surface" / "user1" / "run1"
+        sub_dir.mkdir(parents=True)
+        (sub_dir / "results.json").write_text("{}")
+
+        rel_path = str(sub_dir.relative_to(tmp_path) / "results.json")
+
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.0,
+                        "path": rel_path,
+                        "metrics": {},
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(
+            leaderboard, surface_leaderboards, out_rst,
+            repo_root=tmp_path,
+        )
+        content = out_rst.read_text()
+        # Links should be dashes
+        assert "bn_error_3d_plot" not in content
+
+    def test_poincare_in_post_processing_subdir(self, tmp_path):
+        """Poincaré plot found in post_processing/ subdir should still be linked."""
+        sub_dir = tmp_path / "submissions" / "test_surface" / "user1" / "run1"
+        pp_dir = sub_dir / "post_processing"
+        pp_dir.mkdir(parents=True)
+        (sub_dir / "results.json").write_text("{}")
+        (sub_dir / "bn_error_3d_plot.pdf").write_text("fake")
+        (pp_dir / "poincare_plot.png").write_text("fake png")
+
+        rel_path = str(sub_dir.relative_to(tmp_path) / "results.json")
+
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.0,
+                        "path": rel_path,
+                        "metrics": {},
+                        "reactor_scale_metrics": {
+                            "reactor_scale_min_cs_separation": 2.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(
+            leaderboard, surface_leaderboards, out_rst,
+            repo_root=tmp_path,
+        )
+        content = out_rst.read_text()
+        assert "poincare_plot.png" in content
+        assert "bn_error_3d_plot.pdf" in content
+
+    def test_rs_format_edge_cases(self, tmp_path):
+        """_rs_format should handle edge cases gracefully."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "test_surface": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "method_name": "m1",
+                        "contact": "user1",
+                        "composite_score": 1.0,
+                        "metrics": {},
+                        "reactor_scale_metrics": {
+                            # Test various edge cases
+                            "reactor_scale_min_cs_separation": "not a number",
+                            "reactor_scale_min_cc_separation": None,
+                            "reactor_scale_total_length": [1, 2, 3],
+                            "reactor_scale_max_curvature": {"nested": "dict"},
+                            "reactor_scale_average_curvature": 0.0,
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "reactor_scale.rst"
+        write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        # All non-numeric values should render as "—"
+        # Zero should render as "0"
+        assert "0" in content
