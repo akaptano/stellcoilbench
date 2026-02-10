@@ -1,22 +1,21 @@
 {
-  "case_id": "2026-02-10_050409_81218",
-  "parent_ids": [],
-  "tags": [
-    "explore"
-  ],
-  "resource": {
-    "max_total_iterations": 500,
-    "timeout_minutes": 60
-  },
+  "case_id": "2026-02-10_050409_52757",
+  "success": false,
+  "total_score": Infinity,
+  "iterations_used": 0,
+  "walltime_sec": 5.37,
+  "failure_reason": "Taylor test failed, check your objective and constraint functions",
+  "failure_class": "ValueError",
+  "metrics": {},
   "case_config": {
-    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=16",
+    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=3 order=12",
     "surface_params": {
       "surface": "input.LandremanPaul2021_QA",
       "range": "half period"
     },
     "coils_params": {
-      "ncoils": 7,
-      "order": 16
+      "ncoils": 3,
+      "order": 12
     },
     "optimizer_params": {
       "algorithm": "augmented_lagrangian",
@@ -31,6 +30,5 @@
       "coil_arclength_variation": "l2_threshold",
       "linking_number": ""
     }
-  },
-  "random_seed": 2029385515
+  }
 }
