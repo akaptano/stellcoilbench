@@ -1,0 +1,424 @@
+Starting coil optimization for target B-field: 1.0 T
+Surface major radius: 1.000 m
+Surface minor radius component: 0.166 m
+Number of base coils: 3
+Fourier order: 8
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=1.000 m (1.000x), R1=0.415 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.415 m (scale: 2.500x)
+    Constraints: cs_ok=False (min=0.0275 m, required=0.0900 m), cc_ok=True (min=0.3030 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 69 in hole, 534 in plasma, 165 outside)
+    Adjusting: R1_scale=2.875 (increasing coil extent)
+
+  Iteration 2/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.477 m (scale: 2.875x)
+    Constraints: cs_ok=False (min=0.0886 m, required=0.0900 m), cc_ok=True (min=0.2708 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 141 in hole, 426 in plasma, 201 outside)
+    Adjusting: R1_scale=3.306 (increasing coil extent)
+
+  Iteration 3/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.548 m (scale: 3.306x)
+    Constraints: cs_ok=True (min=0.1599 m, required=0.0900 m), cc_ok=True (min=0.2337 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 183 in hole, 354 in plasma, 231 outside)
+    All constraints satisfied! Breaking out of adaptive loop.
+
+Final coil positioning parameters:
+  R0: 1.000 m (scale: 1.000x major radius)
+  R1: 0.548 m (scale: 3.306x minor radius)
+  Major radius: 1.000 m
+  Minor radius component: 0.166 m
+Bmag at R =  1.0 , Z = 0:  [39.49096744 39.66157626 39.94687068 40.25193234 40.47329388 40.53457983
+ 40.41445004 40.15465466 39.84437623 39.5881688  39.47078531 39.53058495
+ 39.74806282 40.05163836 40.33967881 40.51387577 40.51387577 40.33967881
+ 40.05163836 39.74806282 39.53058495 39.47078531 39.5881688  39.84437623
+ 40.15465466 40.41445004 40.53457983 40.47329388 40.25193234 39.94687068
+ 39.66157626 39.49096744]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  40.00096851282349
+Bmag at R =  1.0 , Z = 0:  [0.98725028 0.9915154  0.99864759 1.00627394 1.01180785 1.01333996
+ 1.01033679 1.00384206 0.99608529 0.98968026 0.98674574 0.9882407
+ 0.99367751 1.00126672 1.00846755 1.01282237 1.01282237 1.00846755
+ 1.00126672 0.99367751 0.9882407  0.98674574 0.98968026 0.99608529
+ 1.00384206 1.01033679 1.01333996 1.01180785 1.00627394 0.99864759
+ 0.9915154  0.98725028]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  0.9999999999999998
+[TIMING] coil_initialization: 0.16s
+
+Coil currents before optimization (unique base coils):
+  Coil 1: 4.17e+05 A
+  Coil 2: 4.17e+05 A
+  Coil 3: 4.17e+05 A
+  Total: 1.25e+06 A
+
+Adaptive coil positioning loop (max 50 iterations):
+  Initial: R0=1.000 m (1.000x), R1=0.415 m (2.500x)
+  Limits: R0_scale <= 3.0, R1_scale <= 5.0
+
+  Iteration 1/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.415 m (scale: 2.500x)
+    Constraints: cs_ok=False (min=0.0275 m, required=0.0900 m), cc_ok=True (min=0.3030 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 69 in hole, 534 in plasma, 165 outside)
+    Adjusting: R1_scale=2.875 (increasing coil extent)
+
+  Iteration 2/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.477 m (scale: 2.875x)
+    Constraints: cs_ok=False (min=0.0886 m, required=0.0900 m), cc_ok=True (min=0.2708 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 141 in hole, 426 in plasma, 201 outside)
+    Adjusting: R1_scale=3.306 (increasing coil extent)
+
+  Iteration 3/50:
+    R0: 1.000 m (scale: 1.000x)
+    R1: 0.548 m (scale: 3.306x)
+    Constraints: cs_ok=True (min=0.1599 m, required=0.0900 m), cc_ok=True (min=0.2337 m, required=0.0900 m), no_interlink=True (LN=0.0000)
+    Plasma interlink: OK (found 183 in hole, 354 in plasma, 231 outside)
+    All constraints satisfied! Breaking out of adaptive loop.
+
+Final coil positioning parameters:
+  R0: 1.000 m (scale: 1.000x major radius)
+  R1: 0.548 m (scale: 3.306x minor radius)
+  Major radius: 1.000 m
+  Minor radius component: 0.166 m
+Bmag at R =  1.0 , Z = 0:  [39.49096744 39.66157626 39.94687068 40.25193234 40.47329388 40.53457983
+ 40.41445004 40.15465466 39.84437623 39.5881688  39.47078531 39.53058495
+ 39.74806282 40.05163836 40.33967881 40.51387577 40.51387577 40.33967881
+ 40.05163836 39.74806282 39.53058495 39.47078531 39.5881688  39.84437623
+ 40.15465466 40.41445004 40.53457983 40.47329388 40.25193234 39.94687068
+ 39.66157626 39.49096744]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  40.00096851282349
+Bmag at R =  1.0 , Z = 0:  [5.62732661 5.65163778 5.69229125 5.73576148 5.76730474 5.77603777
+ 5.75891969 5.72189975 5.67768614 5.64117747 5.62445072 5.63297196
+ 5.66396181 5.70722028 5.74826505 5.77308751 5.77308751 5.74826505
+ 5.70722028 5.66396181 5.63297196 5.62445072 5.64117747 5.67768614
+ 5.72189975 5.75891969 5.77603777 5.76730474 5.73576148 5.69229125
+ 5.65163778 5.62732661]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  5.699999999999999
+Bmag at R =  1.0 , Z = 0:  [0.98725028 0.9915154  0.99864759 1.00627394 1.01180785 1.01333996
+ 1.01033679 1.00384206 0.99608529 0.98968026 0.98674574 0.9882407
+ 0.99367751 1.00126672 1.00846755 1.01282237 1.01282237 1.00846755
+ 1.00126672 0.99367751 0.9882407  0.98674574 0.98968026 0.99608529
+ 1.00384206 1.01033679 1.01333996 1.01180785 1.00627394 0.99864759
+ 0.9915154  0.98725028]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  0.9999999999999998
+  Total current: 1249970 A
+  B-field averaged along major radius: 1.000 T
+  Number of coils: 12
+Bmag at R =  1.0 , Z = 0:  [0.98668223 0.99508677 1.0097976  1.01206534 0.99895836 0.98726833
+ 0.99165989 1.00665855 1.01325395 1.00293365 0.98897644 0.98897644
+ 1.00293365 1.01325395 1.00665855 0.99165989 0.98726833 0.99895836
+ 1.01206534 1.0097976  0.99508677 0.98668223 0.99508677 1.0097976
+ 1.01206534 0.99895836 0.98726833 0.99165989 1.00665855 1.01325395
+ 1.00293365 0.98897644 0.98897644 1.00293365 1.01325395 1.00665855
+ 0.99165989 0.98726833 0.99895836 1.01206534 1.0097976  0.99508677
+ 0.98668223 0.99508677 1.0097976  1.01206534 0.99895836 0.98726833
+ 0.99165989 1.00665855 1.01325395 1.00293365 0.98897644 0.98897644
+ 1.00293365 1.01325395 1.00665855 0.99165989 0.98726833 0.99895836
+ 1.01206534 1.0097976  0.99508677 0.98668223]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  0.9997919098875037
+
+Initial B-field on-axis: 1.000 T
+  Saved 3D B_N/|B| error plot to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_072755_26167/bn_error_3d_plot_initial.pdf
+[TIMING] biotsavart_setup: 3.30s
+[TIMING] objective_setup: 0.02s
+Initial thresholds and weights:
+  [0] Flux: threshold=1.00e-08, weight=1.0
+  [1] CC Distance: threshold=8.00e-02, weight=1.00e+03
+  [2] CS Distance: threshold=1.30e-01, weight=1.00e+03
+  [3] Length: threshold=2.00e+01, weight=1.00e+00
+  [4] κ: threshold=1.00e+01, weight=1.00e+00
+  [5] MSC: threshold=1.00e+01, weight=1.00e+00
+  [6] Arclength Var: threshold=0.00e+00, weight=1.00e+00
+  [7] Link #: weight=1.00e+00
+----------------------------------------------------------------
+METHOD L-BFGS-B IS SELECTED FOR THE OPTIMIZATION
+INITIAL SQUARED FLUX: 0.325457
+----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+Iteration 0, μ_k=[1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01], ω_k=1.00e-01, η_k=7.94e-01, √║∇L_A║ = 1.44e+01, √║g║ = 3.25e-01
+L_A value: 0.66534
+--------------------------------------------------------------------------------------------------------------------------------------------
+Taylor test passed
+||Δx||: 0.23969379703031282
+Iteration 1
+  Objective f(x) = 0.0
+  Constraints g(x) = [0.02818727 0.00026999 0.         0.         0.         0.
+ 0.00517437 0.        ]
+  Constraint norm = 0.02818727230245074
+  Gradient norm = 0.2139219799678556
+  Lagrange multipliers = [-0.417022   -0.         -0.         -0.         -0.         -0.
+ -0.18626021 -0.        ]
+  Penalty parameter mu_k = [1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01]
+  Penalty parameter omega_k = 0.1
+  Penalty parameter eta_k = 0.7943282347242815
+  Change in x = 0.23969379703031282
+--------------------------------------------------
+  Normalized flux: 2.82e-02
+Iter 1: Jf = 0.00e+00, c0 = 2.82e-02, c1 = 2.70e-04, c2 = 0.00e+00, c3 = 0.00e+00, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 5.17e-03, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.5445129  -0.01079957 -0.         -0.         -0.         -0.
+ -0.39323493 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.5306931800960789
+Iteration 2
+  Objective f(x) = 0.0
+  Constraints g(x) = [0.00096432 0.00018731 0.         0.         0.         0.00013263
+ 0.00033537 0.        ]
+  Constraint norm = 0.0009643158418832077
+  Gradient norm = 0.04104485672055467
+  Lagrange multipliers = [-1.5445129  -0.01079957 -0.         -0.         -0.         -0.
+ -0.39323493 -0.        ]
+  Penalty parameter mu_k = [4.00e+01, 4.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 1.00e+01, 4.00e+01, 1.00e+01]
+  Penalty parameter omega_k = 0.01
+  Penalty parameter eta_k = 0.07943282347242815
+  Change in x = 0.5306931800960789
+--------------------------------------------------
+  Normalized flux: 9.64e-04
+Iter 2: Jf = 0.00e+00, c0 = 9.64e-04, c1 = 1.87e-04, c2 = 0.00e+00, c3 = 0.00e+00, c4 = 0.00e+00, c5 = 1.33e-04, c6 = 3.35e-04, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.69880343 -0.04076945 -0.         -0.         -0.         -0.00530519
+ -0.44689344 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.36680131051223
+Iteration 3
+  Objective f(x) = 0.0
+  Constraints g(x) = [4.99639186e-05 2.68261156e-05 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 0.00000000e+00 1.40686346e-05 0.00000000e+00]
+  Constraint norm = 4.996391857303121e-05
+  Gradient norm = 0.0031600748818599324
+  Lagrange multipliers = [-1.69880343 -0.04076945 -0.         -0.         -0.         -0.00530519
+ -0.44689344 -0.        ]
+  Penalty parameter mu_k = [1.60e+02, 1.60e+02, 1.00e+01, 1.00e+01, 1.00e+01, 4.00e+01, 1.60e+02, 1.00e+01]
+  Penalty parameter omega_k = 0.001
+  Penalty parameter eta_k = 0.007943282347242816
+  Change in x = 0.36680131051223
+--------------------------------------------------
+  Normalized flux: 5.00e-05
+Iter 3: Jf = 0.00e+00, c0 = 5.00e-05, c1 = 2.68e-05, c2 = 0.00e+00, c3 = 0.00e+00, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.41e-05, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.73078034 -0.05793817 -0.         -0.         -0.         -0.00530519
+ -0.45589736 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.4159683468234613
+Iteration 4
+  Objective f(x) = 0.0
+  Constraints g(x) = [5.37479471e-06 7.23993701e-07 0.00000000e+00 4.64813488e-05
+ 0.00000000e+00 0.00000000e+00 1.43675850e-06 0.00000000e+00]
+  Constraint norm = 4.6481348792824915e-05
+  Gradient norm = 0.0003417686975247104
+  Lagrange multipliers = [-1.73078034 -0.05793817 -0.         -0.         -0.         -0.00530519
+ -0.45589736 -0.        ]
+  Penalty parameter mu_k = [6.40e+02, 6.40e+02, 1.00e+01, 1.00e+01, 1.00e+01, 4.00e+01, 6.40e+02, 1.00e+01]
+  Penalty parameter omega_k = 0.0001
+  Penalty parameter eta_k = 0.0007943282347242815
+  Change in x = 0.4159683468234613
+--------------------------------------------------
+  Normalized flux: 5.37e-06
+Iter 4: Jf = 0.00e+00, c0 = 5.37e-06, c1 = 7.24e-07, c2 = 0.00e+00, c3 = 4.65e-05, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.44e-06, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.74453981 -0.05979159 -0.         -0.00185925 -0.         -0.00530519
+ -0.45957546 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.282670762730629
+Iteration 5
+  Objective f(x) = 0.0
+  Constraints g(x) = [1.10312722e-06 0.00000000e+00 0.00000000e+00 1.88070504e-07
+ 0.00000000e+00 0.00000000e+00 1.21849508e-07 0.00000000e+00]
+  Constraint norm = 1.1031272187109551e-06
+  Gradient norm = 5.1660215563008676e-05
+  Lagrange multipliers = [-1.74453981 -0.05979159 -0.         -0.00185925 -0.         -0.00530519
+ -0.45957546 -0.        ]
+  Penalty parameter mu_k = [2.56e+03, 2.56e+03, 1.00e+01, 4.00e+01, 1.00e+01, 4.00e+01, 2.56e+03, 1.00e+01]
+  Penalty parameter omega_k = 1e-05
+  Penalty parameter eta_k = 7.943282347242815e-05
+  Change in x = 0.282670762730629
+--------------------------------------------------
+  Normalized flux: 1.10e-06
+Iter 5: Jf = 0.00e+00, c0 = 1.10e-06, c1 = 0.00e+00, c2 = 0.00e+00, c3 = 1.88e-07, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.22e-07, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.75583584 -0.05979159 -0.         -0.00188935 -0.         -0.00530519
+ -0.4608232  -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.11476001776148514
+Iteration 6
+  Objective f(x) = 0.0
+  Constraints g(x) = [8.34758645e-07 6.54403515e-10 0.00000000e+00 1.97737982e-07
+ 0.00000000e+00 0.00000000e+00 1.64339946e-07 0.00000000e+00]
+  Constraint norm = 8.347586454679914e-07
+  Gradient norm = 1.0662616614157216e-05
+  Lagrange multipliers = [-1.75583584 -0.05979159 -0.         -0.00188935 -0.         -0.00530519
+ -0.4608232  -0.        ]
+  Penalty parameter mu_k = [1.02e+04, 2.56e+03, 1.00e+01, 1.60e+02, 1.00e+01, 4.00e+01, 1.02e+04, 1.00e+01]
+  Penalty parameter omega_k = 1.0000000000000002e-06
+  Penalty parameter eta_k = 7.943282347242815e-06
+  Change in x = 0.11476001776148514
+--------------------------------------------------
+  Normalized flux: 8.35e-07
+Iter 6: Jf = 0.00e+00, c0 = 8.35e-07, c1 = 6.54e-10, c2 = 0.00e+00, c3 = 1.98e-07, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.64e-07, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-1.79002755 -0.05979829 -0.         -0.0020159  -0.         -0.00530519
+ -0.46755457 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.0
+Iteration 7
+  Objective f(x) = 0.0
+  Constraints g(x) = [8.34758645e-07 6.54403515e-10 0.00000000e+00 1.97737982e-07
+ 0.00000000e+00 0.00000000e+00 1.64339946e-07 0.00000000e+00]
+  Constraint norm = 8.347586454679914e-07
+  Gradient norm = 1.1279742755108867e-05
+  Lagrange multipliers = [-1.79002755 -0.05979829 -0.         -0.0020159  -0.         -0.00530519
+ -0.46755457 -0.        ]
+  Penalty parameter mu_k = [4.10e+04, 1.02e+04, 1.00e+01, 6.40e+02, 1.00e+01, 4.00e+01, 4.10e+04, 1.00e+01]
+  Penalty parameter omega_k = 1.0000000000000002e-07
+  Penalty parameter eta_k = 7.943282347242815e-07
+  Change in x = 0.0
+--------------------------------------------------
+  Normalized flux: 8.35e-07
+Iter 7: Jf = 0.00e+00, c0 = 8.35e-07, c1 = 6.54e-10, c2 = 0.00e+00, c3 = 1.98e-07, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.64e-07, c7 = 0.00e+00, 
+*Constraints are not satisfied*
+LAGRANGE MULTIPLIERS: [-1.79002755 -0.05979829 -0.         -0.0020159  -0.         -0.00530519
+ -0.46755457 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.0
+Iteration 8
+  Objective f(x) = 0.0
+  Constraints g(x) = [8.34758645e-07 6.54403515e-10 0.00000000e+00 1.97737982e-07
+ 0.00000000e+00 0.00000000e+00 1.64339946e-07 0.00000000e+00]
+  Constraint norm = 8.347586454679914e-07
+  Gradient norm = 1.2759758477849224e-05
+  Lagrange multipliers = [-1.79002755 -0.05979829 -0.         -0.0020159  -0.         -0.00530519
+ -0.46755457 -0.        ]
+  Penalty parameter mu_k = [1.64e+05, 4.10e+04, 1.00e+01, 2.56e+03, 1.00e+01, 4.00e+01, 1.64e+05, 1.00e+01]
+  Penalty parameter omega_k = 2.1547660732081775e-05
+  Penalty parameter eta_k = 0.34146013908926776
+  Change in x = 0.0
+--------------------------------------------------
+  Normalized flux: 8.35e-07
+Iter 8: Jf = 0.00e+00, c0 = 8.35e-07, c1 = 6.54e-10, c2 = 0.00e+00, c3 = 1.98e-07, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.64e-07, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-2.33709498 -0.05990551 -0.         -0.00404073 -0.         -0.00530519
+ -0.57525639 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+||Δx||: 0.0903090734236057
+Iteration 9
+  Objective f(x) = 0.0
+  Constraints g(x) = [8.12654863e-07 1.91986578e-09 0.00000000e+00 8.55585315e-08
+ 0.00000000e+00 0.00000000e+00 1.20091306e-07 0.00000000e+00]
+  Constraint norm = 8.126548632338308e-07
+  Gradient norm = 7.219376725983479e-05
+  Lagrange multipliers = [-2.33709498 -0.05990551 -0.         -0.00404073 -0.         -0.00530519
+ -0.57525639 -0.        ]
+  Penalty parameter mu_k = [6.55e+05, 1.64e+05, 1.00e+01, 1.02e+04, 1.00e+01, 4.00e+01, 6.55e+05, 1.00e+01]
+  Penalty parameter omega_k = 4.6430168302489887e-10
+  Penalty parameter eta_k = 7.357667230624996e-06
+  Change in x = 0.0903090734236057
+--------------------------------------------------
+  Normalized flux: 8.13e-07
+Iter 9: Jf = 0.00e+00, c0 = 8.13e-07, c1 = 1.92e-09, c2 = 0.00e+00, c3 = 8.56e-08, c4 = 0.00e+00, c5 = 0.00e+00, c6 = 1.20e-07, c7 = 0.00e+00, 
+*Constraints are satisfied*
+LAGRANGE MULTIPLIERS: [-4.46742094 -0.06116371 -0.         -0.00754521 -0.         -0.00530519
+ -0.89006855 -0.        ]
+--------------------------------------------------------------------------------------------------------------------------------------------
+While loop finished because something became false: 
+ grad_tol_check =  True , c_tol_check =  True , maxiter_check =  False
+[TIMING] coil_optimization: 187.16s
+
+Coil currents after optimization (unique base coils):
+  Coil 1: 3.47e+05 A
+  Coil 2: 5.12e+05 A
+  Coil 3: 3.90e+05 A
+  Total: 1.25e+06 A
+
+Total current before optimization: 1249970 A
+Total current after optimization: 1249970 A
+Bmag at R =  1.0 , Z = 0:  [1.47024649 1.45713393 1.40863418 1.33523351 1.25876362 1.18721247
+ 1.12252291 1.06598027 1.01801648 0.97825627 0.94588754 0.9200186
+ 0.89989397 0.88490887 0.87463574 0.86890724 0.86775529 0.87120379
+ 0.8792003  0.89179099 0.90927928 0.93219175 0.9612056  0.99715576
+ 1.04093497 1.09318301 1.15391585 1.22222466 1.29660202 1.37339927
+ 1.43749658 1.46732297 1.46732297 1.43749658 1.37339927 1.29660202
+ 1.22222466 1.15391585 1.09318301 1.04093497 0.99715576 0.9612056
+ 0.93219175 0.90927928 0.89179099 0.8792003  0.87120379 0.86775529
+ 0.86890724 0.87463574 0.88490887 0.89989397 0.9200186  0.94588754
+ 0.97825627 1.01801648 1.06598027 1.12252291 1.18721247 1.25876362
+ 1.33523351 1.40863418 1.45713393 1.47024649]
+toroidally averaged Bmag at R =  1.0 , Z = 0:  1.0965973175061476
+
+Final B-field on-axis: 1.097 T
+B-field change: 0.097 T (+9.7%)
+Final constraint values:
+  Normalized flux: 8.13e-07
+  CS separation: 0.00e+00 (min distance: 0.336)
+  CC separation: 1.92e-12 (min distance: 0.080)
+  Length constraint: 2.00e+01
+  Curvature constraint: 0.00e+00
+  Linking number: 0.00e+00
+  Force constraint: 7.17e-01
+  Max curvatures: [np.float64(3.3428265380047035), np.float64(2.6484494837798107), np.float64(3.1404719255151723)]
+  Lengths: [Array(6.69148389, dtype=float64), Array(6.99753376, dtype=float64), Array(6.31139601, dtype=float64)]
+  Max forces on each coil: ['5.14e+05', '7.33e+05', '5.66e+05']
+  <B_N>/<|B|> = 3.88e-04
+  Max |B_N|/|B| = 1.62e-03
+  Coils linked to surface: True
+Optimization completed successfully!
+Results saved to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_072755_26167
+  Saved 3D B_N/|B| error plot to: /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_072755_26167/bn_error_3d_plot.pdf
+[TIMING] save_and_metrics: 3.04s
+
+Running post-processing (QFM, Poincaré plots, profiles)...
+Loading coils and plasma surface...
+[TIMING] load_coils_and_surface: 0.01s
+Generating Poincaré plot...
+Loading surface with 'full torus' range for Poincaré plot...
+[TIMING] poincare_load_surface: 0.01s
+R0 values: [1.15834671 1.1651402  1.17193369 1.17872717 1.18552066 1.19231415
+ 1.19910764 1.20590112 1.21269461 1.2194881  1.22628159 1.23307507
+ 1.23986856 1.24666205 1.25345554 1.26024902 1.26704251 1.273836
+ 1.28062949 1.28742297]
+[TIMING] surface_classifier_setup: 8.64s
+Initializing InterpolatedField
+[TIMING] interpolated_field_setup: 0.00s
+Done initializing InterpolatedField.
+Mean(|B|) on plasma surface = 0.9460446973736598
+Beginning fieldline tracing (20 fieldlines)...
+Skip 6752 cells out of 9471
+Warning: Poincaré plot generation failed: MPI_ERR_ARG: invalid argument of some other kind
+Skipping Poincaré plot.
+[TIMING] compute_BdotN: 0.24s
+B·n on plasma surface: 3.68e-04
+B·n/|B|: 3.89e-04
+
+============================================================
+TIMING SUMMARY
+============================================================
+  poincare_total                             217.15s ( 96.1%)
+  surface_classifier_setup                     8.64s (  3.8%)
+  compute_BdotN                                0.24s (  0.1%)
+  load_coils_and_surface                       0.01s (  0.0%)
+  poincare_load_surface                        0.01s (  0.0%)
+  interpolated_field_setup                     0.00s (  0.0%)
+------------------------------------------------------------
+  TOTAL                                      226.05s
+============================================================
+
+Post-processing complete. Results saved to /Users/akaptanoglu/actions-runner/_work/stellcoilbench/stellcoilbench/cases/done/2026-02-10_072755_26167
+Post-processing complete!
+
+==================================================
+COIL OPTIMIZATION TIMING SUMMARY
+==================================================
+  coil_initialization: 0.16s
+  biotsavart_setup: 3.30s
+  objective_setup: 0.02s
+  coil_optimization: 187.16s
+  save_and_metrics: 3.04s
+  ==============================
+  Total coil optimization: 193.68s
+==================================================
+
