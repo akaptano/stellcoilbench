@@ -413,7 +413,8 @@ jobs:
             echo "Launching autopilot case: $CASE_ID (timeout: ${CASE_TIMEOUT_MIN}m)"
             (
               # PYTHONUNBUFFERED ensures output is written to log immediately
-              export PYTHONUNBUFFERED=1
+              # STELLCOILBENCH_CI_VERBOSE_STDOUT=1 keeps verbose output on stdout so the .log has it
+              export PYTHONUNBUFFERED=1 STELLCOILBENCH_CI_VERBOSE_STDOUT=1
               stellcoilbench run-ci-case "$CASE_FILE" \
                 --output-dir cases/done \
                 --policy policy/proposer_policy.yaml \
@@ -478,10 +479,11 @@ jobs:
                 sz=$(wc -c < "$LOGF" 2>/dev/null | tr -d ' ' || echo 0)
                 tmo="${CASE_TIMEOUTS[$i]}"
                 echo "  [running] $cid  log=${sz}B  timeout=${tmo}s"
-                # Show last non-empty line from log for progress
+                # Show last few non-empty lines from log for progress (verbose goes to stdout when CI var set)
                 if [ -s "$LOGF" ]; then
-                  last=$(grep -v '^$' "$LOGF" 2>/dev/null | tail -1 | head -c 140)
-                  [ -n "$last" ] && echo "            $last"
+                  grep -v '^$' "$LOGF" 2>/dev/null | tail -5 | while IFS= read -r line; do
+                    echo "            $(echo "$line" | head -c 140)"
+                  done
                 fi
               else
                 COMPLETED=$((COMPLETED + 1))

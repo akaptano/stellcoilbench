@@ -20,9 +20,15 @@ resource_caps:
 # code based on the plasma surface major radius (see coil_optimization.py).
 mutation:
   threshold_sigma: 0.10        # lognormal sigma for threshold jitter (10% typical change)
-  ncoils_choices: [2, 3, 4, 5, 6, 7]
-  order_choices: [4, 6, 8, 10, 12, 16]
+  ncoils_choices: [3, 4, 5, 6, 7]
+  order_choices: [4]
   max_iterations: 500          # fixed (not scanned)
+
+# --- Fourier continuation (applies to both exploration and mutation) ---
+# Use continuation with orders 4, 8, 16 for better convergence
+fourier_continuation:
+  enabled: true
+  orders: [4, 8, 16]
 
 # --- Exploration parameters ---
 # Thresholds are specified at a 10 m major-radius reference scale.
@@ -40,8 +46,8 @@ exploration:
   curvature_threshold_range: [0.5, 5.0]
   msc_threshold_range: [0.1, 5.0]
   # Coil parameter ranges
-  ncoils_choices: [2, 3, 4, 5, 6, 7]
-  order_choices: [4, 6, 8, 12, 16]
+  ncoils_choices: [3, 4, 5, 6, 7]
+  order_choices: [4]
   max_iterations: 500            # fixed (not scanned)
   # Available surfaces (must correspond to files in plasma_surfaces/)
   surfaces:
@@ -64,6 +70,7 @@ exploration:
     coil_mean_squared_curvature: ["l2_threshold"]
     coil_arclength_variation: ["l2_threshold"]
     linking_number: [""]
+    coil_coil_force: ["lp_threshold"]
 
 # --- Guardrails ---
 guardrails:

@@ -157,6 +157,14 @@ def mutate_case(
 
     child_cfg["coil_objective_terms"] = obj
 
+    # Apply Fourier continuation from policy if present (overwrite parent)
+    fc = policy.get("fourier_continuation", {})
+    if fc and fc.get("enabled") and fc.get("orders"):
+        child_cfg["fourier_continuation"] = {
+            "enabled": True,
+            "orders": list(fc["orders"]),
+        }
+
     # Fix max_iterations to policy default (not scanned)
     mut_policy = policy.get("mutation", {})
     opt["max_iterations"] = mut_policy.get("max_iterations", 1000)
@@ -270,6 +278,13 @@ def explore_case(
         },
         "coil_objective_terms": coil_objective_terms,
     }
+    # Apply Fourier continuation from policy if present
+    fc = policy.get("fourier_continuation", {})
+    if fc and fc.get("enabled") and fc.get("orders"):
+        case_config["fourier_continuation"] = {
+            "enabled": True,
+            "orders": list(fc["orders"]),
+        }
 
     new_seed = rng.randint(0, 2**31 - 1)
     caps = policy.get("resource_caps", {})

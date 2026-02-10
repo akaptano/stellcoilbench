@@ -1994,9 +1994,11 @@ def optimize_coils_loop(
     """
     out_dir = Path(out_dir).resolve()
     
-    # If verbose=True and CI is running, redirect output to a file
+    # If verbose=True and CI is running, redirect output to a file so the job log
+    # is not flooded. Set STELLCOILBENCH_CI_VERBOSE_STDOUT=1 to keep verbose on
+    # stdout (so the per-case .log file in the workflow gets it for progress display).
     verbose_output_file = None
-    if verbose and _is_ci_running():
+    if verbose and _is_ci_running() and not os.getenv("STELLCOILBENCH_CI_VERBOSE_STDOUT"):
         verbose_output_file = out_dir / "verbose_output.txt"
     
     # Use context manager to redirect output when needed
