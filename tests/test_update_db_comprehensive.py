@@ -1581,6 +1581,50 @@ class TestWriteRstLeaderboardMetricDefinitions:
         assert "Performance Metrics" in metric_def             # line 2210
         assert "Particle Confinement Metrics" in metric_def    # line 2218
 
+    def test_composite_score_section_comprehensive(self, tmp_path):
+        """Composite Score section includes two-stage description, per-constraint table, and worked example."""
+        entries = self._make_diverse_entries()
+        leaderboard = {"entries": entries}
+        surface_leaderboards = {"TestSurface": {"entries": entries}}
+
+        out_file = tmp_path / "docs" / "leaderboard.rst"
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        write_rst_leaderboard(leaderboard, out_file, surface_leaderboards)
+
+        metric_def = (tmp_path / "docs" / "leaderboard" / "metric_definitions.rst").read_text()
+        # Stage 1: Hard constraints
+        assert "Stage 1: Hard Constraints" in metric_def
+        assert "score is set to **0**" in metric_def
+        # Transform documentation
+        assert "absolute value" in metric_def  # linking number abs transform
+        assert "element-wise maximum" in metric_def  # turns transform
+        # Stage 2: Soft constraint geometric mean
+        assert "Stage 2: Soft Constraint Geometric Mean" in metric_def
+        assert "sqrt" in metric_def.lower()
+        # Soft constraints table with metric keys
+        assert "Soft Constraints and Margin Formulas" in metric_def
+        assert "avg_BdotN_over_B" in metric_def
+        assert "reactor_scale_min_cs_separation" in metric_def
+        assert "reactor_scale_min_cc_separation" in metric_def
+        assert "reactor_scale_total_length" in metric_def
+        assert "reactor_scale_max_curvature" in metric_def
+        assert "reactor_scale_mean_squared_curvature" in metric_def
+        assert "reactor_scale_arclength_variation" in metric_def
+        assert "total_superconductor_length_km" in metric_def
+        # Bounds
+        assert "0.01" in metric_def   # avg B·n bound
+        assert "1.3" in metric_def    # coil-surface bound
+        assert "0.7" in metric_def    # coil-coil bound
+        assert "220" in metric_def    # total length bound
+        assert "100 km" in metric_def # L_SC bound
+        # Worked example
+        assert "Worked Example" in metric_def
+        assert "1.399" in metric_def  # expected score from example
+        # Interpretation includes None case
+        assert "Score = None" in metric_def
+        # Legacy fallback documented
+        assert "score_primary" in metric_def
+
     def test_legacy_normalized_flux_first(self, tmp_path):
         """Lines 2039-2040: final_normalized_squared_flux sorted first (legacy name)."""
         entries = [

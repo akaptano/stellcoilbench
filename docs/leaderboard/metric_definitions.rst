@@ -269,28 +269,150 @@ Composite Score
 
 The **Score** column in the leaderboard is a composite feasibility/quality
 metric that summarizes how well a design satisfies all reactor-scale
-engineering constraints.  It is computed as a geometric mean of exponential
-margin factors:
+engineering constraints.  The computation proceeds in two stages:
+
+1. **Hard feasibility check** — if any hard constraint is violated the score
+   is immediately set to **0** and the entry is excluded from the main
+   leaderboard.
+2. **Soft constraint scoring** — each soft constraint contributes an
+   exponential margin factor; these factors are combined via a geometric mean.
+
+Stage 1: Hard Feasibility Check
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Every hard constraint is evaluated in order.  The first violation short-circuits
+the computation and returns **score = 0**.  Missing metrics are skipped (not
+penalised).
+
+Some constraints apply a *transform* to the raw value before comparison:
+
+- **Coil-coil linking number** — the absolute value :math:`|\text{LN}|` is
+  compared (``abs`` transform), since the linking number can be negative.
+- **Max turns per coil** — takes the element-wise maximum of the per-coil
+  turn list (``max(list)`` transform).
+
+If all hard constraints pass, processing continues to Stage 2.
+
+Stage 2: Soft Constraint Geometric Mean
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For each soft constraint whose metric is present and whose bound is non-zero,
+a margin exponent :math:`m_i` is computed:
+
+.. math::
+
+   m_i = \begin{cases}
+     1 - \dfrac{\text{value}_i}{\text{bound}_i}
+       & \text{if direction} = \text{"max"} \;\;(\text{value} \leq \text{bound})\\[6pt]
+     \dfrac{\text{value}_i}{\text{bound}_i} - 1
+       & \text{if direction} = \text{"min"} \;\;(\text{value} \geq \text{bound})
+   \end{cases}
+
+A positive :math:`m_i` means the constraint is satisfied with margin; a
+negative :math:`m_i` means it is violated.
+
+Some soft constraints apply a transform before the margin calculation:
+
+- **√MSC (RMS curvature)** — ``math.sqrt`` is applied to the raw
+  mean-squared-curvature value so that the comparison is in units of m\ :sup:`-1`.
+- **Arclength variation √Var** — ``math.sqrt`` is applied to the raw variance
+  so that the comparison is in units of m.
+
+The composite score is then:
 
 .. math::
 
    \text{Score}     = \exp\!\left(\frac{1}{n}\sum_{i=1}^{n} m_i\right)     = \left(\prod_{i=1}^{n} e^{m_i}\right)^{\!1/n}
 
-where the margin :math:`m_i` for each soft constraint is:
+where :math:`n` is the number of soft constraints for which metrics were
+available.
 
-- **"max" constraints** (value :math:`\leq` bound):
-  :math:`m_i = 1 - \text{value}/\text{bound}`
-- **"min" constraints** (value :math:`\geq` bound):
-  :math:`m_i = \text{value}/\text{bound} - 1`
+Per-Constraint Margin Formulas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Interpretation:
+The table below shows the exact margin formula for each soft constraint
+(after any transform has been applied):
 
-- **Score = 0** — hard infeasibility (e.g. coils delinked from plasma, coils interlinked)
+.. list-table::
+   :header-rows: 1
+   :widths: 30 15 15 40
+
+   * - Metric
+     - Direction
+     - Bound
+     - Margin :math:`m_i`
+   * - avg :math:`\langle B \cdot n\rangle / \langle B \rangle`
+     - max
+     - 0.01
+     - :math:`1 - \text{avg\_BdotN\_over\_B}\;/\;0.01`
+   * - Min coil-surface distance
+     - min
+     - 1.3 m
+     - :math:`d_{cs}\;/\;1.3 - 1`
+   * - Min coil-coil distance
+     - min
+     - 0.7 m
+     - :math:`d_{cc}\;/\;0.7 - 1`
+   * - Total coil length
+     - max
+     - 220.0 m
+     - :math:`1 - L\;/\;220`
+   * - Max curvature :math:`\kappa`
+     - max
+     - 1.0 m\ :sup:`-1`
+     - :math:`1 - \kappa_{\max}\;/\;1.0`
+   * - Max :math:`\sqrt{\text{MSC}}`
+     - max
+     - 1.0 m\ :sup:`-1`
+     - :math:`1 - \sqrt{\text{MSC}}\;/\;1.0`
+   * - Arclength variation :math:`\sqrt{\text{Var}}`
+     - max
+     - 1.0 m
+     - :math:`1 - \sqrt{\text{Var}}\;/\;1.0`
+
+Interpretation
+~~~~~~~~~~~~~~
+
+- **Score = 0** — hard infeasibility (e.g. coils delinked from plasma,
+  coils interlinked, winding packs overlap, too many turns required)
 - **Score < 1** — one or more soft constraints violated on average
 - **Score = 1** — all constraints met exactly on average
 - **Score > 1** — constraints met with engineering margin (better)
+- **Score = None** — no soft-constraint metrics were available
+  (legacy entry or missing data); these entries are kept in the leaderboard
+  but sorted after scored entries
 
 Entries are sorted by composite score **descending** (higher is better).
+Legacy entries without a composite score fall back to ``score_primary``
+(lower squared flux is better) and are sorted after scored entries.
+
+Worked Example
+~~~~~~~~~~~~~~
+
+Consider a design with the following reactor-scale metrics:
+
+- avg :math:`B_n/|B|` = 0.005, min :math:`d_{cs}` = 1.5 m,
+  min :math:`d_{cc}` = 0.8 m, total length = 200 m,
+  :math:`\kappa_{\max}` = 0.7, :math:`\sqrt{\text{MSC}}` = 0.6,
+  :math:`\sqrt{\text{Var}}` = 0.4
+
+The margins are:
+
+.. math::
+
+   m_1 &= 1 - 0.005/0.01 = 0.5   \\
+   m_2 &= 1.5/1.3 - 1 \approx 0.154 \\
+   m_3 &= 0.8/0.7 - 1 \approx 0.143 \\
+   m_4 &= 1 - 200/220 \approx 0.091 \\
+   m_5 &= 1 - 0.7/1.0 = 0.3     \\
+   m_6 &= 1 - 0.6/1.0 = 0.4     \\
+   m_7 &= 1 - 0.4/1.0 = 0.6
+
+Mean margin = (0.5 + 0.154 + 0.143 + 0.091 + 0.3 + 0.4 + 0.6) / 7
+:math:`\approx` 0.313
+
+Score = exp(0.313) :math:`\approx` **1.367** — all constraints satisfied with
+comfortable engineering margin.
 
 Reactor-Scale Constraints
 -------------------------

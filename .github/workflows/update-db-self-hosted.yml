@@ -556,8 +556,7 @@ jobs:
           echo "Rebuilding leaderboard from submissions/ ..."
           stellcoilbench update-db 2>&1 || echo "WARNING: update-db failed, leaderboard may be stale"
 
-          # Stage everything in one commit: done results, deleted pending
-          # files, new submission entries, and updated leaderboard docs.
+          # Stage everything: done results, deleted pending, submissions, leaderboard docs.
           git add cases/done/  2>/dev/null || true
           git add -u cases/pending/ 2>/dev/null || true
           git add submissions/ 2>/dev/null || true
@@ -566,7 +565,19 @@ jobs:
             echo "No autopilot results to commit"
           else
             git commit -m "ci: autopilot batch results + leaderboard update"
-            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
+            # Use merge instead of rebase to avoid conflicts. If merge has conflicts,
+            # resolve: keep our cases/done/ and submissions/, regenerate docs from submissions.
+            git fetch origin main
+            if ! git merge origin/main --no-edit 2>/dev/null; then
+              echo "Merge conflicts detected — resolving..."
+              git checkout --ours cases/done/ 2>/dev/null || true
+              git checkout --ours submissions/ 2>/dev/null || true
+              git checkout --theirs docs/ 2>/dev/null || true
+              git add cases/done/ docs/ submissions/
+              stellcoilbench update-db 2>&1 || true
+              git add docs/
+              git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
+            fi
             git push origin main
             echo "Autopilot results and leaderboard committed"
           fi
