@@ -99,7 +99,7 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 5 submission(s).
+This surface has 6 submission(s).
 Typical configuration: 8 Fourier order, 3 base coils.
 
 .. list-table:: Landreman-Paul QA Leaderboard
@@ -261,6 +261,37 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - —
      - —
      - —
+   * - 1.610
+     - 7
+     - 4
+     - 4,8,16
+     - 1.2e-05
+     - 1.7e-03
+     - 6.0e-03
+     - 2.0e+01
+     - 1.8e-05
+     - 1.4e-01
+     - 1.5e-01
+     - 2.6e+00
+     - 1.0e+01
+     - 1.1e+05
+     - 2.5e+04
+     - 1.8e+05
+     - 4.8e+04
+     - 0
+     - 2.4e+02
+     - 5.3e+00
+     - —
+     - —
+     - 10/02/26
+     - auto
+     - —
+     - 5
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_174545_11039/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
    * - 1.445
      - 6
      - 16
@@ -285,8 +316,8 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 4.1e+02
      - 09/02/26
      - akaptano
-     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
-     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
      - —
      - —
      - —
