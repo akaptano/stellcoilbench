@@ -40,7 +40,7 @@ exploration:
   use_default_thresholds: true   # let the code auto-scale thresholds per surface
   # Threshold ranges (only used if use_default_thresholds is false)
   # These are at 10 m reactor-scale reference; code will NOT auto-scale if passed
-  length_threshold_range: [100.0, 300.0]
+  length_threshold_range: [100.0, 240.0]
   cc_threshold_range: [0.4, 2.0]
   cs_threshold_range: [0.5, 3.0]
   curvature_threshold_range: [0.5, 5.0]
