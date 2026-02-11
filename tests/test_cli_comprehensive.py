@@ -11,6 +11,7 @@ from stellcoilbench.cli import (
     _detect_github_username,
     _zip_submission_directory,
     _detect_hardware,
+    _write_autopilot_submission,
 )
 
 
@@ -310,3 +311,112 @@ class TestDetectHardware:
         mock_system.return_value = "Windows"
         hardware = _detect_hardware()
         assert len(hardware) > 0
+
+
+class TestWriteAutopilotSubmission:
+    """Tests for _write_autopilot_submission function."""
+
+    def _make_results_dict(self):
+        """Minimal results_dict for testing."""
+        return {
+            "target_B_field": 1.0,
+            "final_squared_flux": 1e-6,
+            "final_min_cs_separation": 0.3,
+            "final_min_cc_separation": 0.08,
+            "final_total_length": 10.0,
+            "final_max_curvature": 4.0,
+            "final_average_curvature": 2.0,
+            "final_mean_squared_curvature": 5.0,
+            "final_arclength_variation": 0.001,
+            "final_linking_number": 0,
+            "coils_linked_to_surface": True,
+            "avg_BdotN_over_B": 0.0004,
+            "max_BdotN_over_B": 0.002,
+            "_cached_thresholds": {"major_radius": 1.7, "R0": 5.88},
+        }
+
+    def _make_case_config(self, fourier_continuation=False):
+        """Minimal case config for testing."""
+        cfg = {
+            "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": {"algorithm": "augmented_lagrangian", "max_iterations": 100},
+            "coil_objective_terms": {"total_length": "l2_threshold"},
+        }
+        if fourier_continuation:
+            cfg["fourier_continuation"] = {"enabled": True, "orders": [4, 8, 16]}
+        return cfg
+
+    def test_basic_submission_created(self, tmp_path):
+        """Test that a basic submission is created correctly."""
+        case_output = tmp_path / "case_output"
+        case_output.mkdir()
+        (case_output / "poincare_plot.png").write_bytes(b"png")
+
+        _write_autopilot_submission(
+            case_id="test_001",
+            results_dict=self._make_results_dict(),
+            case_cfg=None,
+            case_config_dict=self._make_case_config(),
+            walltime=10.0,
+            repo_root=tmp_path,
+            case_output_dir=case_output,
+        )
+
+        sub_dir = tmp_path / "submissions" / "LandremanPaul2021_QA" / "auto" / "test_001"
+        assert (sub_dir / "results.json").exists()
+        assert (sub_dir / "case.yaml").exists()
+        assert (sub_dir / "poincare_plot.png").exists()
+
+    def test_fc_plots_copied_from_order_dirs(self, tmp_path):
+        """FC submissions copy plots from order_X/ subdirectories."""
+        case_output = tmp_path / "case_output"
+        case_output.mkdir()
+        # Poincare is at top level
+        (case_output / "poincare_plot.png").write_bytes(b"pp")
+        # Bn plots are in order directories (typical for FC)
+        for order in [4, 8, 16]:
+            d = case_output / f"order_{order}"
+            d.mkdir()
+            (d / "bn_error_3d_plot.pdf").write_bytes(f"bn_{order}".encode())
+            (d / "bn_error_3d_plot_initial.pdf").write_bytes(f"bni_{order}".encode())
+            (d / "biot_savart_optimized.json").write_text("{}")
+
+        _write_autopilot_submission(
+            case_id="fc_test",
+            results_dict=self._make_results_dict(),
+            case_cfg=None,
+            case_config_dict=self._make_case_config(fourier_continuation=True),
+            walltime=10.0,
+            repo_root=tmp_path,
+            case_output_dir=case_output,
+        )
+
+        sub_dir = tmp_path / "submissions" / "LandremanPaul2021_QA" / "auto" / "fc_test"
+        # Top-level plots should come from highest order dir
+        assert (sub_dir / "bn_error_3d_plot.pdf").exists()
+        assert (sub_dir / "bn_error_3d_plot.pdf").read_bytes() == b"bn_16"
+        assert (sub_dir / "poincare_plot.png").exists()
+        # Order directories should be copied
+        assert (sub_dir / "order_4" / "bn_error_3d_plot.pdf").exists()
+        assert (sub_dir / "order_8" / "bn_error_3d_plot.pdf").exists()
+        assert (sub_dir / "order_16" / "bn_error_3d_plot.pdf").exists()
+
+    def test_fc_no_order_dirs_falls_back(self, tmp_path):
+        """FC config with no order dirs on disk still works."""
+        case_output = tmp_path / "case_output"
+        case_output.mkdir()
+        (case_output / "bn_error_3d_plot.pdf").write_bytes(b"top")
+
+        _write_autopilot_submission(
+            case_id="fc_fallback",
+            results_dict=self._make_results_dict(),
+            case_cfg=None,
+            case_config_dict=self._make_case_config(fourier_continuation=True),
+            walltime=10.0,
+            repo_root=tmp_path,
+            case_output_dir=case_output,
+        )
+
+        sub_dir = tmp_path / "submissions" / "LandremanPaul2021_QA" / "auto" / "fc_fallback"
+        assert (sub_dir / "bn_error_3d_plot.pdf").read_bytes() == b"top"

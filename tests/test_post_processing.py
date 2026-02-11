@@ -1545,8 +1545,8 @@ surface_params:
             R_closest = np.sqrt(closest_point[0]**2 + closest_point[1]**2)
             
             # Use a range around this point
-            major_radius = surface.get_rc(0, 0)
-            minor_radius_component = abs(surface.get_rc(1, 0))
+            major_radius = surface.major_radius()
+            minor_radius_component = surface.minor_radius()
             R_min = max(R_closest - minor_radius_component * 0.5, major_radius * 0.5)
             R_max = R_closest + minor_radius_component * 0.5
         
@@ -2355,8 +2355,8 @@ class TestFieldlineTracingFallback:
             closest_point = points_at_phi0[closest_idx]
             R_closest = np.sqrt(closest_point[0]**2 + closest_point[1]**2)
 
-            major_radius = surface.get_rc(0, 0)
-            minor_radius_component = abs(surface.get_rc(1, 0))
+            major_radius = surface.major_radius()
+            minor_radius_component = surface.minor_radius()
             R_min = max(R_closest - minor_radius_component * 0.5, major_radius * 0.5)
             R_max = R_closest + minor_radius_component * 0.5
 

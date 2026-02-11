@@ -312,8 +312,8 @@ class TestPlotBnError3D:
         # Create a simple coil configuration
         ncoils = case_cfg.coils_params["ncoils"]
         coil_order = case_cfg.coils_params["order"]
-        major_radius = surface.get_rc(0, 0)
-        minor_component = abs(surface.get_rc(1, 0))
+        major_radius = surface.major_radius()
+        minor_component = surface.minor_radius()
         coil_radius = max(0.25 * major_radius, 3.0 * minor_component)
         base_curves = create_equally_spaced_curves(
             ncoils, surface.nfp, stellsym=surface.stellsym,

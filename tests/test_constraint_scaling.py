@@ -24,7 +24,7 @@ def _create_minimal_coils(surface, ncoils=2, order=2):
     
     base_curves = create_equally_spaced_curves(
         ncoils, surface.nfp, stellsym=surface.stellsym,
-        R0=surface.get_rc(0, 0) * 1.2, R1=0.1, order=order, numquadpoints=16  # Minimal quadpoints
+        R0=surface.major_radius() * 1.2, R1=0.1, order=order, numquadpoints=16  # Minimal quadpoints
     )
     base_currents = [Current(1e6) for _ in range(ncoils)]
     

@@ -1004,8 +1004,8 @@ def trace_fieldlines(
         R_closest = np.sqrt(closest_point[0]**2 + closest_point[1]**2)
         
         # Use a range around this point
-        major_radius = surface.get_rc(0, 0)
-        minor_radius_component = abs(surface.get_rc(1, 0))
+        major_radius = surface.major_radius()
+        minor_radius_component = surface.minor_radius()
         R_min = max(R_closest - minor_radius_component * 0.5, major_radius * 0.5)
         R_max = R_closest + minor_radius_component * 0.5
     
@@ -1033,7 +1033,7 @@ def trace_fieldlines(
     # Create surface classifier for stopping criteria
     # Following simsopt example: examples/1_Simple/tracing_fieldlines_QA.py
     with timed_section("surface_classifier_setup"):
-        sc_fieldline = SurfaceClassifier(surface, h=0.04 * surface.get_rc(0, 0), p=2)
+        sc_fieldline = SurfaceClassifier(surface, h=0.04 * surface.major_radius(), p=2)
     
     # Use interpolated field for faster tracing if requested
     if use_interpolated_field:

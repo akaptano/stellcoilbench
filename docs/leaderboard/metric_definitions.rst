@@ -157,6 +157,20 @@ Coil Geometry Metrics
    
    Typical values: 4, 6, 8, 12. More coils allow more complex field shaping but increase computational cost.
 
+**Total Superconductor Length** (:math:`L_{\text{SC}}`)
+   Total length of superconducting tape required at reactor scale, accounting for the number of turns in each coil's winding pack.
+   
+   Mathematical form:
+   
+   .. math::
+      L_{\text{SC}} = \frac{1}{1000} \sum_{i=1}^{N_{\text{coils}}} N_{\text{turns},i} \times L_{\text{reactor},i}
+   
+   where :math:`N_{\text{turns},i} = \max(N_{F,i},\, N_{J_c,i})` is the number of turns per coil (driven by force limits or REBCO critical-current limits, whichever is larger), and :math:`L_{\text{reactor},i}` is the reactor-scale length of coil :math:`i`. The factor of 1/1000 converts from meters to kilometers.
+   
+   Units: :math:`\text{km}` (kilometers)
+   
+   Lower values indicate more economical coil designs requiring less superconducting material. This is a derived reactor-scale metric that combines the winding-pack turn count with the scaled coil lengths.
+
 Separation Metrics
 ------------------
 

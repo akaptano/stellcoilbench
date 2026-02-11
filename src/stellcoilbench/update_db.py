@@ -678,7 +678,10 @@ def _metric_definition(metric_name: str) -> str:
         
         # Linking number
         "final_linking_number": r"Linking number $\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ between coil pairs (dimensionless)",
-        
+
+        # Total superconductor length
+        "total_superconductor_length_km": r"Total superconductor length $L_{\text{SC}} = \frac{1}{1000} \sum_i N_{\text{turns},i} \times L_{\text{reactor},i}$ (km)",
+
         # Arclength variation
         "final_arclength_variation": r"Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)",
         
@@ -896,7 +899,16 @@ def _metric_detailed_definition(metric_name: str) -> dict | None:
             "title": "Fourier Continuation (FC)",
             "description": "Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems.",
             "notes": 'Format: comma-separated list of orders (e.g., "4,6,8" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows "—".'
-        }
+        },
+        "total_superconductor_length_km": {
+            "title": "Total Superconductor Length",
+            "symbol": r":math:`L_{\text{SC}}`",
+            "description": "Total length of superconducting tape required at reactor scale, accounting for the number of turns in each coil's winding pack.",
+            "math_forms": [r"L_{\text{SC}} = \frac{1}{1000} \sum_{i=1}^{N_{\text{coils}}} N_{\text{turns},i} \times L_{\text{reactor},i}"],
+            "where": r"where :math:`N_{\text{turns},i} = \max(N_{F,i},\, N_{J_c,i})` is the number of turns per coil (driven by force limits or REBCO critical-current limits, whichever is larger), and :math:`L_{\text{reactor},i}` is the reactor-scale length of coil :math:`i`. The factor of 1/1000 converts from meters to kilometers.",
+            "units": r":math:`\text{km}` (kilometers)",
+            "notes": "Lower values indicate more economical coil designs requiring less superconducting material. This is a derived reactor-scale metric that combines the winding-pack turn count with the scaled coil lengths."
+        },
     }
     
     return detailed_defs.get(metric_name)
@@ -2246,7 +2258,13 @@ def write_rst_leaderboard(
     
     # Metric definitions (shown once at the top)
     if all_metric_keys:
-        
+        # Also include reactor-scale metrics that have detailed definitions
+        # (e.g. total_superconductor_length_km) so they appear in the docs
+        combined_metric_keys = list(all_metric_keys)
+        for rk in _REACTOR_SCALE_DISPLAY_ORDER:
+            if rk not in combined_metric_keys and _metric_detailed_definition(rk):
+                combined_metric_keys.append(rk)
+
         # Group metrics logically
         field_quality = []
         coil_geometry = []
@@ -2256,8 +2274,8 @@ def write_rst_leaderboard(
         performance = []
         particle_confinement = []
         config = []
-        
-        for key in all_metric_keys:
+
+        for key in combined_metric_keys:
             detailed_def = _metric_detailed_definition(key)
             if detailed_def:
                 if "flux" in key.lower() or "BdotN" in key or "B" in key:

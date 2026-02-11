@@ -50,6 +50,9 @@ except ImportError:
     cm = None  # type: ignore
     Normalize = None  # type: ignore
 
+# ARIES-CS reactor reference (matches post_processing vmec_RZ_scale scaling)
+ARIES_CS_MINOR_RADIUS = 1.7  # meters (aspect ratio ~4.5)
+
 
 class LinearPenalty:
     """
@@ -887,8 +890,8 @@ def initialize_coils_loop(
     
     # Adaptive R0 and R1 initialization
     # Start with conservative initial values
-    major_radius = s.get_rc(0, 0)
-    minor_radius_component = abs(s.get_rc(1, 0))
+    major_radius = s.major_radius()
+    minor_radius_component = s.minor_radius()
     
     # Minimum distances we want to maintain
     min_cs_distance = 0.1 * major_radius  # Minimum coil-to-surface distance (15% of major radius)
@@ -1511,7 +1514,7 @@ def _extend_coils_to_higher_order(
         return coils
     
     # Get major radius for creating new curves
-    R0 = s.get_rc(0, 0)
+    R0 = s.major_radius()
     R1 = s.get_rc(1, 0) * 3.5
     
     # Create new base curves with higher order
@@ -2068,12 +2071,12 @@ def _optimize_coils_loop_impl(
         torque_threshold = cached['torque_threshold']
         coil_width = cached['coil_width']
         R0 = cached['R0']
-        major_radius = cached.get('major_radius', 10.0 / R0 if R0 != 0 else 1.0)
+        major_radius = cached.get('major_radius', s.major_radius())
+        minor_radius = cached.get('minor_radius', ARIES_CS_MINOR_RADIUS / R0 if R0 != 0 else 1.7)
     else:
         # First step or no cache: compute thresholds normally
         # Set default constraint thresholds if not provided
-        # Defaults here are reasonable for 10 m major radius
-        #  reactor-scale device with 5.7 T target B-field
+        # Defaults here are for ARIES-CS reactor (minor radius 1.7 m, 5.7 T)
         length_threshold = kwargs.get('length_threshold', 200.0)
         flux_threshold = kwargs.get('flux_threshold', 1e-8)
         cc_threshold = kwargs.get('cc_threshold', 0.8)
@@ -2086,10 +2089,11 @@ def _optimize_coils_loop_impl(
         force_threshold = kwargs.get('force_threshold', 1.0) * nturns
         torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
 
-        # Rescale thresholds by the plasma major radius only if they were not explicitly passed
-        # divided by the 10m assumption for the major radius
-        major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
-        R0 = 10.0 / major_radius  # Dimensionless scaling factor for thresholds
+        # Rescale thresholds by plasma minor radius (consistent with post_processing vmec_RZ_scale)
+        # R0 = ARIES_CS_MINOR_RADIUS / minor_radius scales device-size thresholds to reactor scale
+        major_radius = s.major_radius()  # Major radius in meters [L]
+        minor_radius = float(s.minor_radius())  # Minor radius in meters [L]
+        R0 = ARIES_CS_MINOR_RADIUS / minor_radius  # Scale factor (same convention as vmec_RZ_scale)
         if 'length_threshold' not in kwargs:
             length_threshold /= R0
         if 'cc_threshold' not in kwargs:
@@ -2143,7 +2147,7 @@ def _optimize_coils_loop_impl(
             algorithm_options[opt_name] = kwargs[opt_name]
 
     print(f"Starting coil optimization for target B-field: {target_B} T")
-    print(f"Surface major radius: {s.get_rc(0, 0):.3f} m")
+    print(f"Surface major radius: {s.major_radius():.3f} m")
     print(f"Surface minor radius component: {s.get_rc(1, 0):.3f} m")
     print(f"Number of base coils: {ncoils}")
     print(f"Fourier order: {order}")
@@ -2428,7 +2432,7 @@ def _optimize_coils_loop_impl(
     # Use major_radius (with units [L]) for proper dimensional scaling
     constraint_scaling = {}  # Maps constraint index to scaling factor
     constraint_idx_to_term = {}  # Maps constraint index to term name for named weights
-    major_radius = s.get_rc(0, 0)  # Major radius in meters [L]
+    major_radius = s.major_radius()  # Major radius in meters [L]
     
     # Add scaling for always-included distance objectives
     # CurveCurveDistance and CurveSurfaceDistance compute squared penalties, so units are [L^2]
@@ -3304,8 +3308,9 @@ def _optimize_coils_loop_impl(
         'force_threshold': force_threshold,
         'torque_threshold': torque_threshold,
         'coil_width': coil_width,
-        'R0': R0,                        # dimensionless scaling factor (10/major_radius)
+        'R0': R0,                        # ARIES_CS_MINOR_RADIUS / minor_radius (matches vmec_RZ_scale)
         'major_radius': major_radius,    # actual device major radius [m]
+        'minor_radius': minor_radius,    # actual device minor radius [m]
     }
     
     # Prepare results dictionary

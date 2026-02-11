@@ -557,9 +557,11 @@ jobs:
           stellcoilbench update-db 2>&1 || echo "WARNING: update-db failed, leaderboard may be stale"
 
           # Stage everything: done results, deleted pending, submissions, leaderboard docs.
+          # Use -f for submissions/ because it is in .gitignore (to keep local
+          # dev clones clean), but CI must commit new autopilot entries.
           git add cases/done/  2>/dev/null || true
           git add -u cases/pending/ 2>/dev/null || true
-          git add submissions/ 2>/dev/null || true
+          git add -f submissions/ 2>/dev/null || true
           git add docs/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No autopilot results to commit"
@@ -573,7 +575,7 @@ jobs:
               git checkout --ours cases/done/ 2>/dev/null || true
               git checkout --ours submissions/ 2>/dev/null || true
               git checkout --theirs docs/ 2>/dev/null || true
-              git add cases/done/ docs/ submissions/
+              git add -f cases/done/ docs/ submissions/
               stellcoilbench update-db 2>&1 || true
               git add docs/
               git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
