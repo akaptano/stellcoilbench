@@ -294,6 +294,7 @@ jobs:
       github.event_name == 'push' &&
       needs.determine-cases.outputs.has_cases == 'true'
     runs-on: self-hosted
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
