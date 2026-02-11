@@ -332,7 +332,7 @@ class TestWriteAutopilotSubmission:
             "coils_linked_to_surface": True,
             "avg_BdotN_over_B": 0.0004,
             "max_BdotN_over_B": 0.002,
-            "_cached_thresholds": {"major_radius": 1.7, "R0": 5.88},
+            "_cached_thresholds": {"major_radius": 1.7, "minor_radius": 0.29, "a0": 5.88},
         }
 
     def _make_case_config(self, fourier_continuation=False):

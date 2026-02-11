@@ -2049,11 +2049,11 @@ def _optimize_coils_loop_impl(
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     
-    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
-    is_continuation_step = kwargs.get('initial_coils') is not None
-    
     # nturns is constant for all cases (defined here so it's always available)
     nturns = 200 # nturns = 200 to give reasonable upper bound on reactor scale forces
+    
+    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
+    is_continuation_step = initial_coils is not None
     
     # For continuation steps, reuse pre-computed thresholds/weights from kwargs if available
     # This avoids recalculating thresholds and weights that don't change between continuation steps
@@ -2070,9 +2070,10 @@ def _optimize_coils_loop_impl(
         force_threshold = cached['force_threshold']
         torque_threshold = cached['torque_threshold']
         coil_width = cached['coil_width']
-        R0 = cached['R0']
+        # a0 = minor-radius scale factor (ARIES_CS_MINOR_RADIUS / minor_radius); support legacy "R0" key
+        a0 = cached.get('a0', cached.get('R0'))
         major_radius = cached.get('major_radius', s.major_radius())
-        minor_radius = cached.get('minor_radius', ARIES_CS_MINOR_RADIUS / R0 if R0 != 0 else 1.7)
+        minor_radius = cached.get('minor_radius', ARIES_CS_MINOR_RADIUS / a0 if a0 and a0 != 0 else 1.7)
     else:
         # First step or no cache: compute thresholds normally
         # Set default constraint thresholds if not provided
@@ -2090,24 +2091,24 @@ def _optimize_coils_loop_impl(
         torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
 
         # Rescale thresholds by plasma minor radius (consistent with post_processing vmec_RZ_scale)
-        # R0 = ARIES_CS_MINOR_RADIUS / minor_radius scales device-size thresholds to reactor scale
+        # a0 = ARIES_CS_MINOR_RADIUS / minor_radius scales device-size thresholds to reactor scale
         major_radius = s.major_radius()  # Major radius in meters [L]
         minor_radius = float(s.minor_radius())  # Minor radius in meters [L]
-        R0 = ARIES_CS_MINOR_RADIUS / minor_radius  # Scale factor (same convention as vmec_RZ_scale)
+        a0 = ARIES_CS_MINOR_RADIUS / minor_radius  # Minor-radius scale factor (same convention as vmec_RZ_scale)
         if 'length_threshold' not in kwargs:
-            length_threshold /= R0
+            length_threshold /= a0
         if 'cc_threshold' not in kwargs:
-            cc_threshold /= R0
+            cc_threshold /= a0
         if 'cs_threshold' not in kwargs:
-            cs_threshold /= R0
+            cs_threshold /= a0
         if 'curvature_threshold' not in kwargs:
-            curvature_threshold *= R0
+            curvature_threshold *= a0
         if 'msc_threshold' not in kwargs:
-            msc_threshold *= R0
+            msc_threshold *= a0
         if 'arclength_variation_threshold' not in kwargs:
-            arclength_variation_threshold *= R0 ** 2
+            arclength_variation_threshold *= a0 ** 2
         # coil_width is not a threshold parameter, so always scale it
-        coil_width /= R0
+        coil_width /= a0
 
     # CI autopilot hard cap: clamp max_iterations to 10 000
     _CI_MAX_ITER_CAP = 10_000
@@ -2153,10 +2154,6 @@ def _optimize_coils_loop_impl(
     print(f"Fourier order: {order}")
 
     # Step 1: Initialize coils with target B-field
-    # print("Step 1: Initializing coils with target B-field...")
-    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
-    is_continuation_step = initial_coils is not None
-    
     with timed_section("coil_initialization"):
         if initial_coils is None:
             coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
@@ -2191,7 +2188,6 @@ def _optimize_coils_loop_impl(
     base_curves = [coil.curve for coil in coils[:ncoils]]
     
     # Step 2: Create plotting surface for visualization
-    # print("Step 2: Setting up plotting surface...")
     # Use surface_resolution for plotting (can be upsampled, but respect the surface_resolution parameter)
     # For tests, use lower upsampling factor to speed things up
     plot_upsample_factor = kwargs.get('plot_upsample_factor', 2)
@@ -2233,7 +2229,6 @@ def _optimize_coils_loop_impl(
                 s_plot.set_zs(m, n, s.get_zs(m, n))
 
     # Step 3: Create BiotSavart object and save initial state
-    # print("Step 3: Creating BiotSavart object and saving initial state...")
     with timed_section("biotsavart_setup"):
         bs = BiotSavart(coils)
         B_avg = calculate_modB_on_major_radius(bs, s)
@@ -2278,7 +2273,6 @@ def _optimize_coils_loop_impl(
             print(f"Warning: Failed to generate initial 3D plot: {e}")
 
     # Step 4: Define objective function and constraints
-    # print("Step 4: Setting up optimization objectives and constraints...")
     objective_setup_start = time.perf_counter()
     bs.set_points(s.gamma().reshape((-1, 3)))
     
@@ -2891,7 +2885,6 @@ def _optimize_coils_loop_impl(
             # if the gradient norm drops below gtol quickly
             options.setdefault('ftol', 1e-12)  # scipy default
             options.setdefault('gtol', 1e-12)  # scipy default
-            # options.setdefault('tol', 1e-12)  # scipy default
         elif algorithm == 'L-BFGS-B-custom':
             # L-BFGS-B-custom uses same options as scipy L-BFGS-B
             # Use scipy defaults for ftol/gtol to avoid premature convergence
@@ -3308,7 +3301,7 @@ def _optimize_coils_loop_impl(
         'force_threshold': force_threshold,
         'torque_threshold': torque_threshold,
         'coil_width': coil_width,
-        'R0': R0,                        # ARIES_CS_MINOR_RADIUS / minor_radius (matches vmec_RZ_scale)
+        'a0': a0,                        # Minor-radius scale factor: ARIES_CS_MINOR_RADIUS / minor_radius
         'major_radius': major_radius,    # actual device major radius [m]
         'minor_radius': minor_radius,    # actual device minor radius [m]
     }

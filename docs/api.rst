@@ -419,14 +419,6 @@ The ``update_db`` module handles leaderboard generation and management.
    
    - ``list[str]``: List of generated surface names
 
-**write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) -> None**
-   Write index file for surface leaderboards.
-   
-   Parameters:
-   
-   - ``surface_names``: List of surface names
-   - ``docs_dir``: Documentation directory
-
 **load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[str, Any]]]**
    Load all submissions from directory.
    

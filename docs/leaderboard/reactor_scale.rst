@@ -11,7 +11,7 @@ Reactor-Scale Leaderboard
    .orange { color: #e67e22; font-weight: bold; }
    </style>
 
-All values are scaled to the **ARIES-CS reference** (major radius :math:`R_0 = 7.5` m, on-axis field :math:`B_0 = 5.7` T).
+All values are scaled to the **ARIES-CS reference** (minor radius :math:`a = 1.7` m, on-axis field :math:`B_0 = 5.7` T).
 
 Entries are ranked by **composite score** (higher = better engineering margin). See :doc:`metric_definitions` for constraint bounds and the scoring formula.
 

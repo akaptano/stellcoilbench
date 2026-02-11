@@ -253,20 +253,8 @@ Here's a complete example case file:
 Notation
 --------
 
-The following notation is used throughout the mathematical definitions:
-
-- :math:`C_i` denotes coil curve :math:`i`
-- :math:`S` denotes the plasma surface
-- :math:`\mathbf{r}_i` denotes a point on coil curve :math:`C_i`
-- :math:`\mathbf{s}` denotes a point on the plasma surface :math:`S`
-- :math:`\ell_i` denotes arclength along coil curve :math:`C_i`
-- :math:`L_i` denotes the total length of coil curve :math:`C_i`
-- :math:`\kappa_i` denotes curvature along coil curve :math:`C_i`
-- :math:`\frac{d\vec{F}_i}{d\ell_i}` denotes force per unit length on coil curve :math:`C_i`
-- :math:`\frac{d\vec{T}_i}{d\ell_i}` denotes torque per unit length on coil curve :math:`C_i`
-- :math:`N` denotes the number of coils
-- :math:`d\ell_i` denotes the differential arclength element along coil curve :math:`C_i`
-- :math:`ds` denotes the differential surface area element on the plasma surface :math:`S`
+See :doc:`leaderboard/metric_definitions` for the full notation. Briefly: :math:`C_i` (coil curve),
+:math:`S` (plasma surface), :math:`L_i` (length), :math:`\kappa_i` (curvature), :math:`N` (number of coils).
 
 Available Objective Terms
 -------------------------
@@ -393,7 +381,7 @@ Available Objective Terms
    .. math::
       \max\left(J - J_0, 0\right)^2
    
-   where :math:`J_0` is the desired threshold (scaled by :math:`R_0^2` where :math:`R_0` is the major radius). Ensures coils have uniform spacing, which is important for manufacturing and field quality.
+   where :math:`J_0` is the desired threshold (scaled by :math:`a_0^2` where :math:`a_0 = a_{\text{ref}}/a` is the minor-radius scale factor). Ensures coils have uniform spacing, which is important for manufacturing and field quality.
 
 **linking_number**
    Constrains the topological linking number between coils.

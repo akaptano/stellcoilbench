@@ -2,28 +2,8 @@ Overview
 ========
 
 StellCoilBench is an open-source benchmark suite for stellarator coil optimization algorithms.
-It provides a standardized framework for comparing optimization methods across different plasma
-surfaces, ensuring consistent evaluation and reproducible results.
-
-What is StellCoilBench?
-------------------------
-
-StellCoilBench addresses a critical need in the stellarator fusion community: **standardized
-benchmarking of coil optimization algorithms**. Different research groups use different plasma
-surfaces, objective functions, and evaluation metrics, making it difficult to compare methods
-fairly. StellCoilBench solves this by:
-
-- **Standardized Case Definitions**: Each benchmark case is defined in a YAML file that
-  specifies the plasma surface, coil parameters, optimization settings, and objective terms.
-
-- **Consistent Evaluation**: All submissions are evaluated using the same metrics, ensuring
-  fair comparison across different optimization methods.
-
-- **Automated Leaderboards**: CI automatically runs cases, evaluates submissions, and updates
-  leaderboards after each successful run.
-
-- **Reproducible Results**: All submissions include complete metadata, allowing others to
-  reproduce and verify results.
+It provides standardized case definitions, consistent evaluation, automated leaderboards, and
+reproducible results across plasma surfaces.
 
 Key Concepts
 ------------
@@ -112,169 +92,38 @@ The StellCoilBench repository is organized as follows:
 What Happens on Submit
 -----------------------
 
-When you run ``stellcoilbench submit-case cases/my_case.yaml``, the following steps occur:
+When you run ``stellcoilbench submit-case cases/my_case.yaml``:
 
-1. **Case Loading**: The case YAML file is loaded and validated.
+1. Case is loaded and validated
+2. Plasma surface is loaded from ``plasma_surfaces/``
+3. Coils are initialized and optimized
+4. Metrics are computed (flux error, curvature, forces, etc.)
+5. Post-processing runs if VMEC/booz_xform are installed (Poincaré, VMEC, iota, quasisymmetry, Boozer plots)
+6. Outputs are written to ``submissions/<surface>/<user>/<timestamp>/`` and zipped
 
-2. **Surface Loading**: The plasma surface is loaded from ``plasma_surfaces/`` based on the
-   case configuration.
-
-3. **Coil Initialization**: Initial coils are created using equally-spaced curves around the
-   plasma surface.
-
-4. **Optimization**: The coil optimization loop runs:
-   
-   - Builds the objective function from case-defined terms
-   - Runs the specified optimization algorithm (L-BFGS-B, augmented Lagrangian, etc.)
-   - Monitors convergence and applies regularization as needed
-
-5. **Evaluation**: Metrics are computed:
-   
-   - Normalized squared flux error (primary score)
-   - :math:`B_N/|B|` error on the surface
-   - Coil geometry metrics (curvature, length, separations)
-   - Force and torque metrics
-   - Linking number
-
-6. **Post-Processing** (if VMEC and booz_xform are installed):
-   
-   The runner automatically performs comprehensive post-processing:
-   
-   - **Poincaré Plots**: Generates Poincaré plots showing magnetic field line intersections
-     with toroidal cross-sections, visualizing magnetic surface quality
-   - **QFM Surface Computation**: Computes the quasi-flux-surface (QFM) from the optimized coils
-   - **VMEC Equilibrium**: Runs VMEC to compute self-consistent plasma equilibrium using the QFM surface
-   - **Quasisymmetry Analysis**: Computes quasisymmetry metrics and generates profile plots
-     comparing the self-consistent solution to the original plasma surface
-   - **Iota Profile**: Generates rotational transform (iota) profile plots comparing the
-     self-consistent solution to the original surface
-   - **Boozer Plots**: Creates 2x2 grid of Boozer surface plots at different flux coordinates
-     (s = 0, 0.25, 0.5, 1.0) for visualizing magnetic field structure
-   
-   All plots are saved as high-resolution PDFs suitable for publication.
-
-7. **Output Generation**:
-   
-   - Writes ``results.json`` with all metrics (including quasisymmetry if VMEC is available)
-   - Saves optimized coil geometry to ``coils.json``
-   - Generates VTK visualization files
-   - Creates PDF plots of B_N error (initial and optimized)
-   - Generates post-processing plots (Poincaré, iota, quasisymmetry, Boozer) if dependencies are installed
-   - Writes ``case.yaml`` with metadata
-
-8. **Submission Packaging**: The submission directory is zipped, and PDF plots are moved
-   next to the zip file.
+See :doc:`getting_started` for installation and workflow details.
 
 CI Workflow
 -----------
 
-StellCoilBench uses a CI-driven workflow for automated benchmarking:
-
-1. **Case Addition**: When you add a new case file to ``cases/`` and push, CI detects it.
-
-2. **Case Execution**: CI runs the case using ``stellcoilbench submit-case``.
-
-3. **Leaderboard Update**: After successful runs, CI:
-   
-   - Scans ``submissions/`` for all zip files
-   - Loads results and computes rankings
-   - Regenerates ``docs/leaderboard.json`` and ``docs/leaderboard.rst``
-   - Updates per-surface leaderboards in ``docs/leaderboards/``
-
-4. **Documentation Build**: ReadTheDocs automatically builds and publishes the updated
-   documentation, including the latest leaderboards.
-
-This workflow ensures that leaderboards are always up-to-date and that all submissions
-are evaluated consistently.
+1. Add a case to ``cases/`` and push — CI detects and runs it
+2. CI runs ``stellcoilbench submit-case`` and updates ``submissions/``
+3. CI regenerates ``docs/leaderboard.json`` and ``docs/leaderboards/``
+4. ReadTheDocs builds the updated documentation
 
 Nonstop CI Autopilot
 ---------------------
 
-In addition to the human-driven workflow above, StellCoilBench includes a
-**nonstop CI autopilot** that continuously proposes, runs, and records
-coil optimisation cases without human intervention.
-
-The autopilot uses a **propose → run → record** loop:
-
-- ``tools/propose_batch.py`` generates batches of 8 cases (half mutations
-  of top results, half random explorations).
-- The CI workflow runs each case via ``stellcoilbench run-ci-case``.
-- Results are committed to ``cases/done/`` and feed back into the next
-  proposal round.
-
-Hard guardrails prevent runaway failures: a sliding-window failure rate check,
-per-class failure counters, and an emergency ``PAUSE_AUTORUN`` stop file.
-
-All parameters — mutation noise, exploration ranges, resource caps, guardrail
-thresholds — are configured in ``policy/proposer_policy.yaml``.
-
-See :doc:`autopilot` for full documentation.
+A continuous loop: ``tools/propose_batch.py`` proposes cases → CI runs ``stellcoilbench run-ci-case``
+→ results go to ``cases/done/`` and feed the next round. Guardrails (failure-rate checks, ``PAUSE_AUTORUN``)
+prevent runaway failures. See :doc:`autopilot` and ``policy/proposer_policy.yaml``.
 
 Key Features
 ------------
 
-**Comprehensive Metrics**
-   StellCoilBench evaluates submissions using a wide range of metrics:
-   
-   - **Primary Score**: Normalized squared flux error (lower is better)
-   - **Field Quality**: :math:`B_N/|B|` error (average and maximum)
-   - **Coil Geometry**: Curvature, length, coil-to-coil and coil-to-surface distances
-   - **Engineering Feasibility**: Forces, torques, linking numbers
-   - **Performance**: Optimization time
-
-**Flexible Objective Functions**
-   Cases can specify various objective terms:
-   
-   - Flux error (always included)
-   - Total coil length (L2 or thresholded)
-   - Coil-to-coil distance (L1/L2 or thresholded)
-   - Coil-to-surface distance (L1/L2 or thresholded)
-   - Curvature penalties (Lp norm or thresholded)
-   - Mean squared curvature (L1/L2 or thresholded)
-   - Arclength variation (L2 thresholded)
-   - Linking number
-   - Coil forces and torques (Lp norm or thresholded)
-
-**Multiple Optimization Algorithms**
-   Supports various optimization algorithms from ``scipy.optimize``:
-   
-   - L-BFGS-B (quasi-Newton method with bounds)
-   - Augmented Lagrangian method
-   - Other algorithms supported by ``scipy.optimize.minimize``
-
-**Fourier Continuation**
-   Advanced optimization technique that solves a sequence of problems with
-   progressively increasing Fourier orders. This helps achieve convergence
-   for complex coil optimization problems by:
-   
-   - Starting with low-order (fewer variables) optimization
-   - Using converged solutions as initial conditions for higher-order problems
-   - Gradually refining coil shapes with increasing resolution
-   
-   See :ref:`fourier-continuation` for detailed documentation.
-
-**High-Quality Visualizations**
-   Generates publication-quality PDF plots:
-   
-   - 3D visualization of B_N error on plasma surface
-   - Coils colored by current magnitude
-   - Separate plots for initial and optimized coils
-   - Poincaré plots showing magnetic field line intersections (if dependencies installed)
-   - Iota (rotational transform) profiles comparing original and self-consistent solutions
-   - Quasisymmetry error profiles comparing original and self-consistent solutions
-   - Boozer surface plots at multiple flux coordinates (2x2 grid)
-   - High-resolution output suitable for papers and presentations
-   
-   All post-processing plots are automatically generated by the runner when optional dependencies
-   (VMEC and booz_xform) are installed.
-
-**Reproducibility**
-   Every submission includes:
-   
-   - Complete case configuration
-   - Optimized coil geometry
-   - All evaluation metrics
-   - Hardware and software metadata
-   - Timestamp and user information
-
-This ensures that results can be verified and reproduced by others.
+- **Metrics**: Normalized flux error, :math:`B_N/|B|`, curvature, length, forces, torques (see :doc:`leaderboard/metric_definitions`)
+- **Objective terms**: Flux error, length, curvature, distances, linking number, forces (L1/L2/Lp or thresholded)
+- **Algorithms**: L-BFGS-B, augmented Lagrangian, others via scipy
+- **Fourier continuation**: Progressive refinement by order (see :ref:`fourier-continuation`)
+- **Visualizations**: B_N plots, Poincaré, VMEC, iota, quasisymmetry, Boozer (if VMEC/booz_xform installed)
+- **Reproducibility**: Full case config, coils, metrics, and metadata in each submission

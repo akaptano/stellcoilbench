@@ -406,31 +406,8 @@ def load_coils_and_surface(
             f"Surface file not found: {surface_file}. Searched: {unique_paths[:10]}..."  # Show first 10 paths
         )
     
-    # Load surface based on file type
-    surface_file_lower = str(surface_path).lower()
-    if "input" in surface_file_lower:
-        surface = SurfaceRZFourier.from_vmec_input(
-            str(surface_path),
-            range=surface_range,
-            nphi=256,
-            ntheta=256,
-        )
-    elif "wout" in surface_file_lower:
-        surface = SurfaceRZFourier.from_wout(
-            str(surface_path),
-            range=surface_range,
-            nphi=256,
-            ntheta=256,
-        )
-    elif "focus" in surface_file_lower:
-        surface = SurfaceRZFourier.from_focus(
-            str(surface_path),
-            range=surface_range,
-            nphi=256,
-            ntheta=256,
-        )
-    else:
-        raise ValueError(f"Unknown surface file type: {surface_path}")
+    # Load surface (reuse load_surface_with_range to avoid duplicate logic)
+    surface = load_surface_with_range(surface_path, surface_range=surface_range)
     
     # Set filename attribute so VMEC can find the original input file
     surface.filename = str(surface_path.resolve())

@@ -1,4 +1,4 @@
-# src/coilbench/update_db.py
+# src/stellcoilbench/update_db.py
 from __future__ import annotations
 
 import json
@@ -2570,7 +2570,7 @@ def write_rst_leaderboard(
             "-" * len("Reactor-Scale Constraints"),
             "",
             "All submissions are scaled to the ARIES-CS reference reactor",
-            r"(major radius :math:`R_0 = 7.5\,\text{m}`, on-axis field",
+            r"(minor radius :math:`a = 1.7\,\text{m}`, on-axis field",
             r":math:`B_0 = 5.7\,\text{T}`) before engineering feasibility is assessed.",
             "",
             "**Hard feasibility constraints** — any violation makes the design infeasible",
@@ -3560,14 +3560,6 @@ def write_surface_leaderboards(
     return surface_names
 
 
-def write_surface_leaderboard_index(surface_names: list[str], docs_dir: Path) -> None:
-    """
-    No longer creates an index file - leaderboards are in docs/leaderboards/ directory.
-    This function is kept for API compatibility but does nothing.
-    """
-    pass
-
-
 # Friendly surface display names (used by multiple leaderboard writers).
 _SURFACE_DISPLAY_NAMES: Dict[str, str] = {
     "LandremanPaul2021_QA": "Landreman-Paul QA",
@@ -3783,7 +3775,7 @@ def write_reactor_scale_leaderboard(
         "   </style>",
         "",
         "All values are scaled to the **ARIES-CS reference** "
-        "(major radius :math:`R_0 = 7.5` m, on-axis field :math:`B_0 = 5.7` T).",
+        "(minor radius :math:`a = 1.7` m, on-axis field :math:`B_0 = 5.7` T).",
         "",
         "Entries are ranked by **composite score** (higher = better engineering margin). "
         "See :doc:`metric_definitions` for constraint bounds and the scoring formula.",
@@ -4127,7 +4119,6 @@ def update_database(
 
     # Build in-memory data structures from submissions
     methods = build_methods_json(submissions_root=submissions_root, repo_root=repo_root)
-    # cases = build_cases_json(methods)
     leaderboard = build_leaderboard_json(methods)
 
     # Write leaderboard.json for reference
@@ -4162,7 +4153,6 @@ def update_database(
     surface_names = write_surface_leaderboards(
         surface_leaderboards, docs_dir=docs_dir, repo_root=repo_root
     )
-    write_surface_leaderboard_index(surface_names, docs_dir=docs_dir)
     
     # Write ReadTheDocs-friendly leaderboard (includes surface list)
     write_rst_leaderboard(leaderboard, docs_dir / "leaderboard.rst", surface_leaderboards)

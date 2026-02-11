@@ -1,167 +1,50 @@
 # StellCoilBench
 
-StellCoilBench is an open benchmark suite for stellarator coil optimization algorithms.
+**Open benchmark suite for stellarator coil optimization algorithms.** Standardized case definitions (YAML), automated optimization via simsopt, post-processing (VMEC, Poincaré plots), and CI-driven leaderboards.
 
 ## Quick Start
 
-**Fastest way to get a run:** add a new case under `cases/` and `git push` — CI will run the case and update the leaderboards.
-
-If you want to run locally instead:
-
 ```bash
+# Add a case and push — CI runs it and updates leaderboards
 stellcoilbench submit-case cases/my_case.yaml
+git add submissions/ && git commit -m "Add submission" && git push
 ```
 
-## How To Use StellCoilBench
+**Or:** Add a case under `cases/` and `git push` — CI will run it automatically.
 
-### Directory Structure
+## Repository Layout
 
-```
-stellcoilbench/
-├── cases/                    # Benchmark case definitions
-│   ├── basic_LandremanPaulQA.yaml
-│   ├── basic_MUSE.yaml
-│   ├── basic_tokamak.yaml
-│   ├── basic_rotating_ellipse.yaml
-│   └── README.md
-├── submissions/              # Generated submission results
-│   └── LandremanPaul2021_QA/ # Plasma surface name
-│       └── akaptano/         # GitHub username
-│           └── 01-23-2026_00-45/ # Date and time (MM-DD-YYYY_HH-MM)
-│               ├── all_files.zip # Submission archive
-│               ├── bn_error_3d_plot.pdf
-│               └── bn_error_3d_plot_initial.pdf
-│   └── README.md
-└── docs/                     # Generated leaderboards
-    └── leaderboards/         # Per-surface leaderboards
-        ├── LandremanPaul2021_QA.md
-        ├── muse_focus.md
-        ├── circular_tokamak.md
-        └── rotating_ellipse.md
-```
+| Directory | Purpose |
+|-----------|---------|
+| `cases/` | Benchmark case definitions (YAML). See `cases/README.md` |
+| `cases/pending/` | Autopilot queue (JSON, written by proposer) |
+| `cases/done/` | Autopilot results |
+| `submissions/<surface>/<user>/<timestamp>/` | Submission zips and PDFs |
+| `submissions/<surface>/auto/` | Autopilot submissions |
+| `docs/leaderboards/` | Per-surface leaderboards (CI-generated) |
+| `policy/proposer_policy.yaml` | Autopilot tuning and guardrails |
 
-### Step 1: Define a Case
-
-Create a new case in `cases/` or copy an existing one. Example:
-
-```yaml
-# cases/my_case.yaml
-description: "My optimization test"
-surface_params:
-  surface: "input.LandremanPaul2021_QA"  # Must match file in plasma_surfaces/
-  range: "half period"  # or "full torus"
-coils_params:
-  ncoils: 4
-  order: 4
-optimizer_params:
-  algorithm: "L-BFGS-B"  # or "BFGS", "SLSQP", "augmented_lagrangian", etc.
-  max_iterations: 200
-  max_iter_subopt: 10
-  verbose: False  # Optional: controls optimization progress output
-  algorithm_options:  # Optional: algorithm-specific hyperparameters
-    ftol: 1e-12  # Default for L-BFGS-B is 1e-12
-    gtol: 1e-12  # Default for L-BFGS-B is 1e-12
-coil_objective_terms:  # Optional: specify which objectives to include
-  total_length: "l2_threshold"
-  coil_coil_distance: "l1_threshold"
-  coil_surface_distance: "l1_threshold"
-  linking_number: ""  # Empty string includes linking number
-```
-
-### Step 2: Run and Submit (Local)
+## Commands
 
 ```bash
-stellcoilbench submit-case cases/my_case.yaml
+stellcoilbench submit-case cases/case.yaml   # Run a case locally
+stellcoilbench run-ci-case cases/pending/X.json  # Run autopilot case
+stellcoilbench update-db                     # Rebuild leaderboards from submissions
+stellcoilbench validate-config cases/X.yaml # Validate case file
 ```
 
-**What this does:**
-1. Runs coil optimization for the case
-2. Evaluates the results
-3. Runs post-processing (if VMEC and booz_xform are installed):
-   - Generates Poincaré plots
-   - Computes QFM surface
-   - Runs VMEC equilibrium calculations
-   - Generates iota and quasisymmetry profile plots (comparing original and self-consistent solutions)
-   - Creates Boozer surface plots (2x2 grid at s = 0, 0.25, 0.5, 1.0)
-4. Auto-detects GitHub username from git config (`git config user.name`)
-5. Auto-detects hardware (CPU/GPU) from system information
-6. Creates a submission directory `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/`
-   (e.g., `submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/`)
-7. Writes `results.json`, `coils.json`, `case.yaml`, `biot_savart_optimized.json`, and VTK files (*.vtu, *.vts)
-8. Copies `case.yaml` and adds `source_case_file`
-9. Zips the submission into `submissions/<surface>/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip`
-10. Leaves PDF plots **next to** the zip file (not inside the archive)
+## Autopilot
 
-### Step 3: Commit and Push
+Continuous CI loop: propose → run → record. Create `PAUSE_AUTORUN` to halt.
 
 ```bash
-git add submissions/
-git commit -m "Add submission"
-git push
+python tools/propose_batch.py --batch-size 3 --dry-run   # Preview
+python tools/build_context.py | python -m json.tool      # Inspect context
 ```
-
-### Step 4: CI Updates Leaderboards
-
-When you push, CI automatically:
-1. Runs cases that need results
-2. Scans `submissions/` for `.zip` files and extracts `results.json`
-3. Generates `docs/leaderboard.json` and per-surface leaderboards in `docs/leaderboards/`
-4. Commits the leaderboard files (`docs/`)
-
-## Git Configuration
-
-The `docs/` and `submissions/` directories are updated by CI and should prefer remote versions when pulling.
-
-**Recommended:**
-```bash
-git pull-safe
-```
-
-This cleans local untracked files in `docs/` and `submissions/` and pulls with the `theirs` merge strategy.
-
-## Key Points
-
-- **Cases** (`cases/`) define the benchmarks
-- **Submissions** (`submissions/`) store results as `.zip`
-- **Leaderboards** (`docs/`) are generated by CI
-- **Fastest way to run**: add a case to `cases/` and push to GitHub
-
-## Nonstop CI Autopilot
-
-StellCoilBench includes a continuous autopilot that proposes, runs, and records
-optimisation cases automatically.
-
-```bash
-# Dry-run: preview 3 proposed cases
-python tools/propose_batch.py --batch-size 3 --dry-run --seed 42
-
-# Propose and run a small scan locally
-python tools/propose_batch.py --batch-size 3 --seed 42
-for f in cases/pending/*.json; do
-  stellcoilbench run-ci-case "$f" --output-dir cases/done \
-    --policy policy/proposer_policy.yaml
-  rm "$f"
-done
-
-# Inspect results
-python tools/build_context.py | python -m json.tool
-```
-
-All tuning lives in `policy/proposer_policy.yaml`.
-Create a `PAUSE_AUTORUN` file to halt the loop.
-
-See `docs/autopilot.rst` for full documentation.
 
 ## Documentation
 
-- **`cases/README.md`** - case format and fields
-- **`submissions/README.md`** - submission outputs and layout
-- **`tests/README.md`** - running tests and coverage
-- **`docs/autopilot.rst`** - nonstop CI autopilot guide
-- **`docs/index.md`** - published leaderboard index
-- **ReadTheDocs** - https://stellcoilbench.readthedocs.io/en/latest/
-
-## Leaderboards
-
-- Browse `docs/leaderboards/` on GitHub
-- View locally in `docs/leaderboards/`
+- **ReadTheDocs**: https://stellcoilbench.readthedocs.io/
+- **Cases**: `cases/README.md`, `docs/cases.rst`
+- **Autopilot**: `docs/autopilot.rst`
+- **Leaderboard**: `docs/leaderboard.rst`, `docs/leaderboard/metric_definitions.rst`
