@@ -16,8 +16,8 @@ resource_caps:
 
 # --- Mutation (exploit) parameters ---
 # Note: weights are NOT used -- augmented_lagrangian tunes them automatically.
-# Only thresholds are mutated. Thresholds left unset will be auto-scaled by the
-# code based on the plasma surface major radius (see coil_optimization.py).
+# Only thresholds are mutated. Thresholds left unset are auto-scaled by the
+# code using the plasma surface minor radius (a0 = ARIES_CS_MINOR_RADIUS / minor_radius).
 mutation:
   threshold_sigma: 0.10        # lognormal sigma for threshold jitter (10% typical change)
   ncoils_choices: [3, 4, 5, 6, 7]
@@ -31,7 +31,7 @@ fourier_continuation:
   orders: [4, 8, 16]
 
 # --- Exploration parameters ---
-# Thresholds are specified at a 10 m major-radius reference scale.
+# Thresholds are specified at ARIES-CS reactor scale (minor radius 1.7 m).
 # The code auto-scales them if not explicitly passed. To let the code auto-scale,
 # set use_default_thresholds: true (no thresholds in case_config).
 # When use_default_thresholds is false, the ranges below are sampled and

@@ -1,4 +1,4 @@
-# src/coilbench/cli.py
+# src/stellcoilbench/cli.py
 from __future__ import annotations
 
 import json
@@ -374,18 +374,17 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     target_B = metrics.get("target_B_field", None)
     
     # Get the actual device major radius [m] and minor radius [m].
-    # NOTE: _cached_thresholds["R0"] = ARIES_CS_MINOR_RADIUS / minor_radius (matches vmec_RZ_scale).
+    # NOTE: _cached_thresholds["a0"] = ARIES_CS_MINOR_RADIUS / minor_radius (matches vmec_RZ_scale).
     cached = metrics.get("_cached_thresholds", {})
     major_radius = cached.get("major_radius", None)
     minor_radius = cached.get("minor_radius", None)
     
-    # Fallback: try to compute from the R0 scaling factor (legacy entries)
+    # Fallback: try to compute from the a0 scale factor (or legacy R0 key)
     if major_radius is None:
-        r0_scale = cached.get("R0", None)
-        if r0_scale is not None and r0_scale != 0:
-            # Legacy: R0 = 10/major_radius.  New: R0 = ARIES_CS_MINOR_RADIUS/minor_radius.
-            # If minor_radius not in cache, assume legacy and derive major_radius.
-            major_radius = 10.0 / r0_scale
+        a0 = cached.get("a0", cached.get("R0", None))
+        if a0 is not None and a0 != 0 and minor_radius is None:
+            # Legacy: R0 = 10/major_radius → major_radius = 10/R0
+            major_radius = 10.0 / a0
     
     # If not in metrics, try to load the plasma surface to get major radius
     if major_radius is None and case_cfg is not None:
@@ -647,6 +646,23 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     return reactor_metrics
 
 
+def _extract_surface_name(surface_file: str) -> str:
+    """Extract a clean surface name from a surface filename.
+
+    Strips common prefixes (``input.``, ``wout.``) and file extensions
+    (e.g. ``.focus``) so that ``"input.LandremanPaul2021_QA"`` becomes
+    ``"LandremanPaul2021_QA"``.
+    """
+    name = Path(surface_file).name
+    for prefix in ("input.", "wout."):
+        if name.startswith(prefix):
+            name = name[len(prefix):]
+            break
+    if "." in name:
+        name = name.split(".", 1)[0]
+    return name
+
+
 class NumpyJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles numpy types and arrays."""
     def default(self, o):
@@ -674,7 +690,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
             return str(o)
         return super().default(o)
 
-app = typer.Typer(help="CoilBench: benchmarking framework for stellarator coil optimization.")
+app = typer.Typer(help="StellCoilBench: benchmarking framework for stellarator coil optimization.")
 
 
 def _detect_github_username() -> str:
@@ -915,8 +931,8 @@ def update_db_cmd(
     """
     Rebuild the on-repo 'database' of submissions and leaderboards.
 
-    This scans submissions_dir for results.json files produced by `coilbench eval-bundle`,
-    aggregates them into docs/leaderboard.json, and writes per-surface leaderboards in docs/leaderboards/.
+    This scans submissions_dir for results.json files, aggregates them into
+    docs/leaderboard.json, and writes per-surface leaderboards in docs/leaderboards/.
     """
     from .update_db import update_database
     repo_root = Path.cwd()
@@ -1011,19 +1027,7 @@ def submit_case(
     surface_file = case_cfg.surface_params.get("surface", "")
     if not surface_file:
         raise ValueError("case.yaml must specify surface_params.surface")
-    # Extract just the filename if it's a path (e.g., "input.LandremanPaul2021_QA")
-    surface_name = Path(surface_file).name
-    # Remove common prefixes like "input." or "wout." from directory name
-    if surface_name.startswith("input."):
-        surface_name = surface_name[6:]  # Remove "input." prefix
-    elif surface_name.startswith("wout."):
-        surface_name = surface_name[5:]  # Remove "wout." prefix
-    
-    # Remove file extensions like ".focus" from surface name
-    # Keep only the base name (e.g., "c09r00_B_axis_half_tesla_NCSX" from "c09r00_B_axis_half_tesla_NCSX.focus")
-    if "." in surface_name:
-        # Split on first dot and take the part before it
-        surface_name = surface_name.split(".", 1)[0]
+    surface_name = _extract_surface_name(surface_file)
     
     # 3) Build submission directory first (needed for output_dir)
     now = datetime.now()
@@ -1145,22 +1149,11 @@ def run_case(
     # Load case configuration
     case_cfg = load_case_config(case_path)
 
-    # Extract surface name from case config (similar to submit-case)
+    # Extract surface name from case config
     surface_file = case_cfg.surface_params.get("surface", "")
     if not surface_file:
         raise ValueError("case.yaml must specify surface_params.surface")
-    # Extract just the filename if it's a path (e.g., "input.LandremanPaul2021_QA")
-    surface_name = Path(surface_file).name
-    # Remove common prefixes like "input." or "wout." from directory name
-    if surface_name.startswith("input."):
-        surface_name = surface_name[6:]  # Remove "input." prefix
-    elif surface_name.startswith("wout."):
-        surface_name = surface_name[5:]  # Remove "wout." prefix
-    
-    # Remove file extensions like ".focus" from surface name
-    if "." in surface_name:
-        # Split on first dot and take the part before it
-        surface_name = surface_name.split(".", 1)[0]
+    surface_name = _extract_surface_name(surface_file)
 
     # Auto-detect GitHub username for directory structure
     github_username = _detect_github_username()
@@ -1420,7 +1413,7 @@ def _write_autopilot_submission(
 
     submissions_dir = submissions_dir or (repo_root / "submissions")
 
-    # --- extract surface name (same logic as submit-case) ---
+    # --- extract surface name ---
     surface_file = ""
     sp = case_config_dict.get("surface_params", {})
     if isinstance(sp, dict):
@@ -1429,13 +1422,7 @@ def _write_autopilot_submission(
         surface_file = sp.get("surface", "")
     if not surface_file:
         raise ValueError("case_config must specify surface_params.surface")
-    surface_name = Path(surface_file).name
-    for prefix in ("input.", "wout."):
-        if surface_name.startswith(prefix):
-            surface_name = surface_name[len(prefix):]
-            break
-    if "." in surface_name:
-        surface_name = surface_name.split(".", 1)[0]
+    surface_name = _extract_surface_name(surface_file)
 
     # --- build metrics that match the human-submission format ---
     # Strip fields that human submissions don't have so no extra columns
@@ -1687,7 +1674,7 @@ def post_process(
     ),
     plot_boozer: bool = typer.Option(
         True,
-        "--plot-bozzer/--no-plot-bozzer",
+        "--plot-boozer/--no-plot-boozer",
         help="Whether to generate Boozer surface plot.",
     ),
     plot_iota: bool = typer.Option(

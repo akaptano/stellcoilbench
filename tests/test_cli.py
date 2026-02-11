@@ -26,6 +26,7 @@ from stellcoilbench.cli import (
     submit_case,
     REACTOR_REFERENCE,
 )
+from stellcoilbench.coil_optimization import ARIES_CS_MINOR_RADIUS
 
 
 class _FakeCompletedProcess:
@@ -400,13 +401,21 @@ def test_main_calls_app(monkeypatch):
 # Tests for _compute_reactor_scale_metrics
 # ---------------------------------------------------------------------------
 
-def _make_metrics(major_radius=1.0, target_B=1.0, **overrides):
-    """Helper to build a metrics dict with cached thresholds and device params."""
+def _make_metrics(minor_radius=0.2, target_B=1.0, major_radius=None, **overrides):
+    """Helper to build a metrics dict with cached thresholds and device params.
+
+    Uses minor_radius for L_scale (ARIES_CS_MINOR_RADIUS / minor_radius).
+    major_radius defaults to ~4.5 * minor_radius (ARIES-CS aspect ratio) if not set.
+    """
+    if major_radius is None:
+        major_radius = 4.5 * minor_radius  # typical aspect ratio
+    a0 = ARIES_CS_MINOR_RADIUS / minor_radius
     m = {
         "target_B_field": target_B,
         "_cached_thresholds": {
-            "major_radius": major_radius,           # actual device major radius [m]
-            "R0": 10.0 / major_radius,              # dimensionless scaling factor
+            "major_radius": major_radius,
+            "minor_radius": minor_radius,
+            "a0": a0,
         },
     }
     m.update(overrides)
@@ -419,13 +428,13 @@ def test_reactor_scale_returns_error_when_params_missing():
 
 
 def test_reactor_scale_length_scaling():
-    """Lengths [m] should scale as L_scale."""
-    major_radius = 1.0
+    """Lengths [m] should scale as L_scale = ARIES_CS_MINOR_RADIUS / minor_radius."""
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_min_cc_separation=0.1,
         final_min_cs_separation=0.2,
         final_total_length=5.0,
@@ -438,12 +447,12 @@ def test_reactor_scale_length_scaling():
 
 def test_reactor_scale_curvature_scaling():
     """Curvature [1/m] scales as 1/L, MSC [1/m²] scales as 1/L²."""
-    major_radius = 1.5
+    minor_radius = 0.34  # L_scale = 1.7/0.34 = 5.0
     target_B = 2.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_curvature=3.0,
         final_average_curvature=1.5,
         final_mean_squared_curvature=4.0,
@@ -456,14 +465,14 @@ def test_reactor_scale_curvature_scaling():
 
 def test_reactor_scale_force_scaling():
     """Force/length [MN/m] scales as B²·L / 1e6 (dF/dℓ = I×B, I ∝ B·L)."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale = B_scale**2 * L_scale / 1e6
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=1e5,
         final_avg_max_coil_force=5e4,
     )
@@ -474,14 +483,14 @@ def test_reactor_scale_force_scaling():
 
 def test_reactor_scale_torque_scaling():
     """Torque/length [MN] scales as B²·L² / 1e6 (dτ/dℓ = r × dF/dℓ, r ∝ L)."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     torque_scale = B_scale**2 * L_scale**2 / 1e6
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_torque=1e6,
         final_avg_max_coil_torque=5e5,
     )
@@ -496,19 +505,19 @@ def test_reactor_scale_n_turns_per_coil():
     N_force_i = ceil(reactor_force[i] / 0.5)
     N_jc_i comes from the REBCO Jc model (Stellaris parameters).
     """
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale  # N/m → N/m at reactor scale
 
     # Three unique coils with different device-scale max forces [N/m].
-    # Choose values so that reactor-scale forces [MN/m] are 2.3, 0.4, 1.0
-    desired_MN = [2.3, 0.4, 1.0]
+    # Choose values so that reactor-scale forces [MN/m] are 2.3, 0.4, 0.7
+    desired_MN = [2.3, 0.4, 0.7]
     device_forces = [d * 1e6 / force_scale_raw for d in desired_MN]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
     )
@@ -518,7 +527,7 @@ def test_reactor_scale_n_turns_per_coil():
     for i, d in enumerate(desired_MN):
         assert result["reactor_scale_force_per_coil_MN_per_m"][i] == pytest.approx(d)
 
-    # Force-based N_turns: ceil(2.3/0.5)=5, ceil(0.4/0.5)=1, ceil(1.0/0.5)=2
+    # Force-based N_turns: ceil(2.3/0.5)=5, ceil(0.4/0.5)=1, ceil(0.7/0.5)=2
     assert result["N_turns_force"] == [5, 1, 2]
     # Jc-based N_turns also present
     assert "N_turns_jc" in result
@@ -539,7 +548,7 @@ def test_reactor_scale_n_turns_per_coil():
 def test_reactor_scale_n_turns_minimum_one():
     """N_turns_per_coil is at least 1 even when force is below the limit."""
     metrics = _make_metrics(
-        major_radius=1.0, target_B=1.0,
+        minor_radius=0.2, target_B=1.0,
         final_max_max_coil_force=1e-3,
         final_max_force_per_coil=[1e-3, 1e-4],
     )
@@ -553,9 +562,9 @@ def test_reactor_scale_n_turns_minimum_one():
 
 def test_per_turn_max_force():
     """per_turn_max_force = max_i(reactor_force_i / N_turns_i)."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
 
@@ -563,7 +572,7 @@ def test_per_turn_max_force():
     device_forces = [d * 1e6 / force_scale_raw for d in desired_MN]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
     )
@@ -577,9 +586,9 @@ def test_per_turn_max_force():
 
 def test_per_turn_max_torque_with_per_coil():
     """per_turn_max_torque uses per-coil torque when available."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
     torque_scale_raw = B_scale**2 * L_scale**2
@@ -590,7 +599,7 @@ def test_per_turn_max_torque_with_per_coil():
     device_torques = [1e4, 2e4]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
         final_max_max_coil_torque=max(device_torques),
@@ -606,9 +615,9 @@ def test_per_turn_max_torque_with_per_coil():
 
 def test_per_turn_max_torque_fallback():
     """Without per-coil torque, falls back to max_torque / min(N_turns)."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
 
@@ -616,7 +625,7 @@ def test_per_turn_max_torque_fallback():
     device_forces = [d * 1e6 / force_scale_raw for d in desired_MN_force]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
         final_max_max_coil_torque=5e4,  # overall max, no per-coil list
@@ -630,9 +639,9 @@ def test_per_turn_max_torque_fallback():
 
 def test_total_superconductor_length():
     """Total SC length = Σ N_turns_i * reactor_scale_length_i, in km."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
 
@@ -642,7 +651,7 @@ def test_total_superconductor_length():
     device_lengths = [3.0, 4.0]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
         final_length_per_coil=device_lengths,
@@ -658,13 +667,13 @@ def test_total_superconductor_length():
 
 def test_total_superconductor_length_fallback():
     """Without per-coil lengths, use uniform-length fallback."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
 
     # Two coils with device total length 10.0 m → avg 5.0 m each
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=1e-3,
         final_max_force_per_coil=[1e-3, 1e-3],
         final_total_length=10.0,
@@ -678,14 +687,14 @@ def test_total_superconductor_length_fallback():
 
 def test_reactor_scale_squared_flux_scaling():
     """SquaredFlux [T²m²] = ½∫(B·n̂)²dS scales as B²·L² (NOT B²·L⁴)."""
-    major_radius = 2.0
+    minor_radius = 0.453  # L_scale = 1.7/0.453 ≈ 3.75
     target_B = 3.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     flux_scale = B_scale**2 * L_scale**2
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_squared_flux=1e-4,
     )
     result = _compute_reactor_scale_metrics(metrics)
@@ -694,12 +703,12 @@ def test_reactor_scale_squared_flux_scaling():
 
 def test_reactor_scale_arclength_variation_scaling():
     """ArclengthVariation [m²] (variance of arclengths) scales as L²."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_arclength_variation=0.01,
     )
     result = _compute_reactor_scale_metrics(metrics)
@@ -755,12 +764,14 @@ def test_n_turns_jc_with_currents():
     """N_turns_jc should increase for coils requiring more ampere-turns."""
     from stellcoilbench.cli import _compute_N_turns_critical_current
 
+    minor_radius = 0.2
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     # Two coils: one with 10× more current → needs ~10× more turns
     result = _compute_N_turns_critical_current(
         per_coil_forces=[1e5, 1e5],        # Same forces
         per_coil_currents=[1e4, 1e5],       # 10x current difference
         per_coil_lengths=[5.0, 5.0],
-        L_scale=7.5, B_scale=5.7, target_B=1.0,
+        L_scale=L_scale, B_scale=5.7, target_B=1.0,
     )
     n = result["N_turns_jc"]
     assert n[1] >= 5 * n[0]  # Much more turns for higher current
@@ -773,11 +784,13 @@ def test_n_turns_jc_no_currents_fallback():
     """Without per-coil currents, use force-based current estimate."""
     from stellcoilbench.cli import _compute_N_turns_critical_current
 
+    minor_radius = 0.2
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     result = _compute_N_turns_critical_current(
         per_coil_forces=[1e5, 5e5],
         per_coil_currents=None,
         per_coil_lengths=None,
-        L_scale=7.5, B_scale=5.7, target_B=1.0,
+        L_scale=L_scale, B_scale=5.7, target_B=1.0,
     )
     n = result["N_turns_jc"]
     # Coil with 5× more force estimated as 5× more current → ~5× more turns
@@ -787,13 +800,13 @@ def test_n_turns_jc_no_currents_fallback():
 
 def test_n_turns_max_of_force_and_jc():
     """N_turns_per_coil should be element-wise max(N_force, N_jc)."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
 
     # Use a very high force to ensure N_force dominates for one coil
     # and moderate force for another where N_jc might dominate.
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=1e7,
         final_max_force_per_coil=[1e7, 1e3],  # coil 0: very high force
     )
@@ -827,9 +840,9 @@ def test_winding_pack_width_formula():
 
 def test_winding_pack_in_reactor_metrics():
     """_compute_reactor_scale_metrics stores winding-pack width per coil."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
 
@@ -838,7 +851,7 @@ def test_winding_pack_in_reactor_metrics():
     device_forces = [d * 1e6 / force_scale_raw for d in desired_MN]
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_max_max_coil_force=max(device_forces),
         final_max_force_per_coil=device_forces,
     )
@@ -863,7 +876,7 @@ def test_winding_pack_in_reactor_metrics():
 def test_winding_pack_single_turn():
     """A coil with N_turns=1 has winding-pack width = 20 mm."""
     metrics = _make_metrics(
-        major_radius=1.0, target_B=1.0,
+        minor_radius=0.2, target_B=1.0,
         final_max_max_coil_force=1e-3,
         final_max_force_per_coil=[1e-3],
     )
@@ -885,14 +898,14 @@ def test_winding_pack_single_turn():
 
 def test_finite_build_cc_clearance_positive():
     """Clearance = d_cc_min - w_max; positive when coils don't overlap."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
 
-    # Device-scale cc separation of 0.2 m → reactor-scale = 0.2 * L_scale = 1.5 m
+    # Device-scale cc separation of 0.2 m → reactor-scale = 0.2 * L_scale
     # Forces are low so N_turns will be small → w_max small → clearance positive
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_min_cc_separation=0.2,
         final_max_max_coil_force=1e-3,
         final_max_force_per_coil=[1e-3, 1e-3],
@@ -909,19 +922,19 @@ def test_finite_build_cc_clearance_positive():
 
 def test_finite_build_cc_clearance_negative():
     """Clearance is negative when the winding pack exceeds the gap."""
-    major_radius = 1.0
+    minor_radius = 0.2
     target_B = 1.0
-    L_scale = REACTOR_REFERENCE["major_radius"] / major_radius
+    L_scale = ARIES_CS_MINOR_RADIUS / minor_radius
     B_scale = REACTOR_REFERENCE["B_field"] / target_B
     force_scale_raw = B_scale**2 * L_scale
 
     # Very small device-scale separation → small reactor-scale d_cc
     # Very large forces → many turns → large winding pack
-    small_gap = 0.001  # 1 mm device scale → 7.5 mm reactor scale
+    small_gap = 0.001  # 1 mm device scale
     big_force = 50.0 * 1e6 / force_scale_raw  # 50 MN/m reactor → many turns
 
     metrics = _make_metrics(
-        major_radius=major_radius, target_B=target_B,
+        minor_radius=minor_radius, target_B=target_B,
         final_min_cc_separation=small_gap,
         final_max_max_coil_force=big_force,
         final_max_force_per_coil=[big_force, big_force],
@@ -937,7 +950,7 @@ def test_finite_build_cc_clearance_negative():
 def test_finite_build_cc_clearance_absent_without_cc_sep():
     """If min_cc_separation is not in metrics, no clearance is computed."""
     metrics = _make_metrics(
-        major_radius=1.0, target_B=1.0,
+        minor_radius=0.2, target_B=1.0,
         final_max_max_coil_force=1e-3,
         final_max_force_per_coil=[1e-3],
     )

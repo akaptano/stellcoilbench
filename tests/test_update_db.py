@@ -22,7 +22,6 @@ from stellcoilbench.update_db import (
     write_reactor_scale_leaderboard,
     write_rst_leaderboard,
     write_surface_leaderboards,
-    write_surface_leaderboard_index,
     update_database,
 )
 
@@ -1377,18 +1376,6 @@ class TestWriteSurfaceLeaderboardsComprehensive:
         # Surface leaderboard uses user names, not method names
         assert "user1" in content
         assert "Legend" in content
-
-
-class TestWriteSurfaceLeaderboardIndex:
-    """Tests for write_surface_leaderboard_index function."""
-    
-    def test_write_surface_leaderboard_index(self, tmp_path):
-        """Test that write_surface_leaderboard_index does nothing (API compatibility)."""
-        docs_dir = tmp_path / "docs"
-        docs_dir.mkdir(parents=True)
-        # Should not raise an error
-        write_surface_leaderboard_index(["surf1", "surf2"], docs_dir)
-        # Function does nothing, so just verify it completes
 
 
 class TestUpdateDatabase:

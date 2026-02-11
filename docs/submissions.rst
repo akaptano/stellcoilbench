@@ -105,61 +105,9 @@ PDF plots are stored **next to** the zip file (not inside it) for easy access:
 Creating Submissions
 --------------------
 
-**Using the CLI**
-   
-   The primary way to create submissions is via the CLI:
-   
-   .. code-block:: bash
-   
-      stellcoilbench submit-case cases/my_case.yaml
-   
-   This will:
-   
-   1. Load and validate the case
-   2. Initialize coils around the plasma surface
-   3. Run the optimization
-   4. Evaluate metrics
-   5. Generate visualization outputs
-   6. Create the submission directory
-   7. Zip the submission
-   8. Move PDF plots next to the zip
-
-   **Submission Directory Structure**
-   
-   During creation, files are organized as:
-   
-   .. code-block::
-   
-      submissions/<surface>/<user>/<timestamp>/
-      ├── results.json
-      ├── case.yaml
-      ├── coils.json
-      ├── biot_savart_optimized.json
-      ├── coils_optimized.vtu
-      └── surface_optimized.vts
-   
-   After zipping, non-PDF files are removed and the structure becomes:
-   
-   .. code-block::
-   
-      submissions/<surface>/<user>/<timestamp>/
-      ├── all_files.zip
-      ├── bn_error_3d_plot.pdf
-      └── bn_error_3d_plot_initial.pdf
-   
-   Example: ``submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/``
-
-**Manual Submission Creation**
-   
-   For advanced users, you can create submissions manually:
-   
-   1. Create the submission directory structure
-   2. Generate ``results.json`` with required fields
-   3. Include ``case.yaml``, ``coils.json``, and visualization files
-   4. Zip the directory
-   5. Place PDF plots next to the zip
-   
-   However, using the CLI is strongly recommended to ensure consistency.
+Run ``stellcoilbench submit-case cases/my_case.yaml``. The CLI loads the case,
+runs optimization, evaluates metrics, and writes to ``submissions/<surface>/<user>/<timestamp>/``.
+After zipping, only ``all_files.zip`` and PDF plots remain in that directory.
 
 Submission Metadata
 -------------------
@@ -255,115 +203,18 @@ CI automatically processes submissions:
 Viewing Submissions
 -------------------
 
-**List Your Submissions**
-   
-   List all submissions for a specific surface:
-   
-   .. code-block:: bash
-   
-      ls submissions/<surface>/$(git config user.name)/
-   
-   Or find all your submissions across all surfaces:
-   
-   .. code-block:: bash
-   
-      find submissions -type d -name "$(git config user.name)" -exec ls {} \;
-   
-   Shows all your submissions.
-
-**View Submission Contents**
-   
-   Extract a submission zip:
-   
-   .. code-block:: bash
-   
-      cd /tmp
-      unzip submissions/<surface>/<user>/<timestamp>/all_files.zip
-      cat results.json | jq .
-   
-   (Requires ``jq`` for JSON pretty-printing)
-   
-   Example:
-   
-   .. code-block:: bash
-   
-      unzip submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/all_files.zip
-
-**View PDF Plots**
-   
-   Open PDF plots directly:
-   
-   .. code-block:: bash
-   
-      open submissions/<surface>/<user>/<timestamp>/bn_error_3d_plot.pdf
-   
-   Or on Linux:
-   
-   .. code-block:: bash
-   
-      xdg-open submissions/<surface>/<user>/<timestamp>/bn_error_3d_plot.pdf
-   
-   Example:
-   
-   .. code-block:: bash
-   
-      open submissions/LandremanPaul2021_QA/akaptano/01-23-2026_00-45/bn_error_3d_plot.pdf
-
-**Regenerate Leaderboards Locally**
-   
-   After creating submissions locally, regenerate leaderboards:
-   
-   .. code-block:: bash
-   
-      stellcoilbench update-db
-   
-   This updates ``docs/leaderboard.json`` and ``docs/leaderboard.rst``.
+- List: ``ls submissions/<surface>/$(git config user.name)/``
+- Extract: ``unzip submissions/<surface>/<user>/<timestamp>/all_files.zip``
+- View PDFs: ``open submissions/<surface>/<user>/<timestamp>/bn_error_3d_plot.pdf``
+- Regenerate leaderboards: ``stellcoilbench update-db``
 
 Submission Best Practices
 -------------------------
 
-1. **Use Descriptive Case Names**: Choose case file names that clearly indicate
-   the purpose (e.g., ``expert_LandremanPaulQA.yaml`` vs ``test.yaml``).
-
-2. **Include Complete Metadata**: Ensure ``results.json`` includes all required
-   metadata fields for reproducibility.
-
-3. **Verify Results**: Check that metrics are reasonable before submitting.
-   Unusually high or low values may indicate errors.
-
-4. **Check Visualizations**: Inspect PDF plots to ensure coils are reasonable
-   and field quality is acceptable.
-
-5. **Document Changes**: If modifying optimization code, document changes in
-   commit messages or case descriptions.
-
-6. **Test Locally First**: Run cases locally before pushing to CI to catch
-   errors early.
+Use descriptive case names, verify metrics and PDF plots before submitting, and run locally first.
 
 Troubleshooting
 ---------------
 
-**Submission Not Appearing in Leaderboard**
-   
-   - Check that the zip file exists and is valid
-   - Verify ``results.json`` is valid JSON
-   - Ensure ``score_primary`` is present in metrics
-   - Run ``stellcoilbench update-db`` manually
-
-**Invalid JSON Errors**
-   
-   - Check that ``results.json`` is valid JSON (use ``jq`` or online validator)
-   - Ensure all numeric values are valid numbers (not NaN or Inf)
-   - Verify all required fields are present
-
-**Missing PDF Plots**
-   
-   - PDF plots are generated during submission creation
-   - If missing, re-run ``stellcoilbench submit-case``
-   - Check that matplotlib is installed and working
-
-**Large Submission Files**
-   
-   - VTK files can be large for high-resolution surfaces
-   - Consider reducing surface resolution for testing
-   - Production runs should use full resolution
+Submissions not appearing: ensure the zip exists, ``results.json`` is valid, and ``score_primary`` is present.
+Run ``stellcoilbench update-db``. Missing PDFs: re-run ``stellcoilbench submit-case``.

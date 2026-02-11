@@ -435,7 +435,7 @@ Reactor-Scale Constraints
 -------------------------
 
 All submissions are scaled to the ARIES-CS reference reactor
-(major radius :math:`R_0 = 7.5\,\text{m}`, on-axis field
+(minor radius :math:`a = 1.7\,\text{m}`, on-axis field
 :math:`B_0 = 5.7\,\text{T}`) before engineering feasibility is assessed.
 
 **Hard feasibility constraints** — any violation makes the design infeasible

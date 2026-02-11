@@ -20,7 +20,6 @@ from stellcoilbench.update_db import (
     write_markdown_leaderboard,
     write_rst_leaderboard,
     write_surface_leaderboards,
-    write_surface_leaderboard_index,
     update_database,
 )
 
@@ -602,18 +601,6 @@ class TestWriteSurfaceLeaderboardsEdgeCases:
         result = write_surface_leaderboards({}, docs_dir, repo_root)
         # Should complete without error and return list
         assert isinstance(result, list)
-
-
-class TestWriteSurfaceLeaderboardIndexEdgeCases:
-    """Tests for edge cases in write_surface_leaderboard_index function."""
-    
-    def test_write_surface_leaderboard_index_empty(self, tmp_path):
-        """Test write_surface_leaderboard_index with empty surface list."""
-        docs_dir = tmp_path / "docs"
-        docs_dir.mkdir(parents=True)
-        write_surface_leaderboard_index([], docs_dir)
-        index_file = docs_dir / "leaderboard" / "index.rst"
-        assert index_file.exists() or not index_file.exists()  # May or may not create if empty
 
 
 class TestUpdateDatabaseEdgeCases:

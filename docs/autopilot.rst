@@ -121,9 +121,8 @@ You can also trigger manually: **GitHub → Actions → "StellCoilBench CI
 **Concurrency:**
 
 All triggers share a single concurrency group
-(``stellcoilbench-selfhosted-<ref>``) with ``cancel-in-progress: false``.
-If a cron-triggered run arrives while a push-triggered benchmark is still
-running, it queues behind it rather than cancelling it.
+(``stellcoilbench-selfhosted-<ref>``) with ``cancel-in-progress: true``.
+New runs cancel in-progress runs.
 
 
 Directory Layout
@@ -292,17 +291,15 @@ converted to explore slots.
    repeat (up to 5× exploit_count attempts):
      1. Pick a random parent from top_parents
      2. Deep-copy the parent's case_config
-     3. For each *_weight key: multiply by exp(N(0, σ_w²)), clamp to [w_min, w_max]
-     4. For each *_threshold key: multiply by exp(N(0, σ_t²)), clamp to [t_min, t_max]
-     5. Jitter max_iterations by ±10% (clamped to [100, 10000])
-     6. Assign new case_id, random_seed, parent_ids = [parent.case_id]
-     7. Hash the new config → reject if hash matches any recent or in-batch hash
-     8. Validate via validate_ci_case() → reject if invalid
-     9. Accept into batch
+     3. For each *_threshold key: multiply by exp(N(0, σ_t²)), clamp to [t_min, t_max]
+     4. Assign new case_id, random_seed, parent_ids = [parent.case_id]
+     5. Hash the new config → reject if hash matches any recent or in-batch hash
+     6. Validate via validate_ci_case() → reject if invalid
+     7. Accept into batch
 
 The key insight: mutation keeps the parent's surface, algorithm, ncoils, order,
-and objective term types intact — it only jitters the *numeric* weights and
-thresholds.  This is a local search around configurations that already worked.
+and objective term types intact — it only jitters the *numeric* thresholds.
+Weights are not mutated (augmented_lagrangian auto-tunes them).
 
 *Explore (random) — fills the explore slots:*
 
@@ -354,104 +351,15 @@ will start from Step 2 with the newly recorded results.
 
 .. _decision-flowchart:
 
-**Decision flowchart (summary)**
-
-.. code-block:: text
-
-   propose_batch.py invoked (cron / dispatch)
-     │
-     ├── PAUSE_AUTORUN exists?  ──yes──►  exit 0
-     │
-     ├── cases/pending/ non-empty?  ──yes──►  exit 0  (batch barrier)
-     │
-     ├── build context from cases/done/*/summary.json
-     │     └── failure_stats, top_parents, config_hashes, surface_counts
-     │
-     ├── check guardrails
-     │     ├── fail_rate > 0.6?       ──yes──►  halt  (optionally write PAUSE_AUTORUN)
-     │     ├── reason repeated > 12?  ──yes──►  halt
-     │     └── critical class ≥ 10?   ──yes──►  halt
-     │
-     ├── safe mode?  (fail_rate > 0.35 but < 0.6)
-     │     └── yes → reduced sigma, lower iter cap, simpler surfaces
-     │
-     ├── compose batch of 8:
-     │     ├── 4 × exploit  (mutate random parent from top-10)
-     │     │     └── jitter weights/thresholds, novelty check, validate
-     │     ├── 4 × explore  (random from full parameter space)
-     │     │     └── sample all params, novelty check, validate
-     │     └── backfill with explore if short
-     │
-     └── write cases/pending/<case_id>.json  ×8
-
+**Decision flowchart:** PAUSE_AUTORUN or non-empty pending → exit. Else: build context → check guardrails
+(fail rate, repeated reason, critical class) → optionally safe mode → compose batch (exploit + explore) → write pending.
 
 Policy File
 -----------
 
-``policy/proposer_policy.yaml`` controls every tunable aspect of the autopilot.
-
-**Batch settings**
-
-.. code-block:: yaml
-
-   batch_size: 8
-   exploit_fraction: 0.5     # half mutations, half explorations
-   top_k_parents: 10         # how many top results to mutate from
-
-**Mutation parameters** (exploit)
-
-.. code-block:: yaml
-
-   mutation:
-     weight_sigma: 0.15      # lognormal std-dev for weight jitter
-     threshold_sigma: 0.10   # lognormal std-dev for threshold jitter
-     weight_min: 1.0e-6
-     weight_max: 10000.0
-
-The mutation operator takes a successful parent config and applies
-multiplicative lognormal noise to its weights and thresholds:
-
-.. math::
-
-   w' = \mathrm{clamp}\bigl(w \cdot e^{\mathcal{N}(0,\,\sigma^2)},\;
-        [w_\min,\, w_\max]\bigr)
-
-**Exploration parameters**
-
-.. code-block:: yaml
-
-   exploration:
-     length_weight_range: [0.005, 0.10]
-     curvature_weight_range: [0.02, 0.30]
-     surfaces: ["input.LandremanPaul2021_QA", "input.circular_tokamak", ...]
-     algorithms: ["L-BFGS-B", "augmented_lagrangian"]
-
-Exploration samples all parameters independently from log-uniform
-distributions within the configured ranges.
-
-**Guardrails**
-
-.. code-block:: yaml
-
-   guardrails:
-     sliding_window: 30
-     max_fail_rate: 0.6
-     max_common_failure_count: 12
-     critical_failure_classes: ["vmec_nonconverged", "nan_in_objective", "timeout"]
-
-The proposer **stops** if any guardrail fires and (optionally) writes
-a ``PAUSE_AUTORUN`` file.
-
-**Safe mode**
-
-When the failure rate is elevated (above ``safe_mode.threshold``, default 0.35)
-but below the hard cutoff, the proposer switches to safe mode:
-
-- Smaller mutation sigma (less aggressive jitter)
-- Lower iteration cap
-- Prefer simpler surfaces
-
-See ``policy/proposer_policy.yaml`` for the full set of options.
+``policy/proposer_policy.yaml`` controls batch size, exploit/explore split, mutation sigmas,
+exploration ranges, guardrails (fail rate, repeated failure, critical classes), and safe mode.
+See the file for the full schema.
 
 
 Tools Reference
@@ -550,75 +458,15 @@ A ``summary.json`` is **always** written, even on failure (with
 Running a Test Scan
 -------------------
 
-Before letting the autopilot run unattended, you should run a small scan
-to verify the pipeline end-to-end.
-
-**Step 1: Dry-run the proposer**
-
 .. code-block:: bash
 
-   python tools/propose_batch.py --batch-size 3 --dry-run --seed 42
-
-This prints 3 proposed cases to stdout without writing anything.
-Inspect the output to verify the configs look reasonable.
-
-**Step 2: Propose a small batch for real**
-
-.. code-block:: bash
-
-   python tools/propose_batch.py --batch-size 3 --seed 42
-
-This writes 3 JSON files into ``cases/pending/``.
-
-**Step 3: Run the pending cases locally**
-
-.. code-block:: bash
-
+   python tools/propose_batch.py --batch-size 3 --dry-run --seed 42   # Preview
+   python tools/propose_batch.py --batch-size 3 --seed 42            # Write pending
    for f in cases/pending/*.json; do
-     echo "=== Running $f ==="
-     stellcoilbench run-ci-case "$f" --output-dir cases/done \
-       --policy policy/proposer_policy.yaml
-     rm "$f"   # remove from pending after completion
+     stellcoilbench run-ci-case "$f" --output-dir cases/done --policy policy/proposer_policy.yaml
+     rm "$f"
    done
-
-Or run them in parallel (requires GNU ``parallel``):
-
-.. code-block:: bash
-
-   ls cases/pending/*.json | parallel -j 3 \
-     'stellcoilbench run-ci-case {} --output-dir cases/done \
-       --policy policy/proposer_policy.yaml && rm {}'
-
-**Step 4: Inspect results**
-
-.. code-block:: bash
-
-   # Check summaries
-   for f in cases/done/*/summary.json; do
-     python -c "import json, sys; d=json.load(open('$f')); \
-       print(d['case_id'], 'OK' if d['success'] else 'FAIL', \
-             f'score={d[\"total_score\"]:.4e}', \
-             f'iters={d[\"iterations_used\"]}', \
-             f'wall={d[\"walltime_sec\"]:.0f}s')"
-   done
-
-**Step 5: Build context and verify**
-
-.. code-block:: bash
-
-   python tools/build_context.py | python -m json.tool
-
-Check that the context shows the completed cases, correct failure stats,
-and top parents.
-
-**Step 6: Run a second proposal round**
-
-.. code-block:: bash
-
-   python tools/propose_batch.py --batch-size 3 --dry-run
-
-The proposer should now pick up the results from step 3 as potential
-parents for mutations.  Verify the ``parent_ids`` field in exploit cases.
+   python tools/build_context.py | python -m json.tool                 # Inspect context
 
 
 Emergency Stop

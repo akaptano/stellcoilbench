@@ -1358,7 +1358,7 @@ class TestCachedThresholds:
                 "length_threshold", "flux_threshold", "cc_threshold",
                 "cs_threshold", "msc_threshold", "arclength_variation_threshold",
                 "curvature_threshold", "force_threshold", "torque_threshold",
-                "coil_width", "R0",
+                "coil_width", "a0",
             ]
             for key in expected_keys:
                 assert key in cached, f"Missing key '{key}' in _cached_thresholds"
