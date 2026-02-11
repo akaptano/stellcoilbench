@@ -36,7 +36,7 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.472</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.473</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">08/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.8e-03</td>
