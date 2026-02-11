@@ -73,7 +73,8 @@ jobs:
           conda activate $CONDA_ENV
           pip install pyyaml --quiet 2>/dev/null || true
           
-          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f | sort)
+          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f \
+            -not -path "cases/done/*" -not -path "cases/pending/*" | sort)
           
           if [ -z "$ALL_CASE_FILES" ]; then
             echo "ERROR: No .yaml files found in cases/ directory!"
