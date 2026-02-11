@@ -168,68 +168,6 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - —
      - —
      - —
-   * - 1.792
-     - 5
-     - 4
-     - 4,8,16
-     - 1.4e-06
-     - 5.4e-04
-     - 2.1e-03
-     - 2.0e+01
-     - 1.2e-05
-     - 1.2e-01
-     - 2.5e-01
-     - 2.1e+00
-     - 6.5e+00
-     - 2.0e+05
-     - 5.7e+04
-     - 2.6e+05
-     - 8.2e+04
-     - 0
-     - 9.5e+01
-     - 5.0e+00
-     - —
-     - —
-     - 10/02/26
-     - auto
-     - —
-     - 2
-     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_65474/poincare_plot.png>`__
-     - —
-     - —
-     - —
-     - —
-   * - 1.749
-     - 4
-     - 4
-     - 4,8,16
-     - 8.8e-07
-     - 4.1e-04
-     - 1.6e-03
-     - 2.0e+01
-     - 1.9e-04
-     - 8.0e-02
-     - 3.0e-01
-     - 1.9e+00
-     - 5.3e+00
-     - 4.2e+05
-     - 2.1e+05
-     - 5.9e+05
-     - 3.2e+05
-     - 0
-     - 7.1e+00
-     - 4.0e+00
-     - —
-     - —
-     - 10/02/26
-     - auto
-     - —
-     - 3
-     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_80749/poincare_plot.png>`__
-     - —
-     - —
-     - —
-     - —
    * - 1.728
      - 4
      - 16
@@ -254,7 +192,7 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - —
      - 08/02/26
      - akaptano
-     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_8/bn_error_3d_plot.pdf>`__ `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_12/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -285,7 +223,7 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - —
      - 08/02/26
      - akaptano
-     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -314,11 +252,11 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 5.0e+00
      - —
      - —
-     - 10/02/26
+     - 11/02/26
      - auto
      - —
-     - 6
-     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_41002/poincare_plot.png>`__
+     - 4
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_72626/poincare_plot.png>`__
      - —
      - —
      - —
@@ -345,11 +283,11 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 5.0e+00
      - —
      - —
-     - 10/02/26
+     - 11/02/26
      - auto
      - —
-     - 7
-     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_16173/poincare_plot.png>`__
+     - 5
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_30704/poincare_plot.png>`__
      - —
      - —
      - —
@@ -376,11 +314,11 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 5.0e+00
      - —
      - —
-     - 10/02/26
+     - 11/02/26
      - auto
      - —
-     - 8
-     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_71685/poincare_plot.png>`__
+     - 6
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_84389/poincare_plot.png>`__
      - —
      - —
      - —
@@ -403,7 +341,69 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 1.8e+05
      - 4.8e+04
      - 0
-     - 2.4e+02
+     - 2.6e+02
+     - 5.3e+00
+     - —
+     - —
+     - 11/02/26
+     - auto
+     - —
+     - 7
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_18655/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.668
+     - 7
+     - 4
+     - 4,8,16
+     - 1.2e-05
+     - 1.7e-03
+     - 6.0e-03
+     - 2.0e+01
+     - 1.8e-05
+     - 1.4e-01
+     - 1.5e-01
+     - 2.6e+00
+     - 1.0e+01
+     - 1.1e+05
+     - 2.5e+04
+     - 1.8e+05
+     - 4.8e+04
+     - 0
+     - 2.6e+02
+     - 5.3e+00
+     - —
+     - —
+     - 11/02/26
+     - auto
+     - —
+     - 8
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_54288/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.668
+     - 7
+     - 4
+     - 4,8,16
+     - 1.2e-05
+     - 1.7e-03
+     - 6.0e-03
+     - 2.0e+01
+     - 1.8e-05
+     - 1.4e-01
+     - 1.5e-01
+     - 2.6e+00
+     - 1.0e+01
+     - 1.1e+05
+     - 2.5e+04
+     - 1.8e+05
+     - 4.8e+04
+     - 0
+     - 2.6e+02
      - 5.3e+00
      - —
      - —
@@ -411,7 +411,7 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - auto
      - —
      - 9
-     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_63549/poincare_plot.png>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_29042/poincare_plot.png>`__
      - —
      - —
      - —
@@ -434,7 +434,7 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - 1.8e+05
      - 4.8e+04
      - 0
-     - 2.4e+02
+     - 2.6e+02
      - 5.3e+00
      - —
      - —
@@ -442,7 +442,7 @@ Typical configuration: 8 Fourier order, 3 base coils.
      - auto
      - —
      - 10
-     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-10_230038_14442/poincare_plot.png>`__
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_000107_27836/poincare_plot.png>`__
      - —
      - —
      - —
