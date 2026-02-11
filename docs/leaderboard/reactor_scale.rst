@@ -185,27 +185,27 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_81722/poincare_plot.png>`__
-   * - 1.749
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_10166/poincare_plot.png>`__
+   * - 1.792
+     - 5
      - 4
-     - 4
-     - 4.10e-04
-     - 2.22
-     - :orange:`6.00e-01`
-     - 150.0
-     - 42.85
-     - 5.31e-01
-     - 2.55e-01
-     - 9.34e-02
-     - 4.99e-01
-     - 1.88
-     - 3.89e-01
+     - 5.45e-04
+     - 1.89
+     - 9.14e-01
+     - 150.1
+     - 32.58
+     - 6.66e-01
+     - 2.82e-01
+     - 1.16e-01
+     - 2.57e-01
+     - 6.08e-01
+     - 3.14e-01
      - 0
-     - 379
+     - 247
      - auto
      - —
      - —
-     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_40643/poincare_plot.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_47883/poincare_plot.png>`__
    * - 1.728
      - 4
      - 16
@@ -265,27 +265,7 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_23527/poincare_plot.png>`__
-   * - 1.717
-     - 6
-     - 4
-     - 9.54e-04
-     - 1.37
-     - 9.79e-01
-     - 150.0
-     - 27.63
-     - 6.65e-01
-     - 3.11e-01
-     - 1.53e-01
-     - 2.23e-01
-     - 4.89e-01
-     - 3.03e-01
-     - 0
-     - 229
-     - auto
-     - —
-     - —
-     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_56417/poincare_plot.png>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_42342/poincare_plot.png>`__
    * - 1.668
      - 7
      - 4
@@ -305,7 +285,27 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_84005/poincare_plot.png>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_65288/poincare_plot.png>`__
+   * - 1.668
+     - 7
+     - 4
+     - 1.67e-03
+     - :orange:`1.13`
+     - 1.03
+     - 150.0
+     - 24.01
+     - 7.09e-01
+     - 3.47e-01
+     - 1.78e-01
+     - 1.97e-01
+     - 4.05e-01
+     - 2.95e-01
+     - 0
+     - 218
+     - auto
+     - —
+     - —
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_24925/poincare_plot.png>`__
    * - 1.627
      - 3
      - 16
@@ -365,7 +365,7 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_88791/poincare_plot.png>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_53839/poincare_plot.png>`__
    * - 0.000
      - 3
      - 4
@@ -385,7 +385,7 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_38457/poincare_plot.png>`__
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_56484/poincare_plot.png>`__
    * - 0.000
      - 3
      - 4
@@ -405,7 +405,7 @@ Landreman-Paul QA
      - auto
      - —
      - —
-     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_085448_31777/poincare_plot.png>`__
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_093425_88417/poincare_plot.png>`__
 
 
 Landreman-Paul QH
