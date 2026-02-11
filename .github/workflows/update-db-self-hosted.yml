@@ -14,7 +14,7 @@
 #   push (autopilot runner commits cases/done/ only):
 #     SKIPPED entirely via paths-ignore
 #
-#   schedule (every 15 min) or workflow_dispatch:
+#   schedule (every 20 min) or workflow_dispatch:
 #     run-autopilot-cases  → propose-autopilot-batch      (autopilot path only)
 #
 # The proposer's push of cases/pending/ intentionally triggers a new run
@@ -34,7 +34,7 @@ on:
       - 'cases/done/**'
       - 'PAUSE_AUTORUN'
   schedule:
-    - cron: '*/15 * * * *'   # autopilot: every 15 minutes
+    - cron: '*/20 * * * *'   # autopilot: every 20 minutes
   workflow_dispatch:
 
 concurrency:
@@ -632,7 +632,7 @@ jobs:
           conda activate $CONDA_ENV
 
           python tools/propose_batch.py \
-            --batch-size 8 \
+            --batch-size 10 \
             --done-dir cases/done \
             --pending-dir cases/pending \
             --policy policy/proposer_policy.yaml
