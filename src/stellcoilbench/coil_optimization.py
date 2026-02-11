@@ -345,7 +345,7 @@ def optimize_coils(
     skip_post_processing: bool = False,
     run_vmec: bool = False,
     run_simple: bool = False,
-    plot_poincare: bool = True,
+    plot_poincare: bool = False,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -377,7 +377,7 @@ def optimize_coils(
         If True, run SIMPLE fast particle tracing during post-processing.
         Requires run_vmec=True. Disabled by default (default: False).
     plot_poincare:
-        If True, generate Poincaré plot during post-processing (default: True).
+        If True, generate Poincaré plot during post-processing (default: False).
 
     Returns
     -------
@@ -425,7 +425,9 @@ def optimize_coils(
         run_vmec = True
     if not run_simple and pp_params.get("run_simple", False):
         run_simple = True
-    if plot_poincare and not pp_params.get("plot_poincare", True):
+    if not plot_poincare and pp_params.get("plot_poincare", False):
+        plot_poincare = True
+    elif plot_poincare and not pp_params.get("plot_poincare", True):
         plot_poincare = False
     # Additional params that can only come from case.yaml
     plot_boozer = pp_params.get("plot_boozer", True)
@@ -1605,7 +1607,7 @@ def optimize_coils_with_fourier_continuation(
     skip_post_processing: bool = False,
     run_vmec: bool = False,
     run_simple: bool = False,
-    plot_poincare: bool = True,
+    plot_poincare: bool = False,
     plot_boozer: bool = True,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
@@ -2029,7 +2031,7 @@ def _optimize_coils_loop_impl(
     case_path: Path | None = None,
     run_vmec: bool = False,
     run_simple: bool = False,
-    plot_poincare: bool = True,
+    plot_poincare: bool = False,
     plot_boozer: bool = True,
     **kwargs):
     """

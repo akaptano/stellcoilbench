@@ -973,9 +973,9 @@ def submit_case(
         help="Run SIMPLE fast particle tracing (requires --run-vmec, expensive).",
     ),
     plot_poincare: bool = typer.Option(
-        True,
+        False,
         "--plot-poincare/--no-plot-poincare",
-        help="Generate Poincaré plot (enabled by default).",
+        help="Generate Poincaré plot (disabled by default; expensive).",
     ),
 ) -> None:
     """
@@ -1318,7 +1318,7 @@ def run_ci_case(
             skip_post_processing=False,
             run_vmec=False,
             run_simple=False,
-            plot_poincare=True,
+            plot_poincare=False,
         )
         wall_end = _time.time()
         walltime = wall_end - wall_start
