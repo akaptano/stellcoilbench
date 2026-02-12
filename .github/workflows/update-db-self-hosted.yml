@@ -14,7 +14,7 @@
 #   push (autopilot runner commits cases/done/ only):
 #     SKIPPED entirely via paths-ignore
 #
-#   schedule (every 20 min) or workflow_dispatch:
+#   schedule (every 10 min) or workflow_dispatch:
 #     run-autopilot-cases  → propose-autopilot-batch      (autopilot path only)
 #
 # The proposer's push of cases/pending/ intentionally triggers a new run
@@ -34,7 +34,7 @@ on:
       - 'cases/done/**'
       - 'PAUSE_AUTORUN'
   schedule:
-    - cron: '*/20 * * * *'   # autopilot: every 20 minutes
+    - cron: '*/10 * * * *'   # autopilot: every 10 minutes
   workflow_dispatch:
 
 concurrency:
@@ -337,7 +337,7 @@ jobs:
   run-autopilot-cases:
     if: github.repository == 'akaptano/stellcoilbench'
     runs-on: self-hosted
-    timeout-minutes: 150  # Must be > max per-case timeout (120m) + buffer for commit
+    timeout-minutes: 90  # Must be > max per-case timeout (60m) + buffer for commit
     outputs:
       ran_cases: ${{ steps.run.outputs.ran_cases }}
     steps:
@@ -385,9 +385,9 @@ jobs:
           export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 
           # Per-case timeout in seconds (read from each case's resource.timeout_minutes,
-          # default 120 min).  Cases exceeding this are killed so one slow case
+          # default 60 min).  Cases exceeding this are killed so one slow case
           # cannot block the commit step.
-          DEFAULT_CASE_TIMEOUT_SEC=$((120 * 60))
+          DEFAULT_CASE_TIMEOUT_SEC=$((60 * 60))
 
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
@@ -408,8 +408,8 @@ jobs:
           import json, sys
           try:
               d = json.load(open('$CASE_FILE'))
-              print(d.get('resource', {}).get('timeout_minutes', 120))
-          except: print(120)" 2>/dev/null || echo 120)
+              print(d.get('resource', {}).get('timeout_minutes', 60))
+          except: print(60)" 2>/dev/null || echo 60)
             CASE_TIMEOUT_SEC=$((CASE_TIMEOUT_MIN * 60))
 
             echo "Launching autopilot case: $CASE_ID (timeout: ${CASE_TIMEOUT_MIN}m)"
