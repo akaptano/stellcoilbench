@@ -3,7 +3,7 @@
   "success": true,
   "total_score": 1.8231476044579463e-06,
   "iterations_used": 500,
-  "walltime_sec": 565.55,
+  "walltime_sec": 567.67,
   "failure_reason": "",
   "failure_class": "",
   "metrics": {
@@ -12,8 +12,8 @@
     "initial_B_field": 1.0962273595582068,
     "final_B_field": 1.0962273595582068,
     "target_B_field": 1.0,
-    "optimization_time": 7.877948045730591,
-    "walltime_sec": 7.877948045730591,
+    "optimization_time": 7.8771631717681885,
+    "walltime_sec": 7.8771631717681885,
     "iterations_used": 500,
     "final_squared_flux": 1.8231476044579463e-06,
     "final_min_cs_separation": 0.258455647984939,
@@ -76,10 +76,10 @@
     }
   },
   "timing": {
-    "coil_initialization": 4.163011908531189e-07,
-    "biotsavart_setup": 2.9700622921809554,
-    "objective_setup": 0.007298542186617851,
-    "coil_optimization": 7.877955042291433,
-    "save_and_metrics": 3.34742374997586
+    "coil_initialization": 5.00120222568512e-07,
+    "biotsavart_setup": 2.976057792082429,
+    "objective_setup": 0.007160790730267763,
+    "coil_optimization": 7.877170791849494,
+    "save_and_metrics": 3.297062207944691
   }
 }
