@@ -142,7 +142,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.5e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.3e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -358,7 +358,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.5e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.4e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -1141,7 +1141,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.5e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.4e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -1465,7 +1465,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.5e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.4e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -2491,7 +2491,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.7e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.6e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -3058,7 +3058,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.6e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.7e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
