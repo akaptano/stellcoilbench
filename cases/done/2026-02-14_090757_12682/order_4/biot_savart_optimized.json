@@ -1812,10 +1812,10 @@
         "value": "5094332880"
       }
     },
-    "5094998768": {
+    "5095015152": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5094998768",
+      "@name": "5095015152",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -1861,7 +1861,7 @@
       "current": 0.014985122109576345,
       "dofs": {
         "$type": "ref",
-        "value": "5094998768"
+        "value": "5095015152"
       }
     },
     "ScaledCurrent109": {
@@ -2284,10 +2284,10 @@
         "value": "5094333552"
       }
     },
-    "5095000016": {
+    "5095016400": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5095000016",
+      "@name": "5095016400",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -2333,7 +2333,7 @@
       "current": 0.01235732588117325,
       "dofs": {
         "$type": "ref",
-        "value": "5095000016"
+        "value": "5095016400"
       }
     },
     "ScaledCurrent110": {
@@ -2756,10 +2756,10 @@
         "value": "5094334224"
       }
     },
-    "5095001264": {
+    "5095017648": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5095001264",
+      "@name": "5095017648",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -2805,7 +2805,7 @@
       "current": 0.013221138579529968,
       "dofs": {
         "$type": "ref",
-        "value": "5095001264"
+        "value": "5095017648"
       }
     },
     "ScaledCurrent111": {
@@ -3228,10 +3228,10 @@
         "value": "5094334896"
       }
     },
-    "5095002512": {
+    "5095018896": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5095002512",
+      "@name": "5095018896",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -3277,7 +3277,7 @@
       "current": 1249999.9999812746,
       "dofs": {
         "$type": "ref",
-        "value": "5095002512"
+        "value": "5095018896"
       }
     },
     "CurrentSum31": {
