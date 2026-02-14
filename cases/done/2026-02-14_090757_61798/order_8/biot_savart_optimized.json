@@ -7,10 +7,10 @@
     "value": "BiotSavart244"
   },
   "simsopt_objs": {
-    "5537164816": {
+    "5053771280": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5537164816",
+      "@name": "5053771280",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -569,13 +569,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5537164816"
+        "value": "5053771280"
       }
     },
-    "5527622704": {
+    "5053027376": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527622704",
+      "@name": "5053027376",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -621,7 +621,7 @@
       "current": 0.02549876528754345,
       "dofs": {
         "$type": "ref",
-        "value": "5527622704"
+        "value": "5053027376"
       }
     },
     "ScaledCurrent106": {
@@ -655,10 +655,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5526928464": {
+    "5055233104": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5526928464",
+      "@name": "5055233104",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -1217,13 +1217,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5526928464"
+        "value": "5055233104"
       }
     },
-    "5527632208": {
+    "5053036880": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527632208",
+      "@name": "5053036880",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -1269,7 +1269,7 @@
       "current": 0.02359376528431709,
       "dofs": {
         "$type": "ref",
-        "value": "5527632208"
+        "value": "5053036880"
       }
     },
     "ScaledCurrent107": {
@@ -1303,10 +1303,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5526928080": {
+    "5052316080": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5526928080",
+      "@name": "5052316080",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -1865,13 +1865,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5526928080"
+        "value": "5052316080"
       }
     },
-    "5527633456": {
+    "5053038128": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527633456",
+      "@name": "5053038128",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -1917,7 +1917,7 @@
       "current": 0.020123768559866816,
       "dofs": {
         "$type": "ref",
-        "value": "5527633456"
+        "value": "5053038128"
       }
     },
     "ScaledCurrent108": {
@@ -1951,10 +1951,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5526927408": {
+    "5052317616": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5526927408",
+      "@name": "5052317616",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -2513,13 +2513,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5526927408"
+        "value": "5052317616"
       }
     },
-    "5527683824": {
+    "5053072112": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527683824",
+      "@name": "5053072112",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -2565,7 +2565,7 @@
       "current": 0.01615865478008023,
       "dofs": {
         "$type": "ref",
-        "value": "5527683824"
+        "value": "5053072112"
       }
     },
     "ScaledCurrent109": {
@@ -2599,10 +2599,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5526916848": {
+    "5052310128": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5526916848",
+      "@name": "5052310128",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -3161,13 +3161,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5526916848"
+        "value": "5052310128"
       }
     },
-    "5527685072": {
+    "5053073360": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527685072",
+      "@name": "5053073360",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -3213,7 +3213,7 @@
       "current": 0.012658615094431074,
       "dofs": {
         "$type": "ref",
-        "value": "5527685072"
+        "value": "5053073360"
       }
     },
     "ScaledCurrent110": {
@@ -3247,10 +3247,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5540683728": {
+    "5052307440": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5540683728",
+      "@name": "5052307440",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -3809,13 +3809,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5540683728"
+        "value": "5052307440"
       }
     },
-    "5527686320": {
+    "5053074608": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527686320",
+      "@name": "5053074608",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -3861,7 +3861,7 @@
       "current": 0.013423174060946494,
       "dofs": {
         "$type": "ref",
-        "value": "5527686320"
+        "value": "5053074608"
       }
     },
     "ScaledCurrent111": {
@@ -3895,10 +3895,10 @@
         "data": 0.09704490555402136
       }
     },
-    "5365124944": {
+    "5050571984": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5365124944",
+      "@name": "5050571984",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -4457,13 +4457,13 @@
       "order": 8,
       "dofs": {
         "$type": "ref",
-        "value": "5365124944"
+        "value": "5050571984"
       }
     },
-    "5527687568": {
+    "5053075856": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "5527687568",
+      "@name": "5053075856",
       "@version": "0.1.dev5614+g15b8df75b",
       "x": {
         "@module": "numpy",
@@ -4509,7 +4509,7 @@
       "current": 1249999.9999812746,
       "dofs": {
         "$type": "ref",
-        "value": "5527687568"
+        "value": "5053075856"
       }
     },
     "CurrentSum31": {
