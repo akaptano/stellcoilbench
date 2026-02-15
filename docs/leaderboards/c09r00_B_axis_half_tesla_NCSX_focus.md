@@ -30,10 +30,8 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">d_cs</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">L</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">FC</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">iterations used</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">walltime sec</th>
 </tr>
 </thead>
 <tbody>
@@ -59,37 +57,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.8e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.0e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.6e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.4e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.364</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">11/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.1e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.6e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+02</td>
 </tr>
 </tbody>
 </table>
@@ -113,7 +82,5 @@
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
-- Iterations Used
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
-- Walltime Sec
