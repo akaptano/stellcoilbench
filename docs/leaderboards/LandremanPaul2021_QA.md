@@ -2464,7 +2464,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.6e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
@@ -2491,7 +2491,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.7e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.8e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">7.7e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
