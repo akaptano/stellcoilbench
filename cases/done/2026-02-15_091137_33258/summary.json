@@ -5,13 +5,49 @@
     "explore"
   ],
   "parent_ids": [],
-  "success": false,
-  "total_score": Infinity,
-  "iterations_used": 0,
-  "walltime_sec": 11.37,
-  "failure_reason": "Taylor test failed, check your objective and constraint functions",
-  "failure_class": "ValueError",
-  "metrics": {},
+  "success": true,
+  "total_score": 3.7088552147995717,
+  "iterations_used": 500,
+  "walltime_sec": 1341.69,
+  "failure_reason": "",
+  "failure_class": "",
+  "metrics": {
+    "fourier_continuation": true,
+    "final_order": 16,
+    "initial_B_field": 4.7200762178139675,
+    "final_B_field": 4.7300463298752256,
+    "target_B_field": 5.7,
+    "optimization_time": 826.8193919658661,
+    "walltime_sec": 826.8193919658661,
+    "iterations_used": 500,
+    "final_squared_flux": 3.7088552147995717,
+    "final_min_cs_separation": 1.442886893982376,
+    "final_min_cc_separation": 1.3652225076112714,
+    "final_max_curvature": 0.6451146345016775,
+    "final_average_curvature": 0.2786760713548271,
+    "final_arclength_variation": 0.009562390966229337,
+    "final_mean_squared_curvature": 0.10454180560014795,
+    "final_linking_number": 0,
+    "coils_linked_to_surface": true,
+    "final_max_max_coil_force": 50276112.351689264,
+    "final_avg_max_coil_force": 43132935.51654828,
+    "final_max_max_coil_torque": 117413557.3902316,
+    "final_avg_max_coil_torque": 91591504.72534224,
+    "avg_BdotN_over_B": 0.015603087133914898,
+    "max_BdotN_over_B": 0.04920136909665548,
+    "flux_threshold": 1e-08,
+    "cc_threshold": 0.461,
+    "cs_threshold": 0.768,
+    "msc_threshold": 2.174,
+    "arclength_variation_threshold": 0.0,
+    "curvature_threshold": 1.514,
+    "force_threshold": 47900.0,
+    "torque_threshold": 200.0,
+    "fourier_order": 16,
+    "continuation_step": 3,
+    "BdotN": 0.07087740625194322,
+    "BdotN_over_B": 0.01564757956722606
+  },
   "case_config": {
     "description": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=4 order=4",
     "surface_params": {
@@ -50,5 +86,12 @@
         16
       ]
     }
+  },
+  "timing": {
+    "coil_initialization": 5.41098415851593e-07,
+    "biotsavart_setup": 3.6148335835896432,
+    "objective_setup": 0.006384833250194788,
+    "coil_optimization": 826.8162293750793,
+    "save_and_metrics": 3.6575686666183174
   }
 }

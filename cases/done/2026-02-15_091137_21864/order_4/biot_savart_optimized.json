@@ -1,17 +1,17 @@
 {
   "@module": "simsopt._core.json",
   "@class": "SIMSON",
-  "@version": "0.1.dev5614+g15b8df75b",
+  "@version": "0.1.dev5615+g50ec27637",
   "graph": {
     "$type": "ref",
     "value": "BiotSavart3"
   },
   "simsopt_objs": {
-    "6121518096": {
+    "5248857104": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6121518096",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5248857104",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -182,7 +182,7 @@
       "@module": "simsopt.geo.curvexyzfourier",
       "@class": "CurveXYZFourier",
       "@name": "CurveXYZFourier10",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "quadpoints": {
         "@module": "numpy",
         "@class": "array",
@@ -393,14 +393,14 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "6121518096"
+        "value": "5248857104"
       }
     },
-    "6120088176": {
+    "5247594672": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6120088176",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5247594672",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -441,18 +441,18 @@
       "@module": "simsopt.field.coil",
       "@class": "Current",
       "@name": "Current16",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current": 0.0700071052556179,
       "dofs": {
         "$type": "ref",
-        "value": "6120088176"
+        "value": "5247594672"
       }
     },
     "ScaledCurrent46": {
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent46",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "Current16"
@@ -463,7 +463,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil61",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier10"
@@ -479,11 +479,11 @@
         "data": 0.000951273486333825
       }
     },
-    "6121518768": {
+    "5248857776": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6121518768",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5248857776",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -654,7 +654,7 @@
       "@module": "simsopt.geo.curvexyzfourier",
       "@class": "CurveXYZFourier",
       "@name": "CurveXYZFourier11",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "quadpoints": {
         "@module": "numpy",
         "@class": "array",
@@ -865,14 +865,14 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "6121518768"
+        "value": "5248857776"
       }
     },
-    "6120090960": {
+    "5247588912": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6120090960",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5247588912",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -913,18 +913,18 @@
       "@module": "simsopt.field.coil",
       "@class": "Current",
       "@name": "Current17",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current": 0.01551749296013268,
       "dofs": {
         "$type": "ref",
-        "value": "6120090960"
+        "value": "5247588912"
       }
     },
     "ScaledCurrent47": {
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent47",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "Current17"
@@ -935,7 +935,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil62",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier11"
@@ -951,11 +951,11 @@
         "data": 0.000951273486333825
       }
     },
-    "6121519440": {
+    "5248858448": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6121519440",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5248858448",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -1126,7 +1126,7 @@
       "@module": "simsopt.geo.curvexyzfourier",
       "@class": "CurveXYZFourier",
       "@name": "CurveXYZFourier12",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "quadpoints": {
         "@module": "numpy",
         "@class": "array",
@@ -1337,14 +1337,14 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "6121519440"
+        "value": "5248858448"
       }
     },
-    "6120079824": {
+    "5247585840": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "6120079824",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@name": "5247585840",
+      "@version": "0.1.dev5615+g50ec27637",
       "x": {
         "@module": "numpy",
         "@class": "array",
@@ -1385,18 +1385,18 @@
       "@module": "simsopt.field.coil",
       "@class": "Current",
       "@name": "Current18",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current": 1249976.2976407332,
       "dofs": {
         "$type": "ref",
-        "value": "6120079824"
+        "value": "5247585840"
       }
     },
     "CurrentSum11": {
       "@module": "simsopt.field.coil",
       "@class": "CurrentSum",
       "@name": "CurrentSum11",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_a": {
         "$type": "ref",
         "value": "ScaledCurrent46"
@@ -1410,7 +1410,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent48",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "CurrentSum11"
@@ -1421,7 +1421,7 @@
       "@module": "simsopt.field.coil",
       "@class": "CurrentSum",
       "@name": "CurrentSum12",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_a": {
         "$type": "ref",
         "value": "Current18"
@@ -1435,7 +1435,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil63",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier12"
@@ -1455,7 +1455,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve46",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier10"
@@ -1467,7 +1467,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent49",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "ScaledCurrent46"
@@ -1478,7 +1478,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil64",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve46"
@@ -1498,7 +1498,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve47",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier11"
@@ -1510,7 +1510,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent50",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "ScaledCurrent47"
@@ -1521,7 +1521,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil65",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve47"
@@ -1541,7 +1541,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve48",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier12"
@@ -1553,7 +1553,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent51",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "CurrentSum12"
@@ -1564,7 +1564,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil66",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve48"
@@ -1584,7 +1584,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve49",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier10"
@@ -1596,7 +1596,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil67",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve49"
@@ -1616,7 +1616,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve50",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier11"
@@ -1628,7 +1628,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil68",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve50"
@@ -1648,7 +1648,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve51",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier12"
@@ -1660,7 +1660,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil69",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve51"
@@ -1680,7 +1680,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve52",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier10"
@@ -1692,7 +1692,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent52",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "ScaledCurrent46"
@@ -1703,7 +1703,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil70",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve52"
@@ -1723,7 +1723,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve53",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier11"
@@ -1735,7 +1735,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent53",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "ScaledCurrent47"
@@ -1746,7 +1746,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil71",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve53"
@@ -1766,7 +1766,7 @@
       "@module": "simsopt.geo.curve",
       "@class": "RotatedCurve",
       "@name": "RotatedCurve54",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "CurveXYZFourier12"
@@ -1778,7 +1778,7 @@
       "@module": "simsopt.field.coil",
       "@class": "ScaledCurrent",
       "@name": "ScaledCurrent54",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "current_to_scale": {
         "$type": "ref",
         "value": "CurrentSum12"
@@ -1789,7 +1789,7 @@
       "@module": "simsopt.field.coil",
       "@class": "RegularizedCoil",
       "@name": "RegularizedCoil72",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "curve": {
         "$type": "ref",
         "value": "RotatedCurve54"
@@ -1809,7 +1809,7 @@
       "@module": "simsopt.field.biotsavart",
       "@class": "BiotSavart",
       "@name": "BiotSavart3",
-      "@version": "0.1.dev5614+g15b8df75b",
+      "@version": "0.1.dev5615+g50ec27637",
       "coils": [
         {
           "$type": "ref",
