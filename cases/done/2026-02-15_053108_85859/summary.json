@@ -1,13 +1,17 @@
 {
   "case_id": "2026-02-15_053108_85859",
-  "parent_ids": [],
+  "random_seed": 690515024,
   "tags": [
     "explore"
   ],
-  "resource": {
-    "max_total_iterations": 500,
-    "timeout_minutes": 60
-  },
+  "parent_ids": [],
+  "success": false,
+  "total_score": Infinity,
+  "iterations_used": 0,
+  "walltime_sec": 1992.54,
+  "failure_reason": "Taylor test failed, check your objective and constraint functions",
+  "failure_class": "ValueError",
+  "metrics": {},
   "case_config": {
     "description": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=6 order=4",
     "surface_params": {
@@ -46,6 +50,5 @@
         16
       ]
     }
-  },
-  "random_seed": 690515024
+  }
 }
