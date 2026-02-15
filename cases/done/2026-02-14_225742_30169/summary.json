@@ -10,7 +10,7 @@
   "success": false,
   "total_score": Infinity,
   "iterations_used": 0,
-  "walltime_sec": 60.65,
+  "walltime_sec": 60.47,
   "failure_reason": "Taylor test failed, check your objective and constraint functions",
   "failure_class": "ValueError",
   "metrics": {},
