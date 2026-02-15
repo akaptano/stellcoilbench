@@ -40,7 +40,7 @@ exploration:
   use_default_thresholds: false  # sample thresholds for diversity
   # Threshold ranges (sampled log-uniformly)
   # These are at device scale; the code will NOT auto-scale if passed explicitly.
-  length_threshold_range: [100.0, 240.0]
+  length_threshold_range: [100.0, 200.0]
   cc_threshold_range: [0.7, 2.0]
   cs_threshold_range: [1.0, 3.0]
   curvature_threshold_range: [0.5, 5.0]
