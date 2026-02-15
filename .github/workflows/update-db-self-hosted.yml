@@ -576,8 +576,9 @@ jobs:
               echo "Merge conflicts detected — resolving..."
               git checkout --ours cases/done/ 2>/dev/null || true
               git checkout --ours submissions/ 2>/dev/null || true
+              git checkout --theirs cases/pending/ 2>/dev/null || true
               git checkout --theirs docs/ 2>/dev/null || true
-              git add -f cases/done/ docs/ submissions/
+              git add -f cases/done/ cases/pending/ docs/ submissions/
               stellcoilbench update-db 2>&1 || true
               git add docs/
               git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit

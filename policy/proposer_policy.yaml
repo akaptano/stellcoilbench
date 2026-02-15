@@ -30,7 +30,7 @@ mutation:
 # Use continuation with orders 4, 8, 16 for better convergence
 fourier_continuation:
   enabled: true
-  orders: [4, 8, 16]
+  orders: [4, 8]
 
 # --- Exploration parameters ---
 # Thresholds are sampled from log-uniform ranges to create solution diversity.
@@ -40,9 +40,9 @@ exploration:
   use_default_thresholds: false  # sample thresholds for diversity
   # Threshold ranges (sampled log-uniformly)
   # These are at device scale; the code will NOT auto-scale if passed explicitly.
-  length_threshold_range: [100.0, 240.0]
-  cc_threshold_range: [0.4, 2.0]
-  cs_threshold_range: [0.5, 3.0]
+  length_threshold_range: [100.0, 200.0]
+  cc_threshold_range: [0.7, 2.0]
+  cs_threshold_range: [1.0, 3.0]
   curvature_threshold_range: [0.5, 5.0]
   msc_threshold_range: [0.5, 5.0]
   force_threshold_range: [50.0, 500.0]
@@ -51,7 +51,7 @@ exploration:
   order_choices: [4]
   max_iterations: 500            # fixed (not scanned)
   dof_perturbation: 0.0         # random perturbation scale for initial coil DOFs
-  include_force: true           # set to true to add coil_coil_force objective
+  include_force: false           # set to true to add coil_coil_force objective
   # Available surfaces (must correspond to files in plasma_surfaces/)
   surfaces:
     # - "input.LandremanPaul2021_QA"
@@ -73,7 +73,7 @@ exploration:
     coil_mean_squared_curvature: ["l2_threshold"]
     coil_arclength_variation: ["l2_threshold"]
     linking_number: [""]
-    coil_coil_force: ["lp_threshold"]
+    # coil_coil_force: ["lp_threshold"]
 
 # --- Guardrails ---
 guardrails:
