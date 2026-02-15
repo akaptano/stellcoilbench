@@ -37,6 +37,31 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.854</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">auto</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">15/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">8.1e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.9e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4.7e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">6.5e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.0e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.6e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.3e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.7e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">1.8e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.2e+02</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.591</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">15/02/26</td>
@@ -61,7 +86,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">8.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">3</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.272</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">08/02/26</td>
