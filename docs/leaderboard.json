@@ -53159,6 +53159,167 @@
       ]
     },
     {
+      "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=3 order=4:LandremanPaul2021_QA:auto:2026-02-15_021156_99940",
+      "method_name": "Mutation: input.LandremanPaul2021_QA ncoils=3 order=4",
+      "method_version": "2026-02-15_021156_99940",
+      "composite_score": 0.0,
+      "score_primary": 1.0604236377376445e-06,
+      "run_date": "2026-02-15T04:36:22.042631",
+      "contact": "auto",
+      "hardware": "CPU: self-hosted runner",
+      "path": "submissions/LandremanPaul2021_QA/auto/2026-02-15_021156_99940/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0959042183528522,
+        "final_B_field": 1.0959042183528522,
+        "target_B_field": 1.0,
+        "optimization_time": 4.987881183624268,
+        "final_squared_flux": 1.0604236377376445e-06,
+        "final_min_cs_separation": 0.28191497528469195,
+        "final_min_cc_separation": 0.07599232194505504,
+        "final_total_length": 19.801411272330633,
+        "final_max_curvature": 3.8791661042819165,
+        "final_average_curvature": 1.6143279722033619,
+        "final_arclength_variation": 0.00038177671752893304,
+        "final_mean_squared_curvature": 5.251731740637636,
+        "final_linking_number": 0.0,
+        "coils_linked_to_surface": 1.0,
+        "final_max_max_coil_force": 1223486.2163754,
+        "final_avg_max_coil_force": 667550.1114084179,
+        "final_max_max_coil_torque": 926702.8602127931,
+        "final_avg_max_coil_torque": 503249.70173163246,
+        "avg_BdotN_over_B": 0.0004516629053380096,
+        "max_BdotN_over_B": 0.0016757088315148823,
+        "flux_threshold": 1e-06,
+        "cc_threshold": 0.076001,
+        "cs_threshold": 0.139727,
+        "msc_threshold": 11.436299,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 9.260618,
+        "force_threshold": 1459.6344,
+        "torque_threshold": 1545.9904,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "BdotN": 0.00042627666054134076,
+        "BdotN_over_B": 0.00045058756738970387,
+        "coil_order": 4.0,
+        "num_coils": 3.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 1.0604236377376445e-06
+      },
+      "reactor_scale_metrics": {
+        "reference": {
+          "major_radius": 7.5,
+          "B_field": 5.7,
+          "description": "ARIES-CS reactor-scale reference"
+        },
+        "scaling_factors": {
+          "length_scale": 10.100286074838268,
+          "B_field_scale": 5.7,
+          "device_major_radius": 1.009873697984893,
+          "device_target_B": 1.0
+        },
+        "reactor_scale_min_cs_separation": 2.8474218991563487,
+        "reactor_scale_min_cc_separation": 0.7675441911362659,
+        "reactor_scale_total_length": 199.9999185360666,
+        "reactor_scale_max_curvature": 0.3840649735600714,
+        "reactor_scale_average_curvature": 0.1598299256320036,
+        "reactor_scale_mean_squared_curvature": 0.05147960249624204,
+        "reactor_scale_max_max_coil_force": 401.4971501974828,
+        "reactor_scale_avg_max_coil_force": 219.06210610079813,
+        "reactor_scale_max_max_coil_torque": 3071.549821692307,
+        "reactor_scale_avg_max_coil_torque": 1668.0174390155219,
+        "reactor_scale_force_per_coil_MN_per_m": [
+          401.4971501974828,
+          110.0653034932604,
+          145.62386461165124
+        ],
+        "N_turns_per_coil": [
+          803,
+          221,
+          519
+        ],
+        "N_turns_force": [
+          803,
+          221,
+          292
+        ],
+        "N_turns_jc": [
+          763,
+          158,
+          519
+        ],
+        "force_limit_MN_per_m": 0.5,
+        "jc_model": {
+          "NI_reactor": [
+            38145118.6638203,
+            7878874.352169713,
+            25939180.68375997
+          ],
+          "I_turn": [
+            50000.0,
+            50000.0,
+            50000.0
+          ],
+          "B_peak_estimate": [
+            13.683173982409992,
+            18.160575755575447,
+            7.2982653655545375
+          ],
+          "jc_tape_stack_A_per_m2": [
+            2816199033.235133,
+            2498721829.3709373,
+            3472513847.4807773
+          ],
+          "Ic_cable_A": [
+            101383.16519646479,
+            89953.98585735375,
+            125010.49850930799
+          ],
+          "params": {
+            "T_op_K": 20.0,
+            "eta": 0.8,
+            "I_lead_max_A": 50000.0,
+            "A_HTS_m2": 3.6e-05,
+            "wp_enhancement": 1.3
+          }
+        },
+        "winding_pack_width_per_coil": [
+          0.5667450926121902,
+          0.2973213749463701,
+          0.4556314299957807
+        ],
+        "max_winding_pack_width": 0.5667450926121902,
+        "finite_build_cc_clearance": 0.20079909852407574,
+        "per_turn_max_force": 0.4999964510553958,
+        "per_turn_max_torque": 3.8250931776990122,
+        "total_superconductor_length_km": 111.93339788916597,
+        "reactor_scale_arclength_variation": 0.038947249163967586,
+        "reactor_scale_squared_flux": 0.0035147663563522952
+      },
+      "constraint_violations": [
+        {
+          "label": "Total superconductor length L_SC",
+          "metric": "total_superconductor_length_km",
+          "value": 111.93339788916597,
+          "bound": 100.0,
+          "direction": "max",
+          "units": "km",
+          "hard": false
+        },
+        {
+          "label": "Max turns per coil (N_turns \u2264 500)",
+          "metric": "N_turns_per_coil",
+          "value": 803,
+          "bound": 500,
+          "direction": "max",
+          "units": "(turns)",
+          "hard": true
+        }
+      ]
+    },
+    {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-13_025128_43754",
       "method_name": "Exploration case: input.LandremanPaul2021_QA ncoils=4 order=4",
       "method_version": "2026-02-13_025128_43754",
