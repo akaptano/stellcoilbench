@@ -439,9 +439,11 @@ class TestMutateCase:
         assert parent.get("case_id") in child.get("parent_ids", [])
         assert "exploit" in child.get("tags", [])
         assert "case_config" in child
-        # Weights should have been jittered
+        # Weights should have been removed, thresholds jittered
         cc = child["case_config"].get("coil_objective_terms", {})
-        assert cc.get("length_weight") != 0.05 or cc.get("length_threshold") != 24.0
+        weight_keys = [k for k in cc if k.endswith("_weight")]
+        assert weight_keys == [], f"Expected no weight keys, got {weight_keys}"
+        assert "length_threshold" in cc
 
     def test_weights_removed_from_child(self):
         """Mutate should strip weight keys from parent (auglag auto-tunes them)."""
@@ -470,6 +472,83 @@ class TestMutateCase:
         # Algorithm should be augmented_lagrangian
         assert child["case_config"]["optimizer_params"]["algorithm"] == "augmented_lagrangian"
 
+    def test_threshold_injection_from_metrics(self):
+        """When parent has no explicit thresholds, inject from parent metrics."""
+        parent = _make_summary(
+            case_config={
+                "description": "parent",
+                "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
+                "coils_params": {"ncoils": 4, "order": 4},
+                "optimizer_params": {"algorithm": "augmented_lagrangian", "max_iterations": 500},
+                "coil_objective_terms": {
+                    "total_length": "l2_threshold",
+                    "coil_curvature": "lp_threshold",
+                },
+            },
+            metrics={
+                "cc_threshold": 0.08,
+                "cs_threshold": 0.13,
+                "msc_threshold": 10.0,
+                "curvature_threshold": 10.0,
+                "flux_threshold": 1e-8,
+            },
+        )
+        policy = {"mutation": {"threshold_sigma": 0.15, "max_iterations": 500}}
+        rng = _rng(42)
+        child = mutate_case(parent, policy, rng)
+        obj = child["case_config"]["coil_objective_terms"]
+        # Thresholds should have been injected from metrics and jittered
+        assert "cc_threshold" in obj
+        assert "cs_threshold" in obj
+        # Values should differ from parent (jittered)
+        assert obj["cc_threshold"] != 0.08 or obj["cs_threshold"] != 0.13
+
+    def test_structural_mutation_ncoils(self):
+        """Structural mutation can change ncoils."""
+        parent = _make_summary(case_config={
+            "description": "parent",
+            "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": {"algorithm": "augmented_lagrangian", "max_iterations": 500},
+            "coil_objective_terms": {"cc_threshold": 0.08},
+        })
+        policy = {
+            "mutation": {
+                "threshold_sigma": 0.1,
+                "structural_mutation_prob": 1.0,  # always mutate
+                "ncoils_choices": [3, 4, 5, 6, 7],
+                "order_choices": [4, 6, 8],
+                "max_iterations": 500,
+            },
+        }
+        ncoils_seen = set()
+        for seed in range(50):
+            child = mutate_case(parent, policy, _rng(seed))
+            ncoils_seen.add(child["case_config"]["coils_params"]["ncoils"])
+        # With prob=1.0, should see adjacent values (3 or 5)
+        assert 3 in ncoils_seen or 5 in ncoils_seen
+        # Original value (4) should NOT appear since structural_mutation_prob=1.0
+        # selects adjacent, which never includes the current value
+
+    def test_dof_perturbation_in_child(self):
+        """Mutation should set dof_perturbation in child config."""
+        parent = _make_summary(case_config={
+            "description": "parent",
+            "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
+            "coils_params": {"ncoils": 4, "order": 4},
+            "optimizer_params": {"algorithm": "augmented_lagrangian", "max_iterations": 500},
+            "coil_objective_terms": {},
+        })
+        policy = {
+            "mutation": {
+                "threshold_sigma": 0.1,
+                "dof_perturbation": 0.02,
+                "max_iterations": 500,
+            },
+        }
+        child = mutate_case(parent, policy, _rng(42))
+        assert child["case_config"].get("dof_perturbation") == 0.02
+
 
 class TestExploreCase:
     def test_produces_valid_case(self):
@@ -486,6 +565,90 @@ class TestExploreCase:
         assert "surface_params" in cc
         assert "coils_params" in cc
         assert "optimizer_params" in cc
+
+    def test_threshold_sampling(self):
+        """When use_default_thresholds is false, thresholds should be sampled."""
+        policy = {
+            "exploration": {
+                "use_default_thresholds": False,
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "algorithms": ["augmented_lagrangian"],
+                "ncoils_choices": [4],
+                "order_choices": [4],
+                "max_iterations": 500,
+                "length_threshold_range": [100, 300],
+                "cc_threshold_range": [0.4, 1.5],
+                "cs_threshold_range": [0.5, 2.5],
+                "curvature_threshold_range": [0.5, 5.0],
+                "msc_threshold_range": [0.1, 5.0],
+            },
+        }
+        case = explore_case(policy, _rng(42))
+        obj = case["case_config"]["coil_objective_terms"]
+        assert "length_threshold" in obj
+        assert "cc_threshold" in obj
+        assert "cs_threshold" in obj
+        assert "curvature_threshold" in obj
+        assert "msc_threshold" in obj
+        # Values should be within ranges
+        assert 100 <= obj["length_threshold"] <= 300
+        assert 0.4 <= obj["cc_threshold"] <= 1.5
+
+    def test_threshold_diversity(self):
+        """Different seeds should produce different thresholds."""
+        policy = {
+            "exploration": {
+                "use_default_thresholds": False,
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "algorithms": ["augmented_lagrangian"],
+                "ncoils_choices": [4],
+                "order_choices": [4],
+                "max_iterations": 500,
+                "cc_threshold_range": [0.4, 2.0],
+                "cs_threshold_range": [0.5, 3.0],
+            },
+        }
+        thresholds = set()
+        for seed in range(20):
+            case = explore_case(policy, _rng(seed))
+            obj = case["case_config"]["coil_objective_terms"]
+            thresholds.add(obj.get("cc_threshold"))
+        # With 20 different seeds and continuous sampling, all should be unique
+        assert len(thresholds) == 20
+
+    def test_dof_perturbation_in_explore(self):
+        """Exploration can set dof_perturbation."""
+        policy = {
+            "exploration": {
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "algorithms": ["augmented_lagrangian"],
+                "ncoils_choices": [4],
+                "order_choices": [4],
+                "max_iterations": 500,
+                "dof_perturbation": 0.01,
+            },
+        }
+        case = explore_case(policy, _rng(42))
+        assert case["case_config"].get("dof_perturbation") == 0.01
+
+    def test_include_force_objective(self):
+        """When include_force is true, coil_coil_force should be in terms."""
+        policy = {
+            "exploration": {
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "algorithms": ["augmented_lagrangian"],
+                "ncoils_choices": [4],
+                "order_choices": [4],
+                "max_iterations": 500,
+                "include_force": True,
+                "use_default_thresholds": False,
+                "force_threshold_range": [50, 500],
+            },
+        }
+        case = explore_case(policy, _rng(42))
+        obj = case["case_config"]["coil_objective_terms"]
+        assert "coil_coil_force" in obj
+        assert "force_threshold" in obj
 
     def test_safe_mode_preferred_surfaces(self):
         policy = {
@@ -562,6 +725,50 @@ class TestProposeBatch:
         for c in cases:
             assert "explore" in c.get("tags", [])
 
+    def test_no_duplicate_config_hashes(self):
+        """All cases in a batch should have unique config hashes."""
+        policy_path = _REPO_ROOT / "policy" / "proposer_policy.yaml"
+        policy = yaml.safe_load(policy_path.read_text())
+        ctx = {
+            "policy": {"batch_size": 8},
+            "failure_stats": {"fail_rate": 0.0, "most_common_reason_count": 0, "failure_classes": {}},
+            "top_parents": [],
+            "recent_config_hashes": [],
+            "total_completed": 0,
+        }
+        from propose_batch import _config_hash_short
+        cases = propose_batch(ctx, policy, batch_size=8, seed=42)
+        hashes = [_config_hash_short(c["case_config"]) for c in cases]
+        assert len(set(hashes)) == len(hashes), f"Duplicate hashes found: {hashes}"
+
+    def test_novelty_prevents_duplicates_with_recent(self):
+        """Cases matching recent_config_hashes should not be proposed."""
+        policy = {
+            "exploration": {
+                "use_default_thresholds": True,  # deterministic configs
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "algorithms": ["augmented_lagrangian"],
+                "ncoils_choices": [4],
+                "order_choices": [4],
+                "max_iterations": 500,
+            },
+            "exploit_fraction": 0.0,
+        }
+        # First, generate a case to get its hash
+        from propose_batch import _config_hash_short
+        probe = explore_case(policy, _rng(0))
+        probe_hash = _config_hash_short(probe["case_config"])
+
+        ctx = {
+            "failure_stats": {"fail_rate": 0.0, "most_common_reason_count": 0, "failure_classes": {}},
+            "top_parents": [],
+            "recent_config_hashes": [probe_hash],
+            "total_completed": 5,
+        }
+        # With only 1 possible config and it's in recent_hashes, batch should be empty
+        cases = propose_batch(ctx, policy, batch_size=4, seed=42)
+        assert len(cases) == 0
+
 
 # ===================================================================
 # Helpers
@@ -624,7 +831,11 @@ class TestRunCiCaseCLI:
 
     def test_successful_run(self, tmp_path):
         """Smoke test: mock optimize_coils and verify summary is written."""
-        case = TestValidateCiCase._minimal_case()
+        case = TestValidateCiCase._minimal_case(
+            random_seed=42,
+            tags=["explore"],
+            parent_ids=["parent_001"],
+        )
         f = tmp_path / "case.json"
         f.write_text(json.dumps(case))
 
@@ -653,6 +864,10 @@ class TestRunCiCaseCLI:
         assert data["success"] is True
         assert data["total_score"] == 0.001
         assert data["iterations_used"] == 1500
+        # Verify context fields are preserved
+        assert data["random_seed"] == 42
+        assert data["tags"] == ["explore"]
+        assert data["parent_ids"] == ["parent_001"]
 
     def test_optimize_exception_writes_failure(self, tmp_path):
         """If optimize_coils raises, summary should show failure."""

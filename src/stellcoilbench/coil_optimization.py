@@ -468,12 +468,25 @@ def optimize_coils(
         for key in threshold_keys:
             if key in coil_objective_terms:
                 threshold_kwargs[key] = coil_objective_terms[key]
-        
+
         # Create a copy of coil_objective_terms without threshold keys
         coil_objective_terms = {
             k: v for k, v in coil_objective_terms.items()
             if k not in threshold_keys
         }
+
+    # Extract dof_perturbation from case_config (top-level key, not in coil_objective_terms)
+    # This allows the autopilot to request random perturbation of initial coil DOFs.
+    if case_cfg and hasattr(case_cfg, '__dict__'):
+        # Check the raw dict if available
+        pass
+    # dof_perturbation is passed via the case.yaml directly (not a CaseConfig field)
+    # We read it from the YAML file if it was written there
+    if case_yaml_path_abs and case_yaml_path_abs.exists():
+        import yaml as _yaml_loader
+        raw_config = _yaml_loader.safe_load(case_yaml_path_abs.read_text())
+        if isinstance(raw_config, dict) and 'dof_perturbation' in raw_config:
+            threshold_kwargs['dof_perturbation'] = raw_config['dof_perturbation']
     
     # Handle surface file path - check if it's relative to plasma_surfaces directory
     surface_file = surface_params["surface"]
@@ -2159,6 +2172,14 @@ def _optimize_coils_loop_impl(
     with timed_section("coil_initialization"):
         if initial_coils is None:
             coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+            # Apply random DOF perturbation to break determinism if requested
+            dof_perturbation = kwargs.get('dof_perturbation', 0.0)
+            if isinstance(dof_perturbation, (int, float)) and dof_perturbation > 0:
+                print(f"  Applying DOF perturbation with scale {dof_perturbation}")
+                for coil in coils[:ncoils]:
+                    x = coil.curve.x
+                    noise = np.random.randn(len(x)) * dof_perturbation * np.std(x)
+                    coil.curve.x = x + noise
         else:
             coils = initial_coils
 
