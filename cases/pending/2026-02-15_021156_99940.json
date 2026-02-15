@@ -1,0 +1,53 @@
+{
+  "case_id": "2026-02-15_021156_99940",
+  "parent_ids": [
+    "2026-02-14_075629_65734"
+  ],
+  "tags": [
+    "exploit"
+  ],
+  "resource": {
+    "max_total_iterations": 500,
+    "timeout_minutes": 60
+  },
+  "case_config": {
+    "description": "Mutation: input.LandremanPaul2021_QA ncoils=3 order=4",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QA",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 3,
+      "order": 4
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 500,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "coil_arclength_variation": "l2_threshold",
+      "linking_number": "",
+      "cc_threshold": 0.076001,
+      "cs_threshold": 0.139727,
+      "msc_threshold": 11.436299,
+      "curvature_threshold": 9.260618,
+      "flux_threshold": 1e-06,
+      "force_threshold": 7.298172,
+      "torque_threshold": 7.729952
+    },
+    "fourier_continuation": {
+      "enabled": true,
+      "orders": [
+        4,
+        8,
+        16
+      ]
+    }
+  },
+  "random_seed": 1227246856
+}
