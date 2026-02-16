@@ -10738,6 +10738,26 @@ Landreman-Paul QH
    * - 0.000
      - 3
      - 4
+     - :orange:`1.49e-02`
+     - 1.35
+     - 1.20
+     - 105.5
+     - 38.73
+     - 7.69e-01
+     - 2.58e-01
+     - 1.21e-01
+     - 3.58e-01
+     - 1.40
+     - 4.67e-01
+     - :red:`20`
+     - :red:`546`
+     - auto
+     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_82127/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_82127/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_82127/order_8/bn_error_3d_plot.pdf>`__
+     - —
+   * - 0.000
+     - 3
+     - 4
      - 5.12e-04
      - 2.00
      - 9.16e-01
@@ -10752,7 +10772,7 @@ Landreman-Paul QH
      - :red:`32`
      - 397
      - auto
-     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79677/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79677/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79677/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79677/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79677/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10772,7 +10792,7 @@ Landreman-Paul QH
      - :red:`8`
      - :red:`2535`
      - auto
-     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_26995/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `18 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_26995/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_26995/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_26995/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10792,7 +10812,7 @@ Landreman-Paul QH
      - :red:`32`
      - :red:`4800`
      - auto
-     - `18 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_31574/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_31574/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_31574/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_31574/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10812,7 +10832,7 @@ Landreman-Paul QH
      - :red:`24`
      - :red:`652`
      - auto
-     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_55394/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_55394/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_55394/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_55394/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10832,7 +10852,7 @@ Landreman-Paul QH
      - 0
      - 421
      - auto
-     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90666/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90666/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90666/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90666/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10852,7 +10872,7 @@ Landreman-Paul QH
      - 0
      - :red:`2055`
      - auto
-     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_31419/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_31419/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_31419/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_31419/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10872,7 +10892,7 @@ Landreman-Paul QH
      - :red:`40`
      - 318
      - auto
-     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_63298/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_63298/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_63298/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_63298/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_63298/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10892,7 +10912,7 @@ Landreman-Paul QH
      - :red:`8`
      - 468
      - auto
-     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_65630/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_65630/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_65630/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_65630/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10912,7 +10932,7 @@ Landreman-Paul QH
      - :red:`32`
      - 363
      - auto
-     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_47891/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_47891/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_47891/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_125251_47891/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10932,7 +10952,7 @@ Landreman-Paul QH
      - :red:`20`
      - :red:`3844`
      - auto
-     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_70904/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_70904/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_70904/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_70904/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10952,7 +10972,7 @@ Landreman-Paul QH
      - :red:`16`
      - 269
      - auto
-     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_17167/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_17167/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_17167/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_17167/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10972,7 +10992,7 @@ Landreman-Paul QH
      - :red:`16`
      - 223
      - auto
-     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90958/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90958/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90958/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_90958/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -10992,7 +11012,7 @@ Landreman-Paul QH
      - 0
      - :red:`1386`
      - auto
-     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37370/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37370/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37370/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37370/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11012,7 +11032,7 @@ Landreman-Paul QH
      - 0
      - :red:`1903`
      - auto
-     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_17973/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_17973/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_17973/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_17973/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11032,7 +11052,7 @@ Landreman-Paul QH
      - :red:`32`
      - 403
      - auto
-     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_053108_68958/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_053108_68958/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_053108_68958/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_053108_68958/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_053108_68958/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11052,7 +11072,7 @@ Landreman-Paul QH
      - 0
      - 401
      - auto
-     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_22277/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_22277/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_22277/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_22277/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11072,7 +11092,7 @@ Landreman-Paul QH
      - :red:`8`
      - :red:`19548`
      - auto
-     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79203/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79203/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79203/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79203/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_091137_79203/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11092,7 +11112,7 @@ Landreman-Paul QH
      - :red:`32`
      - 408
      - auto
-     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_43818/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_43818/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_43818/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_43818/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_43818/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11112,8 +11132,28 @@ Landreman-Paul QH
      - :red:`24`
      - 474
      - auto
-     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_21351/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_21351/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_21351/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_21351/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_191653_21351/order_16/bn_error_3d_plot.pdf>`__
+     - —
+   * - 0.000
+     - 7
+     - 4
+     - :orange:`1.53e-01`
+     - 1.30
+     - 9.00e-01
+     - 189.3
+     - 50.73
+     - 6.97e-01
+     - 3.32e-01
+     - 4.02e-01
+     - 5.00e-01
+     - 7.47e-01
+     - 9.03e-01
+     - 0
+     - :red:`2039`
+     - auto
+     - `36 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_74165/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_74165/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_025855_74165/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
      - 5
@@ -11132,7 +11172,7 @@ Landreman-Paul QH
      - 0
      - :red:`580`
      - auto
-     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_46013/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `37 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_46013/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_46013/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_46013/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_021156_46013/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11152,7 +11192,7 @@ Landreman-Paul QH
      - 0
      - :red:`4292`
      - auto
-     - `36 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_47554/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `38 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_47554/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_47554/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_181619_47554/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11172,7 +11212,7 @@ Landreman-Paul QH
      - 0
      - :red:`1744`
      - auto
-     - `37 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_88714/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `39 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_88714/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_88714/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_002502_88714/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11192,7 +11232,7 @@ Landreman-Paul QH
      - :red:`24`
      - :red:`513`
      - auto
-     - `38 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_225742_54894/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `40 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_225742_54894/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_225742_54894/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_225742_54894/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-14_225742_54894/order_16/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11212,7 +11252,7 @@ Landreman-Paul QH
      - 0
      - 481
      - auto
-     - `39 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_43737/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `41 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_43737/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_43737/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_43737/order_8/bn_error_3d_plot.pdf>`__
      - —
    * - 0.000
@@ -11232,7 +11272,7 @@ Landreman-Paul QH
      - :red:`48`
      - :red:`729`
      - auto
-     - `40 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_41404/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `42 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_41404/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_41404/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_41404/order_8/bn_error_3d_plot.pdf>`__
      - —
 
