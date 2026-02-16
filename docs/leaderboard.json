@@ -1065,6 +1065,158 @@
       "rank": 7
     },
     {
+      "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_102518_95393",
+      "method_name": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4",
+      "method_version": "2026-02-16_102518_95393",
+      "composite_score": 2.0072391593317747,
+      "score_primary": 0.0,
+      "run_date": "2026-02-16T11:47:03.365303",
+      "contact": "auto",
+      "hardware": "CPU: self-hosted runner",
+      "path": "submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_95393/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 8.0,
+        "initial_B_field": 1.09650697193118,
+        "final_B_field": 1.0963535853570197,
+        "target_B_field": 1.0,
+        "optimization_time": 64.49345469474792,
+        "final_squared_flux": 0.0,
+        "final_min_cs_separation": 0.3024566771588373,
+        "final_min_cc_separation": 0.1101916084154126,
+        "final_total_length": 19.801368140343804,
+        "final_max_curvature": 3.4271406875174533,
+        "final_average_curvature": 1.7703998377282193,
+        "final_arclength_variation": 0.00010964968008402118,
+        "final_mean_squared_curvature": 5.2531248048384125,
+        "final_linking_number": 0.0,
+        "coils_linked_to_surface": 1.0,
+        "final_max_max_coil_force": 418344.05945758586,
+        "final_avg_max_coil_force": 306326.77577764407,
+        "final_max_max_coil_torque": 185349.95976996768,
+        "final_avg_max_coil_torque": 115199.30041927204,
+        "avg_BdotN_over_B": 0.00042940729369329546,
+        "max_BdotN_over_B": 0.0020771086611479275,
+        "flux_threshold": 1e-06,
+        "cc_threshold": 0.06174,
+        "cs_threshold": 0.106661,
+        "msc_threshold": 6.357635,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 9.251021,
+        "force_threshold": 1347.3768,
+        "torque_threshold": 1234.2178000000001,
+        "fourier_order": 8.0,
+        "continuation_step": 2.0,
+        "BdotN": 0.000405251779748206,
+        "BdotN_over_B": 0.00042835316655744543,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8",
+        "score_primary": 0.0
+      },
+      "reactor_scale_metrics": {
+        "reference": {
+          "major_radius": 7.5,
+          "B_field": 5.7,
+          "description": "ARIES-CS reactor-scale reference"
+        },
+        "scaling_factors": {
+          "length_scale": 10.100286074838268,
+          "B_field_scale": 5.7,
+          "device_major_radius": 1.009873697984893,
+          "device_target_B": 1.0
+        },
+        "reactor_scale_min_cs_separation": 3.054898964549258,
+        "reactor_scale_min_cc_separation": 1.1129667680422233,
+        "reactor_scale_total_length": 199.99948289066066,
+        "reactor_scale_max_curvature": 0.3393112494165004,
+        "reactor_scale_average_curvature": 0.17528214791248556,
+        "reactor_scale_mean_squared_curvature": 0.05149325787600045,
+        "reactor_scale_max_max_coil_force": 137.2830730957176,
+        "reactor_scale_avg_max_coil_force": 100.52367232077653,
+        "reactor_scale_max_max_coil_torque": 614.3410798919871,
+        "reactor_scale_avg_max_coil_torque": 381.82723487077976,
+        "reactor_scale_force_per_coil_MN_per_m": [
+          137.2830730957176,
+          125.73939924434978,
+          86.03954730172389,
+          53.03266964131483
+        ],
+        "N_turns_per_coil": [
+          381,
+          488,
+          338,
+          234
+        ],
+        "N_turns_force": [
+          275,
+          252,
+          173,
+          107
+        ],
+        "N_turns_jc": [
+          381,
+          488,
+          338,
+          234
+        ],
+        "force_limit_MN_per_m": 0.5,
+        "jc_model": {
+          "NI_reactor": [
+            19047997.39353133,
+            24371002.651455667,
+            16895281.24820295,
+            11650213.598525213
+          ],
+          "I_turn": [
+            50000.0,
+            50000.0,
+            50000.0,
+            50000.0
+          ],
+          "B_peak_estimate": [
+            9.369383633212822,
+            6.707201232358458,
+            6.620275202825523,
+            5.91770013061706
+          ],
+          "jc_tape_stack_A_per_m2": [
+            3223618736.239271,
+            3552109303.315084,
+            3564182374.49273,
+            3665486976.3003583
+          ],
+          "Ic_cable_A": [
+            116050.27450461377,
+            127875.93491934302,
+            128310.56548173829,
+            131957.5311468129
+          ],
+          "params": {
+            "T_op_K": 20.0,
+            "eta": 0.8,
+            "I_lead_max_A": 50000.0,
+            "A_HTS_m2": 3.6e-05,
+            "wp_enhancement": 1.3
+          }
+        },
+        "winding_pack_width_per_coil": [
+          0.39038442591886274,
+          0.44181444068749043,
+          0.3676955262170047,
+          0.3059411708155671
+        ],
+        "max_winding_pack_width": 0.44181444068749043,
+        "finite_build_cc_clearance": 0.6711523273547328,
+        "per_turn_max_force": 0.3603230264979465,
+        "per_turn_max_torque": 1.258895655516367,
+        "total_superconductor_length_km": 74.17673309286603,
+        "reactor_scale_arclength_variation": 0.011185997508237424,
+        "reactor_scale_squared_flux": 0.0
+      },
+      "rank": 8
+    },
+    {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_102518_77309",
       "method_name": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4",
       "method_version": "2026-02-16_102518_77309",
@@ -1214,7 +1366,7 @@
         "reactor_scale_arclength_variation": 0.01423624203786704,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 8
+      "rank": 9
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_054521_99457",
@@ -1366,7 +1518,7 @@
         "reactor_scale_arclength_variation": 0.012882582905737263,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 9
+      "rank": 10
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-16_102518_60346",
@@ -1528,7 +1680,7 @@
         "reactor_scale_arclength_variation": 0.011246421233102486,
         "reactor_scale_squared_flux": 0.006052749572387779
       },
-      "rank": 10
+      "rank": 11
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_025855_69410",
@@ -1680,7 +1832,7 @@
         "reactor_scale_arclength_variation": 0.01565680337996584,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 11
+      "rank": 12
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_88737",
@@ -1842,7 +1994,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 12
+      "rank": 13
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_52276",
@@ -2004,7 +2156,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 13
+      "rank": 14
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_86661",
@@ -2166,7 +2318,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 14
+      "rank": 15
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_202533_58441",
@@ -2328,7 +2480,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 15
+      "rank": 16
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_005015_37249",
@@ -2490,7 +2642,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 16
+      "rank": 17
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_90963",
@@ -2652,7 +2804,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 17
+      "rank": 18
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_025128_70512",
@@ -2814,7 +2966,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 18
+      "rank": 19
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_91397",
@@ -2976,7 +3128,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 19
+      "rank": 20
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_131353_35320",
@@ -3138,7 +3290,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 20
+      "rank": 21
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_86086",
@@ -3300,7 +3452,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 21
+      "rank": 22
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_16098",
@@ -3462,7 +3614,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 22
+      "rank": 23
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_111715_41774",
@@ -3624,7 +3776,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 23
+      "rank": 24
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_28842",
@@ -3786,7 +3938,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 24
+      "rank": 25
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_011836_57978",
@@ -3948,7 +4100,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 25
+      "rank": 26
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_98213",
@@ -4110,7 +4262,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 26
+      "rank": 27
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_035306_31544",
@@ -4272,7 +4424,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 27
+      "rank": 28
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_31546",
@@ -4434,7 +4586,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 28
+      "rank": 29
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_48483",
@@ -4596,7 +4748,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 29
+      "rank": 30
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_005015_71105",
@@ -4758,7 +4910,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 30
+      "rank": 31
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_95535",
@@ -4920,7 +5072,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 31
+      "rank": 32
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_33412",
@@ -5082,7 +5234,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 32
+      "rank": 33
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_075256_35308",
@@ -5244,7 +5396,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 33
+      "rank": 34
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_14751",
@@ -5406,7 +5558,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 34
+      "rank": 35
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_40011",
@@ -5568,7 +5720,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 35
+      "rank": 36
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_96830",
@@ -5730,7 +5882,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 36
+      "rank": 37
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_192034_26548",
@@ -5892,7 +6044,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 37
+      "rank": 38
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_122003_91040",
@@ -6054,7 +6206,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 38
+      "rank": 39
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_56168",
@@ -6216,7 +6368,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 39
+      "rank": 40
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_075256_26980",
@@ -6378,7 +6530,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 40
+      "rank": 41
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_14197",
@@ -6540,7 +6692,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 41
+      "rank": 42
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_055441_44696",
@@ -6702,7 +6854,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 42
+      "rank": 43
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_36194",
@@ -6864,7 +7016,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 43
+      "rank": 44
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_035306_68058",
@@ -7026,7 +7178,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 44
+      "rank": 45
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_122003_71311",
@@ -7188,7 +7340,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 45
+      "rank": 46
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_131353_85776",
@@ -7350,7 +7502,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 46
+      "rank": 47
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_49361",
@@ -7512,7 +7664,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 47
+      "rank": 48
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_34909",
@@ -7674,7 +7826,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 48
+      "rank": 49
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_23043",
@@ -7836,7 +7988,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 49
+      "rank": 50
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_083234_84510",
@@ -7998,7 +8150,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 50
+      "rank": 51
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_30716",
@@ -8160,7 +8312,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 51
+      "rank": 52
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_83742",
@@ -8322,7 +8474,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 52
+      "rank": 53
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_62860",
@@ -8484,7 +8636,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 53
+      "rank": 54
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_011836_92183",
@@ -8646,7 +8798,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 54
+      "rank": 55
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_20055",
@@ -8808,7 +8960,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 55
+      "rank": 56
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_65756",
@@ -8970,7 +9122,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 56
+      "rank": 57
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_131353_21411",
@@ -9132,7 +9284,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 57
+      "rank": 58
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_45283",
@@ -9294,7 +9446,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 58
+      "rank": 59
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_192034_56991",
@@ -9456,7 +9608,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 59
+      "rank": 60
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_54149",
@@ -9618,7 +9770,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 60
+      "rank": 61
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_084222_21649",
@@ -9780,7 +9932,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 61
+      "rank": 62
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_77919",
@@ -9942,7 +10094,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 62
+      "rank": 63
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_011836_12004",
@@ -10104,7 +10256,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 63
+      "rank": 64
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_83120",
@@ -10266,7 +10418,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 64
+      "rank": 65
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_122003_61709",
@@ -10428,7 +10580,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 65
+      "rank": 66
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_71264",
@@ -10590,7 +10742,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 66
+      "rank": 67
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_111715_47369",
@@ -10752,7 +10904,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 67
+      "rank": 68
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_31058",
@@ -10914,7 +11066,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 68
+      "rank": 69
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_44965",
@@ -11076,7 +11228,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 69
+      "rank": 70
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_43701",
@@ -11238,7 +11390,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 70
+      "rank": 71
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_43310",
@@ -11400,7 +11552,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 71
+      "rank": 72
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_044351_94705",
@@ -11562,7 +11714,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 72
+      "rank": 73
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_49119",
@@ -11724,7 +11876,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 73
+      "rank": 74
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_77754",
@@ -11886,7 +12038,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 74
+      "rank": 75
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_74108",
@@ -12048,7 +12200,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 75
+      "rank": 76
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_192034_71614",
@@ -12210,7 +12362,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 76
+      "rank": 77
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_13650",
@@ -12372,7 +12524,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 77
+      "rank": 78
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_122003_46640",
@@ -12534,7 +12686,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 78
+      "rank": 79
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_16809",
@@ -12696,7 +12848,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 79
+      "rank": 80
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_97264",
@@ -12858,7 +13010,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 80
+      "rank": 81
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_79699",
@@ -13020,7 +13172,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 81
+      "rank": 82
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_33814",
@@ -13182,7 +13334,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 82
+      "rank": 83
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_76547",
@@ -13344,7 +13496,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 83
+      "rank": 84
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_77298",
@@ -13506,7 +13658,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 84
+      "rank": 85
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_40643",
@@ -13668,7 +13820,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 85
+      "rank": 86
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_083234_50881",
@@ -13830,7 +13982,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 86
+      "rank": 87
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_90094",
@@ -13992,7 +14144,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 87
+      "rank": 88
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_11059",
@@ -14154,7 +14306,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 88
+      "rank": 89
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_084222_10112",
@@ -14316,7 +14468,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 89
+      "rank": 90
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_044351_51594",
@@ -14478,7 +14630,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 90
+      "rank": 91
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_98687",
@@ -14640,7 +14792,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 91
+      "rank": 92
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_67381",
@@ -14802,7 +14954,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 92
+      "rank": 93
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-14_005015_19763",
@@ -14964,7 +15116,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 93
+      "rank": 94
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_59157",
@@ -15126,7 +15278,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 94
+      "rank": 95
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_22232",
@@ -15288,7 +15440,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 95
+      "rank": 96
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_42868",
@@ -15450,7 +15602,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 96
+      "rank": 97
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_223427_22794",
@@ -15612,7 +15764,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 97
+      "rank": 98
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_18011",
@@ -15774,7 +15926,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 98
+      "rank": 99
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_59264",
@@ -15936,7 +16088,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 99
+      "rank": 100
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_52291",
@@ -16098,7 +16250,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 100
+      "rank": 101
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_160947_40063",
@@ -16250,7 +16402,7 @@
         "reactor_scale_arclength_variation": 0.014042331879163886,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 101
+      "rank": 102
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_102518_80734",
@@ -16402,7 +16554,7 @@
         "reactor_scale_arclength_variation": 0.01373434408626654,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 102
+      "rank": 103
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_054521_52359",
@@ -16554,7 +16706,7 @@
         "reactor_scale_arclength_variation": 0.021951550077646157,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 103
+      "rank": 104
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-15_091137_44853",
@@ -16716,7 +16868,7 @@
         "reactor_scale_arclength_variation": 0.0012725310755292254,
         "reactor_scale_squared_flux": 0.005873580989547357
       },
-      "rank": 104
+      "rank": 105
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_054521_45441",
@@ -16868,7 +17020,7 @@
         "reactor_scale_arclength_variation": 0.014547372506083548,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 105
+      "rank": 106
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_125251_58450",
@@ -17020,7 +17172,7 @@
         "reactor_scale_arclength_variation": 0.027929159811410555,
         "reactor_scale_squared_flux": 0.004215612372286459
       },
-      "rank": 106
+      "rank": 107
     },
     {
       "method_key": ":circular_tokamak:akaptano:02-08-2026_12-56",
@@ -17198,7 +17350,7 @@
           "hard": false
         }
       ],
-      "rank": 107
+      "rank": 108
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_091137_22436",
@@ -17350,7 +17502,7 @@
         "reactor_scale_arclength_variation": 0.004582942153025427,
         "reactor_scale_squared_flux": 0.0
       },
-      "rank": 108
+      "rank": 109
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_075401_16200",
@@ -17502,7 +17654,7 @@
         "reactor_scale_arclength_variation": 0.021254885406533093,
         "reactor_scale_squared_flux": 0.0033461640018994164
       },
-      "rank": 109
+      "rank": 110
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_053108_66962",
@@ -17654,7 +17806,7 @@
         "reactor_scale_arclength_variation": 0.023410506446137392,
         "reactor_scale_squared_flux": 0.003431442963614429
       },
-      "rank": 110
+      "rank": 111
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_181619_44687",
@@ -17806,7 +17958,7 @@
         "reactor_scale_arclength_variation": 0.02029048249324647,
         "reactor_scale_squared_flux": 0.003371456042520404
       },
-      "rank": 111
+      "rank": 112
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_053108_55174",
@@ -17958,7 +18110,7 @@
         "reactor_scale_arclength_variation": 0.02121612588864207,
         "reactor_scale_squared_flux": 0.0033696718265956273
       },
-      "rank": 112
+      "rank": 113
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_181619_73334",
@@ -18110,7 +18262,7 @@
         "reactor_scale_arclength_variation": 0.021752101326760087,
         "reactor_scale_squared_flux": 0.003521535884701567
       },
-      "rank": 113
+      "rank": 114
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-16_002502_98669",
@@ -18262,7 +18414,7 @@
         "reactor_scale_arclength_variation": 0.020591398287908708,
         "reactor_scale_squared_flux": 0.0033286770302069666
       },
-      "rank": 114
+      "rank": 115
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_221851_31533",
@@ -18434,7 +18586,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 115
+      "rank": 116
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_22470",
@@ -18606,7 +18758,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 116
+      "rank": 117
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_49227",
@@ -18778,7 +18930,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 117
+      "rank": 118
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_055441_58533",
@@ -18950,7 +19102,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 118
+      "rank": 119
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_192034_28911",
@@ -19122,7 +19274,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 119
+      "rank": 120
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_43420",
@@ -19294,7 +19446,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 120
+      "rank": 121
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_10809",
@@ -19466,7 +19618,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 121
+      "rank": 122
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_62235",
@@ -19638,7 +19790,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 122
+      "rank": 123
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_63689",
@@ -19810,7 +19962,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 123
+      "rank": 124
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_31894",
@@ -19982,7 +20134,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 124
+      "rank": 125
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_57843",
@@ -20154,7 +20306,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 125
+      "rank": 126
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_17075",
@@ -20326,7 +20478,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 126
+      "rank": 127
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_11105",
@@ -20498,7 +20650,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 127
+      "rank": 128
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_223427_86393",
@@ -20670,7 +20822,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 128
+      "rank": 129
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_36141",
@@ -20842,7 +20994,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 129
+      "rank": 130
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_45878",
@@ -21014,7 +21166,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 130
+      "rank": 131
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_70068",
@@ -21186,7 +21338,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 131
+      "rank": 132
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_69541",
@@ -21358,7 +21510,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 132
+      "rank": 133
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_80993",
@@ -21530,7 +21682,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 133
+      "rank": 134
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_221851_28183",
@@ -21702,7 +21854,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 134
+      "rank": 135
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_075256_66254",
@@ -21874,7 +22026,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 135
+      "rank": 136
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_44072",
@@ -22046,7 +22198,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 136
+      "rank": 137
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_11207",
@@ -22218,7 +22370,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 137
+      "rank": 138
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_141650_30383",
@@ -22390,7 +22542,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 138
+      "rank": 139
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_26146",
@@ -22562,7 +22714,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 139
+      "rank": 140
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_66519",
@@ -22734,7 +22886,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 140
+      "rank": 141
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_38189",
@@ -22906,7 +23058,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 141
+      "rank": 142
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_025128_81666",
@@ -23078,7 +23230,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 142
+      "rank": 143
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_67835",
@@ -23250,7 +23402,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 143
+      "rank": 144
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_202533_93986",
@@ -23422,7 +23574,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 144
+      "rank": 145
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_33291",
@@ -23594,7 +23746,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 145
+      "rank": 146
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_58620",
@@ -23766,7 +23918,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 146
+      "rank": 147
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_55147",
@@ -23938,7 +24090,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 147
+      "rank": 148
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_123405_22752",
@@ -24110,7 +24262,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 148
+      "rank": 149
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_011836_75583",
@@ -24282,7 +24434,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 149
+      "rank": 150
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_92559",
@@ -24454,7 +24606,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 150
+      "rank": 151
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_36799",
@@ -24626,7 +24778,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 151
+      "rank": 152
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_72441",
@@ -24798,7 +24950,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 152
+      "rank": 153
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_47281",
@@ -24970,7 +25122,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 153
+      "rank": 154
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_69282",
@@ -25142,7 +25294,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 154
+      "rank": 155
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_14259",
@@ -25314,7 +25466,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 155
+      "rank": 156
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_57406",
@@ -25486,7 +25638,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 156
+      "rank": 157
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_76785",
@@ -25658,7 +25810,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 157
+      "rank": 158
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_58861",
@@ -25830,7 +25982,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 158
+      "rank": 159
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_85498",
@@ -26002,7 +26154,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 159
+      "rank": 160
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_141650_47233",
@@ -26174,7 +26326,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 160
+      "rank": 161
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_223427_13577",
@@ -26346,7 +26498,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 161
+      "rank": 162
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_084222_37430",
@@ -26518,7 +26670,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 162
+      "rank": 163
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_75746",
@@ -26690,7 +26842,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 163
+      "rank": 164
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_202533_41620",
@@ -26862,7 +27014,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 164
+      "rank": 165
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_192034_94134",
@@ -27034,7 +27186,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 165
+      "rank": 166
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_025128_31528",
@@ -27206,7 +27358,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 166
+      "rank": 167
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_141650_27323",
@@ -27378,7 +27530,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 167
+      "rank": 168
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_72854",
@@ -27550,7 +27702,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 168
+      "rank": 169
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_221851_26288",
@@ -27722,7 +27874,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 169
+      "rank": 170
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_66203",
@@ -27894,7 +28046,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 170
+      "rank": 171
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_63846",
@@ -28066,7 +28218,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 171
+      "rank": 172
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_34990",
@@ -28238,7 +28390,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 172
+      "rank": 173
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_77580",
@@ -28410,7 +28562,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 173
+      "rank": 174
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_14567",
@@ -28582,7 +28734,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 174
+      "rank": 175
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_88611",
@@ -28754,7 +28906,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 175
+      "rank": 176
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_27123",
@@ -28926,7 +29078,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 176
+      "rank": 177
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_19972",
@@ -29098,7 +29250,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 177
+      "rank": 178
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_76974",
@@ -29270,7 +29422,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 178
+      "rank": 179
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_084222_43998",
@@ -29442,7 +29594,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 179
+      "rank": 180
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_88732",
@@ -29614,7 +29766,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 180
+      "rank": 181
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_26080",
@@ -29786,7 +29938,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 181
+      "rank": 182
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_56800",
@@ -29958,7 +30110,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 182
+      "rank": 183
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_044351_92160",
@@ -30130,7 +30282,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 183
+      "rank": 184
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_005015_16713",
@@ -30302,7 +30454,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 184
+      "rank": 185
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_71763",
@@ -30474,7 +30626,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 185
+      "rank": 186
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_202533_93832",
@@ -30646,7 +30798,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 186
+      "rank": 187
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_18409",
@@ -30818,7 +30970,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 187
+      "rank": 188
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-14_075629_67317",
@@ -30990,7 +31142,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 188
+      "rank": 189
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_68394",
@@ -31162,7 +31314,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 189
+      "rank": 190
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_49824",
@@ -31334,7 +31486,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 190
+      "rank": 191
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_34827",
@@ -31506,7 +31658,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 191
+      "rank": 192
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-13_123824_36321",
@@ -31678,7 +31830,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 192
+      "rank": 193
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_125251_40797",
@@ -31840,7 +31992,7 @@
         "reactor_scale_arclength_variation": 0.08048007600375279,
         "reactor_scale_squared_flux": 0.20123086776396926
       },
-      "rank": 193
+      "rank": 194
     },
     {
       "method_key": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4:LandremanPaul2021_QA:auto:2026-02-15_181619_74052",
@@ -32003,7 +32155,7 @@
           "hard": false
         }
       ],
-      "rank": 194
+      "rank": 195
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_055441_49085",
@@ -32185,7 +32337,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 195
+      "rank": 196
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_34049",
@@ -32367,7 +32519,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 196
+      "rank": 197
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_49466",
@@ -32549,7 +32701,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 197
+      "rank": 198
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_49523",
@@ -32731,7 +32883,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 198
+      "rank": 199
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_58315",
@@ -32913,7 +33065,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 199
+      "rank": 200
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_23808",
@@ -33095,7 +33247,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 200
+      "rank": 201
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_35259",
@@ -33277,7 +33429,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 201
+      "rank": 202
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_19886",
@@ -33459,7 +33611,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 202
+      "rank": 203
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_111715_78496",
@@ -33641,7 +33793,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 203
+      "rank": 204
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_82659",
@@ -33823,7 +33975,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 204
+      "rank": 205
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_43833",
@@ -34005,7 +34157,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 205
+      "rank": 206
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_60263",
@@ -34187,7 +34339,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 206
+      "rank": 207
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_141650_45990",
@@ -34369,7 +34521,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 207
+      "rank": 208
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_96993",
@@ -34551,7 +34703,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 208
+      "rank": 209
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_055441_55326",
@@ -34733,7 +34885,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 209
+      "rank": 210
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_131353_10283",
@@ -34915,7 +35067,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 210
+      "rank": 211
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_075256_26711",
@@ -35097,7 +35249,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 211
+      "rank": 212
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_57443",
@@ -35279,7 +35431,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 212
+      "rank": 213
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_30088",
@@ -35461,7 +35613,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 213
+      "rank": 214
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_41617",
@@ -35643,7 +35795,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 214
+      "rank": 215
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_13120",
@@ -35825,7 +35977,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 215
+      "rank": 216
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_55436",
@@ -36007,7 +36159,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 216
+      "rank": 217
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_035306_83925",
@@ -36189,7 +36341,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 217
+      "rank": 218
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_63230",
@@ -36371,7 +36523,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 218
+      "rank": 219
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_10636",
@@ -36553,7 +36705,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 219
+      "rank": 220
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_50539",
@@ -36735,7 +36887,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 220
+      "rank": 221
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_10298",
@@ -36917,7 +37069,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 221
+      "rank": 222
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_10241",
@@ -37099,7 +37251,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 222
+      "rank": 223
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_90517",
@@ -37281,7 +37433,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 223
+      "rank": 224
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_202453_80976",
@@ -37463,7 +37615,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 224
+      "rank": 225
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_84163",
@@ -37645,7 +37797,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 225
+      "rank": 226
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_123405_88189",
@@ -37827,7 +37979,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 226
+      "rank": 227
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_122003_52122",
@@ -38009,7 +38161,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 227
+      "rank": 228
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_011836_38968",
@@ -38191,7 +38343,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 228
+      "rank": 229
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_86025",
@@ -38373,7 +38525,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 229
+      "rank": 230
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_20157",
@@ -38555,7 +38707,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 230
+      "rank": 231
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_77683",
@@ -38737,7 +38889,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 231
+      "rank": 232
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_82670",
@@ -38919,7 +39071,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 232
+      "rank": 233
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_38796",
@@ -39101,7 +39253,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 233
+      "rank": 234
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_92004",
@@ -39283,7 +39435,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 234
+      "rank": 235
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_28801",
@@ -39465,7 +39617,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 235
+      "rank": 236
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_075256_59145",
@@ -39647,7 +39799,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 236
+      "rank": 237
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_65199",
@@ -39829,7 +39981,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 237
+      "rank": 238
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_095341_88197",
@@ -40011,7 +40163,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 238
+      "rank": 239
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_63430",
@@ -40193,7 +40345,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 239
+      "rank": 240
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_223427_44210",
@@ -40375,7 +40527,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 240
+      "rank": 241
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_202533_93353",
@@ -40557,7 +40709,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 241
+      "rank": 242
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_84583",
@@ -40739,7 +40891,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 242
+      "rank": 243
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_54821",
@@ -40921,7 +41073,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 243
+      "rank": 244
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_93159",
@@ -41103,7 +41255,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 244
+      "rank": 245
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_12682",
@@ -41285,7 +41437,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 245
+      "rank": 246
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_17725",
@@ -41467,7 +41619,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 246
+      "rank": 247
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_20125",
@@ -41649,7 +41801,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 247
+      "rank": 248
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_000005_91076",
@@ -41831,7 +41983,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 248
+      "rank": 249
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_78276",
@@ -42013,7 +42165,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 249
+      "rank": 250
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_67517",
@@ -42195,7 +42347,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 250
+      "rank": 251
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_164145_35056",
@@ -42377,7 +42529,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 251
+      "rank": 252
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_86718",
@@ -42559,7 +42711,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 252
+      "rank": 253
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_191953_73297",
@@ -42741,7 +42893,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 253
+      "rank": 254
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_140450_28642",
@@ -42923,7 +43075,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 254
+      "rank": 255
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_11888",
@@ -43105,7 +43257,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 255
+      "rank": 256
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_044351_93996",
@@ -43287,7 +43439,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 256
+      "rank": 257
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-14_090757_61798",
@@ -43469,7 +43621,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 257
+      "rank": 258
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_70212",
@@ -43651,7 +43803,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 258
+      "rank": 259
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_221851_42532",
@@ -43833,7 +43985,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 259
+      "rank": 260
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_025128_52254",
@@ -44015,7 +44167,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 260
+      "rank": 261
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_31633",
@@ -44197,7 +44349,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 261
+      "rank": 262
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_61564",
@@ -44379,7 +44531,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 262
+      "rank": 263
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_72885",
@@ -44561,7 +44713,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 263
+      "rank": 264
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_131353_19596",
@@ -44743,7 +44895,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 264
+      "rank": 265
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_36955",
@@ -44925,7 +45077,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 265
+      "rank": 266
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_17054",
@@ -45107,7 +45259,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 266
+      "rank": 267
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_084222_82068",
@@ -45289,7 +45441,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 267
+      "rank": 268
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_53504",
@@ -45471,7 +45623,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 268
+      "rank": 269
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_111715_65220",
@@ -45653,7 +45805,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 269
+      "rank": 270
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_131308_35722",
@@ -45835,7 +45987,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 270
+      "rank": 271
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_112503_26878",
@@ -46017,7 +46169,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 271
+      "rank": 272
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_234021_88540",
@@ -46199,7 +46351,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 272
+      "rank": 273
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_010741_58854",
@@ -46381,7 +46533,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 273
+      "rank": 274
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_24302",
@@ -46563,7 +46715,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 274
+      "rank": 275
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_30013",
@@ -46745,7 +46897,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 275
+      "rank": 276
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_111715_58334",
@@ -46927,7 +47079,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 276
+      "rank": 277
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-13_015930_43575",
@@ -47109,7 +47261,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 277
+      "rank": 278
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_075401_15918",
@@ -47271,7 +47423,7 @@
         "reactor_scale_arclength_variation": 0.04098110880109305,
         "reactor_scale_squared_flux": 0.03902100530043208
       },
-      "rank": 278
+      "rank": 279
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-25",
@@ -47421,7 +47573,7 @@
           "hard": false
         }
       ],
-      "rank": 279
+      "rank": 280
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_160947_30375",
@@ -47594,7 +47746,7 @@
           "hard": false
         }
       ],
-      "rank": 280
+      "rank": 281
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_224905_96753",
@@ -47756,7 +47908,7 @@
         "reactor_scale_arclength_variation": 0.13731812370309512,
         "reactor_scale_squared_flux": 1.0955838934734894
       },
-      "rank": 281
+      "rank": 282
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_085732_42374",
@@ -47918,7 +48070,7 @@
         "reactor_scale_arclength_variation": 0.022609849283632025,
         "reactor_scale_squared_flux": 0.009863157015347125
       },
-      "rank": 282
+      "rank": 283
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-08-2026_12-58",
@@ -48081,7 +48233,7 @@
           "hard": false
         }
       ],
-      "rank": 283
+      "rank": 284
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-08-2026_12-50",
@@ -48244,7 +48396,7 @@
           "hard": false
         }
       ],
-      "rank": 284
+      "rank": 285
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=7 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_224905_38232",
@@ -48426,7 +48578,7 @@
         "reactor_scale_arclength_variation": 0.1131806460049792,
         "reactor_scale_squared_flux": 0.5139581105226815
       },
-      "rank": 285
+      "rank": 286
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_210059_52360",
@@ -48588,7 +48740,7 @@
         "reactor_scale_arclength_variation": 0.09808667838519777,
         "reactor_scale_squared_flux": 0.33624528309103796
       },
-      "rank": 286
+      "rank": 287
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=6 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_002502_79438",
@@ -48760,7 +48912,7 @@
         "reactor_scale_arclength_variation": 0.01807494843681474,
         "reactor_scale_squared_flux": 0.006357450606326032
       },
-      "rank": 287
+      "rank": 288
     },
     {
       "method_key": ":muse.focus:akaptano:02-08-2026_12-50",
@@ -48927,7 +49079,7 @@
           "hard": false
         }
       ],
-      "rank": 288
+      "rank": 289
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_125251_68241",
@@ -49100,7 +49252,7 @@
           "hard": false
         }
       ],
-      "rank": 289
+      "rank": 290
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-27",
@@ -49250,7 +49402,7 @@
           "hard": false
         }
       ],
-      "rank": 290
+      "rank": 291
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_160947_38164",
@@ -49423,7 +49575,7 @@
           "hard": false
         }
       ],
-      "rank": 291
+      "rank": 292
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=4 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_091137_33258",
@@ -49586,7 +49738,7 @@
           "hard": false
         }
       ],
-      "rank": 292
+      "rank": 293
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-19",
@@ -49775,7 +49927,7 @@
           "hard": false
         }
       ],
-      "rank": 293
+      "rank": 294
     },
     {
       "method_key": ":cfqs_2b40:akaptano:02-08-2026_12-50",
@@ -49933,7 +50085,7 @@
           "hard": false
         }
       ],
-      "rank": 294
+      "rank": 295
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=4 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_085732_17542",
@@ -50096,7 +50248,7 @@
           "hard": false
         }
       ],
-      "rank": 295
+      "rank": 296
     },
     {
       "method_key": ":wout_schuetthenneberg_nfp2.nc:akaptano:02-08-2026_12-55",
@@ -50263,7 +50415,7 @@
           "hard": false
         }
       ],
-      "rank": 296
+      "rank": 297
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=4 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_224905_80616",
@@ -50426,7 +50578,7 @@
           "hard": false
         }
       ],
-      "rank": 297
+      "rank": 298
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=4 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_075401_75384",
@@ -50598,7 +50750,7 @@
           "hard": false
         }
       ],
-      "rank": 298
+      "rank": 299
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_210059_86634",
@@ -50771,7 +50923,7 @@
           "hard": false
         }
       ],
-      "rank": 299
+      "rank": 300
     },
     {
       "method_key": ":c09r00_B_axis_half_tesla_NCSX.focus:akaptano:02-08-2026_12-50",
@@ -50943,7 +51095,7 @@
           "hard": false
         }
       ],
-      "rank": 300
+      "rank": 301
     },
     {
       "method_key": ":HSX_QHS_mn1824_ns101:akaptano:02-08-2026_12-50",
@@ -51134,7 +51286,7 @@
           "hard": false
         }
       ],
-      "rank": 301
+      "rank": 302
     },
     {
       "method_key": ":LandremanPaul2021_QH_reactorScale_lowres:akaptano:02-08-2026_12-50",
@@ -51329,7 +51481,7 @@
           "hard": false
         }
       ],
-      "rank": 302
+      "rank": 303
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:02-08-2026_12-58",
@@ -51510,7 +51662,7 @@
           "hard": false
         }
       ],
-      "rank": 303
+      "rank": 304
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:02-08-2026_12-57",
@@ -51691,7 +51843,7 @@
           "hard": false
         }
       ],
-      "rank": 304
+      "rank": 305
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=5 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_224905_37403",
@@ -51864,7 +52016,7 @@
           "hard": false
         }
       ],
-      "rank": 305
+      "rank": 306
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=7 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-15_160947_61883",
@@ -52057,7 +52209,7 @@
           "hard": false
         }
       ],
-      "rank": 306
+      "rank": 307
     }
   ],
   "excluded_entries": [
@@ -55013,6 +55165,216 @@
           "bound": 0.0,
           "direction": "min",
           "units": "m",
+          "hard": true
+        }
+      ]
+    },
+    {
+      "method_key": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=7 order=4:LandremanPaul2021_QH_reactorScale_lowres:auto:2026-02-16_102518_98158",
+      "method_name": "Exploration case: input.LandremanPaul2021_QH_reactorScale_lowres ncoils=7 order=4",
+      "method_version": "2026-02-16_102518_98158",
+      "composite_score": 0.0,
+      "score_primary": 0.0003287487893451719,
+      "run_date": "2026-02-16T12:37:56.509987",
+      "contact": "auto",
+      "hardware": "CPU: self-hosted runner",
+      "path": "submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_102518_98158/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 8.0,
+        "initial_B_field": 0.0038736708265179973,
+        "final_B_field": 0.004037836329501041,
+        "target_B_field": 5.7,
+        "optimization_time": 1953.9289178848267,
+        "final_squared_flux": 0.0003287487893451719,
+        "final_min_cs_separation": 1.883520402634741,
+        "final_min_cc_separation": 1.5416243564693088,
+        "final_total_length": 117.48825891572979,
+        "final_max_curvature": 0.7950169184620496,
+        "final_average_curvature": 0.4948247267877128,
+        "final_arclength_variation": 0.004794143379480492,
+        "final_mean_squared_curvature": 0.6320119049095108,
+        "final_linking_number": 0.0,
+        "coils_linked_to_surface": 0.0,
+        "final_max_max_coil_force": 301328796.59527045,
+        "final_avg_max_coil_force": 48231139.162589155,
+        "final_max_max_coil_torque": 53559099.99216155,
+        "final_avg_max_coil_torque": 10270917.238765253,
+        "avg_BdotN_over_B": 0.30599665207779464,
+        "max_BdotN_over_B": 0.9876514459444002,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 1.552,
+        "cs_threshold": 1.893,
+        "msc_threshold": 0.837,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 0.773,
+        "force_threshold": 200.0,
+        "torque_threshold": 200.0,
+        "fourier_order": 8.0,
+        "continuation_step": 2.0,
+        "BdotN": 0.0005876934794802435,
+        "BdotN_over_B": 0.3059347125465867,
+        "coil_order": 4.0,
+        "num_coils": 7.0,
+        "fourier_continuation_orders": "4,8",
+        "score_primary": 0.0003287487893451719
+      },
+      "reactor_scale_metrics": {
+        "reference": {
+          "major_radius": 7.5,
+          "B_field": 5.7,
+          "description": "ARIES-CS reactor-scale reference"
+        },
+        "scaling_factors": {
+          "length_scale": 0.9974030980329254,
+          "B_field_scale": 1.0,
+          "device_major_radius": 13.635429024906692,
+          "device_target_B": 5.7
+        },
+        "reactor_scale_min_cs_separation": 1.8786290847961136,
+        "reactor_scale_min_cc_separation": 1.5376209091455035,
+        "reactor_scale_total_length": 117.18315342504336,
+        "reactor_scale_max_curvature": 0.7970868749354989,
+        "reactor_scale_average_curvature": 0.496113083831005,
+        "reactor_scale_mean_squared_curvature": 0.6353072819210778,
+        "reactor_scale_max_max_coil_force": 300.5462752506559,
+        "reactor_scale_avg_max_coil_force": 48.10588762242357,
+        "reactor_scale_max_max_coil_torque": 53.28128572511791,
+        "reactor_scale_avg_max_coil_torque": 10.217641374440218,
+        "reactor_scale_force_per_coil_MN_per_m": [
+          1.0190382510978383e-05,
+          0.0001046325781351824,
+          5.610125166078258e-05,
+          0.023943315777000047,
+          8.705916275847194e-05,
+          36.17073680715703,
+          300.5462752506559
+        ],
+        "N_turns_per_coil": [
+          1,
+          1,
+          1,
+          7,
+          1,
+          258,
+          721
+        ],
+        "N_turns_force": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          73,
+          602
+        ],
+        "N_turns_jc": [
+          1,
+          1,
+          1,
+          7,
+          1,
+          258,
+          721
+        ],
+        "force_limit_MN_per_m": 0.5,
+        "jc_model": {
+          "NI_reactor": [
+            3084.965198825638,
+            13599.329704676375,
+            4126.872062391275,
+            307410.5712072542,
+            2281.6613278571467,
+            12893558.936442792,
+            36017011.962433785
+          ],
+          "I_turn": [
+            50000.0,
+            50000.0,
+            50000.0,
+            50000.0,
+            50000.0,
+            50000.0,
+            50000.0
+          ],
+          "B_peak_estimate": [
+            0.004294212871287773,
+            0.01000213646772336,
+            0.01767237415078912,
+            0.10125322101924371,
+            0.04960285306334449,
+            3.6469339521456465,
+            10.847933699590866
+          ],
+          "jc_tape_stack_A_per_m2": [
+            4997318935.772081,
+            4994255349.679109,
+            4990408087.025581,
+            4954022439.870763,
+            4975738718.183173,
+            4047695264.837612,
+            3069527242.8767676
+          ],
+          "Ic_cable_A": [
+            179903.48168779493,
+            179793.1925884479,
+            179654.69113292094,
+            178344.80783534746,
+            179126.59385459425,
+            145717.02953415405,
+            110502.98074356363
+          ],
+          "params": {
+            "T_op_K": 20.0,
+            "eta": 0.8,
+            "I_lead_max_A": 50000.0,
+            "A_HTS_m2": 3.6e-05,
+            "wp_enhancement": 1.3
+          }
+        },
+        "winding_pack_width_per_coil": [
+          0.02,
+          0.02,
+          0.02,
+          0.052915026221291815,
+          0.02,
+          0.3212475680841802,
+          0.5370288632839021
+        ],
+        "max_winding_pack_width": 0.5370288632839021,
+        "finite_build_cc_clearance": 1.0005920458616013,
+        "per_turn_max_force": 0.41684642891907897,
+        "per_turn_max_torque": 0.0738991480237419,
+        "total_superconductor_length_km": 7.866113391395676,
+        "reactor_scale_arclength_variation": 0.004769275869957976,
+        "reactor_scale_squared_flux": 0.00032704354963862764
+      },
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.30599665207779464,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        },
+        {
+          "label": "Max turns per coil (N_turns \u2264 500)",
+          "metric": "N_turns_per_coil",
+          "value": 721,
+          "bound": 500,
+          "direction": "max",
+          "units": "(turns)",
           "hard": true
         }
       ]
