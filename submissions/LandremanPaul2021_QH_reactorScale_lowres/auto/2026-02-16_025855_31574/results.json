@@ -4,7 +4,7 @@
     "contact": "auto",
     "hardware": "CPU: self-hosted runner",
     "notes": "Autopilot case 2026-02-16_025855_31574",
-    "run_date": "2026-02-16T03:02:59.111894"
+    "run_date": "2026-02-16T04:04:12.585389"
   },
   "version_info": {
     "stellcoilbench_commit": "f1b84ba3f959aa855e69c6112f59404c730caa03",
@@ -24,8 +24,8 @@
         "initial_B_field": 5.699953102064443,
         "final_B_field": 7.920623427351407,
         "target_B_field": 5.7,
-        "optimization_time": 87.57009220123291,
-        "walltime_sec": 87.57009220123291,
+        "optimization_time": 87.567312002182,
+        "walltime_sec": 87.567312002182,
         "iterations_used": 500,
         "final_squared_flux": 0.8934963073746758,
         "_cached_thresholds": {
@@ -98,11 +98,11 @@
         "force_threshold": 200.0,
         "torque_threshold": 200.0,
         "timing": {
-          "coil_initialization": 0.3833737918175757,
-          "biotsavart_setup": 3.393364833202213,
-          "objective_setup": 0.040112207643687725,
-          "coil_optimization": 87.57023329194635,
-          "save_and_metrics": 3.333870125003159
+          "coil_initialization": 0.36387679167091846,
+          "biotsavart_setup": 3.3710653339512646,
+          "objective_setup": 0.031956749968230724,
+          "coil_optimization": 87.56744224997237,
+          "save_and_metrics": 3.428346000146121
         },
         "fourier_order": 4,
         "continuation_step": 1
@@ -111,8 +111,8 @@
         "initial_B_field": 7.920772127406634,
         "final_B_field": 10.48861666586699,
         "target_B_field": 5.7,
-        "optimization_time": 69.58940005302429,
-        "walltime_sec": 69.58940005302429,
+        "optimization_time": 69.65057897567749,
+        "walltime_sec": 69.65057897567749,
         "iterations_used": 500,
         "final_squared_flux": 2.291833228221708,
         "_cached_thresholds": {
@@ -185,11 +185,11 @@
         "force_threshold": 200.0,
         "torque_threshold": 200.0,
         "timing": {
-          "coil_initialization": 6.672926247119904e-07,
-          "biotsavart_setup": 3.350455416366458,
-          "objective_setup": 0.004952624905854464,
-          "coil_optimization": 69.58950458327308,
-          "save_and_metrics": 3.5124111250042915
+          "coil_initialization": 5.825422704219818e-07,
+          "biotsavart_setup": 3.393339166883379,
+          "objective_setup": 0.004959708079695702,
+          "coil_optimization": 69.65068358322605,
+          "save_and_metrics": 3.512281666044146
         },
         "fourier_order": 8,
         "continuation_step": 2
@@ -198,7 +198,7 @@
     "initial_B_field": 7.920772127406634,
     "final_B_field": 10.48861666586699,
     "target_B_field": 5.7,
-    "optimization_time": 69.58940005302429,
+    "optimization_time": 69.65057897567749,
     "final_squared_flux": 2.291833228221708,
     "_cached_thresholds": {
       "length_threshold": 127.36,
@@ -269,11 +269,11 @@
     "force_threshold": 200.0,
     "torque_threshold": 200.0,
     "timing": {
-      "coil_initialization": 6.672926247119904e-07,
-      "biotsavart_setup": 3.350455416366458,
-      "objective_setup": 0.004952624905854464,
-      "coil_optimization": 69.58950458327308,
-      "save_and_metrics": 3.5124111250042915
+      "coil_initialization": 5.825422704219818e-07,
+      "biotsavart_setup": 3.393339166883379,
+      "objective_setup": 0.004959708079695702,
+      "coil_optimization": 69.65068358322605,
+      "save_and_metrics": 3.512281666044146
     },
     "fourier_order": 8,
     "continuation_step": 2,
