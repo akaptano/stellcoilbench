@@ -465,7 +465,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - 4.2e+05
      - 1.9e+05
      - 0
-     - 6.8e+01
+     - 6.9e+01
      - 3.5e+00
      - —
      - —
