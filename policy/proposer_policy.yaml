@@ -30,7 +30,7 @@ mutation:
 # Use continuation with orders 4, 8, 16 for better convergence
 fourier_continuation:
   enabled: true
-  orders: [4, 8]
+  orders: [4, 8, 16]
 
 # --- Exploration parameters ---
 # Thresholds are sampled from log-uniform ranges to create solution diversity.
