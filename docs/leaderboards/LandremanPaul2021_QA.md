@@ -3598,7 +3598,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">1.7e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.8e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">5.9e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
