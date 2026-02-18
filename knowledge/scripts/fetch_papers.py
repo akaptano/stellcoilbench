@@ -267,7 +267,7 @@ def fetch_from_arxiv(
     output_dir: Path,
     max_per_query: int = 15,
     delay_seconds: float = 3.0,
-    min_year: int | None = 2010,
+    min_year: int | None = 1990,
     title_filter: bool = True,
 ) -> list[dict[str, Any]]:
     """Search arXiv for stellarator-related papers and download their PDFs.
@@ -377,7 +377,7 @@ def fetch_from_semantic_scholar(
     output_dir: Path,
     max_per_query: int = 10,
     unpaywall_email: str | None = None,
-    min_year: int | None = 2010,
+    min_year: int | None = 1990,
     existing_arxiv_ids: set[str] | None = None,
     title_filter: bool = True,
 ) -> list[dict[str, Any]]:
