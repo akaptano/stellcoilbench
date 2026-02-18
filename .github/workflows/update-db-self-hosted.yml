@@ -347,8 +347,21 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Pull latest and check PAUSE_AUTORUN
+        id: pause_check
+        shell: bash
+        run: |
+          git pull origin main
+          if [ -f PAUSE_AUTORUN ]; then
+            echo "PAUSE_AUTORUN exists — skipping case execution for this run."
+            echo "paused=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "paused=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check for pending cases
         id: pending
+        if: steps.pause_check.outputs.paused != 'true'
         shell: bash
         run: |
           shopt -s nullglob
@@ -363,7 +376,7 @@ jobs:
 
       - name: Run autopilot cases
         id: run
-        if: steps.pending.outputs.has_pending == 'true'
+        if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
         shell: bash
         env:
           MPLBACKEND: Agg
@@ -547,7 +560,7 @@ jobs:
           done
 
       - name: Commit autopilot results and update leaderboard
-        if: always() && steps.pending.outputs.has_pending == 'true'
+        if: always() && steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
         shell: bash
         run: |
           git config --local user.email "action@github.com"
