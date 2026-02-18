@@ -1,0 +1,13 @@
+# Desktop KB dependencies
+# pip install -r knowledge/requirements.txt
+
+fastapi>=0.100.0
+uvicorn>=0.22.0
+psycopg[binary]>=3.1.0
+qdrant-client>=1.7.0
+sentence-transformers>=2.2.0
+# LLM (optional, for /brief and /propose)
+openai>=1.0.0
+# PDF fetch (for fetch_papers.py)
+arxiv>=2.0.0
+requests>=2.28.0

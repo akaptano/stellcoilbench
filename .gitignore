@@ -48,6 +48,8 @@ htmlcov/
 
 # Project specific
 submissions/
+knowledge/papers/*.pdf
+knowledge/*.sqlite
 coils_runs/
 *.vtu
 *.vts

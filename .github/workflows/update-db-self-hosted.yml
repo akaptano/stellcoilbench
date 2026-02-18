@@ -546,6 +546,17 @@ jobs:
             [ -f "$f" ] && echo "=== $f ===" && cat "$f"
           done
 
+      - name: Ingest runs to KB
+        if: always() && steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        run: |
+          # Ingest summaries into local KB (best-effort; skip if KB not running)
+          for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
+            [ -f "$p/etc/profile.d/conda.sh" ] && source "$p/etc/profile.d/conda.sh" && break
+          done
+          conda activate $CONDA_ENV
+          python knowledge/scripts/kb_updater.py --no-pull --kb-url http://127.0.0.1:8000 2>/dev/null || echo "KB ingest skipped (KB server may not be running)"
+
       - name: Commit autopilot results and update leaderboard
         if: always() && steps.pending.outputs.has_pending == 'true'
         shell: bash
@@ -639,6 +650,8 @@ jobs:
             --done-dir cases/done \
             --pending-dir cases/pending \
             --policy policy/proposer_policy.yaml
+        env:
+          KB_URL: http://127.0.0.1:8000
 
       - name: Commit proposed cases
         shell: bash

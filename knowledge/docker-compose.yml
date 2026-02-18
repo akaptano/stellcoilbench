@@ -1,0 +1,28 @@
+# Desktop KB: Postgres + Qdrant
+# Run: docker compose -f knowledge/docker-compose.yml up -d
+# Stop: docker compose -f knowledge/docker-compose.yml down
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kb
+      POSTGRES_PASSWORD: kb
+      POSTGRES_DB: stellcoilbench_kb
+    ports:
+      - "5432:5432"
+    volumes:
+      - kb_postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - kb_qdrant_data:/qdrant/storage
+
+volumes:
+  kb_postgres_data:
+  kb_qdrant_data:

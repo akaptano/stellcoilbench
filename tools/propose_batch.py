@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import os
 import hashlib
 import json
 import math
@@ -31,6 +32,7 @@ import yaml
 
 # --- sibling imports (when run as script, add parent to path) ---
 _REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_REPO_ROOT))
 sys.path.insert(0, str(_REPO_ROOT / "src"))
 sys.path.insert(0, str(_REPO_ROOT / "tools"))
 
@@ -470,6 +472,222 @@ def propose_batch(
 
 
 # ---------------------------------------------------------------------------
+# LLM proposer: apply mutation actions from KB /propose
+# ---------------------------------------------------------------------------
+
+
+def apply_llm_action(
+    action: Dict[str, Any],
+    ctx: Dict[str, Any],
+    policy: Dict[str, Any],
+    rng: _random.Random,
+) -> Dict[str, Any] | None:
+    """Convert one LLM mutation/exploration action to a CI case dict.
+
+    Supports two action types:
+    - "mutate": Clone a parent from top_parents and apply overrides (surface,
+      ncoils, order, thresholds). Parent must exist in context.
+    - "explore": Create a new exploration case with surface, ncoils, order,
+      and optional thresholds. Surface must be in policy's allowed list.
+
+    Parameters
+    ----------
+    action : dict
+        LLM output: {"type": "mutate"|"explore", "parent_id": "...", "overrides": {...}}
+        or {"type": "explore", "surface": "...", "ncoils": 4, "order": 8, ...}.
+    ctx : dict
+        Build context with top_parents.
+    policy : dict
+        Proposer policy for resource caps, fourier_continuation, etc.
+    rng : Random
+        Seeded random for case_id and random_seed.
+
+    Returns
+    -------
+    dict | None
+        Valid CI case dict, or None if action is invalid or parent not found.
+    """
+    action_type = action.get("type", "")
+    if action_type == "mutate":
+        parent_id = action.get("parent_id", "")
+        overrides = action.get("overrides", {})
+        parents = {p.get("case_id"): p for p in ctx.get("top_parents", [])}
+        parent = parents.get(parent_id)
+        if not parent:
+            return None
+        child_cfg = copy.deepcopy(parent.get("case_config", {}))
+        # Apply overrides
+        if "surface" in overrides:
+            sp = child_cfg.setdefault("surface_params", {})
+            sp["surface"] = overrides["surface"]
+        if "ncoils" in overrides:
+            cp = child_cfg.setdefault("coils_params", {})
+            cp["ncoils"] = int(overrides["ncoils"])
+        if "order" in overrides:
+            cp = child_cfg.setdefault("coils_params", {})
+            cp["order"] = int(overrides["order"])
+        obj = child_cfg.get("coil_objective_terms") or {}
+        for k in ["cc_threshold", "cs_threshold", "curvature_threshold", "msc_threshold",
+                   "length_threshold", "flux_threshold", "force_threshold", "torque_threshold"]:
+            if k in overrides and isinstance(overrides[k], (int, float)):
+                obj[k] = overrides[k]
+        child_cfg["coil_objective_terms"] = obj
+        child_cfg["description"] = f"LLM mutate: {parent_id}"
+        opt = child_cfg.get("optimizer_params", {})
+        opt["algorithm"] = "augmented_lagrangian"
+        opt["verbose"] = True
+        mut = policy.get("mutation", {})
+        opt["max_iterations"] = mut.get("max_iterations", 500)
+        child_cfg["optimizer_params"] = opt
+        fc = policy.get("fourier_continuation", {})
+        if fc and fc.get("enabled") and fc.get("orders"):
+            child_cfg["fourier_continuation"] = {"enabled": True, "orders": list(fc["orders"])}
+        caps = policy.get("resource_caps", {})
+        case = {
+            "case_id": _new_case_id(),
+            "parent_ids": [parent_id],
+            "tags": ["exploit", "llm"],
+            "resource": {
+                "max_total_iterations": min(opt.get("max_iterations", 500), caps.get("max_total_iterations", 10000)),
+                "timeout_minutes": caps.get("timeout_minutes_max", 60),
+            },
+            "case_config": child_cfg,
+            "random_seed": rng.randint(0, 2**31 - 1),
+        }
+        return case
+
+    if action_type == "explore":
+        surface = action.get("surface")
+        ncoils = action.get("ncoils", 4)
+        order = action.get("order", 8)
+        thresholds = action.get("thresholds", {})
+        expl = policy.get("exploration", {})
+        surfaces = expl.get("surfaces", ["input.LandremanPaul2021_QA"])
+        if surface not in surfaces:
+            surface = surfaces[0] if surfaces else "input.LandremanPaul2021_QA"
+        coil_objective_terms: Dict[str, Any] = {
+            "total_length": "l2_threshold",
+            "coil_curvature": "lp_threshold",
+            "coil_curvature_p": 2,
+            "coil_mean_squared_curvature": "l2_threshold",
+            "coil_arclength_variation": "l2_threshold",
+            "linking_number": "",
+        }
+        for k, v in thresholds.items():
+            if isinstance(v, (int, float)):
+                coil_objective_terms[k] = v
+        max_iterations = expl.get("max_iterations", 500)
+        case_config: Dict[str, Any] = {
+            "description": f"LLM explore: {surface} ncoils={ncoils} order={order}",
+            "surface_params": {"surface": surface, "range": "half period"},
+            "coils_params": {"ncoils": int(ncoils), "order": int(order)},
+            "optimizer_params": {"algorithm": "augmented_lagrangian", "max_iterations": max_iterations, "verbose": True},
+            "coil_objective_terms": coil_objective_terms,
+        }
+        fc = policy.get("fourier_continuation", {})
+        if fc and fc.get("enabled") and fc.get("orders"):
+            case_config["fourier_continuation"] = {"enabled": True, "orders": list(fc["orders"])}
+        caps = policy.get("resource_caps", {})
+        case = {
+            "case_id": _new_case_id(),
+            "parent_ids": [],
+            "tags": ["explore", "llm"],
+            "resource": {
+                "max_total_iterations": min(max_iterations, caps.get("max_total_iterations", 10000)),
+                "timeout_minutes": caps.get("timeout_minutes_max", 60),
+            },
+            "case_config": case_config,
+            "random_seed": rng.randint(0, 2**31 - 1),
+        }
+        return case
+
+    return None
+
+
+def propose_batch_llm(
+    ctx: Dict[str, Any],
+    policy: Dict[str, Any],
+    kb_url: str,
+    kb_token: str | None,
+    batch_size: int = 8,
+    seed: int | None = None,
+) -> List[Dict[str, Any]]:
+    """Propose a batch of cases using the KB's LLM-powered /propose endpoint.
+
+    Calls the Knowledge Base server to generate mutation/exploration actions
+    via an LLM, then converts each action to a validated CI case. Falls back
+    to the rule-based proposer if the KB is unreachable, the LLM returns an
+    error, or not enough valid cases are produced.
+
+    Parameters
+    ----------
+    ctx : dict
+        Build context from build_context().
+    policy : dict
+        Proposer policy.
+    kb_url : str
+        KB server base URL (e.g. http://localhost:8000).
+    kb_token : str | None
+        Bearer token for KB auth; None for local/unauthenticated KB.
+    batch_size : int, optional
+        Number of cases to propose (default 8).
+    seed : int | None, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    list[dict]
+        List of validated CI case dicts ready for cases/pending/.
+    """
+    try:
+        from knowledge.services.kb_client import KBClient
+        client = KBClient(base_url=kb_url, token=kb_token)
+        resp = client.propose(context=ctx, policy=policy, batch_size=batch_size)
+    except Exception as e:
+        print(f"KB propose failed: {e}. Falling back to rule-based proposer.", file=sys.stderr)
+        return propose_batch(ctx, policy, batch_size=batch_size, seed=seed)
+
+    actions = resp.get("actions", [])
+    if resp.get("error"):
+        print(f"LLM propose error: {resp['error']}. Falling back to rule-based.", file=sys.stderr)
+        return propose_batch(ctx, policy, batch_size=batch_size, seed=seed)
+
+    if not actions:
+        return propose_batch(ctx, policy, batch_size=batch_size, seed=seed)
+
+    rng = _rng(seed)
+    recent_hashes = set(ctx.get("recent_config_hashes", []))
+    cases: List[Dict[str, Any]] = []
+    seen_hashes: set = set()
+
+    for action in actions[:batch_size]:
+        case = apply_llm_action(action, ctx, policy, rng)
+        if not case:
+            continue
+        h = _config_hash_short(case.get("case_config", {}))
+        if h in recent_hashes or h in seen_hashes:
+            continue
+        errors = validate_ci_case(case, policy=policy)
+        if errors:
+            continue
+        seen_hashes.add(h)
+        cases.append(case)
+
+    # Fill remainder with rule-based if LLM didn't produce enough
+    if len(cases) < batch_size:
+        extra = propose_batch(ctx, policy, batch_size=batch_size - len(cases), seed=seed)
+        for c in extra:
+            h = _config_hash_short(c.get("case_config", {}))
+            if h not in seen_hashes:
+                seen_hashes.add(h)
+                cases.append(c)
+                if len(cases) >= batch_size:
+                    break
+
+    return cases[:batch_size]
+
+
+# ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
 
@@ -499,6 +717,18 @@ def main() -> int:  # pragma: no cover
         "--dry-run", action="store_true",
         help="Print proposed cases to stdout without writing files."
     )
+    parser.add_argument(
+        "--kb-url", type=str, default=None,
+        help="KB base URL for cloud context (e.g. https://kb.example.com)."
+    )
+    parser.add_argument(
+        "--kb-token", type=str, default=None,
+        help="Bearer token for KB API (or set KB_TOKEN env var)."
+    )
+    parser.add_argument(
+        "--llm", action="store_true",
+        help="Use LLM proposer (KB POST /propose). Requires --kb-url."
+    )
     args = parser.parse_args()
 
     # ---- check PAUSE_AUTORUN ----
@@ -507,9 +737,9 @@ def main() -> int:  # pragma: no cover
         print("PAUSE_AUTORUN file exists. Exiting without proposing.", file=sys.stderr)
         return 0
 
-    # ---- barrier check: pending must be empty ----
+    # ---- barrier check: pending must be empty (skip for dry-run) ----
     pending = args.pending_dir
-    if pending.is_dir() and any(pending.glob("*.json")):
+    if not args.dry_run and pending.is_dir() and any(pending.glob("*.json")):
         print(
             "Pending directory is not empty. Waiting for current batch to finish.",
             file=sys.stderr,
@@ -523,7 +753,14 @@ def main() -> int:  # pragma: no cover
     policy = yaml.safe_load(args.policy.read_text())
 
     # ---- build context ----
-    ctx = build_context(args.done_dir, args.policy)
+    kb_url = args.kb_url or os.environ.get("KB_URL")
+    kb_token = args.kb_token or os.environ.get("KB_TOKEN")
+    ctx = build_context(
+        args.done_dir,
+        args.policy,
+        kb_url=kb_url,
+        kb_token=kb_token,
+    )
 
     # ---- guardrails ----
     should_stop, reason = check_guardrails(ctx, policy)
@@ -536,9 +773,23 @@ def main() -> int:  # pragma: no cover
         return 0
 
     # ---- propose ----
-    cases = propose_batch(ctx, policy, batch_size=args.batch_size, seed=args.seed)
+    kb_url = args.kb_url or os.environ.get("KB_URL")
+    kb_token = args.kb_token or os.environ.get("KB_TOKEN")
+    if args.llm:
+        if not kb_url:
+            print("ERROR: --llm requires --kb-url (or KB_URL env)", file=sys.stderr)
+            return 1
+        cases = propose_batch_llm(ctx, policy, kb_url, kb_token, batch_size=args.batch_size, seed=args.seed)
+    else:
+        cases = propose_batch(ctx, policy, batch_size=args.batch_size, seed=args.seed)
 
     if args.dry_run:
+        if args.llm:
+            print("Proposer: LLM (KB /propose)", file=sys.stderr)
+        elif ctx.get("kb_enriched"):
+            print("KB enriched: yes (context from KB server)", file=sys.stderr)
+        elif kb_url or os.environ.get("KB_URL"):
+            print("KB enriched: no (using local summaries)", file=sys.stderr)
         print(json.dumps(cases, indent=2))
         return 0
 

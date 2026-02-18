@@ -1,6 +1,7 @@
 # src/stellcoilbench/cli.py
 from __future__ import annotations
 
+import hashlib
 import json
 import platform
 import subprocess
@@ -690,6 +691,48 @@ class NumpyJSONEncoder(json.JSONEncoder):
             return str(o)
         return super().default(o)
 
+
+def _print_submission_summary(submission: dict) -> None:
+    """Print a clearly formatted summary of the submission results."""
+    typer.echo("")
+    typer.echo("=" * 60)
+    typer.echo("  OPTIMIZATION RESULTS SUMMARY")
+    typer.echo("=" * 60)
+    typer.echo("")
+    meta = submission.get("metadata", {})
+    typer.echo("  Metadata:")
+    for k, v in meta.items():
+        typer.echo(f"    {k}: {v}")
+    typer.echo("")
+    metrics = submission.get("metrics", {})
+    if metrics:
+        typer.echo("  Metrics:")
+        for k, v in sorted(metrics.items()):
+            if isinstance(v, (int, float)):
+                av = abs(float(v))
+                fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)
+                typer.echo(f"    {k}: {fmt}")
+            else:
+                typer.echo(f"    {k}: {v}")
+        typer.echo("")
+    rs = submission.get("reactor_scale_metrics", {})
+    if rs:
+        typer.echo("  Reactor-scale metrics:")
+        for k, v in sorted(rs.items()):
+            if isinstance(v, (int, float)):
+                av = abs(float(v))
+                fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)
+                typer.echo(f"    {k}: {fmt}")
+            elif isinstance(v, (list, tuple)) and len(v) <= 8:
+                typer.echo(f"    {k}: {v}")
+            elif not isinstance(v, (dict, list)):
+                typer.echo(f"    {k}: {v}")
+        typer.echo("")
+    typer.echo("  Full JSON written to results.json")
+    typer.echo("=" * 60)
+    typer.echo("")
+
+
 app = typer.Typer(help="StellCoilBench: benchmarking framework for stellarator coil optimization.")
 
 
@@ -1091,6 +1134,7 @@ def submit_case(
     submission_path = submission_dir / "results.json"
     submission_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote submission results to {submission_path}")
+    _print_submission_summary(submission)
     
     # Copy case.yaml file to submission directory for reference
     # Also add source_case_file field to track which case file was used
@@ -1219,6 +1263,7 @@ def run_case(
     results_out.parent.mkdir(parents=True, exist_ok=True)
     results_out.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
     typer.echo(f"Wrote evaluation results to {results_out}")
+    _print_submission_summary(submission)
 
 
 @app.command("run-ci-case")
@@ -1349,6 +1394,8 @@ def run_ci_case(
             "walltime_sec": round(walltime, 2),
             "failure_reason": "",
             "failure_class": "",
+            "config_hash": _config_hash(case_config_dict),
+            "margins": _compute_margins(metrics),
             "metrics": metrics,
             "case_config": case_config_dict,
         }
@@ -1370,7 +1417,9 @@ def run_ci_case(
             "iterations_used": 0,
             "walltime_sec": round(wall_end - wall_start, 2),
             "failure_reason": str(exc),
-            "failure_class": type(exc).__name__,
+            "failure_class": _canonical_failure_class(exc),
+            "config_hash": _config_hash(case_config_dict),
+            "margins": {},
             "metrics": {},
             "case_config": case_config_dict,
         }
@@ -1505,6 +1554,67 @@ def _write_autopilot_submission(
     typer.echo(f"Wrote submission to {sub_path}")
 
 
+def _config_hash(cfg: dict) -> str:
+    """Deterministic hash of case_config for KB dedup and novelty checking."""
+    canonical = json.dumps(cfg, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode()).hexdigest()[:16]
+
+
+def _canonical_failure_class(exc: BaseException) -> str:
+    """Map raw exception to canonical failure_class for KB queryability."""
+    name = type(exc).__name__
+    msg = str(exc).lower()
+    if "timeout" in msg or "timed out" in msg or name == "TimeoutError":
+        return "timeout"
+    if "nan" in msg or "inf" in msg or name in ("ValueError", "FloatingPointError"):
+        return "nan_in_objective"
+    if "vmec" in msg or "VMEC" in name:
+        return "vmec_nonconverged"
+    if "line search" in msg or "linesearch" in msg or "trust region" in msg:
+        return "line_search_fail"
+    if "sep" in msg or "separation" in msg or "min_sep" in msg:
+        return "min_sep_violation"
+    if "validation" in msg:
+        return "validation"
+    return "unknown"
+
+
+def _compute_margins(metrics: dict) -> dict:
+    """Compute constraint margins from metrics vs thresholds (positive = satisfied)."""
+    margins: dict = {}
+    # cc: separation >= threshold → margin = actual - threshold
+    if "final_min_cc_separation" in metrics and "cc_threshold" in metrics:
+        margins["cc"] = float(metrics["final_min_cc_separation"]) - float(
+            metrics["cc_threshold"]
+        )
+    if "final_min_cs_separation" in metrics and "cs_threshold" in metrics:
+        margins["cs"] = float(metrics["final_min_cs_separation"]) - float(
+            metrics["cs_threshold"]
+        )
+    # msc, curvature, flux, force, torque: value <= threshold → margin = threshold - value
+    if "final_mean_squared_curvature" in metrics and "msc_threshold" in metrics:
+        margins["msc"] = float(metrics["msc_threshold"]) - float(
+            metrics["final_mean_squared_curvature"]
+        )
+    if "final_max_curvature" in metrics and "curvature_threshold" in metrics:
+        margins["curvature"] = float(metrics["curvature_threshold"]) - float(
+            metrics["final_max_curvature"]
+        )
+    if "final_squared_flux" in metrics and "flux_threshold" in metrics:
+        margins["flux"] = float(metrics["flux_threshold"]) - float(
+            metrics["final_squared_flux"]
+        )
+    if "final_max_max_coil_force" in metrics and "force_threshold" in metrics:
+        margins["force"] = float(metrics["force_threshold"]) - float(
+            metrics["final_max_max_coil_force"]
+        )
+    if "final_max_max_coil_torque" in metrics and "torque_threshold" in metrics:
+        margins["torque"] = float(metrics["torque_threshold"]) - float(
+            metrics["final_max_max_coil_torque"]
+        )
+    return margins
+
+
 def _write_ci_summary(
     path: Path,
     *,
@@ -1517,8 +1627,12 @@ def _write_ci_summary(
     total_score: float = float("inf"),
     iterations_used: int = 0,
     walltime_sec: float = 0.0,
+    config_hash: str | None = None,
+    margins: dict | None = None,
 ) -> None:
     """Helper to write a CI summary JSON (success or failure)."""
+    cfg = case_config or {}
+    m = metrics or {}
     summary = {
         "case_id": case_id,
         "success": success,
@@ -1527,8 +1641,10 @@ def _write_ci_summary(
         "walltime_sec": walltime_sec,
         "failure_reason": failure_reason,
         "failure_class": failure_class,
-        "metrics": metrics or {},
-        "case_config": case_config or {},
+        "config_hash": config_hash or _config_hash(cfg),
+        "margins": margins if margins is not None else _compute_margins(m),
+        "metrics": m,
+        "case_config": cfg,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(summary, indent=2))

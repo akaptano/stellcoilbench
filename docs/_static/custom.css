@@ -167,6 +167,20 @@ body {
     }
 }
 
+/* Leaderboard table wrapper: scrollable, top 10 visible initially */
+.leaderboard-table-wrapper {
+  max-height: 420px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+}
+.leaderboard-table-wrapper .sortable {
+  cursor: pointer;
+  user-select: none;
+}
+.leaderboard-table-wrapper .sortable:hover {
+  background: #f0f0f0;
+}
+
 /* Style for leaderboard tables specifically - make them more compact */
 /* Data rows - smaller for numbers */
 .rst-content section[id*="leaderboard"] table.docutils td,

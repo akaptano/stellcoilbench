@@ -3490,48 +3490,96 @@ def write_surface_leaderboards(
             lines.append("")
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
-            # Build header (compact)
+            # Build header (compact) with sortable columns
             header_cols = ["#", "Score", "User", "Date"]
             # Add metric shorthands
             header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
+            safe_id = surface_name.replace(".", "_").replace(" ", "_")
+            table_id = f"leaderboard-{safe_id}"
+            wrapper_id = f"leaderboard-wrapper-{safe_id}"
             
-            # Use HTML table with inline styles for smaller font
-            lines.append('<table style="font-size: 0.85em;">')
+            # Scrollable wrapper: max-height ~10 rows, overflow for scroll
+            lines.append('<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+            lines.append(f'<div id="{wrapper_id}" class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
+            lines.append('<table id="' + table_id + '" class="leaderboard-sortable" style="font-size: 0.85em;">')
             lines.append("<thead>")
             lines.append("<tr>")
-            for col in header_cols:
-                lines.append(f'<th style="font-size: 0.9em; padding: 4px 8px;">{col}</th>')
+            for ci, col in enumerate(header_cols):
+                lines.append(
+                    f'<th class="sortable" data-col="{ci}" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">'
+                    f'{col} <span class="sort-icon">↕</span></th>'
+                )
             lines.append("</tr>")
             lines.append("</thead>")
             lines.append("<tbody>")
             
-            # Data rows
+            # Data rows with data-sort-value for sorting
             for entry in entries:
                 metrics = entry.get("metrics", {})
-                
                 run_date = _format_date(entry.get("run_date", "_unknown_"))
-                
+                run_date_raw = entry.get("run_date", "")  # ISO format for sort
                 cs = entry.get("composite_score")
                 score_str = f"{cs:.3f}" if cs is not None else "—"
+                rank_val = entry.get("rank", 0)
+                user_val = entry.get('contact', entry.get('method_name', '?'))[:15]
                 row_parts = [
-                    str(entry.get("rank", "-")),
-                    score_str,
-                    entry.get('contact', entry.get('method_name', '?'))[:15],  # Truncate long names
-                    run_date,
+                    (str(rank_val), rank_val if isinstance(rank_val, (int, float)) else 0),
+                    (score_str, float(cs) if cs is not None else -1e9),
+                    (user_val, user_val),
+                    (run_date, run_date_raw or "0000-00-00"),
                 ]
-                
-                # Add all metrics
                 for key in all_metric_keys:
                     value = metrics.get(key)
-                    row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
+                    disp = _format_value(value, metric_key=key) if value is not None else "—"
+                    if isinstance(value, (int, float)):
+                        sort_val = float(value)
+                    else:
+                        sort_val = "" if value is None else str(value)
+                    row_parts.append((disp, sort_val))
                 
                 lines.append("<tr>")
-                for cell in row_parts:
-                    lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;">{cell}</td>')
+                for disp, sort_val in row_parts:
+                    sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
+                    lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
                 lines.append("</tr>")
             
             lines.append("</tbody>")
             lines.append("</table>")
+            lines.append("</div>")
+            n_entries = len(entries)
+            if n_entries > 10:
+                lines.append(f'<p style="font-size: 0.9em; margin-top: 0.5em;">Showing top 10 of {n_entries} entries. Scroll to see more, or click column headers to sort.</p>')
+            # Sortable table script
+            lines.append("")
+            lines.append("<script>")
+            lines.append("(function() {")
+            lines.append("  var table = document.getElementById('" + table_id + "');")
+            lines.append("  if (!table) return;")
+            lines.append("  var headers = table.querySelectorAll('th.sortable');")
+            lines.append("  var sortDir = {};")
+            lines.append("  headers.forEach(function(th, i) { sortDir[i] = 1; });")
+            lines.append("  function sortTable(col) {")
+            lines.append("    var tbody = table.querySelector('tbody');")
+            lines.append("    var rows = Array.from(tbody.querySelectorAll('tr'));")
+            lines.append("    sortDir[col] = sortDir[col] || 1;")
+            lines.append("    var mult = sortDir[col];")
+            lines.append("    sortDir[col] = -sortDir[col];")
+            lines.append("    rows.sort(function(a, b) {")
+            lines.append("      var ac = a.children[col]; var bc = b.children[col];")
+            lines.append("      var av = ac && ac.getAttribute('data-sort-value');")
+            lines.append("      var bv = bc && bc.getAttribute('data-sort-value');")
+            lines.append("      var an = parseFloat(av); var bn = parseFloat(bv);")
+            lines.append("      if (!isNaN(an) && !isNaN(bn)) return mult * (an - bn);")
+            lines.append("      return mult * String(av || '').localeCompare(String(bv || ''));")
+            lines.append("    });")
+            lines.append("    rows.forEach(function(r) { tbody.appendChild(r); });")
+            lines.append("  }")
+            lines.append("  headers.forEach(function(th, i) {")
+            lines.append("    th.addEventListener('click', function() { sortTable(i); });")
+            lines.append("  });")
+            lines.append("})();")
+            lines.append("</script>")
+            lines.append("")
             
             # Add legend with detailed mathematical definitions
             lines.append("")

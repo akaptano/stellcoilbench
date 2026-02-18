@@ -31,6 +31,7 @@ from build_context import (  # noqa: E402
     _load_summaries,
 )
 from propose_batch import (  # noqa: E402
+    apply_llm_action,
     check_guardrails,
     is_safe_mode,
     mutate_case,
@@ -357,7 +358,30 @@ class TestBuildContext:
         assert "failure_stats" in ctx
         assert "top_parents" in ctx
         assert "recent_config_hashes" in ctx
+        assert "kb_enriched" in ctx
         assert ctx["total_completed"] == 1
+        assert ctx["kb_enriched"] is False  # no kb_url passed
+
+    def test_kb_url_without_token_falls_back_on_error(self, tmp_path):
+        """kb_url alone (no token) is attempted; falls back to local on KB error."""
+        done = tmp_path / "done"
+        d1 = done / "case_001"
+        d1.mkdir(parents=True)
+        (d1 / "summary.json").write_text(json.dumps(_make_summary(case_id="case_001")))
+
+        policy_path = tmp_path / "policy.yaml"
+        policy_path.write_text(yaml.dump({
+            "batch_size": 8,
+            "exploit_fraction": 0.5,
+            "top_k_parents": 5,
+            "guardrails": {"sliding_window": 30},
+        }))
+
+        # Unreachable KB URL -> falls back to local, kb_enriched=False
+        ctx = build_context(done, policy_path, kb_url="http://127.0.0.1:19999")
+        assert ctx["kb_enriched"] is False
+        assert len(ctx["top_parents"]) == 1
+        assert ctx["top_parents"][0]["case_id"] == "case_001"
 
 
 # ===================================================================
@@ -768,6 +792,64 @@ class TestProposeBatch:
         # With only 1 possible config and it's in recent_hashes, batch should be empty
         cases = propose_batch(ctx, policy, batch_size=4, seed=42)
         assert len(cases) == 0
+
+
+# ===================================================================
+# LLM proposer: apply_llm_action
+# ===================================================================
+
+class TestApplyLLMAction:
+    def test_mutate_action_produces_valid_case(self):
+        parent = {
+            "case_id": "parent_001",
+            "case_config": {
+                "surface_params": {"surface": "input.LandremanPaul2021_QA", "range": "half period"},
+                "coils_params": {"ncoils": 4, "order": 8},
+                "optimizer_params": {},
+                "coil_objective_terms": {"cc_threshold": 1.0, "cs_threshold": 2.0},
+            },
+        }
+        ctx = {"top_parents": [parent]}
+        policy = {
+            "mutation": {"max_iterations": 500},
+            "resource_caps": {"max_total_iterations": 5000, "timeout_minutes_max": 60},
+            "fourier_continuation": {"enabled": True, "orders": [4, 8, 16]},
+        }
+        action = {"type": "mutate", "parent_id": "parent_001", "overrides": {"ncoils": 5}}
+        case = apply_llm_action(action, ctx, policy, _rng(42))
+        assert case is not None
+        assert case["parent_ids"] == ["parent_001"]
+        assert case["case_config"]["coils_params"]["ncoils"] == 5
+        assert "llm" in case["tags"]
+
+    def test_explore_action_produces_valid_case(self):
+        ctx = {"top_parents": []}
+        policy = {
+            "exploration": {
+                "surfaces": ["input.LandremanPaul2021_QA"],
+                "max_iterations": 500,
+            },
+            "resource_caps": {"max_total_iterations": 5000, "timeout_minutes_max": 60},
+            "fourier_continuation": {"enabled": True, "orders": [4, 8, 16]},
+        }
+        action = {
+            "type": "explore",
+            "surface": "input.LandremanPaul2021_QA",
+            "ncoils": 4,
+            "order": 8,
+            "thresholds": {"cc_threshold": 1.0},
+        }
+        case = apply_llm_action(action, ctx, policy, _rng(42))
+        assert case is not None
+        assert case["parent_ids"] == []
+        assert case["case_config"]["surface_params"]["surface"] == "input.LandremanPaul2021_QA"
+        assert case["case_config"]["coil_objective_terms"]["cc_threshold"] == 1.0
+
+    def test_unknown_action_returns_none(self):
+        ctx = {"top_parents": []}
+        policy = {}
+        case = apply_llm_action({"type": "unknown"}, ctx, policy, _rng(42))
+        assert case is None
 
 
 # ===================================================================

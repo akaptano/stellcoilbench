@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CI Run Summary",
+  "description": "Schema for cases/done/<case_id>/summary.json",
+  "type": "object",
+  "required": ["case_id", "success", "total_score", "iterations_used", "walltime_sec", "case_config"],
+  "properties": {
+    "case_id": { "type": "string" },
+    "success": { "type": "boolean" },
+    "total_score": { "type": "number" },
+    "iterations_used": { "type": "integer" },
+    "walltime_sec": { "type": "number" },
+    "failure_reason": { "type": "string" },
+    "failure_class": {
+      "type": "string",
+      "enum": ["", "timeout", "vmec_nonconverged", "nan_in_objective", "line_search_fail", "min_sep_violation", "validation", "unknown"]
+    },
+    "config_hash": { "type": "string" },
+    "margins": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "metrics": { "type": "object" },
+    "case_config": { "type": "object" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "parent_ids": { "type": "array", "items": { "type": "string" } },
+    "random_seed": { "type": "integer" }
+  }
+}

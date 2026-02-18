@@ -128,16 +128,53 @@ def get_recent_config_hashes(
     return hashes
 
 
+def _summary_to_parent(s: Dict[str, Any]) -> Dict[str, Any]:
+    """Convert a summary dict to top_parents format."""
+    return {
+        "case_id": s.get("case_id", ""),
+        "total_score": s.get("total_score"),
+        "iterations_used": s.get("iterations_used"),
+        "walltime_sec": s.get("walltime_sec"),
+        "metrics": {
+            k: v for k, v in s.get("metrics", {}).items()
+            if isinstance(v, (int, float))
+        },
+        "case_config": s.get("case_config", {}),
+    }
+
+
 def build_context(
     done_dir: Path,
     policy_path: Path,
     *,
     max_summaries: int = 200,
+    kb_url: str | None = None,
+    kb_token: str | None = None,
 ) -> Dict[str, Any]:
-    """Build the full context payload.
+    """Build the full context payload for the proposer.
 
-    Returns a dict suitable for JSON serialisation that contains everything the
-    proposer (or an LLM) needs to generate the next batch.
+    Loads summaries from cases/done, computes failure stats and top parents,
+    and optionally enriches from the Knowledge Base when kb_url is set.
+
+    Parameters
+    ----------
+    done_dir : Path
+        Directory containing completed case summaries (cases/done/*/summary.json).
+    policy_path : Path
+        Path to proposer_policy.yaml.
+    max_summaries : int, optional
+        Maximum number of summaries to load (default 200).
+    kb_url : str | None, optional
+        KB server URL (e.g. http://localhost:8000). If set, fetches top_parents
+        and failure_stats from the KB when available.
+    kb_token : str | None, optional
+        Bearer token for KB auth. Optional for local KB.
+
+    Returns
+    -------
+    dict
+        Context with policy, failure_stats, top_parents, recent_config_hashes,
+        surface_exploration_counts, total_completed, kb_enriched.
     """
     policy = _load_policy(policy_path)
     summaries = _load_summaries(done_dir, limit=max_summaries)
@@ -148,6 +185,41 @@ def build_context(
     failure_stats = compute_failure_stats(summaries, window=window)
     top_parents = get_top_parents(summaries, top_k=top_k)
     config_hashes = get_recent_config_hashes(summaries)
+    kb_enriched = False
+
+    # Optionally enrich from KB (cloud or local). Token optional for local KB.
+    if kb_url:
+        try:
+            from knowledge.services.kb_client import KBClient
+            client = KBClient(base_url=kb_url, token=kb_token)
+            kb_runs = client.get_top_runs(k=top_k, success_only=True)
+            if kb_runs:
+                top_parents = [_summary_to_parent(r) for r in kb_runs]
+            kb_stats = client.stats_recent(window_days=1)
+            if kb_stats and "failure_classes" in kb_stats:
+                failure_stats = {
+                    "window_size": kb_stats.get("total", window),
+                    "fail_count": kb_stats.get("fail_count", 0),
+                    "fail_rate": kb_stats.get("fail_rate", 0.0),
+                    "failure_reasons": kb_stats.get("failure_reasons", {}),
+                    "failure_classes": kb_stats.get("failure_classes", {}),
+                    "most_common_reason": None,
+                    "most_common_reason_count": 0,
+                }
+                if kb_stats.get("failure_reasons"):
+                    mc = max(kb_stats["failure_reasons"].items(), key=lambda x: x[1])
+                    failure_stats["most_common_reason"] = mc[0]
+                    failure_stats["most_common_reason_count"] = mc[1]
+            # Merge config_hashes from KB runs
+            for r in kb_runs:
+                cfg = r.get("case_config", {})
+                if cfg:
+                    h = _config_hash(cfg)
+                    if h not in config_hashes:
+                        config_hashes.append(h)
+            kb_enriched = True
+        except Exception:
+            pass  # Fall back to local context on any KB error
 
     # Surfaces explored so far (count per surface)
     surface_counts: Counter[str] = Counter()
@@ -167,6 +239,7 @@ def build_context(
         "recent_config_hashes": config_hashes,
         "surface_exploration_counts": dict(surface_counts.most_common()),
         "total_completed": len(summaries),
+        "kb_enriched": kb_enriched,
     }
     return ctx
 

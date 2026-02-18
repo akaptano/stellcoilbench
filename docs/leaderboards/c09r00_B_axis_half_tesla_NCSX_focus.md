@@ -6,62 +6,126 @@
 
 ---
 
-<table style="font-size: 0.85em;">
+<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>
+<div id="leaderboard-wrapper-c09r00_B_axis_half_tesla_NCSX_focus" class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">
+<table id="leaderboard-c09r00_B_axis_half_tesla_NCSX_focus" class="leaderboard-sortable" style="font-size: 0.85em;">
 <thead>
 <tr>
-<th style="font-size: 0.9em; padding: 4px 8px;">#</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">Score</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">User</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">Date</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">f_B</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">N</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">B̄_n</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">Var(l_i)</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">κ̄</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">F̄</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">τ̄</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">LN</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">κ_max</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">F_max</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">τ_max</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">MSC</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">d_cc</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">d_cs</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">L</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">FC</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">t</th>
+<th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"># <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iterations used <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">walltime sec <span class="sort-icon">↕</span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">1</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.365</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">08/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.5e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.4e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.6e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.4e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1">1</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3653437521803355">1.365</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.730764">08/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010431607110738866">1.0e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005046174996849219">5.0e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003989777057604638">4.0e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.124099103445241">2.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83824.25071976977">8.4e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44941.790233244355">4.5e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9649641619963134">4.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144832.06256419353">1.4e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102446.6683939638">1.0e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.109860149444714">7.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11242786709064786">1.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.00000025381228">3.0e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.026343616513885518">2.6e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.34167194366455">3.4e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3637832993284125">1.364</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T10:40:35.312949">11/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010719469306080158">1.1e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0051340677790721765">5.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003938213778500548">3.9e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.1247623064437695">2.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84374.7175535503">8.4e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46189.34062567887">4.6e+04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.957194314959725">4.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147463.9766604178">1.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108248.4663408583">1.1e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.108703974122507">7.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1122444981866765">1.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18285889883377388">1.8e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.997885233143773">3.0e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1000.0">1.0e+03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024791524202165915">2.5e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
 </tr>
 </tbody>
 </table>
+</div>
+
+<script>
+(function() {
+  var table = document.getElementById('leaderboard-c09r00_B_axis_half_tesla_NCSX_focus');
+  if (!table) return;
+  var headers = table.querySelectorAll('th.sortable');
+  var sortDir = {};
+  headers.forEach(function(th, i) { sortDir[i] = 1; });
+  function sortTable(col) {
+    var tbody = table.querySelector('tbody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    sortDir[col] = sortDir[col] || 1;
+    var mult = sortDir[col];
+    sortDir[col] = -sortDir[col];
+    rows.sort(function(a, b) {
+      var ac = a.children[col]; var bc = b.children[col];
+      var av = ac && ac.getAttribute('data-sort-value');
+      var bv = bc && bc.getAttribute('data-sort-value');
+      var an = parseFloat(av); var bn = parseFloat(bv);
+      if (!isNaN(an) && !isNaN(bn)) return mult * (an - bn);
+      return mult * String(av || '').localeCompare(String(bv || ''));
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+  }
+  headers.forEach(function(th, i) {
+    th.addEventListener('click', function() { sortTable(i); });
+  });
+})();
+</script>
+
 
 ### Legend
 
@@ -82,5 +146,7 @@
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
+- Iterations Used
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
+- Walltime Sec
