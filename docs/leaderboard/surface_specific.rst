@@ -9984,7 +9984,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.6e+07
      - 1.7e+08
      - 0
-     - 9.3e+02
+     - 9.4e+02
      - 5.6e-01
      - 17/02/26
      - auto

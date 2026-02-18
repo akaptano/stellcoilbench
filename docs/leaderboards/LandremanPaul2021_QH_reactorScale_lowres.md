@@ -208,7 +208,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">1.7e+02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4,8,16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">2.2e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.3e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;">9.4e+02</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">8</td>
