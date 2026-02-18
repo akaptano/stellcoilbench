@@ -9849,7 +9849,7 @@ Landreman-Paul QH
 
 **Surface file:** ``LandremanPaul2021_QH_reactorScale_lowres``
 
-This surface has 34 submission(s).
+This surface has 35 submission(s).
 Typical configuration: 4 Fourier order, 5 base coils.
 
 .. list-table:: Landreman-Paul QH Leaderboard
@@ -10465,6 +10465,35 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - —
      - —
      - —
+   * - 1.581
+     - 7
+     - 4
+     - 4,8,16
+     - 3.3e-01
+     - 4.0e-03
+     - 1.6e-02
+     - 1.8e+02
+     - 3.9e-02
+     - 8.3e-01
+     - 2.0e+00
+     - 3.0e-01
+     - 1.4e-01
+     - 2.9e+07
+     - 6.1e+07
+     - 5.2e+07
+     - 1.4e+08
+     - 0
+     - 1.4e+03
+     - 1.0e+00
+     - 18/02/26
+     - auto
+     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_112300_83885/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_112300_83885/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_112300_83885/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_112300_83885/order_16/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
    * - 1.573
      - 7
      - 4
@@ -10487,7 +10516,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e-01
      - 18/02/26
      - auto
-     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_085849_19167/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_085849_19167/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_085849_19167/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_085849_19167/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-18_085849_19167/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10516,7 +10545,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 6.4e-01
      - 16/02/26
      - auto
-     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_160231_29442/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_160231_29442/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_160231_29442/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_160231_29442/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10545,7 +10574,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 6.8e-01
      - 17/02/26
      - auto
-     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_132158_41220/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_132158_41220/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_132158_41220/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_132158_41220/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_132158_41220/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10574,7 +10603,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.2e-01
      - 16/02/26
      - auto
-     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_085732_17542/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_085732_17542/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_085732_17542/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_085732_17542/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10603,7 +10632,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.5e-01
      - 16/02/26
      - auto
-     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_80616/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_80616/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_80616/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_80616/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10632,7 +10661,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 3.6e-01
      - 16/02/26
      - auto
-     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_075401_75384/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_075401_75384/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_075401_75384/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_075401_75384/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10661,7 +10690,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.0e-01
      - 15/02/26
      - auto
-     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_86634/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_86634/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_86634/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_210059_86634/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10690,7 +10719,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 3.8e-01
      - 17/02/26
      - auto
-     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_034334_19048/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_034334_19048/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_034334_19048/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_034334_19048/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10719,7 +10748,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 1.1e+00
      - 16/02/26
      - auto
-     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_123921_30002/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_123921_30002/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_123921_30002/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-16_123921_30002/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10748,9 +10777,9 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 6.8e-01
      - 08/02/26
      - akaptano
-     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot_initial.pdf>`__
-     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot.pdf>`__
-     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/poincare_plot.png>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot_initial.pdf>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot.pdf>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/poincare_plot.png>`__
      - —
      - —
      - —
@@ -10777,7 +10806,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 3.6e-01
      - 18/02/26
      - auto
-     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_231317_91795/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_231317_91795/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_231317_91795/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_231317_91795/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_231317_91795/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10806,7 +10835,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 3.6e-01
      - 15/02/26
      - auto
-     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37403/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37403/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37403/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_224905_37403/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10835,7 +10864,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.3e-01
      - 15/02/26
      - auto
-     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_61883/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_61883/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_61883/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-15_160947_61883/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -10864,7 +10893,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.2e-01
      - 17/02/26
      - auto
-     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_060422_53649/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_060422_53649/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_060422_53649/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/auto/2026-02-17_060422_53649/order_8/bn_error_3d_plot.pdf>`__
      - —
      - —
