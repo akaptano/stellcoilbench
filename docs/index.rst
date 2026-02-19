@@ -6,15 +6,12 @@ It standardizes case definitions, submissions, and leaderboards so optimization
 methods can be compared consistently.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents
 
    overview
-   getting_started
-   parastell_cubit_setup
    cases
-   submissions
-   cli
+   usage
+   leaderboard
    autopilot
    api
-   leaderboard

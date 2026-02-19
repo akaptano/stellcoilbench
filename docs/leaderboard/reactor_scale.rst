@@ -103,7 +103,7 @@ HSX
    </thead>
    <tbody>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746706">1.273</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746709">1.273</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.015061014965432842"><span class="orange">1.51e-02</span></td>
@@ -329,7 +329,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0213162542981515">2.021</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.021316254298152">2.021</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00042968376755431653">4.30e-04</td>
@@ -392,7 +392,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0130578983542327">2.013</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.013057898354232">2.013</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00042764097038797925">4.28e-04</td>
@@ -497,7 +497,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.010073468577685">2.010</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0100734685776853">2.010</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004292909045146133">4.29e-04</td>
@@ -539,7 +539,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.009453035545361">2.009</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0094530355453606">2.009</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004285000251013483">4.29e-04</td>
@@ -560,7 +560,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.008353813729941">2.008</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0083538137299404">2.008</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00042753848823291654">4.28e-04</td>
@@ -665,7 +665,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0041572049442014">2.004</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.004157204944201">2.004</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004304943457039969">4.30e-04</td>
@@ -2576,7 +2576,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9988506964287778">1.999</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.998850696428778">1.999</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004316791668532429">4.32e-04</td>
@@ -2597,7 +2597,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9982191124625222">1.998</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9982191124625224">1.998</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004282059684038537">4.28e-04</td>
@@ -2660,7 +2660,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9953031499891216">1.995</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9953031499891214">1.995</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004268865595234951">4.27e-04</td>
@@ -2744,7 +2744,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9925249884733194">1.993</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9925249884733196">1.993</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004441596226147813">4.44e-04</td>
@@ -2786,7 +2786,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9864312478915216">1.986</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9864312478915218">1.986</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0006067897654255145">6.07e-04</td>
@@ -2828,7 +2828,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.981641520188511">1.982</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9816415201885107">1.982</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0006167070620628205">6.17e-04</td>
@@ -2849,7 +2849,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9799516370477828">1.980</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9799516370477825">1.980</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00042620856927387914">4.26e-04</td>
@@ -2912,7 +2912,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.943735566968945">1.944</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9437355669689451">1.944</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.000489778875244584">4.90e-04</td>
@@ -2933,7 +2933,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8857357830813477">1.886</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8857357830813475">1.886</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.000433695269585292">4.34e-04</td>
@@ -2996,7 +2996,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8820775679359576">1.882</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8820775679359578">1.882</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004409339328867304">4.41e-04</td>
@@ -3038,7 +3038,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.880360355076408">1.880</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8803603550764083">1.880</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004440729338464138">4.44e-04</td>
@@ -3080,7 +3080,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8745678023020818">1.875</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8745678023020815">1.875</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004417814021756895">4.42e-04</td>
@@ -3143,7 +3143,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8658799883434765">1.866</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8658799883434762">1.866</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00045074184363756297">4.51e-04</td>
@@ -4844,7 +4844,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8616342518624736">1.862</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8616342518624738">1.862</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004376615961968455">4.38e-04</td>
@@ -4886,7 +4886,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8484325015815335">1.848</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8484325015815333">1.848</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0005793243734207729">5.79e-04</td>
@@ -4949,7 +4949,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.837104055620708">1.837</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8371040556207083">1.837</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0005664079327062189">5.66e-04</td>
@@ -6734,7 +6734,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8029215007295358">1.803</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.802921500729536">1.803</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3">3</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8">8</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00037936160563388976">3.79e-04</td>
@@ -6776,7 +6776,7 @@ Landreman-Paul QA
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7929815313129456">1.793</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7929815313129458">1.793</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8">8</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00046455868999424583">4.65e-04</td>
@@ -14310,7 +14310,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7552163716484581">1.755</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.755216371648458">1.755</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0015994811833416177">1.60e-03</td>
@@ -14499,7 +14499,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6506005201627203">1.651</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.65060052016272">1.651</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6">6</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0005343636258207013">5.34e-04</td>
@@ -14562,7 +14562,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6239038894892328">1.624</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6239038894892326">1.624</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.000885261151281205">8.85e-04</td>
@@ -14688,7 +14688,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5613433705154913">1.561</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.561343370515491">1.561</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.015430865262329238"><span class="orange">1.54e-02</span></td>
@@ -14919,7 +14919,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7854910186573844">0.785</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7854910186573845">0.785</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7">7</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06638975093849422"><span class="orange">6.64e-02</span></td>
@@ -14940,7 +14940,7 @@ Landreman-Paul QH
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7780766773617641">0.778</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.778076677361764">0.778</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6">6</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06813621813219316"><span class="orange">6.81e-02</span></td>

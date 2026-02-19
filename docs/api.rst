@@ -565,27 +565,27 @@ The ``cli`` module implements the command-line interface.
 **submit_case(case_file: Path) -> None**
    CLI command: Run a case and create a submission.
    
-   See :doc:`cli` for usage details.
+   See :doc:`usage` for usage details.
 
 **run_case(case_file: Path, coils_out_dir: Path = "coils_runs/") -> None**
    CLI command: Run a case without creating a submission.
    
-   See :doc:`cli` for usage details.
+   See :doc:`usage` for usage details.
 
 **generate_submission(case_file: Path, coils_file: Path, results_dir: Path | None = None) -> None**
    CLI command: Create a submission from existing results.
    
-   See :doc:`cli` for usage details.
+   See :doc:`usage` for usage details.
 
 **update_db() -> None**
    CLI command: Regenerate leaderboards.
    
-   See :doc:`cli` for usage details.
+   See :doc:`usage` for usage details.
 
 **validate_config(case_file: Path) -> None**
    CLI command: Validate a case configuration.
    
-   See :doc:`cli` for usage details.
+   See :doc:`usage` for usage details.
 
 Usage Examples
 --------------
@@ -651,7 +651,7 @@ Usage Examples
 Next Steps
 ----------
 
-- **Getting Started**: See :doc:`getting_started` for a tutorial
+- **Overview**: See :doc:`overview` for setup and quick start
 - **Cases**: Learn about case files in :doc:`cases`
-- **CLI Reference**: See :doc:`cli` for command-line usage
+- **Usage**: See :doc:`usage` for commands and submissions
 - **Leaderboard**: View results in :doc:`leaderboard`

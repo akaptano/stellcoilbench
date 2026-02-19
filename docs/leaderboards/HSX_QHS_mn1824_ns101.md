@@ -36,7 +36,7 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1">1</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746706">1.273</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746709">1.273</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.732000">08/02/26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0036932359393853503">3.7e-03</td>

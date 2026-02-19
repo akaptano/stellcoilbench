@@ -66,7 +66,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    </thead>
    <tbody>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746706">1.273</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2730153962746709">1.273</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -370,7 +370,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0213162542981515">2.021</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.021316254298152">2.021</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -454,7 +454,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0130578983542327">2.013</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.013057898354232">2.013</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -594,7 +594,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.010073468577685">2.010</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0100734685776853">2.010</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -650,7 +650,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.009453035545361">2.009</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0094530355453606">2.009</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -678,7 +678,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.008353813729941">2.008</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0083538137299404">2.008</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -818,7 +818,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0041572049442014">2.004</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.004157204944201">2.004</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3366,7 +3366,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9988506964287778">1.999</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.998850696428778">1.999</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3394,7 +3394,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9982191124625222">1.998</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9982191124625224">1.998</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3478,7 +3478,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9953031499891216">1.995</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9953031499891214">1.995</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
@@ -3590,7 +3590,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9925249884733194">1.993</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9925249884733196">1.993</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3646,7 +3646,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9864312478915216">1.986</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9864312478915218">1.986</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
@@ -3702,7 +3702,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.981641520188511">1.982</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9816415201885107">1.982</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3730,7 +3730,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9799516370477828">1.980</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9799516370477825">1.980</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3814,7 +3814,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.943735566968945">1.944</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9437355669689451">1.944</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3842,7 +3842,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8857357830813477">1.886</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8857357830813475">1.886</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
@@ -3926,7 +3926,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8820775679359576">1.882</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8820775679359578">1.882</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -3982,7 +3982,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.880360355076408">1.880</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8803603550764083">1.880</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
@@ -4038,7 +4038,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8745678023020818">1.875</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8745678023020815">1.875</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -4122,7 +4122,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8658799883434765">1.866</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8658799883434762">1.866</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -6390,7 +6390,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8616342518624736">1.862</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8616342518624738">1.862</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -6446,7 +6446,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8484325015815335">1.848</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8484325015815333">1.848</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -6530,7 +6530,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.837104055620708">1.837</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8371040556207083">1.837</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -8910,7 +8910,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8029215007295358">1.803</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.802921500729536">1.803</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.0">3</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8966,7 +8966,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7929815313129456">1.793</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7929815313129458">1.793</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -10082,7 +10082,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7552163716484581">1.755</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.755216371648458">1.755</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -10334,7 +10334,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6506005201627203">1.651</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.65060052016272">1.651</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.0">6</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -10418,7 +10418,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6239038894892328">1.624</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6239038894892326">1.624</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0">5</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -10586,7 +10586,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5613433705154913">1.561</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.561343370515491">1.561</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -10894,7 +10894,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7854910186573844">0.785</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7854910186573845">0.785</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.0">7</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
@@ -10922,7 +10922,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    </tr>
    <tr>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7780766773617641">0.778</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.778076677361764">0.778</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.0">6</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>

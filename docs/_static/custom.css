@@ -251,3 +251,44 @@ table.leaderboard-sortable td {
 }
 
 /* Remove scroll indicator since we're not using horizontal scrolling */
+
+/* Engineering Constraints table: compact, professional, fit-content columns */
+table.constraints-table {
+  table-layout: auto;
+  width: max-content;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+  margin: 0.5em 0 1em 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+table.constraints-table thead {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+table.constraints-table th {
+  font-weight: 600;
+  color: #495057;
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+}
+table.constraints-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+table.constraints-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+table.constraints-table tbody tr:nth-child(even) {
+  background-color: #fafbfc;
+}
+table.constraints-table tbody tr:nth-child(even):hover {
+  background-color: #f1f3f5;
+}
+table.constraints-table .math {
+  font-size: 1em;
+}

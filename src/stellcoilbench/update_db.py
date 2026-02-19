@@ -3937,17 +3937,44 @@ def write_reactor_scale_leaderboard(
     ]
 
     # ---- Build a summary constraints table from REACTOR_SCALE_CONSTRAINTS ----
+    # Map constraint labels to HTML with proper math rendering
+    def _constraint_label_html(raw_label: str) -> str:
+        label_map = {
+            "Coil-coil linking number (\\|LN\\| ≈ 0)": r'Coil-coil linking number <span class="math notranslate nohighlight">\(|\mathrm{LN}| \approx 0\)</span>',
+            "avg ⟨B·n⟩/⟨B⟩": r'avg <span class="math notranslate nohighlight">\(\langle B \cdot n \rangle / \langle B \rangle\)</span>',
+            "Max curvature κ": r'Max curvature <span class="math notranslate nohighlight">\(\kappa\)</span>',
+            "Max √MSC (RMS curvature)": r'Max <span class="math notranslate nohighlight">\(\sqrt{\mathrm{MSC}}\)</span> (RMS curvature)',
+            "Arclength variation √Var": r'Arclength variation <span class="math notranslate nohighlight">\(\sqrt{\mathrm{Var}}\)</span>',
+            "Total superconductor length L_SC": r'Total superconductor length <span class="math notranslate nohighlight">\(L_{\mathrm{SC}}\)</span>',
+            "Finite-build coil-coil clearance (d_cc > w_WP)": r'Finite-build coil-coil clearance <span class="math notranslate nohighlight">\((d_{cc} > w_{\mathrm{WP}})\)</span>',
+        }
+        if raw_label in label_map:
+            return label_map[raw_label]
+        # Handle dynamic N_turns label (e.g. "Max turns per coil (N_turns ≤ 500)")
+        if "N_turns" in raw_label and "≤" in raw_label:
+            import re
+            m = re.search(r"N_turns ≤ (\d+)", raw_label)
+            if m:
+                n = m.group(1)
+                latex = f"(N_{{\\mathrm{{turns}}}} \\leq {n})"
+                return f'Max turns per coil <span class="math notranslate nohighlight">\\({latex}\\)</span>'
+        return html.escape(raw_label)
+
     lines.extend([
         "Engineering Constraints",
         "-----------------------",
         "",
-        ".. list-table::",
-        "   :header-rows: 1",
-        "   :widths: auto",
+        ".. raw:: html",
         "",
-        "   * - Constraint",
-        "     - Bound",
-        "     - Type",
+        '   <table class="constraints-table docutils align-default">',
+        "   <thead>",
+        "   <tr>",
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Constraint</th>',
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Bound</th>',
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Type</th>',
+        "   </tr>",
+        "   </thead>",
+        "   <tbody>",
     ])
     for c in REACTOR_SCALE_CONSTRAINTS:
         label = c["label"]
@@ -3968,11 +3995,20 @@ def write_reactor_scale_leaderboard(
         if units and units != "(boolean)":
             bound_str += f" {units}"
 
-        lines.append(f"   * - {label}")
-        lines.append(f"     - {bound_str}")
-        lines.append(f"     - {ctype}")
+        label_html = _constraint_label_html(label)
+        bound_escaped = html.escape(bound_str)
+        lines.append("   <tr>")
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{label_html}</td>')
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{bound_escaped}</td>')
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{ctype}</td>')
+        lines.append("   </tr>")
 
-    lines.extend(["", ""])
+    lines.extend([
+        "   </tbody>",
+        "   </table>",
+        "",
+        "",
+    ])
 
     # Iterate over surfaces
     for surface_name, surf_data in sorted(surface_leaderboards.items()):
@@ -4349,7 +4385,6 @@ def update_database(
         subprocess.run(
             ["sphinx-build", "-b", "html", str(sphinx_srcdir), str(sphinx_outdir)],
             check=True,
-            capture_output=True,
         )
         print("Rebuilt docs HTML.", file=sys.stderr)
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
