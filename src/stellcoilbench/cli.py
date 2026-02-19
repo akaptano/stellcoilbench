@@ -1024,7 +1024,7 @@ def submit_case(
     plot_finite_build: bool = typer.Option(
         False,
         "--plot-finite-build/--no-plot-finite-build",
-        help="Generate finite-build coil VTK (rectangular cross-section swept along centerline).",
+        help="Generate finite-build coil VTK (rectangular cross-section swept along centerline). Output: finite_build_coils.vtk (and finite_build_coils_parastell.vtk if ParaStell available).",
     ),
     finite_build_width: Optional[float] = typer.Option(
         None,
@@ -1045,7 +1045,8 @@ def submit_case(
     2. Runs the coil optimization
     3. Evaluates the results (B·n, Poincaré plot by default)
     4. Optionally runs QFM/VMEC/SIMPLE (with --run-vmec --run-simple)
-    5. Generates a results.json in submissions/<username>/<datetime>/ with metadata and metrics
+    5. Optionally generates finite-build coil VTK (with --plot-finite-build)
+    6. Generates results.json in submissions/<surface>/<username>/<case>/<datetime>/ with metadata and metrics
     
     Directory structure: submissions/<github_username>/<MM-DD-YYYY_HH-MM>/all_files.zip
     GitHub username and hardware are auto-detected if not provided.
@@ -1054,6 +1055,8 @@ def submit_case(
         stellcoilbench submit-case cases/case.yaml
         stellcoilbench submit-case cases/case.yaml --run-vmec
         stellcoilbench submit-case cases/case.yaml --run-vmec --run-simple
+        stellcoilbench submit-case cases/case.yaml --plot-finite-build
+        stellcoilbench submit-case cases/case.yaml --plot-finite-build --finite-build-width 0.05 --finite-build-height 0.05
     """
     from .coil_optimization import optimize_coils
     from .evaluate import load_case_config, evaluate_case
@@ -1846,7 +1849,7 @@ def post_process(
     plot_finite_build: bool = typer.Option(
         False,
         "--plot-finite-build/--no-plot-finite-build",
-        help="Generate finite-build coil geometry (rectangular cross-section swept along centerline) and export to VTK.",
+        help="Generate finite-build coil geometry (rectangular cross-section swept along centerline) and export to VTK. Output: finite_build_coils.vtk (and finite_build_coils_parastell.vtk if ParaStell available).",
     ),
     finite_build_width: Optional[float] = typer.Option(
         None,
@@ -1870,10 +1873,12 @@ def post_process(
     - Computing quasisymmetry metrics (with --run-vmec)
     - Generating Boozer/iota/quasisymmetry plots (with --run-vmec)
     - Running SIMPLE particle tracing (with --run-vmec --run-simple)
+    - Generating finite-build coil VTK (with --plot-finite-build)
     
-    Example:
+    Examples:
         stellcoilbench post-process coils.json --output-dir results
         stellcoilbench post-process coils.json --run-vmec --output-dir results
+        stellcoilbench post-process coils.json --plot-finite-build --output-dir results
     """
     from .post_processing import run_post_processing
     
