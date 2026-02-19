@@ -45,6 +45,13 @@ post-processing = [
     "booz_xform @ git+https://github.com/hiddenSymmetries/booz_xform.git",
     "virtual-casing @ git+https://github.com/hiddenSymmetries/virtual-casing.git",
 ]
+# ParaStell with Cubit: use environment-parastell.yml + docs/parastell_cubit_setup.md.
+# pymoab from scopatz/pymoab fails to build (Cython API incompatibility); use conda env + pip install --no-deps parastell.
+# Coreform Cubit is optional and installed separately (add to PYTHONPATH).
+parastell-cubit = [
+    "pymoab @ git+https://github.com/scopatz/pymoab.git",
+    "parastell @ git+https://github.com/svalinn/parastell.git",
+]
 
 [project.scripts]
 stellcoilbench = "stellcoilbench.cli:main"

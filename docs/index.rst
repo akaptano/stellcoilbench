@@ -11,6 +11,7 @@ methods can be compared consistently.
 
    overview
    getting_started
+   parastell_cubit_setup
    cases
    submissions
    cli

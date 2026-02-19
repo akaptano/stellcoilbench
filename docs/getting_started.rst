@@ -90,6 +90,18 @@ Installation
    .. code-block:: bash
    
       pip install -v git+https://github.com/hiddenSymmetries/booz_xform
+
+**Optional: ParaStell and Coreform Cubit**
+
+   ParaStell enables tetrahedral mesh generation for finite-build coils (when available).
+   Coreform Cubit is optional and enables DAGMC export and Cubit-based meshing.
+   ParaStell requires PyMOAB (not on PyPI); use the conda environment and setup guide:
+   
+   - Create env: ``conda env create -f environment-parastell.yml``
+   - Install ParaStell: ``pip install --no-deps "parastell @ git+https://github.com/svalinn/parastell.git"``
+   - Cubit: Install from `Coreform <https://coreform.com/products/downloads/>`_, add ``bin/`` to ``PYTHONPATH``
+   
+   See :doc:`parastell_cubit_setup` for full instructions.
    
 **Using Conda**
    
