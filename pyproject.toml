@@ -40,6 +40,11 @@ dependencies = [
 
 [project.optional-dependencies]
 DOCS = ["sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon", "sphinx-autodoc-napoleon-typehints", "breathe", "docutils"]
+post-processing = [
+    "parastell @ git+https://github.com/svalinn/parastell.git",
+    "booz_xform @ git+https://github.com/hiddenSymmetries/booz_xform.git",
+    "virtual-casing @ git+https://github.com/hiddenSymmetries/virtual-casing.git",
+]
 
 [project.scripts]
 stellcoilbench = "stellcoilbench.cli:main"

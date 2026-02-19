@@ -1,0 +1,8478 @@
+{
+  "@module": "simsopt._core.json",
+  "@class": "SIMSON",
+  "@version": "1.8.2.dev213+g90ea1541",
+  "graph": {
+    "$type": "ref",
+    "value": "MagneticFieldSum1"
+  },
+  "simsopt_objs": {
+    "13904339680": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904339680",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          1.2916158817012615,
+          0.15977705997901157,
+          -1.4557178828666277,
+          -0.10169445436375497,
+          2.947516257084059,
+          7.569765738867691,
+          -4.459518521736791
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier4": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier4",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904339680"
+      }
+    },
+    "13910827856": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910827856",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.987105014670017
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current3": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current3",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.987105014670017,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910827856"
+      }
+    },
+    "ScaledCurrent7": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent7",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current3"
+      },
+      "scale": 10000000.0
+    },
+    "Coil9": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil9",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier4"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent7"
+      }
+    },
+    "13904339792": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904339792",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.07976692948741479,
+          -0.5560008804792348,
+          0.3971195649763288,
+          1.134116695700012,
+          2.903278986388922,
+          8.8669685386983,
+          -3.288779565946172
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier5": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier5",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904339792"
+      }
+    },
+    "13910828192": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910828192",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          1.0022520079834296
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current4": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current4",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 1.0022520079834296,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910828192"
+      }
+    },
+    "ScaledCurrent8": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent8",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current4"
+      },
+      "scale": 10000000.0
+    },
+    "Coil10": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil10",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier5"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent8"
+      }
+    },
+    "13904339904": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904339904",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.6277750668145758,
+          -0.9985592481892119,
+          -0.38694931612795347,
+          0.6232862917308166,
+          3.396918902779781,
+          9.157125830827193,
+          0.008923178066838738
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier6": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier6",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904339904"
+      }
+    },
+    "13910828416": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910828416",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.837673423218755
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current5": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current5",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.837673423218755,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910828416"
+      }
+    },
+    "ScaledCurrent9": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent9",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current5"
+      },
+      "scale": 10000000.0
+    },
+    "Coil11": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil11",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier6"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent9"
+      }
+    },
+    "13904340016": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340016",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -1.2839137117240706,
+          0.935568556815663,
+          0.8537861675215648,
+          -0.5591833562621015,
+          3.630062439158398,
+          8.591980411901439,
+          3.6261521631445173
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier7": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier7",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340016"
+      }
+    },
+    "13910828640": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910828640",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.9821558130124353
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current6": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current6",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.9821558130124353,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910828640"
+      }
+    },
+    "ScaledCurrent10": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent10",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current6"
+      },
+      "scale": 10000000.0
+    },
+    "Coil12": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil12",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier7"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent10"
+      }
+    },
+    "13904340128": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340128",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.07710560884189185,
+          -0.3820373331376245,
+          0.6162835086190537,
+          -0.7468973840678679,
+          5.617958708668254,
+          6.871182601906777,
+          -3.489948284466534
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier8": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier8",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340128"
+      }
+    },
+    "13910828864": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910828864",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.286813433197725
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current7": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current7",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.286813433197725,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910828864"
+      }
+    },
+    "ScaledCurrent11": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent11",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current7"
+      },
+      "scale": 10000000.0
+    },
+    "Coil13": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil13",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier8"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent11"
+      }
+    },
+    "13904340240": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340240",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.21811928831702548,
+          0.5389011343853145,
+          -0.7991804046756762,
+          -1.3461504353081983,
+          4.435150895050933,
+          7.830390072116062,
+          3.903059975574544
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier9": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier9",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340240"
+      }
+    },
+    "13910829088": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910829088",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.4337716424351306
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current8": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current8",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.4337716424351306,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910829088"
+      }
+    },
+    "ScaledCurrent12": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent12",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current8"
+      },
+      "scale": 10000000.0
+    },
+    "Coil14": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil14",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier9"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent12"
+      }
+    },
+    "13904340352": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340352",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.6484697895814598,
+          0.8124488818334473,
+          0.45019649812526885,
+          -0.3705789881058466,
+          6.694519346245476,
+          3.3030423198972345,
+          -4.135097305254131
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier10": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier10",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340352"
+      }
+    },
+    "13910829312": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910829312",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.4617075860526547
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current9": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current9",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.4617075860526547,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910829312"
+      }
+    },
+    "ScaledCurrent13": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent13",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current9"
+      },
+      "scale": 10000000.0
+    },
+    "Coil15": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil15",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier10"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent13"
+      }
+    },
+    "13904340464": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340464",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.8593330295879134,
+          0.6750192512415271,
+          0.7162381370471167,
+          -0.7253177432977579,
+          7.0647438311478306,
+          5.273560110995583,
+          -3.2764975539089276
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier11": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier11",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340464"
+      }
+    },
+    "13910829536": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910829536",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.9841468395423153
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current10": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current10",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.9841468395423153,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910829536"
+      }
+    },
+    "ScaledCurrent14": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent14",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current10"
+      },
+      "scale": 10000000.0
+    },
+    "Coil16": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil16",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier11"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent14"
+      }
+    },
+    "13904340576": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340576",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.7455341505970333,
+          -0.11678251921010294,
+          0.9975097866481704,
+          -0.19107870733519852,
+          8.061015832235844,
+          5.641681223759124,
+          -0.28872903666954375
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier12": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier12",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340576"
+      }
+    },
+    "13910829760": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910829760",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.735894584258607
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current11": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current11",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.735894584258607,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910829760"
+      }
+    },
+    "ScaledCurrent15": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent15",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current11"
+      },
+      "scale": 10000000.0
+    },
+    "Coil17": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil17",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier12"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent15"
+      }
+    },
+    "13904340912": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904340912",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.3967232078926618,
+          -0.931171497434771,
+          0.06995713625551185,
+          -0.09380885504130346,
+          7.62291482663513,
+          5.587242969363706,
+          3.6866557594545055
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier13": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier13",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904340912"
+      }
+    },
+    "13910829984": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910829984",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -0.15745906641138951
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current12": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current12",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": -0.15745906641138951,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910829984"
+      }
+    },
+    "ScaledCurrent16": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent16",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current12"
+      },
+      "scale": 10000000.0
+    },
+    "Coil18": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil18",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier13"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent16"
+      }
+    },
+    "13904341024": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341024",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.12013130010659445,
+          0.8477119189506446,
+          0.10485022056708226,
+          0.9386046270926333,
+          6.679064311775848,
+          7.410859952262433,
+          -0.15648678041445369
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier14": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier14",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341024"
+      }
+    },
+    "13910830208": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910830208",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.9087418103970187
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current13": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current13",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.9087418103970187,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910830208"
+      }
+    },
+    "ScaledCurrent17": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent17",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current13"
+      },
+      "scale": 10000000.0
+    },
+    "Coil19": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil19",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier14"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent17"
+      }
+    },
+    "13904341136": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341136",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.2441203353456317,
+          -0.43849154844212335,
+          0.7623156921770325,
+          -1.2260606662405689,
+          6.83303575152205,
+          6.6912465964476855,
+          3.5581836221335297
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier15": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier15",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341136"
+      }
+    },
+    "13910830432": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910830432",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7869193702952698
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current14": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current14",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.7869193702952698,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910830432"
+      }
+    },
+    "ScaledCurrent18": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent18",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current14"
+      },
+      "scale": 10000000.0
+    },
+    "Coil20": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil20",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier15"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent18"
+      }
+    },
+    "13904341472": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341472",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.42687554765383656,
+          -0.0773276582704202,
+          0.9628284774322317,
+          -0.29568937816597135,
+          8.573775331080595,
+          1.1449335372582652,
+          -3.208415325872801
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier16": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier16",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341472"
+      }
+    },
+    "13910830656": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910830656",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          1.060813625508679
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current15": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current15",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 1.060813625508679,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910830656"
+      }
+    },
+    "ScaledCurrent19": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent19",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current15"
+      },
+      "scale": 10000000.0
+    },
+    "Coil21": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil21",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier16"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent19"
+      }
+    },
+    "13904341584": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341584",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.13300993686178766,
+          -0.6582827367853408,
+          0.4645056461133947,
+          -0.8683002998534597,
+          9.334683404470795,
+          1.6242493751346267,
+          -0.16350120711524127
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier17": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier17",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341584"
+      }
+    },
+    "13910830880": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910830880",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.8839807874767097
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current16": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current16",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.8839807874767097,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910830880"
+      }
+    },
+    "ScaledCurrent20": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent20",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current16"
+      },
+      "scale": 10000000.0
+    },
+    "Coil22": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil22",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier17"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent20"
+      }
+    },
+    "13904341696": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341696",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.19590414806373366,
+          0.09193487066296101,
+          0.9759774165751073,
+          0.32832383585654146,
+          8.377229505405973,
+          1.3816117350633037,
+          3.8720114485437067
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier18": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier18",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341696"
+      }
+    },
+    "13910831104": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910831104",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7258258204097743
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current17": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current17",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.7258258204097743,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910831104"
+      }
+    },
+    "ScaledCurrent21": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent21",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current17"
+      },
+      "scale": 10000000.0
+    },
+    "Coil23": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil23",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier18"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent21"
+      }
+    },
+    "13904341808": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904341808",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.3205141593162121,
+          -0.23633396594444261,
+          0.5098080614701385,
+          -0.7782616054450289,
+          8.708822588120608,
+          3.0210824019647475,
+          -3.438153797187518
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier19": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier19",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904341808"
+      }
+    },
+    "13910831328": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910831328",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.6712270833412725
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current18": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current18",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.6712270833412725,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910831328"
+      }
+    },
+    "ScaledCurrent22": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent22",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current18"
+      },
+      "scale": 10000000.0
+    },
+    "Coil24": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil24",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier19"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent22"
+      }
+    },
+    "13904342256": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904342256",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          -0.9851355199980268,
+          0.08484846101992446,
+          0.42191205805882287,
+          0.0015307944294798137,
+          8.942323064122787,
+          3.594839143712121,
+          -0.01766587490370615
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier20": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier20",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904342256"
+      }
+    },
+    "13910831552": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910831552",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.31069283864250985
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current19": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current19",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 0.31069283864250985,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910831552"
+      }
+    },
+    "ScaledCurrent23": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent23",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current19"
+      },
+      "scale": 10000000.0
+    },
+    "Coil25": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil25",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier20"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent23"
+      }
+    },
+    "13904342368": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904342368",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.7744881682816004,
+          0.3037709628646999,
+          -0.14171090865104533,
+          0.7746112729742692,
+          0.8530290925943973,
+          8.32262939855272,
+          2.946902879041572,
+          3.5998133534940955
+        ]
+      },
+      "names": [
+        "x0",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5",
+        "x6",
+        "x7"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurvePlanarFourier21": {
+      "@module": "simsopt.geo.curveplanarfourier",
+      "@class": "CurvePlanarFourier",
+      "@name": "CurvePlanarFourier21",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.025,
+          0.05,
+          0.07500000000000001,
+          0.1,
+          0.125,
+          0.15000000000000002,
+          0.17500000000000002,
+          0.2,
+          0.225,
+          0.25,
+          0.275,
+          0.30000000000000004,
+          0.325,
+          0.35000000000000003,
+          0.375,
+          0.4,
+          0.42500000000000004,
+          0.45,
+          0.47500000000000003,
+          0.5,
+          0.525,
+          0.55,
+          0.5750000000000001,
+          0.6000000000000001,
+          0.625,
+          0.65,
+          0.675,
+          0.7000000000000001,
+          0.7250000000000001,
+          0.75,
+          0.775,
+          0.8,
+          0.8250000000000001,
+          0.8500000000000001,
+          0.875,
+          0.9,
+          0.925,
+          0.9500000000000001,
+          0.9750000000000001
+        ]
+      },
+      "order": 0,
+      "nfp": 1,
+      "stellsym": false,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904342368"
+      }
+    },
+    "13910831776": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13910831776",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          1.3354933728830878
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current20": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current20",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 1.3354933728830878,
+      "dofs": {
+        "$type": "ref",
+        "value": "13910831776"
+      }
+    },
+    "ScaledCurrent24": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent24",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current20"
+      },
+      "scale": 10000000.0
+    },
+    "Coil26": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil26",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier21"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent24"
+      }
+    },
+    "RotatedCurve70": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve70",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier4"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent25": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent25",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent7"
+      },
+      "scale": -1.0
+    },
+    "Coil27": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil27",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve70"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent25"
+      }
+    },
+    "RotatedCurve71": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve71",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier5"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent26": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent26",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent8"
+      },
+      "scale": -1.0
+    },
+    "Coil28": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil28",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve71"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent26"
+      }
+    },
+    "RotatedCurve72": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve72",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier6"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent27": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent27",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent9"
+      },
+      "scale": -1.0
+    },
+    "Coil29": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil29",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve72"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent27"
+      }
+    },
+    "RotatedCurve73": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve73",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier7"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent28": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent28",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent10"
+      },
+      "scale": -1.0
+    },
+    "Coil30": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil30",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve73"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent28"
+      }
+    },
+    "RotatedCurve74": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve74",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier8"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent29": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent29",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent11"
+      },
+      "scale": -1.0
+    },
+    "Coil31": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil31",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve74"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent29"
+      }
+    },
+    "RotatedCurve75": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve75",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier9"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent30": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent30",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent12"
+      },
+      "scale": -1.0
+    },
+    "Coil32": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil32",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve75"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent30"
+      }
+    },
+    "RotatedCurve76": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve76",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier10"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent31": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent31",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent13"
+      },
+      "scale": -1.0
+    },
+    "Coil33": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil33",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve76"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent31"
+      }
+    },
+    "RotatedCurve77": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve77",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier11"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent32": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent32",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent14"
+      },
+      "scale": -1.0
+    },
+    "Coil34": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil34",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve77"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent32"
+      }
+    },
+    "RotatedCurve78": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve78",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier12"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent33": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent33",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent15"
+      },
+      "scale": -1.0
+    },
+    "Coil35": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil35",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve78"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent33"
+      }
+    },
+    "RotatedCurve79": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve79",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier13"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent34": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent34",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent16"
+      },
+      "scale": -1.0
+    },
+    "Coil36": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil36",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve79"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent34"
+      }
+    },
+    "RotatedCurve80": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve80",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier14"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent35": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent35",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent17"
+      },
+      "scale": -1.0
+    },
+    "Coil37": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil37",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve80"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent35"
+      }
+    },
+    "RotatedCurve81": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve81",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier15"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent36": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent36",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent18"
+      },
+      "scale": -1.0
+    },
+    "Coil38": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil38",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve81"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent36"
+      }
+    },
+    "RotatedCurve82": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve82",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier16"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent37": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent37",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent19"
+      },
+      "scale": -1.0
+    },
+    "Coil39": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil39",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve82"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent37"
+      }
+    },
+    "RotatedCurve83": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve83",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier17"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent38": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent38",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent20"
+      },
+      "scale": -1.0
+    },
+    "Coil40": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil40",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve83"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent38"
+      }
+    },
+    "RotatedCurve84": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve84",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier18"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent39": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent39",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent21"
+      },
+      "scale": -1.0
+    },
+    "Coil41": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil41",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve84"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent39"
+      }
+    },
+    "RotatedCurve85": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve85",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier19"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent40": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent40",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent22"
+      },
+      "scale": -1.0
+    },
+    "Coil42": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil42",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve85"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent40"
+      }
+    },
+    "RotatedCurve86": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve86",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier20"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent41": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent41",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent23"
+      },
+      "scale": -1.0
+    },
+    "Coil43": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil43",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve86"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent41"
+      }
+    },
+    "RotatedCurve87": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve87",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier21"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent42": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent42",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent24"
+      },
+      "scale": -1.0
+    },
+    "Coil44": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil44",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve87"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent42"
+      }
+    },
+    "RotatedCurve88": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve88",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier4"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil45": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil45",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve88"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent7"
+      }
+    },
+    "RotatedCurve89": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve89",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier5"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil46": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil46",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve89"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent8"
+      }
+    },
+    "RotatedCurve90": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve90",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier6"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil47": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil47",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve90"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent9"
+      }
+    },
+    "RotatedCurve91": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve91",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier7"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil48": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil48",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve91"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent10"
+      }
+    },
+    "RotatedCurve92": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve92",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier8"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil49": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil49",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve92"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent11"
+      }
+    },
+    "RotatedCurve93": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve93",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier9"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil50": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil50",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve93"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent12"
+      }
+    },
+    "RotatedCurve94": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve94",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier10"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil51": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil51",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve94"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent13"
+      }
+    },
+    "RotatedCurve95": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve95",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier11"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil52": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil52",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve95"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent14"
+      }
+    },
+    "RotatedCurve96": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve96",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier12"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil53": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil53",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve96"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent15"
+      }
+    },
+    "RotatedCurve97": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve97",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier13"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil54": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil54",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve97"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent16"
+      }
+    },
+    "RotatedCurve98": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve98",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier14"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil55": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil55",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve98"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent17"
+      }
+    },
+    "RotatedCurve99": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve99",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier15"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil56": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil56",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve99"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent18"
+      }
+    },
+    "RotatedCurve100": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve100",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier16"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil57": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil57",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve100"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent19"
+      }
+    },
+    "RotatedCurve101": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve101",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier17"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil58": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil58",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve101"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent20"
+      }
+    },
+    "RotatedCurve102": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve102",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier18"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil59": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil59",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve102"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent21"
+      }
+    },
+    "RotatedCurve103": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve103",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier19"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil60": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil60",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve103"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent22"
+      }
+    },
+    "RotatedCurve104": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve104",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier20"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil61": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil61",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve104"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent23"
+      }
+    },
+    "RotatedCurve105": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve105",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier21"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil62": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil62",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve105"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent24"
+      }
+    },
+    "RotatedCurve106": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve106",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier4"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent43": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent43",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent7"
+      },
+      "scale": -1.0
+    },
+    "Coil63": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil63",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve106"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent43"
+      }
+    },
+    "RotatedCurve107": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve107",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier5"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent44": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent44",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent8"
+      },
+      "scale": -1.0
+    },
+    "Coil64": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil64",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve107"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent44"
+      }
+    },
+    "RotatedCurve108": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve108",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier6"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent45": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent45",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent9"
+      },
+      "scale": -1.0
+    },
+    "Coil65": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil65",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve108"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent45"
+      }
+    },
+    "RotatedCurve109": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve109",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier7"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent46": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent46",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent10"
+      },
+      "scale": -1.0
+    },
+    "Coil66": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil66",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve109"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent46"
+      }
+    },
+    "RotatedCurve110": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve110",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier8"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent47": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent47",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent11"
+      },
+      "scale": -1.0
+    },
+    "Coil67": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil67",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve110"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent47"
+      }
+    },
+    "RotatedCurve111": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve111",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier9"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent48": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent48",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent12"
+      },
+      "scale": -1.0
+    },
+    "Coil68": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil68",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve111"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent48"
+      }
+    },
+    "RotatedCurve112": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve112",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier10"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent49": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent49",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent13"
+      },
+      "scale": -1.0
+    },
+    "Coil69": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil69",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve112"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent49"
+      }
+    },
+    "RotatedCurve113": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve113",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier11"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent50": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent50",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent14"
+      },
+      "scale": -1.0
+    },
+    "Coil70": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil70",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve113"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent50"
+      }
+    },
+    "RotatedCurve114": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve114",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier12"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent51": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent51",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent15"
+      },
+      "scale": -1.0
+    },
+    "Coil71": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil71",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve114"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent51"
+      }
+    },
+    "RotatedCurve115": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve115",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier13"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent52": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent52",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent16"
+      },
+      "scale": -1.0
+    },
+    "Coil72": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil72",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve115"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent52"
+      }
+    },
+    "RotatedCurve116": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve116",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier14"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent53": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent53",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent17"
+      },
+      "scale": -1.0
+    },
+    "Coil73": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil73",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve116"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent53"
+      }
+    },
+    "RotatedCurve117": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve117",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier15"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent54": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent54",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent18"
+      },
+      "scale": -1.0
+    },
+    "Coil74": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil74",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve117"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent54"
+      }
+    },
+    "RotatedCurve118": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve118",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier16"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent55": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent55",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent19"
+      },
+      "scale": -1.0
+    },
+    "Coil75": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil75",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve118"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent55"
+      }
+    },
+    "RotatedCurve119": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve119",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier17"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent56": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent56",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent20"
+      },
+      "scale": -1.0
+    },
+    "Coil76": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil76",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve119"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent56"
+      }
+    },
+    "RotatedCurve120": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve120",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier18"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent57": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent57",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent21"
+      },
+      "scale": -1.0
+    },
+    "Coil77": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil77",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve120"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent57"
+      }
+    },
+    "RotatedCurve121": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve121",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier19"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent58": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent58",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent22"
+      },
+      "scale": -1.0
+    },
+    "Coil78": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil78",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve121"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent58"
+      }
+    },
+    "RotatedCurve122": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve122",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier20"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent59": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent59",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent23"
+      },
+      "scale": -1.0
+    },
+    "Coil79": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil79",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve122"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent59"
+      }
+    },
+    "RotatedCurve123": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve123",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurvePlanarFourier21"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent60": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent60",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent24"
+      },
+      "scale": -1.0
+    },
+    "Coil80": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil80",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve123"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent60"
+      }
+    },
+    "BiotSavart2": {
+      "@module": "simsopt.field.biotsavart",
+      "@class": "BiotSavart",
+      "@name": "BiotSavart2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "coils": [
+        {
+          "$type": "ref",
+          "value": "Coil9"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil10"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil11"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil12"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil13"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil14"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil15"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil16"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil17"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil18"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil19"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil20"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil21"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil22"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil23"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil24"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil25"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil26"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil27"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil28"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil29"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil30"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil31"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil32"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil33"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil34"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil35"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil36"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil37"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil38"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil39"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil40"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil41"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil42"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil43"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil44"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil45"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil46"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil47"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil48"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil49"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil50"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil51"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil52"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil53"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil54"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil55"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil56"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil57"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil58"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil59"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil60"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil61"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil62"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil63"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil64"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil65"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil66"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil67"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil68"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil69"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil70"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil71"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil72"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil73"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil74"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil75"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil76"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil77"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil78"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil79"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil80"
+        }
+      ],
+      "psc_array": null,
+      "points": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          [
+            4.892906314968054,
+            0.1201141081405257,
+            0.0
+          ],
+          [
+            4.881118875087319,
+            0.3600529590143133,
+            0.0
+          ],
+          [
+            4.857572392300979,
+            0.5991244107729208,
+            0.0
+          ],
+          [
+            4.8223235921484955,
+            0.8367525193488757,
+            0.0
+          ],
+          [
+            4.775457392076865,
+            1.0723648178148546,
+            0.0
+          ],
+          [
+            4.717086696867055,
+            1.3053936955066527,
+            0.0
+          ],
+          [
+            4.647352126636495,
+            1.535277765446992,
+            0.0
+          ],
+          [
+            4.566421678072897,
+            1.7614632167759188,
+            0.0
+          ],
+          [
+            4.474490319715521,
+            1.983405148929677,
+            0.0
+          ],
+          [
+            4.371779522258886,
+            2.20056888435389,
+            0.0
+          ],
+          [
+            4.258536725010468,
+            2.4124312565886252,
+            0.0
+          ],
+          [
+            4.135034739787737,
+            2.6184818706222157,
+            0.0
+          ],
+          [
+            4.00157109369059,
+            2.818224332477554,
+            0.0
+          ],
+          [
+            3.8584673123325093,
+            3.0111774450686557,
+            0.0
+          ],
+          [
+            3.706068145257199,
+            3.1968763674465928,
+            0.0
+          ],
+          [
+            3.544740735406733,
+            3.374873734642052,
+            0.0
+          ],
+          [
+            3.3748737346420525,
+            3.5447407354067324,
+            0.0
+          ],
+          [
+            3.196876367446593,
+            3.7060681452571984,
+            0.0
+          ],
+          [
+            3.0111774450686557,
+            3.8584673123325093,
+            0.0
+          ],
+          [
+            2.818224332477554,
+            4.00157109369059,
+            0.0
+          ],
+          [
+            2.6184818706222166,
+            4.135034739787737,
+            0.0
+          ],
+          [
+            2.4124312565886257,
+            4.258536725010468,
+            0.0
+          ],
+          [
+            2.20056888435389,
+            4.371779522258886,
+            0.0
+          ],
+          [
+            1.983405148929677,
+            4.474490319715521,
+            0.0
+          ],
+          [
+            1.7614632167759197,
+            4.566421678072897,
+            0.0
+          ],
+          [
+            1.5352777654469925,
+            4.647352126636495,
+            0.0
+          ],
+          [
+            1.305393695506653,
+            4.717086696867055,
+            0.0
+          ],
+          [
+            1.0723648178148546,
+            4.775457392076865,
+            0.0
+          ],
+          [
+            0.8367525193488764,
+            4.8223235921484955,
+            0.0
+          ],
+          [
+            0.5991244107729212,
+            4.857572392300979,
+            0.0
+          ],
+          [
+            0.3600529590143134,
+            4.881118875087319,
+            0.0
+          ],
+          [
+            0.12011410814052557,
+            4.892906314968054,
+            0.0
+          ]
+        ]
+      }
+    },
+    "13904333856": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904333856",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          6.082254126599765,
+          -0.3504212257509215,
+          4.355680487823796,
+          0.4032750451069818,
+          -0.44830316502087125,
+          -0.35388043431369554,
+          0.11029775321672211,
+          0.11241449239551522,
+          -0.15337635029781277,
+          -0.013951341952959098,
+          0.07398541668428041,
+          -0.004367358096282023,
+          -0.058788255606082904,
+          -0.035181321239126845,
+          0.10984450511944108,
+          0.06099063507578462,
+          -0.04469472957038857,
+          -0.026181300674319147,
+          -0.05364526222863865,
+          -0.015122528506647175,
+          0.019992015080415107,
+          0.017379845004418165,
+          0.025187148596526997,
+          -0.004896174437593705,
+          0.040917487512696624,
+          -0.0015685319936452054,
+          -0.02436856656920478,
+          -0.02367199226013496,
+          -0.01272533627174054,
+          -0.0031538124557051253,
+          0.02221114969033264,
+          0.03414983259749274,
+          -0.02688097535186956,
+          2.314426051048795,
+          -0.059988726134847105,
+          1.8022168603725246,
+          0.20333450360314972,
+          0.07801287077075045,
+          -0.29656294528585986,
+          -0.6379167333150426,
+          0.2718178574387516,
+          0.33771250399403435,
+          0.013518515955781569,
+          -0.1429511589795796,
+          -0.10867484292466792,
+          0.06506061806956623,
+          0.013451129371549833,
+          -0.015328766303516761,
+          0.02738070066439996,
+          0.039674320578318156,
+          0.025734141090609616,
+          -0.06259402291633147,
+          -0.05006117720829914,
+          0.007273461712844188,
+          0.030964804348654278,
+          0.04362855947739998,
+          -0.005901274712044051,
+          -0.02952884720463676,
+          -0.0132861139406751,
+          0.011015313108334429,
+          0.011874940564788238,
+          -0.014732468877505712,
+          0.0036211316589469813,
+          0.012239414412218734,
+          -0.009554914051331178,
+          -0.006018365461649627,
+          0.46268761262608965,
+          -5.6663494227529645,
+          -0.16113214893668415,
+          0.44415978830647795,
+          -0.04222713699901732,
+          0.44228976915612145,
+          0.03763467991315082,
+          -0.08182268745716417,
+          -0.24944205835269123,
+          -0.08657570602418871,
+          0.24925622967329136,
+          0.021526217499883604,
+          -0.17912801042681242,
+          0.010407762773230874,
+          0.03980960830749004,
+          0.01221182997553103,
+          0.009348634922874341,
+          0.01747489093688894,
+          -0.029472289623988936,
+          -0.06834764250223585,
+          -0.00499960155143478,
+          -0.005070112678634079,
+          -0.027293847514930317,
+          0.029939070950744908,
+          0.04638274921494954,
+          0.05111272486244141,
+          -0.049681451296796075,
+          0.03727660723010721,
+          0.0619570656781171,
+          0.01659852277970314,
+          0.01421681024178696,
+          0.011557110695809544,
+          0.024109714522533344
+        ]
+      },
+      "names": [
+        "xc(0)",
+        "xs(1)",
+        "xc(1)",
+        "xs(2)",
+        "xc(2)",
+        "xs(3)",
+        "xc(3)",
+        "xs(4)",
+        "xc(4)",
+        "xs(5)",
+        "xc(5)",
+        "xs(6)",
+        "xc(6)",
+        "xs(7)",
+        "xc(7)",
+        "xs(8)",
+        "xc(8)",
+        "xs(9)",
+        "xc(9)",
+        "xs(10)",
+        "xc(10)",
+        "xs(11)",
+        "xc(11)",
+        "xs(12)",
+        "xc(12)",
+        "xs(13)",
+        "xc(13)",
+        "xs(14)",
+        "xc(14)",
+        "xs(15)",
+        "xc(15)",
+        "xs(16)",
+        "xc(16)",
+        "yc(0)",
+        "ys(1)",
+        "yc(1)",
+        "ys(2)",
+        "yc(2)",
+        "ys(3)",
+        "yc(3)",
+        "ys(4)",
+        "yc(4)",
+        "ys(5)",
+        "yc(5)",
+        "ys(6)",
+        "yc(6)",
+        "ys(7)",
+        "yc(7)",
+        "ys(8)",
+        "yc(8)",
+        "ys(9)",
+        "yc(9)",
+        "ys(10)",
+        "yc(10)",
+        "ys(11)",
+        "yc(11)",
+        "ys(12)",
+        "yc(12)",
+        "ys(13)",
+        "yc(13)",
+        "ys(14)",
+        "yc(14)",
+        "ys(15)",
+        "yc(15)",
+        "ys(16)",
+        "yc(16)",
+        "zc(0)",
+        "zs(1)",
+        "zc(1)",
+        "zs(2)",
+        "zc(2)",
+        "zs(3)",
+        "zc(3)",
+        "zs(4)",
+        "zc(4)",
+        "zs(5)",
+        "zc(5)",
+        "zs(6)",
+        "zc(6)",
+        "zs(7)",
+        "zc(7)",
+        "zs(8)",
+        "zc(8)",
+        "zs(9)",
+        "zc(9)",
+        "zs(10)",
+        "zc(10)",
+        "zs(11)",
+        "zc(11)",
+        "zs(12)",
+        "zc(12)",
+        "zs(13)",
+        "zc(13)",
+        "zs(14)",
+        "zc(14)",
+        "zs(15)",
+        "zc(15)",
+        "zs(16)",
+        "zc(16)"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurveXYZFourier1": {
+      "@module": "simsopt.geo.curvexyzfourier",
+      "@class": "CurveXYZFourier",
+      "@name": "CurveXYZFourier1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.00390625,
+          0.0078125,
+          0.01171875,
+          0.015625,
+          0.01953125,
+          0.0234375,
+          0.02734375,
+          0.03125,
+          0.03515625,
+          0.0390625,
+          0.04296875,
+          0.046875,
+          0.05078125,
+          0.0546875,
+          0.05859375,
+          0.0625,
+          0.06640625,
+          0.0703125,
+          0.07421875,
+          0.078125,
+          0.08203125,
+          0.0859375,
+          0.08984375,
+          0.09375,
+          0.09765625,
+          0.1015625,
+          0.10546875,
+          0.109375,
+          0.11328125,
+          0.1171875,
+          0.12109375,
+          0.125,
+          0.12890625,
+          0.1328125,
+          0.13671875,
+          0.140625,
+          0.14453125,
+          0.1484375,
+          0.15234375,
+          0.15625,
+          0.16015625,
+          0.1640625,
+          0.16796875,
+          0.171875,
+          0.17578125,
+          0.1796875,
+          0.18359375,
+          0.1875,
+          0.19140625,
+          0.1953125,
+          0.19921875,
+          0.203125,
+          0.20703125,
+          0.2109375,
+          0.21484375,
+          0.21875,
+          0.22265625,
+          0.2265625,
+          0.23046875,
+          0.234375,
+          0.23828125,
+          0.2421875,
+          0.24609375,
+          0.25,
+          0.25390625,
+          0.2578125,
+          0.26171875,
+          0.265625,
+          0.26953125,
+          0.2734375,
+          0.27734375,
+          0.28125,
+          0.28515625,
+          0.2890625,
+          0.29296875,
+          0.296875,
+          0.30078125,
+          0.3046875,
+          0.30859375,
+          0.3125,
+          0.31640625,
+          0.3203125,
+          0.32421875,
+          0.328125,
+          0.33203125,
+          0.3359375,
+          0.33984375,
+          0.34375,
+          0.34765625,
+          0.3515625,
+          0.35546875,
+          0.359375,
+          0.36328125,
+          0.3671875,
+          0.37109375,
+          0.375,
+          0.37890625,
+          0.3828125,
+          0.38671875,
+          0.390625,
+          0.39453125,
+          0.3984375,
+          0.40234375,
+          0.40625,
+          0.41015625,
+          0.4140625,
+          0.41796875,
+          0.421875,
+          0.42578125,
+          0.4296875,
+          0.43359375,
+          0.4375,
+          0.44140625,
+          0.4453125,
+          0.44921875,
+          0.453125,
+          0.45703125,
+          0.4609375,
+          0.46484375,
+          0.46875,
+          0.47265625,
+          0.4765625,
+          0.48046875,
+          0.484375,
+          0.48828125,
+          0.4921875,
+          0.49609375,
+          0.5,
+          0.50390625,
+          0.5078125,
+          0.51171875,
+          0.515625,
+          0.51953125,
+          0.5234375,
+          0.52734375,
+          0.53125,
+          0.53515625,
+          0.5390625,
+          0.54296875,
+          0.546875,
+          0.55078125,
+          0.5546875,
+          0.55859375,
+          0.5625,
+          0.56640625,
+          0.5703125,
+          0.57421875,
+          0.578125,
+          0.58203125,
+          0.5859375,
+          0.58984375,
+          0.59375,
+          0.59765625,
+          0.6015625,
+          0.60546875,
+          0.609375,
+          0.61328125,
+          0.6171875,
+          0.62109375,
+          0.625,
+          0.62890625,
+          0.6328125,
+          0.63671875,
+          0.640625,
+          0.64453125,
+          0.6484375,
+          0.65234375,
+          0.65625,
+          0.66015625,
+          0.6640625,
+          0.66796875,
+          0.671875,
+          0.67578125,
+          0.6796875,
+          0.68359375,
+          0.6875,
+          0.69140625,
+          0.6953125,
+          0.69921875,
+          0.703125,
+          0.70703125,
+          0.7109375,
+          0.71484375,
+          0.71875,
+          0.72265625,
+          0.7265625,
+          0.73046875,
+          0.734375,
+          0.73828125,
+          0.7421875,
+          0.74609375,
+          0.75,
+          0.75390625,
+          0.7578125,
+          0.76171875,
+          0.765625,
+          0.76953125,
+          0.7734375,
+          0.77734375,
+          0.78125,
+          0.78515625,
+          0.7890625,
+          0.79296875,
+          0.796875,
+          0.80078125,
+          0.8046875,
+          0.80859375,
+          0.8125,
+          0.81640625,
+          0.8203125,
+          0.82421875,
+          0.828125,
+          0.83203125,
+          0.8359375,
+          0.83984375,
+          0.84375,
+          0.84765625,
+          0.8515625,
+          0.85546875,
+          0.859375,
+          0.86328125,
+          0.8671875,
+          0.87109375,
+          0.875,
+          0.87890625,
+          0.8828125,
+          0.88671875,
+          0.890625,
+          0.89453125,
+          0.8984375,
+          0.90234375,
+          0.90625,
+          0.91015625,
+          0.9140625,
+          0.91796875,
+          0.921875,
+          0.92578125,
+          0.9296875,
+          0.93359375,
+          0.9375,
+          0.94140625,
+          0.9453125,
+          0.94921875,
+          0.953125,
+          0.95703125,
+          0.9609375,
+          0.96484375,
+          0.96875,
+          0.97265625,
+          0.9765625,
+          0.98046875,
+          0.984375,
+          0.98828125,
+          0.9921875,
+          0.99609375
+        ]
+      },
+      "order": 16,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904333856"
+      }
+    },
+    "13904334304": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904334304",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          1.450362103771909
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current1": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 1.450362103771909,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904334304"
+      }
+    },
+    "ScaledCurrent1": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "Current1"
+      },
+      "scale": 10000000.0
+    },
+    "Coil1": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier1"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent1"
+      }
+    },
+    "13904333744": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904333744",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          2.7229829504539933,
+          0.16688526405829762,
+          1.7993075219387018,
+          -0.2036877901137493,
+          0.018438459817128768,
+          -0.2933988264028287,
+          -0.25679383803984174,
+          0.5787641746898499,
+          0.21451466726037233,
+          -0.3756187430805232,
+          0.17687194126812197,
+          0.2568240602471842,
+          -0.27544239572940576,
+          -0.2529164643171749,
+          0.1840070194036822,
+          0.23179304282522095,
+          -0.13199784678132043,
+          -0.1463762715071576,
+          0.03841123710990362,
+          0.08940853006681819,
+          0.07096624230316707,
+          -0.07717150761216601,
+          -0.08146093060056483,
+          0.046111996545879004,
+          0.03761073592361707,
+          -0.02256875179432926,
+          -0.05732328599249404,
+          0.03709288392546695,
+          0.09196401563756934,
+          -0.04902978796661024,
+          -0.08915687735075836,
+          0.034468673232334074,
+          0.05278196202075315,
+          6.161185829710467,
+          -0.1591853413133107,
+          5.041878078767764,
+          0.11818660178706035,
+          -0.09652119125144183,
+          -0.061703849843791334,
+          -0.43667087299723395,
+          -0.08911783763166578,
+          0.28148229566184024,
+          -0.04412251799520372,
+          -0.290112154992165,
+          0.0698959920552112,
+          0.17193110852387422,
+          -0.10490675888197339,
+          -0.09130467494337595,
+          0.11365544568478846,
+          0.02678094502083275,
+          -0.01726148066512906,
+          -0.08835839154694423,
+          -0.0026541585990786125,
+          0.20970310895322117,
+          0.010009105224141586,
+          -0.10248602727975023,
+          -0.11220570618456405,
+          -0.06198314943390028,
+          0.09963182619687605,
+          0.03741605716314413,
+          -0.030326215999460636,
+          0.016310115355135962,
+          0.07550157969981515,
+          -0.03775234041750729,
+          -0.07889844430245584,
+          0.05202305333467521,
+          0.42328860740153407,
+          -7.304485969171215,
+          -0.2183169748858066,
+          1.2072199706507083,
+          0.16496425492439104,
+          -0.3529293437454938,
+          -0.14317234061215361,
+          0.4112034866900643,
+          -0.1251232375132481,
+          -0.3053596516130839,
+          0.15314141191595249,
+          0.29153910085926465,
+          -0.11519804987469083,
+          -0.18541474680739958,
+          0.0505839816057611,
+          0.10014463746684861,
+          0.0712717071319275,
+          -0.1479545799729986,
+          -0.07634895322232303,
+          0.1353306011056011,
+          -0.007407242736795209,
+          -0.11487373837068772,
+          -0.03105772952752626,
+          0.1698213396754542,
+          0.0743557133027405,
+          -0.16646132026124408,
+          -0.01586277958450231,
+          0.0520285814725793,
+          0.10541714603736875,
+          -0.060123663811243434,
+          -0.08032889775680875,
+          0.00694178893073078,
+          0.04029448680735449
+        ]
+      },
+      "names": [
+        "xc(0)",
+        "xs(1)",
+        "xc(1)",
+        "xs(2)",
+        "xc(2)",
+        "xs(3)",
+        "xc(3)",
+        "xs(4)",
+        "xc(4)",
+        "xs(5)",
+        "xc(5)",
+        "xs(6)",
+        "xc(6)",
+        "xs(7)",
+        "xc(7)",
+        "xs(8)",
+        "xc(8)",
+        "xs(9)",
+        "xc(9)",
+        "xs(10)",
+        "xc(10)",
+        "xs(11)",
+        "xc(11)",
+        "xs(12)",
+        "xc(12)",
+        "xs(13)",
+        "xc(13)",
+        "xs(14)",
+        "xc(14)",
+        "xs(15)",
+        "xc(15)",
+        "xs(16)",
+        "xc(16)",
+        "yc(0)",
+        "ys(1)",
+        "yc(1)",
+        "ys(2)",
+        "yc(2)",
+        "ys(3)",
+        "yc(3)",
+        "ys(4)",
+        "yc(4)",
+        "ys(5)",
+        "yc(5)",
+        "ys(6)",
+        "yc(6)",
+        "ys(7)",
+        "yc(7)",
+        "ys(8)",
+        "yc(8)",
+        "ys(9)",
+        "yc(9)",
+        "ys(10)",
+        "yc(10)",
+        "ys(11)",
+        "yc(11)",
+        "ys(12)",
+        "yc(12)",
+        "ys(13)",
+        "yc(13)",
+        "ys(14)",
+        "yc(14)",
+        "ys(15)",
+        "yc(15)",
+        "ys(16)",
+        "yc(16)",
+        "zc(0)",
+        "zs(1)",
+        "zc(1)",
+        "zs(2)",
+        "zc(2)",
+        "zs(3)",
+        "zc(3)",
+        "zs(4)",
+        "zc(4)",
+        "zs(5)",
+        "zc(5)",
+        "zs(6)",
+        "zc(6)",
+        "zs(7)",
+        "zc(7)",
+        "zs(8)",
+        "zc(8)",
+        "zs(9)",
+        "zc(9)",
+        "zs(10)",
+        "zc(10)",
+        "zs(11)",
+        "zc(11)",
+        "zs(12)",
+        "zc(12)",
+        "zs(13)",
+        "zc(13)",
+        "zs(14)",
+        "zc(14)",
+        "zs(15)",
+        "zc(15)",
+        "zs(16)",
+        "zc(16)"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity,
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity,
+          Infinity
+        ]
+      }
+    },
+    "CurveXYZFourier2": {
+      "@module": "simsopt.geo.curvexyzfourier",
+      "@class": "CurveXYZFourier",
+      "@name": "CurveXYZFourier2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "quadpoints": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          0.0,
+          0.00390625,
+          0.0078125,
+          0.01171875,
+          0.015625,
+          0.01953125,
+          0.0234375,
+          0.02734375,
+          0.03125,
+          0.03515625,
+          0.0390625,
+          0.04296875,
+          0.046875,
+          0.05078125,
+          0.0546875,
+          0.05859375,
+          0.0625,
+          0.06640625,
+          0.0703125,
+          0.07421875,
+          0.078125,
+          0.08203125,
+          0.0859375,
+          0.08984375,
+          0.09375,
+          0.09765625,
+          0.1015625,
+          0.10546875,
+          0.109375,
+          0.11328125,
+          0.1171875,
+          0.12109375,
+          0.125,
+          0.12890625,
+          0.1328125,
+          0.13671875,
+          0.140625,
+          0.14453125,
+          0.1484375,
+          0.15234375,
+          0.15625,
+          0.16015625,
+          0.1640625,
+          0.16796875,
+          0.171875,
+          0.17578125,
+          0.1796875,
+          0.18359375,
+          0.1875,
+          0.19140625,
+          0.1953125,
+          0.19921875,
+          0.203125,
+          0.20703125,
+          0.2109375,
+          0.21484375,
+          0.21875,
+          0.22265625,
+          0.2265625,
+          0.23046875,
+          0.234375,
+          0.23828125,
+          0.2421875,
+          0.24609375,
+          0.25,
+          0.25390625,
+          0.2578125,
+          0.26171875,
+          0.265625,
+          0.26953125,
+          0.2734375,
+          0.27734375,
+          0.28125,
+          0.28515625,
+          0.2890625,
+          0.29296875,
+          0.296875,
+          0.30078125,
+          0.3046875,
+          0.30859375,
+          0.3125,
+          0.31640625,
+          0.3203125,
+          0.32421875,
+          0.328125,
+          0.33203125,
+          0.3359375,
+          0.33984375,
+          0.34375,
+          0.34765625,
+          0.3515625,
+          0.35546875,
+          0.359375,
+          0.36328125,
+          0.3671875,
+          0.37109375,
+          0.375,
+          0.37890625,
+          0.3828125,
+          0.38671875,
+          0.390625,
+          0.39453125,
+          0.3984375,
+          0.40234375,
+          0.40625,
+          0.41015625,
+          0.4140625,
+          0.41796875,
+          0.421875,
+          0.42578125,
+          0.4296875,
+          0.43359375,
+          0.4375,
+          0.44140625,
+          0.4453125,
+          0.44921875,
+          0.453125,
+          0.45703125,
+          0.4609375,
+          0.46484375,
+          0.46875,
+          0.47265625,
+          0.4765625,
+          0.48046875,
+          0.484375,
+          0.48828125,
+          0.4921875,
+          0.49609375,
+          0.5,
+          0.50390625,
+          0.5078125,
+          0.51171875,
+          0.515625,
+          0.51953125,
+          0.5234375,
+          0.52734375,
+          0.53125,
+          0.53515625,
+          0.5390625,
+          0.54296875,
+          0.546875,
+          0.55078125,
+          0.5546875,
+          0.55859375,
+          0.5625,
+          0.56640625,
+          0.5703125,
+          0.57421875,
+          0.578125,
+          0.58203125,
+          0.5859375,
+          0.58984375,
+          0.59375,
+          0.59765625,
+          0.6015625,
+          0.60546875,
+          0.609375,
+          0.61328125,
+          0.6171875,
+          0.62109375,
+          0.625,
+          0.62890625,
+          0.6328125,
+          0.63671875,
+          0.640625,
+          0.64453125,
+          0.6484375,
+          0.65234375,
+          0.65625,
+          0.66015625,
+          0.6640625,
+          0.66796875,
+          0.671875,
+          0.67578125,
+          0.6796875,
+          0.68359375,
+          0.6875,
+          0.69140625,
+          0.6953125,
+          0.69921875,
+          0.703125,
+          0.70703125,
+          0.7109375,
+          0.71484375,
+          0.71875,
+          0.72265625,
+          0.7265625,
+          0.73046875,
+          0.734375,
+          0.73828125,
+          0.7421875,
+          0.74609375,
+          0.75,
+          0.75390625,
+          0.7578125,
+          0.76171875,
+          0.765625,
+          0.76953125,
+          0.7734375,
+          0.77734375,
+          0.78125,
+          0.78515625,
+          0.7890625,
+          0.79296875,
+          0.796875,
+          0.80078125,
+          0.8046875,
+          0.80859375,
+          0.8125,
+          0.81640625,
+          0.8203125,
+          0.82421875,
+          0.828125,
+          0.83203125,
+          0.8359375,
+          0.83984375,
+          0.84375,
+          0.84765625,
+          0.8515625,
+          0.85546875,
+          0.859375,
+          0.86328125,
+          0.8671875,
+          0.87109375,
+          0.875,
+          0.87890625,
+          0.8828125,
+          0.88671875,
+          0.890625,
+          0.89453125,
+          0.8984375,
+          0.90234375,
+          0.90625,
+          0.91015625,
+          0.9140625,
+          0.91796875,
+          0.921875,
+          0.92578125,
+          0.9296875,
+          0.93359375,
+          0.9375,
+          0.94140625,
+          0.9453125,
+          0.94921875,
+          0.953125,
+          0.95703125,
+          0.9609375,
+          0.96484375,
+          0.96875,
+          0.97265625,
+          0.9765625,
+          0.98046875,
+          0.984375,
+          0.98828125,
+          0.9921875,
+          0.99609375
+        ]
+      },
+      "order": 16,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904333744"
+      }
+    },
+    "13904334640": {
+      "@module": "simsopt._core.optimizable",
+      "@class": "DOFs",
+      "@name": "13904334640",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "x": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          34558750.89332155
+        ]
+      },
+      "names": [
+        "x0"
+      ],
+      "free": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "bool",
+        "data": [
+          false
+        ]
+      },
+      "lower_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          -Infinity
+        ]
+      },
+      "upper_bounds": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          Infinity
+        ]
+      }
+    },
+    "Current2": {
+      "@module": "simsopt.field.coil",
+      "@class": "Current",
+      "@name": "Current2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current": 34558750.89332155,
+      "dofs": {
+        "$type": "ref",
+        "value": "13904334640"
+      }
+    },
+    "ScaledCurrent2": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent1"
+      },
+      "scale": -1.0
+    },
+    "CurrentSum1": {
+      "@module": "simsopt.field.coil",
+      "@class": "CurrentSum",
+      "@name": "CurrentSum1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_a": {
+        "$type": "ref",
+        "value": "Current2"
+      },
+      "current_b": {
+        "$type": "ref",
+        "value": "ScaledCurrent2"
+      }
+    },
+    "Coil2": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier2"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "CurrentSum1"
+      }
+    },
+    "RotatedCurve1": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier1"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent3": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent3",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent1"
+      },
+      "scale": -1.0
+    },
+    "Coil3": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil3",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve1"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent3"
+      }
+    },
+    "RotatedCurve2": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve2",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier2"
+      },
+      "phi": 0.0,
+      "flip": true
+    },
+    "ScaledCurrent4": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent4",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "CurrentSum1"
+      },
+      "scale": -1.0
+    },
+    "Coil4": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil4",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve2"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent4"
+      }
+    },
+    "RotatedCurve3": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve3",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier1"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil5": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil5",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve3"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent1"
+      }
+    },
+    "RotatedCurve4": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve4",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier2"
+      },
+      "phi": 3.141592653589793,
+      "flip": false
+    },
+    "Coil6": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil6",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve4"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "CurrentSum1"
+      }
+    },
+    "RotatedCurve5": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve5",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier1"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent5": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent5",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "ScaledCurrent1"
+      },
+      "scale": -1.0
+    },
+    "Coil7": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil7",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve5"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent5"
+      }
+    },
+    "RotatedCurve6": {
+      "@module": "simsopt.geo.curve",
+      "@class": "RotatedCurve",
+      "@name": "RotatedCurve6",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "CurveXYZFourier2"
+      },
+      "phi": 3.141592653589793,
+      "flip": true
+    },
+    "ScaledCurrent6": {
+      "@module": "simsopt.field.coil",
+      "@class": "ScaledCurrent",
+      "@name": "ScaledCurrent6",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "current_to_scale": {
+        "$type": "ref",
+        "value": "CurrentSum1"
+      },
+      "scale": -1.0
+    },
+    "Coil8": {
+      "@module": "simsopt.field.coil",
+      "@class": "Coil",
+      "@name": "Coil8",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "curve": {
+        "$type": "ref",
+        "value": "RotatedCurve6"
+      },
+      "current": {
+        "$type": "ref",
+        "value": "ScaledCurrent6"
+      }
+    },
+    "BiotSavart1": {
+      "@module": "simsopt.field.biotsavart",
+      "@class": "BiotSavart",
+      "@name": "BiotSavart1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "coils": [
+        {
+          "$type": "ref",
+          "value": "Coil1"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil2"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil3"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil4"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil5"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil6"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil7"
+        },
+        {
+          "$type": "ref",
+          "value": "Coil8"
+        }
+      ],
+      "psc_array": null,
+      "points": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          [
+            4.892906314968054,
+            0.1201141081405257,
+            0.0
+          ],
+          [
+            4.881118875087319,
+            0.3600529590143133,
+            0.0
+          ],
+          [
+            4.857572392300979,
+            0.5991244107729208,
+            0.0
+          ],
+          [
+            4.8223235921484955,
+            0.8367525193488757,
+            0.0
+          ],
+          [
+            4.775457392076865,
+            1.0723648178148546,
+            0.0
+          ],
+          [
+            4.717086696867055,
+            1.3053936955066527,
+            0.0
+          ],
+          [
+            4.647352126636495,
+            1.535277765446992,
+            0.0
+          ],
+          [
+            4.566421678072897,
+            1.7614632167759188,
+            0.0
+          ],
+          [
+            4.474490319715521,
+            1.983405148929677,
+            0.0
+          ],
+          [
+            4.371779522258886,
+            2.20056888435389,
+            0.0
+          ],
+          [
+            4.258536725010468,
+            2.4124312565886252,
+            0.0
+          ],
+          [
+            4.135034739787737,
+            2.6184818706222157,
+            0.0
+          ],
+          [
+            4.00157109369059,
+            2.818224332477554,
+            0.0
+          ],
+          [
+            3.8584673123325093,
+            3.0111774450686557,
+            0.0
+          ],
+          [
+            3.706068145257199,
+            3.1968763674465928,
+            0.0
+          ],
+          [
+            3.544740735406733,
+            3.374873734642052,
+            0.0
+          ],
+          [
+            3.3748737346420525,
+            3.5447407354067324,
+            0.0
+          ],
+          [
+            3.196876367446593,
+            3.7060681452571984,
+            0.0
+          ],
+          [
+            3.0111774450686557,
+            3.8584673123325093,
+            0.0
+          ],
+          [
+            2.818224332477554,
+            4.00157109369059,
+            0.0
+          ],
+          [
+            2.6184818706222166,
+            4.135034739787737,
+            0.0
+          ],
+          [
+            2.4124312565886257,
+            4.258536725010468,
+            0.0
+          ],
+          [
+            2.20056888435389,
+            4.371779522258886,
+            0.0
+          ],
+          [
+            1.983405148929677,
+            4.474490319715521,
+            0.0
+          ],
+          [
+            1.7614632167759197,
+            4.566421678072897,
+            0.0
+          ],
+          [
+            1.5352777654469925,
+            4.647352126636495,
+            0.0
+          ],
+          [
+            1.305393695506653,
+            4.717086696867055,
+            0.0
+          ],
+          [
+            1.0723648178148546,
+            4.775457392076865,
+            0.0
+          ],
+          [
+            0.8367525193488764,
+            4.8223235921484955,
+            0.0
+          ],
+          [
+            0.5991244107729212,
+            4.857572392300979,
+            0.0
+          ],
+          [
+            0.3600529590143134,
+            4.881118875087319,
+            0.0
+          ],
+          [
+            0.12011410814052557,
+            4.892906314968054,
+            0.0
+          ]
+        ]
+      }
+    },
+    "MagneticFieldSum1": {
+      "@module": "simsopt.field.magneticfield",
+      "@class": "MagneticFieldSum",
+      "@name": "MagneticFieldSum1",
+      "@version": "1.8.2.dev213+g90ea1541",
+      "Bfields": [
+        {
+          "$type": "ref",
+          "value": "BiotSavart2"
+        },
+        {
+          "$type": "ref",
+          "value": "BiotSavart1"
+        }
+      ],
+      "points": {
+        "@module": "numpy",
+        "@class": "array",
+        "dtype": "float64",
+        "data": [
+          [
+            4.892906314968054,
+            0.1201141081405257,
+            0.0
+          ],
+          [
+            4.881118875087319,
+            0.3600529590143133,
+            0.0
+          ],
+          [
+            4.857572392300979,
+            0.5991244107729208,
+            0.0
+          ],
+          [
+            4.8223235921484955,
+            0.8367525193488757,
+            0.0
+          ],
+          [
+            4.775457392076865,
+            1.0723648178148546,
+            0.0
+          ],
+          [
+            4.717086696867055,
+            1.3053936955066527,
+            0.0
+          ],
+          [
+            4.647352126636495,
+            1.535277765446992,
+            0.0
+          ],
+          [
+            4.566421678072897,
+            1.7614632167759188,
+            0.0
+          ],
+          [
+            4.474490319715521,
+            1.983405148929677,
+            0.0
+          ],
+          [
+            4.371779522258886,
+            2.20056888435389,
+            0.0
+          ],
+          [
+            4.258536725010468,
+            2.4124312565886252,
+            0.0
+          ],
+          [
+            4.135034739787737,
+            2.6184818706222157,
+            0.0
+          ],
+          [
+            4.00157109369059,
+            2.818224332477554,
+            0.0
+          ],
+          [
+            3.8584673123325093,
+            3.0111774450686557,
+            0.0
+          ],
+          [
+            3.706068145257199,
+            3.1968763674465928,
+            0.0
+          ],
+          [
+            3.544740735406733,
+            3.374873734642052,
+            0.0
+          ],
+          [
+            3.3748737346420525,
+            3.5447407354067324,
+            0.0
+          ],
+          [
+            3.196876367446593,
+            3.7060681452571984,
+            0.0
+          ],
+          [
+            3.0111774450686557,
+            3.8584673123325093,
+            0.0
+          ],
+          [
+            2.818224332477554,
+            4.00157109369059,
+            0.0
+          ],
+          [
+            2.6184818706222166,
+            4.135034739787737,
+            0.0
+          ],
+          [
+            2.4124312565886257,
+            4.258536725010468,
+            0.0
+          ],
+          [
+            2.20056888435389,
+            4.371779522258886,
+            0.0
+          ],
+          [
+            1.983405148929677,
+            4.474490319715521,
+            0.0
+          ],
+          [
+            1.7614632167759197,
+            4.566421678072897,
+            0.0
+          ],
+          [
+            1.5352777654469925,
+            4.647352126636495,
+            0.0
+          ],
+          [
+            1.305393695506653,
+            4.717086696867055,
+            0.0
+          ],
+          [
+            1.0723648178148546,
+            4.775457392076865,
+            0.0
+          ],
+          [
+            0.8367525193488764,
+            4.8223235921484955,
+            0.0
+          ],
+          [
+            0.5991244107729212,
+            4.857572392300979,
+            0.0
+          ],
+          [
+            0.3600529590143134,
+            4.881118875087319,
+            0.0
+          ],
+          [
+            0.12011410814052557,
+            4.892906314968054,
+            0.0
+          ]
+        ]
+      }
+    }
+  }
+}

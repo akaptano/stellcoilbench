@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import numpy as np
 from typing import Callable
 from datetime import datetime
@@ -345,6 +345,9 @@ def optimize_coils(
     run_vmec: bool = False,
     run_simple: bool = False,
     plot_poincare: bool = False,
+    plot_finite_build: bool = False,
+    finite_build_width: Optional[float] = None,
+    finite_build_height: Optional[float] = None,
 ) -> Dict[str, Any]:
     """
     Run a coil optimization for a given case using parameters from case.yaml,
@@ -377,6 +380,12 @@ def optimize_coils(
         Requires run_vmec=True. Disabled by default (default: False).
     plot_poincare:
         If True, generate Poincaré plot during post-processing (default: False).
+    plot_finite_build:
+        If True, generate finite-build coil VTK during post-processing (default: False).
+    finite_build_width:
+        Cross-section width [m] for finite-build coils. If None, uses default (5 cm).
+    finite_build_height:
+        Cross-section height [m] for finite-build coils. If None, uses default (5 cm).
 
     Returns
     -------
@@ -428,8 +437,15 @@ def optimize_coils(
         plot_poincare = True
     elif plot_poincare and not pp_params.get("plot_poincare", True):
         plot_poincare = False
-    # Additional params that can only come from case.yaml
+    # Additional params that can only come from case.yaml (or CLI via function args)
     plot_boozer = pp_params.get("plot_boozer", True)
+    # CLI flags override case.yaml for plot_finite_build
+    if not plot_finite_build:
+        plot_finite_build = pp_params.get("plot_finite_build", False)
+    if finite_build_width is None:
+        finite_build_width = pp_params.get("finite_build_width")
+    if finite_build_height is None:
+        finite_build_height = pp_params.get("finite_build_height")
     
     # Resolve case_path to absolute path before changing directories
     # This ensures post-processing can find it even after os.chdir(output_dir)
@@ -703,6 +719,9 @@ def optimize_coils(
                     run_simple=run_simple,
                     plot_poincare=plot_poincare,
                     plot_boozer=plot_boozer,
+                    plot_finite_build=plot_finite_build,
+                    finite_build_width=finite_build_width,
+                    finite_build_height=finite_build_height,
                     **{k: v for k, v in optimizer_params.items() if k != 'max_iterations' and k != 'verbose'},
                     **threshold_kwargs
                 )
@@ -727,6 +746,9 @@ def optimize_coils(
                         run_simple=run_simple,
                         plot_poincare=plot_poincare,
                         plot_boozer=plot_boozer,
+                        plot_finite_build=plot_finite_build,
+                        finite_build_width=finite_build_width,
+                        finite_build_height=finite_build_height,
                         **threshold_kwargs
                     )
                 except TypeError:
@@ -746,6 +768,9 @@ def optimize_coils(
                         run_simple=run_simple,
                         plot_poincare=plot_poincare,
                         plot_boozer=plot_boozer,
+                        plot_finite_build=plot_finite_build,
+                        finite_build_width=finite_build_width,
+                        finite_build_height=finite_build_height,
                         **threshold_kwargs
                     )
         
@@ -843,6 +868,9 @@ def optimize_coils(
                     nfieldlines=20,
                     run_simple=run_simple,
                     mpi=mpi_partition,  # Pass MPI partition explicitly
+                    plot_finite_build=plot_finite_build,
+                    finite_build_width=finite_build_width,
+                    finite_build_height=finite_build_height,
                 )
                 proc0_print("Post-processing complete!")
                 if is_proc0 and 'quasisymmetry_average' in post_processing_results:
@@ -1621,6 +1649,9 @@ def optimize_coils_with_fourier_continuation(
     run_simple: bool = False,
     plot_poincare: bool = False,
     plot_boozer: bool = True,
+    plot_finite_build: bool = False,
+    finite_build_width: Optional[float] = None,
+    finite_build_height: Optional[float] = None,
     **kwargs
 ) -> tuple[list, Dict[str, Any]]:
     """
@@ -1902,6 +1933,9 @@ def optimize_coils_with_fourier_continuation(
                     plot_poincare=plot_poincare,
                     nfieldlines=20,
                     run_simple=run_simple,
+                    plot_finite_build=plot_finite_build,
+                    finite_build_width=finite_build_width,
+                    finite_build_height=finite_build_height,
                 )
                 print("Post-processing complete!")
                 if 'quasisymmetry_average' in post_processing_results:
@@ -3296,6 +3330,9 @@ def _optimize_coils_loop_impl(
                     plot_poincare=plot_poincare,
                     nfieldlines=20,
                     run_simple=run_simple,
+                    plot_finite_build=kwargs.get('plot_finite_build', False),
+                    finite_build_width=kwargs.get('finite_build_width'),
+                    finite_build_height=kwargs.get('finite_build_height'),
                 )
                 print("Post-processing complete!")
                 if 'quasisymmetry_average' in post_processing_results:

@@ -276,6 +276,25 @@ class TestZipSubmissionDirectory:
             assert "coils.vtu" in files_in_zip
             assert "surface.vts" in files_in_zip
 
+    def test_finite_build_coils_only_in_zip(self, tmp_path):
+        """finite_build_coils.vtk / finite_build_coils_parastell.vtk in zip, removed from dir."""
+        import zipfile
+        submission_dir = tmp_path / "submission"
+        submission_dir.mkdir()
+        (submission_dir / "finite_build_coils.vtk").write_text("VTK sweep data")
+        (submission_dir / "finite_build_coils_parastell.vtk").write_text("VTK parastell data")
+        (submission_dir / "coils.json").write_text("{}")
+
+        zip_path = _zip_submission_directory(submission_dir)
+
+        assert zip_path.exists()
+        with zipfile.ZipFile(zip_path, 'r') as zf:
+            names = zf.namelist()
+            assert "finite_build_coils.vtk" in names
+            assert "finite_build_coils_parastell.vtk" in names
+        assert not (submission_dir / "finite_build_coils.vtk").exists()
+        assert not (submission_dir / "finite_build_coils_parastell.vtk").exists()
+
 
 class TestDetectHardware:
     """Tests for _detect_hardware function."""

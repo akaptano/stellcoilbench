@@ -1,0 +1,19 @@
+{
+  "zenodo_id": "13207692",
+  "zenodo_title": "joaopedrobiu6/CWS_CoilOptimization: Results CurveCWSFourier optimization",
+  "zenodo_doi": "10.5281/zenodo.13207692",
+  "zenodo_publication_date": "2024-08-04",
+  "citing_paper": {
+    "paper_id": "arxiv_2505_07703",
+    "paper_title": "Axisymmetric Coil Winding Surfaces for Non-Axisymmetric Fusion Devices",
+    "paper_authors": [
+      "J. Biu",
+      "R. Jorge"
+    ],
+    "paper_year": 2025,
+    "arxiv_id": "2505.07703v1"
+  },
+  "paper_sources": [
+    "arxiv_2505_07703"
+  ]
+}

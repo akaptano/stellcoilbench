@@ -1,0 +1,20 @@
+{
+  "zenodo_id": "13935733",
+  "zenodo_title": "salomon73/simsopt_forked: Vacuum energy",
+  "zenodo_doi": "10.5281/zenodo.13935733",
+  "zenodo_publication_date": "2024-10-15",
+  "citing_paper": {
+    "paper_id": "arxiv_2409_01268",
+    "paper_title": "Including the vacuum energy in stellarator coil design",
+    "paper_authors": [
+      "S. Guinchard",
+      "S. R. Hudson",
+      "E. J. Paul"
+    ],
+    "paper_year": 2024,
+    "arxiv_id": "2409.01268v3"
+  },
+  "paper_sources": [
+    "arxiv_2409_01268"
+  ]
+}

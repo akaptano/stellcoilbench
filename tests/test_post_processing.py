@@ -1072,7 +1072,49 @@ surface_params:
                 assert results is not None
                 # qfm_surface is only computed when run_vmec=True
                 assert 'BdotN' in results
-    
+
+    def test_run_post_processing_plot_finite_build(self, tmp_path):
+        """Test run_post_processing with plot_finite_build=True creates VTK file."""
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text("""
+surface_params:
+  surface: "input.test"
+  range: "half period"
+""")
+        surface_file = tmp_path / "input.test"
+        surface_file.write_text("dummy")
+
+        coils_json = tmp_path / "coils.json"
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=1, ntor=1, quadpoints_phi=np.linspace(0, 1, 16), quadpoints_theta=np.linspace(0, 1, 16))
+        surface.set_rc(0, 0, 1.0)
+        coils = create_equally_spaced_curves(2, 1, stellsym=True, R0=1.2, R1=0.1, order=2)
+        base_currents = [Current(1e6) for _ in range(2)]
+        coils_list = coils_via_symmetries(coils, base_currents, 1, True)
+        bs = BiotSavart(coils_list)
+        from simsopt import save
+        save(bs, coils_json)
+
+        output_dir = tmp_path / "post_output"
+        with patch('stellcoilbench.post_processing.SurfaceRZFourier.from_vmec_input') as mock_from_input:
+            mock_from_input.return_value = surface
+            results = run_post_processing(
+                coils_json_path=coils_json,
+                output_dir=output_dir,
+                case_yaml_path=case_yaml,
+                plasma_surfaces_dir=tmp_path,
+                run_vmec=False,
+                plot_boozer=False,
+                plot_poincare=False,
+                plot_finite_build=True,
+                finite_build_width=0.02,
+                finite_build_height=0.02,
+            )
+        assert 'finite_build_vtk_path' in results
+        vtk_path = Path(results['finite_build_vtk_path'])
+        assert vtk_path.exists()
+        assert vtk_path.suffix == '.vtk'
+        assert 'POINTS' in vtk_path.read_text()
+
     def test_run_post_processing_vmec_failure(self, tmp_path):
         """Test run_post_processing when VMEC fails."""
         pytest.importorskip("simsopt.mhd.vmec", reason="VMEC not available")

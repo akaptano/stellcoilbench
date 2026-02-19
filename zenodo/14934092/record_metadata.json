@@ -1,0 +1,23 @@
+{
+  "zenodo_id": "14934092",
+  "zenodo_title": "Reactor-scale Stellarator Dipole Array Solutions",
+  "zenodo_doi": "10.5281/zenodo.14934093",
+  "zenodo_publication_date": "2025-02-27",
+  "citing_paper": {
+    "paper_id": "arxiv_2412_13937",
+    "paper_title": "Reactor-scale stellarators with force and torque minimized dipole coils",
+    "paper_authors": [
+      "Alan A. Kaptanoglu",
+      "Alexander Wiedman",
+      "Jacob Halpern",
+      "Siena Hurwitz",
+      "Elizabeth J. Paul",
+      "Matt Landreman"
+    ],
+    "paper_year": 2024,
+    "arxiv_id": "2412.13937v2"
+  },
+  "paper_sources": [
+    "arxiv_2412_13937"
+  ]
+}

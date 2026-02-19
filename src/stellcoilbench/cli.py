@@ -848,6 +848,7 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
     # Keep post-processing files in addition to PDFs:
     # - PDF files (bn_error plots)
     # - Post-processing outputs: .vts (QFM surface), .png (plots), post_processing_results.json
+    # Note: finite_build_coils.vtk / finite_build_coils_parastell.vtk NOT kept outside zip
     post_processing_patterns = [
         'qfm_surface',
         'poincare',
@@ -865,7 +866,7 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
         is_post_processing_file = any(
             pattern.lower() in file_path.name.lower() 
             for pattern in post_processing_patterns
-        ) and file_path.suffix.lower() in {'.vts', '.png', '.json'}
+        ) and file_path.suffix.lower() in {'.vts', '.vtk', '.png', '.json'}
         
         if not is_post_processing_file:
             try:
@@ -1020,6 +1021,21 @@ def submit_case(
         "--plot-poincare/--no-plot-poincare",
         help="Generate Poincaré plot (disabled by default; expensive).",
     ),
+    plot_finite_build: bool = typer.Option(
+        False,
+        "--plot-finite-build/--no-plot-finite-build",
+        help="Generate finite-build coil VTK (rectangular cross-section swept along centerline).",
+    ),
+    finite_build_width: Optional[float] = typer.Option(
+        None,
+        "--finite-build-width",
+        help="Cross-section width [m] for finite-build coils. Default: 5 cm.",
+    ),
+    finite_build_height: Optional[float] = typer.Option(
+        None,
+        "--finite-build-height",
+        help="Cross-section height [m] for finite-build coils. Default: 5 cm.",
+    ),
 ) -> None:
     """
     Run a case and generate a submission results.json file.
@@ -1101,6 +1117,9 @@ def submit_case(
         run_vmec=run_vmec,
         run_simple=run_simple,
         plot_poincare=plot_poincare,
+        plot_finite_build=plot_finite_build,
+        finite_build_width=finite_build_width,
+        finite_build_height=finite_build_height,
     )
     
     # Only rank 0 should write files and print messages
@@ -1824,6 +1843,21 @@ def post_process(
         "--run-simple/--no-simple",
         help="Whether to run SIMPLE fast particle tracing (requires --run-vmec, expensive).",
     ),
+    plot_finite_build: bool = typer.Option(
+        False,
+        "--plot-finite-build/--no-plot-finite-build",
+        help="Generate finite-build coil geometry (rectangular cross-section swept along centerline) and export to VTK.",
+    ),
+    finite_build_width: Optional[float] = typer.Option(
+        None,
+        "--finite-build-width",
+        help="Cross-section width [m] for finite-build coils. Default: 5 cm.",
+    ),
+    finite_build_height: Optional[float] = typer.Option(
+        None,
+        "--finite-build-height",
+        help="Cross-section height [m] for finite-build coils. Default: 5 cm.",
+    ),
 ) -> None:
     """
     Run post-processing on optimized coil results.
@@ -1860,6 +1894,9 @@ def post_process(
             plot_poincare=plot_poincare,
             nfieldlines=nfieldlines,
             run_simple=run_simple,
+            plot_finite_build=plot_finite_build,
+            finite_build_width=finite_build_width,
+            finite_build_height=finite_build_height,
         )
         
         typer.echo("\nPost-processing complete!")

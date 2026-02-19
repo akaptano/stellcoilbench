@@ -1714,6 +1714,9 @@ def run_post_processing(
     run_simple: bool = False,
     simple_executable_path: Optional[Path] = None,
     run_vmec_original: bool = False,
+    plot_finite_build: bool = False,
+    finite_build_width: Optional[float] = None,
+    finite_build_height: Optional[float] = None,
 ) -> Dict[str, Any]:
     """
     Run complete post-processing pipeline.
@@ -1760,6 +1763,15 @@ def run_post_processing(
     run_vmec_original : bool, default=False
         Whether to also run VMEC on the original plasma surface for comparison.
         This doubles the VMEC computation time but provides comparison plots.
+    plot_finite_build : bool, default=False
+        Whether to generate finite-build coil geometry (rectangular cross-section
+        swept along centerline) and export to VTK.
+    finite_build_width : float, optional
+        Cross-section width [m] for finite-build coils. If None, uses Stellaris
+        default (5 cm).
+    finite_build_height : float, optional
+        Cross-section height [m] for finite-build coils. If None, uses
+        default (5 cm).
     
     Notes
     -----
@@ -1902,6 +1914,23 @@ def run_post_processing(
         
         results['BdotN'] = float(BdotN)
         results['BdotN_over_B'] = float(BdotN_over_B)
+
+    # Generate finite-build coil VTK if requested
+    if plot_finite_build and is_proc0:
+        try:
+            from stellcoilbench.finite_build import finite_build_coils_to_vtk
+            proc0_print("Generating finite-build coil VTK...")
+            with timed_section("finite_build_vtk"):
+                fb_path = finite_build_coils_to_vtk(
+                    bfield.coils,
+                    output_dir / "finite_build_coils",
+                    width=finite_build_width,
+                    height=finite_build_height,
+                )
+                proc0_print(f"Saved finite-build coils to {fb_path}")
+                results['finite_build_vtk_path'] = str(fb_path)
+        except Exception as e:
+            proc0_print(f"Warning: Finite-build VTK generation failed: {e}")
     
     # Broadcast B·n values to all ranks
     if is_mpi_parallel:

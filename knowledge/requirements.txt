@@ -8,6 +8,7 @@ qdrant-client>=1.7.0
 sentence-transformers>=2.2.0
 # LLM (optional, for /brief and /propose)
 openai>=1.0.0
-# PDF fetch (for fetch_papers.py)
+# PDF fetch (for fetch_papers.py) and Zenodo coil extraction
 arxiv>=2.0.0
 requests>=2.28.0
+pypdf>=4.0.0
