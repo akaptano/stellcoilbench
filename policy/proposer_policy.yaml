@@ -2,7 +2,7 @@
 # Controls batch composition, mutation parameters, guardrails, and resource limits.
 
 # --- Batch settings ---
-batch_size: 8
+batch_size: 10
 exploit_fraction: 0.5          # fraction of batch that is mutation/exploit
 top_k_parents: 10              # number of top feasible parents to consider for mutation
 
@@ -16,13 +16,15 @@ resource_caps:
 
 # --- Mutation (exploit) parameters ---
 # Note: weights are NOT used -- augmented_lagrangian tunes them automatically.
-# Only thresholds are mutated. Thresholds left unset are auto-scaled by the
-# code using the plasma surface minor radius (a0 = ARIES_CS_MINOR_RADIUS / minor_radius).
+# Thresholds are jittered from the parent's values. If the parent used auto-scaling
+# (no explicit thresholds), thresholds are injected from the parent's result metrics.
 mutation:
-  threshold_sigma: 0.10        # lognormal sigma for threshold jitter (10% typical change)
+  threshold_sigma: 0.15        # lognormal sigma for threshold jitter (15% typical change)
+  structural_mutation_prob: 0.2 # probability of changing ncoils or order
   ncoils_choices: [3, 4, 5, 6, 7]
   order_choices: [4]
   max_iterations: 500          # fixed (not scanned)
+  dof_perturbation: 0.0       # random perturbation scale for initial coil DOFs
 
 # --- Fourier continuation (applies to both exploration and mutation) ---
 # Use continuation with orders 4, 8, 16 for better convergence
@@ -31,28 +33,29 @@ fourier_continuation:
   orders: [4, 8, 16]
 
 # --- Exploration parameters ---
-# Thresholds are specified at ARIES-CS reactor scale (minor radius 1.7 m).
-# The code auto-scales them if not explicitly passed. To let the code auto-scale,
-# set use_default_thresholds: true (no thresholds in case_config).
-# When use_default_thresholds is false, the ranges below are sampled and
-# passed explicitly (useful for fine-grained control).
+# Thresholds are sampled from log-uniform ranges to create solution diversity.
+# Different threshold combinations push the optimizer to different local minima,
+# exploring the Pareto frontier of constraint satisfaction vs field accuracy.
 exploration:
-  use_default_thresholds: true   # let the code auto-scale thresholds per surface
-  # Threshold ranges (only used if use_default_thresholds is false)
-  # These are at 10 m reactor-scale reference; code will NOT auto-scale if passed
-  length_threshold_range: [100.0, 240.0]
-  cc_threshold_range: [0.4, 2.0]
-  cs_threshold_range: [0.5, 3.0]
+  use_default_thresholds: false  # sample thresholds for diversity
+  # Threshold ranges (sampled log-uniformly)
+  # These are at device scale; the code will NOT auto-scale if passed explicitly.
+  length_threshold_range: [100.0, 200.0]
+  cc_threshold_range: [0.7, 2.0]
+  cs_threshold_range: [1.0, 3.0]
   curvature_threshold_range: [0.5, 5.0]
   msc_threshold_range: [0.5, 5.0]
+  force_threshold_range: [50.0, 500.0]
   # Coil parameter ranges
   ncoils_choices: [3, 4, 5, 6, 7]
   order_choices: [4]
   max_iterations: 500            # fixed (not scanned)
+  dof_perturbation: 0.0         # random perturbation scale for initial coil DOFs
+  include_force: false           # set to true to add coil_coil_force objective
   # Available surfaces (must correspond to files in plasma_surfaces/)
   surfaces:
-    - "input.LandremanPaul2021_QA"
-    # - "input.LandremanPaul2021_QH_reactorScale_lowres"
+    # - "input.LandremanPaul2021_QA"
+    - "input.LandremanPaul2021_QH_reactorScale_lowres"
     # - "input.circular_tokamak"
     # - "input.rotating_ellipse"
     # - "input.W7-X_without_coil_ripple_beta0p05_d23p4_tm"
@@ -70,7 +73,7 @@ exploration:
     coil_mean_squared_curvature: ["l2_threshold"]
     coil_arclength_variation: ["l2_threshold"]
     linking_number: [""]
-    coil_coil_force: ["lp_threshold"]
+    # coil_coil_force: ["lp_threshold"]
 
 # --- Guardrails ---
 guardrails:

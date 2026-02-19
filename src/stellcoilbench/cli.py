@@ -1340,6 +1340,9 @@ def run_ci_case(
 
         summary: dict = {
             "case_id": case_id,
+            "random_seed": random_seed,
+            "tags": case_data.get("tags", []),
+            "parent_ids": case_data.get("parent_ids", []),
             "success": True,
             "total_score": float(results_dict.get("final_squared_flux", float("inf"))),
             "iterations_used": int(results_dict.get("iterations_used", 0)),
@@ -1359,6 +1362,9 @@ def run_ci_case(
         typer.echo(f"ERROR running case {case_id}: {exc}\n{tb}", err=True)
         summary = {
             "case_id": case_id,
+            "random_seed": random_seed,
+            "tags": case_data.get("tags", []),
+            "parent_ids": case_data.get("parent_ids", []),
             "success": False,
             "total_score": float("inf"),
             "iterations_used": 0,

@@ -124,12 +124,15 @@ def mutate_case(
     Weights are NOT mutated -- augmented_lagrangian auto-tunes them.
     Any leftover weight keys from the parent are removed.
     The parent ``case_id`` is stored in ``parent_ids``.
+
+    If the parent has no explicit thresholds (because auto-scaling was used),
+    thresholds are injected from the parent's metrics so they can be jittered.
+    Structural mutations (ncoils, order) are applied with configurable probability.
     """
     parent_cfg = parent.get("case_config", {})
     child_cfg = copy.deepcopy(parent_cfg)
 
     mut = policy.get("mutation", {})
-    # sm = policy.get("safe_mode", {})
 
     t_sigma = float(mut.get("threshold_sigma", 0.10))
 
@@ -145,17 +148,63 @@ def mutate_case(
     for wk in weight_keys:
         del obj[wk]
 
-    # Jitter thresholds (only numeric values, skip string term-type values)
+    # If the parent has no explicit thresholds (auto-scaling was used),
+    # inject thresholds from the parent's metrics so we can jitter them.
     threshold_keys = [k for k in obj if k.endswith("_threshold")]
+    if not threshold_keys:
+        parent_metrics = parent.get("metrics", {})
+        for tname in ["cc_threshold", "cs_threshold", "msc_threshold",
+                       "curvature_threshold", "flux_threshold",
+                       "force_threshold", "torque_threshold"]:
+            if tname in parent_metrics:
+                val = parent_metrics[tname]
+                if isinstance(val, (int, float)) and val > 0:
+                    obj[tname] = val
+        threshold_keys = [k for k in obj if k.endswith("_threshold")]
+
+    # Jitter thresholds (only numeric values, skip string term-type values)
     for tk in threshold_keys:
         old = obj[tk]
         if isinstance(old, (int, float)) and not isinstance(old, bool) and old > 0:
             new_val = old * math.exp(rng.gauss(0, t_sigma))
-            # Keep thresholds positive but don't clamp to arbitrary bounds --
-            # the code will auto-scale if needed
             obj[tk] = round(max(1e-6, new_val), 6)
 
     child_cfg["coil_objective_terms"] = obj
+
+    # --- Structural mutations (ncoils, order) ---
+    struct_prob = float(mut.get("structural_mutation_prob", 0.2))
+    coils_params = child_cfg.get("coils_params", {})
+
+    # Mutate ncoils with probability struct_prob
+    if rng.random() < struct_prob:
+        ncoils_choices = mut.get("ncoils_choices", [3, 4, 5, 6, 7])
+        current_ncoils = coils_params.get("ncoils", 4)
+        # Pick an adjacent value (+-1) if possible, otherwise random
+        adjacent = [n for n in ncoils_choices if abs(n - current_ncoils) == 1]
+        if adjacent:
+            coils_params["ncoils"] = rng.choice(adjacent)
+        elif len(ncoils_choices) > 1:
+            others = [n for n in ncoils_choices if n != current_ncoils]
+            coils_params["ncoils"] = rng.choice(others)
+
+    # Mutate order with probability struct_prob
+    if rng.random() < struct_prob:
+        order_choices = mut.get("order_choices", [4, 6, 8])
+        current_order = coils_params.get("order", 4)
+        adjacent = [o for o in order_choices if abs(o - current_order) <= 2 and o != current_order]
+        if adjacent:
+            coils_params["order"] = rng.choice(adjacent)
+        elif len(order_choices) > 1:
+            others = [o for o in order_choices if o != current_order]
+            coils_params["order"] = rng.choice(others)
+
+    child_cfg["coils_params"] = coils_params
+
+    # Update description to reflect mutations
+    surface = child_cfg.get("surface_params", {}).get("surface", "unknown")
+    ncoils = coils_params.get("ncoils", 4)
+    order = coils_params.get("order", 4)
+    child_cfg["description"] = f"Mutation: {surface} ncoils={ncoils} order={order}"
 
     # Apply Fourier continuation from policy if present (overwrite parent)
     fc = policy.get("fourier_continuation", {})
@@ -172,6 +221,11 @@ def mutate_case(
     # Don't set max_iter_subopt -- let the code default to max_iterations // 50
     opt.pop("max_iter_subopt", None)
     child_cfg["optimizer_params"] = opt
+
+    # Enable DOF perturbation to break determinism
+    dof_perturbation = float(mut.get("dof_perturbation", 0.01))
+    if dof_perturbation > 0:
+        child_cfg["dof_perturbation"] = dof_perturbation
 
     # New seed always
     new_seed = rng.randint(0, 2**31 - 1)
@@ -208,8 +262,8 @@ def explore_case(
     """Generate a random exploration case from the policy parameter ranges.
 
     Uses augmented_lagrangian by default (auto-tunes weights).
-    Thresholds can either be left to the code's auto-scaling (recommended)
-    or sampled from policy ranges.
+    Thresholds are sampled from log-uniform ranges to create diversity —
+    different threshold combinations push the optimizer to different local minima.
     """
     expl = policy.get("exploration", {})
     sm = policy.get("safe_mode", {})
@@ -243,12 +297,16 @@ def explore_case(
         "linking_number": "",
     }
 
-    # Thresholds: either let the code auto-scale per surface (recommended)
-    # or sample from policy ranges for explicit control.
+    # Optionally include force objective
+    include_force = expl.get("include_force", False)
+    if include_force:
+        coil_objective_terms["coil_coil_force"] = "lp_threshold"
+
+    # Sample thresholds from log-uniform ranges to create solution diversity.
+    # When use_default_thresholds is true, thresholds are omitted and the code
+    # auto-scales — but this produces identical results for the same (ncoils, order).
     use_defaults = expl.get("use_default_thresholds", True)
     if not use_defaults:
-        # Sample thresholds at 10 m reference scale (code will NOT auto-scale
-        # because they are passed explicitly).
         coil_objective_terms["length_threshold"] = round(
             _log_uniform(rng, *expl.get("length_threshold_range", [100, 300])), 2)
         coil_objective_terms["cc_threshold"] = round(
@@ -259,7 +317,9 @@ def explore_case(
             _log_uniform(rng, *expl.get("curvature_threshold_range", [0.5, 5.0])), 3)
         coil_objective_terms["msc_threshold"] = round(
             _log_uniform(rng, *expl.get("msc_threshold_range", [0.1, 5.0])), 3)
-    # else: thresholds omitted -> code uses defaults and auto-scales by major radius
+        if include_force:
+            coil_objective_terms["force_threshold"] = round(
+                _log_uniform(rng, *expl.get("force_threshold_range", [50, 500])), 1)
 
     case_config: Dict[str, Any] = {
         "description": f"Exploration case: {surface} ncoils={ncoils} order={order}",
@@ -278,6 +338,12 @@ def explore_case(
         },
         "coil_objective_terms": coil_objective_terms,
     }
+
+    # Enable DOF perturbation to break determinism
+    dof_perturbation = float(expl.get("dof_perturbation", 0.0))
+    if dof_perturbation > 0:
+        case_config["dof_perturbation"] = dof_perturbation
+
     # Apply Fourier continuation from policy if present
     fc = policy.get("fourier_continuation", {})
     if fc and fc.get("enabled") and fc.get("orders"):
@@ -385,13 +451,19 @@ def propose_batch(
         seen_hashes.add(h)
         cases.append(child)
 
-    # If we still don't have enough, fill with more explore
+    # If we still don't have enough, fill with more explore (with novelty check)
     extra_attempts = 0
-    while len(cases) < batch_size and extra_attempts < batch_size * 3:
+    while len(cases) < batch_size and extra_attempts < batch_size * 5:
         extra_attempts += 1
         child = explore_case(policy, rng, safe=safe)
+
+        h = _config_hash_short(child.get("case_config", {}))
+        if h in recent_hashes or h in seen_hashes:
+            continue
+
         errors = validate_ci_case(child, policy=policy)
         if not errors:
+            seen_hashes.add(h)
             cases.append(child)
 
     return cases[:batch_size]
