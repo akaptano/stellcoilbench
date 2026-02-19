@@ -3,7 +3,6 @@ Unit tests for knowledge/ modules (llm_client, kb_client, ingest, llm_endpoints,
 """
 from __future__ import annotations
 
-from pathlib import Path
 from unittest.mock import patch
 
 import pytest
