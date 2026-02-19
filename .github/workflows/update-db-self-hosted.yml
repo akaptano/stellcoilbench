@@ -43,6 +43,7 @@ concurrency:
 
 permissions:
   contents: write
+  workflows: write   # required when autopilot merge brings in workflow changes
 
 env:
   CONDA_ENV: stellcoilbench_vmec
