@@ -343,10 +343,13 @@ jobs:
     timeout-minutes: 90  # Must be > max per-case timeout (60m) + buffer for commit
     outputs:
       ran_cases: ${{ steps.run.outputs.ran_cases }}
+    env:
+      TARGET_BRANCH: ${{ github.ref_name }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -597,7 +600,7 @@ jobs:
               git add docs/
               git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
             fi
-            git push origin main
+            git push origin ${{ env.TARGET_BRANCH }}
             echo "Autopilot results and leaderboard committed"
           fi
 
@@ -614,15 +617,18 @@ jobs:
       always() &&
       github.repository == 'akaptano/stellcoilbench'
     runs-on: self-hosted
+    env:
+      TARGET_BRANCH: ${{ github.ref_name }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull latest (after autopilot run)
-        run: git pull origin main
+        run: git pull origin ${{ env.TARGET_BRANCH }}
 
       - name: Propose batch
         shell: bash
@@ -670,7 +676,7 @@ jobs:
             echo "No new cases proposed"
           else
             git commit -m "ci: propose next autopilot batch"
-            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
-            git push origin main
+            git pull --rebase origin ${{ env.TARGET_BRANCH }} || { git rebase --abort 2>/dev/null; git pull origin ${{ env.TARGET_BRANCH }} --no-edit; }
+            git push origin ${{ env.TARGET_BRANCH }}
             echo "Proposed cases committed"
           fi
