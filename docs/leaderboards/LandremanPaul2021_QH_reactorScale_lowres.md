@@ -539,6 +539,31 @@
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="21">21</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5805049764225625">1.581</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T12:58:13.865579">19/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3336938975136124">3.3e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.0">7</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003992504868907588">4.0e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.038987807870158944">3.9e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2992569696639184">3.0e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29095402.810937483">2.9e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61360799.448482625">6.1e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0214684986719342">1.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51974715.41315078">5.2e+07</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137733914.03778425">1.4e+08</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13665416103595363">1.4e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8307982131103698">8.3e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9956768137553162">2.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178.75632966761296">1.8e+02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.016323060773830125">1.6e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1461.7617118358612">1.5e+03</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22">22</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5732574448405656">1.573</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T11:00:51.940518">18/02/26</td>
@@ -563,7 +588,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1348.7853710651398">1.3e+03</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22">22</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23">23</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.561343370515491">1.561</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T17:35:57.394502">16/02/26</td>
@@ -588,7 +613,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.5861451625824">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23">23</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24">24</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.521246966318744">1.521</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T15:11:11.443620">17/02/26</td>
@@ -613,7 +638,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="926.9291410446167">9.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24">24</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25">25</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.4968050821746675">1.497</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T09:56:01.974653">16/02/26</td>
@@ -638,7 +663,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="459.8627688884735">4.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25">25</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26">26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.4509862814319596">1.451</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T00:19:28.989232">16/02/26</td>
@@ -663,7 +688,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="320.42981815338135">3.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26">26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27">27</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.4494919566398325">1.449</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:56:26.974125">16/02/26</td>
@@ -688,7 +713,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="414.19246006011963">4.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27">27</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28">28</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3976746852523574">1.398</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T22:48:15.483022">15/02/26</td>
@@ -713,7 +738,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="667.645968914032">6.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28">28</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29">29</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3215776891856785">1.322</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T05:02:53.387033">17/02/26</td>
@@ -738,7 +763,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="535.6770145893097">5.4e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29">29</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30">30</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2863352894879758">1.286</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T15:39:51.236274">16/02/26</td>
@@ -763,7 +788,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2044.4735641479492">2.0e+03</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30">30</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31">31</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.272238152585131">1.272</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.731113">08/02/26</td>
@@ -788,7 +813,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="474.6348829269409">4.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31">31</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32">32</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0974730429299508">1.097</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T03:33:22.823033">18/02/26</td>
@@ -813,7 +838,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="726.6654381752014">7.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32">32</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33">33</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939840037766615">0.994</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T23:46:46.629904">15/02/26</td>
@@ -838,7 +863,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="646.9708230495453">6.5e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33">33</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34">34</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7854910186573845">0.785</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:30:41.889764">15/02/26</td>
@@ -863,7 +888,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1063.1467006206512">1.1e+03</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34">34</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="35">35</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.778076677361764">0.778</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T07:45:14.764577">17/02/26</td>
@@ -890,7 +915,7 @@
 </tbody>
 </table>
 </div>
-<p style="font-size: 0.9em; margin-top: 0.5em;">Showing top 10 of 34 entries. Scroll to see more, or click column headers to sort.</p>
+<p style="font-size: 0.9em; margin-top: 0.5em;">Showing top 10 of 35 entries. Scroll to see more, or click column headers to sort.</p>
 
 <script>
 (function() {
