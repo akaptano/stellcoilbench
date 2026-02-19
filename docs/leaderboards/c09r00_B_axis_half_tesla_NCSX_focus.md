@@ -32,10 +32,8 @@
 <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iterations used <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">walltime sec <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
 </tr>
 </thead>
 <tbody>
@@ -61,37 +59,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.00000025381228">3.0e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.026343616513885518">2.6e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.34167194366455">3.4e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3637832993284125">1.364</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T10:40:35.312949">11/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010719469306080158">1.1e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0051340677790721765">5.1e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003938213778500548">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.1247623064437695">2.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84374.7175535503">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46189.34062567887">4.6e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.957194314959725">4.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147463.9766604178">1.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108248.4663408583">1.1e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.108703974122507">7.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1122444981866765">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18285889883377388">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.997885233143773">3.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1000.0">1.0e+03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024791524202165915">2.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
 </tr>
 </tbody>
 </table>
@@ -146,7 +115,5 @@
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
-- Iterations Used
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
-- Walltime Sec
