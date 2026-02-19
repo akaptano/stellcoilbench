@@ -181,6 +181,23 @@ body {
   background: #f0f0f0;
 }
 
+/* Sortable leaderboard tables (raw HTML in surface_specific) */
+table.leaderboard-sortable {
+  font-size: 0.85em;
+  border-collapse: collapse;
+}
+table.leaderboard-sortable th.sortable {
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 8px;
+}
+table.leaderboard-sortable th.sortable:hover {
+  background: #f0f0f0;
+}
+table.leaderboard-sortable td {
+  padding: 4px 8px;
+}
+
 /* Style for leaderboard tables specifically - make them more compact */
 /* Data rows - smaller for numbers */
 .rst-content section[id*="leaderboard"] table.docutils td,

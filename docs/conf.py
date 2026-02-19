@@ -68,3 +68,5 @@ def setup(app):
     
     # Add custom CSS for better table display (replaces deprecated html_css_files)
     app.add_css_file("custom.css")
+    # Add leaderboard sort script for clickable column headers
+    app.add_js_file("leaderboard_sort.js")

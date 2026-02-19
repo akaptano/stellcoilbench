@@ -1,6 +1,7 @@
 # src/stellcoilbench/update_db.py
 from __future__ import annotations
 
+import html
 import json
 import math
 from pathlib import Path
@@ -2979,16 +2980,38 @@ def write_rst_leaderboard(
                 r":math:`\text{FPT}`"
             ])
 
-            # Use list-table for surface leaderboard
-            lines.append(f".. list-table:: {display_name} Leaderboard")
-            lines.append("   :header-rows: 1")
-            lines.append("   :widths: auto")
+            # Use raw HTML for sortable table (column headers as plain text for HTML)
+            safe_id = surface_name.replace(".", "_").replace(" ", "_")
+            table_id = f"leaderboard-rst-{safe_id}"
+            header_labels = [
+                "Score",
+                *[_metric_shorthand(k) for k in surface_metric_keys],
+                "Date",
+                "User",
+                "i",
+                "f",
+                "PP",
+                "BP",
+                "QS",
+                "iota",
+                "FPT",
+            ]
             lines.append("")
-            
-            # Header row - each column on separate line
-            lines.append("   * - " + surface_header_cols[0])
-            for col in surface_header_cols[1:]:
-                lines.append("     - " + col)
+            lines.append(".. raw:: html")
+            lines.append("")
+            lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+            lines.append(f'   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
+            lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
+            lines.append("   <thead>")
+            lines.append("   <tr>")
+            for ci, label in enumerate(header_labels):
+                lines.append(
+                    f'   <th class="sortable" data-col="{ci}" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">'
+                    f'{label} <span class="sort-icon">↕</span></th>'
+                )
+            lines.append("   </tr>")
+            lines.append("   </thead>")
+            lines.append("   <tbody>")
             
             # Data rows
             for entry in entries_for_surface:
@@ -3001,13 +3024,13 @@ def write_rst_leaderboard(
                 # Normalize entry_path: remove leading slash if present
                 if entry_path.startswith("/"):
                     entry_path = entry_path[1:]
-                i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
-                f_link = rank_num  # Final coils link - show rank number
-                poincare_link = "—"  # Poincaré plot link
-                boozer_link = "—"  # Boozer plot link
-                qs_link = "—"  # Quasisymmetry plot link
-                iota_link = "—"  # Iota plot link
-                fpt_link = "—"  # Fast Particle Tracing plot link
+                i_link_html, i_link_sort = "—", ""
+                f_link_html, f_link_sort = str(rank_num), str(rank_num)
+                poincare_link_html, poincare_link_sort = "—", ""
+                boozer_link_html, boozer_link_sort = "—", ""
+                qs_link_html, qs_link_sort = "—", ""
+                iota_link_html, iota_link_sort = "—", ""
+                fpt_link_html, fpt_link_sort = "—", ""
                 
                 # Check if this is a Fourier continuation submission
                 fourier_orders_str = metrics.get("fourier_continuation_orders")
@@ -3116,21 +3139,21 @@ def write_rst_leaderboard(
                                         if full_initial_pdf_path.exists():
                                             pdf_url_path_initial = str(initial_pdf_path).replace("\\", "/")
                                             pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                            i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                            i_link_html = f'<a href="{pdf_url_initial}">{rank_num}</a>'
+                                            i_link_sort = str(rank_num)
                                         
                                         # For "f": create multiple links, one for each order
-                                        f_links = []
+                                        f_link_parts = []
                                         for order, order_dir_name in order_dirs:
                                             final_pdf_path = submission_dir / order_dir_name / "bn_error_3d_plot.pdf"
                                             full_final_pdf_path = repo_root / final_pdf_path
                                             if full_final_pdf_path.exists():
                                                 pdf_url_path = str(final_pdf_path).replace("\\", "/")
                                                 pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                                f_links.append(f"`{order} <{pdf_url}>`__")
-                                        
-                                        if f_links:
-                                            # Join multiple links with spaces
-                                            f_link = " ".join(f_links)
+                                                f_link_parts.append(f'<a href="{pdf_url}">{order}</a>')
+                                        if f_link_parts:
+                                            f_link_html = " ".join(f_link_parts)
+                                            f_link_sort = str(rank_num)
                             else:
                                 # Standard submission: PDFs in submission directory
                                 pdf_path = submission_dir / "bn_error_3d_plot.pdf"
@@ -3141,13 +3164,15 @@ def write_rst_leaderboard(
                                 if full_pdf_path.exists():
                                     pdf_url_path = str(pdf_path).replace("\\", "/")
                                     pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                    f_link = f"`{rank_num} <{pdf_url}>`__"
+                                    f_link_html = f'<a href="{pdf_url}">{rank_num}</a>'
+                                    f_link_sort = str(rank_num)
                                 
                                 full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
                                 if full_pdf_path_initial.exists():
                                     pdf_url_path_initial = str(pdf_path_initial).replace("\\", "/")
                                     pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                    i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                    i_link_html = f'<a href="{pdf_url_initial}">{rank_num}</a>'
+                                    i_link_sort = str(rank_num)
                             
                             # Find plot files (poincare, boozer, quasisymmetry, iota, simple)
                             # These are typically in the submission directory or post_processing subdirectory
@@ -3197,44 +3222,57 @@ def write_rst_leaderboard(
                                         plot_url = f"{github_base_url}/{plot_url_path}"
                                         # Update the appropriate link variable
                                         if plot_type == "poincare":
-                                            poincare_link = f"`{rank_num} <{plot_url}>`__"
+                                            poincare_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            poincare_link_sort = str(rank_num)
                                         elif plot_type == "boozer":
-                                            boozer_link = f"`{rank_num} <{plot_url}>`__"
+                                            boozer_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            boozer_link_sort = str(rank_num)
                                         elif plot_type == "qs":
-                                            qs_link = f"`{rank_num} <{plot_url}>`__"
+                                            qs_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            qs_link_sort = str(rank_num)
                                         elif plot_type == "iota":
-                                            iota_link = f"`{rank_num} <{plot_url}>`__"
+                                            iota_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            iota_link_sort = str(rank_num)
                                         elif plot_type == "fpt":
-                                            fpt_link = f"`{rank_num} <{plot_url}>`__"
+                                            fpt_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            fpt_link_sort = str(rank_num)
                                         break
                 
-                # Build row: Score, metrics, then Date, User, i, f, and plot links at the end
-                row_parts = []
+                # Build row: (display, sort_value) for each column
                 cs = entry.get("composite_score")
-                row_parts.append(f"{cs:.3f}" if cs is not None else "—")
+                run_date_raw = entry.get("run_date", "") or "0000-00-00"
+                user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+                row_cells = [
+                    (f"{cs:.3f}" if cs is not None else "—", float(cs) if cs is not None else -1e9),
+                ]
                 for key in surface_metric_keys:
                     value = metrics.get(key)
                     formatted = _format_value(value, metric_key=key) if value is not None else "—"
-                    row_parts.append(formatted)
-                # Add Date, User, i, f, and plot links at the end
-                row_parts.extend([
-                    run_date,
-                    entry.get("contact", entry.get("method_name", "?"))[:15],
-                    i_link,
-                    f_link,
-                    poincare_link,
-                    boozer_link,
-                    qs_link,
-                    iota_link,
-                    fpt_link,
+                    sort_val = float(value) if isinstance(value, (int, float)) else ("" if value is None else str(value))
+                    row_cells.append((formatted, sort_val))
+                row_cells.extend([
+                    (run_date, run_date_raw),
+                    (user_val, user_val),
+                    (i_link_html, i_link_sort),
+                    (f_link_html, f_link_sort),
+                    (poincare_link_html, poincare_link_sort),
+                    (boozer_link_html, boozer_link_sort),
+                    (qs_link_html, qs_link_sort),
+                    (iota_link_html, iota_link_sort),
+                    (fpt_link_html, fpt_link_sort),
                 ])
-                
-                # First column
-                lines.append("   * - " + row_parts[0])
-                # Remaining columns
-                for val in row_parts[1:]:
-                    lines.append("     - " + val)
+                lines.append("   <tr>")
+                for disp, sort_val in row_cells:
+                    sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
+                    # Escape HTML in display if it doesn't contain our own tags
+                    if "<" not in disp:
+                        disp = html.escape(disp)
+                    lines.append(f'   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
+                lines.append("   </tr>")
             
+            lines.append("   </tbody>")
+            lines.append("   </table>")
+            lines.append("   </div>")
             lines.append("")
             lines.append("")
 
