@@ -25,7 +25,7 @@ name: StellCoilBench CI (Self-Hosted)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, advanced_ci ]
     # Ignore autopilot result-only commits so they don't re-trigger the
     # benchmark pipeline.  cases/pending/** is intentionally NOT ignored:
     # when the proposer pushes new pending cases, that push must trigger a
