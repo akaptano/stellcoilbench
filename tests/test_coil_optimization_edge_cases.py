@@ -801,6 +801,7 @@ class TestLinearPenaltyEdgeCases:
     def test_mul_with_weight_zero_objective(self):
         """Test __mul__ with Weight when objective J() is near zero."""
         from simsopt.objectives import Weight
+
         mock_obj = Mock()
         mock_obj.J.return_value = 0.0  # Zero value
         mock_weighted = Mock()
@@ -811,11 +812,13 @@ class TestLinearPenaltyEdgeCases:
         lp = LinearPenalty(mock_obj, 3.0)
         w = Weight(2.0)
         result = lp.__mul__(w)
-        assert isinstance(result, LinearPenalty)
+        # Use type name check: reload in other tests can create new class objects
+        assert type(result).__name__ == "LinearPenalty" and hasattr(result, "J")
 
     def test_mul_with_weight_exception_fallback(self):
         """Test __mul__ with Weight when J() raises exception."""
         from simsopt.objectives import Weight
+
         mock_obj = Mock()
         mock_obj.J.side_effect = AttributeError("no J")
         mock_weighted = Mock()
@@ -825,8 +828,8 @@ class TestLinearPenaltyEdgeCases:
         lp = LinearPenalty(mock_obj, 3.0)
         w = Weight(2.0)
         result = lp.__mul__(w)
-        # Should fall back to unscaled threshold
-        assert isinstance(result, LinearPenalty)
+        # Use type name check: reload in other tests can create new class objects
+        assert type(result).__name__ == "LinearPenalty" and hasattr(result, "J")
         assert result.threshold == 3.0
 
 

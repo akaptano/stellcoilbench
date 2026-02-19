@@ -100,8 +100,10 @@ class TestLinearPenalty:
         # Test multiplication with Weight
         weight = Weight(2.0)
         weighted_lp = weight * lp
-        
-        assert isinstance(weighted_lp, LinearPenalty), "Weight * LinearPenalty should return LinearPenalty"
+
+        # Use type name check (reload in other tests can create new class objects)
+        assert type(weighted_lp).__name__ == "LinearPenalty" and hasattr(weighted_lp, "J"), \
+            "Weight * LinearPenalty should return LinearPenalty"
         # Threshold should be scaled by weight (2.0)
         assert abs(weighted_lp.threshold - 2.0 * threshold) < 1e-6, \
             f"Threshold should be scaled by weight, got {weighted_lp.threshold:.6f}, expected {2.0 * threshold:.6f}"
@@ -137,8 +139,9 @@ class TestLinearPenalty:
         # Test that sum computes correctly
         # When summing LinearPenalty objects, we combine the underlying objectives
         # and use the first threshold (they should be the same)
-        # Type check to ensure result is not 0 (empty sum)
-        assert isinstance(result, LinearPenalty), "Sum result should be LinearPenalty"
+        # Type check (reload in other tests can create new class objects)
+        assert type(result).__name__ == "LinearPenalty" and hasattr(result, "J"), \
+            "Sum result should be LinearPenalty"
         sum_J = float(result.J())
         individual_Js = [float(lp.J()) for lp in lp_list]
         expected_sum = sum(individual_Js)
@@ -251,5 +254,5 @@ class TestLinearPenalty:
         monkeypatch.setattr("simsopt.objectives.Weight", _Weight)
         lp = LinearPenalty(_Obj(), 0.5)
         weighted_lp = lp * _Weight(2.0)
-        assert isinstance(weighted_lp, LinearPenalty)
+        assert type(weighted_lp).__name__ == "LinearPenalty" and hasattr(weighted_lp, "J")
         assert weighted_lp.threshold == 0.5

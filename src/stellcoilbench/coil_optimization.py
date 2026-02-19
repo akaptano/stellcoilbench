@@ -103,11 +103,10 @@ class LinearPenalty:
     
     def __add__(self, other):
         """Allow addition with other objectives for sum() compatibility"""
-        if isinstance(other, LinearPenalty):
-            # Create a combined objective
+        if type(other) is type(self):
+            # Same class (use type identity to survive module reload in tests)
             combined = self.objective + other.objective
-            # Use the first threshold (they should be the same)
-            return LinearPenalty(combined, self.threshold)
+            return type(self)(combined, self.threshold)
         elif isinstance(other, (int, float)) and other == 0:
             # Allow sum() to start with 0
             return self
@@ -144,7 +143,7 @@ class LinearPenalty:
                 # This can happen if objectives don't have J() method, division fails,
                 # or other issues occur
                 scaled_threshold = self.threshold
-            return LinearPenalty(weighted_obj, scaled_threshold)
+            return type(self)(weighted_obj, scaled_threshold)
         return NotImplemented
     
     def __rmul__(self, other):
