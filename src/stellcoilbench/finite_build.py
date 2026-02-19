@@ -29,6 +29,9 @@ DEFAULT_CROSS_SECTION_M = 0.05  # 5 cm
 # Minimum points along curve for accurate rectangular sweep (ensures smooth representation)
 MIN_POINTS_ALONG_CURVE = 128
 
+# Set when ParaStell import fails (for diagnostics)
+_last_parastell_error: Optional[str] = None
+
 
 def _compute_cross_section_frame(
     tangent: np.ndarray,
@@ -294,9 +297,11 @@ def _finite_build_coils_to_vtk_parastell(
         Path to written VTK file if successful; None if ParaStell or Gmsh
         unavailable or if build/mesh fails.
     """
+    global _last_parastell_error
     try:
         from parastell.magnet_coils import MagnetSetFromFilaments  # type: ignore[import-untyped]
-    except ImportError:
+    except ImportError as e:
+        _last_parastell_error = str(e)
         return None
 
     import tempfile
@@ -307,7 +312,8 @@ def _finite_build_coils_to_vtk_parastell(
 
     try:
         import gmsh  # type: ignore[import-untyped]
-    except ImportError:
+    except ImportError as e:
+        _last_parastell_error = f"gmsh: {e}"
         return None
 
     try:
@@ -344,7 +350,8 @@ def _finite_build_coils_to_vtk_parastell(
             gmsh.finalize()
 
         return output_path
-    except Exception:
+    except Exception as e:
+        _last_parastell_error = str(e)
         return None
 
 
@@ -421,12 +428,13 @@ def finite_build_coils_to_vtk(
         )
         if result is not None:
             return result
-        warnings.warn(
+        msg = (
             "ParaStell unavailable or failed; using built-in sweep. "
-            "Install parastell (pip install -e '.[post-processing]') for tetrahedral mesh output.",
-            UserWarning,
-            stacklevel=2,
+            "Install parastell and deps (conda: moab, gmsh, cadquery; pip: parastell) for tetrahedral mesh."
         )
+        if _last_parastell_error:
+            msg += f" Import error: {_last_parastell_error}"
+        warnings.warn(msg, UserWarning, stacklevel=2)
 
     all_vertices = []
     all_faces = []
