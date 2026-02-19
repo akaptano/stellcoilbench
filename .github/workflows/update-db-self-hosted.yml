@@ -43,7 +43,6 @@ concurrency:
 
 permissions:
   contents: write
-  workflows: write   # required when autopilot merge brings in workflow changes
 
 env:
   CONDA_ENV: stellcoilbench_vmec
@@ -587,19 +586,21 @@ jobs:
             echo "No autopilot results to commit"
           else
             git commit -m "ci: autopilot batch results + leaderboard update"
-            # Use merge instead of rebase to avoid conflicts. If merge has conflicts,
-            # resolve: keep our cases/done/ and submissions/, regenerate docs from submissions.
-            git fetch origin main
-            if ! git merge origin/main --no-edit 2>/dev/null; then
-              echo "Merge conflicts detected — resolving..."
-              git checkout --ours cases/done/ 2>/dev/null || true
-              git checkout --ours submissions/ 2>/dev/null || true
-              git checkout --theirs cases/pending/ 2>/dev/null || true
-              git checkout --theirs docs/ 2>/dev/null || true
-              git add -f cases/done/ cases/pending/ docs/ submissions/
-              stellcoilbench update-db 2>&1 || true
-              git add docs/
-              git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
+            # Merge main only when on main (avoids pushing workflow changes on feature branches,
+            # which GITHUB_TOKEN cannot do without workflows permission).
+            if [ "${{ env.TARGET_BRANCH }}" = "main" ]; then
+              git fetch origin main
+              if ! git merge origin/main --no-edit 2>/dev/null; then
+                echo "Merge conflicts detected — resolving..."
+                git checkout --ours cases/done/ 2>/dev/null || true
+                git checkout --ours submissions/ 2>/dev/null || true
+                git checkout --theirs cases/pending/ 2>/dev/null || true
+                git checkout --theirs docs/ 2>/dev/null || true
+                git add -f cases/done/ cases/pending/ docs/ submissions/
+                stellcoilbench update-db 2>&1 || true
+                git add docs/
+                git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
+              fi
             fi
             git push origin ${{ env.TARGET_BRANCH }}
             echo "Autopilot results and leaderboard committed"
