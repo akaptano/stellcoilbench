@@ -297,6 +297,13 @@ def _finite_build_coils_to_vtk_parastell(
         Path to written VTK file if successful; None if ParaStell or Gmsh
         unavailable or if build/mesh fails.
     """
+    import os
+
+    # Avoid Gmsh/OpenMP multithreading segfault (GitLab #1807) on macOS/Python 3.12
+    os.environ["OMP_NUM_THREADS"] = "1"
+    os.environ.setdefault("MKL_NUM_THREADS", "1")
+    os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+
     global _last_parastell_error
     try:
         from parastell.magnet_coils import MagnetSetFromFilaments  # type: ignore[import-untyped]
@@ -304,17 +311,17 @@ def _finite_build_coils_to_vtk_parastell(
         _last_parastell_error = str(e)
         return None
 
-    import tempfile
-
-    output_path = Path(output_path)
-    if output_path.suffix.lower() != ".vtk":
-        output_path = output_path.with_suffix(".vtk")
-
     try:
         import gmsh  # type: ignore[import-untyped]
     except ImportError as e:
         _last_parastell_error = f"gmsh: {e}"
         return None
+
+    import tempfile
+
+    output_path = Path(output_path)
+    if output_path.suffix.lower() != ".vtk":
+        output_path = output_path.with_suffix(".vtk")
 
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
