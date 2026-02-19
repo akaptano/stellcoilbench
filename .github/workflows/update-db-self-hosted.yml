@@ -49,9 +49,12 @@ env:
   SIMPLE_EXECUTABLE: /Users/akaptanoglu/SIMPLE/build/simple.x
 
 jobs:
-  # ---- Standard benchmark path (only on push) ----
+  # ---- Standard benchmark path (only on push to main) ----
   determine-cases:
-    if: github.repository == 'akaptano/stellcoilbench' && github.event_name == 'push'
+    if: >
+      github.repository == 'akaptano/stellcoilbench' &&
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
     runs-on: self-hosted
     outputs:
       cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
