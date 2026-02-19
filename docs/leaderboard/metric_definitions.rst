@@ -87,23 +87,6 @@ Coil Geometry Metrics
    
    Lower values indicate more uniform spacing along coils, which is important for manufacturing and field quality.
 
-**Mean Curvature** (:math:`\bar{\kappa}`)
-   Average curvature across all coils.
-   
-   Mathematical form:
-   
-   .. math::
-      \kappa_i(\ell_i) = \left|\mathbf{r}_i''(\ell_i)\right|
-   
-   .. math::
-      \bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \frac{1}{L_i} \int_{C_i} \kappa_i(\ell_i) ~d\ell_i
-   
-   where :math:`\mathbf{r}_i(\ell_i)` is the parameterization of coil curve :math:`C_i` by arclength.
-   
-   Units: :math:`\text{m}^{-1}` (inverse meters)
-   
-   Lower curvature values indicate smoother coils that are easier to manufacture.
-
 **Maximum Curvature** (:math:`\kappa_\text{max}`)
    Maximum curvature value across all coils.
    
@@ -200,34 +183,6 @@ Separation Metrics
 
 Force and Torque Metrics
 ------------------------
-
-**Average of Maximum Force** (:math:`\bar{F}`)
-   Average across coils of the maximum force magnitude per coil.
-   
-   Mathematical form:
-   
-   .. math::
-      \bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{F}_i}{d\ell_i}\right|
-   
-   where :math:`\frac{d\vec{F}_i}{d\ell_i}` is the Lorentz force per unit length on coil curve :math:`C_i`.
-   
-   Units: :math:`\text{N}/\text{m}` (Newtons per meter)
-   
-   Lower values indicate coils that are easier to support mechanically.
-
-**Average of Maximum Torque** (:math:`\bar{\tau}`)
-   Average across coils of the maximum torque magnitude per coil.
-   
-   Mathematical form:
-   
-   .. math::
-      \bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{T}_i}{d\ell_i}\right|
-   
-   where :math:`\frac{d\vec{T}_i}{d\ell_i}` is the Lorentz torque per unit length on coil curve :math:`C_i`.
-   
-   Units: :math:`\text{N}` (Newtons)
-   
-   Lower values indicate coils with reduced rotational forces that must be resisted by supports.
 
 **Maximum Force Magnitude** (:math:`F_\text{max}`)
    Maximum force magnitude across all coils.

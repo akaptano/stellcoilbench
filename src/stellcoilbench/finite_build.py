@@ -307,13 +307,13 @@ def _finite_build_coils_to_vtk_parastell(
     global _last_parastell_error
     try:
         from parastell.magnet_coils import MagnetSetFromFilaments  # type: ignore[import-untyped]
-    except ImportError as e:
+    except ImportError as e:  # pragma: no cover
         _last_parastell_error = str(e)
         return None
 
     try:
         import gmsh  # type: ignore[import-untyped]
-    except ImportError as e:
+    except ImportError as e:  # pragma: no cover
         _last_parastell_error = f"gmsh: {e}"
         return None
 
@@ -345,7 +345,7 @@ def _finite_build_coils_to_vtk_parastell(
             ms.populate_magnet_coils()
             ms.build_magnet_coils()
 
-            if not ms.coil_solids or len(ms.coil_solids) == 0:
+            if not ms.coil_solids or len(ms.coil_solids) == 0:  # pragma: no cover
                 return None
 
             ms.mesh_magnets_gmsh(
@@ -357,7 +357,7 @@ def _finite_build_coils_to_vtk_parastell(
             gmsh.finalize()
 
         return output_path
-    except Exception as e:
+    except Exception as e:  # pragma: no cover
         _last_parastell_error = str(e)
         return None
 

@@ -37,34 +37,31 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -80,10 +77,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0030041238127717492">3.0e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09273664047543007">9.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.15088045980528864">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.7231337897381716">2.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.304227819220243">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="554670.5744636174">5.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174490.73736682403">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1044782.57875802">1.0e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="485805.8240975532">4.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -123,38 +117,31 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">avg(QS) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LF <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iterations used <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">walltime sec <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="29" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="30" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="31" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="32" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -170,19 +157,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.064882545446296">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="437870.241688316">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168538.00357348387">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154.87654089927673">1.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:53:44.761413">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -205,19 +185,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.064882545446296">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="437870.241688316">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168538.00357348387">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156.59326910972595">1.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2841037215944562e-06">1.3e-06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0908203125">9.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:21:18.452118">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/order_4/bn_error_3d_plot_initial.pdf">2</a></td>
@@ -240,19 +213,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.064882545446296">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="437870.241688316">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168538.00357348387">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146.2679591178894">1.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.2059365030134758e-06">2.2e-06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T14:53:20.354911">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/order_4/bn_error_3d_plot_initial.pdf">3</a></td>
@@ -275,19 +241,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.064882545446296">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="437870.241688316">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168538.00357348387">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154.87654089927673">1.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:53:44.761413">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/order_4/bn_error_3d_plot_initial.pdf">4</a></td>
@@ -310,19 +269,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.064882545446296">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="437870.241688316">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168538.00357348387">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153.89569902420044">1.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:24:32.880728">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/order_4/bn_error_3d_plot_initial.pdf">5</a></td>
@@ -345,19 +297,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020871657621554643">2.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07998332821653859">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29875072198749747">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.089757386234586">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.064762740881806">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="491762.88007217523">4.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262336.8710760003">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="557658.8621636557">5.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280397.1663588987">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313.65817499160767">3.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.895475011874853">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:37:45.022573">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-06-2026_08-37/bn_error_3d_plot_initial.pdf">6</a></td>
@@ -380,19 +325,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.311298326518304e-06">7.3e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11201527567199322">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29872568547804745">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7949132100233363">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.1991861960305705">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306499.5321305526">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114752.39783041755">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408227.8817339991">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189269.59103314535">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.831820011138916">6.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.450205132245942">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:42.727055">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_105831_48798/order_4/bn_error_3d_plot_initial.pdf">7</a></td>
@@ -415,19 +353,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.916373554910225e-05">4.9e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11631783641289206">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2919586575669818">2.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7697316668091447">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.015152719695031">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293468.74729104294">2.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="104516.43802785959">1.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="368588.1419226104">3.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135420.62348809792">1.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.182751893997192">6.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.351005683605048">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T14:42:03.593516">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_132158_18066/order_4/bn_error_3d_plot_initial.pdf">8</a></td>
@@ -450,19 +381,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014116575048908118">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11570801731644796">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30014566741488014">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7748146411959178">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.135019896583532">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299897.3793074585">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111435.47548532249">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410211.6794106831">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170490.531302427">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.69632697105408">6.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.399273478326403">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:19.890780">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_210059_13026/order_4/bn_error_3d_plot_initial.pdf">9</a></td>
@@ -485,19 +409,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00012566763034402095">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11486940743912627">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3010799328332366">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7877583992846957">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.340828978037152">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303454.3330587585">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112710.49094571298">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417629.10743153136">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169453.32999808513">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.01133704185486">6.8e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4664364435488455">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:19:50.159584">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_68534/order_4/bn_error_3d_plot_initial.pdf">10</a></td>
@@ -520,19 +437,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00011505938096716879">1.2e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1142452012002004">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29992270042649516">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7809393763820895">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.284632092317669">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301260.5889233264">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112726.39223393971">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408121.4721898985">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178662.5721965315">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.90427327156067">7.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.51958336555056">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:05.689356">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_11250/order_4/bn_error_3d_plot_initial.pdf">11</a></td>
@@ -555,19 +465,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001268798833107181">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11376424215903551">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29978404388035773">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7803769151785471">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.228085309077523">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303862.0674199939">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113129.88782310383">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="407670.78548251925">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175196.69621741702">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78.26518487930298">7.8e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4523702194986305">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T09:50:48.457009">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_085732_64776/order_4/bn_error_3d_plot_initial.pdf">12</a></td>
@@ -590,19 +493,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014432417451817398">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11418834780630684">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3017938785631464">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.778534052206075">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.352220380159647">5.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305499.57538710453">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116328.6018645702">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="423367.6954312578">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187489.44334761062">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.45681190490723">6.9e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5395846629528895">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:51:00.771575">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_93278/order_4/bn_error_3d_plot_initial.pdf">13</a></td>
@@ -625,19 +521,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00013290273166700577">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11257185942414448">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30216635231680183">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7781292723921154">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.271172891161052">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305507.85525816114">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115105.89343323444">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="421075.6278157391">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185715.2990593929">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.208827018737793">6.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.434200938005954">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T01:22:28.512149">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_231317_21736/order_4/bn_error_3d_plot_initial.pdf">14</a></td>
@@ -660,19 +549,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001356303027148867">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11411270560547512">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2966025501803817">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7664593189038578">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.955281986012132">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299854.64615955343">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110531.51455468379">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392289.7102576447">3.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171937.36173038097">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.77080988883972">6.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.363966219176534">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T10:24:00.353709">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_085732_95698/order_4/bn_error_3d_plot_initial.pdf">15</a></td>
@@ -695,19 +577,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00012674087064228057">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1139678282276012">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2956198210651422">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7760755130917838">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.908195616811594">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299146.3090558141">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109646.76222860502">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="390578.71553042124">3.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171795.4511560167">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.77741193771362">7.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3245794865830436">3.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:50:40.398601">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_24565/order_4/bn_error_3d_plot_initial.pdf">16</a></td>
@@ -730,19 +605,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014466750082800197">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11401457895427011">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29803255897633946">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.77834014033678">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.154129265001987">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303472.6945100806">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113032.5149698309">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="404590.40500349423">4.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181213.77461120998">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.43736100196838">7.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.41571291340903">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T01:53:52.205519">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_13986/order_4/bn_error_3d_plot_initial.pdf">17</a></td>
@@ -765,19 +633,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001309066875441535">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1124911924037669">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3004971055164476">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7784538943962132">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.231172376975243">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304799.8906803515">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112805.33719202619">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="411472.22940500575">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178008.4892326648">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.65557765960693">8.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.429781749383928">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:43.194200">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="18"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_210059_46837/order_4/bn_error_3d_plot_initial.pdf">18</a></td>
@@ -800,19 +661,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014129914665071396">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11284499274466905">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3013327616452787">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7753667239698592">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.234683472006189">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304990.7747514695">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114433.97225333391">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417067.2287478219">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185845.6790496505">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.56837821006775">7.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.495119784764352">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T23:33:45.933905">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_224905_29977/order_4/bn_error_3d_plot_initial.pdf">19</a></td>
@@ -835,19 +689,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.000126666499040913">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11163012920598538">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3016710672227689">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7757129246653938">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.257361700564077">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306138.7348586919">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115605.94866189724">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417931.8132079702">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186073.93583794302">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.7268078327179">6.9e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4540305374600293">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T06:09:49.358393">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="20"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_94925/order_4/bn_error_3d_plot_initial.pdf">20</a></td>
@@ -870,19 +717,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010964968008402118">1.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1101916084154126">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3024566771588373">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7703998377282193">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2531248048384125">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306326.77577764407">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115199.30041927204">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="418344.05945758586">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185349.95976996768">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.89401698112488">6.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4271406875174533">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T12:45:12.911031">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="21"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_95393/order_4/bn_error_3d_plot_initial.pdf">21</a></td>
@@ -905,19 +745,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00013954941290674231">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11382234292554874">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2981251155273713">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7768202547257474">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.342292661017782">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302464.2658698692">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114138.94223564463">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="404124.1258826957">4.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183116.1128307518">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.39567303657532">6.8e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4908144465011737">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:09:20.807518">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_77309/order_4/bn_error_3d_plot_initial.pdf">22</a></td>
@@ -940,19 +773,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00012628029759793408">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11141302620476722">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30005622905612733">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7650118708699627">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.134720346241348">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303703.0210364415">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113402.2731846529">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="407078.0162200774">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177091.72493866086">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.895973920822144">6.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.427567283896882">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:52:36.611418">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_99457/order_4/bn_error_3d_plot_initial.pdf">23</a></td>
@@ -975,19 +801,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00011024197791852902">1.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12738351977791887">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2613734828264212">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.066300369482934">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.883564236392195">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193329.50132951856">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52078.52073294263">5.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261754.12171778356">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74631.685655788">7.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180.84611296653748">1.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0599985908896095">4.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:12:22.895562">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_60346/order_4/bn_error_3d_plot_initial.pdf">24</a></td>
@@ -1010,19 +829,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014712508275820986">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11154490673318022">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3018873479945207">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7800995075587236">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.298028577442732">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306711.76857053285">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115073.41730697367">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417379.4576223448">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184647.9593799853">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.17449498176575">7.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5323120973460806">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:30:08.201611">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_78781/order_4/bn_error_3d_plot_initial.pdf">25</a></td>
@@ -1045,19 +857,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.000153474330786096">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11121224907069337">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30268547247639666">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7878967055402408">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.356408978136019">5.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308814.13129343215">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116525.18195209095">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="425731.4837442741">4.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189103.32514954364">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51.65858602523804">5.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5251858657833726">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T04:07:06.161373">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_025855_69410/order_4/bn_error_3d_plot_initial.pdf">26</a></td>
@@ -1080,19 +885,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.268679141998291">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:38:41.870925">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88737/order_4/bn_error_3d_plot_initial.pdf">27</a></td>
@@ -1115,19 +913,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.596667766571045">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:12:00.789971">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_52276/order_4/bn_error_3d_plot_initial.pdf">28</a></td>
@@ -1150,19 +941,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.38830304145813">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.793213">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_4/bn_error_3d_plot_initial.pdf">29</a></td>
@@ -1185,19 +969,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.40881609916687">7.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:10:20.782531">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_58441/order_4/bn_error_3d_plot_initial.pdf">30</a></td>
@@ -1220,19 +997,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.635644912719727">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:15.596724">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_37249/order_4/bn_error_3d_plot_initial.pdf">31</a></td>
@@ -1255,19 +1025,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.256499290466309">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:51.779656">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_4/bn_error_3d_plot_initial.pdf">32</a></td>
@@ -1290,19 +1053,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.477197170257568">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:22:44.191025">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_70512/order_4/bn_error_3d_plot_initial.pdf">33</a></td>
@@ -1325,19 +1081,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.082104921340942">7.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:24:59.421292">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_91397/order_4/bn_error_3d_plot_initial.pdf">34</a></td>
@@ -1360,19 +1109,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760801076889038">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.570865">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="35"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_35320/order_4/bn_error_3d_plot_initial.pdf">35</a></td>
@@ -1395,19 +1137,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.324453830718994">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:35.983328">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="36"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_86086/order_4/bn_error_3d_plot_initial.pdf">36</a></td>
@@ -1430,19 +1165,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.482574224472046">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.045618">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="37"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_4/bn_error_3d_plot_initial.pdf">37</a></td>
@@ -1465,19 +1193,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7492616176605225">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:42.896866">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_41774/order_4/bn_error_3d_plot_initial.pdf">38</a></td>
@@ -1500,19 +1221,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.617172956466675">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:03.656667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_4/bn_error_3d_plot_initial.pdf">39</a></td>
@@ -1535,19 +1249,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.457889080047607">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:40.659847">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_57978/order_4/bn_error_3d_plot_initial.pdf">40</a></td>
@@ -1570,19 +1277,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.118201971054077">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:20.225754">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="41"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_4/bn_error_3d_plot_initial.pdf">41</a></td>
@@ -1605,19 +1305,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.499346971511841">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:38.288712">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_31544/order_4/bn_error_3d_plot_initial.pdf">42</a></td>
@@ -1640,19 +1333,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.622767210006714">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.082546">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_4/bn_error_3d_plot_initial.pdf">43</a></td>
@@ -1675,19 +1361,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.061415195465088">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.038655">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_48483/order_4/bn_error_3d_plot_initial.pdf">44</a></td>
@@ -1710,19 +1389,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6193201541900635">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.520096">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="45"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_71105/order_4/bn_error_3d_plot_initial.pdf">45</a></td>
@@ -1745,19 +1417,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.9548399448394775">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:11:51.227899">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_4/bn_error_3d_plot_initial.pdf">46</a></td>
@@ -1780,19 +1445,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.414738893508911">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:36.810094">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_33412/order_4/bn_error_3d_plot_initial.pdf">47</a></td>
@@ -1815,19 +1473,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.639596939086914">9.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:43.966326">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_35308/order_4/bn_error_3d_plot_initial.pdf">48</a></td>
@@ -1850,19 +1501,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.027199029922485">8.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.119813">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_14751/order_4/bn_error_3d_plot_initial.pdf">49</a></td>
@@ -1885,19 +1529,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.827966928482056">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.566316">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_40011/order_4/bn_error_3d_plot_initial.pdf">50</a></td>
@@ -1920,19 +1557,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.269237041473389">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:23.361360">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_96830/order_4/bn_error_3d_plot_initial.pdf">51</a></td>
@@ -1955,19 +1585,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6761579513549805">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:24.509275">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_26548/order_4/bn_error_3d_plot_initial.pdf">52</a></td>
@@ -1990,19 +1613,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.303920030593872">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:35.983968">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_91040/order_4/bn_error_3d_plot_initial.pdf">53</a></td>
@@ -2025,19 +1641,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.494694232940674">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.798048">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="54"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_4/bn_error_3d_plot_initial.pdf">54</a></td>
@@ -2060,19 +1669,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.455902099609375">9.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:45.111982">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26980/order_4/bn_error_3d_plot_initial.pdf">55</a></td>
@@ -2095,19 +1697,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5914576053619385">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:08:17.059300">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14197/order_4/bn_error_3d_plot_initial.pdf">56</a></td>
@@ -2130,19 +1725,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5556721687316895">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:23:23.964920">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_44696/order_4/bn_error_3d_plot_initial.pdf">57</a></td>
@@ -2165,19 +1753,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.347519159317017">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:36:39.750622">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_4/bn_error_3d_plot_initial.pdf">58</a></td>
@@ -2200,19 +1781,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.409653902053833">7.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:39.982495">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_68058/order_4/bn_error_3d_plot_initial.pdf">59</a></td>
@@ -2235,19 +1809,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.294041156768799">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:36.767415">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="60"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_71311/order_4/bn_error_3d_plot_initial.pdf">60</a></td>
@@ -2270,19 +1837,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7359349727630615">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.344955">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_85776/order_4/bn_error_3d_plot_initial.pdf">61</a></td>
@@ -2305,19 +1865,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.697973012924194">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:53.311026">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="62"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_4/bn_error_3d_plot_initial.pdf">62</a></td>
@@ -2340,19 +1893,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.818249225616455">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:03.348418">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_34909/order_4/bn_error_3d_plot_initial.pdf">63</a></td>
@@ -2375,19 +1921,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664681911468506">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:52:35.898979">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23043/order_4/bn_error_3d_plot_initial.pdf">64</a></td>
@@ -2410,19 +1949,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.330469846725464">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.580954">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="65"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_083234_84510/order_4/bn_error_3d_plot_initial.pdf">65</a></td>
@@ -2445,19 +1977,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760768890380859">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.788960">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_4/bn_error_3d_plot_initial.pdf">66</a></td>
@@ -2480,19 +2005,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.008285999298096">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:10:15.011901">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_4/bn_error_3d_plot_initial.pdf">67</a></td>
@@ -2515,19 +2033,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116979837417603">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:18.514936">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_4/bn_error_3d_plot_initial.pdf">68</a></td>
@@ -2550,19 +2061,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.295297145843506">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T02:33:41.235930">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_92183/order_4/bn_error_3d_plot_initial.pdf">69</a></td>
@@ -2585,19 +2089,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.021856307983398">8.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:51:39.733132">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_4/bn_error_3d_plot_initial.pdf">70</a></td>
@@ -2620,19 +2117,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.813351154327393">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:13:26.978992">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_4/bn_error_3d_plot_initial.pdf">71</a></td>
@@ -2655,19 +2145,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.70487904548645">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:25.208366">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_21411/order_4/bn_error_3d_plot_initial.pdf">72</a></td>
@@ -2690,19 +2173,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.927263975143433">7.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.480293">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_45283/order_4/bn_error_3d_plot_initial.pdf">73</a></td>
@@ -2725,19 +2201,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.656144857406616">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:23.147357">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_56991/order_4/bn_error_3d_plot_initial.pdf">74</a></td>
@@ -2760,19 +2229,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.377877950668335">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:07.927396">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_4/bn_error_3d_plot_initial.pdf">75</a></td>
@@ -2795,19 +2257,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.78183913230896">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:26.957807">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_21649/order_4/bn_error_3d_plot_initial.pdf">76</a></td>
@@ -2830,19 +2285,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584656715393066">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.395420">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_4/bn_error_3d_plot_initial.pdf">77</a></td>
@@ -2865,19 +2313,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616193056106567">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:39.319297">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_12004/order_4/bn_error_3d_plot_initial.pdf">78</a></td>
@@ -2900,19 +2341,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.036595821380615">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:31:59.036824">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="79"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_83120/order_4/bn_error_3d_plot_initial.pdf">79</a></td>
@@ -2935,19 +2369,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.442151069641113">7.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.750053">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_61709/order_4/bn_error_3d_plot_initial.pdf">80</a></td>
@@ -2970,19 +2397,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.637885093688965">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:11:59.471056">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_71264/order_4/bn_error_3d_plot_initial.pdf">81</a></td>
@@ -3005,19 +2425,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.805246829986572">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:44.550600">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="82"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_47369/order_4/bn_error_3d_plot_initial.pdf">82</a></td>
@@ -3040,19 +2453,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7912068367004395">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:28.040075">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_4/bn_error_3d_plot_initial.pdf">83</a></td>
@@ -3075,19 +2481,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.405779838562012">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.786865">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_44965/order_4/bn_error_3d_plot_initial.pdf">84</a></td>
@@ -3110,19 +2509,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584929704666138">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.623037">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_4/bn_error_3d_plot_initial.pdf">85</a></td>
@@ -3145,19 +2537,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.739748954772949">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.259771">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="86"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_43310/order_4/bn_error_3d_plot_initial.pdf">86</a></td>
@@ -3180,19 +2565,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.196208715438843">7.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:43:11.492409">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="87"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_94705/order_4/bn_error_3d_plot_initial.pdf">87</a></td>
@@ -3215,19 +2593,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.327492952346802">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.739751">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_4/bn_error_3d_plot_initial.pdf">88</a></td>
@@ -3250,19 +2621,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.657792568206787">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:36.712412">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="89"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_77754/order_4/bn_error_3d_plot_initial.pdf">89</a></td>
@@ -3285,19 +2649,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.807826995849609">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:27.626130">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_4/bn_error_3d_plot_initial.pdf">90</a></td>
@@ -3320,19 +2677,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.64055609703064">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:22.695713">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_71614/order_4/bn_error_3d_plot_initial.pdf">91</a></td>
@@ -3355,19 +2705,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664905309677124">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:37.535265">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="92"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_13650/order_4/bn_error_3d_plot_initial.pdf">92</a></td>
@@ -3390,19 +2733,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.496325969696045">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.093129">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="93"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_46640/order_4/bn_error_3d_plot_initial.pdf">93</a></td>
@@ -3425,19 +2761,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.703407049179077">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:39.758853">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_4/bn_error_3d_plot_initial.pdf">94</a></td>
@@ -3460,19 +2789,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.849110126495361">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:39:58.526371">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="95"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_97264/order_4/bn_error_3d_plot_initial.pdf">95</a></td>
@@ -3495,19 +2817,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.4202299118042">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.269073">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="96"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_79699/order_4/bn_error_3d_plot_initial.pdf">96</a></td>
@@ -3530,19 +2845,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6822669506073">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.779503">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="97"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_33814/order_4/bn_error_3d_plot_initial.pdf">97</a></td>
@@ -3565,19 +2873,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7649641036987305">7.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:52:38.935350">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="98"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_76547/order_4/bn_error_3d_plot_initial.pdf">98</a></td>
@@ -3600,19 +2901,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.197529077529907">7.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:22:57.131366">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="99"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_77298/order_4/bn_error_3d_plot_initial.pdf">99</a></td>
@@ -3635,19 +2929,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.728885889053345">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:41.988815">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_4/bn_error_3d_plot_initial.pdf">100</a></td>
@@ -3670,19 +2957,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.318819046020508">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.031961">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="101"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_083234_50881/order_4/bn_error_3d_plot_initial.pdf">101</a></td>
@@ -3705,19 +2985,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.188708066940308">7.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:52.211993">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_4/bn_error_3d_plot_initial.pdf">102</a></td>
@@ -3740,19 +3013,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6369030475616455">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:47:39.307514">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_4/bn_error_3d_plot_initial.pdf">103</a></td>
@@ -3775,19 +3041,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.735451936721802">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:24.439460">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="104"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_10112/order_4/bn_error_3d_plot_initial.pdf">104</a></td>
@@ -3810,19 +3069,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.4656150341033936">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:27:05.964453">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_51594/order_4/bn_error_3d_plot_initial.pdf">105</a></td>
@@ -3845,19 +3097,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.25370717048645">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:24.159002">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_98687/order_4/bn_error_3d_plot_initial.pdf">106</a></td>
@@ -3880,19 +3125,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.604787349700928">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T09:39:11.486839">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="107"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_67381/order_4/bn_error_3d_plot_initial.pdf">107</a></td>
@@ -3915,19 +3153,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616091966629028">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.302607">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_19763/order_4/bn_error_3d_plot_initial.pdf">108</a></td>
@@ -3950,19 +3181,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.638679027557373">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.788067">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_4/bn_error_3d_plot_initial.pdf">109</a></td>
@@ -3985,19 +3209,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.8771631717681885">7.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:05.468724">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_22232/order_4/bn_error_3d_plot_initial.pdf">110</a></td>
@@ -4020,19 +3237,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.37428617477417">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:05.542764">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_4/bn_error_3d_plot_initial.pdf">111</a></td>
@@ -4055,19 +3265,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.417745113372803">7.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:16:27.065877">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_22794/order_4/bn_error_3d_plot_initial.pdf">112</a></td>
@@ -4090,19 +3293,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.877969264984131">7.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.442493">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_18011/order_4/bn_error_3d_plot_initial.pdf">113</a></td>
@@ -4125,19 +3321,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.599864959716797">7.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.310844">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_4/bn_error_3d_plot_initial.pdf">114</a></td>
@@ -4160,19 +3349,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010421924243860791">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1271535644219059">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.258455647984939">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0626807299777488">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.897790198556059">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191971.3404837295">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51033.906043816496">5.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253366.59444616083">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71668.02722920205">7.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.110940933227539">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.216111">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_52291/order_4/bn_error_3d_plot_initial.pdf">115</a></td>
@@ -4195,19 +3377,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001376486269597416">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10982919326296339">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2979706385154105">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7846183534088056">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.022869015708259">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304504.88069869985">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112430.66024392757">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="400484.68447253783">4.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183934.57039590366">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81.9965648651123">8.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.321197101141867">3.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:08:43.887098">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_160947_40063/order_4/bn_error_3d_plot_initial.pdf">116</a></td>
@@ -4230,19 +3405,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001579250178608509">1.6e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10927772628515633">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30298391949435427">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7872211818063164">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.240152724788414">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310782.52211152995">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116216.34290972746">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="424507.61447691073">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188575.3327513294">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.04159498214722">7.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5051725888394945">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:20.780315">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="117"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_28327/order_4/bn_error_3d_plot_initial.pdf">117</a></td>
@@ -4265,19 +3433,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.936074797113979e-05">6.9e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11396197635018272">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27909733367258377">2.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7774938426509357">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.010681397441465">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277708.71357517847">2.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90290.11536758428">9.0e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="314021.3159965344">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106002.03065670983">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.9890067577362">7.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.2251606303690554">3.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:51:40.696419">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="118"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_22347/order_4/bn_error_3d_plot_initial.pdf">118</a></td>
@@ -4300,19 +3461,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00013462960581870265">1.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10832110877846815">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3038503312472565">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7713864257050107">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.325310222718535">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308856.5835097112">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116028.7890224945">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="425191.7250175949">4.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189309.48224502328">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.66524600982666">8.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.528262098336127">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:10:29.099578">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_80734/order_4/bn_error_3d_plot_initial.pdf">119</a></td>
@@ -4335,19 +3489,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00025830627501951153">2.6e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.111114204400156">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3024897352573246">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.783969909921111">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.213554280609357">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309383.84988057404">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114214.72511412294">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="424635.6356079715">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176946.15981939333">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.030098915100098">6.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5147683736402935">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:50.418403">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="120"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_105831_85538/order_4/bn_error_3d_plot_initial.pdf">120</a></td>
@@ -4370,19 +3517,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00021517798851553108">2.2e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11055314305302624">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29882250330439186">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8059982965724939">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.947723025432344">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310102.9737763493">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111901.46296289281">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410828.47631522676">4.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179659.99724770657">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.95595192909241">6.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3920656584734097">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:12:17.324231">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="121"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_52359/order_4/bn_error_3d_plot_initial.pdf">121</a></td>
@@ -4405,19 +3545,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00024451340446689706">2.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10913600752459773">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30508842973641376">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8021826089659285">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.374404890919974">5.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="316464.951027958">3.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119653.95698038588">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="443888.38246225606">4.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197017.88223511967">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55.09576225280762">5.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.502617805017207">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T10:55:07.671917">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="122"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_92598/order_4/bn_error_3d_plot_initial.pdf">122</a></td>
@@ -4440,19 +3573,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00017593955673882855">1.8e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11200037460898933">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2926646917709438">2.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7857070455256443">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.977432803567753">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300608.7042839176">3.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105276.85053639632">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376001.56879719964">3.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145206.63433365637">1.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.69596791267395">7.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3715817258244525">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:49:46.779153">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="123"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_36227/order_4/bn_error_3d_plot_initial.pdf">123</a></td>
@@ -4475,19 +3601,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.303617538641212e-05">9.3e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1174045073425891">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2747862474800298">2.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7899163341869784">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.075074497646903">4.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270278.7434096">2.7e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88124.6887846679">8.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307815.1410811857">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103126.1443896215">1.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.07622718811035">7.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4406433118876745">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:42:30.295466">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="124"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_70649/order_4/bn_error_3d_plot_initial.pdf">124</a></td>
@@ -4510,19 +3629,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00013536692350768264">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1057689004258459">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3043930230102959">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.772180402803384">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.26717085435354">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310361.67668264866">3.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114847.00173315546">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="423049.5053706573">4.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188609.4150007583">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.63861513137817">7.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.540928608538735">3.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:12.144624">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="125"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_81931/order_4/bn_error_3d_plot_initial.pdf">125</a></td>
@@ -4545,19 +3657,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2473865225341098e-05">1.2e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12354996354819256">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.25979870546790806">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.1151614687849993">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.209325281481911">6.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190873.3634851082">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="54000.896316762504">5.4e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248205.87198609326">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76959.05102120132">7.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193.70221400260925">1.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.822809658445855">4.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:04:53.797951">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="126"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_44853/order_4/bn_error_3d_plot_initial.pdf">126</a></td>
@@ -4580,19 +3685,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010159758151289185">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12750915028653764">1.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.25256645971664565">2.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.068130271048659">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.317408758320418">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195264.13510035377">2.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53236.0150800155">5.3e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265462.99340011337">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75690.92719095571">7.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105.88697719573975">1.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.150604713591414">4.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T07:28:53.826634">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_37466/order_4/bn_error_3d_plot_initial.pdf">127</a></td>
@@ -4615,19 +3713,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0001062125072635965">1.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12496692132567909">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2499372955156366">2.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.05956221182272">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.60041460946999">5.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188583.7093891524">1.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48562.47313913407">4.9e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231343.07969419542">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="62355.217803085">6.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177.2046730518341">1.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.91130654054238">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T21:00:32.409194">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_183624_99229/order_4/bn_error_3d_plot_initial.pdf">128</a></td>
@@ -4650,19 +3741,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014259923982465545">1.4e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09714474032566434">9.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.31387390947735366">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7778984362892198">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2145784164287905">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="322455.71585833875">3.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116602.22783410216">1.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="465133.178825902">4.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169687.6413584382">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.89548110961914">7.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4287916339699946">3.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:13:46.173110">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_45441/order_4/bn_error_3d_plot_initial.pdf">129</a></td>
@@ -4685,19 +3769,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00016723251102002134">1.7e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11403057758517804">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2776882947154815">2.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8119218658282839">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.656154997841835">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285594.3608375726">2.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="97688.47554475858">9.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="427884.7588995669">4.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175741.8757933605">1.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59.66182017326355">6.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.576753576963574">3.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:52:45.400720">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_39220/order_4/bn_error_3d_plot_initial.pdf">130</a></td>
@@ -4720,19 +3797,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.752522810695206">1.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07967044630421084">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.303232780831466">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6429127211693357">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.571381239831634">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="388368.7688909039">3.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="107116.60491357499">1.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="441567.1635683262">4.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139484.68456300336">1.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57.81632709503174">5.8e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.797898022303917">8.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:29:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/bn_error_3d_plot_initial.pdf">131</a></td>
@@ -4755,19 +3825,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002737729412224064">2.7e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10903446984259003">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29347420493145815">2.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.943211431666128">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.8543197698708225">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361826.30906474695">3.6e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162701.7290512543">1.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="427468.16028939193">4.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221071.51114713904">2.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191.92600202560425">1.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.436136280094104">4.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T15:03:15.945534">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_125251_58450/order_4/bn_error_3d_plot_initial.pdf">132</a></td>
@@ -4790,19 +3853,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.8293117757243484e-05">4.8e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08304345579818961">8.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2950753260400925">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9387814751216321">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.335653357777957">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417226.97626033233">4.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197581.52844497384">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="569640.8446560644">5.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284685.494326132">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.636934995651245">3.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.068566737776371">4.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T20:27:51.209596">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_181401_97685/order_4/bn_error_3d_plot_initial.pdf">133</a></td>
@@ -4825,19 +3881,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020974149522382527">2.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08139435772885986">8.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30263055462238125">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.916327906662826">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.973214202444648">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="417887.47366056853">4.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197459.81036127155">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="540846.593641591">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278111.84715119837">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.996009349822998">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8196088122038163">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:13.061584">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_4/bn_error_3d_plot_initial.pdf">134</a></td>
@@ -4860,19 +3909,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.492385596838874e-05">4.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07529911619232946">7.5e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30458504646440937">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.908382645527133">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.903481987933258">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="427410.4582195918">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206687.91986628913">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="545898.2341517063">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298394.83786960714">3.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.463728189468384">2.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.910748996698413">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:00:12.081789">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_4/bn_error_3d_plot_initial.pdf">135</a></td>
@@ -4895,19 +3937,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020834899912436288">2.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07696554437120598">7.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3083889198857309">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.900588143222881">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.741273475987373">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="426867.15491706884">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203619.06268815405">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="533040.427211058">5.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286843.6500046668">2.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226.44915294647217">2.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7334774040673158">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:22:38.807298">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_4/bn_error_3d_plot_initial.pdf">136</a></td>
@@ -4930,19 +3965,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00023397574240335684">2.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0835367068675514">8.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29890126277589024">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.927845002662361">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.112057840784453">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="414068.76857023686">4.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194644.62226485822">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="545658.5642196599">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273917.1022316604">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235.0287983417511">2.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.870394787205533">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:47:58.122097">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_4/bn_error_3d_plot_initial.pdf">137</a></td>
@@ -4965,19 +3993,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00022947927000104934">2.3e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08177297309710985">8.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30176085359728694">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9253397107406744">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.050658710175237">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="418707.4156752748">4.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197352.03059290998">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="545507.330464018">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276365.43494332774">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.977430105209351">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8705128608184265">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:45:04.245697">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_4/bn_error_3d_plot_initial.pdf">138</a></td>
@@ -5000,19 +4021,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020263714719147337">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0818316305432602">8.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29943427292458846">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9098984372296788">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.043704235333584">5.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="416668.48249589483">4.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196538.00690786995">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="542390.2675123623">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276651.9424996531">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.853528022766113">5.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8442553660994876">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T23:21:27.409638">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_4/bn_error_3d_plot_initial.pdf">139</a></td>
@@ -5035,19 +4049,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00019889553099725987">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07687493254662194">7.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30578440206251783">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9157808109046088">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.872544230571263">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="425588.3722574081">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204529.35844619118">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="542706.2983060343">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292140.68447653647">2.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224.92512392997742">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8326379846905545">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T19:59:23.794642">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_4/bn_error_3d_plot_initial.pdf">140</a></td>
@@ -5070,19 +4077,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020796906262483906">2.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07598607140327802">7.6e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30610828068132245">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9162245311490191">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.8513995330934865">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="428068.66706477216">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207518.49046637">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="547361.1244695176">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306182.35573398316">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.725321054458618">7.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.840059934220391">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:44:17.563925">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_4/bn_error_3d_plot_initial.pdf">141</a></td>
@@ -5105,19 +4105,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002036829147791254">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07685231396954884">7.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3033750276406143">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.895636210589273">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.88194184299096">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="423935.97466104093">4.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202499.10905812334">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="548310.0707238282">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298476.96074881125">3.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234.29976892471313">2.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7971991801938585">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:33:13.880570">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_4/bn_error_3d_plot_initial.pdf">142</a></td>
@@ -5140,19 +4133,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00021322291104374454">2.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0836680750952591">8.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2923026922578569">2.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9257467393972085">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.3555744114044375">5.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="412116.00424862886">4.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194007.8888915073">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="561949.5759975772">5.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278373.2910908199">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.04912519454956">2.0e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9902307134103014">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:00:05.898663">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_4/bn_error_3d_plot_initial.pdf">143</a></td>
@@ -5175,19 +4161,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020142691483946405">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07289596454448061">7.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3086932796357411">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9110266417315462">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.875118913468302">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="431407.07582409633">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211331.459368611">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="542886.5324328073">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310080.1736235141">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213.82366824150085">2.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.851928292781249">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T08:32:30.363947">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_4/bn_error_3d_plot_initial.pdf">144</a></td>
@@ -5210,19 +4189,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002018452295460612">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07341884309768056">7.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3070838147727332">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.912170356166715">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.870632442747823">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="429176.2636072335">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208957.46782526508">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="546692.872342123">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307371.95754450536">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194.85751390457153">1.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.866173189224755">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T02:57:18.505588">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_4/bn_error_3d_plot_initial.pdf">145</a></td>
@@ -5245,19 +4217,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64330506324768">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:32.823509">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_4/bn_error_3d_plot_initial.pdf">146</a></td>
@@ -5280,19 +4245,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.877470016479492">8.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.466554">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot_initial.pdf">147</a></td>
@@ -5315,19 +4273,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116722822189331">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:22:06.850563">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot_initial.pdf">148</a></td>
@@ -5350,19 +4301,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.41927719116211">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:25:28.788955">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_4/bn_error_3d_plot_initial.pdf">149</a></td>
@@ -5385,19 +4329,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.226839065551758">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:30.865460">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_4/bn_error_3d_plot_initial.pdf">150</a></td>
@@ -5420,19 +4357,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.194045782089233">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:55.733031">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot_initial.pdf">151</a></td>
@@ -5455,19 +4385,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.61722183227539">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:30.222546">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_4/bn_error_3d_plot_initial.pdf">152</a></td>
@@ -5490,19 +4413,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.10605525970459">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:19:03.832787">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot_initial.pdf">153</a></td>
@@ -5525,19 +4441,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.79240894317627">8.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:30.402588">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_4/bn_error_3d_plot_initial.pdf">154</a></td>
@@ -5560,19 +4469,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.178466081619263">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:14:04.351705">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_4/bn_error_3d_plot_initial.pdf">155</a></td>
@@ -5595,19 +4497,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.667217254638672">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:50.965448">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_4/bn_error_3d_plot_initial.pdf">156</a></td>
@@ -5630,19 +4525,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.695196866989136">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.652013">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_4/bn_error_3d_plot_initial.pdf">157</a></td>
@@ -5665,19 +4553,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.685822010040283">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:36.543341">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_4/bn_error_3d_plot_initial.pdf">158</a></td>
@@ -5700,19 +4581,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.977558135986328">8.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:59:32.220483">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_4/bn_error_3d_plot_initial.pdf">159</a></td>
@@ -5735,19 +4609,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.45492672920227">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:49:46.050873">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot_initial.pdf">160</a></td>
@@ -5770,19 +4637,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.492582082748413">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:23:52.727671">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_4/bn_error_3d_plot_initial.pdf">161</a></td>
@@ -5805,19 +4665,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.707674264907837">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.384476">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_4/bn_error_3d_plot_initial.pdf">162</a></td>
@@ -5840,19 +4693,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67320704460144">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:16:15.138185">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_4/bn_error_3d_plot_initial.pdf">163</a></td>
@@ -5875,19 +4721,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590862035751343">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:01:12.533136">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot_initial.pdf">164</a></td>
@@ -5910,19 +4749,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590508937835693">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.033242">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_4/bn_error_3d_plot_initial.pdf">165</a></td>
@@ -5945,19 +4777,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.153568744659424">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:13:03.504538">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_4/bn_error_3d_plot_initial.pdf">166</a></td>
@@ -5980,19 +4805,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.217495679855347">9.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:03.525516">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot_initial.pdf">167</a></td>
@@ -6015,19 +4833,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.593476295471191">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:41:59.058034">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_4/bn_error_3d_plot_initial.pdf">168</a></td>
@@ -6050,19 +4861,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.578474044799805">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:05.497295">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_4/bn_error_3d_plot_initial.pdf">169</a></td>
@@ -6085,19 +4889,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.606275796890259">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:16:37.130177">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot_initial.pdf">170</a></td>
@@ -6120,19 +4917,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.29365086555481">9.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:01.701080">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot_initial.pdf">171</a></td>
@@ -6155,19 +4945,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.46219801902771">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:24.624831">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot_initial.pdf">172</a></td>
@@ -6190,19 +4973,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.514100790023804">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:53.814231">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_4/bn_error_3d_plot_initial.pdf">173</a></td>
@@ -6225,19 +5001,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.57158899307251">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:51.889485">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot_initial.pdf">174</a></td>
@@ -6260,19 +5029,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.233503103256226">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:17.847014">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_4/bn_error_3d_plot_initial.pdf">175</a></td>
@@ -6295,19 +5057,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.507838010787964">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:51:34.314853">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot_initial.pdf">176</a></td>
@@ -6330,19 +5085,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.74887466430664">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:33.255841">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot_initial.pdf">177</a></td>
@@ -6365,19 +5113,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.633736848831177">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.674798">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_4/bn_error_3d_plot_initial.pdf">178</a></td>
@@ -6400,19 +5141,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.536368131637573">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:22:34.766420">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot_initial.pdf">179</a></td>
@@ -6435,19 +5169,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.267996788024902">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:59:47.389042">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_4/bn_error_3d_plot_initial.pdf">180</a></td>
@@ -6470,19 +5197,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.098844051361084">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T15:13:35.649154">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_4/bn_error_3d_plot_initial.pdf">181</a></td>
@@ -6505,19 +5225,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.209996938705444">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:46.647222">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot_initial.pdf">182</a></td>
@@ -6540,19 +5253,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.264412879943848">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:27.762009">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot_initial.pdf">183</a></td>
@@ -6575,19 +5281,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.322812795639038">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:33:43.802231">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_4/bn_error_3d_plot_initial.pdf">184</a></td>
@@ -6610,19 +5309,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.193366050720215">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:19.824237">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_4/bn_error_3d_plot_initial.pdf">185</a></td>
@@ -6645,19 +5337,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.745657920837402">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:31.791867">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_4/bn_error_3d_plot_initial.pdf">186</a></td>
@@ -6680,19 +5365,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64832592010498">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:43.530604">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_4/bn_error_3d_plot_initial.pdf">187</a></td>
@@ -6715,19 +5393,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.68556523323059">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:42.410582">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_4/bn_error_3d_plot_initial.pdf">188</a></td>
@@ -6750,19 +5421,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.166682004928589">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:53.526000">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot_initial.pdf">189</a></td>
@@ -6785,19 +5449,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.69020128250122">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:42:11.463376">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_4/bn_error_3d_plot_initial.pdf">190</a></td>
@@ -6820,19 +5477,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.569249153137207">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:07.680477">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_4/bn_error_3d_plot_initial.pdf">191</a></td>
@@ -6855,19 +5505,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.228942155838013">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:18:27.885019">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_4/bn_error_3d_plot_initial.pdf">192</a></td>
@@ -6890,19 +5533,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.560002088546753">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:33.308493">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_4/bn_error_3d_plot_initial.pdf">193</a></td>
@@ -6925,19 +5561,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.273733854293823">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:13:36.495497">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_4/bn_error_3d_plot_initial.pdf">194</a></td>
@@ -6960,19 +5589,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.18305492401123">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:12:28.209531">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_4/bn_error_3d_plot_initial.pdf">195</a></td>
@@ -6995,19 +5617,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.260712146759033">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:29.675270">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_4/bn_error_3d_plot_initial.pdf">196</a></td>
@@ -7030,19 +5645,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.390984296798706">8.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:55.870626">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_4/bn_error_3d_plot_initial.pdf">197</a></td>
@@ -7065,19 +5673,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.623393058776855">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:06.059714">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_4/bn_error_3d_plot_initial.pdf">198</a></td>
@@ -7100,19 +5701,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.882462978363037">8.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.464879">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot_initial.pdf">199</a></td>
@@ -7135,19 +5729,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.53669285774231">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.909057">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_4/bn_error_3d_plot_initial.pdf">200</a></td>
@@ -7170,19 +5757,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710787057876587">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.004602">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_4/bn_error_3d_plot_initial.pdf">201</a></td>
@@ -7205,19 +5785,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.211593866348267">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:47.153944">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot_initial.pdf">202</a></td>
@@ -7240,19 +5813,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.828953742980957">8.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.727827">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_4/bn_error_3d_plot_initial.pdf">203</a></td>
@@ -7275,19 +5841,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.692058801651001">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:16.508890">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_4/bn_error_3d_plot_initial.pdf">204</a></td>
@@ -7310,19 +5869,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67012095451355">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.378588">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_4/bn_error_3d_plot_initial.pdf">205</a></td>
@@ -7345,19 +5897,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.187489986419678">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:20.173041">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_4/bn_error_3d_plot_initial.pdf">206</a></td>
@@ -7380,19 +5925,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.673142910003662">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:45.043980">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_4/bn_error_3d_plot_initial.pdf">207</a></td>
@@ -7415,19 +5953,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710578203201294">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.458394">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_4/bn_error_3d_plot_initial.pdf">208</a></td>
@@ -7450,19 +5981,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.978104114532471">8.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:13:17.620044">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_4/bn_error_3d_plot_initial.pdf">209</a></td>
@@ -7485,19 +6009,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.586299896240234">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:31.488911">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_4/bn_error_3d_plot_initial.pdf">210</a></td>
@@ -7520,19 +6037,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.520040273666382">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:16:33.620846">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_4/bn_error_3d_plot_initial.pdf">211</a></td>
@@ -7555,19 +6065,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.106815338134766">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:48:10.017005">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot_initial.pdf">212</a></td>
@@ -7590,19 +6093,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.306886196136475">9.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:00.619311">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot_initial.pdf">213</a></td>
@@ -7625,19 +6121,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.128228187561035">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:29:13.252184">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_4/bn_error_3d_plot_initial.pdf">214</a></td>
@@ -7660,19 +6149,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.93415904045105">7.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:02:14.046852">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_4/bn_error_3d_plot_initial.pdf">215</a></td>
@@ -7695,19 +6177,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.86678671836853">8.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:38.576503">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot_initial.pdf">216</a></td>
@@ -7730,19 +6205,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.199159145355225">8.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:18.760104">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_4/bn_error_3d_plot_initial.pdf">217</a></td>
@@ -7765,19 +6233,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.559816122055054">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:54:17.808674">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot_initial.pdf">218</a></td>
@@ -7800,19 +6261,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.660295009613037">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:29.325854">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_4/bn_error_3d_plot_initial.pdf">219</a></td>
@@ -7835,19 +6289,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.85395622253418">8.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.729850">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_4/bn_error_3d_plot_initial.pdf">220</a></td>
@@ -7870,19 +6317,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.538310766220093">8.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:50.952283">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot_initial.pdf">221</a></td>
@@ -7905,19 +6345,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.094752073287964">8.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:47:34.579045">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot_initial.pdf">222</a></td>
@@ -7940,19 +6373,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00014593347998167287">1.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13623065648504795">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17993552154890005">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3403212050485345">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.725571048304918">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146122.26374253028">1.5e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34777.96850418035">3.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213594.9006149483">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58152.65923092525">5.8e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.780425071716309">8.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:29.791298">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_4/bn_error_3d_plot_initial.pdf">223</a></td>
@@ -7975,19 +6401,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020287760323503724">2.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07243898117180808">7.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3069966874652161">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8993937194522248">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.84485005703811">4.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="429803.3628268831">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208798.4009993525">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="544496.4506743123">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310064.31660530996">3.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223.3541932106018">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7825777919970522">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:09:51.786833">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_4/bn_error_3d_plot_initial.pdf">224</a></td>
@@ -8010,19 +6429,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0005625330932318325">5.6e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.062483949048235475">6.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.323050189722598">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7164389493430625">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.534978048466445">4.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476072.1312438066">4.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190791.9549265377">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="694188.6866369612">6.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385158.51950666826">3.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.289355993270874">7.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.808651028438779">2.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:44:21.565629">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_4/bn_error_3d_plot_initial.pdf">225</a></td>
@@ -8045,19 +6457,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002704863165183811">2.7e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06775852369441034">6.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3104702441252315">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9213983980802731">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.536129241882771">4.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="456693.0952289663">4.6e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211051.69208123896">2.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="641487.7751068625">6.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281741.39356122323">2.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162.12186694145203">1.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7363996042777474">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T20:56:35.896254">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_4/bn_error_3d_plot_initial.pdf">226</a></td>
@@ -8080,19 +6485,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00025882192254703476">2.6e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.061768979701142424">6.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3228665304120292">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9154630120506866">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.873108402482036">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="479764.7780088411">4.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227891.85136076377">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="721206.4116987729">7.2e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331361.56708595663">3.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.97081780433655">3.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.871438735887695">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:52:47.571122">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_4/bn_error_3d_plot_initial.pdf">227</a></td>
@@ -8115,19 +6513,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002621895847640087">2.6e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.060959259705195515">6.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3225918401728643">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9108691229500678">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.740769988541253">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="482926.9217149313">4.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227903.22673021664">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="736130.8930173038">7.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336697.38023467094">3.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308.3559250831604">3.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.894491743240753">3.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:51.384035">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_4/bn_error_3d_plot_initial.pdf">228</a></td>
@@ -8150,19 +6541,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002493534245050843">2.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.059391301690624225">5.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.32678277927413296">3.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9095060008514422">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.880115454383247">4.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="493700.31354997505">4.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234587.9259986154">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="757837.7996305391">7.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="351562.10313028086">3.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="319.74471497535706">3.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.977945232067826">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T22:59:34.178532">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_4/bn_error_3d_plot_initial.pdf">229</a></td>
@@ -8185,19 +6569,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002755155667281884">2.8e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.059389575900925445">5.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3244638049381828">3.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9211491512189776">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.0797697892802205">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="489446.3987030941">4.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233028.98153266677">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="743225.882049864">7.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="341871.9801273808">3.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="332.7866168022156">3.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9820077137724903">4.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T17:33:00.758171">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_4/bn_error_3d_plot_initial.pdf">230</a></td>
@@ -8220,19 +6597,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3783349990845">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:11.129268">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_4/bn_error_3d_plot_initial.pdf">231</a></td>
@@ -8255,19 +6625,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.61396288871765">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.041222">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot_initial.pdf">232</a></td>
@@ -8290,19 +6653,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.7472302913666">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.638594">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_4/bn_error_3d_plot_initial.pdf">233</a></td>
@@ -8325,19 +6681,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.7793650627136">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:32.449008">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_4/bn_error_3d_plot_initial.pdf">234</a></td>
@@ -8360,19 +6709,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.53657388687134">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:34.957609">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot_initial.pdf">235</a></td>
@@ -8395,19 +6737,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.0458550453186">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:51.173769">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_4/bn_error_3d_plot_initial.pdf">236</a></td>
@@ -8430,19 +6765,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="407.9253399372101">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:33.752715">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot_initial.pdf">237</a></td>
@@ -8465,19 +6793,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.0409426689148">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:51.787567">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_4/bn_error_3d_plot_initial.pdf">238</a></td>
@@ -8500,19 +6821,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.6805729866028">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.387278">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_4/bn_error_3d_plot_initial.pdf">239</a></td>
@@ -8535,19 +6849,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.50058579444885">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:40:37.159120">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_4/bn_error_3d_plot_initial.pdf">240</a></td>
@@ -8570,19 +6877,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.79580068588257">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:22.295429">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_4/bn_error_3d_plot_initial.pdf">241</a></td>
@@ -8605,19 +6905,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5678029060364">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:22:24.785979">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_4/bn_error_3d_plot_initial.pdf">242</a></td>
@@ -8640,19 +6933,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.2918498516083">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:18:38.513767">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_4/bn_error_3d_plot_initial.pdf">243</a></td>
@@ -8675,19 +6961,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.1625747680664">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.345404">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot_initial.pdf">244</a></td>
@@ -8710,19 +6989,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.96911001205444">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:12.468161">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_4/bn_error_3d_plot_initial.pdf">245</a></td>
@@ -8745,19 +7017,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.84710717201233">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:29.929152">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_4/bn_error_3d_plot_initial.pdf">246</a></td>
@@ -8780,19 +7045,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="419.29562497138977">4.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:11.099446">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_4/bn_error_3d_plot_initial.pdf">247</a></td>
@@ -8815,19 +7073,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.31253576278687">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:57.042959">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_4/bn_error_3d_plot_initial.pdf">248</a></td>
@@ -8850,19 +7101,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.2454779148102">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:34.412806">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot_initial.pdf">249</a></td>
@@ -8885,19 +7129,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.7827389240265">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:31.813207">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_4/bn_error_3d_plot_initial.pdf">250</a></td>
@@ -8920,19 +7157,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.09291219711304">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:56:20.609139">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot_initial.pdf">251</a></td>
@@ -8955,19 +7185,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.26904487609863">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:00.180868">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot_initial.pdf">252</a></td>
@@ -8990,19 +7213,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.7003757953644">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:17:18.516196">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_4/bn_error_3d_plot_initial.pdf">253</a></td>
@@ -9025,19 +7241,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.71021795272827">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.594537">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_4/bn_error_3d_plot_initial.pdf">254</a></td>
@@ -9060,19 +7269,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.99059987068176">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:41:11.651114">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot_initial.pdf">255</a></td>
@@ -9095,19 +7297,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="374.0912868976593">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:59.846744">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_4/bn_error_3d_plot_initial.pdf">256</a></td>
@@ -9130,19 +7325,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.81534910202026">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:17.102132">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_4/bn_error_3d_plot_initial.pdf">257</a></td>
@@ -9165,19 +7353,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="372.9121768474579">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:53.275744">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_4/bn_error_3d_plot_initial.pdf">258</a></td>
@@ -9200,19 +7381,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.4121780395508">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T06:21:17.334667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot_initial.pdf">259</a></td>
@@ -9235,19 +7409,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.0525140762329">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:33:46.599530">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_4/bn_error_3d_plot_initial.pdf">260</a></td>
@@ -9270,19 +7437,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.26778292655945">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:59.822143">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_4/bn_error_3d_plot_initial.pdf">261</a></td>
@@ -9305,19 +7465,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.59044098854065">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:31:48.020044">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot_initial.pdf">262</a></td>
@@ -9340,19 +7493,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.33926606178284">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:00:30.073200">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_4/bn_error_3d_plot_initial.pdf">263</a></td>
@@ -9375,19 +7521,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.66371512413025">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T07:55:14.800577">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_4/bn_error_3d_plot_initial.pdf">264</a></td>
@@ -9410,19 +7549,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.27868485450745">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:30:52.024899">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot_initial.pdf">265</a></td>
@@ -9445,19 +7577,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.6516270637512">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:55.073402">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_4/bn_error_3d_plot_initial.pdf">266</a></td>
@@ -9480,19 +7605,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.39421582221985">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:35.385766">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot_initial.pdf">267</a></td>
@@ -9515,19 +7633,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.88229298591614">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.865532">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot_initial.pdf">268</a></td>
@@ -9550,19 +7661,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.8448488712311">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:32.819354">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_4/bn_error_3d_plot_initial.pdf">269</a></td>
@@ -9585,19 +7689,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.0505700111389">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:50:40.145594">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_4/bn_error_3d_plot_initial.pdf">270</a></td>
@@ -9620,19 +7717,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.22934103012085">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:38.423331">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot_initial.pdf">271</a></td>
@@ -9655,19 +7745,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="418.52054500579834">4.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:07.033098">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_4/bn_error_3d_plot_initial.pdf">272</a></td>
@@ -9690,19 +7773,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.18965792655945">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:31.032831">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_4/bn_error_3d_plot_initial.pdf">273</a></td>
@@ -9725,19 +7801,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.60783076286316">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:31.800384">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_4/bn_error_3d_plot_initial.pdf">274</a></td>
@@ -9760,19 +7829,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.9235498905182">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:58.818380">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_4/bn_error_3d_plot_initial.pdf">275</a></td>
@@ -9795,19 +7857,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.46136593818665">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:27:16.572735">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_4/bn_error_3d_plot_initial.pdf">276</a></td>
@@ -9830,19 +7885,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.5828628540039">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:21:17.330830">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_4/bn_error_3d_plot_initial.pdf">277</a></td>
@@ -9865,19 +7913,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.6802339553833">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:58:44.288041">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_4/bn_error_3d_plot_initial.pdf">278</a></td>
@@ -9900,19 +7941,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.82418990135193">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:27:51.988789">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot_initial.pdf">279</a></td>
@@ -9935,19 +7969,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.87685203552246">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:22:22.002667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot_initial.pdf">280</a></td>
@@ -9970,19 +7997,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.7351200580597">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:15.599999">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_4/bn_error_3d_plot_initial.pdf">281</a></td>
@@ -10005,19 +8025,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="384.6250400543213">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:53.982455">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_4/bn_error_3d_plot_initial.pdf">282</a></td>
@@ -10040,19 +8053,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.8300521373749">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:22:49.477806">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_4/bn_error_3d_plot_initial.pdf">283</a></td>
@@ -10075,19 +8081,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.3948669433594">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:06:55.616762">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_4/bn_error_3d_plot_initial.pdf">284</a></td>
@@ -10110,19 +8109,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.71710896492004">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:49.951732">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_4/bn_error_3d_plot_initial.pdf">285</a></td>
@@ -10145,19 +8137,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.9527781009674">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T01:51:35.497127">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot_initial.pdf">286</a></td>
@@ -10180,19 +8165,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="383.2400782108307">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:48.625973">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_4/bn_error_3d_plot_initial.pdf">287</a></td>
@@ -10215,19 +8193,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.85212993621826">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.846475">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot_initial.pdf">288</a></td>
@@ -10250,19 +8221,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.60723185539246">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:56.876150">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_4/bn_error_3d_plot_initial.pdf">289</a></td>
@@ -10285,19 +8249,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3997731208801">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:33.825745">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_4/bn_error_3d_plot_initial.pdf">290</a></td>
@@ -10320,19 +8277,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.8646728992462">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:12.094481">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_4/bn_error_3d_plot_initial.pdf">291</a></td>
@@ -10355,19 +8305,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5102479457855">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:54:00.709277">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_4/bn_error_3d_plot_initial.pdf">292</a></td>
@@ -10390,19 +8333,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.19913601875305">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:04.936985">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_4/bn_error_3d_plot_initial.pdf">293</a></td>
@@ -10425,19 +8361,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5487599372864">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:42.815921">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_4/bn_error_3d_plot_initial.pdf">294</a></td>
@@ -10460,19 +8389,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.05595088005066">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:16:20.712916">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_4/bn_error_3d_plot_initial.pdf">295</a></td>
@@ -10495,19 +8417,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.65915393829346">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:52:19.889517">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_4/bn_error_3d_plot_initial.pdf">296</a></td>
@@ -10530,19 +8445,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.8873620033264">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:23.169875">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_4/bn_error_3d_plot_initial.pdf">297</a></td>
@@ -10565,19 +8473,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5960440635681">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.802020">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_4/bn_error_3d_plot_initial.pdf">298</a></td>
@@ -10600,19 +8501,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.75380992889404">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:56:54.967853">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot_initial.pdf">299</a></td>
@@ -10635,19 +8529,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.11508202552795">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:30.402217">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_4/bn_error_3d_plot_initial.pdf">300</a></td>
@@ -10670,19 +8557,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="377.18457293510437">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:07.351960">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot_initial.pdf">301</a></td>
@@ -10705,19 +8585,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="409.5564351081848">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:34.882492">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot_initial.pdf">302</a></td>
@@ -10740,19 +8613,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2420790195465">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:23:18.905440">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_4/bn_error_3d_plot_initial.pdf">303</a></td>
@@ -10775,19 +8641,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.0802118778229">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:01.068404">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot_initial.pdf">304</a></td>
@@ -10810,19 +8669,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.78020310401917">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.397669">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_4/bn_error_3d_plot_initial.pdf">305</a></td>
@@ -10845,19 +8697,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.77176904678345">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:11.381393">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_4/bn_error_3d_plot_initial.pdf">306</a></td>
@@ -10880,19 +8725,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.306654214859">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:53.678757">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_4/bn_error_3d_plot_initial.pdf">307</a></td>
@@ -10915,19 +8753,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.01064014434814">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:49:33.168007">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_4/bn_error_3d_plot_initial.pdf">308</a></td>
@@ -10950,19 +8781,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.4223701953888">3.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:50.709986">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_4/bn_error_3d_plot_initial.pdf">309</a></td>
@@ -10985,19 +8809,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2859251499176">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:32.090307">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot_initial.pdf">310</a></td>
@@ -11020,19 +8837,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.5566830635071">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.979844">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot_initial.pdf">311</a></td>
@@ -11055,19 +8865,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.36734223365784">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:18.695452">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_4/bn_error_3d_plot_initial.pdf">312</a></td>
@@ -11090,19 +8893,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.54129125479999e-06">9.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1393049210003237">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1492940264616272">1.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.617823714782085">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.100481343382295">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113826.73598836288">1.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24637.053274917125">2.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174825.75246715048">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47412.31507691398">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="387.482439994812">3.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:45.165754">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_4/bn_error_3d_plot_initial.pdf">313</a></td>
@@ -11125,19 +8921,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0002491789716439878">2.5e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07998387190917915">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3386046705297615">3.4e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.669453803624076">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.431052822661822">4.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="608304.2813990478">6.1e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="364111.33392696036">3.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="772498.291137034">7.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="471635.0231034596">4.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.700101852417">2.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.283158150198638">3.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="500.0">5.0e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.700101852417">2.4e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:25:18.036250">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="314"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf">314</a></td>
@@ -11160,19 +8949,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.950756318292617e-05">9.0e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06101999687861026">6.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3147158710911659">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.08491842171251">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.592964954712525">6.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476233.1487075499">4.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196926.88353707202">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="714128.143615445">7.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270404.05597561423">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227.09969687461853">2.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.14378345398696">5.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T10:20:06.115130">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="315"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_4/bn_error_3d_plot_initial.pdf">315</a></td>
@@ -11195,19 +8977,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00021870905903953767">2.2e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07919252636808964">7.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3000233927930898">3.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.033830653720727">2.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.778685894282354">5.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="485955.30347708653">4.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336836.48338474316">3.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="592581.3175365371">5.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="463030.15258944576">4.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.60529804229736">2.0e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.656255816694707">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2000.0">2.0e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.60529804229736">2.0e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T15:52:01.006962">19/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="316"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-19-2026_15-52/bn_error_3d_plot_initial.pdf">316</a></td>
@@ -11230,19 +9005,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.491919130576525e-05">9.5e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.05798057984603852">5.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3117846418931581">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0819141219213995">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.474747503980211">6.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="484323.75131663494">4.8e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196949.34673905993">2.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="708042.1412741675">7.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251729.62114885106">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.84701228141785">2.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.152075038257153">5.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:05.206887">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="317"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_4/bn_error_3d_plot_initial.pdf">317</a></td>
@@ -11265,19 +9033,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010558854352110791">1.1e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07959281067582202">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30869355888751915">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0762026605662496">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.704345659919959">5.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="427982.4069666972">4.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166620.4698164374">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="544072.9921574317">5.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240262.23371872932">2.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1491.5190892219543">1.5e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.498907579658978">5.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:58:02.339407">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="318"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf">318</a></td>
@@ -11300,19 +9061,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.166244548779339e-05">4.2e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999869284223755">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3143014071449326">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.096700411668069">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.280309192668483">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="436850.77623321576">4.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172167.43999032577">1.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="575265.3114536765">5.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268056.3585528811">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179.35041618347168">1.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.0890781825177696">6.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.732132">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="319"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf">319</a></td>
@@ -11335,19 +9089,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00036672724845930707">3.7e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0799353914242997">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3146538691296282">3.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.4377063763820526">2.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.991925277345858">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="696862.4010300426">7.0e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="547638.33397544">5.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="909420.7150525388">9.1e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="876198.1195103212">8.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110.09061789512634">1.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.9884907939033365">7.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="500.0">5.0e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110.09061789512634">1.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:27:55.169368">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="320"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf">320</a></td>
@@ -11370,19 +9117,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00032000095026522173">3.2e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07949954603661806">7.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2137018588461762">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.598287345736092">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.025979920188483">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172444.15496005936">1.7e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47131.19841527913">4.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193247.63596710027">1.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63319.98893647525">6.3e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410.3944981098175">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.577134110789892">8.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="500.0">5.0e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410.3944981098175">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:19:22.382728">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="321"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf">321</a></td>
@@ -11405,19 +9145,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5778216127659905">3.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07844049005857534">7.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23339828936177107">2.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6933127451297545">2.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.014382108116537">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="528593.9814052195">5.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260485.22567021684">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="791980.1899044797">7.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476436.7679530129">4.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="484.05645203590393">4.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.85486853935715">9.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T13:30:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="322"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/bn_error_3d_plot_initial.pdf">322</a></td>
@@ -11440,19 +9173,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5778216127659905">3.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07844049005857534">7.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23339828936177107">2.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6933127451297545">2.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.014382108116537">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="528593.9814052195">5.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260485.22567021684">2.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="791980.1899044797">7.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476436.7679530129">4.8e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="478.8054699897766">4.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.85486853935715">9.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:40:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="323"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/bn_error_3d_plot_initial.pdf">323</a></td>
@@ -11475,19 +9201,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20905046538384028">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.004166305845046084">4.2e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1935279631685863">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9526902505134114">2.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.534511873081588">5.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6937777.658963703">6.9e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1285412.10237234">1.3e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14755973.48533567">1.5e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4530484.905262092">4.5e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.469293117523193">2.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.747687617492483">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:36:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="324"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/bn_error_3d_plot_initial.pdf">324</a></td>
@@ -11510,19 +9229,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20905046538384028">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.004166305845046084">4.2e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1935279631685863">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9526902505134114">2.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.534511873081588">5.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6937777.658963703">6.9e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1285412.10237234">1.3e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14755973.48533567">1.5e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4530484.905262092">4.5e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.72536611557007">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.747687617492483">4.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:38:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="325"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/bn_error_3d_plot_initial.pdf">325</a></td>
@@ -11545,19 +9257,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3077062865913121">3.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.006393062886242629">6.4e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19479495273905267">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8783674183671253">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.177141295603185">4.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2471791.7452141885">2.5e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="558588.4809072389">5.6e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5706800.297838324">5.7e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1128014.0171976464">1.1e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33.286664962768555">3.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7006465360317784">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:39:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="326"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/bn_error_3d_plot_initial.pdf">326</a></td>
@@ -11580,19 +9285,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29113016160281024">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005275236742207318">5.3e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1939284034319461">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8894845735742218">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286177218796624">4.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4097880.546937023">4.1e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="986757.0448216093">9.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9916602.247985087">9.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2130974.184535363">2.1e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.502700090408325">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178225986935383">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:33:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="327"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/bn_error_3d_plot_initial.pdf">327</a></td>
@@ -11615,19 +9313,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29113016160281024">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005275236742207318">5.3e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1939284034319461">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8894845735742218">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286177218796624">4.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4097880.546937023">4.1e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="986757.0448216093">9.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9916602.247985087">9.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2130974.184535363">2.1e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.627583980560303">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178225986935383">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:31:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="328"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/bn_error_3d_plot_initial.pdf">328</a></td>
@@ -11650,19 +9341,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2911212330543844">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005276503912773084">5.3e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19392818037848553">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8894844077530437">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286180580286655">4.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4096161.629056342">4.1e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="985873.6433713692">9.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9912446.490049485">9.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2126533.7082345057">2.1e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.25582003593445">1.7e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178308838060095">3.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:28:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="329"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/bn_error_3d_plot_initial.pdf">329</a></td>
@@ -11685,19 +9369,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.7728523400127347">2.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216667.1431538391">2.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66134.69600467903">6.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.587711095809937">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:30:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="330"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/bn_error_3d_plot_initial.pdf">330</a></td>
@@ -11720,19 +9397,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.7728523400127347">2.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216667.1431538391">2.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66134.69600467903">6.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.55438494682312">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:36:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/bn_error_3d_plot_initial.pdf">331</a></td>
@@ -11755,19 +9425,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.7728523400127347">2.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216667.1431538391">2.2e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66134.69600467903">6.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.613347053527832">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:28:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="332"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/bn_error_3d_plot_initial.pdf">332</a></td>
@@ -11790,19 +9453,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.22932631962803">2.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07485123353948898">7.5e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20364346030470593">2.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.745731591391617">2.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12.910310415487755">1.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169013720.85423043">1.7e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109553583.07624301">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373410775.8149498">3.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303233026.849906">3.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221.5595178604126">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.77495282026222">8.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:35:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="333"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/bn_error_3d_plot_initial.pdf">333</a></td>
@@ -11825,19 +9481,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.389108717511256">2.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07651418029204979">7.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20219108110690412">2.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.754100226999662">2.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.603720838508902">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163806498.57338262">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111048839.05849303">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="399424736.3286174">4.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="327609068.6247752">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="372.3335928916931">3.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.000236095609036">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:15:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="334"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/bn_error_3d_plot_initial.pdf">334</a></td>
@@ -11860,19 +9509,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9088000047292466">1.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09159675824824907">9.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20319918553808444">2.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.567354100234545">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.461841435347548">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155335617.7584855">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85026966.37212673">8.5e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309846002.6323419">3.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213232289.3134841">2.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108.70606994628906">1.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.859442105045154">8.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:22:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="335"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/bn_error_3d_plot_initial.pdf">335</a></td>
@@ -11895,19 +9537,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5746142022653196">3.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08370166740488058">8.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24318818938203454">2.4e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.632454926881342">2.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.864461848683225">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="355224074.25636864">3.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210983048.2986426">2.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="986725806.7795186">9.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="695850002.5017046">7.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="586.258425951004">5.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.980442928200407">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T12:18:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/bn_error_3d_plot_initial.pdf">336</a></td>
@@ -11930,19 +9565,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3362943946392054">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158303149.84166938">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72154402.34495871">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.117408752441406">1.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:34:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="337"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/bn_error_3d_plot_initial.pdf">337</a></td>
@@ -11965,19 +9593,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3362943946392054">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158303149.84166938">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72154402.34495871">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.954218864440918">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:33:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="338"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/bn_error_3d_plot_initial.pdf">338</a></td>
@@ -12000,19 +9621,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3362943946392054">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158303149.84166938">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72154402.34495871">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.510950088500977">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:21:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="339"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/bn_error_3d_plot_initial.pdf">339</a></td>
@@ -12035,19 +9649,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3362943946392054">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158303149.84166938">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72154402.34495871">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.564044713973999">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:17:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="340"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/bn_error_3d_plot_initial.pdf">340</a></td>
@@ -12070,19 +9677,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3362943946392054">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158303149.84166938">1.6e+08</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72154402.34495871">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.019055128097534">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:15:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="341"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/bn_error_3d_plot_initial.pdf">341</a></td>
@@ -12105,19 +9705,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2184445363940109">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10719407139164518">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.652606216721007">2.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.790787534811141">1.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234761.13433389636">2.3e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="41828.919747623426">4.2e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244490.70128890238">2.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49785.81006040528">5.0e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.33704900741577">3.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.504806923422474">7.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2025-12-01T01:51:29.688228">01/12/25</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -12140,19 +9733,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.345464874352599">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237987.6646702572">2.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57307.13286355711">5.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.919920206069946">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:47:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="343"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/bn_error_3d_plot_initial.pdf">343</a></td>
@@ -12175,19 +9761,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.345464874352599">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237987.6646702572">2.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57307.13286355711">5.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.82164192199707">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:41:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="344"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/bn_error_3d_plot_initial.pdf">344</a></td>
@@ -12210,19 +9789,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.345464874352599">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237987.6646702572">2.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57307.13286355711">5.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.505263805389404">1.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:50:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="345"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/bn_error_3d_plot_initial.pdf">345</a></td>
@@ -12245,19 +9817,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.345464874352599">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237987.6646702572">2.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57307.13286355711">5.7e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.004676103591919">1.4e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:45:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="346"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/bn_error_3d_plot_initial.pdf">346</a></td>
@@ -12280,19 +9845,12 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08451924256818608">8.5e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22528391184667296">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10371833910829303">1.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.2594980006996">2.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.447205517025298">1.0e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244405.5971702747">2.4e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55524.69853576481">5.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249039.0366271209">2.5e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75847.49284402916">7.6e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.77249526977539">1.2e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.513392138472081">9.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:03:00">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="347"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/bn_error_3d_plot_initial.pdf">347</a></td>
@@ -12319,16 +9877,9 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42.0">4.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T16:27:36.108153">19/02/26</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T17:11:59.737079">19/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="348">348</td>
@@ -12362,35 +9913,31 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">avg(QS) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="29" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -12406,15 +9953,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.479346032737995">5.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0726177802213226">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7744074043110434">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23047447546396196">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0899299534125076">9.0e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43585505.93854962">4.4e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163797869.61650077">1.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66402622.76533116">6.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268173038.07251602">2.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="431.0007359981537">4.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.974783036426623e-05">1.0e-04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7067651831864947">7.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-03T17:12:04.694057">03/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -12438,15 +9981,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0808997076440617">8.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6584687881779177">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7734885281303212">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2883587721609958">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13426488460565067">1.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47433929.99600643">4.7e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211219331.23115006">2.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90017078.88309099">9.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="557602091.8702348">5.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="921.7210631370544">9.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6461445504107494">6.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T15:19:16.841266">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12470,15 +10009,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.02385032712655595">2.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.240383459817429">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8553233558593203">1.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2861146009168641">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13096631845587758">1.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40771017.578671955">4.1e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115380950.53258133">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67747689.04945804">6.8e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253966748.98804417">2.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="833.0398988723755">8.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5707344450854115">5.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T05:21:45.968402">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12502,15 +10037,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.16907740481584582">1.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.657396751249259">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.182114817590955">2.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27126872198443547">2.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12474615055044742">1.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43482127.16333323">4.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153816010.6041722">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111164245.26996028">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="460904924.3899625">4.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="758.2559859752655">7.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6041923350595629">6.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:22:01.540796">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12534,15 +10065,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04119478864288493">4.1e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3062047595356312">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6920146215585528">1.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2710879446317608">2.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12311100339832641">1.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42093291.662996784">4.2e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139670772.58244494">1.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63906776.60525122">6.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265863750.66636992">2.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1036.7084021568298">1.0e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6799819476211273">6.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:41:48.084471">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12566,15 +10093,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.03822587931577558">3.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3619718669023715">1.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2529493018109403">1.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2784943065157669">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12766170027836427">1.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40102732.948540054">4.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140604809.4912547">1.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78125534.34722841">7.8e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362643726.4520606">3.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1171.8123188018799">1.2e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6268491571173004">6.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:35:40.187706">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12598,15 +10121,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13803411494409473">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.23599228586528">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.1606591539539846">2.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.26675532141232505">2.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09687602156799766">9.7e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40886623.574975334">4.1e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94401509.46035278">9.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78692802.10549329">7.9e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255532696.34495333">2.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="457.12438201904297">4.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5799899567320753">5.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T00:24:28.081650">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12630,15 +10149,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.02272773943251291">2.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1619460128676549">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5739685716205596">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.26479571290391446">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11129009509911525">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46127101.09956654">4.6e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195029242.55140325">2.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72712236.16243981">7.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="341526539.3547166">3.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1124.7992980480194">1.1e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6928298474948846">6.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T10:18:31.053122">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12662,15 +10177,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.007228591029877005">7.2e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7337506501009012">7.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8276779599976891">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.261212139540703">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11709671773834163">1.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46201884.18965689">4.6e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137373405.5335154">1.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56213149.417287074">5.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165564664.58852664">1.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="939.0416529178619">9.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5598240285542176">5.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T20:02:09.710432">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12694,15 +10205,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4012807707475307">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.6511283364321583">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.205412850460076">2.2e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2604455950206283">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08927329121690716">8.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67657735.44154103">6.8e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245669654.53204584">2.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100355302.25816992">1.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="451589327.1945418">4.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182.5814230442047">1.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6610784554052037">6.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:08.468195">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12726,15 +10233,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.036735171636542385">3.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2186777463893346">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9876961422993573">2.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.31466234227345774">3.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.16108400086234254">1.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38127892.52939134">3.8e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109951005.2708137">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75767643.23090997">7.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="315727984.83117235">3.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1201.5452647209167">1.2e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1034134845112917">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T15:28:53.668172">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12758,15 +10261,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11377078188074645">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2404703396369166">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0179019705279857">2.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27591832549272405">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10854586622149683">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30073992.52322622">3.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78074928.42516312">7.8e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74899970.35185964">7.5e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270902013.9198551">2.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1215.6005091667175">1.2e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7331084159194323">7.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T00:03:27.521644">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12790,15 +10289,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09859811271512202">9.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7118938626786689">7.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.268268208786344">2.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2715728274460121">2.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09873142035247515">9.9e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48855838.56827851">4.9e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106535997.68497752">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80201941.40107621">8.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237607377.29444224">2.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="708.8645832538605">7.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.598904314836025">6.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:48:20.711327">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12822,15 +10317,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09737584270413605">9.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.722619490704821">1.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.118348006386597">1.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3231933913001206">3.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19158618260215926">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44999532.19309481">4.5e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209790860.63845146">2.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83305860.9550518">8.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="434982421.69770926">4.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1041.411878824234">1.0e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0250664684717619">1.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:33:14.182689">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12854,15 +10345,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.018169193132367534">1.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1738089041343367">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3735849426853797">1.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2945933546348422">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17313278450756275">1.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38057536.36677614">3.8e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157716653.60170367">1.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77138614.65925537">7.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="405259879.506523">4.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1725.172338962555">1.7e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8639240569651416">8.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T02:38:01.304060">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12886,15 +10373,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.26460313808210406">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.171999339396534">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.675288146766207">2.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24633827600572616">2.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08849809010808118">8.8e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48196254.07548292">4.8e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102374563.41761163">1.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="120178280.56633705">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="317608550.87046087">3.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="440.3621759414673">4.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6768423709321622">6.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T16:22:04.444910">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12918,15 +10401,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.05188820442678201">5.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1158970887532424">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001582952226831">2.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29091783437015223">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.12155766054433119">1.2e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33391957.192697465">3.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75790430.13245827">7.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63060869.21725645">6.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205388218.76231077">2.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="888.9983382225037">8.9e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9894419034982878">9.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T01:53:49.167004">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12950,15 +10429,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0415411230509898">4.2e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.4721414395681474">1.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1494923819346297">1.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.34059858390488135">3.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.25634710362206553">2.6e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46996208.95708655">4.7e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277859555.5284149">2.8e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112789695.58481552">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="724927561.6855025">7.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1440.5558540821075">1.4e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8913121423234232">8.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:41:57.408987">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -12982,15 +10457,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2040509660652614">2.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1088923102839683">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.545254582147649">2.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24833549487363737">2.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08066451990421081">8.1e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39696758.854596026">4.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103486569.80977486">1.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="101318328.37744643">1.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283775779.2090929">2.8e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="666.2781479358673">6.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5897801139874026">5.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:23:08.593582">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13014,15 +10485,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.009562390966229337">9.6e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3652225076112714">1.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.442886893982376">1.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2786760713548271">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10454180560014795">1.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43132935.51654828">4.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91591504.72534224">9.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50276112.351689264">5.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="117413557.3902316">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="826.8193919658661">8.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6451146345016775">6.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:13:02.272011">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13046,15 +10513,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.006508445857124354">6.5e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9251549087728044">9.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7170894644161436">1.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2948620235665472">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.17826010840619239">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53624576.9721265">5.4e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193906978.37105638">1.9e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85956802.63301818">8.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303149536.29954726">3.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1001.44176197052">1.0e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2014907696398935">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T15:29:27.476151">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13078,15 +10541,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.038987807870158944">3.9e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8307982131103698">8.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9956768137553162">2.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2992569696639184">3.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.13665416103595363">1.4e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29095402.810937483">2.9e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61360799.448482625">6.1e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51974715.41315078">5.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137733914.03778425">1.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1461.7617118358612">1.5e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0214684986719342">1.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T12:58:13.865579">19/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13110,15 +10569,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.03634946881372754">3.6e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5400265308980625">5.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.049210482419088">2.0e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2779909511830942">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09563761682937195">9.6e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30077304.14051013">3.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55801085.36115611">5.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44121113.235207126">4.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="86763887.62651506">8.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1348.7853710651398">1.3e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.47111583005761243">4.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T11:00:51.940518">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13142,15 +10597,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10161919267914454">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3443088747358987">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5342778881388541">1.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2780922487062272">2.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10000739262739118">1.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43230030.92924327">4.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91911630.60574609">9.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50341312.989854865">5.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116419865.34063108">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.5861451625824">3.8e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6371169257500965">6.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T17:35:57.394502">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13174,15 +10625,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07619904248307466">7.6e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1892633520922555">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8115910616912336">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2907626065499352">2.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10635556573054285">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28573962.99174422">2.9e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52658990.7636371">5.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42681576.67381595">4.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81801307.17209788">8.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="926.9291410446167">9.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6791445361575195">6.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T15:11:11.443620">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13206,15 +10653,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09986568670694886">1.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7399514057162695">7.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9329345409025138">1.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2736855905229315">2.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0881672989875947">8.8e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49330027.53271747">4.9e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94350375.65714967">9.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59280511.9470461">5.9e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119318195.090426">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="459.8627688884735">4.6e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5202350016214512">5.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T09:56:01.974653">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13238,15 +10681,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23181400603849706">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.439391034794576">1.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3829278238909495">1.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.299004501024128">3.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14340002213263014">1.4e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50147210.49511884">5.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113800797.3463268">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58904382.75676766">5.9e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183187046.4903619">1.8e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="320.42981815338135">3.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7526574573643754">7.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T00:19:28.989232">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13270,15 +10709,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1422202967180625">1.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6619623408603158">6.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.679013749497537">2.7e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23320872376482948">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06233073072565354">6.2e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63028084.264891624">6.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112587837.08744827">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81365030.54768452">8.1e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162075057.6314207">1.6e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="414.19246006011963">4.1e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3622984246968864">3.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:56:26.974125">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13302,15 +10737,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18163720762565166">1.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9395159992863471">9.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.647439430028716">2.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23327581673931083">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06312041025154908">6.3e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51104204.146216884">5.1e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105135268.25386956">1.1e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72106848.6448273">7.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148738383.0413201">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="667.645968914032">6.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.39613282198535116">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T22:48:15.483022">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13334,15 +10765,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11856748662676926">1.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.590189265038068">5.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3804964507587534">2.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24652726316605583">2.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0705822655856996">7.1e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="45183266.153629646">4.5e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75906462.30671081">7.6e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69045979.91087203">6.9e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128166852.83144073">1.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="535.6770145893097">5.4e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3756098466647652">3.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T05:02:53.387033">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13366,15 +10793,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21870334232249378">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0760065026082015">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19300922685393368">1.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.33665859306589746">3.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3668030625634664">3.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="37411777.49342962">3.7e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="122834905.9313737">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63939969.88781422">6.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196483022.4252935">2.0e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2044.4735641479492">2.0e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0913261522811917">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T15:39:51.236274">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13398,15 +10821,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.9850139944105">5.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0728168618600649">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7752434968739652">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23135136132151635">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08725057479128508">8.7e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42973096.85553622">4.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154686372.74646172">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59190137.32967085">5.9e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218432424.28604597">2.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="474.6348829269409">4.7e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6812418763749265">6.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.731113">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -13430,15 +10849,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18444673555541855">1.8e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0015404366791039">1.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.5088959222303497">2.5e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23133797340828433">2.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.061318611275925194">6.1e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56332565.82928847">5.6e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119217608.29296347">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76953143.9628246">7.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154645838.59661347">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="726.6654381752014">7.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.35743041601287606">3.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T03:33:22.823033">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13462,15 +10877,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20463383104477356">2.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8694961488599762">8.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.3753705186864296">2.4e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2378459370063855">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06478933041452326">6.5e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39692078.955173984">4.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72537094.99983153">7.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61765628.85518341">6.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="121313811.62749448">1.2e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="646.9708230495453">6.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3623707022491798">3.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T23:46:46.629904">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13494,15 +10905,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3730391133416098">3.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.145983479869605">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.08980580694504">2.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24563785161154814">2.5e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07461975179904269">7.5e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33341304.73443958">3.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66976978.87788075">6.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71294019.25859572">7.1e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143368727.99692774">1.4e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1063.1467006206512">1.1e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.42639583531915853">4.3e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:30:41.889764">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13526,15 +10933,11 @@ Typical configuration: 4 Fourier order, 5 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.31368845921771593">3.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0597358179360188">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8884214104230708">1.9e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2629257140173186">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07996376884624709">8.0e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29666573.43501845">3.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47191400.77282349">4.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47564557.05952887">4.8e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88265069.56534049">8.8e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="748.3685429096222">7.5e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4203400031779522">4.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T07:45:14.764577">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
@@ -13570,34 +10973,31 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -13613,10 +11013,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.013354679572160364">1.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21912041362362794">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.33085529957946974">3.3e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2065450210099196">1.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8380662507704564">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3790847.0272271475">3.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3806373.0526910536">3.8e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5950449.547660545">6.0e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6575204.558905109">6.6e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13644,10 +11041,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24032064859763963">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23760753606309115">2.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3468703012284549">3.5e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.1115709255555903">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.767643538299517">1.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3558329.417894656">3.6e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3157238.3503026087">3.2e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4632101.146060787">4.6e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4916345.955116502">4.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13687,34 +11081,31 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -13730,10 +11121,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003989777057604638">4.0e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11242786709064786">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.124099103445241">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.109860149444714">7.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83824.25071976977">8.4e+04</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44941.790233244355">4.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144832.06256419353">1.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102446.6683939638">1.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13761,10 +11149,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003989777057604638">4.0e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11242786709064786">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.124099103445241">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.109860149444714">7.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83824.25071976977">8.4e+04</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44941.790233244355">4.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144832.06256419353">1.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102446.6683939638">1.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13804,34 +11189,31 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -13847,10 +11229,7 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003989777057604638">4.0e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11242786709064786">1.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.124099103445241">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.109860149444714">7.1e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83824.25071976977">8.4e+04</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44941.790233244355">4.5e+04</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144832.06256419353">1.4e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102446.6683939638">1.0e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13890,34 +11269,31 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -13933,10 +11309,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001060012637359786">1.1e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07961452768715768">8.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19574944595469154">2.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0880499274094575">2.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.282331463665304">8.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="390938.782176472">3.9e+05</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232606.7960602611">2.3e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="493885.24678759737">4.9e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265089.4945122715">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -13976,35 +11349,31 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">avg(QS) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="29" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -14020,15 +11389,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.915449857711792">3.1e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:56:58.129386">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14052,15 +11417,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.53655219078064">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:17:39.486197">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14084,15 +11445,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.34715700149536">2.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:28:29.881360">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14116,15 +11473,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.519765853881836">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T09:16:11.019376">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14148,15 +11501,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.23109722137451">2.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:58:00.062645">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14180,15 +11529,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26.009729862213135">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T09:15:30.805276">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14212,15 +11557,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.07371687889099">2.5e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T09:08:37.437614">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14244,15 +11585,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.897754192352295">2.6e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T09:30:34.702814">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14276,15 +11613,11 @@ Typical configuration: 4 Fourier order, 6 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005869237071373351">5.9e-03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.2530619753979646">1.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5698242310913955">1.6e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2094036619821588">2.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04432099614893781">4.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2848345.430398284">2.8e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268182.9893314205">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2859524.305999473">2.9e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270785.5654593835">2.7e+05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26.704092025756836">2.7e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.017185339699117e-10">6.0e-10</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.21909086646239795">2.2e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:06:35.113328">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14320,34 +11653,31 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -14363,10 +11693,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.5082982394799735e-06">4.5e-06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024434538638676555">2.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10569471080799502">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.383003257439556">5.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32.81217029209263">3.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3353.1092632629898">3.4e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="548.5327527043524">5.5e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5638.572753110376">5.6e+03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1138.420626166749">1.1e+03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -14394,10 +11721,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0213705321540844e-05">1.0e-05</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024376597694455313">2.4e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10674296512447567">1.1e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.331632377379682">5.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32.81749135492054">3.3e+01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3342.2054456161422">3.3e+03</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="486.6169803994934">4.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5359.586444968455">5.4e+03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="960.5104684304596">9.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
@@ -14437,35 +11761,31 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">avg(QS) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="29" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -14481,15 +11801,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04812679707732993">4.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.39957032325013486">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6844417027689442">6.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3981666508394843">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2659007871294095">2.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4733626.662692503">4.7e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13885157.957237823">1.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9546038.739830324">9.5e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33089311.118647933">3.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220.45865106582642">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06269874203518207">6.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0595416089529384">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T07:56:22.414047">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14513,15 +11829,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04812679707732993">4.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.39957032325013486">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6844417027689442">6.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3981666508394843">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2659007871294095">2.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4733626.662692503">4.7e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13885157.957237823">1.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9546038.739830324">9.5e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33089311.118647933">3.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225.8085880279541">2.3e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0595416089529384">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:32:07.115425">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14545,15 +11857,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04812679707732993">4.8e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.39957032325013486">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6844417027689442">6.8e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3981666508394843">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2659007871294095">2.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4733626.662692503">4.7e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13885157.957237823">1.4e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9546038.739830324">9.5e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33089311.118647933">3.3e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219.75252389907837">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06269874203518207">6.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0595416089529384">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:06:22.577299">06/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14577,15 +11885,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04729432296124475">4.7e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3996106585558493">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.6936395974981306">6.9e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3970008789437068">4.0e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2679288985346355">2.7e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4510180.168938801">4.5e+06</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12359473.106204592">1.2e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9171005.977587864">9.2e+06</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29903148.674044233">3.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222.14882040023804">2.2e+02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.06264472092094506">6.3e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0612543105357195">1.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T14:43:35.353731">05/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14609,15 +11913,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7718514586055967">7.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.05979703752985085">6.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3991616608089601">4.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.25850869011781896">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0836438640322468">8.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12731428.496142002">1.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39591777.23515949">4.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49593806.398761325">5.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153623352.19826293">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.832784414291382">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4065358096613632">4.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T00:48:54.386640">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14641,15 +11941,11 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.7718514586055967">7.7e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.05979703752985085">6.0e-02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3991616608089601">4.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.25850869011781896">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0836438640322468">8.4e-02</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12731428.496142002">1.3e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39591777.23515949">4.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49593806.398761325">5.0e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153623352.19826293">1.5e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.832784414291382">3.8e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4065358096613632">4.1e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T00:48:54.386640">23/01/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
@@ -14685,34 +11981,31 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <thead>
    <tr>
    <th class="sortable" data-col="0" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="28" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -14728,10 +12021,7 @@ Typical configuration: 8 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2611769136091873">2.6e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.39101667352841984">3.9e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3223062557040068">1.3e+00</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3448523393096522">3.4e-01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2020275448800777">2.0e-01</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70324015.51737136">7.0e+07</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229209023.978686">2.3e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77079402.02026938">7.7e+07</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267241218.1177688">2.7e+08</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
