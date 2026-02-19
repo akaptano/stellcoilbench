@@ -99,8 +99,8 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 82 submission(s).
-Typical configuration: 4 Fourier order, 5 base coils.
+This surface has 115 submission(s).
+Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: Landreman-Paul QA Leaderboard
    :header-rows: 1
@@ -125,6 +125,8 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - :math:`\tau_\text{max}`
      - :math:`LN`
      - :math:`t`
+     - :math:`\text{avg}(QS)`
+     - :math:`LF`
      - :math:`\kappa_\text{max}`
      - :math:`\text{iterations\ used}`
      - :math:`\text{walltime\ sec}`
@@ -137,6 +139,204 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - :math:`\text{QS}`
      - :math:`\text{iota}`
      - :math:`\text{FPT}`
+   * - 2.626
+     - 4
+     - 8
+     - 4,8,16
+     - 6.9e-07
+     - 3.5e-04
+     - 1.4e-03
+     - 2.0e+01
+     - 3.5e-05
+     - 8.0e-02
+     - 3.2e-01
+     - 2.1e+00
+     - 5.9e+00
+     - 4.4e+05
+     - 1.7e+05
+     - 5.7e+05
+     - 2.6e+05
+     - 0
+     - 1.5e+02
+     - —
+     - —
+     - 5.8e+00
+     - —
+     - —
+     - 05/02/26
+     - akaptano
+     - —
+     - 1
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files/poincare_plot.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files/boozer_surface.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files/quasisymmetry_profile.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files/iota_profile.png>`__
+     - —
+   * - 2.626
+     - 4
+     - 8
+     - 4,8,16
+     - 6.9e-07
+     - 3.5e-04
+     - 1.4e-03
+     - 2.0e+01
+     - 3.5e-05
+     - 8.0e-02
+     - 3.2e-01
+     - 2.1e+00
+     - 5.9e+00
+     - 4.4e+05
+     - 1.7e+05
+     - 5.7e+05
+     - 2.6e+05
+     - 0
+     - 1.6e+02
+     - 1.3e-06
+     - 9.1e-02
+     - 5.8e+00
+     - —
+     - —
+     - 05/02/26
+     - akaptano
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/order_16/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/poincare_plot.png>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/boozer_surface.png>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/quasisymmetry_profile.png>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/iota_profile.png>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/simple_loss_fraction.png>`__
+   * - 2.626
+     - 4
+     - 8
+     - 4,8,16
+     - 6.9e-07
+     - 3.5e-04
+     - 1.4e-03
+     - 2.0e+01
+     - 3.5e-05
+     - 8.0e-02
+     - 3.2e-01
+     - 2.1e+00
+     - 5.9e+00
+     - 4.4e+05
+     - 1.7e+05
+     - 5.7e+05
+     - 2.6e+05
+     - 0
+     - 1.5e+02
+     - 2.2e-06
+     - —
+     - 5.8e+00
+     - —
+     - —
+     - 05/02/26
+     - akaptano
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/order_16/bn_error_3d_plot.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/poincare_plot.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/boozer_surface.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/quasisymmetry_profile.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/iota_profile.png>`__
+     - —
+   * - 2.626
+     - 4
+     - 8
+     - 4,8,16
+     - 6.9e-07
+     - 3.5e-04
+     - 1.4e-03
+     - 2.0e+01
+     - 3.5e-05
+     - 8.0e-02
+     - 3.2e-01
+     - 2.1e+00
+     - 5.9e+00
+     - 4.4e+05
+     - 1.7e+05
+     - 5.7e+05
+     - 2.6e+05
+     - 0
+     - 1.5e+02
+     - —
+     - —
+     - 5.8e+00
+     - —
+     - —
+     - 05/02/26
+     - akaptano
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/order_16/bn_error_3d_plot.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/poincare_plot.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/boozer_surface.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/quasisymmetry_profile.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/iota_profile.png>`__
+     - —
+   * - 2.626
+     - 4
+     - 8
+     - 4,8,16
+     - 6.9e-07
+     - 3.5e-04
+     - 1.4e-03
+     - 2.0e+01
+     - 3.5e-05
+     - 8.0e-02
+     - 3.2e-01
+     - 2.1e+00
+     - 5.9e+00
+     - 4.4e+05
+     - 1.7e+05
+     - 5.7e+05
+     - 2.6e+05
+     - 0
+     - 1.5e+02
+     - —
+     - —
+     - 5.8e+00
+     - —
+     - —
+     - 05/02/26
+     - akaptano
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/order_16/bn_error_3d_plot.pdf>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/poincare_plot.png>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/boozer_surface.png>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/quasisymmetry_profile.png>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/iota_profile.png>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/simple_loss_fraction.png>`__
+   * - 2.604
+     - 4
+     - 8
+     - —
+     - 1.2e-06
+     - 4.3e-04
+     - 1.8e-03
+     - 2.4e+01
+     - 2.1e-04
+     - 8.0e-02
+     - 3.0e-01
+     - 2.1e+00
+     - 8.1e+00
+     - 4.9e+05
+     - 2.6e+05
+     - 5.6e+05
+     - 2.8e+05
+     - 0
+     - 3.1e+02
+     - —
+     - —
+     - 4.9e+00
+     - —
+     - —
+     - 06/02/26
+     - akaptano
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-06-2026_08-37/bn_error_3d_plot_initial.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-06-2026_08-37/bn_error_3d_plot.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-06-2026_08-37/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
    * - 2.002
      - 5
      - 4
@@ -156,14 +356,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.4e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_16/bn_error_3d_plot.pdf>`__
-     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/poincare_plot.png>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/poincare_plot.png>`__
      - —
      - —
      - —
@@ -187,12 +389,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.3e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -218,12 +422,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.5e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -249,12 +455,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -280,14 +488,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_16/bn_error_3d_plot.pdf>`__
-     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/poincare_plot.png>`__
+     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/poincare_plot.png>`__
      - —
      - —
      - —
@@ -311,12 +521,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -342,12 +554,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.0e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -373,12 +587,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.5e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `14 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -404,12 +620,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.3e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `15 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -435,12 +653,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.7e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `10 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -466,12 +686,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.8e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `11 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -497,12 +719,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.0e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `18 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -528,14 +752,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_16/bn_error_3d_plot.pdf>`__
-     - `13 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/poincare_plot.png>`__
+     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/poincare_plot.png>`__
      - —
      - —
      - —
@@ -559,14 +785,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.0e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `14 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_16/bn_error_3d_plot.pdf>`__
-     - `14 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/poincare_plot.png>`__
+     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/poincare_plot.png>`__
      - —
      - —
      - —
@@ -590,12 +818,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.8e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `15 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -621,14 +851,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.4e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_16/bn_error_3d_plot.pdf>`__
-     - `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/poincare_plot.png>`__
+     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/poincare_plot.png>`__
      - —
      - —
      - —
@@ -652,12 +884,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `17 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -683,12 +917,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.8e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `18 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -714,12 +950,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `19 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -745,14 +983,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.3e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_16/bn_error_3d_plot.pdf>`__
-     - `20 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/poincare_plot.png>`__
+     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/poincare_plot.png>`__
      - —
      - —
      - —
@@ -776,12 +1016,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.8e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `21 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -807,12 +1049,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.7e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `22 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -838,12 +1082,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.7e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `23 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -869,12 +1115,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.2e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `24 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -900,12 +1148,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `25 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -931,12 +1181,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `26 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -962,14 +1214,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 8.4e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_16/bn_error_3d_plot.pdf>`__
-     - `27 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/poincare_plot.png>`__
+     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/poincare_plot.png>`__
      - —
      - —
      - —
@@ -993,13 +1247,48 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 7.2e+04
      - 0
      - 7.6e+00
+     - —
+     - —
      - 4.0e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `28 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_16/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 1.948
+     - 4
+     - 8
+     - —
+     - —
+     - 3.3e-03
+     - 1.8e-02
+     - 1.7e+01
+     - 1.8e+00
+     - 8.0e-02
+     - 3.0e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 3.9e+05
+     - 1.1e+05
+     - 4.4e+05
+     - 1.4e+05
+     - 0
+     - 5.8e+01
+     - —
+     - —
+     - 8.8e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/bn_error_3d_plot_initial.pdf>`__
+     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/bn_error_3d_plot.pdf>`__
      - —
      - —
      - —
@@ -1024,12 +1313,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.9e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `29 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `36 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1055,12 +1346,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `30 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `37 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1086,12 +1379,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.2e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `31 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `38 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1117,12 +1412,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `32 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `39 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1148,12 +1445,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.5e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `33 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `40 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1179,12 +1478,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.6e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `34 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `41 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1210,14 +1511,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 9.2e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `42 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_16/bn_error_3d_plot.pdf>`__
-     - `35 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/poincare_plot.png>`__
+     - `42 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1241,12 +1544,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.6e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `36 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `43 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1272,14 +1577,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 9.3e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `37 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `44 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_16/bn_error_3d_plot.pdf>`__
-     - `37 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/poincare_plot.png>`__
+     - `44 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1303,12 +1610,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.5e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `38 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `45 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1334,12 +1643,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.6e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `39 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `46 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1365,14 +1676,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.5e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `40 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `47 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_16/bn_error_3d_plot.pdf>`__
-     - `40 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/poincare_plot.png>`__
+     - `47 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1396,12 +1709,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.7e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `41 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `48 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1427,14 +1742,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.5e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `42 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `49 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_16/bn_error_3d_plot.pdf>`__
-     - `42 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/poincare_plot.png>`__
+     - `49 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1458,12 +1775,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.2e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `43 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `50 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1489,12 +1808,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.3e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `44 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `51 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1520,12 +1841,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.2e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `45 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `52 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1551,12 +1874,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.9e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `46 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `53 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1582,12 +1907,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.2e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `47 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `54 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1613,12 +1940,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `48 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `55 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1644,14 +1973,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 9.3e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `49 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `56 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_16/bn_error_3d_plot.pdf>`__
-     - `49 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/poincare_plot.png>`__
+     - `56 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1675,12 +2006,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.9e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `50 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `57 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1706,14 +2039,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.6e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `51 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `58 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_16/bn_error_3d_plot.pdf>`__
-     - `51 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/poincare_plot.png>`__
+     - `58 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1737,12 +2072,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.5e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `52 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `59 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1768,12 +2105,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 5.8e+04
      - 0
      - 8.1e+00
+     - —
+     - —
      - 4.7e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `53 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `60 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1799,14 +2138,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.7e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `54 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `61 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_16/bn_error_3d_plot.pdf>`__
-     - `54 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/poincare_plot.png>`__
+     - `61 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1830,12 +2171,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `55 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `62 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1861,12 +2204,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 4.1e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `56 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `63 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1892,14 +2237,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.8e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `57 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `64 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_16/bn_error_3d_plot.pdf>`__
-     - `57 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/poincare_plot.png>`__
+     - `64 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/poincare_plot.png>`__
      - —
      - —
      - —
@@ -1923,12 +2270,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `58 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `65 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1954,12 +2303,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `59 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `66 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -1985,12 +2336,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.8e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `60 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `67 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2016,12 +2369,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `61 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `68 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2047,12 +2402,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `62 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `69 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2078,14 +2435,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `63 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `70 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_16/bn_error_3d_plot.pdf>`__
-     - `63 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/poincare_plot.png>`__
+     - `70 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/poincare_plot.png>`__
      - —
      - —
      - —
@@ -2109,12 +2468,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `64 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `71 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2140,12 +2501,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `65 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `72 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2171,14 +2534,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.7e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `66 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `73 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_16/bn_error_3d_plot.pdf>`__
-     - `66 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/poincare_plot.png>`__
+     - `73 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/poincare_plot.png>`__
      - —
      - —
      - —
@@ -2202,12 +2567,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `67 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `74 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2233,12 +2600,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `68 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `75 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2264,12 +2633,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `69 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `76 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2295,12 +2666,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `70 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `77 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2326,14 +2699,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.7e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `71 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `78 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_16/bn_error_3d_plot.pdf>`__
-     - `71 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/poincare_plot.png>`__
+     - `78 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/poincare_plot.png>`__
      - —
      - —
      - —
@@ -2357,12 +2732,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.6e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `72 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `79 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2388,12 +2765,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.8e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `73 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `80 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2419,12 +2798,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 4.1e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `74 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `81 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2450,12 +2831,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.8e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `75 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `82 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2481,12 +2864,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 4.1e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 12/02/26
      - auto
-     - `76 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `83 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2512,14 +2897,16 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+04
      - 0
      - 3.8e+02
+     - —
+     - —
      - 5.3e+00
      - —
      - —
      - 11/02/26
      - auto
-     - `77 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `84 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_16/bn_error_3d_plot.pdf>`__
-     - `77 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/poincare_plot.png>`__
+     - `84 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/poincare_plot.png>`__
      - —
      - —
      - —
@@ -2543,13 +2930,15 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 4.7e+05
      - 0
      - 2.4e+02
+     - —
+     - —
      - 3.3e+00
      - 5.0e+02
      - 2.4e+02
      - 09/02/26
      - akaptano
-     - `78 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf>`__
-     - `78 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot.pdf>`__
+     - `85 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf>`__
+     - `85 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot.pdf>`__
      - —
      - —
      - —
@@ -2574,12 +2963,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 2.4e+05
      - 0
      - 1.5e+03
+     - —
+     - —
      - 5.5e+00
      - —
      - —
      - 08/02/26
      - akaptano
-     - `79 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `86 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_8/bn_error_3d_plot.pdf>`__ `12 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_12/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2605,12 +2996,14 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 2.7e+05
      - 0
      - 1.8e+02
+     - —
+     - —
      - 6.1e+00
      - —
      - —
      - 08/02/26
      - akaptano
-     - `80 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf>`__
+     - `87 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_8/bn_error_3d_plot.pdf>`__ `16 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_16/bn_error_3d_plot.pdf>`__
      - —
      - —
@@ -2636,13 +3029,15 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 8.8e+05
      - 0
      - 1.1e+02
+     - —
+     - —
      - 7.0e+00
      - 5.0e+02
      - 1.1e+02
      - 09/02/26
      - akaptano
-     - `81 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf>`__
-     - `81 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot.pdf>`__
+     - `88 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf>`__
+     - `88 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot.pdf>`__
      - —
      - —
      - —
@@ -2667,13 +3062,873 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 6.3e+04
      - 0
      - 4.1e+02
+     - —
+     - —
      - 8.6e+00
      - 5.0e+02
      - 4.1e+02
      - 09/02/26
      - akaptano
-     - `82 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
-     - `82 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
+     - `89 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf>`__
+     - `89 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.960
+     - 4
+     - 16
+     - —
+     - —
+     - 1.0e-02
+     - 4.8e-02
+     - 1.8e+01
+     - 3.6e+00
+     - 7.8e-02
+     - 2.3e-01
+     - 2.7e+00
+     - 1.0e+01
+     - 5.3e+05
+     - 2.6e+05
+     - 7.9e+05
+     - 4.8e+05
+     - 0
+     - 4.8e+02
+     - —
+     - —
+     - 9.9e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `90 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/bn_error_3d_plot_initial.pdf>`__
+     - `90 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.960
+     - 4
+     - 16
+     - —
+     - —
+     - 1.0e-02
+     - 4.8e-02
+     - 1.8e+01
+     - 3.6e+00
+     - 7.8e-02
+     - 2.3e-01
+     - 2.7e+00
+     - 1.0e+01
+     - 5.3e+05
+     - 2.6e+05
+     - 7.9e+05
+     - 4.8e+05
+     - 0
+     - 4.8e+02
+     - —
+     - —
+     - 9.9e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `91 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/bn_error_3d_plot_initial.pdf>`__
+     - `91 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 4
+     - —
+     - —
+     - 7.9e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.1e-01
+     - 4.2e-03
+     - 1.9e-01
+     - 2.0e+00
+     - 5.5e+00
+     - 6.9e+06
+     - 1.3e+06
+     - 1.5e+07
+     - 4.5e+06
+     - 0
+     - 2.5e+01
+     - —
+     - —
+     - 4.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `92 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/bn_error_3d_plot_initial.pdf>`__
+     - `92 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 4
+     - —
+     - —
+     - 7.9e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.1e-01
+     - 4.2e-03
+     - 1.9e-01
+     - 2.0e+00
+     - 5.5e+00
+     - 6.9e+06
+     - 1.3e+06
+     - 1.5e+07
+     - 4.5e+06
+     - 0
+     - 2.6e+01
+     - —
+     - —
+     - 4.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `93 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/bn_error_3d_plot_initial.pdf>`__
+     - `93 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 16
+     - —
+     - —
+     - 8.2e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 3.1e-01
+     - 6.4e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.2e+00
+     - 2.5e+06
+     - 5.6e+05
+     - 5.7e+06
+     - 1.1e+06
+     - 0
+     - 3.3e+01
+     - —
+     - —
+     - 3.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `94 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/bn_error_3d_plot_initial.pdf>`__
+     - `94 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 8
+     - —
+     - —
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 2.6e+01
+     - —
+     - —
+     - 3.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `95 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/bn_error_3d_plot_initial.pdf>`__
+     - `95 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 8
+     - —
+     - —
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 2.6e+01
+     - —
+     - —
+     - 3.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `96 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/bn_error_3d_plot_initial.pdf>`__
+     - `96 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.001
+     - 4
+     - 8
+     - —
+     - —
+     - 8.4e-02
+     - 3.1e-01
+     - 1.4e+01
+     - 2.9e-01
+     - 5.3e-03
+     - 1.9e-01
+     - 1.9e+00
+     - 4.3e+00
+     - 4.1e+06
+     - 9.9e+05
+     - 9.9e+06
+     - 2.1e+06
+     - 0
+     - 1.7e+01
+     - —
+     - —
+     - 3.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `97 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/bn_error_3d_plot_initial.pdf>`__
+     - `97 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - —
+     - —
+     - 1.0e+01
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `98 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/bn_error_3d_plot_initial.pdf>`__
+     - `98 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - —
+     - —
+     - 1.0e+01
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `99 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/bn_error_3d_plot_initial.pdf>`__
+     - `99 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 1.1e-01
+     - 3.8e-01
+     - 1.3e+01
+     - 2.8e-01
+     - 2.4e-01
+     - 1.1e-01
+     - 2.8e+00
+     - 1.1e+01
+     - 2.2e+05
+     - 6.6e+04
+     - 2.5e+05
+     - 6.9e+04
+     - 0
+     - 1.1e+01
+     - —
+     - —
+     - 1.0e+01
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `100 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/bn_error_3d_plot_initial.pdf>`__
+     - `100 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.1e-01
+     - 9.8e-01
+     - 1.7e+01
+     - 2.2e+00
+     - 7.5e-02
+     - 2.0e-01
+     - 2.7e+00
+     - 1.3e+01
+     - 1.7e+08
+     - 1.1e+08
+     - 3.7e+08
+     - 3.0e+08
+     - 0
+     - 2.2e+02
+     - —
+     - —
+     - 8.8e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `101 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/bn_error_3d_plot_initial.pdf>`__
+     - `101 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.1e-01
+     - 9.8e-01
+     - 1.7e+01
+     - 2.4e+00
+     - 7.7e-02
+     - 2.0e-01
+     - 2.8e+00
+     - 1.4e+01
+     - 1.6e+08
+     - 1.1e+08
+     - 4.0e+08
+     - 3.3e+08
+     - 0
+     - 3.7e+02
+     - —
+     - —
+     - 1.0e+01
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `102 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/bn_error_3d_plot_initial.pdf>`__
+     - `102 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.2e-01
+     - 9.8e-01
+     - 1.6e+01
+     - 1.9e+00
+     - 9.2e-02
+     - 2.0e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 1.6e+08
+     - 8.5e+07
+     - 3.1e+08
+     - 2.1e+08
+     - 0
+     - 1.1e+02
+     - —
+     - —
+     - 8.9e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `103 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/bn_error_3d_plot_initial.pdf>`__
+     - `103 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 16
+     - —
+     - —
+     - 1.2e-01
+     - 1.0e+00
+     - 1.7e+01
+     - 3.6e+00
+     - 8.4e-02
+     - 2.4e-01
+     - 2.6e+00
+     - 1.1e+01
+     - 3.6e+08
+     - 2.1e+08
+     - 9.9e+08
+     - 7.0e+08
+     - 0
+     - 5.9e+02
+     - —
+     - —
+     - 1.0e+01
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `104 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/bn_error_3d_plot_initial.pdf>`__
+     - `104 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.5e+01
+     - —
+     - —
+     - 6.3e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `105 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/bn_error_3d_plot_initial.pdf>`__
+     - `105 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 6.3e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `106 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/bn_error_3d_plot_initial.pdf>`__
+     - `106 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 6.3e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `107 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/bn_error_3d_plot_initial.pdf>`__
+     - `107 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 6.3e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `108 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/bn_error_3d_plot_initial.pdf>`__
+     - `108 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.4e-01
+     - 9.9e-01
+     - 1.6e+01
+     - 1.6e+00
+     - 1.1e-01
+     - 2.1e-01
+     - 2.3e+00
+     - 9.7e+00
+     - 1.6e+08
+     - 7.2e+07
+     - 3.3e+08
+     - 1.9e+08
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 6.3e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `109 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/bn_error_3d_plot_initial.pdf>`__
+     - `109 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 1.6e-01
+     - 4.7e-01
+     - 1.1e+01
+     - —
+     - 2.2e-01
+     - 1.1e-01
+     - 2.7e+00
+     - 1.1e+01
+     - 2.3e+05
+     - 4.2e+04
+     - 2.4e+05
+     - 5.0e+04
+     - 0
+     - 3.0e+01
+     - —
+     - —
+     - 7.5e+00
+     - —
+     - —
+     - 01/12/25
+     - akaptano
+     - —
+     - 110
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 8.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `111 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/bn_error_3d_plot_initial.pdf>`__
+     - `111 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 8.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `112 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/bn_error_3d_plot_initial.pdf>`__
+     - `112 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.5e+01
+     - —
+     - —
+     - 8.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `113 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/bn_error_3d_plot_initial.pdf>`__
+     - `113 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 1.8e-01
+     - 4.3e-01
+     - 1.3e+01
+     - 1.0e-01
+     - 2.3e-01
+     - 9.9e-02
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.7e+04
+     - 2.5e+05
+     - 7.1e+04
+     - 0
+     - 1.4e+01
+     - —
+     - —
+     - 8.7e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `114 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/bn_error_3d_plot_initial.pdf>`__
+     - `114 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 8
+     - —
+     - —
+     - 2.1e-01
+     - 5.0e-01
+     - 1.3e+01
+     - 8.5e-02
+     - 2.3e-01
+     - 1.0e-01
+     - 2.3e+00
+     - 1.0e+01
+     - 2.4e+05
+     - 5.6e+04
+     - 2.5e+05
+     - 7.6e+04
+     - 0
+     - 1.2e+01
+     - —
+     - —
+     - 9.5e+00
+     - —
+     - —
+     - 23/01/26
+     - akaptano
+     - `115 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/bn_error_3d_plot_initial.pdf>`__
+     - `115 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/bn_error_3d_plot.pdf>`__
      - —
      - —
      - —
@@ -2688,7 +3943,7 @@ Landreman-Paul QH
 
 **Surface file:** ``LandremanPaul2021_QH_reactorScale_lowres``
 
-This surface has 1 submission(s).
+This surface has 2 submission(s).
 Typical configuration: 4 Fourier order, 5 base coils.
 
 .. list-table:: Landreman-Paul QH Leaderboard
@@ -2714,6 +3969,7 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - :math:`\tau_\text{max}`
      - :math:`LN`
      - :math:`t`
+     - :math:`\text{avg}(QS)`
      - :math:`\kappa_\text{max}`
      - :math:`\text{Date}`
      - :math:`\text{User}`
@@ -2724,6 +3980,36 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - :math:`\text{QS}`
      - :math:`\text{iota}`
      - :math:`\text{FPT}`
+   * - 2.454
+     - 5
+     - 4
+     - —
+     - 2.0e-02
+     - 1.0e-03
+     - 3.6e-03
+     - 1.8e+02
+     - 5.5e+00
+     - 1.1e+00
+     - 1.8e+00
+     - 2.3e-01
+     - 9.0e-02
+     - 4.4e+07
+     - 1.6e+08
+     - 6.6e+07
+     - 2.7e+08
+     - 0
+     - 4.3e+02
+     - 1.0e-04
+     - 7.1e-01
+     - 03/02/26
+     - akaptano
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/poincare_plot.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/boozer_surface.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/quasisymmetry_profile.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/iota_profile.png>`__
+     - —
    * - 1.272
      - 5
      - 4
@@ -2743,12 +4029,13 @@ Typical configuration: 4 Fourier order, 5 base coils.
      - 2.2e+08
      - 0
      - 4.7e+02
+     - —
      - 6.8e-01
      - 08/02/26
      - akaptano
-     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot_initial.pdf>`__
-     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot.pdf>`__
-     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/poincare_plot.png>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/basic_LandremanPaulQH/02-08-2026_12-50/poincare_plot.png>`__
      - —
      - —
      - —
@@ -2852,6 +4139,109 @@ Typical configuration: 4 Fourier order, 4 base coils.
      - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/basic_W7X/02-08-2026_12-57/order_4/bn_error_3d_plot_initial.pdf>`__
      - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/basic_W7X/02-08-2026_12-57/order_4/bn_error_3d_plot.pdf>`__ `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/W7-X_without_coil_ripple_beta0p05_d23p4_tm/akaptano/basic_W7X/02-08-2026_12-57/order_8/bn_error_3d_plot.pdf>`__
      - —
+     - —
+     - —
+     - —
+     - —
+
+
+.. _c09r00-b-axis-half-tesla-ncsx:
+
+0.5 Tesla NCSX Design
+^^^^^^^^^^^^^^^^^^^^^
+
+**Surface file:** ``c09r00_B_axis_half_tesla_NCSX``
+
+This surface has 2 submission(s).
+Typical configuration: 4 Fourier order, 4 base coils.
+
+.. list-table:: 0.5 Tesla NCSX Design Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`\text{Score}`
+     - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\bar{B}_n`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`d_{cc}`
+     - :math:`d_{cs}`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`F_\text{max}`
+     - :math:`\tau_\text{max}`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\kappa_\text{max}`
+     - :math:`\text{Date}`
+     - :math:`\text{User}`
+     - :math:`\text{i}`
+     - :math:`\text{f}`
+     - :math:`\text{PP}`
+     - :math:`\text{BP}`
+     - :math:`\text{QS}`
+     - :math:`\text{iota}`
+     - :math:`\text{FPT}`
+   * - 1.641
+     - 4
+     - 4
+     - 4,8
+     - 1.0e-04
+     - 5.0e-03
+     - 2.6e-02
+     - 3.0e+01
+     - 4.0e-03
+     - 1.1e-01
+     - 1.8e-01
+     - 2.1e+00
+     - 7.1e+00
+     - 8.4e+04
+     - 4.5e+04
+     - 1.4e+05
+     - 1.0e+05
+     - 0
+     - 3.4e+02
+     - 4.0e+00
+     - 06/02/26
+     - akaptano
+     - —
+     - 1
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/c09r00_B_axis_half_tesla_NCSX/akaptano/basic_NCSX/02-06-2026_14-30/all_files/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.641
+     - 4
+     - 4
+     - 4,8
+     - 1.0e-04
+     - 5.0e-03
+     - 2.6e-02
+     - 3.0e+01
+     - 4.0e-03
+     - 1.1e-01
+     - 1.8e-01
+     - 2.1e+00
+     - 7.1e+00
+     - 8.4e+04
+     - 4.5e+04
+     - 1.4e+05
+     - 1.0e+05
+     - 0
+     - 3.4e+02
+     - 4.0e+00
+     - 06/02/26
+     - akaptano
+     - —
+     - 2
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/c09r00_B_axis_half_tesla_NCSX/akaptano/basic_NCSX/02-06-2026_14-30/all_files 2/poincare_plot.png>`__
      - —
      - —
      - —
@@ -3013,7 +4403,7 @@ Circular Tokamak
 
 **Surface file:** ``circular_tokamak``
 
-This surface has 1 submission(s).
+This surface has 9 submission(s).
 Typical configuration: 4 Fourier order, 6 base coils.
 
 .. list-table:: Circular Tokamak Leaderboard
@@ -3039,6 +4429,7 @@ Typical configuration: 4 Fourier order, 6 base coils.
      - :math:`\tau_\text{max}`
      - :math:`LN`
      - :math:`t`
+     - :math:`\text{avg}(QS)`
      - :math:`\kappa_\text{max}`
      - :math:`\text{Date}`
      - :math:`\text{User}`
@@ -3068,6 +4459,7 @@ Typical configuration: 4 Fourier order, 6 base coils.
      - 2.7e+05
      - 0
      - 3.1e+01
+     - —
      - 2.2e-01
      - 08/02/26
      - akaptano
@@ -3078,6 +4470,246 @@ Typical configuration: 4 Fourier order, 6 base coils.
      - —
      - —
      - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.6e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-17/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-17/bn_error_3d_plot.pdf>`__
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.5e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-28/bn_error_3d_plot_initial.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-28/bn_error_3d_plot.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-28/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.6e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-16/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-16/bn_error_3d_plot.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-16/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.5e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-58/bn_error_3d_plot_initial.pdf>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-58/bn_error_3d_plot.pdf>`__
+     - `5 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-58/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.6e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-15/bn_error_3d_plot_initial.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-15/bn_error_3d_plot.pdf>`__
+     - `6 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-15/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.5e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-08/bn_error_3d_plot_initial.pdf>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-08/bn_error_3d_plot.pdf>`__
+     - `7 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-08/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.6e+01
+     - —
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-30/bn_error_3d_plot_initial.pdf>`__
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-30/bn_error_3d_plot.pdf>`__
+     - `8 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-30/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 1.800
+     - 6
+     - 4
+     - —
+     - 7.6e-03
+     - 4.1e-03
+     - 1.4e-02
+     - 1.8e+02
+     - 5.9e-03
+     - 1.3e+00
+     - 1.6e+00
+     - 2.1e-01
+     - 4.4e-02
+     - 2.8e+06
+     - 2.7e+05
+     - 2.9e+06
+     - 2.7e+05
+     - 0
+     - 2.7e+01
+     - 6.0e-10
+     - 2.2e-01
+     - 06/02/26
+     - akaptano
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/bn_error_3d_plot_initial.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/bn_error_3d_plot.pdf>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/poincare_plot.png>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/boozer_surface.png>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/quasisymmetry_profile.png>`__
+     - `9 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/iota_profile.png>`__
+     - —
 
 
 .. _muse-focus:
@@ -3087,7 +4719,7 @@ MUSE
 
 **Surface file:** ``muse.focus``
 
-This surface has 1 submission(s).
+This surface has 2 submission(s).
 Typical configuration: 8 Fourier order, 4 base coils.
 
 .. list-table:: MUSE Leaderboard
@@ -3148,6 +4780,261 @@ Typical configuration: 8 Fourier order, 4 base coils.
      - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/basic_MUSE/02-08-2026_12-50/bn_error_3d_plot_initial.pdf>`__
      - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/basic_MUSE/02-08-2026_12-50/bn_error_3d_plot.pdf>`__
      - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/basic_MUSE/02-08-2026_12-50/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 0.885
+     - 4
+     - 8
+     - —
+     - 1.1e-06
+     - 1.1e-02
+     - 5.4e-02
+     - 6.1e+00
+     - 1.0e-05
+     - 2.4e-02
+     - 1.1e-01
+     - 5.3e+00
+     - 3.3e+01
+     - 3.3e+03
+     - 4.9e+02
+     - 5.4e+03
+     - 9.6e+02
+     - 0
+     - 2.2e+02
+     - 1.0e+01
+     - 03/02/26
+     - akaptano
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/02-03-2026_15-20/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/02-03-2026_15-20/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/muse/akaptano/02-03-2026_15-20/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+
+
+.. _rotating-ellipse:
+
+Rotating Ellipse
+^^^^^^^^^^^^^^^^
+
+**Surface file:** ``rotating_ellipse``
+
+This surface has 6 submission(s).
+Typical configuration: 8 Fourier order, 4 base coils.
+
+.. list-table:: Rotating Ellipse Leaderboard
+   :header-rows: 1
+   :widths: auto
+
+   * - :math:`\text{Score}`
+     - :math:`N`
+     - :math:`n`
+     - :math:`\text{FC}`
+     - :math:`f_{B}`
+     - :math:`\bar{B}_n`
+     - :math:`\max(B_n)`
+     - :math:`L`
+     - :math:`\mathrm{Var}(l_i)`
+     - :math:`d_{cc}`
+     - :math:`d_{cs}`
+     - :math:`\bar{\kappa}`
+     - :math:`MSC`
+     - :math:`\bar{F}`
+     - :math:`\bar{\tau}`
+     - :math:`F_\text{max}`
+     - :math:`\tau_\text{max}`
+     - :math:`LN`
+     - :math:`t`
+     - :math:`\text{avg}(QS)`
+     - :math:`\kappa_\text{max}`
+     - :math:`\text{Date}`
+     - :math:`\text{User}`
+     - :math:`\text{i}`
+     - :math:`\text{f}`
+     - :math:`\text{PP}`
+     - :math:`\text{BP}`
+     - :math:`\text{QS}`
+     - :math:`\text{iota}`
+     - :math:`\text{FPT}`
+   * - 2.471
+     - 4
+     - 8
+     - —
+     - 1.7e-04
+     - 9.6e-04
+     - 5.0e-03
+     - 1.0e+02
+     - 4.8e-02
+     - 4.0e-01
+     - 6.8e-01
+     - 4.0e-01
+     - 2.7e-01
+     - 4.7e+06
+     - 1.4e+07
+     - 9.5e+06
+     - 3.3e+07
+     - 0
+     - 2.2e+02
+     - 6.3e-02
+     - 1.1e+00
+     - 06/02/26
+     - akaptano
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/bn_error_3d_plot_initial.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/bn_error_3d_plot.pdf>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/poincare_plot.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/boozer_surface.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/quasisymmetry_profile.png>`__
+     - `1 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/iota_profile.png>`__
+     - —
+   * - 2.471
+     - 4
+     - 8
+     - —
+     - 1.7e-04
+     - 9.6e-04
+     - 5.0e-03
+     - 1.0e+02
+     - 4.8e-02
+     - 4.0e-01
+     - 6.8e-01
+     - 4.0e-01
+     - 2.7e-01
+     - 4.7e+06
+     - 1.4e+07
+     - 9.5e+06
+     - 3.3e+07
+     - 0
+     - 2.3e+02
+     - —
+     - 1.1e+00
+     - 06/02/26
+     - akaptano
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-32/bn_error_3d_plot_initial.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-32/bn_error_3d_plot.pdf>`__
+     - `2 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-32/poincare_plot.png>`__
+     - —
+     - —
+     - —
+     - —
+   * - 2.471
+     - 4
+     - 8
+     - —
+     - 1.7e-04
+     - 9.6e-04
+     - 5.0e-03
+     - 1.0e+02
+     - 4.8e-02
+     - 4.0e-01
+     - 6.8e-01
+     - 4.0e-01
+     - 2.7e-01
+     - 4.7e+06
+     - 1.4e+07
+     - 9.5e+06
+     - 3.3e+07
+     - 0
+     - 2.2e+02
+     - 6.3e-02
+     - 1.1e+00
+     - 06/02/26
+     - akaptano
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/bn_error_3d_plot_initial.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/bn_error_3d_plot.pdf>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/poincare_plot.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/boozer_surface.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/quasisymmetry_profile.png>`__
+     - `3 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/iota_profile.png>`__
+     - —
+   * - 2.465
+     - 4
+     - 8
+     - —
+     - 1.8e-04
+     - 9.8e-04
+     - 4.6e-03
+     - 1.0e+02
+     - 4.7e-02
+     - 4.0e-01
+     - 6.9e-01
+     - 4.0e-01
+     - 2.7e-01
+     - 4.5e+06
+     - 1.2e+07
+     - 9.2e+06
+     - 3.0e+07
+     - 0
+     - 2.2e+02
+     - 6.3e-02
+     - 1.1e+00
+     - 05/02/26
+     - akaptano
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/bn_error_3d_plot_initial.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/bn_error_3d_plot.pdf>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/poincare_plot.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/boozer_surface.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/quasisymmetry_profile.png>`__
+     - `4 <https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/iota_profile.png>`__
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 2.1e-01
+     - 7.3e-01
+     - 1.0e+02
+     - 7.7e-01
+     - 6.0e-02
+     - 4.0e-01
+     - 2.6e-01
+     - 8.4e-02
+     - 1.3e+07
+     - 4.0e+07
+     - 5.0e+07
+     - 1.5e+08
+     - 0
+     - 3.8e+00
+     - —
+     - 4.1e-01
+     - 23/01/26
+     - akaptano
+     - —
+     - 5
+     - —
+     - —
+     - —
+     - —
+     - —
+   * - 0.000
+     - 4
+     - 4
+     - —
+     - —
+     - 2.1e-01
+     - 7.3e-01
+     - 1.0e+02
+     - 7.7e-01
+     - 6.0e-02
+     - 4.0e-01
+     - 2.6e-01
+     - 8.4e-02
+     - 1.3e+07
+     - 4.0e+07
+     - 5.0e+07
+     - 1.5e+08
+     - 0
+     - 3.8e+00
+     - —
+     - 4.1e-01
+     - 23/01/26
+     - akaptano
+     - —
+     - 6
+     - —
      - —
      - —
      - —

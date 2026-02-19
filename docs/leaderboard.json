@@ -1,6 +1,560 @@
 {
   "entries": [
     {
+      "method_key": ":LandremanPaul2021_QA:akaptano:all_files",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6256673008513296,
+      "score_primary": 6.881630723756175e-07,
+      "run_date": "2026-02-05T15:53:44.761413",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0964216030234417,
+        "final_B_field": 1.0965834557386835,
+        "target_B_field": 1.0,
+        "optimization_time": 154.87654089927673,
+        "final_squared_flux": 6.881630723756175e-07,
+        "final_min_cs_separation": 0.3181204123686571,
+        "final_min_cc_separation": 0.07999693883385078,
+        "final_total_length": 19.999978592816625,
+        "final_max_curvature": 5.800966244184621,
+        "final_average_curvature": 2.064882545446296,
+        "final_arclength_variation": 3.471909709854648e-05,
+        "final_mean_squared_curvature": 5.880800467642533,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 565703.1812094701,
+        "final_avg_max_coil_force": 437870.241688316,
+        "final_max_max_coil_torque": 261881.95342717532,
+        "final_avg_max_coil_torque": 168538.00357348387,
+        "avg_BdotN_over_B": 0.00034664926414135856,
+        "max_BdotN_over_B": 0.001408038891972433,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 6.881630723756175e-07,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 1
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:02-05-2026_15-21",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6256673008513296,
+      "score_primary": 6.881630723756175e-07,
+      "run_date": "2026-02-05T15:21:18.452118",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-21/all_files.zip",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0964216030234417,
+        "final_B_field": 1.0965834557386835,
+        "target_B_field": 1.0,
+        "optimization_time": 156.59326910972595,
+        "final_squared_flux": 6.881630723756175e-07,
+        "final_min_cs_separation": 0.3181204123686571,
+        "final_min_cc_separation": 0.07999693883385078,
+        "final_total_length": 19.999978592816625,
+        "final_max_curvature": 5.800966244184621,
+        "final_average_curvature": 2.064882545446296,
+        "final_arclength_variation": 3.471909709854648e-05,
+        "final_mean_squared_curvature": 5.880800467642533,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 565703.1812094701,
+        "final_avg_max_coil_force": 437870.241688316,
+        "final_max_max_coil_torque": 261881.95342717532,
+        "final_avg_max_coil_torque": 168538.00357348387,
+        "avg_BdotN_over_B": 0.00034664926414135856,
+        "max_BdotN_over_B": 0.001408038891972433,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "BdotN": 0.00028322323199005963,
+        "BdotN_over_B": 0.0002993693159750077,
+        "quasisymmetry_average": 1.2841037215944562e-06,
+        "loss_fraction": 0.0908203125,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 6.881630723756175e-07,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 2
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:02-05-2026_14-53",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6256673008513296,
+      "score_primary": 6.881630723756175e-07,
+      "run_date": "2026-02-05T14:53:20.354911",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_14-53/all_files.zip",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0964216030234417,
+        "final_B_field": 1.0965834557386835,
+        "target_B_field": 1.0,
+        "optimization_time": 146.2679591178894,
+        "final_squared_flux": 6.881630723756175e-07,
+        "final_min_cs_separation": 0.3181204123686571,
+        "final_min_cc_separation": 0.07999693883385078,
+        "final_total_length": 19.999978592816625,
+        "final_max_curvature": 5.800966244184621,
+        "final_average_curvature": 2.064882545446296,
+        "final_arclength_variation": 3.471909709854648e-05,
+        "final_mean_squared_curvature": 5.880800467642533,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 565703.1812094701,
+        "final_avg_max_coil_force": 437870.241688316,
+        "final_max_max_coil_torque": 261881.95342717532,
+        "final_avg_max_coil_torque": 168538.00357348387,
+        "avg_BdotN_over_B": 0.00034664926414135856,
+        "max_BdotN_over_B": 0.001408038891972433,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "BdotN": 0.0002630896639375076,
+        "BdotN_over_B": 0.0002780884855716394,
+        "quasisymmetry_average": 2.2059365030134758e-06,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 6.881630723756175e-07,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 3
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:02-05-2026_15-53",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6256673008513296,
+      "score_primary": 6.881630723756175e-07,
+      "run_date": "2026-02-05T15:53:44.761413",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-53/all_files.zip",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0964216030234417,
+        "final_B_field": 1.0965834557386835,
+        "target_B_field": 1.0,
+        "optimization_time": 154.87654089927673,
+        "final_squared_flux": 6.881630723756175e-07,
+        "final_min_cs_separation": 0.3181204123686571,
+        "final_min_cc_separation": 0.07999693883385078,
+        "final_total_length": 19.999978592816625,
+        "final_max_curvature": 5.800966244184621,
+        "final_average_curvature": 2.064882545446296,
+        "final_arclength_variation": 3.471909709854648e-05,
+        "final_mean_squared_curvature": 5.880800467642533,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 565703.1812094701,
+        "final_avg_max_coil_force": 437870.241688316,
+        "final_max_max_coil_torque": 261881.95342717532,
+        "final_avg_max_coil_torque": 168538.00357348387,
+        "avg_BdotN_over_B": 0.00034664926414135856,
+        "max_BdotN_over_B": 0.001408038891972433,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 6.881630723756175e-07,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 4
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:02-05-2026_15-24",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6256673008513296,
+      "score_primary": 6.881630723756175e-07,
+      "run_date": "2026-02-05T15:24:32.880728",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-05-2026_15-24/all_files.zip",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 16.0,
+        "initial_B_field": 1.0964216030234417,
+        "final_B_field": 1.0965834557386835,
+        "target_B_field": 1.0,
+        "optimization_time": 153.89569902420044,
+        "final_squared_flux": 6.881630723756175e-07,
+        "final_min_cs_separation": 0.3181204123686571,
+        "final_min_cc_separation": 0.07999693883385078,
+        "final_total_length": 19.999978592816625,
+        "final_max_curvature": 5.800966244184621,
+        "final_average_curvature": 2.064882545446296,
+        "final_arclength_variation": 3.471909709854648e-05,
+        "final_mean_squared_curvature": 5.880800467642533,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 565703.1812094701,
+        "final_avg_max_coil_force": 437870.241688316,
+        "final_max_max_coil_torque": 261881.95342717532,
+        "final_avg_max_coil_torque": 168538.00357348387,
+        "avg_BdotN_over_B": 0.00034664926414135856,
+        "max_BdotN_over_B": 0.001408038891972433,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 16.0,
+        "continuation_step": 3.0,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8,16",
+        "score_primary": 6.881630723756175e-07,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 5
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:02-06-2026_08-37",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.6041599105894124,
+      "score_primary": 1.226850914990597e-06,
+      "run_date": "2026-02-06T08:37:45.022573",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/basic_LandremanPaulQA/02-06-2026_08-37/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999187287104945,
+        "final_B_field": 1.0959551507634369,
+        "target_B_field": 1.0,
+        "optimization_time": 313.65817499160767,
+        "final_squared_flux": 1.226850914990597e-06,
+        "final_min_cs_separation": 0.29875072198749747,
+        "final_min_cc_separation": 0.07998332821653859,
+        "final_total_length": 23.946831162474602,
+        "final_max_curvature": 4.895475011874853,
+        "final_average_curvature": 2.089757386234586,
+        "final_arclength_variation": 0.00020871657621554643,
+        "final_mean_squared_curvature": 8.064762740881806,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 557658.8621636557,
+        "final_avg_max_coil_force": 491762.88007217523,
+        "final_max_max_coil_torque": 280397.1663588987,
+        "final_avg_max_coil_torque": 262336.8710760003,
+        "avg_BdotN_over_B": 0.0004288986794262069,
+        "max_BdotN_over_B": 0.001770462361266553,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0004054531848033504,
+        "BdotN_over_B": 0.00042857142332028745,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 1.226850914990597e-06,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 6
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:02-06-2026_07-56",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.4705189259501172,
+      "score_primary": 0.00017477606503387525,
+      "run_date": "2026-02-06T07:56:22.414047",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_07-56/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999999829966273,
+        "final_B_field": 1.0294164284075131,
+        "target_B_field": 1.0,
+        "optimization_time": 220.45865106582642,
+        "final_squared_flux": 0.00017477606503387525,
+        "final_min_cs_separation": 0.6844417027689442,
+        "final_min_cc_separation": 0.39957032325013486,
+        "final_total_length": 100.00155826343799,
+        "final_max_curvature": 1.0595416089529384,
+        "final_average_curvature": 0.3981666508394843,
+        "final_arclength_variation": 0.04812679707732993,
+        "final_mean_squared_curvature": 0.2659007871294095,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9546038.739830324,
+        "final_avg_max_coil_force": 4733626.662692503,
+        "final_max_max_coil_torque": 33089311.118647933,
+        "final_avg_max_coil_torque": 13885157.957237823,
+        "avg_BdotN_over_B": 0.0009557177994845793,
+        "max_BdotN_over_B": 0.005014345628470277,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0008867598864094763,
+        "BdotN_over_B": 0.000957589219396226,
+        "quasisymmetry_average": 0.06269874203518207,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.00017477606503387525,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 7
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:02-06-2026_08-32",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.4705189259501172,
+      "score_primary": 0.00017477606503387525,
+      "run_date": "2026-02-06T08:32:07.115425",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-32/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999999829966273,
+        "final_B_field": 1.0294164284075131,
+        "target_B_field": 1.0,
+        "optimization_time": 225.8085880279541,
+        "final_squared_flux": 0.00017477606503387525,
+        "final_min_cs_separation": 0.6844417027689442,
+        "final_min_cc_separation": 0.39957032325013486,
+        "final_total_length": 100.00155826343799,
+        "final_max_curvature": 1.0595416089529384,
+        "final_average_curvature": 0.3981666508394843,
+        "final_arclength_variation": 0.04812679707732993,
+        "final_mean_squared_curvature": 0.2659007871294095,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9546038.739830324,
+        "final_avg_max_coil_force": 4733626.662692503,
+        "final_max_max_coil_torque": 33089311.118647933,
+        "final_avg_max_coil_torque": 13885157.957237823,
+        "avg_BdotN_over_B": 0.0009557177994845793,
+        "max_BdotN_over_B": 0.005014345628470277,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0008868932392122012,
+        "BdotN_over_B": 0.0009577249656214883,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.00017477606503387525,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 8
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:02-06-2026_08-06",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.4705189259501172,
+      "score_primary": 0.00017477606503387525,
+      "run_date": "2026-02-06T08:06:22.577299",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-06-2026_08-06/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999999829966273,
+        "final_B_field": 1.0294164284075131,
+        "target_B_field": 1.0,
+        "optimization_time": 219.75252389907837,
+        "final_squared_flux": 0.00017477606503387525,
+        "final_min_cs_separation": 0.6844417027689442,
+        "final_min_cc_separation": 0.39957032325013486,
+        "final_total_length": 100.00155826343799,
+        "final_max_curvature": 1.0595416089529384,
+        "final_average_curvature": 0.3981666508394843,
+        "final_arclength_variation": 0.04812679707732993,
+        "final_mean_squared_curvature": 0.2659007871294095,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9546038.739830324,
+        "final_avg_max_coil_force": 4733626.662692503,
+        "final_max_max_coil_torque": 33089311.118647933,
+        "final_avg_max_coil_torque": 13885157.957237823,
+        "avg_BdotN_over_B": 0.0009557177994845793,
+        "max_BdotN_over_B": 0.005014345628470277,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0008867598864094763,
+        "BdotN_over_B": 0.000957589219396226,
+        "quasisymmetry_average": 0.06269874203518207,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.00017477606503387525,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 9
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:02-05-2026_14-43",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.4647532792734648,
+      "score_primary": 0.0001822663312593045,
+      "run_date": "2026-02-05T14:43:35.353731",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/rotating_ellipse/akaptano/basic_rotating_ellipse/02-05-2026_14-43/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999999829966273,
+        "final_B_field": 1.029406880680074,
+        "target_B_field": 1.0,
+        "optimization_time": 222.14882040023804,
+        "final_squared_flux": 0.0001822663312593045,
+        "final_min_cs_separation": 0.6936395974981306,
+        "final_min_cc_separation": 0.3996106585558493,
+        "final_total_length": 100.0005872992117,
+        "final_max_curvature": 1.0612543105357195,
+        "final_average_curvature": 0.3970008789437068,
+        "final_arclength_variation": 0.04729432296124475,
+        "final_mean_squared_curvature": 0.2679288985346355,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9171005.977587864,
+        "final_avg_max_coil_force": 4510180.168938801,
+        "final_max_max_coil_torque": 29903148.674044233,
+        "final_avg_max_coil_torque": 12359473.106204592,
+        "avg_BdotN_over_B": 0.000979082870588726,
+        "max_BdotN_over_B": 0.004582612466943145,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881195,
+        "torque_threshold": 0.03077870113881195,
+        "BdotN": 0.0009112361393487533,
+        "BdotN_over_B": 0.0009840282194858347,
+        "quasisymmetry_average": 0.06264472092094506,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0001822663312593045,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 10
+    },
+    {
+      "method_key": ":LandremanPaul2021_QH_reactorScale_lowres:akaptano:02-03-2026_17-12",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.4538697458578946,
+      "score_primary": 0.019893462161592244,
+      "run_date": "2026-02-03T17:12:04.694057",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/LandremanPaul2021_QH_reactorScale_lowres/akaptano/02-03-2026_17-12/all_files.zip",
+      "metrics": {
+        "initial_B_field": 5.699999996994873,
+        "final_B_field": 5.463944726703664,
+        "target_B_field": 5.7,
+        "optimization_time": 431.0007359981537,
+        "final_squared_flux": 0.019893462161592244,
+        "final_min_cs_separation": 1.7744074043110434,
+        "final_min_cc_separation": 1.0726177802213226,
+        "final_total_length": 180.12094304049543,
+        "final_max_curvature": 0.7067651831864947,
+        "final_average_curvature": 0.23047447546396196,
+        "final_arclength_variation": 5.479346032737995,
+        "final_mean_squared_curvature": 0.0899299534125076,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 66402622.76533116,
+        "final_avg_max_coil_force": 43585505.93854962,
+        "final_max_max_coil_torque": 268173038.07251602,
+        "final_avg_max_coil_torque": 163797869.61650077,
+        "avg_BdotN_over_B": 0.0010233373341749941,
+        "max_BdotN_over_B": 0.0036048086558808264,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 1.0939001182128,
+        "cs_threshold": 1.7775876920958,
+        "msc_threshold": 0.7313281959481179,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 0.7313281959481179,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "BdotN": 0.0036074185303013703,
+        "BdotN_over_B": 0.0007965199433271528,
+        "quasisymmetry_average": 9.974783036426623e-05,
+        "coil_order": 4.0,
+        "num_coils": 5.0,
+        "score_primary": 0.019893462161592244,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 11
+    },
+    {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_86661",
       "method_name": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4",
       "method_version": "2026-02-11_133301_86661",
@@ -160,7 +714,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 1
+      "rank": 12
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_90963",
@@ -322,7 +876,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 2
+      "rank": 13
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_16098",
@@ -484,7 +1038,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 3
+      "rank": 14
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_28842",
@@ -646,7 +1200,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 4
+      "rank": 15
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_98213",
@@ -808,7 +1362,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 5
+      "rank": 16
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_31546",
@@ -970,7 +1524,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 6
+      "rank": 17
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_95535",
@@ -1132,7 +1686,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 7
+      "rank": 18
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_56168",
@@ -1294,7 +1848,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 8
+      "rank": 19
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_36194",
@@ -1456,7 +2010,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 9
+      "rank": 20
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_49361",
@@ -1618,7 +2172,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 10
+      "rank": 21
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_30716",
@@ -1780,7 +2334,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 11
+      "rank": 22
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_83742",
@@ -1942,7 +2496,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 12
+      "rank": 23
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_62860",
@@ -2104,7 +2658,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 13
+      "rank": 24
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_20055",
@@ -2266,7 +2820,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 14
+      "rank": 25
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_65756",
@@ -2428,7 +2982,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 15
+      "rank": 26
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_54149",
@@ -2590,7 +3144,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 16
+      "rank": 27
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_77919",
@@ -2752,7 +3306,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 17
+      "rank": 28
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_31058",
@@ -2914,7 +3468,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 18
+      "rank": 29
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_43701",
@@ -3076,7 +3630,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 19
+      "rank": 30
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_49119",
@@ -3238,7 +3792,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 20
+      "rank": 31
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_74108",
@@ -3400,7 +3954,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 21
+      "rank": 32
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_16809",
@@ -3562,7 +4116,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 22
+      "rank": 33
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_40643",
@@ -3724,7 +4278,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 23
+      "rank": 34
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_90094",
@@ -3886,7 +4440,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 24
+      "rank": 35
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_11059",
@@ -4048,7 +4602,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 25
+      "rank": 36
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_59157",
@@ -4210,7 +4764,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 26
+      "rank": 37
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_42868",
@@ -4372,7 +4926,7 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 27
+      "rank": 38
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=5 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_59264",
@@ -4534,7 +5088,53 @@
         "reactor_scale_arclength_variation": 0.010632007182650657,
         "reactor_scale_squared_flux": 0.006042809340316154
       },
-      "rank": 28
+      "rank": 39
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-29",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-29",
+      "composite_score": 1.9482226813724117,
+      "score_primary": 7.372651681603276e-05,
+      "run_date": "2026-01-23T11:29:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-29/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0963678635923402,
+        "target_B_field": 1.0,
+        "optimization_time": 57.81632709503174,
+        "final_normalized_squared_flux": 7.372651681603276e-05,
+        "final_min_cs_separation": 0.303232780831466,
+        "final_min_cc_separation": 0.07967044630421084,
+        "final_total_length": 16.620712297321127,
+        "final_max_curvature": 8.797898022303917,
+        "final_average_curvature": 2.6429127211693357,
+        "final_arclength_variation": 1.752522810695206,
+        "final_mean_squared_curvature": 10.571381239831634,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 441567.1635683262,
+        "final_avg_max_coil_force": 388368.7688909039,
+        "final_max_max_coil_torque": 139484.68456300336,
+        "final_avg_max_coil_torque": 107116.60491357499,
+        "avg_BdotN_over_B": 0.0033308248849335583,
+        "max_BdotN_over_B": 0.018269556183234646,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 7.372651681603276e-05,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 40
     },
     {
       "method_key": ":circular_tokamak:akaptano:02-08-2026_12-56",
@@ -4712,7 +5312,7 @@
           "hard": false
         }
       ],
-      "rank": 29
+      "rank": 41
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_22470",
@@ -4884,7 +5484,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 30
+      "rank": 42
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_49227",
@@ -5056,7 +5656,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 31
+      "rank": 43
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_43420",
@@ -5228,7 +5828,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 32
+      "rank": 44
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_62235",
@@ -5400,7 +6000,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 33
+      "rank": 45
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_36141",
@@ -5572,7 +6172,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 34
+      "rank": 46
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_80993",
@@ -5744,7 +6344,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 35
+      "rank": 47
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_44072",
@@ -5916,7 +6516,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 36
+      "rank": 48
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_26146",
@@ -6088,7 +6688,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 37
+      "rank": 49
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_66519",
@@ -6260,7 +6860,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 38
+      "rank": 50
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_38189",
@@ -6432,7 +7032,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 39
+      "rank": 51
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_67835",
@@ -6604,7 +7204,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 40
+      "rank": 52
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_133301_33291",
@@ -6776,7 +7376,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 41
+      "rank": 53
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_58620",
@@ -6948,7 +7548,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 42
+      "rank": 54
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_123405_22752",
@@ -7120,7 +7720,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 43
+      "rank": 55
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_36799",
@@ -7292,7 +7892,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 44
+      "rank": 56
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_72441",
@@ -7464,7 +8064,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 45
+      "rank": 57
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_58861",
@@ -7636,7 +8236,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 46
+      "rank": 58
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_72854",
@@ -7808,7 +8408,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 47
+      "rank": 59
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_090159_63846",
@@ -7980,7 +8580,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 48
+      "rank": 60
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_26080",
@@ -8152,7 +8752,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 49
+      "rank": 61
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_56800",
@@ -8324,7 +8924,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 50
+      "rank": 62
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_71763",
@@ -8496,7 +9096,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 51
+      "rank": 63
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_18409",
@@ -8668,7 +9268,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 52
+      "rank": 64
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_49824",
@@ -8840,7 +9440,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 53
+      "rank": 65
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_34827",
@@ -9012,7 +9612,7 @@
         "reactor_scale_arclength_variation": 0.014887517612386481,
         "reactor_scale_squared_flux": 0.0169989723060032
       },
-      "rank": 54
+      "rank": 66
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_34049",
@@ -9194,7 +9794,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 55
+      "rank": 67
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_58315",
@@ -9376,7 +9976,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 56
+      "rank": 68
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_35259",
@@ -9558,7 +10158,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 57
+      "rank": 69
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_96993",
@@ -9740,7 +10340,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 58
+      "rank": 70
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_30088",
@@ -9922,7 +10522,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 59
+      "rank": 71
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_13120",
@@ -10104,7 +10704,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 60
+      "rank": 72
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_55436",
@@ -10286,7 +10886,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 61
+      "rank": 73
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_024857_10636",
@@ -10468,7 +11068,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 62
+      "rank": 74
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_052310_90517",
@@ -10650,7 +11250,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 63
+      "rank": 75
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_123405_88189",
@@ -10832,7 +11432,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 64
+      "rank": 76
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_221028_86025",
@@ -11014,7 +11614,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 65
+      "rank": 77
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_015246_77683",
@@ -11196,7 +11796,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 66
+      "rank": 78
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_82670",
@@ -11378,7 +11978,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 67
+      "rank": 79
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_062207_28801",
@@ -11560,7 +12160,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 68
+      "rank": 80
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_135249_54821",
@@ -11742,7 +12342,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 69
+      "rank": 81
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_93159",
@@ -11924,7 +12524,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 70
+      "rank": 82
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_001225_67517",
@@ -12106,7 +12706,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 71
+      "rank": 83
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_105310_86718",
@@ -12288,7 +12888,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 72
+      "rank": 84
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_040921_72885",
@@ -12470,7 +13070,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 73
+      "rank": 85
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_36955",
@@ -12652,7 +13252,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 74
+      "rank": 86
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_17054",
@@ -12834,7 +13434,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 75
+      "rank": 87
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_101049_53504",
@@ -13016,7 +13616,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 76
+      "rank": 88
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-12_073519_24302",
@@ -13198,7 +13798,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 77
+      "rank": 89
     },
     {
       "method_key": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4:LandremanPaul2021_QA:auto:2026-02-11_120432_30013",
@@ -13380,7 +13980,7 @@
         "reactor_scale_arclength_variation": 0.0009733622580547172,
         "reactor_scale_squared_flux": 0.050389266842612364
       },
-      "rank": 78
+      "rank": 90
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-25",
@@ -13530,7 +14130,390 @@
           "hard": false
         }
       ],
-      "rank": 79
+      "rank": 91
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_08-17",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T08:17:39.486197",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-17/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.53655219078064,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 92
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_08-28",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T08:28:29.881360",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-28/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.34715700149536,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 93
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_09-16",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T09:16:11.019376",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-16/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.519765853881836,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 94
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_08-58",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T08:58:00.062645",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-58/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.23109722137451,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 95
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_09-15",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T09:15:30.805276",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-15/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 26.009729862213135,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 96
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_09-08",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T09:08:37.437614",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-08/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.07371687889099,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 97
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_09-30",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T09:30:34.702814",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_09-30/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 25.897754192352295,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.0046099256812366235,
+        "BdotN_over_B": 0.004346212639202134,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 98
+    },
+    {
+      "method_key": ":circular_tokamak:akaptano:02-06-2026_08-06",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.7998023667415304,
+      "score_primary": 0.007640250419632137,
+      "run_date": "2026-02-06T08:06:35.113328",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/circular_tokamak/akaptano/basic_tokamak/02-06-2026_08-06/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.9999851315887807,
+        "final_B_field": 0.9999863321791422,
+        "target_B_field": 1.0,
+        "optimization_time": 26.704092025756836,
+        "final_squared_flux": 0.007640250419632137,
+        "final_min_cs_separation": 1.5698242310913955,
+        "final_min_cc_separation": 1.2530619753979646,
+        "final_total_length": 180.0229158577649,
+        "final_max_curvature": 0.21909086646239795,
+        "final_average_curvature": 0.2094036619821588,
+        "final_arclength_variation": 0.005869237071373351,
+        "final_mean_squared_curvature": 0.04432099614893781,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 2859524.305999473,
+        "final_avg_max_coil_force": 2848345.430398284,
+        "final_max_max_coil_torque": 270785.5654593835,
+        "final_avg_max_coil_torque": 268182.9893314205,
+        "avg_BdotN_over_B": 0.004123231373806363,
+        "max_BdotN_over_B": 0.014137475143512213,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.48,
+        "cs_threshold": 0.78,
+        "msc_threshold": 1.6666666666666667,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 1.6666666666666667,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "BdotN": 0.004936440706767214,
+        "BdotN_over_B": 0.00452818666633138,
+        "quasisymmetry_average": 6.017185339699117e-10,
+        "coil_order": 4.0,
+        "num_coils": 6.0,
+        "score_primary": 0.007640250419632137,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "rank": 99
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-08-2026_12-58",
@@ -13693,7 +14676,7 @@
           "hard": false
         }
       ],
-      "rank": 80
+      "rank": 100
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-08-2026_12-50",
@@ -13856,7 +14839,7 @@
           "hard": false
         }
       ],
-      "rank": 81
+      "rank": 101
     },
     {
       "method_key": ":muse.focus:akaptano:02-08-2026_12-50",
@@ -14023,7 +15006,111 @@
           "hard": false
         }
       ],
-      "rank": 82
+      "rank": 102
+    },
+    {
+      "method_key": ":c09r00_B_axis_half_tesla_NCSX.focus:akaptano:all_files",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 1.6411258501734414,
+      "score_primary": 0.00010431607110738866,
+      "run_date": "2026-02-06T14:30:37.302168",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/c09r00_B_axis_half_tesla_NCSX/akaptano/basic_NCSX/02-06-2026_14-30/all_files/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 8.0,
+        "initial_B_field": 0.5193731107133128,
+        "final_B_field": 0.519748767893645,
+        "target_B_field": 0.5,
+        "optimization_time": 336.9771337509155,
+        "final_squared_flux": 0.00010431607110738866,
+        "final_min_cs_separation": 0.18309186143091252,
+        "final_min_cc_separation": 0.11242786709064786,
+        "final_total_length": 30.00000025381228,
+        "final_max_curvature": 3.9649641619963134,
+        "final_average_curvature": 2.124099103445241,
+        "final_arclength_variation": 0.003989777057604638,
+        "final_mean_squared_curvature": 7.109860149444714,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 144832.06256419353,
+        "final_avg_max_coil_force": 83824.25071976977,
+        "final_max_max_coil_torque": 102446.6683939638,
+        "final_avg_max_coil_torque": 44941.790233244355,
+        "avg_BdotN_over_B": 0.005046174996849219,
+        "max_BdotN_over_B": 0.026343616513885518,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.112753336,
+        "cs_threshold": 0.183224171,
+        "msc_threshold": 7.095133752849672,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 7.095133752849672,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 8.0,
+        "continuation_step": 2.0,
+        "BdotN": 0.002415424879076448,
+        "BdotN_over_B": 0.005050458402109197,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8",
+        "score_primary": 0.00010431607110738866
+      },
+      "reactor_scale_metrics": {},
+      "rank": 103
+    },
+    {
+      "method_key": ":c09r00_B_axis_half_tesla_NCSX.focus:akaptano:all_files 2",
+      "method_name": "",
+      "method_version": "all_files 2",
+      "composite_score": 1.6411258501734414,
+      "score_primary": 0.00010431607110738866,
+      "run_date": "2026-02-06T14:30:37.302168",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/c09r00_B_axis_half_tesla_NCSX/akaptano/basic_NCSX/02-06-2026_14-30/all_files 2/results.json",
+      "metrics": {
+        "fourier_continuation": 1.0,
+        "final_order": 8.0,
+        "initial_B_field": 0.5193731107133128,
+        "final_B_field": 0.519748767893645,
+        "target_B_field": 0.5,
+        "optimization_time": 336.9771337509155,
+        "final_squared_flux": 0.00010431607110738866,
+        "final_min_cs_separation": 0.18309186143091252,
+        "final_min_cc_separation": 0.11242786709064786,
+        "final_total_length": 30.00000025381228,
+        "final_max_curvature": 3.9649641619963134,
+        "final_average_curvature": 2.124099103445241,
+        "final_arclength_variation": 0.003989777057604638,
+        "final_mean_squared_curvature": 7.109860149444714,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 144832.06256419353,
+        "final_avg_max_coil_force": 83824.25071976977,
+        "final_max_max_coil_torque": 102446.6683939638,
+        "final_avg_max_coil_torque": 44941.790233244355,
+        "avg_BdotN_over_B": 0.005046174996849219,
+        "max_BdotN_over_B": 0.026343616513885518,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.112753336,
+        "cs_threshold": 0.183224171,
+        "msc_threshold": 7.095133752849672,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 7.095133752849672,
+        "force_threshold": 1.0,
+        "torque_threshold": 1.0,
+        "fourier_order": 8.0,
+        "continuation_step": 2.0,
+        "BdotN": 0.002415424879076448,
+        "BdotN_over_B": 0.005050458402109197,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "fourier_continuation_orders": "4,8",
+        "score_primary": 0.00010431607110738866
+      },
+      "reactor_scale_metrics": {},
+      "rank": 104
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-27",
@@ -14173,7 +15260,7 @@
           "hard": false
         }
       ],
-      "rank": 83
+      "rank": 105
     },
     {
       "method_key": ":LandremanPaul2021_QA:akaptano:02-09-2026_20-19",
@@ -14362,7 +15449,7 @@
           "hard": false
         }
       ],
-      "rank": 84
+      "rank": 106
     },
     {
       "method_key": ":cfqs_2b40:akaptano:02-08-2026_12-50",
@@ -14520,7 +15607,7 @@
           "hard": false
         }
       ],
-      "rank": 85
+      "rank": 107
     },
     {
       "method_key": ":wout_schuetthenneberg_nfp2.nc:akaptano:02-08-2026_12-55",
@@ -14687,7 +15774,7 @@
           "hard": false
         }
       ],
-      "rank": 86
+      "rank": 108
     },
     {
       "method_key": ":c09r00_B_axis_half_tesla_NCSX.focus:akaptano:02-08-2026_12-50",
@@ -14859,7 +15946,7 @@
           "hard": false
         }
       ],
-      "rank": 87
+      "rank": 109
     },
     {
       "method_key": ":HSX_QHS_mn1824_ns101:akaptano:02-08-2026_12-50",
@@ -15050,7 +16137,7 @@
           "hard": false
         }
       ],
-      "rank": 88
+      "rank": 110
     },
     {
       "method_key": ":LandremanPaul2021_QH_reactorScale_lowres:akaptano:02-08-2026_12-50",
@@ -15245,7 +16332,7 @@
           "hard": false
         }
       ],
-      "rank": 89
+      "rank": 111
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:02-08-2026_12-58",
@@ -15426,7 +16513,7 @@
           "hard": false
         }
       ],
-      "rank": 90
+      "rank": 112
     },
     {
       "method_key": ":W7-X_without_coil_ripple_beta0p05_d23p4_tm:akaptano:02-08-2026_12-57",
@@ -15607,7 +16694,1659 @@
           "hard": false
         }
       ],
-      "rank": 91
+      "rank": 113
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_13-30",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_13-30",
+      "composite_score": 0.9597293059487123,
+      "score_primary": 0.0007497943476710502,
+      "run_date": "2026-01-23T13:30:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_13-30/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0913414935550914,
+        "target_B_field": 1.0,
+        "optimization_time": 484.05645203590393,
+        "final_normalized_squared_flux": 0.0007497943476710502,
+        "final_min_cs_separation": 0.23339828936177107,
+        "final_min_cc_separation": 0.07844049005857534,
+        "final_total_length": 17.61416406582713,
+        "final_max_curvature": 9.85486853935715,
+        "final_average_curvature": 2.6933127451297545,
+        "final_arclength_variation": 3.5778216127659905,
+        "final_mean_squared_curvature": 10.014382108116537,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 791980.1899044797,
+        "final_avg_max_coil_force": 528593.9814052195,
+        "final_max_max_coil_torque": 476436.7679530129,
+        "final_avg_max_coil_torque": 260485.22567021684,
+        "avg_BdotN_over_B": 0.010411040072521992,
+        "max_BdotN_over_B": 0.04814130690069627,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0007497943476710502,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.010411040072521992,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 114
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-40",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-40",
+      "composite_score": 0.9597293059487123,
+      "score_primary": 0.0007497943476710502,
+      "run_date": "2026-01-23T11:40:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-40/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0913414935550914,
+        "target_B_field": 1.0,
+        "optimization_time": 478.8054699897766,
+        "final_normalized_squared_flux": 0.0007497943476710502,
+        "final_min_cs_separation": 0.23339828936177107,
+        "final_min_cc_separation": 0.07844049005857534,
+        "final_total_length": 17.61416406582713,
+        "final_max_curvature": 9.85486853935715,
+        "final_average_curvature": 2.6933127451297545,
+        "final_arclength_variation": 3.5778216127659905,
+        "final_mean_squared_curvature": 10.014382108116537,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 791980.1899044797,
+        "final_avg_max_coil_force": 528593.9814052195,
+        "final_max_max_coil_torque": 476436.7679530129,
+        "final_avg_max_coil_torque": 260485.22567021684,
+        "avg_BdotN_over_B": 0.010411040072521992,
+        "max_BdotN_over_B": 0.04814130690069627,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0007497943476710502,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.010411040072521992,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 115
+    },
+    {
+      "method_key": ":muse.focus:akaptano:02-03-2026_15-20",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 0.8853659151659296,
+      "score_primary": 1.096471528533004e-06,
+      "run_date": "2026-02-03T15:20:10.481425",
+      "contact": "akaptano",
+      "hardware": "CPU: Apple M2 Max | RAM: 64.0GB",
+      "path": "submissions/muse/akaptano/02-03-2026_15-20/all_files.zip",
+      "metrics": {
+        "initial_B_field": 0.14995261497219797,
+        "final_B_field": 0.15309768381897865,
+        "target_B_field": 0.15,
+        "optimization_time": 215.45139503479004,
+        "final_squared_flux": 1.096471528533004e-06,
+        "final_min_cs_separation": 0.10674296512447567,
+        "final_min_cc_separation": 0.024376597694455313,
+        "final_total_length": 6.095177552646122,
+        "final_max_curvature": 10.050530108188811,
+        "final_average_curvature": 5.331632377379682,
+        "final_arclength_variation": 1.0213705321540844e-05,
+        "final_mean_squared_curvature": 32.81749135492054,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 5359.586444968455,
+        "final_avg_max_coil_force": 3342.2054456161422,
+        "final_max_max_coil_torque": 960.5104684304596,
+        "final_avg_max_coil_torque": 486.6169803994934,
+        "avg_BdotN_over_B": 0.01121754255962345,
+        "max_BdotN_over_B": 0.05377855931378259,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.024384,
+        "cs_threshold": 0.039624,
+        "msc_threshold": 32.808398950131235,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 32.808398950131235,
+        "force_threshold": 0.0006925207756232686,
+        "torque_threshold": 0.0006925207756232686,
+        "BdotN": 8.457218481407045e-05,
+        "BdotN_over_B": 0.0005841110595974685,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 1.096471528533004e-06
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.01121754255962345,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 116
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-36",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-36",
+      "composite_score": 0.0010239565900552845,
+      "score_primary": 0.03790840842632593,
+      "run_date": "2026-01-23T11:36:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-36/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0259189360989076,
+        "target_B_field": 1.0,
+        "optimization_time": 25.469293117523193,
+        "final_normalized_squared_flux": 0.03790840842632593,
+        "final_min_cs_separation": 0.1935279631685863,
+        "final_min_cc_separation": 0.004166305845046084,
+        "final_total_length": 14.388941225598892,
+        "final_max_curvature": 4.747687617492483,
+        "final_average_curvature": 1.9526902505134114,
+        "final_arclength_variation": 0.20905046538384028,
+        "final_mean_squared_curvature": 5.534511873081588,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 14755973.48533567,
+        "final_avg_max_coil_force": 6937777.658963703,
+        "final_max_max_coil_torque": 4530484.905262092,
+        "final_avg_max_coil_torque": 1285412.10237234,
+        "avg_BdotN_over_B": 0.07884081145787546,
+        "max_BdotN_over_B": 0.30511939065547206,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.03790840842632593,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.07884081145787546,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 117
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-38",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-38",
+      "composite_score": 0.0010239565900552845,
+      "score_primary": 0.03790840842632593,
+      "run_date": "2026-01-23T11:38:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-38/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0259189360989076,
+        "target_B_field": 1.0,
+        "optimization_time": 25.72536611557007,
+        "final_normalized_squared_flux": 0.03790840842632593,
+        "final_min_cs_separation": 0.1935279631685863,
+        "final_min_cc_separation": 0.004166305845046084,
+        "final_total_length": 14.388941225598892,
+        "final_max_curvature": 4.747687617492483,
+        "final_average_curvature": 1.9526902505134114,
+        "final_arclength_variation": 0.20905046538384028,
+        "final_mean_squared_curvature": 5.534511873081588,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 14755973.48533567,
+        "final_avg_max_coil_force": 6937777.658963703,
+        "final_max_max_coil_torque": 4530484.905262092,
+        "final_avg_max_coil_torque": 1285412.10237234,
+        "avg_BdotN_over_B": 0.07884081145787546,
+        "max_BdotN_over_B": 0.30511939065547206,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.03790840842632593,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.07884081145787546,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 118
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-39",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-39",
+      "composite_score": 0.0007247571459638297,
+      "score_primary": 0.04164454519771589,
+      "run_date": "2026-01-23T11:39:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-39/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0225769810365106,
+        "target_B_field": 1.0,
+        "optimization_time": 33.286664962768555,
+        "final_normalized_squared_flux": 0.04164454519771589,
+        "final_min_cs_separation": 0.19479495273905267,
+        "final_min_cc_separation": 0.006393062886242629,
+        "final_total_length": 14.36481715889765,
+        "final_max_curvature": 3.7006465360317784,
+        "final_average_curvature": 1.8783674183671253,
+        "final_arclength_variation": 0.3077062865913121,
+        "final_mean_squared_curvature": 4.177141295603185,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 5706800.297838324,
+        "final_avg_max_coil_force": 2471791.7452141885,
+        "final_max_max_coil_torque": 1128014.0171976464,
+        "final_avg_max_coil_torque": 558588.4809072389,
+        "avg_BdotN_over_B": 0.08229673930309318,
+        "max_BdotN_over_B": 0.3074919202544583,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 0.04164454519771589,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.08229673930309318,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 119
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-33",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-33",
+      "composite_score": 0.0006229012758293444,
+      "score_primary": 0.04315547277782003,
+      "run_date": "2026-01-23T11:33:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-33/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0217489029009816,
+        "target_B_field": 1.0,
+        "optimization_time": 25.502700090408325,
+        "final_normalized_squared_flux": 0.04315547277782003,
+        "final_min_cs_separation": 0.1939284034319461,
+        "final_min_cc_separation": 0.005275236742207318,
+        "final_total_length": 14.351955368934954,
+        "final_max_curvature": 3.7178225986935383,
+        "final_average_curvature": 1.8894845735742218,
+        "final_arclength_variation": 0.29113016160281024,
+        "final_mean_squared_curvature": 4.286177218796624,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9916602.247985087,
+        "final_avg_max_coil_force": 4097880.546937023,
+        "final_max_max_coil_torque": 2130974.184535363,
+        "final_avg_max_coil_torque": 986757.0448216093,
+        "avg_BdotN_over_B": 0.08381122517497339,
+        "max_BdotN_over_B": 0.31057106028648507,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.04315547277782003,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.08381122517497339,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 120
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-31",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-31",
+      "composite_score": 0.0006229012758293444,
+      "score_primary": 0.04315547277782003,
+      "run_date": "2026-01-23T11:31:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-31/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0217489029009816,
+        "target_B_field": 1.0,
+        "optimization_time": 25.627583980560303,
+        "final_normalized_squared_flux": 0.04315547277782003,
+        "final_min_cs_separation": 0.1939284034319461,
+        "final_min_cc_separation": 0.005275236742207318,
+        "final_total_length": 14.351955368934954,
+        "final_max_curvature": 3.7178225986935383,
+        "final_average_curvature": 1.8894845735742218,
+        "final_arclength_variation": 0.29113016160281024,
+        "final_mean_squared_curvature": 4.286177218796624,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9916602.247985087,
+        "final_avg_max_coil_force": 4097880.546937023,
+        "final_max_max_coil_torque": 2130974.184535363,
+        "final_avg_max_coil_torque": 986757.0448216093,
+        "avg_BdotN_over_B": 0.08381122517497339,
+        "max_BdotN_over_B": 0.31057106028648507,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.04315547277782003,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.08381122517497339,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 121
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-28",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-28",
+      "composite_score": 0.0006227856574544216,
+      "score_primary": 0.04315727052997914,
+      "run_date": "2026-01-23T10:28:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-28/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.021748311258622,
+        "target_B_field": 1.0,
+        "optimization_time": 17.25582003593445,
+        "final_normalized_squared_flux": 0.04315727052997914,
+        "final_min_cs_separation": 0.19392818037848553,
+        "final_min_cc_separation": 0.005276503912773084,
+        "final_total_length": 14.351947160812134,
+        "final_max_curvature": 3.7178308838060095,
+        "final_average_curvature": 1.8894844077530437,
+        "final_arclength_variation": 0.2911212330543844,
+        "final_mean_squared_curvature": 4.286180580286655,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 9912446.490049485,
+        "final_avg_max_coil_force": 4096161.629056342,
+        "final_max_max_coil_torque": 2126533.7082345057,
+        "final_avg_max_coil_torque": 985873.6433713692,
+        "avg_BdotN_over_B": 0.08381308147405088,
+        "max_BdotN_over_B": 0.3105747351527476,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.04315727052997914,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.08381308147405088,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 122
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-30",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-30",
+      "composite_score": 6.867021736531377e-05,
+      "score_primary": 0.0075693166544912125,
+      "run_date": "2026-01-23T09:30:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-30/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0101219882125032,
+        "target_B_field": 1.0,
+        "optimization_time": 10.587711095809937,
+        "final_normalized_squared_flux": 0.0075693166544912125,
+        "final_min_cs_separation": 0.10566995932401495,
+        "final_min_cc_separation": 0.24409441939711496,
+        "final_total_length": 13.216521219068534,
+        "final_max_curvature": 10.112786356883403,
+        "final_average_curvature": 2.7728523400127347,
+        "final_arclength_variation": 0.27856751339708347,
+        "final_mean_squared_curvature": 11.3625260984885,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 249579.42403208493,
+        "final_avg_max_coil_force": 216667.1431538391,
+        "final_max_max_coil_torque": 68760.42798883903,
+        "final_avg_max_coil_torque": 66134.69600467903,
+        "avg_BdotN_over_B": 0.10586194969976079,
+        "max_BdotN_over_B": 0.3805086905861806,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0075693166544912125,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.10586194969976079,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 123
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-36",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-36",
+      "composite_score": 6.867021736531377e-05,
+      "score_primary": 0.0075693166544912125,
+      "run_date": "2026-01-23T09:36:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-36/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0101219882125032,
+        "target_B_field": 1.0,
+        "optimization_time": 10.55438494682312,
+        "final_normalized_squared_flux": 0.0075693166544912125,
+        "final_min_cs_separation": 0.10566995932401495,
+        "final_min_cc_separation": 0.24409441939711496,
+        "final_total_length": 13.216521219068534,
+        "final_max_curvature": 10.112786356883403,
+        "final_average_curvature": 2.7728523400127347,
+        "final_arclength_variation": 0.27856751339708347,
+        "final_mean_squared_curvature": 11.3625260984885,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 249579.42403208493,
+        "final_avg_max_coil_force": 216667.1431538391,
+        "final_max_max_coil_torque": 68760.42798883903,
+        "final_avg_max_coil_torque": 66134.69600467903,
+        "avg_BdotN_over_B": 0.10586194969976079,
+        "max_BdotN_over_B": 0.3805086905861806,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0075693166544912125,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.10586194969976079,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 124
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-28",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-28",
+      "composite_score": 6.867021736531377e-05,
+      "score_primary": 0.0075693166544912125,
+      "run_date": "2026-01-23T09:28:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-28/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0101219882125032,
+        "target_B_field": 1.0,
+        "optimization_time": 10.613347053527832,
+        "final_normalized_squared_flux": 0.0075693166544912125,
+        "final_min_cs_separation": 0.10566995932401495,
+        "final_min_cc_separation": 0.24409441939711496,
+        "final_total_length": 13.216521219068534,
+        "final_max_curvature": 10.112786356883403,
+        "final_average_curvature": 2.7728523400127347,
+        "final_arclength_variation": 0.27856751339708347,
+        "final_mean_squared_curvature": 11.3625260984885,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 249579.42403208493,
+        "final_avg_max_coil_force": 216667.1431538391,
+        "final_max_max_coil_torque": 68760.42798883903,
+        "final_avg_max_coil_torque": 66134.69600467903,
+        "avg_BdotN_over_B": 0.10586194969976079,
+        "max_BdotN_over_B": 0.3805086905861806,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0075693166544912125,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.10586194969976079,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 125
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-35",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-35",
+      "composite_score": 4.16741333382454e-05,
+      "score_primary": 0.007302446353225926,
+      "run_date": "2026-01-23T10:35:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-35/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.683307313745658,
+        "target_B_field": 1.0,
+        "optimization_time": 221.5595178604126,
+        "final_normalized_squared_flux": 0.007302446353225926,
+        "final_min_cs_separation": 0.20364346030470593,
+        "final_min_cc_separation": 0.07485123353948898,
+        "final_total_length": 16.99957094581136,
+        "final_max_curvature": 8.77495282026222,
+        "final_average_curvature": 2.745731591391617,
+        "final_arclength_variation": 2.22932631962803,
+        "final_mean_squared_curvature": 12.910310415487755,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 373410775.8149498,
+        "final_avg_max_coil_force": 169013720.85423043,
+        "final_max_max_coil_torque": 303233026.849906,
+        "final_avg_max_coil_torque": 109553583.07624301,
+        "avg_BdotN_over_B": 0.11085629925266617,
+        "max_BdotN_over_B": 0.9839411123579392,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.007302446353225926,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.11085629925266617,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 126
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-15",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-15",
+      "composite_score": 3.464411029713907e-05,
+      "score_primary": 0.007235598543725675,
+      "run_date": "2026-01-23T11:15:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-15/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.038476367543076,
+        "target_B_field": 1.0,
+        "optimization_time": 372.3335928916931,
+        "final_normalized_squared_flux": 0.007235598543725675,
+        "final_min_cs_separation": 0.20219108110690412,
+        "final_min_cc_separation": 0.07651418029204979,
+        "final_total_length": 17.144049704521056,
+        "final_max_curvature": 10.000236095609036,
+        "final_average_curvature": 2.754100226999662,
+        "final_arclength_variation": 2.389108717511256,
+        "final_mean_squared_curvature": 13.603720838508902,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 399424736.3286174,
+        "final_avg_max_coil_force": 163806498.57338262,
+        "final_max_max_coil_torque": 327609068.6247752,
+        "final_avg_max_coil_torque": 111048839.05849303,
+        "avg_BdotN_over_B": 0.11270382823770632,
+        "max_BdotN_over_B": 0.9829745151819068,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.007235598543725675,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.11270382823770632,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 127
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_11-22",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_11-22",
+      "composite_score": 2.534671262604364e-05,
+      "score_primary": 0.007622890472139312,
+      "run_date": "2026-01-23T11:22:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_11-22/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.991147057341049,
+        "target_B_field": 1.0,
+        "optimization_time": 108.70606994628906,
+        "final_normalized_squared_flux": 0.007622890472139312,
+        "final_min_cs_separation": 0.20319918553808444,
+        "final_min_cc_separation": 0.09159675824824907,
+        "final_total_length": 16.484985724708558,
+        "final_max_curvature": 8.859442105045154,
+        "final_average_curvature": 2.567354100234545,
+        "final_arclength_variation": 1.9088000047292466,
+        "final_mean_squared_curvature": 11.461841435347548,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 309846002.6323419,
+        "final_avg_max_coil_force": 155335617.7584855,
+        "final_max_max_coil_torque": 213232289.3134841,
+        "final_avg_max_coil_torque": 85026966.37212673,
+        "avg_BdotN_over_B": 0.11582861515782199,
+        "max_BdotN_over_B": 0.9829390942476908,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.007622890472139312,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.11582861515782199,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 128
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_12-18",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_12-18",
+      "composite_score": 2.4194574572402114e-05,
+      "score_primary": 0.0074875102227957135,
+      "run_date": "2026-01-23T12:18:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_12-18/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 17.7272473822007,
+        "target_B_field": 1.0,
+        "optimization_time": 586.258425951004,
+        "final_normalized_squared_flux": 0.0074875102227957135,
+        "final_min_cs_separation": 0.24318818938203454,
+        "final_min_cc_separation": 0.08370166740488058,
+        "final_total_length": 17.005591592934277,
+        "final_max_curvature": 9.980442928200407,
+        "final_average_curvature": 2.632454926881342,
+        "final_arclength_variation": 3.5746142022653196,
+        "final_mean_squared_curvature": 10.864461848683225,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 986725806.7795186,
+        "final_avg_max_coil_force": 355224074.25636864,
+        "final_max_max_coil_torque": 695850002.5017046,
+        "final_avg_max_coil_torque": 210983048.2986426,
+        "avg_BdotN_over_B": 0.11629382141159296,
+        "max_BdotN_over_B": 0.9962352327212248,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 16.0,
+        "num_coils": 4.0,
+        "score_primary": 0.0074875102227957135,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.11629382141159296,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 129
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-34",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-34",
+      "composite_score": 1.892842974172131e-06,
+      "score_primary": 0.010671890368159664,
+      "run_date": "2026-01-23T10:34:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-34/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.190894655169565,
+        "target_B_field": 1.0,
+        "optimization_time": 15.117408752441406,
+        "final_normalized_squared_flux": 0.010671890368159664,
+        "final_min_cs_separation": 0.20682804680017292,
+        "final_min_cc_separation": 0.10594428266366462,
+        "final_total_length": 15.753495507340995,
+        "final_max_curvature": 6.297342275515517,
+        "final_average_curvature": 2.3362943946392054,
+        "final_arclength_variation": 1.5971118544092124,
+        "final_mean_squared_curvature": 9.717817587583742,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 331943498.6192954,
+        "final_avg_max_coil_force": 158303149.84166938,
+        "final_max_max_coil_torque": 189411820.89405546,
+        "final_avg_max_coil_torque": 72154402.34495871,
+        "avg_BdotN_over_B": 0.14177430639958397,
+        "max_BdotN_over_B": 0.9939417129879662,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.010671890368159664,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.14177430639958397,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 130
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-33",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-33",
+      "composite_score": 1.892842974172131e-06,
+      "score_primary": 0.010671890368159664,
+      "run_date": "2026-01-23T10:33:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-33/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.190894655169565,
+        "target_B_field": 1.0,
+        "optimization_time": 13.954218864440918,
+        "final_normalized_squared_flux": 0.010671890368159664,
+        "final_min_cs_separation": 0.20682804680017292,
+        "final_min_cc_separation": 0.10594428266366462,
+        "final_total_length": 15.753495507340995,
+        "final_max_curvature": 6.297342275515517,
+        "final_average_curvature": 2.3362943946392054,
+        "final_arclength_variation": 1.5971118544092124,
+        "final_mean_squared_curvature": 9.717817587583742,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 331943498.6192954,
+        "final_avg_max_coil_force": 158303149.84166938,
+        "final_max_max_coil_torque": 189411820.89405546,
+        "final_avg_max_coil_torque": 72154402.34495871,
+        "avg_BdotN_over_B": 0.14177430639958397,
+        "max_BdotN_over_B": 0.9939417129879662,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.010671890368159664,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.14177430639958397,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 131
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-21",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-21",
+      "composite_score": 1.892842974172131e-06,
+      "score_primary": 0.010671890368159664,
+      "run_date": "2026-01-23T10:21:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-21/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.190894655169565,
+        "target_B_field": 1.0,
+        "optimization_time": 13.510950088500977,
+        "final_normalized_squared_flux": 0.010671890368159664,
+        "final_min_cs_separation": 0.20682804680017292,
+        "final_min_cc_separation": 0.10594428266366462,
+        "final_total_length": 15.753495507340995,
+        "final_max_curvature": 6.297342275515517,
+        "final_average_curvature": 2.3362943946392054,
+        "final_arclength_variation": 1.5971118544092124,
+        "final_mean_squared_curvature": 9.717817587583742,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 331943498.6192954,
+        "final_avg_max_coil_force": 158303149.84166938,
+        "final_max_max_coil_torque": 189411820.89405546,
+        "final_avg_max_coil_torque": 72154402.34495871,
+        "avg_BdotN_over_B": 0.14177430639958397,
+        "max_BdotN_over_B": 0.9939417129879662,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.010671890368159664,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.14177430639958397,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 132
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-17",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-17",
+      "composite_score": 1.892842974172131e-06,
+      "score_primary": 0.010671890368159664,
+      "run_date": "2026-01-23T10:17:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-17/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.190894655169565,
+        "target_B_field": 1.0,
+        "optimization_time": 13.564044713973999,
+        "final_normalized_squared_flux": 0.010671890368159664,
+        "final_min_cs_separation": 0.20682804680017292,
+        "final_min_cc_separation": 0.10594428266366462,
+        "final_total_length": 15.753495507340995,
+        "final_max_curvature": 6.297342275515517,
+        "final_average_curvature": 2.3362943946392054,
+        "final_arclength_variation": 1.5971118544092124,
+        "final_mean_squared_curvature": 9.717817587583742,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 331943498.6192954,
+        "final_avg_max_coil_force": 158303149.84166938,
+        "final_max_max_coil_torque": 189411820.89405546,
+        "final_avg_max_coil_torque": 72154402.34495871,
+        "avg_BdotN_over_B": 0.14177430639958397,
+        "max_BdotN_over_B": 0.9939417129879662,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.010671890368159664,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.14177430639958397,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 133
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-15",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-15",
+      "composite_score": 1.892842974172131e-06,
+      "score_primary": 0.010671890368159664,
+      "run_date": "2026-01-23T10:15:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-15/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 15.190894655169565,
+        "target_B_field": 1.0,
+        "optimization_time": 14.019055128097534,
+        "final_normalized_squared_flux": 0.010671890368159664,
+        "final_min_cs_separation": 0.20682804680017292,
+        "final_min_cc_separation": 0.10594428266366462,
+        "final_total_length": 15.753495507340995,
+        "final_max_curvature": 6.297342275515517,
+        "final_average_curvature": 2.3362943946392054,
+        "final_arclength_variation": 1.5971118544092124,
+        "final_mean_squared_curvature": 9.717817587583742,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 331943498.6192954,
+        "final_avg_max_coil_force": 158303149.84166938,
+        "final_max_max_coil_torque": 189411820.89405546,
+        "final_avg_max_coil_torque": 72154402.34495871,
+        "avg_BdotN_over_B": 0.14177430639958397,
+        "max_BdotN_over_B": 0.9939417129879662,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.010671890368159664,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.14177430639958397,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 134
+    },
+    {
+      "method_key": ":LandremanPaul2021_QA:akaptano:12-01-2025_01-51",
+      "method_name": "",
+      "method_version": "12-01-2025_01-51",
+      "composite_score": 3.766923260931186e-07,
+      "score_primary": 0.016137297726616227,
+      "run_date": "2025-12-01T01:51:29.688228",
+      "contact": "akaptano",
+      "hardware": "CPU: Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz | RAM: 7.8GB",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/12-01-2025_01-51/results.json",
+      "metrics": {
+        "initial_B_field": 0.9998258195958676,
+        "final_B_field": 1.002356851284818,
+        "target_B_field": 1.0,
+        "optimization_time": 30.33704900741577,
+        "final_normalized_squared_flux": 0.016137297726616227,
+        "final_min_cs_separation": 0.10719407139164518,
+        "final_min_cc_separation": 0.2184445363940109,
+        "final_total_length": 10.784137899322337,
+        "final_max_curvature": 7.504806923422474,
+        "final_average_curvature": 2.652606216721007,
+        "final_mean_squared_curvature": 10.790787534811141,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 244490.70128890238,
+        "final_avg_max_coil_force": 234761.13433389636,
+        "final_max_max_coil_torque": 49785.81006040528,
+        "final_avg_max_coil_torque": 41828.919747623426,
+        "avg_BdotN_over_B": 0.15791837093857247,
+        "max_BdotN_over_B": 0.46694030934260755,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.016137297726616227,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.15791837093857247,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 135
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-47",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-47",
+      "composite_score": 4.6268783768046856e-08,
+      "score_primary": 0.020264914940520528,
+      "run_date": "2026-01-23T09:47:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-47/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0017861143298847,
+        "target_B_field": 1.0,
+        "optimization_time": 13.919920206069946,
+        "final_normalized_squared_flux": 0.020264914940520528,
+        "final_min_cs_separation": 0.09891150923135943,
+        "final_min_cc_separation": 0.22623896082047945,
+        "final_total_length": 13.210773326069074,
+        "final_max_curvature": 8.738218834765256,
+        "final_average_curvature": 2.345464874352599,
+        "final_arclength_variation": 0.09985587739184648,
+        "final_mean_squared_curvature": 10.320023825973012,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 252656.82201102993,
+        "final_avg_max_coil_force": 237987.6646702572,
+        "final_max_max_coil_torque": 70932.69370247624,
+        "final_avg_max_coil_torque": 57307.13286355711,
+        "avg_BdotN_over_B": 0.1788879831991335,
+        "max_BdotN_over_B": 0.4300702327197932,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.020264914940520528,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.1788879831991335,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 136
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-41",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-41",
+      "composite_score": 4.6268783768046856e-08,
+      "score_primary": 0.020264914940520528,
+      "run_date": "2026-01-23T09:41:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-41/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0017861143298847,
+        "target_B_field": 1.0,
+        "optimization_time": 13.82164192199707,
+        "final_normalized_squared_flux": 0.020264914940520528,
+        "final_min_cs_separation": 0.09891150923135943,
+        "final_min_cc_separation": 0.22623896082047945,
+        "final_total_length": 13.210773326069074,
+        "final_max_curvature": 8.738218834765256,
+        "final_average_curvature": 2.345464874352599,
+        "final_arclength_variation": 0.09985587739184648,
+        "final_mean_squared_curvature": 10.320023825973012,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 252656.82201102993,
+        "final_avg_max_coil_force": 237987.6646702572,
+        "final_max_max_coil_torque": 70932.69370247624,
+        "final_avg_max_coil_torque": 57307.13286355711,
+        "avg_BdotN_over_B": 0.1788879831991335,
+        "max_BdotN_over_B": 0.4300702327197932,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.020264914940520528,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.1788879831991335,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 137
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-50",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-50",
+      "composite_score": 4.6268783768046856e-08,
+      "score_primary": 0.020264914940520528,
+      "run_date": "2026-01-23T09:50:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-50/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0017861143298847,
+        "target_B_field": 1.0,
+        "optimization_time": 14.505263805389404,
+        "final_normalized_squared_flux": 0.020264914940520528,
+        "final_min_cs_separation": 0.09891150923135943,
+        "final_min_cc_separation": 0.22623896082047945,
+        "final_total_length": 13.210773326069074,
+        "final_max_curvature": 8.738218834765256,
+        "final_average_curvature": 2.345464874352599,
+        "final_arclength_variation": 0.09985587739184648,
+        "final_mean_squared_curvature": 10.320023825973012,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 252656.82201102993,
+        "final_avg_max_coil_force": 237987.6646702572,
+        "final_max_max_coil_torque": 70932.69370247624,
+        "final_avg_max_coil_torque": 57307.13286355711,
+        "avg_BdotN_over_B": 0.1788879831991335,
+        "max_BdotN_over_B": 0.4300702327197932,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.020264914940520528,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.1788879831991335,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 138
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-45",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-45",
+      "composite_score": 4.6268783768046856e-08,
+      "score_primary": 0.020264914940520528,
+      "run_date": "2026-01-23T09:45:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-45/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0017861143298847,
+        "target_B_field": 1.0,
+        "optimization_time": 14.004676103591919,
+        "final_normalized_squared_flux": 0.020264914940520528,
+        "final_min_cs_separation": 0.09891150923135943,
+        "final_min_cc_separation": 0.22623896082047945,
+        "final_total_length": 13.210773326069074,
+        "final_max_curvature": 8.738218834765256,
+        "final_average_curvature": 2.345464874352599,
+        "final_arclength_variation": 0.09985587739184648,
+        "final_mean_squared_curvature": 10.320023825973012,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 252656.82201102993,
+        "final_avg_max_coil_force": 237987.6646702572,
+        "final_max_max_coil_torque": 70932.69370247624,
+        "final_avg_max_coil_torque": 57307.13286355711,
+        "avg_BdotN_over_B": 0.1788879831991335,
+        "max_BdotN_over_B": 0.4300702327197932,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.020264914940520528,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.1788879831991335,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 139
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:all_files",
+      "method_name": "",
+      "method_version": "all_files",
+      "composite_score": 2.803312004569823e-09,
+      "score_primary": 0.023033410557930675,
+      "run_date": "2026-01-23T00:48:54.386640",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
+      "path": "submissions/rotating_ellipse/akaptano/01-23-2026_00-48/all_files/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999999996464368,
+        "final_B_field": 0.9981638955658652,
+        "target_B_field": 1.0,
+        "optimization_time": 3.832784414291382,
+        "final_normalized_squared_flux": 0.023033410557930675,
+        "final_min_cs_separation": 0.3991616608089601,
+        "final_min_cc_separation": 0.05979703752985085,
+        "final_total_length": 100.03406489898242,
+        "final_max_curvature": 0.4065358096613632,
+        "final_average_curvature": 0.25850869011781896,
+        "final_arclength_variation": 0.7718514586055967,
+        "final_mean_squared_curvature": 0.0836438640322468,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 49593806.398761325,
+        "final_avg_max_coil_force": 12731428.496142002,
+        "final_max_max_coil_torque": 153623352.19826293,
+        "final_avg_max_coil_torque": 39591777.23515949,
+        "avg_BdotN_over_B": 0.2069246426001658,
+        "max_BdotN_over_B": 0.734176108075531,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.023033410557930675,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.2069246426001658,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 140
+    },
+    {
+      "method_key": ":rotating_ellipse:akaptano:all_files 2",
+      "method_name": "",
+      "method_version": "all_files 2",
+      "composite_score": 2.803312004569823e-09,
+      "score_primary": 0.023033410557930675,
+      "run_date": "2026-01-23T00:48:54.386640",
+      "contact": "akaptano",
+      "hardware": "CPU: AMD EPYC 7763 64-Core Processor | RAM: 15.6GB",
+      "path": "submissions/rotating_ellipse/akaptano/01-23-2026_00-48/all_files 2/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999999996464368,
+        "final_B_field": 0.9981638955658652,
+        "target_B_field": 1.0,
+        "optimization_time": 3.832784414291382,
+        "final_normalized_squared_flux": 0.023033410557930675,
+        "final_min_cs_separation": 0.3991616608089601,
+        "final_min_cc_separation": 0.05979703752985085,
+        "final_total_length": 100.03406489898242,
+        "final_max_curvature": 0.4065358096613632,
+        "final_average_curvature": 0.25850869011781896,
+        "final_arclength_variation": 0.7718514586055967,
+        "final_mean_squared_curvature": 0.0836438640322468,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 49593806.398761325,
+        "final_avg_max_coil_force": 12731428.496142002,
+        "final_max_max_coil_torque": 153623352.19826293,
+        "final_avg_max_coil_torque": 39591777.23515949,
+        "avg_BdotN_over_B": 0.2069246426001658,
+        "max_BdotN_over_B": 0.734176108075531,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.4,
+        "cs_threshold": 0.65,
+        "msc_threshold": 2.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 2.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.023033410557930675,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.2069246426001658,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 141
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-03",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-03",
+      "composite_score": 2.0698524816731818e-09,
+      "score_primary": 0.028337979356295166,
+      "run_date": "2026-01-23T10:03:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-03/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0002517897643042,
+        "target_B_field": 1.0,
+        "optimization_time": 11.77249526977539,
+        "final_normalized_squared_flux": 0.028337979356295166,
+        "final_min_cs_separation": 0.10371833910829303,
+        "final_min_cc_separation": 0.22528391184667296,
+        "final_total_length": 13.199874573234322,
+        "final_max_curvature": 9.513392138472081,
+        "final_average_curvature": 2.2594980006996,
+        "final_arclength_variation": 0.08451924256818608,
+        "final_mean_squared_curvature": 10.447205517025298,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 249039.0366271209,
+        "final_avg_max_coil_force": 244405.5971702747,
+        "final_max_max_coil_torque": 75847.49284402916,
+        "final_avg_max_coil_torque": 55524.69853576481,
+        "avg_BdotN_over_B": 0.2099578849710078,
+        "max_BdotN_over_B": 0.5037441051583252,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.028337979356295166,
+        "coils_linked_to_surface": 1.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.2099578849710078,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ],
+      "rank": 142
     }
   ],
   "excluded_entries": [
@@ -25463,6 +28202,331 @@
           "direction": "max",
           "units": "(turns)",
           "hard": true
+        }
+      ]
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-05",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-05",
+      "composite_score": 0.0,
+      "score_primary": 0.032763181607131875,
+      "run_date": "2026-01-23T10:05:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-05/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 0.9995433777404099,
+        "target_B_field": 1.0,
+        "optimization_time": 11.10868787765503,
+        "final_normalized_squared_flux": 0.032763181607131875,
+        "final_min_cs_separation": 0.03450233744114858,
+        "final_min_cc_separation": 0.2869891252822981,
+        "final_total_length": 12.709782982145725,
+        "final_max_curvature": 11.87451978812629,
+        "final_average_curvature": 2.6572082649405404,
+        "final_arclength_variation": 0.21088026825924502,
+        "final_mean_squared_curvature": 9.74329039445968,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 225079.40553819932,
+        "final_avg_max_coil_force": 212147.62343491864,
+        "final_max_max_coil_torque": 58767.52264312836,
+        "final_avg_max_coil_torque": 54896.09488956489,
+        "avg_BdotN_over_B": 0.22327544756221884,
+        "max_BdotN_over_B": 0.9877910623925554,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.032763181607131875,
+        "coils_linked_to_surface": 0.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.22327544756221884,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-11",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-11",
+      "composite_score": 0.0,
+      "score_primary": 0.028240497483224082,
+      "run_date": "2026-01-23T10:11:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-11/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0007205215094797,
+        "target_B_field": 1.0,
+        "optimization_time": 12.085706949234009,
+        "final_normalized_squared_flux": 0.028240497483224082,
+        "final_min_cs_separation": 0.04344998152560337,
+        "final_min_cc_separation": 0.29788494235118895,
+        "final_total_length": 12.696485589387125,
+        "final_max_curvature": 9.968841102953377,
+        "final_average_curvature": 2.802127377771973,
+        "final_arclength_variation": 0.25672661993084966,
+        "final_mean_squared_curvature": 11.187458585954051,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 224154.94483835806,
+        "final_avg_max_coil_force": 210363.03746127864,
+        "final_max_max_coil_torque": 65868.18384695088,
+        "final_avg_max_coil_torque": 63398.0313006053,
+        "avg_BdotN_over_B": 0.2066444718428656,
+        "max_BdotN_over_B": 0.9973034689567165,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.028240497483224082,
+        "coils_linked_to_surface": 0.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.2066444718428656,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-23",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-23",
+      "composite_score": 0.0,
+      "score_primary": 0.022950728497693213,
+      "run_date": "2026-01-23T09:23:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-23/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0008138031741591,
+        "target_B_field": 1.0,
+        "optimization_time": 7.38533091545105,
+        "final_normalized_squared_flux": 0.022950728497693213,
+        "final_min_cs_separation": 0.014186359132170477,
+        "final_min_cc_separation": 0.2457838467680166,
+        "final_total_length": 12.966315190609478,
+        "final_max_curvature": 3.877914603543257,
+        "final_average_curvature": 2.195584956847743,
+        "final_arclength_variation": 0.14378152147021306,
+        "final_mean_squared_curvature": 5.492645901016884,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 243057.01800045455,
+        "final_avg_max_coil_force": 218937.89466817316,
+        "final_max_max_coil_torque": 55067.069107547875,
+        "final_avg_max_coil_torque": 46320.51986811224,
+        "avg_BdotN_over_B": 0.1931649112899769,
+        "max_BdotN_over_B": 0.9779934106508533,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.022950728497693213,
+        "coils_linked_to_surface": 0.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.1931649112899769,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_09-24",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_09-24",
+      "composite_score": 0.0,
+      "score_primary": 0.022998873474787636,
+      "run_date": "2026-01-23T09:24:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_09-24/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 1.0014304260221119,
+        "target_B_field": 1.0,
+        "optimization_time": 11.038378953933716,
+        "final_normalized_squared_flux": 0.022998873474787636,
+        "final_min_cs_separation": 0.014417137073383587,
+        "final_min_cc_separation": 0.25252717965134314,
+        "final_total_length": 12.923891361957882,
+        "final_max_curvature": 4.856256915891438,
+        "final_average_curvature": 2.32997099033327,
+        "final_arclength_variation": 0.16948208120227248,
+        "final_mean_squared_curvature": 6.428399743794786,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 235808.8740267903,
+        "final_avg_max_coil_force": 215624.2613681132,
+        "final_max_max_coil_torque": 58965.3719699079,
+        "final_avg_max_coil_torque": 50295.56238214043,
+        "avg_BdotN_over_B": 0.18392834892892018,
+        "max_BdotN_over_B": 0.9988937910844403,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 4.0,
+        "num_coils": 4.0,
+        "score_primary": 0.022998873474787636,
+        "coils_linked_to_surface": 0.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.18392834892892018,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
+        }
+      ]
+    },
+    {
+      "method_key": "UNKNOWN:LandremanPaul2021_QA:akaptano:01-23-2026_10-13",
+      "method_name": "UNKNOWN",
+      "method_version": "01-23-2026_10-13",
+      "composite_score": 0.0,
+      "score_primary": 0.08037379526087891,
+      "run_date": "2026-01-23T10:13:00",
+      "contact": "akaptano",
+      "hardware": "",
+      "path": "submissions/LandremanPaul2021_QA/akaptano/01-23-2026_10-13/results.json",
+      "metrics": {
+        "initial_B_field": 0.9999657163790154,
+        "final_B_field": 0.27291534462371636,
+        "target_B_field": 1.0,
+        "optimization_time": 12.086405992507935,
+        "final_normalized_squared_flux": 0.08037379526087891,
+        "final_min_cs_separation": 0.04846221709388066,
+        "final_min_cc_separation": 0.3823248930614892,
+        "final_total_length": 11.737250238293829,
+        "final_max_curvature": 6.508503741018211,
+        "final_average_curvature": 3.013575819676366,
+        "final_arclength_variation": 0.6693063592487436,
+        "final_mean_squared_curvature": 11.56022399578401,
+        "final_linking_number": 0.0,
+        "final_max_max_coil_force": 195095.6728726331,
+        "final_avg_max_coil_force": 188239.6029804501,
+        "final_max_max_coil_torque": 64712.15968361019,
+        "final_avg_max_coil_torque": 63189.51889514357,
+        "avg_BdotN_over_B": 0.31571413364493855,
+        "max_BdotN_over_B": 0.9962809718362973,
+        "flux_threshold": 1e-08,
+        "cc_threshold": 0.08,
+        "cs_threshold": 0.13,
+        "msc_threshold": 10.0,
+        "arclength_variation_threshold": 0.0,
+        "curvature_threshold": 10.0,
+        "force_threshold": 0.03077870113881194,
+        "torque_threshold": 0.03077870113881194,
+        "coil_order": 8.0,
+        "num_coils": 4.0,
+        "score_primary": 0.08037379526087891,
+        "coils_linked_to_surface": 0.0
+      },
+      "reactor_scale_metrics": {},
+      "constraint_violations": [
+        {
+          "label": "Coils linked to plasma surface",
+          "metric": "coils_linked_to_surface",
+          "value": false,
+          "bound": true,
+          "direction": "eq",
+          "units": "(boolean)",
+          "hard": true
+        },
+        {
+          "label": "avg \u27e8B\u00b7n\u27e9/\u27e8B\u27e9",
+          "metric": "avg_BdotN_over_B",
+          "value": 0.31571413364493855,
+          "bound": 0.01,
+          "direction": "max",
+          "units": "(dimensionless)",
+          "hard": false
         }
       ]
     },
