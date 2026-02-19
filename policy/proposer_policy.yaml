@@ -54,7 +54,7 @@ exploration:
   include_force: false           # set to true to add coil_coil_force objective
   # Available surfaces (must correspond to files in plasma_surfaces/)
   surfaces:
-    # - "input.LandremanPaul2021_QA"
+    - "input.LandremanPaul2021_QA"
     - "input.LandremanPaul2021_QH_reactorScale_lowres"
     # - "input.circular_tokamak"
     # - "input.rotating_ellipse"
