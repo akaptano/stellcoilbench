@@ -220,11 +220,11 @@ class TestValidateCaseConfig:
             "description": "Test case",
             "surface_params": {"surface": "input.test"},
             "coils_params": {"ncoils": 4},
-            "optimizer_params": {"algorithm": "L-BFGS-B-custom"},
+            "optimizer_params": {"algorithm": "L-BFGS-B"},
             "coil_objective_terms": {
                 "total_length": "l2_threshold",
                 "length_weight": 2.0,
-                "linking_number": "hard",
+                "linking_number": "",
                 "linking_weight": 1000.0,
                 "flux_weight": 1.5,
             }

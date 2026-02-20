@@ -204,18 +204,6 @@ def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
             'eps': [float],
             'maxls': [int],
         },
-        'L-BFGS-B-custom': {
-            'maxiter': [int],
-            'maxcor': [int],
-            'ftol': [float],
-            'gtol': [float],
-            'maxls': [int],
-            'c1': [float],
-            'c2': [float],
-            'alpha_init': [float],
-            'alpha_min': [float],
-            'verbose': [int],
-        },
         'SLSQP': {
             'ftol': [float],
             'eps': [float],
@@ -2176,8 +2164,6 @@ def _optimize_coils_loop_impl(
         algorithm_lower = algorithm.lower()
         if algorithm_lower in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
             algorithm = 'L-BFGS-B'
-        elif algorithm_lower in ['l-bfgs-b-custom', 'lbfgs-custom', 'l-bfgs-custom']:
-            algorithm = 'L-BFGS-B-custom'
         elif algorithm_lower == 'augmented_lagrangian':
             algorithm = 'augmented_lagrangian'
         # Keep other algorithm names as-is (they should match scipy method names)
@@ -2461,8 +2447,7 @@ def _optimize_coils_loop_impl(
             "linking_number": {
                 "obj": Jlink,
                 "threshold": None,
-                "": lambda obj, thresh: obj,  # Empty string defaults to including linking number as soft constraint
-                # Note: "hard" is NOT in term_map - it's only used as a hard constraint, not added to objective
+                "": lambda obj, thresh: obj,
             },
             "coil_coil_force": {
                 "obj": Jforce,
@@ -2495,7 +2480,6 @@ def _optimize_coils_loop_impl(
             # Skip _p parameters (already handled above)
             if term_name.endswith("_p"):
                 continue
-            
             if term_name in term_map:
                 term_config = term_map[term_name]
                 obj = term_config["obj"]
@@ -2611,26 +2595,8 @@ def _optimize_coils_loop_impl(
                     
                     # Track constraint index to term name mapping for named weights
                     constraint_idx_to_term[constraint_idx] = term_name
-                elif term_name == "linking_number" and term_value == "hard":
-                    # "hard" is a valid option for linking_number - it's used as a hard constraint only,
-                    # not added to the objective. Validation happens below.
-                    pass
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
-    
-    # Validate that linking_number: "hard" is only used with L-BFGS-B-custom
-    # (either standalone or as inner solver for augmented_lagrangian)
-    if coil_objective_terms and coil_objective_terms.get("linking_number") == "hard":
-        is_custom_standalone = algorithm == "L-BFGS-B-custom"
-        is_custom_inner = algorithm == "augmented_lagrangian" and kwargs.get("minimize_method") == "L-BFGS-B-custom"
-        
-        if not (is_custom_standalone or is_custom_inner):
-            raise ValueError(
-                "linking_number: 'hard' requires L-BFGS-B-custom algorithm. "
-                "Use either algorithm: 'L-BFGS-B-custom' or "
-                "algorithm: 'augmented_lagrangian' with minimize_method: 'L-BFGS-B-custom'. "
-                f"Got algorithm: '{algorithm}', minimize_method: '{kwargs.get('minimize_method', 'not specified')}'"
-            )
     
     # Record objective setup time
     objective_setup_time = time.perf_counter() - objective_setup_start
@@ -2705,7 +2671,14 @@ def _optimize_coils_loop_impl(
                         print(f"  [{i}] {name}: weight={weight:.2e}")
             sys.stdout.flush()  # Ensure output is flushed for test capture
         
-        from simsopt.solve import augmented_lagrangian_method
+        # auglag_coils: simsopt.solve.augmented_lagrangian; some versions export via solve.__init__
+        try:
+            from simsopt.solve import augmented_lagrangian_method
+        except ImportError:
+            from simsopt.solve.augmented_lagrangian import augmented_lagrangian_method
+        import inspect
+        _alm_sig = inspect.signature(augmented_lagrangian_method)
+        _alm_params = set(_alm_sig.parameters.keys())
         augmented_lagrangian_options = {
             "MAXITER": max_iterations,
             "MAXITER_lag": max_iter_subopt,
@@ -2717,30 +2690,16 @@ def _optimize_coils_loop_impl(
             augmented_lagrangian_options["tau"] = kwargs["tau"]
         if "minimize_method" in kwargs.keys():
             augmented_lagrangian_options["minimize_method"] = kwargs["minimize_method"]
-            
-            # If using L-BFGS-B-custom, pass hard constraints (e.g., linking number)
-            if kwargs["minimize_method"] == "L-BFGS-B-custom":
-                # Determine which constraints should be hard constraints
-                # LinkingNumber is the main use case - it's discrete and has zero gradient
-                hard_constraints = []
-                linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
-                if linking_number_option == "hard":
-                    # Linking number explicitly marked as hard constraint
-                    hard_constraints.append(Jlink)
-                
-                if hard_constraints:
-                    augmented_lagrangian_options["hard_constraints"] = hard_constraints
-                    # Feasibility check: LinkingNumber must be < 0.5 in absolute value (effectively zero)
-                    augmented_lagrangian_options["feasibility_check"] = lambda hcs: all(abs(hc.J()) < 0.5 for hc in hcs)
-        
+        # Filter to only params the function accepts
+        augmented_lagrangian_options = {k: v for k, v in augmented_lagrangian_options.items() if k in _alm_params}
         _, _, lag_mul = augmented_lagrangian_method(
-            f=None,  # No main objective function
-            **augmented_lagrangian_options,
+            f=None,
             equality_constraints=c_list,
+            **augmented_lagrangian_options,
         )
         # augmented_lagrangian_method doesn't return nit; estimate from settings
         iterations_used = max_iterations
-    elif algorithm in ['BFGS', 'L-BFGS-B', 'L-BFGS-B-custom', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
+    elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
         # Build weighted objective function from constraints
         # c_list includes flux first, then other constraints
         # Default weight is 1.0 for all constraints
@@ -2941,13 +2900,6 @@ def _optimize_coils_loop_impl(
             # if the gradient norm drops below gtol quickly
             options.setdefault('ftol', 1e-12)  # scipy default
             options.setdefault('gtol', 1e-12)  # scipy default
-        elif algorithm == 'L-BFGS-B-custom':
-            # L-BFGS-B-custom uses same options as scipy L-BFGS-B
-            # Use scipy defaults for ftol/gtol to avoid premature convergence
-            options.setdefault('ftol', 2.220446049250313e-09)  # scipy default
-            options.setdefault('gtol', 1e-5)  # scipy default
-            options.setdefault('maxcor', 10)  # scipy default (L-BFGS memory)
-            options.setdefault('maxls', 50)  # scipy default (max line search steps)
         elif algorithm == 'TNC':
             options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
             options.setdefault('gtol', 1e-05)  # scipy default
@@ -2967,46 +2919,13 @@ def _optimize_coils_loop_impl(
             # Merge user options, allowing them to override defaults
             options.update(algorithm_options)
         
-        if algorithm == 'L-BFGS-B-custom':
-            # Use constrained L-BFGS-B with hard constraints (e.g., linking number)
-            from simsopt.solve.constrained_lbfgsb import minimize_with_hard_constraints
-            
-            # Determine which constraints should be hard constraints
-            # LinkingNumber is the main use case - it's discrete and has zero gradient
-            hard_constraints = []
-            linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
-            if linking_number_option == "hard":
-                # Linking number explicitly marked as hard constraint
-                hard_constraints.append(Jlink)
-            
-            # Custom feasibility check for linking number (must be zero)
-            def feasibility_check(hcs):
-                return all(abs(hc.J()) < 0.5 for hc in hcs)
-            
-            # Set verbose level for the custom solver if verbose mode is on
-            if verbose and 'verbose' not in options:
-                options['verbose'] = 1  # Basic verbose output from custom solver
-            
-            result = minimize_with_hard_constraints(
-                fun=lambda x: (objective(x), gradient(x)),
-                x0=JF.x,  # type: ignore[attr-defined]
-                hard_constraints=hard_constraints,
-                feasibility_check=feasibility_check,
-                jac=True,  # fun returns (f, g) tuple
-                options=options,
-            )
-            
-            # Print constraint rejection info if any
-            if verbose and hasattr(result, 'n_constraint_rejections'):
-                print(f"  Constraint rejections: {result.n_constraint_rejections}")
-        else:
-            result = minimize(
-                fun=objective,
-                x0=JF.x,  # type: ignore[attr-defined]
-                method=algorithm,
-                jac=gradient,  # Provide gradient function
-                options=options,
-            )
+        result = minimize(
+            fun=objective,
+            x0=JF.x,  # type: ignore[attr-defined]
+            method=algorithm,
+            jac=gradient,
+            options=options,
+        )
         
         # Record iterations from scipy result
         iterations_used = getattr(result, 'nit', 0)
@@ -3078,6 +2997,7 @@ def _optimize_coils_loop_impl(
     print(f"  Curvature constraint: {sum(Jcs).J():.2e}")  # type: ignore[attr-defined]
     print(f"  Linking number: {Jlink.J():.2e}")
     print(f"  Force constraint: {Jforce.J():.2e}")
+    print(f"  Torque constraint: {Jtorque.J():.2e}")
     print(f"  Max curvatures: {[np.max(c.kappa()) for c in base_curves]}")
     print(f"  Lengths: {[CurveLength(c).J() for c in base_curves]}")
     

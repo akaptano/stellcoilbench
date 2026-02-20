@@ -277,8 +277,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "linking_number":
-                    # Empty string means include as soft constraint, "hard" means hard constraint with L-BFGS-B-custom
-                    valid_linking_options = ["", "hard"]
+                    valid_linking_options = [""]
                     if term_value not in valid_linking_options:
                         errors.append(
                             f"{file_prefix}coil_objective_terms.linking_number must be one of {valid_linking_options}, "
