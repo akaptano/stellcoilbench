@@ -105,7 +105,7 @@ Landreman-Paul QA
 
 **Surface file:** ``LandremanPaul2021_QA``
 
-This surface has 313 submission(s).
+This surface has 314 submission(s).
 Typical configuration: 4 Fourier order, 4 base coils.
 
 
@@ -133,15 +133,17 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
    <th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
    <th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
-   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(total current after\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(total current before\)</span> <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">i <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">PP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">BP <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="25" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">QS <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="26" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iota <span class="sort-icon">↕</span></th>
+   <th class="sortable" data-col="27" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FPT <span class="sort-icon">↕</span></th>
    </tr>
    </thead>
    <tbody>
@@ -163,6 +165,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.831820011138916">6.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.450205132245942">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:42.727055">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_105831_48798/order_4/bn_error_3d_plot_initial.pdf">1</a></td>
@@ -191,6 +195,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.182751893997192">6.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.351005683605048">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T14:42:03.593516">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_132158_18066/order_4/bn_error_3d_plot_initial.pdf">2</a></td>
@@ -219,6 +225,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.69632697105408">6.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.399273478326403">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:19.890780">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_210059_13026/order_4/bn_error_3d_plot_initial.pdf">3</a></td>
@@ -247,6 +255,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.01133704185486">6.8e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4664364435488455">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:19:50.159584">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_68534/order_4/bn_error_3d_plot_initial.pdf">4</a></td>
@@ -275,6 +285,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.90427327156067">7.6e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.51958336555056">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:05.689356">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_11250/order_4/bn_error_3d_plot_initial.pdf">5</a></td>
@@ -303,6 +315,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78.26518487930298">7.8e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4523702194986305">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T09:50:48.457009">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_085732_64776/order_4/bn_error_3d_plot_initial.pdf">6</a></td>
@@ -331,6 +345,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.45681190490723">6.9e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5395846629528895">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:51:00.771575">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_93278/order_4/bn_error_3d_plot_initial.pdf">7</a></td>
@@ -359,6 +375,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.208827018737793">6.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.434200938005954">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T01:22:28.512149">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_231317_21736/order_4/bn_error_3d_plot_initial.pdf">8</a></td>
@@ -387,6 +405,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.77080988883972">6.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.363966219176534">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T10:24:00.353709">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_085732_95698/order_4/bn_error_3d_plot_initial.pdf">9</a></td>
@@ -415,6 +435,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.77741193771362">7.4e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3245794865830436">3.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:50:40.398601">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_24565/order_4/bn_error_3d_plot_initial.pdf">10</a></td>
@@ -443,6 +465,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.43736100196838">7.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.41571291340903">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T01:53:52.205519">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_13986/order_4/bn_error_3d_plot_initial.pdf">11</a></td>
@@ -471,6 +495,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.65557765960693">8.1e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.429781749383928">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:43.194200">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_210059_46837/order_4/bn_error_3d_plot_initial.pdf">12</a></td>
@@ -499,6 +525,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.56837821006775">7.0e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.495119784764352">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T23:33:45.933905">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_224905_29977/order_4/bn_error_3d_plot_initial.pdf">13</a></td>
@@ -527,6 +555,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.7268078327179">6.9e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4540305374600293">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T06:09:49.358393">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_94925/order_4/bn_error_3d_plot_initial.pdf">14</a></td>
@@ -555,6 +585,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.89401698112488">6.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4271406875174533">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T12:45:12.911031">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_95393/order_4/bn_error_3d_plot_initial.pdf">15</a></td>
@@ -583,6 +615,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.39567303657532">6.8e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4908144465011737">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:09:20.807518">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_77309/order_4/bn_error_3d_plot_initial.pdf">16</a></td>
@@ -611,6 +645,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.895973920822144">6.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.427567283896882">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:52:36.611418">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_99457/order_4/bn_error_3d_plot_initial.pdf">17</a></td>
@@ -639,6 +675,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180.84611296653748">1.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0599985908896095">4.1e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:12:22.895562">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="18"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_60346/order_4/bn_error_3d_plot_initial.pdf">18</a></td>
@@ -667,6 +705,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.17449498176575">7.3e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5323120973460806">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:30:08.201611">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_78781/order_4/bn_error_3d_plot_initial.pdf">19</a></td>
@@ -695,6 +735,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51.65858602523804">5.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5251858657833726">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T04:07:06.161373">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="20"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_025855_69410/order_4/bn_error_3d_plot_initial.pdf">20</a></td>
@@ -723,6 +765,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.268679141998291">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:38:41.870925">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="21"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88737/order_4/bn_error_3d_plot_initial.pdf">21</a></td>
@@ -751,6 +795,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.596667766571045">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:12:00.789971">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_52276/order_4/bn_error_3d_plot_initial.pdf">22</a></td>
@@ -779,6 +825,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.38830304145813">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.793213">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_86661/order_4/bn_error_3d_plot_initial.pdf">23</a></td>
@@ -807,6 +855,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.40881609916687">7.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:10:20.782531">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_58441/order_4/bn_error_3d_plot_initial.pdf">24</a></td>
@@ -835,6 +885,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.635644912719727">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:15.596724">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_37249/order_4/bn_error_3d_plot_initial.pdf">25</a></td>
@@ -863,6 +915,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.256499290466309">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:51.779656">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90963/order_4/bn_error_3d_plot_initial.pdf">26</a></td>
@@ -891,6 +945,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.477197170257568">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:22:44.191025">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_70512/order_4/bn_error_3d_plot_initial.pdf">27</a></td>
@@ -919,6 +975,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.082104921340942">7.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:24:59.421292">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_91397/order_4/bn_error_3d_plot_initial.pdf">28</a></td>
@@ -947,6 +1005,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760801076889038">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.570865">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_35320/order_4/bn_error_3d_plot_initial.pdf">29</a></td>
@@ -975,6 +1035,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.324453830718994">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:35.983328">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_86086/order_4/bn_error_3d_plot_initial.pdf">30</a></td>
@@ -1003,6 +1065,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.482574224472046">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.045618">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_16098/order_4/bn_error_3d_plot_initial.pdf">31</a></td>
@@ -1031,6 +1095,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7492616176605225">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:42.896866">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_41774/order_4/bn_error_3d_plot_initial.pdf">32</a></td>
@@ -1059,6 +1125,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.617172956466675">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:03.656667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_28842/order_4/bn_error_3d_plot_initial.pdf">33</a></td>
@@ -1087,6 +1155,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.457889080047607">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:40.659847">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_57978/order_4/bn_error_3d_plot_initial.pdf">34</a></td>
@@ -1115,6 +1185,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.118201971054077">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:20.225754">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="35"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_98213/order_4/bn_error_3d_plot_initial.pdf">35</a></td>
@@ -1143,6 +1215,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.499346971511841">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:38.288712">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="36"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_31544/order_4/bn_error_3d_plot_initial.pdf">36</a></td>
@@ -1171,6 +1245,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.622767210006714">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.082546">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="37"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_31546/order_4/bn_error_3d_plot_initial.pdf">37</a></td>
@@ -1199,6 +1275,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.061415195465088">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.038655">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_48483/order_4/bn_error_3d_plot_initial.pdf">38</a></td>
@@ -1227,6 +1305,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6193201541900635">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.520096">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_71105/order_4/bn_error_3d_plot_initial.pdf">39</a></td>
@@ -1255,6 +1335,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.9548399448394775">7.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:11:51.227899">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_95535/order_4/bn_error_3d_plot_initial.pdf">40</a></td>
@@ -1283,6 +1365,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.414738893508911">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:36.810094">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="41"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_33412/order_4/bn_error_3d_plot_initial.pdf">41</a></td>
@@ -1311,6 +1395,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.639596939086914">9.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:43.966326">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_35308/order_4/bn_error_3d_plot_initial.pdf">42</a></td>
@@ -1339,6 +1425,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.027199029922485">8.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.119813">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_14751/order_4/bn_error_3d_plot_initial.pdf">43</a></td>
@@ -1367,6 +1455,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.827966928482056">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.566316">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_40011/order_4/bn_error_3d_plot_initial.pdf">44</a></td>
@@ -1395,6 +1485,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.269237041473389">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:23.361360">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="45"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_96830/order_4/bn_error_3d_plot_initial.pdf">45</a></td>
@@ -1423,6 +1515,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6761579513549805">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:24.509275">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_26548/order_4/bn_error_3d_plot_initial.pdf">46</a></td>
@@ -1451,6 +1545,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.303920030593872">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:35.983968">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_91040/order_4/bn_error_3d_plot_initial.pdf">47</a></td>
@@ -1479,6 +1575,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.494694232940674">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.798048">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_56168/order_4/bn_error_3d_plot_initial.pdf">48</a></td>
@@ -1507,6 +1605,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.455902099609375">9.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:45.111982">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26980/order_4/bn_error_3d_plot_initial.pdf">49</a></td>
@@ -1535,6 +1635,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5914576053619385">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:08:17.059300">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14197/order_4/bn_error_3d_plot_initial.pdf">50</a></td>
@@ -1563,6 +1665,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5556721687316895">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:23:23.964920">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_44696/order_4/bn_error_3d_plot_initial.pdf">51</a></td>
@@ -1591,6 +1695,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.347519159317017">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:36:39.750622">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36194/order_4/bn_error_3d_plot_initial.pdf">52</a></td>
@@ -1619,6 +1725,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.409653902053833">7.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:39.982495">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_68058/order_4/bn_error_3d_plot_initial.pdf">53</a></td>
@@ -1647,6 +1755,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.294041156768799">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:36.767415">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="54"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_71311/order_4/bn_error_3d_plot_initial.pdf">54</a></td>
@@ -1675,6 +1785,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7359349727630615">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.344955">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_85776/order_4/bn_error_3d_plot_initial.pdf">55</a></td>
@@ -1703,6 +1815,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.697973012924194">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:53.311026">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_49361/order_4/bn_error_3d_plot_initial.pdf">56</a></td>
@@ -1731,6 +1845,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.818249225616455">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:03.348418">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_34909/order_4/bn_error_3d_plot_initial.pdf">57</a></td>
@@ -1759,6 +1875,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664681911468506">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:52:35.898979">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23043/order_4/bn_error_3d_plot_initial.pdf">58</a></td>
@@ -1787,6 +1905,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.330469846725464">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.580954">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_083234_84510/order_4/bn_error_3d_plot_initial.pdf">59</a></td>
@@ -1815,6 +1935,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760768890380859">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.788960">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="60"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_30716/order_4/bn_error_3d_plot_initial.pdf">60</a></td>
@@ -1843,6 +1965,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.008285999298096">7.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:10:15.011901">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_83742/order_4/bn_error_3d_plot_initial.pdf">61</a></td>
@@ -1871,6 +1995,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116979837417603">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:18.514936">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="62"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_62860/order_4/bn_error_3d_plot_initial.pdf">62</a></td>
@@ -1899,6 +2025,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.295297145843506">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T02:33:41.235930">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_92183/order_4/bn_error_3d_plot_initial.pdf">63</a></td>
@@ -1927,6 +2055,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.021856307983398">8.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:51:39.733132">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_20055/order_4/bn_error_3d_plot_initial.pdf">64</a></td>
@@ -1955,6 +2085,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.813351154327393">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:13:26.978992">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="65"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_65756/order_4/bn_error_3d_plot_initial.pdf">65</a></td>
@@ -1983,6 +2115,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.70487904548645">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:25.208366">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_21411/order_4/bn_error_3d_plot_initial.pdf">66</a></td>
@@ -2011,6 +2145,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.927263975143433">7.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.480293">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_45283/order_4/bn_error_3d_plot_initial.pdf">67</a></td>
@@ -2039,6 +2175,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.656144857406616">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:23.147357">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_56991/order_4/bn_error_3d_plot_initial.pdf">68</a></td>
@@ -2067,6 +2205,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.377877950668335">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:07.927396">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_54149/order_4/bn_error_3d_plot_initial.pdf">69</a></td>
@@ -2095,6 +2235,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.78183913230896">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:26.957807">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_21649/order_4/bn_error_3d_plot_initial.pdf">70</a></td>
@@ -2123,6 +2265,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584656715393066">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.395420">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_77919/order_4/bn_error_3d_plot_initial.pdf">71</a></td>
@@ -2151,6 +2295,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616193056106567">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:39.319297">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_12004/order_4/bn_error_3d_plot_initial.pdf">72</a></td>
@@ -2179,6 +2325,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.036595821380615">7.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:31:59.036824">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_83120/order_4/bn_error_3d_plot_initial.pdf">73</a></td>
@@ -2207,6 +2355,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.442151069641113">7.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.750053">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_61709/order_4/bn_error_3d_plot_initial.pdf">74</a></td>
@@ -2235,6 +2385,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.637885093688965">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:11:59.471056">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_71264/order_4/bn_error_3d_plot_initial.pdf">75</a></td>
@@ -2263,6 +2415,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.805246829986572">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:44.550600">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_47369/order_4/bn_error_3d_plot_initial.pdf">76</a></td>
@@ -2291,6 +2445,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7912068367004395">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:28.040075">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_31058/order_4/bn_error_3d_plot_initial.pdf">77</a></td>
@@ -2319,6 +2475,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.405779838562012">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.786865">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_44965/order_4/bn_error_3d_plot_initial.pdf">78</a></td>
@@ -2347,6 +2505,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584929704666138">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.623037">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="79"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43701/order_4/bn_error_3d_plot_initial.pdf">79</a></td>
@@ -2375,6 +2535,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.739748954772949">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.259771">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_43310/order_4/bn_error_3d_plot_initial.pdf">80</a></td>
@@ -2403,6 +2565,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.196208715438843">7.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:43:11.492409">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_94705/order_4/bn_error_3d_plot_initial.pdf">81</a></td>
@@ -2431,6 +2595,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.327492952346802">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.739751">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="82"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_49119/order_4/bn_error_3d_plot_initial.pdf">82</a></td>
@@ -2459,6 +2625,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.657792568206787">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:36.712412">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_77754/order_4/bn_error_3d_plot_initial.pdf">83</a></td>
@@ -2487,6 +2655,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.807826995849609">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:27.626130">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_74108/order_4/bn_error_3d_plot_initial.pdf">84</a></td>
@@ -2515,6 +2685,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.64055609703064">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:22.695713">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_71614/order_4/bn_error_3d_plot_initial.pdf">85</a></td>
@@ -2543,6 +2715,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664905309677124">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:37.535265">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="86"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_13650/order_4/bn_error_3d_plot_initial.pdf">86</a></td>
@@ -2571,6 +2745,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.496325969696045">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.093129">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="87"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_46640/order_4/bn_error_3d_plot_initial.pdf">87</a></td>
@@ -2599,6 +2775,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.703407049179077">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:39.758853">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_16809/order_4/bn_error_3d_plot_initial.pdf">88</a></td>
@@ -2627,6 +2805,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.849110126495361">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:39:58.526371">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="89"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_97264/order_4/bn_error_3d_plot_initial.pdf">89</a></td>
@@ -2655,6 +2835,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.4202299118042">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.269073">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_79699/order_4/bn_error_3d_plot_initial.pdf">90</a></td>
@@ -2683,6 +2865,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6822669506073">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.779503">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_33814/order_4/bn_error_3d_plot_initial.pdf">91</a></td>
@@ -2711,6 +2895,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7649641036987305">7.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:52:38.935350">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="92"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_76547/order_4/bn_error_3d_plot_initial.pdf">92</a></td>
@@ -2739,6 +2925,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.197529077529907">7.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:22:57.131366">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="93"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_77298/order_4/bn_error_3d_plot_initial.pdf">93</a></td>
@@ -2767,6 +2955,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.728885889053345">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:41.988815">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_40643/order_4/bn_error_3d_plot_initial.pdf">94</a></td>
@@ -2795,6 +2985,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.318819046020508">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.031961">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="95"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_083234_50881/order_4/bn_error_3d_plot_initial.pdf">95</a></td>
@@ -2823,6 +3015,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.188708066940308">7.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:52.211993">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="96"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_90094/order_4/bn_error_3d_plot_initial.pdf">96</a></td>
@@ -2851,6 +3045,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6369030475616455">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:47:39.307514">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="97"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_11059/order_4/bn_error_3d_plot_initial.pdf">97</a></td>
@@ -2879,6 +3075,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.735451936721802">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:24.439460">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="98"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_10112/order_4/bn_error_3d_plot_initial.pdf">98</a></td>
@@ -2907,6 +3105,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.4656150341033936">7.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:27:05.964453">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="99"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_51594/order_4/bn_error_3d_plot_initial.pdf">99</a></td>
@@ -2935,6 +3135,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.25370717048645">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:24.159002">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_98687/order_4/bn_error_3d_plot_initial.pdf">100</a></td>
@@ -2963,6 +3165,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.604787349700928">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T09:39:11.486839">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="101"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_67381/order_4/bn_error_3d_plot_initial.pdf">101</a></td>
@@ -2991,6 +3195,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616091966629028">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.302607">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_19763/order_4/bn_error_3d_plot_initial.pdf">102</a></td>
@@ -3019,6 +3225,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.638679027557373">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.788067">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_59157/order_4/bn_error_3d_plot_initial.pdf">103</a></td>
@@ -3047,6 +3255,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.8771631717681885">7.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:05.468724">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="104"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_22232/order_4/bn_error_3d_plot_initial.pdf">104</a></td>
@@ -3075,6 +3285,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.37428617477417">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:05.542764">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_42868/order_4/bn_error_3d_plot_initial.pdf">105</a></td>
@@ -3103,6 +3315,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.417745113372803">7.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:16:27.065877">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_22794/order_4/bn_error_3d_plot_initial.pdf">106</a></td>
@@ -3131,6 +3345,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.877969264984131">7.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.442493">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="107"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_18011/order_4/bn_error_3d_plot_initial.pdf">107</a></td>
@@ -3159,6 +3375,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.599864959716797">7.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.310844">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_59264/order_4/bn_error_3d_plot_initial.pdf">108</a></td>
@@ -3187,6 +3405,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.110940933227539">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9989227867010686">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.216111">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_52291/order_4/bn_error_3d_plot_initial.pdf">109</a></td>
@@ -3215,6 +3435,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81.9965648651123">8.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.321197101141867">3.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:08:43.887098">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_160947_40063/order_4/bn_error_3d_plot_initial.pdf">110</a></td>
@@ -3243,6 +3465,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.04159498214722">7.4e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5051725888394945">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:20.780315">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_28327/order_4/bn_error_3d_plot_initial.pdf">111</a></td>
@@ -3271,6 +3495,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.9890067577362">7.6e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.2251606303690554">3.2e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:51:40.696419">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_22347/order_4/bn_error_3d_plot_initial.pdf">112</a></td>
@@ -3299,6 +3525,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.66524600982666">8.1e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.528262098336127">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:10:29.099578">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_102518_80734/order_4/bn_error_3d_plot_initial.pdf">113</a></td>
@@ -3327,6 +3555,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.030098915100098">6.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5147683736402935">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:50.418403">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_105831_85538/order_4/bn_error_3d_plot_initial.pdf">114</a></td>
@@ -3355,6 +3585,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.95595192909241">6.2e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3920656584734097">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:12:17.324231">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_52359/order_4/bn_error_3d_plot_initial.pdf">115</a></td>
@@ -3383,6 +3615,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55.09576225280762">5.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.502617805017207">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T10:55:07.671917">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_92598/order_4/bn_error_3d_plot_initial.pdf">116</a></td>
@@ -3411,6 +3645,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.69596791267395">7.4e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.3715817258244525">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:49:46.779153">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="117"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_36227/order_4/bn_error_3d_plot_initial.pdf">117</a></td>
@@ -3439,6 +3675,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.07622718811035">7.4e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4406433118876745">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:42:30.295466">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="118"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_70649/order_4/bn_error_3d_plot_initial.pdf">118</a></td>
@@ -3467,6 +3705,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.63861513137817">7.3e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.540928608538735">3.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:12.144624">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_81931/order_4/bn_error_3d_plot_initial.pdf">119</a></td>
@@ -3495,6 +3735,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193.70221400260925">1.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.822809658445855">4.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:04:53.797951">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="120"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_44853/order_4/bn_error_3d_plot_initial.pdf">120</a></td>
@@ -3523,6 +3765,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105.88697719573975">1.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.150604713591414">4.2e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T07:28:53.826634">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="121"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_37466/order_4/bn_error_3d_plot_initial.pdf">121</a></td>
@@ -3551,6 +3795,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177.2046730518341">1.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.91130654054238">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T21:00:32.409194">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="122"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_183624_99229/order_4/bn_error_3d_plot_initial.pdf">122</a></td>
@@ -3579,6 +3825,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.89548110961914">7.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.4287916339699946">3.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:13:46.173110">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="123"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_054521_45441/order_4/bn_error_3d_plot_initial.pdf">123</a></td>
@@ -3607,6 +3855,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59.66182017326355">6.0e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.576753576963574">3.6e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:52:45.400720">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="124"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_083339_39220/order_4/bn_error_3d_plot_initial.pdf">124</a></td>
@@ -3635,6 +3885,8 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191.92600202560425">1.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.436136280094104">4.4e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T15:03:15.945534">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="125"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_125251_58450/order_4/bn_error_3d_plot_initial.pdf">125</a></td>
@@ -3663,10 +3915,42 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.636934995651245">3.0e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.068566737776371">4.1e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T20:27:51.209596">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="126"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_181401_97685/order_4/bn_error_3d_plot_initial.pdf">126</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="126"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_181401_97685/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_181401_97685/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_181401_97685/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   </tr>
+   <tr>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8846509467338037">1.885</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004341116314908105">4.3e-04</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0017935691362395267">1.8e-03</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.801371626346526">2.0e+01</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.223171882470314e-05">6.2e-05</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08013782434188027">8.0e-02</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3000531820445804">3.0e-01</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.078736286942112">5.1e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="553928.4364346556">5.5e+05</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288001.0684130214">2.9e+05</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51.23303508758545">5.1e+01</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.039011658997011">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1249999.2463040038">1.2e+06</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1249999.2463040038">1.2e+06</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-20T17:48:53.742846">20/02/26</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-19_202807_40119/order_4/bn_error_3d_plot_initial.pdf">127</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-19_202807_40119/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-19_202807_40119/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-19_202807_40119/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3691,10 +3975,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.996009349822998">7.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8196088122038163">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:13.061584">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_4/bn_error_3d_plot_initial.pdf">127</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_4/bn_error_3d_plot_initial.pdf">128</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_13066/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3719,10 +4005,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.463728189468384">2.5e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.910748996698413">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:00:12.081789">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_4/bn_error_3d_plot_initial.pdf">128</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_4/bn_error_3d_plot_initial.pdf">129</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_091137_22436/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3747,10 +4035,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226.44915294647217">2.3e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7334774040673158">3.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:22:38.807298">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_4/bn_error_3d_plot_initial.pdf">129</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_4/bn_error_3d_plot_initial.pdf">130</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_075401_16200/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3775,10 +4065,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235.0287983417511">2.4e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.870394787205533">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:47:58.122097">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_4/bn_error_3d_plot_initial.pdf">130</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_4/bn_error_3d_plot_initial.pdf">131</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_79576/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3803,10 +4095,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.977430105209351">7.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8705128608184265">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:45:04.245697">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_4/bn_error_3d_plot_initial.pdf">131</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_4/bn_error_3d_plot_initial.pdf">132</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_66962/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3831,10 +4125,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.853528022766113">5.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8442553660994876">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T23:21:27.409638">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_4/bn_error_3d_plot_initial.pdf">132</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_4/bn_error_3d_plot_initial.pdf">133</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_203131_70698/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3859,10 +4155,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224.92512392997742">2.2e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.8326379846905545">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T19:59:23.794642">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_4/bn_error_3d_plot_initial.pdf">133</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_4/bn_error_3d_plot_initial.pdf">134</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_44687/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3887,10 +4185,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.725321054458618">7.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.840059934220391">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:44:17.563925">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_4/bn_error_3d_plot_initial.pdf">134</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_4/bn_error_3d_plot_initial.pdf">135</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_053108_55174/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3915,10 +4215,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234.29976892471313">2.3e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7971991801938585">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:33:13.880570">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_4/bn_error_3d_plot_initial.pdf">135</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_4/bn_error_3d_plot_initial.pdf">136</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_000221_21132/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3943,10 +4245,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.04912519454956">2.0e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9902307134103014">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:00:05.898663">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_4/bn_error_3d_plot_initial.pdf">136</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_4/bn_error_3d_plot_initial.pdf">137</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_73334/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3971,10 +4275,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213.82366824150085">2.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.851928292781249">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T08:32:30.363947">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_4/bn_error_3d_plot_initial.pdf">137</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_4/bn_error_3d_plot_initial.pdf">138</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_060422_99922/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -3999,10 +4305,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194.85751390457153">1.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.866173189224755">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T02:57:18.505588">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_4/bn_error_3d_plot_initial.pdf">138</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_4/bn_error_3d_plot_initial.pdf">139</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_002502_98669/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4027,10 +4335,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64330506324768">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:32.823509">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_4/bn_error_3d_plot_initial.pdf">139</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_4/bn_error_3d_plot_initial.pdf">140</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_31533/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4055,10 +4365,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.877470016479492">8.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.466554">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot_initial.pdf">140</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot_initial.pdf">141</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_22470/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4083,10 +4395,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116722822189331">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:22:06.850563">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot_initial.pdf">141</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot_initial.pdf">142</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_49227/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4111,10 +4425,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.41927719116211">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:25:28.788955">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_4/bn_error_3d_plot_initial.pdf">142</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_4/bn_error_3d_plot_initial.pdf">143</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_58533/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4139,10 +4455,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.226839065551758">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:30.865460">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_4/bn_error_3d_plot_initial.pdf">143</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_4/bn_error_3d_plot_initial.pdf">144</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_28911/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4167,10 +4485,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.194045782089233">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:55.733031">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot_initial.pdf">144</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot_initial.pdf">145</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_43420/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4195,10 +4515,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.61722183227539">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:30.222546">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_4/bn_error_3d_plot_initial.pdf">145</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_4/bn_error_3d_plot_initial.pdf">146</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_10809/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4223,10 +4545,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.10605525970459">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:19:03.832787">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot_initial.pdf">146</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot_initial.pdf">147</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_62235/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4251,10 +4575,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.79240894317627">8.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:30.402588">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_4/bn_error_3d_plot_initial.pdf">147</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_4/bn_error_3d_plot_initial.pdf">148</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_63689/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4279,10 +4605,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.178466081619263">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:14:04.351705">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_4/bn_error_3d_plot_initial.pdf">148</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_4/bn_error_3d_plot_initial.pdf">149</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_31894/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4307,10 +4635,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.667217254638672">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:50.965448">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_4/bn_error_3d_plot_initial.pdf">149</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_4/bn_error_3d_plot_initial.pdf">150</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_57843/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4335,10 +4665,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.695196866989136">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.652013">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_4/bn_error_3d_plot_initial.pdf">150</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_4/bn_error_3d_plot_initial.pdf">151</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_17075/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4363,10 +4695,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.685822010040283">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:36.543341">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_4/bn_error_3d_plot_initial.pdf">151</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_4/bn_error_3d_plot_initial.pdf">152</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_11105/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4391,10 +4725,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.977558135986328">8.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:59:32.220483">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_4/bn_error_3d_plot_initial.pdf">152</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_4/bn_error_3d_plot_initial.pdf">153</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_86393/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4419,10 +4755,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.45492672920227">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:49:46.050873">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot_initial.pdf">153</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot_initial.pdf">154</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36141/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4447,10 +4785,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.492582082748413">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:23:52.727671">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_4/bn_error_3d_plot_initial.pdf">154</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_4/bn_error_3d_plot_initial.pdf">155</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_45878/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4475,10 +4815,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.707674264907837">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.384476">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_4/bn_error_3d_plot_initial.pdf">155</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_4/bn_error_3d_plot_initial.pdf">156</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_70068/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4503,10 +4845,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67320704460144">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:16:15.138185">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_4/bn_error_3d_plot_initial.pdf">156</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_4/bn_error_3d_plot_initial.pdf">157</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_69541/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4531,10 +4875,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590862035751343">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:01:12.533136">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot_initial.pdf">157</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot_initial.pdf">158</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_80993/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4559,10 +4905,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590508937835693">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.033242">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_4/bn_error_3d_plot_initial.pdf">158</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_4/bn_error_3d_plot_initial.pdf">159</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_28183/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4587,10 +4935,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.153568744659424">1.0e+01</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:13:03.504538">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_4/bn_error_3d_plot_initial.pdf">159</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_4/bn_error_3d_plot_initial.pdf">160</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_66254/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4615,11 +4965,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.217495679855347">9.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:03.525516">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot_initial.pdf">160</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/poincare_plot.png">160</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot_initial.pdf">161</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_44072/poincare_plot.png">161</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4643,10 +4995,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.593476295471191">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:41:59.058034">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_4/bn_error_3d_plot_initial.pdf">161</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_4/bn_error_3d_plot_initial.pdf">162</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_11207/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4671,10 +5025,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.578474044799805">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:05.497295">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_4/bn_error_3d_plot_initial.pdf">162</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_4/bn_error_3d_plot_initial.pdf">163</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_30383/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4699,10 +5055,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.606275796890259">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:16:37.130177">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot_initial.pdf">163</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot_initial.pdf">164</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_26146/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4727,11 +5085,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.29365086555481">9.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:01.701080">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot_initial.pdf">164</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/poincare_plot.png">164</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot_initial.pdf">165</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_66519/poincare_plot.png">165</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4755,10 +5115,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.46219801902771">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:24.624831">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot_initial.pdf">165</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot_initial.pdf">166</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_38189/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4783,10 +5145,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.514100790023804">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:53.814231">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_4/bn_error_3d_plot_initial.pdf">166</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_4/bn_error_3d_plot_initial.pdf">167</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_81666/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4811,10 +5175,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.57158899307251">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:51.889485">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot_initial.pdf">167</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot_initial.pdf">168</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_67835/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4839,10 +5205,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.233503103256226">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:17.847014">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_4/bn_error_3d_plot_initial.pdf">168</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_4/bn_error_3d_plot_initial.pdf">169</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93986/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4867,11 +5235,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.507838010787964">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:51:34.314853">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot_initial.pdf">169</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/poincare_plot.png">169</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot_initial.pdf">170</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_133301_33291/poincare_plot.png">170</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4895,10 +5265,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.74887466430664">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:33.255841">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot_initial.pdf">170</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot_initial.pdf">171</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_58620/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4923,10 +5295,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.633736848831177">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.674798">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_4/bn_error_3d_plot_initial.pdf">171</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_4/bn_error_3d_plot_initial.pdf">172</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_55147/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4951,11 +5325,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.536368131637573">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:22:34.766420">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot_initial.pdf">172</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/poincare_plot.png">172</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot_initial.pdf">173</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_22752/poincare_plot.png">173</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -4979,10 +5355,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.267996788024902">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:59:47.389042">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_4/bn_error_3d_plot_initial.pdf">173</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_4/bn_error_3d_plot_initial.pdf">174</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_75583/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5007,10 +5385,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.098844051361084">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T15:13:35.649154">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_4/bn_error_3d_plot_initial.pdf">174</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_4/bn_error_3d_plot_initial.pdf">175</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_92559/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5035,10 +5415,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.209996938705444">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:46.647222">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot_initial.pdf">175</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot_initial.pdf">176</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_36799/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5063,10 +5445,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.264412879943848">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:27.762009">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot_initial.pdf">176</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot_initial.pdf">177</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_72441/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5091,10 +5475,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.322812795639038">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:33:43.802231">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_4/bn_error_3d_plot_initial.pdf">177</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_4/bn_error_3d_plot_initial.pdf">178</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_47281/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5119,10 +5505,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.193366050720215">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:19.824237">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_4/bn_error_3d_plot_initial.pdf">178</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_4/bn_error_3d_plot_initial.pdf">179</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_69282/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5147,10 +5535,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.745657920837402">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:31.791867">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_4/bn_error_3d_plot_initial.pdf">179</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_4/bn_error_3d_plot_initial.pdf">180</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_14259/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5175,10 +5565,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64832592010498">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:43.530604">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_4/bn_error_3d_plot_initial.pdf">180</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_4/bn_error_3d_plot_initial.pdf">181</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_57406/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5203,10 +5595,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.68556523323059">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:42.410582">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_4/bn_error_3d_plot_initial.pdf">181</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_4/bn_error_3d_plot_initial.pdf">182</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_76785/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5231,10 +5625,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.166682004928589">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:53.526000">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot_initial.pdf">182</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot_initial.pdf">183</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_58861/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5259,10 +5655,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.69020128250122">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:42:11.463376">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_4/bn_error_3d_plot_initial.pdf">183</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_4/bn_error_3d_plot_initial.pdf">184</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_85498/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5287,10 +5685,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.569249153137207">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:07.680477">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_4/bn_error_3d_plot_initial.pdf">184</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_4/bn_error_3d_plot_initial.pdf">185</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_47233/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5315,10 +5715,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.228942155838013">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:18:27.885019">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_4/bn_error_3d_plot_initial.pdf">185</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_4/bn_error_3d_plot_initial.pdf">186</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_13577/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5343,10 +5745,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.560002088546753">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:33.308493">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_4/bn_error_3d_plot_initial.pdf">186</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_4/bn_error_3d_plot_initial.pdf">187</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_37430/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5371,10 +5775,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.273733854293823">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:13:36.495497">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_4/bn_error_3d_plot_initial.pdf">187</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_4/bn_error_3d_plot_initial.pdf">188</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_75746/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5399,10 +5805,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.18305492401123">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:12:28.209531">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_4/bn_error_3d_plot_initial.pdf">188</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_4/bn_error_3d_plot_initial.pdf">189</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_41620/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5427,10 +5835,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.260712146759033">8.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:29.675270">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_4/bn_error_3d_plot_initial.pdf">189</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_4/bn_error_3d_plot_initial.pdf">190</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_192034_94134/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5455,10 +5865,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.390984296798706">8.4e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:55.870626">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_4/bn_error_3d_plot_initial.pdf">190</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_4/bn_error_3d_plot_initial.pdf">191</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_31528/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5483,10 +5895,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.623393058776855">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:06.059714">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_4/bn_error_3d_plot_initial.pdf">191</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_4/bn_error_3d_plot_initial.pdf">192</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_27323/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5511,10 +5925,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.882462978363037">8.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.464879">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot_initial.pdf">192</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot_initial.pdf">193</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_72854/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5539,10 +5955,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.53669285774231">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.909057">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_4/bn_error_3d_plot_initial.pdf">193</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_4/bn_error_3d_plot_initial.pdf">194</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_26288/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5567,10 +5985,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710787057876587">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.004602">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_4/bn_error_3d_plot_initial.pdf">194</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_4/bn_error_3d_plot_initial.pdf">195</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_66203/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5595,10 +6015,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.211593866348267">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:47.153944">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot_initial.pdf">195</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot_initial.pdf">196</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_090159_63846/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5623,10 +6045,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.828953742980957">8.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.727827">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_4/bn_error_3d_plot_initial.pdf">196</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_4/bn_error_3d_plot_initial.pdf">197</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_34990/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5651,10 +6075,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.692058801651001">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:16.508890">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_4/bn_error_3d_plot_initial.pdf">197</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_4/bn_error_3d_plot_initial.pdf">198</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_77580/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5679,10 +6105,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67012095451355">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.378588">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_4/bn_error_3d_plot_initial.pdf">198</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_4/bn_error_3d_plot_initial.pdf">199</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_14567/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5707,10 +6135,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.187489986419678">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:20.173041">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_4/bn_error_3d_plot_initial.pdf">199</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_4/bn_error_3d_plot_initial.pdf">200</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_88611/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5735,10 +6165,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.673142910003662">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:45.043980">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_4/bn_error_3d_plot_initial.pdf">200</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_4/bn_error_3d_plot_initial.pdf">201</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_27123/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5763,10 +6195,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710578203201294">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.458394">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_4/bn_error_3d_plot_initial.pdf">201</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_4/bn_error_3d_plot_initial.pdf">202</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_19972/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5791,10 +6225,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.978104114532471">8.0e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:13:17.620044">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_4/bn_error_3d_plot_initial.pdf">202</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_4/bn_error_3d_plot_initial.pdf">203</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_76974/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5819,10 +6255,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.586299896240234">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:31.488911">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_4/bn_error_3d_plot_initial.pdf">203</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_4/bn_error_3d_plot_initial.pdf">204</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_43998/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5847,10 +6285,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.520040273666382">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:16:33.620846">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_4/bn_error_3d_plot_initial.pdf">204</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_4/bn_error_3d_plot_initial.pdf">205</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_88732/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5875,10 +6315,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.106815338134766">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:48:10.017005">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot_initial.pdf">205</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot_initial.pdf">206</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_26080/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5903,11 +6345,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.306886196136475">9.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:00.619311">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot_initial.pdf">206</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/poincare_plot.png">206</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot_initial.pdf">207</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_56800/poincare_plot.png">207</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5931,10 +6375,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.128228187561035">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:29:13.252184">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_4/bn_error_3d_plot_initial.pdf">207</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_4/bn_error_3d_plot_initial.pdf">208</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_92160/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5959,10 +6405,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.93415904045105">7.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:02:14.046852">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_4/bn_error_3d_plot_initial.pdf">208</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_4/bn_error_3d_plot_initial.pdf">209</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_005015_16713/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -5987,10 +6435,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.86678671836853">8.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:38.576503">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot_initial.pdf">209</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot_initial.pdf">210</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_71763/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6015,10 +6465,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.199159145355225">8.2e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:18.760104">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_4/bn_error_3d_plot_initial.pdf">210</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_4/bn_error_3d_plot_initial.pdf">211</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93832/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6043,11 +6495,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.559816122055054">8.6e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:54:17.808674">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot_initial.pdf">211</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/poincare_plot.png">211</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot_initial.pdf">212</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_18409/poincare_plot.png">212</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6071,10 +6525,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.660295009613037">8.7e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:29.325854">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_4/bn_error_3d_plot_initial.pdf">212</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_4/bn_error_3d_plot_initial.pdf">213</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_075629_67317/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6099,10 +6555,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.85395622253418">8.9e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.729850">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_4/bn_error_3d_plot_initial.pdf">213</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_4/bn_error_3d_plot_initial.pdf">214</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_68394/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6127,10 +6585,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.538310766220093">8.5e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:50.952283">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot_initial.pdf">214</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot_initial.pdf">215</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_49824/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6155,10 +6615,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.094752073287964">8.1e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:47:34.579045">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot_initial.pdf">215</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot_initial.pdf">216</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_34827/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6183,10 +6645,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.780425071716309">8.8e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.712268012686899">4.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:29.791298">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_4/bn_error_3d_plot_initial.pdf">216</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_4/bn_error_3d_plot_initial.pdf">217</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_123824_36321/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6211,10 +6675,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223.3541932106018">2.2e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7825777919970522">3.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:09:51.786833">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_4/bn_error_3d_plot_initial.pdf">217</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_4/bn_error_3d_plot_initial.pdf">218</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_021924_49496/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6239,10 +6705,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.289355993270874">7.3e+00</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.808651028438779">2.8e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:44:21.565629">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_4/bn_error_3d_plot_initial.pdf">218</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_4/bn_error_3d_plot_initial.pdf">219</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_123921_76865/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6267,10 +6735,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162.12186694145203">1.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7363996042777474">3.7e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T20:56:35.896254">15/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_4/bn_error_3d_plot_initial.pdf">219</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_4/bn_error_3d_plot_initial.pdf">220</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-15_181619_74052/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6295,10 +6765,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.97081780433655">3.4e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.871438735887695">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:52:47.571122">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_4/bn_error_3d_plot_initial.pdf">220</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_4/bn_error_3d_plot_initial.pdf">221</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_034334_16092/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6323,10 +6795,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308.3559250831604">3.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.894491743240753">3.9e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:51.384035">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_4/bn_error_3d_plot_initial.pdf">221</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_4/bn_error_3d_plot_initial.pdf">222</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_91839/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6351,10 +6825,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="319.74471497535706">3.2e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.977945232067826">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T22:59:34.178532">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_4/bn_error_3d_plot_initial.pdf">222</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_4/bn_error_3d_plot_initial.pdf">223</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_205501_35978/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6379,10 +6855,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="332.7866168022156">3.3e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9820077137724903">4.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T17:33:00.758171">16/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_4/bn_error_3d_plot_initial.pdf">223</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_8/bn_error_3d_plot.pdf">8</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_4/bn_error_3d_plot_initial.pdf">224</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-16_160231_64734/order_8/bn_error_3d_plot.pdf">8</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6407,10 +6885,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3783349990845">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:11.129268">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_4/bn_error_3d_plot_initial.pdf">224</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_4/bn_error_3d_plot_initial.pdf">225</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_49085/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6435,11 +6915,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.61396288871765">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.041222">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot_initial.pdf">225</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/poincare_plot.png">225</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot_initial.pdf">226</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_34049/poincare_plot.png">226</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6463,10 +6945,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.7472302913666">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.638594">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_4/bn_error_3d_plot_initial.pdf">226</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_4/bn_error_3d_plot_initial.pdf">227</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_49466/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6491,10 +6975,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.7793650627136">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:32.449008">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_4/bn_error_3d_plot_initial.pdf">227</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_4/bn_error_3d_plot_initial.pdf">228</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_49523/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6519,10 +7005,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.53657388687134">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:34.957609">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot_initial.pdf">228</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot_initial.pdf">229</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_58315/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6547,10 +7035,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.0458550453186">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:51.173769">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_4/bn_error_3d_plot_initial.pdf">229</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_4/bn_error_3d_plot_initial.pdf">230</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_23808/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6575,10 +7065,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="407.9253399372101">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:33.752715">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot_initial.pdf">230</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot_initial.pdf">231</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_35259/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6603,10 +7095,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.0409426689148">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:51.787567">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_4/bn_error_3d_plot_initial.pdf">231</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_4/bn_error_3d_plot_initial.pdf">232</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_19886/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6631,10 +7125,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.6805729866028">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.387278">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_4/bn_error_3d_plot_initial.pdf">232</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_4/bn_error_3d_plot_initial.pdf">233</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_78496/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6659,10 +7155,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.50058579444885">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:40:37.159120">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_4/bn_error_3d_plot_initial.pdf">233</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_4/bn_error_3d_plot_initial.pdf">234</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_82659/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6687,10 +7185,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.79580068588257">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:22.295429">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_4/bn_error_3d_plot_initial.pdf">234</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_4/bn_error_3d_plot_initial.pdf">235</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_43833/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6715,10 +7215,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5678029060364">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:22:24.785979">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_4/bn_error_3d_plot_initial.pdf">235</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_4/bn_error_3d_plot_initial.pdf">236</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_60263/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6743,10 +7245,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.2918498516083">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:18:38.513767">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_4/bn_error_3d_plot_initial.pdf">236</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_4/bn_error_3d_plot_initial.pdf">237</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_141650_45990/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6771,11 +7275,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.1625747680664">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.345404">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot_initial.pdf">237</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/poincare_plot.png">237</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot_initial.pdf">238</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_96993/poincare_plot.png">238</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6799,10 +7305,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.96911001205444">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:12.468161">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_4/bn_error_3d_plot_initial.pdf">238</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_4/bn_error_3d_plot_initial.pdf">239</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_055441_55326/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6827,10 +7335,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.84710717201233">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:29.929152">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_4/bn_error_3d_plot_initial.pdf">239</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_4/bn_error_3d_plot_initial.pdf">240</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_10283/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6855,10 +7365,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="419.29562497138977">4.2e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:11.099446">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_4/bn_error_3d_plot_initial.pdf">240</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_4/bn_error_3d_plot_initial.pdf">241</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_26711/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6883,10 +7395,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.31253576278687">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:57.042959">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_4/bn_error_3d_plot_initial.pdf">241</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_4/bn_error_3d_plot_initial.pdf">242</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_57443/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6911,10 +7425,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.2454779148102">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:34.412806">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot_initial.pdf">242</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot_initial.pdf">243</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_30088/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6939,10 +7455,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.7827389240265">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:31.813207">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_4/bn_error_3d_plot_initial.pdf">243</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_4/bn_error_3d_plot_initial.pdf">244</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_41617/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6967,10 +7485,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.09291219711304">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:56:20.609139">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot_initial.pdf">244</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot_initial.pdf">245</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_13120/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -6995,10 +7515,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.26904487609863">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:00.180868">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot_initial.pdf">245</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot_initial.pdf">246</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_55436/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7023,10 +7545,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.7003757953644">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:17:18.516196">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_4/bn_error_3d_plot_initial.pdf">246</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_4/bn_error_3d_plot_initial.pdf">247</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_035306_83925/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7051,10 +7575,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.71021795272827">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.594537">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_4/bn_error_3d_plot_initial.pdf">247</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_4/bn_error_3d_plot_initial.pdf">248</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_63230/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7079,10 +7605,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.99059987068176">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:41:11.651114">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot_initial.pdf">248</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot_initial.pdf">249</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_024857_10636/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7107,10 +7635,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="374.0912868976593">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:59.846744">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_4/bn_error_3d_plot_initial.pdf">249</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_4/bn_error_3d_plot_initial.pdf">250</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_50539/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7135,10 +7665,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.81534910202026">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:17.102132">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_4/bn_error_3d_plot_initial.pdf">250</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_4/bn_error_3d_plot_initial.pdf">251</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_10298/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7163,10 +7695,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="372.9121768474579">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:53.275744">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_4/bn_error_3d_plot_initial.pdf">251</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_4/bn_error_3d_plot_initial.pdf">252</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_10241/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7191,10 +7725,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.4121780395508">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T06:21:17.334667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot_initial.pdf">252</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot_initial.pdf">253</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_052310_90517/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7219,10 +7755,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.0525140762329">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:33:46.599530">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_4/bn_error_3d_plot_initial.pdf">253</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_4/bn_error_3d_plot_initial.pdf">254</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_202453_80976/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7247,10 +7785,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.26778292655945">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:59.822143">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_4/bn_error_3d_plot_initial.pdf">254</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_4/bn_error_3d_plot_initial.pdf">255</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_84163/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7275,11 +7815,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.59044098854065">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:31:48.020044">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot_initial.pdf">255</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/poincare_plot.png">255</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot_initial.pdf">256</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_123405_88189/poincare_plot.png">256</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7303,10 +7845,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.33926606178284">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:00:30.073200">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_4/bn_error_3d_plot_initial.pdf">256</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_4/bn_error_3d_plot_initial.pdf">257</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_122003_52122/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7331,10 +7875,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.66371512413025">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T07:55:14.800577">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_4/bn_error_3d_plot_initial.pdf">257</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_4/bn_error_3d_plot_initial.pdf">258</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_011836_38968/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7359,10 +7905,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.27868485450745">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:30:52.024899">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot_initial.pdf">258</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot_initial.pdf">259</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_221028_86025/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7387,10 +7935,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.6516270637512">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:55.073402">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_4/bn_error_3d_plot_initial.pdf">259</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_4/bn_error_3d_plot_initial.pdf">260</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_20157/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7415,10 +7965,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.39421582221985">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:35.385766">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot_initial.pdf">260</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot_initial.pdf">261</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_015246_77683/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7443,11 +7995,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.88229298591614">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.865532">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot_initial.pdf">261</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/poincare_plot.png">261</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot_initial.pdf">262</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_82670/poincare_plot.png">262</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7471,10 +8025,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.8448488712311">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:32.819354">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_4/bn_error_3d_plot_initial.pdf">262</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_4/bn_error_3d_plot_initial.pdf">263</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_38796/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7499,10 +8055,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.0505700111389">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:50:40.145594">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_4/bn_error_3d_plot_initial.pdf">263</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_4/bn_error_3d_plot_initial.pdf">264</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_92004/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7527,10 +8085,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.22934103012085">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:38.423331">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot_initial.pdf">264</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot_initial.pdf">265</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_062207_28801/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7555,10 +8115,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="418.52054500579834">4.2e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:07.033098">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_4/bn_error_3d_plot_initial.pdf">265</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_4/bn_error_3d_plot_initial.pdf">266</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_075256_59145/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7583,10 +8145,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.18965792655945">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:31.032831">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_4/bn_error_3d_plot_initial.pdf">266</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_4/bn_error_3d_plot_initial.pdf">267</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_65199/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7611,10 +8175,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.60783076286316">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:31.800384">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_4/bn_error_3d_plot_initial.pdf">267</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_4/bn_error_3d_plot_initial.pdf">268</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_095341_88197/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7639,10 +8205,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.9235498905182">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:58.818380">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_4/bn_error_3d_plot_initial.pdf">268</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_4/bn_error_3d_plot_initial.pdf">269</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_63430/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7667,10 +8235,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.46136593818665">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:27:16.572735">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_4/bn_error_3d_plot_initial.pdf">269</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_4/bn_error_3d_plot_initial.pdf">270</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_223427_44210/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7695,10 +8265,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.5828628540039">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:21:17.330830">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_4/bn_error_3d_plot_initial.pdf">270</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_4/bn_error_3d_plot_initial.pdf">271</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_202533_93353/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7723,10 +8295,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.6802339553833">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:58:44.288041">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_4/bn_error_3d_plot_initial.pdf">271</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_4/bn_error_3d_plot_initial.pdf">272</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_84583/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7751,10 +8325,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.82418990135193">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:27:51.988789">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot_initial.pdf">272</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot_initial.pdf">273</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_135249_54821/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7779,10 +8355,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.87685203552246">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:22:22.002667">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot_initial.pdf">273</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot_initial.pdf">274</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_93159/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7807,10 +8385,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.7351200580597">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:15.599999">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_4/bn_error_3d_plot_initial.pdf">274</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_4/bn_error_3d_plot_initial.pdf">275</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_12682/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7835,10 +8415,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="384.6250400543213">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:53.982455">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_4/bn_error_3d_plot_initial.pdf">275</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_4/bn_error_3d_plot_initial.pdf">276</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_17725/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7863,10 +8445,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.8300521373749">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:22:49.477806">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_4/bn_error_3d_plot_initial.pdf">276</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_4/bn_error_3d_plot_initial.pdf">277</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_20125/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7891,10 +8475,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.3948669433594">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:06:55.616762">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_4/bn_error_3d_plot_initial.pdf">277</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_4/bn_error_3d_plot_initial.pdf">278</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_000005_91076/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7919,10 +8505,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.71710896492004">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:49.951732">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_4/bn_error_3d_plot_initial.pdf">278</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_4/bn_error_3d_plot_initial.pdf">279</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_78276/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7947,10 +8535,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.9527781009674">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T01:51:35.497127">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot_initial.pdf">279</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot_initial.pdf">280</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_001225_67517/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -7975,10 +8565,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="383.2400782108307">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:48.625973">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_4/bn_error_3d_plot_initial.pdf">280</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_4/bn_error_3d_plot_initial.pdf">281</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_164145_35056/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8003,11 +8595,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.85212993621826">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.846475">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot_initial.pdf">281</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/poincare_plot.png">281</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot_initial.pdf">282</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_105310_86718/poincare_plot.png">282</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8031,10 +8625,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.60723185539246">3.7e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:56.876150">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_4/bn_error_3d_plot_initial.pdf">282</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_4/bn_error_3d_plot_initial.pdf">283</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_191953_73297/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8059,10 +8655,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3997731208801">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:33.825745">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_4/bn_error_3d_plot_initial.pdf">283</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_4/bn_error_3d_plot_initial.pdf">284</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_140450_28642/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8087,10 +8685,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.8646728992462">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:12.094481">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_4/bn_error_3d_plot_initial.pdf">284</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_4/bn_error_3d_plot_initial.pdf">285</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_11888/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8115,10 +8715,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5102479457855">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:54:00.709277">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_4/bn_error_3d_plot_initial.pdf">285</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_4/bn_error_3d_plot_initial.pdf">286</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_044351_93996/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8143,10 +8745,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.19913601875305">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:04.936985">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_4/bn_error_3d_plot_initial.pdf">286</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_4/bn_error_3d_plot_initial.pdf">287</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-14_090757_61798/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8171,10 +8775,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5487599372864">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:42.815921">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_4/bn_error_3d_plot_initial.pdf">287</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_4/bn_error_3d_plot_initial.pdf">288</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_70212/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8199,10 +8805,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.05595088005066">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:16:20.712916">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_4/bn_error_3d_plot_initial.pdf">288</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_4/bn_error_3d_plot_initial.pdf">289</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_221851_42532/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8227,10 +8835,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.65915393829346">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:52:19.889517">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_4/bn_error_3d_plot_initial.pdf">289</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_4/bn_error_3d_plot_initial.pdf">290</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_025128_52254/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8255,10 +8865,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.8873620033264">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:23.169875">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_4/bn_error_3d_plot_initial.pdf">290</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_4/bn_error_3d_plot_initial.pdf">291</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_31633/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8283,10 +8895,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5960440635681">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.802020">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_4/bn_error_3d_plot_initial.pdf">291</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_4/bn_error_3d_plot_initial.pdf">292</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_61564/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8311,10 +8925,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.75380992889404">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:56:54.967853">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot_initial.pdf">292</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot_initial.pdf">293</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_040921_72885/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8339,10 +8955,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.11508202552795">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:30.402217">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_4/bn_error_3d_plot_initial.pdf">293</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_4/bn_error_3d_plot_initial.pdf">294</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_131353_19596/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8367,10 +8985,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="377.18457293510437">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:07.351960">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot_initial.pdf">294</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot_initial.pdf">295</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_36955/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8395,10 +9015,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="409.5564351081848">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:34.882492">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot_initial.pdf">295</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot_initial.pdf">296</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_17054/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8423,10 +9045,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2420790195465">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:23:18.905440">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_4/bn_error_3d_plot_initial.pdf">296</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_4/bn_error_3d_plot_initial.pdf">297</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_084222_82068/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8451,10 +9075,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.0802118778229">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:01.068404">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot_initial.pdf">297</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot_initial.pdf">298</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_101049_53504/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8479,10 +9105,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.78020310401917">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.397669">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_4/bn_error_3d_plot_initial.pdf">298</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_4/bn_error_3d_plot_initial.pdf">299</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_65220/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8507,10 +9135,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.77176904678345">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:11.381393">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_4/bn_error_3d_plot_initial.pdf">299</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_4/bn_error_3d_plot_initial.pdf">300</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_131308_35722/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8535,10 +9165,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.306654214859">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:53.678757">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_4/bn_error_3d_plot_initial.pdf">300</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_4/bn_error_3d_plot_initial.pdf">301</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_112503_26878/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8563,10 +9195,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.01064014434814">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:49:33.168007">14/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_4/bn_error_3d_plot_initial.pdf">301</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_4/bn_error_3d_plot_initial.pdf">302</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_234021_88540/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8591,10 +9225,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.4223701953888">3.6e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:50.709986">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_4/bn_error_3d_plot_initial.pdf">302</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_4/bn_error_3d_plot_initial.pdf">303</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_010741_58854/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8619,10 +9255,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2859251499176">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:32.090307">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot_initial.pdf">303</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot_initial.pdf">304</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_073519_24302/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8647,11 +9285,13 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.5566830635071">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.979844">11/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot_initial.pdf">304</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_16/bn_error_3d_plot.pdf">16</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/poincare_plot.png">304</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot_initial.pdf">305</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-11_120432_30013/poincare_plot.png">305</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8675,10 +9315,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.36734223365784">3.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:18.695452">12/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_4/bn_error_3d_plot_initial.pdf">305</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_4/bn_error_3d_plot_initial.pdf">306</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-12_111715_58334/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8703,10 +9345,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="387.482439994812">3.9e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.2929709152955935">5.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:45.165754">13/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_4/bn_error_3d_plot_initial.pdf">306</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_4/bn_error_3d_plot_initial.pdf">307</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-13_015930_43575/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8731,10 +9375,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.700101852417">2.4e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.283158150198638">3.3e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:25:18.036250">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf">307</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot.pdf">307</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot_initial.pdf">308</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-25/bn_error_3d_plot.pdf">308</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8759,10 +9405,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227.09969687461853">2.3e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.14378345398696">5.1e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T10:20:06.115130">18/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_4/bn_error_3d_plot_initial.pdf">308</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_4/bn_error_3d_plot_initial.pdf">309</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-18_085849_48165/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8787,10 +9435,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.84701228141785">2.4e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.152075038257153">5.2e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:05.206887">17/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_4/bn_error_3d_plot_initial.pdf">309</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_4/bn_error_3d_plot_initial.pdf">310</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/auto/2026-02-17_154927_16010/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8815,10 +9465,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1491.5190892219543">1.5e+03</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.498907579658978">5.5e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:58:02.339407">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf">310</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_12/bn_error_3d_plot.pdf">12</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot_initial.pdf">311</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_12/bn_error_3d_plot.pdf">12</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/expert_LandremanPaulQA/02-08-2026_12-58/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8843,10 +9495,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179.35041618347168">1.8e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.0890781825177696">6.1e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.732132">08/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf">311</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_16/bn_error_3d_plot.pdf">16</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot_initial.pdf">312</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_4/bn_error_3d_plot.pdf">4</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_8/bn_error_3d_plot.pdf">8</a> <a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/advanced_LandremanPaulQA/02-08-2026_12-50/order_16/bn_error_3d_plot.pdf">16</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8871,10 +9525,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110.09061789512634">1.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.9884907939033365">7.0e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:27:55.169368">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf">312</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot.pdf">312</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot_initial.pdf">313</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-27/bn_error_3d_plot.pdf">313</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
@@ -8899,10 +9555,12 @@ Typical configuration: 4 Fourier order, 4 base coils.
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410.3944981098175">4.1e+02</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.577134110789892">8.6e+00</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:19:22.382728">09/02/26</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf">313</a></td>
-   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf">313</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="314"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot_initial.pdf">314</a></td>
+   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="314"><a href="https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main/submissions/LandremanPaul2021_QA/akaptano/case/02-09-2026_20-19/bn_error_3d_plot.pdf">314</a></td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
    <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
