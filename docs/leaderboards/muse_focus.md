@@ -54,27 +54,6 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04658479178007663">4.7e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260.60320115089417">2.6e+02</td>
 </tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.8853659151659296">0.885</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-03T15:20:10.481425">03/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.096471528533004e-06">1.1e-06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.01121754255962345">1.1e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.0213705321540844e-05">1.0e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.050530108188811">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5359.586444968455">5.4e+03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="960.5104684304596">9.6e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32.81749135492054">3.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024376597694455313">2.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10674296512447567">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.095177552646122">6.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.05377855931378259">5.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215.45139503479004">2.2e+02</td>
-</tr>
 </tbody>
 </table>
 </div>
