@@ -705,11 +705,12 @@ def _print_submission_summary(submission: dict) -> None:
         typer.echo(f"    {k}: {v}")
     typer.echo("")
     metrics = submission.get("metrics", {})
-    # Exclude 'timing' from metrics - shown in Timing section below
-    metrics_no_timing = {k: v for k, v in metrics.items() if k != "timing"}
-    if metrics_no_timing:
+    # Exclude internal/verbose keys from printed metrics (still stored in results.json)
+    _metrics_suppress = {"timing", "_cached_thresholds", "continuation_results"}
+    metrics_to_print = {k: v for k, v in metrics.items() if k not in _metrics_suppress}
+    if metrics_to_print:
         typer.echo("  Metrics:")
-        for k, v in sorted(metrics_no_timing.items()):
+        for k, v in sorted(metrics_to_print.items()):
             if isinstance(v, (int, float)):
                 av = abs(float(v))
                 fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)

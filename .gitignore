@@ -49,7 +49,7 @@ htmlcov/
 # Project specific
 submissions/
 docs/_build/
-zenodo/._downloads/
+knowledge/zenodo/._downloads/
 knowledge/papers/*.pdf
 knowledge/*.sqlite
 coils_runs/

@@ -5,21 +5,22 @@ Search PDFs for Zenodo links, download coil optimization data, and compile all c
 Searches through stellarator coil optimization PDFs (from knowledge/papers/ and
 papers_manifest.jsonl) for Zenodo record links. Downloads each record's files,
 extracts coil solutions (any JSON with coils/BiotSavart structure), validates
-with simsopt when possible, and saves to zenodo/{record_id}/{config_name}/coils.json.
+with simsopt when possible, and saves to knowledge/zenodo/{record_id}/{config_name}/coils.json.
 
 Record-specific filtering (final solutions only):
+- Input coil files are always ignored (coil_inputs, coil_input.json, input_coils, etc.).
 - Augmented Lagrangian / Reactor-scale (14934092): Excludes coil_pareto_plots/SMF/*
   (hash-named Pareto exploration points) and inner_loop/coil_inputs intermediates.
-- Single-stage optimization (7655077): Only biot_savart_opt.json from results/;
-  excludes coil_inputs and biot_savart_inner_loop*. Also extracts wout_final.nc
-  (final VMEC equilibrium surface) alongside each coil solution.
+- Single-stage optimization (7655077): Only one final coil set (biot_savart_opt.json
+  from results/) with final plasma surface (wout_final.nc). Excludes coil_inputs and
+  biot_savart_inner_loop*. Direct JSON files are skipped (zip only).
 
 Metadata is taken from the citing paper so it accurately reflects the publication.
 
 Usage
 -----
     cd /path/to/stellcoilbench
-    python knowledge/scripts/fetch_zenodo_coils.py [--papers-dir knowledge/papers] [--output zenodo]
+    python knowledge/scripts/fetch_zenodo_coils.py [--papers-dir knowledge/papers] [--output knowledge/zenodo]
     python knowledge/scripts/fetch_zenodo_coils.py --manifest knowledge/papers_manifest.jsonl
     python knowledge/scripts/fetch_zenodo_coils.py --limit 50  # Faster: search only first 50 PDFs
 
@@ -207,6 +208,8 @@ def _should_include_coil_path(
 ) -> bool:
     """Return True if this coil JSON should be included (final solutions only for filtered records).
 
+    Globally: exclude input coil files (coil_inputs, coil_input.json, input_coils, etc.).
+
     For augmented Lagrangian records (14934092): exclude coil_pareto_plots/SMF/* (hash-named
     Pareto exploration points), inner_loop, coil_inputs, and any path with hash-like
     directory names (e.g. ff58810532fc04b19...).
@@ -216,6 +219,10 @@ def _should_include_coil_path(
     """
     path_lower = zip_path.replace("\\", "/").lower()
     name_lower = json_filename.lower()
+
+    # Exclude input coil files globally (coil_inputs, coil_input.json, input_coils, etc.)
+    if "coil_input" in path_lower or "input_coil" in path_lower:
+        return False
 
     if record_id in AUGMENTED_LAGRANGIAN_RECORD_IDS:
         # Exclude Pareto exploration (coil_pareto_plots/SMF, coil_pareto_plots/SMT, etc.)
@@ -241,8 +248,8 @@ def _should_include_coil_path(
             return False
         if name_lower != "biot_savart_opt.json":
             return False
-        # Must be in results/ subdir
-        if "/results/" not in path_lower:
+        # Must be in results/ subdir (e.g. results/config/... or x/results/config/...)
+        if "results/" not in path_lower:
             return False
         return True
 
@@ -316,6 +323,10 @@ def _extract_all_coils_from_zip(
                     c += 1
                 used_names.add(config_name)
                 results.append((config_name, data, extra_paths))
+
+                # Single-stage: only one final coil set with final plasma surface
+                if record_id in SINGLE_STAGE_RECORD_IDS:
+                    break
     except zipfile.BadZipFile as e:
         print(f"  Warning: Bad zip {zip_path}: {e}", file=sys.stderr)
 
@@ -418,21 +429,26 @@ def _process_zenodo_record(
 
     saved_count = 0
 
-    # 1. Direct JSON files (not in zip)
-    for f in files:
-        fname = f.get("key", "")
-        if not fname.endswith(".json"):
-            continue
-        url = f.get("links", {}).get("self", "")
-        if not url:
-            continue
-        dest = record_dir / fname
-        if _download_file(url, dest):
-            for config_name, data in _extract_all_coils_from_direct_json(dest):
-                coils_out = record_out / config_name / "coils.json"
-                if _validate_and_save_coils(data, coils_out):
-                    saved_count += 1
-                    print(f"  Record {record_id}: saved {config_name}/coils.json from {fname}")
+    # 1. Direct JSON files (not in zip) — skip for single-stage (we use zip only)
+    if record_id not in SINGLE_STAGE_RECORD_IDS:
+        for f in files:
+            fname = f.get("key", "")
+            if not fname.endswith(".json"):
+                continue
+            # Ignore input coil files
+            fname_lower = fname.lower()
+            if "coil_input" in fname_lower or "input_coil" in fname_lower:
+                continue
+            url = f.get("links", {}).get("self", "")
+            if not url:
+                continue
+            dest = record_dir / fname
+            if _download_file(url, dest):
+                for config_name, data in _extract_all_coils_from_direct_json(dest):
+                    coils_out = record_out / config_name / "coils.json"
+                    if _validate_and_save_coils(data, coils_out):
+                        saved_count += 1
+                        print(f"  Record {record_id}: saved {config_name}/coils.json from {fname}")
 
     # 2. Zip archives: extract all coil JSONs
     for f in files:
@@ -473,7 +489,7 @@ def _process_zenodo_record(
 def main() -> int:
     """Search PDFs for Zenodo links, download records, and compile all coil solutions."""
     parser = argparse.ArgumentParser(
-        description="Search PDFs for Zenodo links, download coil solutions, compile to zenodo/",
+        description="Search PDFs for Zenodo links, download coil solutions, compile to knowledge/zenodo/",
     )
     parser.add_argument(
         "--papers-dir",
@@ -490,8 +506,8 @@ def main() -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=_REPO_ROOT / "zenodo",
-        help="Output directory for compiled coils (default: zenodo/)",
+        default=_REPO_ROOT / "knowledge" / "zenodo",
+        help="Output directory for compiled coils (default: knowledge/zenodo/)",
     )
     parser.add_argument(
         "--download-dir",
@@ -522,7 +538,11 @@ def main() -> int:
     if args.limit:
         pdf_paths = pdf_paths[: args.limit]
     if not pdf_paths:
-        print("No PDFs found. Run fetch_papers.py first or set --papers-dir.", file=sys.stderr)
+        print(
+            "No PDFs found in papers directory or manifest. "
+            "Run fetch_papers.py to download papers to knowledge/papers/ first.",
+            file=sys.stderr,
+        )
         return 1
 
     all_ids: set[str] = set()

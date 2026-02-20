@@ -679,9 +679,25 @@ def optimize_coils(
         skip_post_processing_in_loop = skip_post_processing or is_mpi_parallel
         
         if is_proc0:
-            # Check if Fourier continuation is enabled
             fourier_continuation = case_cfg.fourier_continuation
-            if fourier_continuation and fourier_continuation.get('enabled', False):
+            coil_type = coil_params.get("coil_type", "modular")
+            if coil_type == "dipole":
+                coils, results_dict = optimize_coils_dipole_loop(
+                    surface,
+                    surface_file=surface_file,
+                    surface_params=surface_params,
+                    out_dir=str(output_dir),
+                    max_iterations=optimizer_params.get("max_iterations", 100),
+                    verbose=optimizer_params.get("verbose", False),
+                    skip_post_processing=skip_post_processing_in_loop,
+                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
+                    run_vmec=run_vmec,
+                    run_simple=run_simple,
+                    plot_poincare=plot_poincare,
+                    plot_boozer=pp_params.get("plot_boozer", True),
+                    **{k: v for k, v in coil_params.items() if k not in ("coil_type", "ncoils", "order")},
+                )
+            elif fourier_continuation and fourier_continuation.get('enabled', False):
                 # Use Fourier continuation
                 fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
                 if not isinstance(fourier_orders, list) or not all(isinstance(o, int) for o in fourier_orders):
@@ -1174,6 +1190,141 @@ def initialize_coils_loop(
         total_current *= current_scale_factor
     
     return coils
+
+
+def initialize_coils_dipole(
+    s: SurfaceRZFourier,
+    surface_file: str,
+    surface_params: Dict[str, Any],
+    tf_configuration: str = "LandremanPaulQA",
+    poff: float = 1.5,
+    coff: float = 3.0,
+    Nx: int = 4,
+    Ny: int | None = None,
+    Nz: int | None = None,
+    dipole_order: int = 2,
+    dipole_coil_size: float = 0.1,
+    tf_coil_size: float = 0.2,
+    remove_inboard_eps: float = -0.4,
+    out_dir: Path | str = "",
+) -> tuple:
+    """
+    Initialize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
+
+    Creates planar dipole coils between two toroidal surfaces (inner and outer, extended
+    from the plasma boundary), removes inboard dipoles, removes interlinking dipoles,
+    and aligns dipole normals with the plasma surface. TF coils are initialized via
+    simsopt.util.initialize_coils for the given configuration.
+
+    Args:
+        s: Plasma boundary surface.
+        surface_file: Path to surface file (for creating s_inner/s_outer).
+        surface_params: Dict with 'range' and other surface params.
+        tf_configuration: TF coil config name ('LandremanPaulQA', 'LandremanPaulQH',
+            'SchuettHennebergQAnfp2').
+        poff: Inner surface extension distance [m].
+        coff: Additional outer extension beyond inner [m].
+        Nx, Ny, Nz: Grid dimensions for dipole placement (Ny, Nz default to Nx).
+        dipole_order: Fourier order for planar dipole curves.
+        dipole_coil_size: Dipole wire cross-section [m] (e.g. 0.1 for 10 cm).
+        tf_coil_size: TF wire cross-section [m] (e.g. 0.2 for 20 cm).
+        remove_inboard_eps: Eps for remove_inboard_dipoles.
+        out_dir: Output directory for saved files.
+
+    Returns:
+        Tuple (coils, base_curves_dipole, base_curves_TF, ncoils_dipole, ncoils_TF)
+        where coils = dipole_coils + TF_coils (all coils for BiotSavart).
+    """
+    from simsopt.geo import SurfaceRZFourier, create_planar_curves_between_two_toroidal_surfaces
+    from simsopt.field import Current, coils_via_symmetries, BiotSavart
+    from simsopt.util import (
+        initialize_coils,
+        remove_inboard_dipoles,
+        remove_interlinking_dipoles_and_TFs,
+        align_dipoles_with_plasma,
+        calculate_modB_on_major_radius,
+    )
+
+    try:
+        from simsopt.field import regularization_rect
+    except ImportError:
+        raise ImportError(
+            "Dipole coil initialization requires simsopt with regularization_rect "
+            "(auglag_coils branch or simsopt >= 0.14)."
+        )
+
+    out_dir = Path(out_dir)
+    Ny = Ny if Ny is not None else Nx
+    Nz = Nz if Nz is not None else Nx
+
+    nphi = getattr(s, "quadpoints_phi", None)
+    ntheta = getattr(s, "quadpoints_theta", None)
+    nphi = len(nphi) if nphi is not None else 32
+    ntheta = len(ntheta) if ntheta is not None else 32
+    range_param = surface_params.get("range", "half period")
+
+    surface_file_lower = surface_file.lower()
+    if "input" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_vmec_input
+    elif "wout" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_wout
+    elif "focus" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_focus
+    else:
+        raise ValueError(f"Unknown surface type: {surface_file}")
+
+    s_inner = surface_func(
+        filename=surface_file,
+        range=range_param,
+        nphi=nphi * 4,
+        ntheta=ntheta * 4,
+    )
+    s_outer = surface_func(
+        filename=surface_file,
+        range=range_param,
+        nphi=nphi * 4,
+        ntheta=ntheta * 4,
+    )
+    s_inner.extend_via_normal(poff)
+    s_outer.extend_via_normal(poff + coff)
+
+    regularization_TF = regularization_rect(tf_coil_size, tf_coil_size)
+    base_curves_TF, curves_TF, coils_TF, _ = initialize_coils(
+        s, tf_configuration, regularization_TF
+    )
+    num_TF_unique = len(base_curves_TF)
+
+    base_curves, _ = create_planar_curves_between_two_toroidal_surfaces(
+        s, s_inner, s_outer, Nx, Ny, Nz, order=dipole_order
+    )
+    base_curves = remove_inboard_dipoles(s, base_curves, eps=remove_inboard_eps)
+    base_curves = remove_interlinking_dipoles_and_TFs(base_curves, base_curves_TF)
+    alphas, deltas = align_dipoles_with_plasma(s, base_curves)
+
+    for i in range(len(base_curves)):
+        alpha2 = alphas[i] / 2.0
+        delta2 = deltas[i] / 2.0
+        base_curves[i].set("q0", np.cos(alpha2) * np.cos(delta2))
+        base_curves[i].set("qi", np.sin(alpha2) * np.cos(delta2))
+        base_curves[i].set("qj", np.cos(alpha2) * np.sin(delta2))
+        base_curves[i].set("qk", -np.sin(alpha2) * np.sin(delta2))
+
+    ncoils_dipole = len(base_curves)
+    regularization_dipole = regularization_rect(dipole_coil_size, dipole_coil_size)
+    base_currents = [Current(1.0) * 1e7 for _ in range(ncoils_dipole)]
+    regularizations = [regularization_dipole for _ in range(ncoils_dipole)]
+    coils_dipole = coils_via_symmetries(
+        base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations
+    )
+    coils = coils_dipole + coils_TF
+
+    bs_TF = BiotSavart(coils_TF)
+    bs_dipole = BiotSavart(coils_dipole)
+    btot = bs_dipole + bs_TF
+    with suppress_output():
+        calculate_modB_on_major_radius(btot, s)
+
+    return coils, base_curves, base_curves_TF, ncoils_dipole, num_TF_unique
 
 
 def _zip_output_files(out_dir: Path) -> Path:
@@ -1918,6 +2069,186 @@ def _redirect_verbose_to_file(output_file: Path):
             yield
     finally:
         sys.stdout = original_stdout
+
+
+def optimize_coils_dipole_loop(
+    s: SurfaceRZFourier,
+    surface_file: str,
+    surface_params: Dict[str, Any],
+    out_dir: Path | str = "",
+    max_iterations: int = 100,
+    verbose: bool = False,
+    skip_post_processing: bool = False,
+    case_path: Path | None = None,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = False,
+    plot_boozer: bool = True,
+    tf_configuration: str = "LandremanPaulQA",
+    Nx: int = 4,
+    dipole_order: int = 2,
+    **kwargs,
+) -> tuple:
+    """
+    Optimize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
+
+    Uses initialize_coils_dipole and dipole_array_optimization_function from simsopt.
+    """
+    from scipy.optimize import minimize
+    from simsopt.geo import (
+        CurveLength,
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+        MeanSquaredCurvature,
+        LpCurveCurvature,
+    )
+    from simsopt.field import BiotSavart, coils_to_vtk
+    from simsopt.objectives import Weight, SquaredFlux, QuadraticPenalty
+
+    try:
+        from simsopt.util import dipole_array_optimization_function, save_coil_sets
+    except ImportError as e:
+        raise ImportError(
+            "Dipole coil optimization requires simsopt with auglag_coils branch "
+            "(dipole_array_helper_functions). Install from: "
+            "https://github.com/hiddenSymmetries/simsopt"
+        ) from e
+
+    out_dir = Path(out_dir).resolve()
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    with timed_section("coil_initialization", print_time=False):
+        with suppress_output():
+            coils, base_curves, base_curves_TF, ncoils_dipole, ncoils_TF = initialize_coils_dipole(
+                s,
+                surface_file=surface_file,
+                surface_params=surface_params,
+                tf_configuration=tf_configuration,
+                Nx=Nx,
+                dipole_order=dipole_order,
+                out_dir=out_dir,
+                **{k: v for k, v in kwargs.items() if k in ("poff", "coff", "Ny", "Nz", "dipole_coil_size", "tf_coil_size", "remove_inboard_eps")},
+            )
+
+    coils_TF = coils[ncoils_dipole:]
+    base_coils_TF = coils_TF[:ncoils_TF]
+    base_coils = coils[:ncoils_dipole]
+    curves = [c.curve for c in coils]
+    curves_TF = [c.curve for c in coils_TF]
+    all_coils = coils
+    all_base_coils = base_coils + base_coils_TF
+
+    bs_TF = BiotSavart(coils_TF)
+    bs_dipole = BiotSavart(coils[:ncoils_dipole])
+    btot = bs_dipole + bs_TF
+    eval_points = s.gamma().reshape(-1, 3)
+    btot.set_points(eval_points)
+
+    try:
+        coils_to_vtk(all_coils, out_dir / "coils_initial")
+    except Exception as e:
+        print(f"Warning: Failed to save initial coils to VTK: {e}")
+
+    LENGTH_WEIGHT = Weight(0.01)
+    LENGTH_WEIGHT2 = Weight(0.01)
+    LENGTH_TARGET = 85
+    LINK_WEIGHT = 1e4
+    CC_THRESHOLD = 0.8
+    CC_WEIGHT = 1e2
+    CS_THRESHOLD = 1.3
+    CS_WEIGHT = 1e1
+    CURVATURE_THRESHOLD = 0.5
+    MSC_THRESHOLD = 0.05
+    CURVATURE_WEIGHT = 1e-2
+    MSC_WEIGHT = 1e-1
+
+    Jf = SquaredFlux(s, btot)
+    Jls = [CurveLength(c) for c in base_curves]
+    Jls_TF = [CurveLength(c) for c in base_curves_TF]
+    Jlength = QuadraticPenalty(sum(Jls_TF), LENGTH_TARGET, "max")
+    Jlength2 = QuadraticPenalty(sum(Jls), LENGTH_TARGET, "max")
+    Jccdist = CurveCurveDistance(curves + curves_TF, CC_THRESHOLD / 2.0, num_basecurves=len(all_coils))
+    Jccdist2 = CurveCurveDistance(curves_TF, CC_THRESHOLD, num_basecurves=len(coils_TF))
+    Jcsdist = CurveSurfaceDistance(curves + curves_TF, s, CS_THRESHOLD)
+    linkNum = LinkingNumber(curves + curves_TF, downsample=2)
+    Jcs = [LpCurveCurvature(c.curve, 2, CURVATURE_THRESHOLD) for c in base_coils_TF]
+    Jmscs = [MeanSquaredCurvature(c.curve) for c in base_coils_TF]
+
+    class _ZeroObj:
+        def J(self): return 0.0
+
+    try:
+        from simsopt.field.force import LpCurveForce, LpCurveTorque
+        Jforce = LpCurveForce(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveForce(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
+        Jtorque = LpCurveTorque(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveTorque(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
+        Jforce2 = Jtorque2 = _ZeroObj()
+    except (ImportError, TypeError):
+        Jforce = Jforce2 = Jtorque = Jtorque2 = _ZeroObj()
+
+    JF = (
+        Jf
+        + CC_WEIGHT * Jccdist
+        + CC_WEIGHT * Jccdist2
+        + CS_WEIGHT * Jcsdist
+        + CURVATURE_WEIGHT * sum(Jcs)
+        + MSC_WEIGHT * sum(QuadraticPenalty(J, MSC_THRESHOLD, "max") for J in Jmscs)
+        + LINK_WEIGHT * linkNum
+        + LENGTH_WEIGHT * Jlength
+        + LENGTH_WEIGHT2 * Jlength2
+    )
+
+    obj_dict = {
+        "JF": JF,
+        "Jf": Jf,
+        "Jlength": Jlength,
+        "Jlength2": Jlength2,
+        "Jls": Jls,
+        "Jls_TF": Jls_TF,
+        "Jcs": Jcs,
+        "Jmscs": Jmscs,
+        "Jccdist": Jccdist,
+        "Jccdist2": Jccdist2,
+        "Jcsdist": Jcsdist,
+        "linkNum": linkNum,
+        "Jforce": 0,
+        "Jforce2": 0,
+        "Jtorque": 0,
+        "Jtorque2": 0,
+        "btot": btot,
+        "s": s,
+        "base_curves_TF": base_curves_TF,
+        "psc_array": None,
+    }
+    weight_dict = {
+        "length_weight": LENGTH_WEIGHT.value,
+        "curvature_weight": CURVATURE_WEIGHT,
+        "msc_weight": MSC_WEIGHT,
+        "msc_threshold": MSC_THRESHOLD,
+        "cc_weight": CC_WEIGHT,
+        "cs_weight": CS_WEIGHT,
+        "link_weight": LINK_WEIGHT,
+        "force_weight": 0.0,
+        "torque_weight": 0.0,
+        "net_force_weight": 0.0,
+        "net_torque_weight": 0.0,
+    }
+
+    dofs = JF.x
+    res = minimize(
+        dipole_array_optimization_function,
+        dofs,
+        args=(obj_dict, weight_dict, None),
+        jac=True,
+        method="L-BFGS-B",
+        options={"maxiter": max_iterations, "maxcor": 1000},
+        tol=1e-20,
+    )
+
+    save_coil_sets(btot, str(out_dir) + "/", "_optimized")
+
+    combined_results = {"success": res.success, "fun": float(res.fun), "nit": int(res.nit)}
+    return coils, combined_results
 
 
 def optimize_coils_loop(
