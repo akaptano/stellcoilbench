@@ -36,138 +36,6 @@
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1">1</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6256673008513296">2.626</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:53:44.761413">05/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.881630723756175e-07">6.9e-07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00034664926414135856">3.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.999978592816625">2.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001408038891972433">1.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154.87654089927673">1.5e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6256673008513296">2.626</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:21:18.452118">05/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.881630723756175e-07">6.9e-07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00034664926414135856">3.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.999978592816625">2.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001408038891972433">1.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156.59326910972595">1.6e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3">3</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6256673008513296">2.626</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T14:53:20.354911">05/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.881630723756175e-07">6.9e-07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00034664926414135856">3.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.999978592816625">2.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001408038891972433">1.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146.2679591178894">1.5e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6256673008513296">2.626</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:53:44.761413">05/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.881630723756175e-07">6.9e-07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00034664926414135856">3.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.999978592816625">2.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001408038891972433">1.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154.87654089927673">1.5e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6256673008513296">2.626</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-05T15:24:32.880728">05/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.881630723756175e-07">6.9e-07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00034664926414135856">3.5e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.471909709854648e-05">3.5e-05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.800966244184621">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="565703.1812094701">5.7e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261881.95342717532">2.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.880800467642533">5.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07999693883385078">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3181204123686571">3.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19.999978592816625">2.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8,16">4,8,16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001408038891972433">1.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153.89569902420044">1.5e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6">6</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.6041599105894124">2.604</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-06T08:37:45.022573">06/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.226850914990597e-06">1.2e-06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0004288986794262069">4.3e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00020871657621554643">2.1e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.895475011874853">4.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="557658.8621636557">5.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280397.1663588987">2.8e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.064762740881806">8.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07998332821653859">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29875072198749747">3.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23.946831162474602">2.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001770462361266553">1.8e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313.65817499160767">3.1e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7">7</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.026147338282102">2.026</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:42.727055">17/02/26</td>
@@ -189,7 +57,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.831820011138916">6.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8">8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0232215858127836">2.023</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T14:42:03.593516">17/02/26</td>
@@ -211,7 +79,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.182751893997192">6.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9">9</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3">3</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.021316254298152">2.021</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:19.890780">15/02/26</td>
@@ -233,7 +101,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.69632697105408">6.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10">10</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0187405834977286">2.019</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:19:50.159584">16/02/26</td>
@@ -255,7 +123,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.01133704185486">6.8e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11">11</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5">5</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.013850425995794">2.014</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:05.689356">17/02/26</td>
@@ -277,7 +145,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.90427327156067">7.6e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12">12</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6">6</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.013057898354232">2.013</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T09:50:48.457009">16/02/26</td>
@@ -299,7 +167,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78.26518487930298">7.8e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13">13</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7">7</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.012791503352416">2.013</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:51:00.771575">17/02/26</td>
@@ -321,7 +189,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.45681190490723">6.9e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14">14</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8">8</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0121369619925225">2.012</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T01:22:28.512149">18/02/26</td>
@@ -343,7 +211,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.208827018737793">6.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15">15</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9">9</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.011704277007086">2.012</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T10:24:00.353709">16/02/26</td>
@@ -365,7 +233,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.77080988883972">6.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16">16</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10">10</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0116950138660328">2.012</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:50:40.398601">17/02/26</td>
@@ -387,7 +255,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.77741193771362">7.4e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17">17</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11">11</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0100734685776853">2.010</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T01:53:52.205519">16/02/26</td>
@@ -409,7 +277,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.43736100196838">7.2e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="18">18</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12">12</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.009928045148287">2.010</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:34:43.194200">15/02/26</td>
@@ -431,7 +299,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.65557765960693">8.1e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19">19</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13">13</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0094530355453606">2.009</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T23:33:45.933905">15/02/26</td>
@@ -453,7 +321,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69.56837821006775">7.0e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="20">20</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14">14</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0083538137299404">2.008</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T06:09:49.358393">17/02/26</td>
@@ -475,7 +343,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.7268078327179">6.9e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="21">21</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15">15</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0072391593317747">2.007</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T12:45:12.911031">16/02/26</td>
@@ -497,7 +365,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64.89401698112488">6.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22">22</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16">16</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.006331428752138">2.006</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:09:20.807518">16/02/26</td>
@@ -519,7 +387,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68.39567303657532">6.8e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23">23</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17">17</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.006185709967726">2.006</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:52:36.611418">16/02/26</td>
@@ -541,7 +409,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.895973920822144">6.2e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24">24</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="18">18</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0057435508623342">2.006</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:12:22.895562">16/02/26</td>
@@ -563,7 +431,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180.84611296653748">1.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25">25</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="19">19</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.004157204944201">2.004</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:30:08.201611">17/02/26</td>
@@ -585,7 +453,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.17449498176575">7.3e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26">26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="20">20</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.00351968144341">2.004</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T04:07:06.161373">16/02/26</td>
@@ -607,7 +475,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51.65858602523804">5.2e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27">27</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="21">21</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:38:41.870925">14/02/26</td>
@@ -629,7 +497,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.268679141998291">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28">28</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="22">22</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:12:00.789971">14/02/26</td>
@@ -651,7 +519,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.596667766571045">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29">29</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23">23</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.793213">11/02/26</td>
@@ -673,7 +541,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.38830304145813">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30">30</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="24">24</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:10:20.782531">13/02/26</td>
@@ -695,7 +563,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.40881609916687">7.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31">31</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25">25</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:15.596724">14/02/26</td>
@@ -717,7 +585,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.635644912719727">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32">32</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="26">26</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:51.779656">12/02/26</td>
@@ -739,7 +607,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.256499290466309">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33">33</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="27">27</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:22:44.191025">13/02/26</td>
@@ -761,7 +629,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.477197170257568">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34">34</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="28">28</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:24:59.421292">13/02/26</td>
@@ -783,7 +651,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.082104921340942">7.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="35">35</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29">29</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.570865">13/02/26</td>
@@ -805,7 +673,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760801076889038">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="36">36</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30">30</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:35.983328">13/02/26</td>
@@ -827,7 +695,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.324453830718994">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="37">37</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="31">31</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.045618">11/02/26</td>
@@ -849,7 +717,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.482574224472046">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38">38</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="32">32</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:42.896866">12/02/26</td>
@@ -871,7 +739,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7492616176605225">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39">39</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33">33</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:03.656667">12/02/26</td>
@@ -893,7 +761,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.617172956466675">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40">40</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="34">34</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:40.659847">14/02/26</td>
@@ -915,7 +783,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.457889080047607">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="41">41</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="35">35</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:20.225754">11/02/26</td>
@@ -937,7 +805,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.118201971054077">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42">42</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="36">36</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:38.288712">13/02/26</td>
@@ -959,7 +827,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.499346971511841">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43">43</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="37">37</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.082546">12/02/26</td>
@@ -981,7 +849,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.622767210006714">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44">44</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="38">38</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.038655">13/02/26</td>
@@ -1003,7 +871,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.061415195465088">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="45">45</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="39">39</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.520096">14/02/26</td>
@@ -1025,7 +893,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6193201541900635">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46">46</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="40">40</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:11:51.227899">12/02/26</td>
@@ -1047,7 +915,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.9548399448394775">7.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47">47</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="41">41</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:36.810094">13/02/26</td>
@@ -1069,7 +937,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.414738893508911">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48">48</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42">42</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:43.966326">13/02/26</td>
@@ -1091,7 +959,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.639596939086914">9.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49">49</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="43">43</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.119813">12/02/26</td>
@@ -1113,7 +981,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.027199029922485">8.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50">50</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44">44</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:29.566316">12/02/26</td>
@@ -1135,7 +1003,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.827966928482056">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51">51</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="45">45</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:23.361360">13/02/26</td>
@@ -1157,7 +1025,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.269237041473389">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52">52</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46">46</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:24.509275">12/02/26</td>
@@ -1179,7 +1047,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6761579513549805">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53">53</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="47">47</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:35.983968">12/02/26</td>
@@ -1201,7 +1069,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.303920030593872">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="54">54</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="48">48</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.798048">11/02/26</td>
@@ -1223,7 +1091,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.494694232940674">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55">55</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49">49</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:10:45.111982">13/02/26</td>
@@ -1245,7 +1113,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.455902099609375">9.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56">56</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="50">50</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:08:17.059300">14/02/26</td>
@@ -1267,7 +1135,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5914576053619385">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57">57</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="51">51</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:23:23.964920">13/02/26</td>
@@ -1289,7 +1157,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.5556721687316895">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58">58</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="52">52</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:36:39.750622">12/02/26</td>
@@ -1311,7 +1179,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.347519159317017">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59">59</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="53">53</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:27:39.982495">13/02/26</td>
@@ -1333,7 +1201,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.409653902053833">7.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="60">60</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="54">54</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:12:36.767415">12/02/26</td>
@@ -1355,7 +1223,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.294041156768799">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61">61</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55">55</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:23.344955">13/02/26</td>
@@ -1377,7 +1245,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7359349727630615">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="62">62</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="56">56</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:53.311026">12/02/26</td>
@@ -1399,7 +1267,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.697973012924194">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63">63</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57">57</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:03.348418">13/02/26</td>
@@ -1421,7 +1289,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.818249225616455">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64">64</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="58">58</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:52:35.898979">12/02/26</td>
@@ -1443,7 +1311,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664681911468506">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="65">65</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59">59</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.580954">14/02/26</td>
@@ -1465,7 +1333,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.330469846725464">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66">66</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="60">60</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:46:04.788960">12/02/26</td>
@@ -1487,7 +1355,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.760768890380859">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67">67</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61">61</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:10:15.011901">12/02/26</td>
@@ -1509,7 +1377,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.008285999298096">7.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68">68</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="62">62</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:21:18.514936">11/02/26</td>
@@ -1531,7 +1399,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116979837417603">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69">69</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="63">63</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T02:33:41.235930">14/02/26</td>
@@ -1553,7 +1421,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.295297145843506">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70">70</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="64">64</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:51:39.733132">11/02/26</td>
@@ -1575,7 +1443,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.021856307983398">8.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71">71</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="65">65</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:13:26.978992">12/02/26</td>
@@ -1597,7 +1465,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.813351154327393">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72">72</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="66">66</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:55:25.208366">13/02/26</td>
@@ -1619,7 +1487,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.70487904548645">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73">73</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="67">67</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.480293">12/02/26</td>
@@ -1641,7 +1509,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.927263975143433">7.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74">74</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68">68</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:23.147357">12/02/26</td>
@@ -1663,7 +1531,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.656144857406616">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75">75</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="69">69</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:07.927396">11/02/26</td>
@@ -1685,7 +1553,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.377877950668335">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76">76</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70">70</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:26.957807">13/02/26</td>
@@ -1707,7 +1575,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.78183913230896">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77">77</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="71">71</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:17:04.395420">11/02/26</td>
@@ -1729,7 +1597,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584656715393066">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78">78</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72">72</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:57:39.319297">14/02/26</td>
@@ -1751,7 +1619,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616193056106567">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="79">79</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73">73</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:31:59.036824">14/02/26</td>
@@ -1773,7 +1641,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.036595821380615">7.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80">80</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74">74</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.750053">12/02/26</td>
@@ -1795,7 +1663,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.442151069641113">7.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81">81</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75">75</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:11:59.471056">14/02/26</td>
@@ -1817,7 +1685,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.637885093688965">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="82">82</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="76">76</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:50:44.550600">12/02/26</td>
@@ -1839,7 +1707,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.805246829986572">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83">83</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="77">77</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:28.040075">12/02/26</td>
@@ -1861,7 +1729,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7912068367004395">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84">84</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="78">78</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.786865">13/02/26</td>
@@ -1883,7 +1751,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.405779838562012">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85">85</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="79">79</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.623037">12/02/26</td>
@@ -1905,7 +1773,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.584929704666138">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="86">86</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80">80</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.259771">13/02/26</td>
@@ -1927,7 +1795,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.739748954772949">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="87">87</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81">81</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:43:11.492409">13/02/26</td>
@@ -1949,7 +1817,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.196208715438843">7.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88">88</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="82">82</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:04.739751">11/02/26</td>
@@ -1971,7 +1839,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.327492952346802">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="89">89</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83">83</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:36.712412">12/02/26</td>
@@ -1993,7 +1861,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.657792568206787">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90">90</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84">84</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:14:27.626130">12/02/26</td>
@@ -2015,7 +1883,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.807826995849609">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91">91</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="85">85</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:53:22.695713">12/02/26</td>
@@ -2037,7 +1905,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.64055609703064">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="92">92</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="86">86</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:31:37.535265">12/02/26</td>
@@ -2059,7 +1927,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.664905309677124">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="93">93</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="87">87</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:49:41.093129">12/02/26</td>
@@ -2081,7 +1949,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.496325969696045">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94">94</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="88">88</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:39.758853">12/02/26</td>
@@ -2103,7 +1971,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.703407049179077">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="95">95</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="89">89</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:39:58.526371">12/02/26</td>
@@ -2125,7 +1993,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.849110126495361">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="96">96</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="90">90</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:17:37.269073">13/02/26</td>
@@ -2147,7 +2015,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.4202299118042">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="97">97</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="91">91</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:21:41.779503">13/02/26</td>
@@ -2169,7 +2037,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6822669506073">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="98">98</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="92">92</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:52:38.935350">13/02/26</td>
@@ -2191,7 +2059,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.7649641036987305">7.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="99">99</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="93">93</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:22:57.131366">12/02/26</td>
@@ -2213,7 +2081,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.197529077529907">7.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100">100</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="94">94</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:06:41.988815">12/02/26</td>
@@ -2235,7 +2103,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.728885889053345">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="101">101</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="95">95</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:53:52.031961">14/02/26</td>
@@ -2257,7 +2125,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.318819046020508">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102">102</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="96">96</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:34:52.211993">12/02/26</td>
@@ -2279,7 +2147,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.188708066940308">7.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103">103</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="97">97</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:47:39.307514">12/02/26</td>
@@ -2301,7 +2169,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.6369030475616455">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="104">104</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="98">98</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:34:24.439460">13/02/26</td>
@@ -2323,7 +2191,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.735451936721802">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105">105</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="99">99</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:27:05.964453">13/02/26</td>
@@ -2345,7 +2213,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.4656150341033936">7.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106">106</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100">100</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:37:24.159002">13/02/26</td>
@@ -2367,7 +2235,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.25370717048645">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="107">107</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="101">101</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T09:39:11.486839">14/02/26</td>
@@ -2389,7 +2257,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.604787349700928">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108">108</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="102">102</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:00:14.302607">14/02/26</td>
@@ -2411,7 +2279,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.616091966629028">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109">109</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="103">103</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:57:47.788067">12/02/26</td>
@@ -2433,7 +2301,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.638679027557373">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110">110</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="104">104</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:35:05.468724">13/02/26</td>
@@ -2455,7 +2323,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.8771631717681885">7.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111">111</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105">105</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:49:05.542764">11/02/26</td>
@@ -2477,7 +2345,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.37428617477417">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112">112</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="106">106</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:16:27.065877">12/02/26</td>
@@ -2499,7 +2367,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.417745113372803">7.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113">113</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="107">107</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:11:28.442493">12/02/26</td>
@@ -2521,7 +2389,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.877969264984131">7.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114">114</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108">108</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:20:00.310844">11/02/26</td>
@@ -2543,7 +2411,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.599864959716797">7.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115">115</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="109">109</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.001839238787819">2.002</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:56:18.216111">13/02/26</td>
@@ -2565,7 +2433,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.110940933227539">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116">116</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110">110</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.998850696428778">1.999</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T17:08:43.887098">15/02/26</td>
@@ -2587,7 +2455,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="81.9965648651123">8.2e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="117">117</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="111">111</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9982191124625224">1.998</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:07:20.780315">17/02/26</td>
@@ -2609,7 +2477,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.04159498214722">7.4e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="118">118</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="112">112</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9976542166929">1.998</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:51:40.696419">17/02/26</td>
@@ -2631,7 +2499,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75.9890067577362">7.6e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119">119</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="113">113</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.997254528717958">1.997</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T11:10:29.099578">16/02/26</td>
@@ -2653,7 +2521,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="80.66524600982666">8.1e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="120">120</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="114">114</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9953031499891214">1.995</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T12:15:50.418403">17/02/26</td>
@@ -2675,7 +2543,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.030098915100098">6.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="121">121</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="115">115</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9951807608847205">1.995</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:12:17.324231">16/02/26</td>
@@ -2697,7 +2565,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="61.95595192909241">6.2e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="122">122</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="116">116</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9929846945494392">1.993</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T10:55:07.671917">17/02/26</td>
@@ -2719,7 +2587,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="55.09576225280762">5.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="123">123</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="117">117</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9928931598859196">1.993</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:49:46.779153">17/02/26</td>
@@ -2741,7 +2609,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="73.69596791267395">7.4e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="124">124</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="118">118</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9925249884733196">1.993</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:42:30.295466">16/02/26</td>
@@ -2763,7 +2631,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.07622718811035">7.4e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="125">125</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="119">119</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9895708141197457">1.990</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:12.144624">17/02/26</td>
@@ -2785,7 +2653,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="72.63861513137817">7.3e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="126">126</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="120">120</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9864312478915218">1.986</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:04:53.797951">15/02/26</td>
@@ -2807,7 +2675,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193.70221400260925">1.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127">127</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="121">121</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9853705158610695">1.985</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T07:28:53.826634">17/02/26</td>
@@ -2829,7 +2697,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="105.88697719573975">1.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128">128</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="122">122</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9816415201885107">1.982</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T21:00:32.409194">16/02/26</td>
@@ -2851,7 +2719,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177.2046730518341">1.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129">129</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="123">123</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9799516370477825">1.980</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T07:13:46.173110">16/02/26</td>
@@ -2873,7 +2741,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="74.89548110961914">7.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130">130</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="124">124</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9684988770243936">1.968</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T09:52:45.400720">17/02/26</td>
@@ -2895,29 +2763,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="59.66182017326355">6.0e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131">131</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9482226813724117">1.948</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:29:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0033308248849335583">3.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.752522810695206">1.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.797898022303917">8.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="441567.1635683262">4.4e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139484.68456300336">1.4e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.571381239831634">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07967044630421084">8.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.303232780831466">3.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.620712297321127">1.7e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.018269556183234646">1.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="57.81632709503174">5.8e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132">132</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="125">125</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9437355669689451">1.944</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T15:03:15.945534">15/02/26</td>
@@ -2939,7 +2785,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191.92600202560425">1.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133">133</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="126">126</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8857357830813475">1.886</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T20:27:51.209596">17/02/26</td>
@@ -2961,7 +2807,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.636934995651245">3.0e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134">134</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="127">127</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8838461026426865">1.884</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:13.061584">17/02/26</td>
@@ -2983,7 +2829,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.996009349822998">7.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135">135</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="128">128</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8823549740936414">1.882</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T11:00:12.081789">15/02/26</td>
@@ -3005,7 +2851,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.463728189468384">2.5e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136">136</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="129">129</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8820775679359578">1.882</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T08:22:38.807298">16/02/26</td>
@@ -3027,7 +2873,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226.44915294647217">2.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137">137</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="130">130</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8806336748757964">1.881</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:47:58.122097">16/02/26</td>
@@ -3049,7 +2895,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235.0287983417511">2.4e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138">138</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="131">131</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8803603550764083">1.880</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:45:04.245697">15/02/26</td>
@@ -3071,7 +2917,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.977430105209351">7.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139">139</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="132">132</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.879010967685232">1.879</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T23:21:27.409638">17/02/26</td>
@@ -3093,7 +2939,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.853528022766113">5.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140">140</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="133">133</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8745678023020815">1.875</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T19:59:23.794642">15/02/26</td>
@@ -3115,7 +2961,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224.92512392997742">2.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141">141</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="134">134</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8708080416774069">1.871</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T07:44:17.563925">15/02/26</td>
@@ -3137,7 +2983,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.725321054458618">7.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142">142</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="135">135</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8700253644401132">1.870</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T01:33:13.880570">17/02/26</td>
@@ -3159,7 +3005,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234.29976892471313">2.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143">143</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="136">136</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8658799883434762">1.866</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T21:00:05.898663">15/02/26</td>
@@ -3181,7 +3027,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.04912519454956">2.0e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144">144</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="137">137</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8648405409623512">1.865</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T08:32:30.363947">17/02/26</td>
@@ -3203,7 +3049,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213.82366824150085">2.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145">145</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="138">138</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8631413748617398">1.863</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T02:57:18.505588">16/02/26</td>
@@ -3225,7 +3071,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194.85751390457153">1.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146">146</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="139">139</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:32.823509">13/02/26</td>
@@ -3247,7 +3093,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64330506324768">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147">147</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="140">140</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.466554">12/02/26</td>
@@ -3269,7 +3115,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.877470016479492">8.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148">148</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="141">141</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:22:06.850563">11/02/26</td>
@@ -3291,7 +3137,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.116722822189331">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149">149</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="142">142</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T06:25:28.788955">13/02/26</td>
@@ -3313,7 +3159,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.41927719116211">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150">150</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="143">143</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:30.865460">12/02/26</td>
@@ -3335,7 +3181,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.226839065551758">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151">151</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144">144</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:55.733031">12/02/26</td>
@@ -3357,7 +3203,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.194045782089233">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152">152</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="145">145</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:30.222546">14/02/26</td>
@@ -3379,7 +3225,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.61722183227539">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153">153</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="146">146</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:19:03.832787">11/02/26</td>
@@ -3401,7 +3247,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.10605525970459">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154">154</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147">147</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:30.402588">13/02/26</td>
@@ -3423,7 +3269,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.79240894317627">8.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155">155</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="148">148</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:14:04.351705">14/02/26</td>
@@ -3445,7 +3291,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.178466081619263">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156">156</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="149">149</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:50.965448">13/02/26</td>
@@ -3467,7 +3313,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.667217254638672">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157">157</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="150">150</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.652013">13/02/26</td>
@@ -3489,7 +3335,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.695196866989136">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158">158</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="151">151</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:36.543341">13/02/26</td>
@@ -3511,7 +3357,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.685822010040283">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159">159</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="152">152</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:59:32.220483">12/02/26</td>
@@ -3533,7 +3379,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.977558135986328">8.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160">160</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="153">153</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:49:46.050873">12/02/26</td>
@@ -3555,7 +3401,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.45492672920227">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161">161</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="154">154</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:23:52.727671">13/02/26</td>
@@ -3577,7 +3423,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.492582082748413">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162">162</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="155">155</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.384476">14/02/26</td>
@@ -3599,7 +3445,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.707674264907837">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163">163</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="156">156</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:16:15.138185">13/02/26</td>
@@ -3621,7 +3467,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67320704460144">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164">164</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="157">157</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:01:12.533136">12/02/26</td>
@@ -3643,7 +3489,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590862035751343">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165">165</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="158">158</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.033242">13/02/26</td>
@@ -3665,7 +3511,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.590508937835693">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166">166</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="159">159</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:13:03.504538">13/02/26</td>
@@ -3687,7 +3533,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.153568744659424">1.0e+01</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167">167</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="160">160</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:03.525516">11/02/26</td>
@@ -3709,7 +3555,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.217495679855347">9.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168">168</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="161">161</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:41:59.058034">12/02/26</td>
@@ -3731,7 +3577,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.593476295471191">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169">169</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162">162</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:05.497295">13/02/26</td>
@@ -3753,7 +3599,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.578474044799805">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170">170</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="163">163</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:16:37.130177">12/02/26</td>
@@ -3775,7 +3621,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.606275796890259">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171">171</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="164">164</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:01.701080">11/02/26</td>
@@ -3797,7 +3643,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.29365086555481">9.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172">172</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="165">165</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:24.624831">12/02/26</td>
@@ -3819,7 +3665,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.46219801902771">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173">173</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="166">166</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:53.814231">13/02/26</td>
@@ -3841,7 +3687,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.514100790023804">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174">174</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="167">167</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:51.889485">12/02/26</td>
@@ -3863,7 +3709,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.57158899307251">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175">175</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="168">168</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:17.847014">13/02/26</td>
@@ -3885,7 +3731,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.233503103256226">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176">176</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="169">169</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:51:34.314853">11/02/26</td>
@@ -3907,7 +3753,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.507838010787964">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177">177</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="170">170</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:33.255841">12/02/26</td>
@@ -3929,7 +3775,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.74887466430664">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178">178</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="171">171</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.674798">13/02/26</td>
@@ -3951,7 +3797,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.633736848831177">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179">179</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="172">172</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:22:34.766420">11/02/26</td>
@@ -3973,7 +3819,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.536368131637573">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180">180</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="173">173</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:59:47.389042">14/02/26</td>
@@ -3995,7 +3841,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.267996788024902">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181">181</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="174">174</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T15:13:35.649154">12/02/26</td>
@@ -4017,7 +3863,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.098844051361084">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182">182</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="175">175</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:46.647222">12/02/26</td>
@@ -4039,7 +3885,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.209996938705444">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183">183</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="176">176</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:32:27.762009">12/02/26</td>
@@ -4061,7 +3907,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.264412879943848">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184">184</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="177">177</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:33:43.802231">12/02/26</td>
@@ -4083,7 +3929,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.322812795639038">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185">185</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="178">178</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:19.824237">12/02/26</td>
@@ -4105,7 +3951,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.193366050720215">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186">186</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179">179</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:31.791867">13/02/26</td>
@@ -4127,7 +3973,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.745657920837402">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187">187</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="180">180</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:43.530604">13/02/26</td>
@@ -4149,7 +3995,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.64832592010498">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188">188</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="181">181</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:31:42.410582">13/02/26</td>
@@ -4171,7 +4017,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.68556523323059">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189">189</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="182">182</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T00:59:53.526000">12/02/26</td>
@@ -4193,7 +4039,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.166682004928589">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190">190</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="183">183</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T17:42:11.463376">12/02/26</td>
@@ -4215,7 +4061,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.69020128250122">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191">191</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="184">184</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:07.680477">13/02/26</td>
@@ -4237,7 +4083,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.569249153137207">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192">192</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="185">185</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:18:27.885019">12/02/26</td>
@@ -4259,7 +4105,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.228942155838013">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193">193</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="186">186</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:33.308493">13/02/26</td>
@@ -4281,7 +4127,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.560002088546753">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194">194</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="187">187</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:13:36.495497">12/02/26</td>
@@ -4303,7 +4149,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.273733854293823">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195">195</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="188">188</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:12:28.209531">13/02/26</td>
@@ -4325,7 +4171,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.18305492401123">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196">196</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189">189</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:55:29.675270">12/02/26</td>
@@ -4347,7 +4193,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.260712146759033">8.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197">197</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="190">190</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:24:55.870626">13/02/26</td>
@@ -4369,7 +4215,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.390984296798706">8.4e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198">198</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="191">191</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T15:00:06.059714">13/02/26</td>
@@ -4391,7 +4237,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.623393058776855">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199">199</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="192">192</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:35.464879">12/02/26</td>
@@ -4413,7 +4259,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.882462978363037">8.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200">200</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="193">193</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:07:36.909057">13/02/26</td>
@@ -4435,7 +4281,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.53669285774231">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201">201</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="194">194</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:15.004602">13/02/26</td>
@@ -4457,7 +4303,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710787057876587">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202">202</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="195">195</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T09:38:47.153944">12/02/26</td>
@@ -4479,7 +4325,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.211593866348267">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203">203</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="196">196</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.727827">13/02/26</td>
@@ -4501,7 +4347,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.828953742980957">8.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204">204</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="197">197</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T10:37:16.508890">13/02/26</td>
@@ -4523,7 +4369,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.692058801651001">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205">205</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="198">198</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:31.378588">14/02/26</td>
@@ -4545,7 +4391,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.67012095451355">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206">206</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="199">199</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:04:20.173041">12/02/26</td>
@@ -4567,7 +4413,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.187489986419678">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207">207</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="200">200</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:54:45.043980">13/02/26</td>
@@ -4589,7 +4435,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.673142910003662">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208">208</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="201">201</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:19:49.458394">13/02/26</td>
@@ -4611,7 +4457,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.710578203201294">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209">209</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="202">202</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T13:13:17.620044">13/02/26</td>
@@ -4633,7 +4479,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.978104114532471">8.0e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210">210</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203">203</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:36:31.488911">13/02/26</td>
@@ -4655,7 +4501,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.586299896240234">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211">211</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="204">204</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T11:16:33.620846">12/02/26</td>
@@ -4677,7 +4523,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.520040273666382">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212">212</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="205">205</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:48:10.017005">12/02/26</td>
@@ -4699,7 +4545,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.106815338134766">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213">213</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="206">206</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:24:00.619311">11/02/26</td>
@@ -4721,7 +4567,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.306886196136475">9.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214">214</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="207">207</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:29:13.252184">13/02/26</td>
@@ -4743,7 +4589,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.128228187561035">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215">215</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="208">208</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T01:02:14.046852">14/02/26</td>
@@ -4765,7 +4611,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.93415904045105">7.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216">216</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="209">209</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:15:38.576503">12/02/26</td>
@@ -4787,7 +4633,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.86678671836853">8.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217">217</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="210">210</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T22:18:18.760104">13/02/26</td>
@@ -4809,7 +4655,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.199159145355225">8.2e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218">218</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="211">211</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T11:54:17.808674">11/02/26</td>
@@ -4831,7 +4677,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.559816122055054">8.6e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219">219</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="212">212</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T08:10:29.325854">14/02/26</td>
@@ -4853,7 +4699,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.660295009613037">8.7e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220">220</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213">213</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:32.729850">13/02/26</td>
@@ -4875,7 +4721,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.85395622253418">8.9e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221">221</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="214">214</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:08:50.952283">12/02/26</td>
@@ -4897,7 +4743,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.538310766220093">8.5e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222">222</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="215">215</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:47:34.579045">12/02/26</td>
@@ -4919,7 +4765,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.094752073287964">8.1e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223">223</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="216">216</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.861770209598958">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:58:29.791298">13/02/26</td>
@@ -4941,7 +4787,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.780425071716309">8.8e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224">224</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="217">217</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8616342518624738">1.862</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T03:09:51.786833">17/02/26</td>
@@ -4963,7 +4809,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223.3541932106018">2.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225">225</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="218">218</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8499544524679086">1.850</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T14:44:21.565629">16/02/26</td>
@@ -4985,7 +4831,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.289355993270874">7.3e+00</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226">226</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="219">219</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8484325015815333">1.848</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-15T20:56:35.896254">15/02/26</td>
@@ -5007,7 +4853,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="162.12186694145203">1.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227">227</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="220">220</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8414954816144498">1.841</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T04:52:47.571122">17/02/26</td>
@@ -5029,7 +4875,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.97081780433655">3.4e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228">228</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221">221</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8378713845162813">1.838</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T00:08:51.384035">17/02/26</td>
@@ -5051,7 +4897,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308.3559250831604">3.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229">229</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="222">222</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8371040556207083">1.837</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T22:59:34.178532">16/02/26</td>
@@ -5073,7 +4919,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="319.74471497535706">3.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230">230</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="223">223</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8305363566602932">1.831</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-16T17:33:00.758171">16/02/26</td>
@@ -5095,7 +4941,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="332.7866168022156">3.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231">231</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="224">224</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:11.129268">13/02/26</td>
@@ -5117,7 +4963,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3783349990845">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232">232</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="225">225</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.041222">11/02/26</td>
@@ -5139,7 +4985,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.61396288871765">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233">233</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="226">226</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.638594">13/02/26</td>
@@ -5161,7 +5007,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.7472302913666">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234">234</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227">227</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:32.449008">13/02/26</td>
@@ -5183,7 +5029,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.7793650627136">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235">235</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="228">228</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:34.957609">12/02/26</td>
@@ -5205,7 +5051,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.53657388687134">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236">236</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="229">229</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:51.173769">12/02/26</td>
@@ -5227,7 +5073,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.0458550453186">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237">237</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="230">230</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:33.752715">12/02/26</td>
@@ -5249,7 +5095,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="407.9253399372101">4.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238">238</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="231">231</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:51.787567">13/02/26</td>
@@ -5271,7 +5117,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.0409426689148">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239">239</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="232">232</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.387278">12/02/26</td>
@@ -5293,7 +5139,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.6805729866028">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240">240</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="233">233</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T16:40:37.159120">12/02/26</td>
@@ -5315,7 +5161,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.50058579444885">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241">241</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="234">234</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:22.295429">12/02/26</td>
@@ -5337,7 +5183,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.79580068588257">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242">242</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="235">235</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T21:22:24.785979">12/02/26</td>
@@ -5359,7 +5205,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5678029060364">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243">243</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="236">236</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T19:18:38.513767">13/02/26</td>
@@ -5381,7 +5227,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.2918498516083">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244">244</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="237">237</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.345404">11/02/26</td>
@@ -5403,7 +5249,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.1625747680664">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245">245</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="238">238</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T07:52:12.468161">13/02/26</td>
@@ -5425,7 +5271,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.96911001205444">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246">246</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239">239</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:29.929152">13/02/26</td>
@@ -5447,7 +5293,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.84710717201233">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247">247</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="240">240</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:11.099446">13/02/26</td>
@@ -5469,7 +5315,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="419.29562497138977">4.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248">248</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="241">241</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:57.042959">12/02/26</td>
@@ -5491,7 +5337,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="391.31253576278687">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249">249</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="242">242</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:34.412806">12/02/26</td>
@@ -5513,7 +5359,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.2454779148102">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250">250</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="243">243</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:31.813207">12/02/26</td>
@@ -5535,7 +5381,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.7827389240265">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251">251</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244">244</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:56:20.609139">12/02/26</td>
@@ -5557,7 +5403,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.09291219711304">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252">252</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="245">245</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:00.180868">12/02/26</td>
@@ -5579,7 +5425,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.26904487609863">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253">253</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="246">246</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T04:17:18.516196">13/02/26</td>
@@ -5601,7 +5447,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.7003757953644">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254">254</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="247">247</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.594537">13/02/26</td>
@@ -5623,7 +5469,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.71021795272827">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255">255</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="248">248</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T03:41:11.651114">12/02/26</td>
@@ -5645,7 +5491,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.99059987068176">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256">256</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249">249</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:59.846744">13/02/26</td>
@@ -5667,7 +5513,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="374.0912868976593">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257">257</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="250">250</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:17.102132">12/02/26</td>
@@ -5689,7 +5535,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.81534910202026">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258">258</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="251">251</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:53.275744">13/02/26</td>
@@ -5711,7 +5557,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="372.9121768474579">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259">259</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252">252</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T06:21:17.334667">12/02/26</td>
@@ -5733,7 +5579,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.4121780395508">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260">260</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="253">253</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T22:33:46.599530">12/02/26</td>
@@ -5755,7 +5601,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.0525140762329">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261">261</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="254">254</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:59.822143">14/02/26</td>
@@ -5777,7 +5623,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.26778292655945">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262">262</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="255">255</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T13:31:48.020044">11/02/26</td>
@@ -5799,7 +5645,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.59044098854065">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263">263</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="256">256</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:00:30.073200">12/02/26</td>
@@ -5821,7 +5667,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.33926606178284">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264">264</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="257">257</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T07:55:14.800577">14/02/26</td>
@@ -5843,7 +5689,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.66371512413025">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265">265</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="258">258</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T23:30:52.024899">11/02/26</td>
@@ -5865,7 +5711,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.27868485450745">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266">266</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="259">259</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:55.073402">13/02/26</td>
@@ -5887,7 +5733,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.6516270637512">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267">267</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="260">260</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T02:24:35.385766">12/02/26</td>
@@ -5909,7 +5755,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.39421582221985">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268">268</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="261">261</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.865532">11/02/26</td>
@@ -5931,7 +5777,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.88229298591614">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269">269</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="262">262</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:32.819354">13/02/26</td>
@@ -5953,7 +5799,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.8448488712311">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270">270</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="263">263</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:50:40.145594">13/02/26</td>
@@ -5975,7 +5821,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.0505700111389">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271">271</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="264">264</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T07:17:38.423331">12/02/26</td>
@@ -5997,7 +5843,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="360.22934103012085">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272">272</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="265">265</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T08:23:07.033098">13/02/26</td>
@@ -6019,7 +5865,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="418.52054500579834">4.2e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273">273</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="266">266</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T00:40:31.032831">13/02/26</td>
@@ -6041,7 +5887,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.18965792655945">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274">274</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="267">267</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T11:24:31.800384">13/02/26</td>
@@ -6063,7 +5909,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="385.60783076286316">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275">275</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="268">268</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:58.818380">12/02/26</td>
@@ -6085,7 +5931,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="389.9235498905182">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276">276</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="269">269</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T23:27:16.572735">12/02/26</td>
@@ -6107,7 +5953,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.46136593818665">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277">277</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="270">270</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T21:21:17.330830">13/02/26</td>
@@ -6129,7 +5975,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.5828628540039">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278">278</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="271">271</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:58:44.288041">13/02/26</td>
@@ -6151,7 +5997,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.6802339553833">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279">279</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="272">272</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T14:27:51.988789">11/02/26</td>
@@ -6173,7 +6019,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="357.82418990135193">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280">280</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="273">273</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T05:22:22.002667">12/02/26</td>
@@ -6195,7 +6041,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.87685203552246">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281">281</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="274">274</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:15.599999">14/02/26</td>
@@ -6217,7 +6063,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.7351200580597">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282">282</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="275">275</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:53.982455">12/02/26</td>
@@ -6239,7 +6085,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="384.6250400543213">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283">283</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="276">276</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:22:49.477806">14/02/26</td>
@@ -6261,7 +6107,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.8300521373749">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284">284</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="277">277</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:06:55.616762">13/02/26</td>
@@ -6283,7 +6129,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.3948669433594">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285">285</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="278">278</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:15:49.951732">14/02/26</td>
@@ -6305,7 +6151,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.71710896492004">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286">286</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="279">279</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T01:51:35.497127">12/02/26</td>
@@ -6327,7 +6173,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.9527781009674">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287">287</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="280">280</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T19:19:48.625973">12/02/26</td>
@@ -6349,7 +6195,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="383.2400782108307">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288">288</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="281">281</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:04:03.846475">11/02/26</td>
@@ -6371,7 +6217,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.85212993621826">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289">289</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="282">282</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T20:03:56.876150">13/02/26</td>
@@ -6393,7 +6239,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373.60723185539246">3.7e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290">290</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="283">283</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T14:42:33.825745">12/02/26</td>
@@ -6415,7 +6261,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.3997731208801">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291">291</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="284">284</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:12.094481">14/02/26</td>
@@ -6437,7 +6283,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="392.8646728992462">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292">292</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="285">285</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T05:54:00.709277">13/02/26</td>
@@ -6459,7 +6305,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.5102479457855">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293">293</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="286">286</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T19:16:04.936985">14/02/26</td>
@@ -6481,7 +6327,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="380.19913601875305">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294">294</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="287">287</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:42.815921">13/02/26</td>
@@ -6503,7 +6349,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5487599372864">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295">295</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="288">288</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T23:16:20.712916">13/02/26</td>
@@ -6525,7 +6371,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.05595088005066">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296">296</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="289">289</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T03:52:19.889517">13/02/26</td>
@@ -6547,7 +6393,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="358.65915393829346">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297">297</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="290">290</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:23.169875">12/02/26</td>
@@ -6569,7 +6415,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.8873620033264">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298">298</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="291">291</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:46.802020">13/02/26</td>
@@ -6591,7 +6437,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="386.5960440635681">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299">299</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="292">292</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T04:56:54.967853">12/02/26</td>
@@ -6613,7 +6459,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="356.75380992889404">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300">300</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="293">293</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T14:06:30.402217">13/02/26</td>
@@ -6635,7 +6481,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="362.11508202552795">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301">301</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="294">294</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:07.351960">12/02/26</td>
@@ -6657,7 +6503,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="377.18457293510437">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302">302</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="295">295</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:34.882492">12/02/26</td>
@@ -6679,7 +6525,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="409.5564351081848">4.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303">303</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="296">296</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T09:23:18.905440">13/02/26</td>
@@ -6701,7 +6547,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2420790195465">4.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304">304</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="297">297</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T10:59:01.068404">12/02/26</td>
@@ -6723,7 +6569,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="378.0802118778229">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305">305</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="298">298</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:19.397669">12/02/26</td>
@@ -6745,7 +6591,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="382.78020310401917">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306">306</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="299">299</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T13:51:11.381393">12/02/26</td>
@@ -6767,7 +6613,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="375.77176904678345">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307">307</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="300">300</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T12:06:53.678757">13/02/26</td>
@@ -6789,7 +6635,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.306654214859">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308">308</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="301">301</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-14T00:49:33.168007">14/02/26</td>
@@ -6811,7 +6657,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="359.01064014434814">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309">309</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="302">302</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T01:32:50.709986">13/02/26</td>
@@ -6833,7 +6679,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="361.4223701953888">3.6e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310">310</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303">303</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T08:26:32.090307">12/02/26</td>
@@ -6855,7 +6701,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="408.2859251499176">4.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311">311</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="304">304</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T12:33:36.979844">11/02/26</td>
@@ -6877,7 +6723,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="376.5566830635071">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312">312</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="305">305</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-12T12:02:18.695452">12/02/26</td>
@@ -6899,7 +6745,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="381.36734223365784">3.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313">313</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="306">306</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8165696086769103">1.817</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-13T02:25:45.165754">13/02/26</td>
@@ -6921,7 +6767,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="387.482439994812">3.9e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="314">314</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="307">307</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.802921500729536">1.803</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:25:18.036250">09/02/26</td>
@@ -6943,7 +6789,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.700101852417">2.4e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="315">315</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="308">308</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.8018193236705933">1.802</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-18T10:20:06.115130">18/02/26</td>
@@ -6965,29 +6811,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="227.09969687461853">2.3e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="316">316</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7929815313129458">1.793</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T15:52:01.006962">19/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.24794528072908e-06">1.2e-06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00046455868999424583">4.6e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00021870905903953767">2.2e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.656255816694707">4.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="592581.3175365371">5.9e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="463030.15258944576">4.6e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.778685894282354">5.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07919252636808964">7.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3000233927930898">3.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="23.13953034728238">2.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0018275450538017828">1.8e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="203.60529804229736">2.0e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="317">317</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309">309</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7842660132647954">1.784</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-17T17:11:05.206887">17/02/26</td>
@@ -7009,7 +6833,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="239.84701228141785">2.4e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="318">318</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="310">310</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.727756864113647">1.728</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:58:02.339407">08/02/26</td>
@@ -7031,7 +6855,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1491.5190892219543">1.5e+03</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="319">319</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="311">311</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.7223980037930873">1.722</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-08T12:50:10.732132">08/02/26</td>
@@ -7053,7 +6877,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="179.35041618347168">1.8e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="320">320</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="312">312</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.626903837146761">1.627</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:27:55.169368">09/02/26</td>
@@ -7075,7 +6899,7 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="110.09061789512634">1.1e+02</td>
 </tr>
 <tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="321">321</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="313">313</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5122412065446196">1.512</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-09T20:19:22.382728">09/02/26</td>
@@ -7096,604 +6920,10 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.004828368098209241">4.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="410.3944981098175">4.1e+02</td>
 </tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="322">322</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9597293059487123">0.960</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T13:30:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.0">16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.010411040072521992">1.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5778216127659905">3.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.85486853935715">9.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="791980.1899044797">7.9e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476436.7679530129">4.8e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.014382108116537">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07844049005857534">7.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23339828936177107">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.61416406582713">1.8e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04814130690069627">4.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="484.05645203590393">4.8e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="323">323</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9597293059487123">0.960</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:40:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.0">16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.010411040072521992">1.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5778216127659905">3.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.85486853935715">9.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="791980.1899044797">7.9e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="476436.7679530129">4.8e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.014382108116537">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07844049005857534">7.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.23339828936177107">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.61416406582713">1.8e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.04814130690069627">4.8e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="478.8054699897766">4.8e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="324">324</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0010239565900552845">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:36:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07884081145787546">7.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20905046538384028">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.747687617492483">4.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14755973.48533567">1.5e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4530484.905262092">4.5e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.534511873081588">5.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.004166305845046084">4.2e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1935279631685863">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.388941225598892">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30511939065547206">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.469293117523193">2.5e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="325">325</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0010239565900552845">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:38:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07884081145787546">7.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20905046538384028">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.747687617492483">4.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14755973.48533567">1.5e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4530484.905262092">4.5e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5.534511873081588">5.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.004166305845046084">4.2e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1935279631685863">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.388941225598892">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.30511939065547206">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.72536611557007">2.6e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="326">326</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0007247571459638297">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:39:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.0">16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08229673930309318">8.2e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3077062865913121">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7006465360317784">3.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="5706800.297838324">5.7e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1128014.0171976464">1.1e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.177141295603185">4.2e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.006393062886242629">6.4e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19479495273905267">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.36481715889765">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3074919202544583">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="33.286664962768555">3.3e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="327">327</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0006229012758293444">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:33:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08381122517497339">8.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29113016160281024">2.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178225986935383">3.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9916602.247985087">9.9e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2130974.184535363">2.1e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286177218796624">4.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005275236742207318">5.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1939284034319461">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.351955368934954">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.31057106028648507">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.502700090408325">2.6e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="328">328</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0006229012758293444">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:31:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08381122517497339">8.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.29113016160281024">2.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178225986935383">3.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9916602.247985087">9.9e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2130974.184535363">2.1e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286177218796624">4.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005275236742207318">5.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1939284034319461">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.351955368934954">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.31057106028648507">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="25.627583980560303">2.6e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="329">329</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0006227856574544216">0.001</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:28:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08381308147405088">8.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2911212330543844">2.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.7178308838060095">3.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9912446.490049485">9.9e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2126533.7082345057">2.1e+06</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.286180580286655">4.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005276503912773084">5.3e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.19392818037848553">1.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.351947160812134">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3105747351527476">3.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.25582003593445">1.7e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="330">330</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.867021736531377e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:30:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10586194969976079">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.216521219068534">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3805086905861806">3.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.587711095809937">1.1e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331">331</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.867021736531377e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:36:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10586194969976079">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.216521219068534">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3805086905861806">3.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.55438494682312">1.1e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="332">332</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.867021736531377e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:28:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10586194969976079">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.27856751339708347">2.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.112786356883403">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249579.42403208493">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="68760.42798883903">6.9e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.3625260984885">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24409441939711496">2.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10566995932401495">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.216521219068534">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.3805086905861806">3.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.613347053527832">1.1e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="333">333</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.16741333382454e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:35:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11085629925266617">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.22932631962803">2.2e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.77495282026222">8.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="373410775.8149498">3.7e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="303233026.849906">3.0e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="12.910310415487755">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07485123353948898">7.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20364346030470593">2.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.99957094581136">1.7e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9839411123579392">9.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="221.5595178604126">2.2e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="334">334</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.464411029713907e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:15:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11270382823770632">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.389108717511256">2.4e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.000236095609036">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="399424736.3286174">4.0e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="327609068.6247752">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.603720838508902">1.4e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.07651418029204979">7.7e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20219108110690412">2.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.144049704521056">1.7e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9829745151819068">9.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="372.3335928916931">3.7e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="335">335</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.534671262604364e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T11:22:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11582861515782199">1.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.9088000047292466">1.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.859442105045154">8.9e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="309846002.6323419">3.1e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="213232289.3134841">2.1e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.461841435347548">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09159675824824907">9.2e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20319918553808444">2.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.484985724708558">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9829390942476908">9.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108.70606994628906">1.1e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336">336</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.4194574572402114e-05">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T12:18:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="16.0">16</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.11629382141159296">1.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.5746142022653196">3.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.980442928200407">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="986725806.7795186">9.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="695850002.5017046">7.0e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.864461848683225">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08370166740488058">8.4e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.24318818938203454">2.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="17.005591592934277">1.7e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9962352327212248">1.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="586.258425951004">5.9e+02</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="337">337</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.892842974172131e-06">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:34:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14177430639958397">1.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.753495507340995">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939417129879662">9.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.117408752441406">1.5e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="338">338</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.892842974172131e-06">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:33:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14177430639958397">1.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.753495507340995">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939417129879662">9.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.954218864440918">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="339">339</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.892842974172131e-06">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:21:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14177430639958397">1.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.753495507340995">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939417129879662">9.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.510950088500977">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="340">340</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.892842974172131e-06">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:17:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14177430639958397">1.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.753495507340995">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939417129879662">9.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.564044713973999">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="341">341</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.892842974172131e-06">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:15:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.14177430639958397">1.4e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.5971118544092124">1.6e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="6.297342275515517">6.3e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="331943498.6192954">3.3e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="189411820.89405546">1.9e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.717817587583742">9.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10594428266366462">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.20682804680017292">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="15.753495507340995">1.6e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.9939417129879662">9.9e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.019055128097534">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="342">342</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.766923260931186e-07">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2025-12-01T01:51:29.688228">01/12/25</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.15791837093857247">1.6e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.504806923422474">7.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="244490.70128890238">2.4e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="49785.81006040528">5.0e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.790787534811141">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2184445363940109">2.2e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10719407139164518">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.784137899322337">1.1e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.46694030934260755">4.7e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.33704900741577">3.0e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="343">343</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.6268783768046856e-08">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:47:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1788879831991335">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.210773326069074">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4300702327197932">4.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.919920206069946">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="344">344</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.6268783768046856e-08">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:41:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1788879831991335">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.210773326069074">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4300702327197932">4.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.82164192199707">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="345">345</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.6268783768046856e-08">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:50:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1788879831991335">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.210773326069074">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4300702327197932">4.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.505263805389404">1.5e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="346">346</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.6268783768046856e-08">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T09:45:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1788879831991335">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09985587739184648">1.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.738218834765256">8.7e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="252656.82201102993">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="70932.69370247624">7.1e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.320023825973012">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22623896082047945">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.09891150923135943">9.9e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.210773326069074">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.4300702327197932">4.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="14.004676103591919">1.4e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="347">347</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.0698524816731818e-09">0.000</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-01-23T10:03:00">23/01/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.2099578849710078">2.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.08451924256818608">8.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="9.513392138472081">9.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="249039.0366271209">2.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="75847.49284402916">7.6e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="10.447205517025298">1.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.22528391184667296">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.10371833910829303">1.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="13.199874573234322">1.3e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.5037441051583252">5.0e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="11.77249526977539">1.2e+01</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="348">348</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="-1000000000.0">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="auto">auto</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-19T17:11:59.737079">19/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.001">1.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="8.0">8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="42.0">4.2e+01</td>
-</tr>
 </tbody>
 </table>
 </div>
-<p style="font-size: 0.9em; margin-top: 0.5em;">Showing top 10 of 348 entries. Scroll to see more, or click column headers to sort.</p>
+<p style="font-size: 0.9em; margin-top: 0.5em;">Showing top 10 of 313 entries. Scroll to see more, or click column headers to sort.</p>
 
 <script>
 (function() {

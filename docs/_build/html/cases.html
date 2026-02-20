@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cases &mdash; StellCoilBench  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=400d0fb7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/leaderboard_sort.js?v=66d0fa50"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="StellCoilBench Leaderboard" href="leaderboard.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            StellCoilBench
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="leaderboard.html">StellCoilBench Leaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autopilot.html">Nonstop CI Autopilot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">StellCoilBench</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cases">
+<h1>Cases<a class="headerlink" href="#cases" title="Link to this heading"></a></h1>
+<p>Case files (YAML) define the optimization problem: plasma surface, coil configuration, optimizer, and objective terms.</p>
+<section id="schema">
+<h2>Schema<a class="headerlink" href="#schema" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>surface_params</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">surface</span></code>: Name from <code class="docutils literal notranslate"><span class="pre">plasma_surfaces/</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">input.LandremanPaul2021_QA</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;half</span> <span class="pre">period&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;full</span> <span class="pre">period&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;full</span> <span class="pre">torus&quot;</span></code></p></li>
+</ul>
+</dd>
+<dt><strong>coils_params</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ncoils</span></code>: Number of coils (4, 6, 8, …)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">order</span></code>: Fourier order (4, 8, 16, …)</p></li>
+</ul>
+</dd>
+<dt><strong>optimizer_params</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;L-BFGS-B&quot;</span></code> (recommended) or <code class="docutils literal notranslate"><span class="pre">&quot;augmented_lagrangian&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iterations</span></code>: e.g. 200–1000</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter_subopt</span></code>: For augmented Lagrangian (e.g. 10–40)</p></li>
+</ul>
+</dd>
+<dt><strong>coil_objective_terms</strong></dt><dd><p>Each term maps to a penalty type: <code class="docutils literal notranslate"><span class="pre">l1</span></code>, <code class="docutils literal notranslate"><span class="pre">l2</span></code>, <code class="docutils literal notranslate"><span class="pre">lp</span></code>, <code class="docutils literal notranslate"><span class="pre">l1_threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">l2_threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">lp_threshold</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>.
+Common terms: <code class="docutils literal notranslate"><span class="pre">total_length</span></code>, <code class="docutils literal notranslate"><span class="pre">coil_curvature</span></code>, <code class="docutils literal notranslate"><span class="pre">coil_mean_squared_curvature</span></code>, <code class="docutils literal notranslate"><span class="pre">coil_arclength_variation</span></code>, <code class="docutils literal notranslate"><span class="pre">linking_number</span></code>, <code class="docutils literal notranslate"><span class="pre">coil_coil_force</span></code>, <code class="docutils literal notranslate"><span class="pre">coil_coil_torque</span></code>.
+<code class="docutils literal notranslate"><span class="pre">coil_coil_distance</span></code> and <code class="docutils literal notranslate"><span class="pre">coil_surface_distance</span></code> are always included; use <code class="docutils literal notranslate"><span class="pre">cc_threshold</span></code> and <code class="docutils literal notranslate"><span class="pre">cs_threshold</span></code>.</p>
+</dd>
+<dt><strong>fourier_continuation</strong> (optional)</dt><dd><p>Progressive refinement by order: <code class="docutils literal notranslate"><span class="pre">enabled:</span> <span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">orders:</span> <span class="pre">[4,</span> <span class="pre">8,</span> <span class="pre">16]</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Basic</span><span class="nv"> </span><span class="s">Landreman-Paul</span><span class="nv"> </span><span class="s">QA</span><span class="nv"> </span><span class="s">case&quot;</span>
+<span class="nt">surface_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">surface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;input.LandremanPaul2021_QA&quot;</span>
+<span class="w">  </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;half</span><span class="nv"> </span><span class="s">period&quot;</span>
+<span class="nt">coils_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ncoils</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">optimizer_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;L-BFGS-B&quot;</span>
+<span class="w">  </span><span class="nt">max_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">  </span><span class="nt">max_iter_subopt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">coil_objective_terms</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">total_length</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;l2_threshold&quot;</span>
+<span class="w">  </span><span class="nt">coil_curvature</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lp_threshold&quot;</span>
+<span class="w">  </span><span class="nt">coil_curvature_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">coil_mean_squared_curvature</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;l2_threshold&quot;</span>
+<span class="w">  </span><span class="nt">coil_arclength_variation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;l2_threshold&quot;</span>
+<span class="w">  </span><span class="nt">linking_number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">coil_coil_force</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lp_threshold&quot;</span>
+<span class="w">  </span><span class="nt">coil_coil_force_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">coil_coil_torque</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lp_threshold&quot;</span>
+<span class="w">  </span><span class="nt">coil_coil_torque_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="leaderboard/metric_definitions.html"><span class="doc">Metric Definitions</span></a> for metric notation and <a class="reference internal" href="api.html"><span class="doc">API Reference</span></a> for full schema details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="leaderboard.html" class="btn btn-neutral float-right" title="StellCoilBench Leaderboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
