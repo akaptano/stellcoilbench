@@ -278,37 +278,6 @@ Performance Metrics
    
    Lower values indicate more efficient optimization algorithms or faster convergence.
 
-Particle Confinement Metrics
-----------------------------
-
-**Loss Fraction** (:math:`\text{LF}`)
-   Final particle loss fraction from SIMPLE fast particle tracing.
-   
-   Mathematical form:
-   
-   .. math::
-      \text{LF} = 1 - f_c
-   
-   where :math:`f_c` is the confined fraction (sum of confined passing and trapped particles).
-   
-   Units: dimensionless
-   
-   Lower values indicate better particle confinement. A value of 0 means all particles are confined, while a value of 1 means all particles are lost. This metric is computed by the SIMPLE code using Monte Carlo particle tracing.
-
-**Average Quasisymmetry Error** (:math:`\text{avg}(QS)`)
-   Average two-term quasisymmetry error computed from VMEC equilibrium.
-   
-   Mathematical form:
-   
-   .. math::
-      QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}
-   
-   The two-term quasisymmetry error measures how well the magnetic field strength :math:`|\mathbf{B}|` is constant on flux surfaces by evaluating the ratio residual where :math:`(m,n)` is the target helicity.
-   
-   Units: dimensionless
-   
-   Lower values indicate better quasisymmetry, which is important for particle confinement in stellarators.
-
 Composite Score
 ---------------
 

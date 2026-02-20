@@ -32,39 +32,11 @@
 <th style="font-size: 0.9em; padding: 4px 8px;">FC</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">max(B_n)</th>
 <th style="font-size: 0.9em; padding: 4px 8px;">t</th>
-<th style="font-size: 0.9em; padding: 4px 8px;">avg(QS)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">1</td>
-<<<<<<< HEAD
-<td style="font-size: 0.9em; padding: 4px 8px;">2.454</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">03/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">5.5e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.3e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.4e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.6e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">7.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">6.6e+07</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">2.7e+08</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">9.0e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.8e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">3.6e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">4.3e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">1.0e-04</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;">2</td>
-=======
 <td style="font-size: 0.9em; padding: 4px 8px;">1.854</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">auto</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">15/02/26</td>
@@ -865,7 +837,6 @@
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">33</td>
->>>>>>> c13f26e11aeace20a9c832eaa85f79b9be385f54
 <td style="font-size: 0.9em; padding: 4px 8px;">1.272</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">akaptano</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">08/02/26</td>
@@ -888,7 +859,6 @@
 <td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">3.8e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;">4.7e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;">—</td>
 </tr>
 <tr>
 <td style="font-size: 0.9em; padding: 4px 8px;">34</td>
@@ -1014,4 +984,3 @@
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
-- Average two-term quasisymmetry error $\text{avg}(QS)$ computed from VMEC equilibrium. The two-term quasisymmetry error measures how well the magnetic field strength $|\mathbf{B}|$ is constant on flux surfaces by evaluating the ratio residual $QS = \frac{|\mathbf{B}|_{m,n}}{|\mathbf{B}|}$ where $(m,n)$ is the target helicity. Lower values indicate better quasisymmetry (dimensionless).
