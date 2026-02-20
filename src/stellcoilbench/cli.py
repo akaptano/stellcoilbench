@@ -705,9 +705,11 @@ def _print_submission_summary(submission: dict) -> None:
         typer.echo(f"    {k}: {v}")
     typer.echo("")
     metrics = submission.get("metrics", {})
-    if metrics:
+    # Exclude 'timing' from metrics - shown in Timing section below
+    metrics_no_timing = {k: v for k, v in metrics.items() if k != "timing"}
+    if metrics_no_timing:
         typer.echo("  Metrics:")
-        for k, v in sorted(metrics.items()):
+        for k, v in sorted(metrics_no_timing.items()):
             if isinstance(v, (int, float)):
                 av = abs(float(v))
                 fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)
@@ -715,20 +717,19 @@ def _print_submission_summary(submission: dict) -> None:
             else:
                 typer.echo(f"    {k}: {v}")
         typer.echo("")
-    rs = submission.get("reactor_scale_metrics", {})
-    if rs:
-        typer.echo("  Reactor-scale metrics:")
-        for k, v in sorted(rs.items()):
-            if isinstance(v, (int, float)):
-                av = abs(float(v))
-                fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)
-                typer.echo(f"    {k}: {fmt}")
-            elif isinstance(v, (list, tuple)) and len(v) <= 8:
-                typer.echo(f"    {k}: {v}")
-            elif not isinstance(v, (dict, list)):
-                typer.echo(f"    {k}: {v}")
-        typer.echo("")
-    typer.echo("  Full JSON written to results.json")
+    # Coil optimization timing (merged from COIL OPTIMIZATION TIMING SUMMARY)
+    timing = metrics.get("timing") or submission.get("timing")
+    if timing:
+        coil_opt_keys = ['coil_initialization', 'biotsavart_setup', 'objective_setup', 'coil_optimization', 'save_and_metrics']
+        total_coil_opt = sum(timing.get(k, 0) for k in coil_opt_keys)
+        if total_coil_opt > 0:
+            typer.echo("  Timing:")
+            for key in coil_opt_keys:
+                if key in timing:
+                    typer.echo(f"    {key}: {timing[key]:.2f}s")
+            typer.echo(f"    {'─' * 30}")
+            typer.echo(f"    Total coil optimization: {total_coil_opt:.2f}s")
+            typer.echo("")
     typer.echo("=" * 60)
     typer.echo("")
 
@@ -840,11 +841,6 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
             arcname = file_path.relative_to(submission_dir)
             zipf.write(file_path, arcname=arcname)
     
-    typer.echo(f"Created zip archive: {zip_path}")
-    typer.echo(f"  Contains {len(files_to_zip)} files")
-    if pdf_files_to_keep:
-        typer.echo(f"  Kept {len(pdf_files_to_keep)} PDF file(s) in {submission_dir}")
-    
     # Keep post-processing files in addition to PDFs:
     # - PDF files (bn_error plots)
     # - Post-processing outputs: .vts (QFM surface), .png (plots), post_processing_results.json
@@ -880,11 +876,6 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
                         pass  # Directory not empty or other error, skip
             except (OSError, FileNotFoundError) as e:
                 typer.echo(f"Warning: Failed to remove {file_path}: {e}")
-    
-    typer.echo(f"  Submission directory structure: {submission_dir}")
-    typer.echo(f"    - Zip file: {zip_path.name}")
-    if pdf_files_to_keep:
-        typer.echo(f"    - PDF files: {len(pdf_files_to_keep)} file(s)")
     
     return zip_path
 
@@ -1128,8 +1119,6 @@ def submit_case(
     # Only rank 0 should write files and print messages
     if not _is_proc0():
         return  # Non-rank-0 processes exit after optimization/post-processing
-    
-    typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
     metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
@@ -1155,7 +1144,6 @@ def submit_case(
     # Write results.json
     submission_path = submission_dir / "results.json"
     submission_path.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
-    typer.echo(f"Wrote submission results to {submission_path}")
     _print_submission_summary(submission)
     
     # Copy case.yaml file to submission directory for reference
@@ -1176,7 +1164,6 @@ def submit_case(
         case_data["source_case_file"] = source_case_file
         # Write modified case.yaml to submission directory
         submission_case_yaml.write_text(yaml.dump(case_data, default_flow_style=False, sort_keys=False))
-        typer.echo(f"Copied case.yaml to {submission_case_yaml} (with source_case_file: {source_case_file})")
     
     # Zip the entire submission directory and remove original files
     _zip_submission_directory(submission_dir)
@@ -1253,8 +1240,6 @@ def run_case(
     # Only rank 0 should write files and print messages
     if not _is_proc0():
         return  # Non-rank-0 processes exit after optimization/post-processing
-    
-    typer.echo(f"Wrote optimized coils to {coils_out_path}")
 
     # 2) Evaluate the resulting coils.
     metrics = evaluate_case(case_cfg=case_cfg, results_dict=results_dict)
@@ -1284,7 +1269,6 @@ def run_case(
 
     results_out.parent.mkdir(parents=True, exist_ok=True)
     results_out.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
-    typer.echo(f"Wrote evaluation results to {results_out}")
     _print_submission_summary(submission)
 
 
@@ -1771,7 +1755,6 @@ def generate_submission(
     
     submission_out.parent.mkdir(parents=True, exist_ok=True)
     submission_out.write_text(json.dumps(submission, indent=2, cls=NumpyJSONEncoder))
-    typer.echo(f"Wrote submission results to {submission_out}")
 
 
 @app.command("post-process")
@@ -1906,10 +1889,6 @@ def post_process(
         
         typer.echo("\nPost-processing complete!")
         typer.echo(f"Results saved to: {output_dir}")
-        
-        if 'BdotN' in results:
-            typer.echo(f"B·n on plasma surface: {results['BdotN']:.2e}")
-            typer.echo(f"B·n/|B|: {results['BdotN_over_B']:.2e}")
         
         if 'quasisymmetry_average' in results:
             typer.echo(f"Average quasisymmetry error: {results['quasisymmetry_average']:.2e}")
