@@ -170,7 +170,23 @@ class TestValidateCaseConfig:
         }
         errors = validate_case_config(data)
         assert errors == []
-    
+
+    def test_valid_dipole_coils_params(self):
+        """Test validation with valid dipole coils_params."""
+        data = {
+            "description": "Dipole case",
+            "surface_params": {"surface": "input.LandremanPaul2021_QA"},
+            "coils_params": {
+                "coil_type": "dipole",
+                "tf_configuration": "LandremanPaulQA",
+                "Nx": 4,
+                "dipole_order": 2,
+            },
+            "optimizer_params": {"algorithm": "l-bfgs"},
+        }
+        errors = validate_case_config(data)
+        assert errors == []
+
     def test_invalid_coil_objective_term_option(self):
         """Test validation with invalid coil_objective_term option."""
         data = {
@@ -220,11 +236,11 @@ class TestValidateCaseConfig:
             "description": "Test case",
             "surface_params": {"surface": "input.test"},
             "coils_params": {"ncoils": 4},
-            "optimizer_params": {"algorithm": "L-BFGS-B-custom"},
+            "optimizer_params": {"algorithm": "L-BFGS-B"},
             "coil_objective_terms": {
                 "total_length": "l2_threshold",
                 "length_weight": 2.0,
-                "linking_number": "hard",
+                "linking_number": "",
                 "linking_weight": 1000.0,
                 "flux_weight": 1.5,
             }

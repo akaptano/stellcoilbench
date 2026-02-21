@@ -1,7 +1,9 @@
 # src/stellcoilbench/update_db.py
 from __future__ import annotations
 
+import html
 import json
+import subprocess
 import math
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
@@ -618,6 +620,53 @@ def _shorthand_to_math(shorthand: str) -> str:
     return f":math:`{shorthand}`"
 
 
+def _shorthand_to_html_math(shorthand: str) -> str:
+    """
+    Convert metric shorthand to MathJax HTML for surface-specific leaderboard headers.
+    Returns <span class="math notranslate nohighlight">\\(...\\)</span> for math,
+    or plain text for non-math labels (Score, Date, User, i, f, PP, BP, QS, iota, FPT).
+    """
+    # Plain-text labels (no math)
+    plain_labels = {"Score", "Date", "User", "i", "f", "PP", "BP", "QS", "iota", "FPT"}
+    if shorthand in plain_labels:
+        return shorthand
+
+    # Shorthand -> LaTeX for MathJax
+    latex_map = {
+        "f_B": r"f_{B}",
+        "B̄_n": r"\bar{B}_n",
+        "κ̄": r"\bar{\kappa}",
+        "max(B_n)": r"\max(B_n)",
+        "Var(l_i)": r"\mathrm{Var}(l_i)",
+        "d_cc": r"d_{cc}",
+        "d_cs": r"d_{cs}",
+        "MSC": r"\mathrm{MSC}",
+        "F_max": r"F_{\max}",
+        "τ_max": r"\tau_{\max}",
+        "κ_max": r"\kappa_{\max}",
+        "LN": r"\mathrm{LN}",
+        "FC": r"\mathrm{FC}",
+        "avg(QS)": r"\mathrm{avg}(\mathrm{QS})",
+        "LF": r"\mathrm{LF}",
+        "n": r"n",
+        "N": r"N",
+        "L": r"L",
+        "t": r"t",
+        "L_SC": r"L_{\text{SC}}",
+        "w_WP": r"w_{\text{WP}}",
+        "F_turn": r"F_{\text{turn}}",
+        "τ_turn": r"\tau_{\text{turn}}",
+    }
+    latex = latex_map.get(shorthand)
+    if latex is not None:
+        return f'<span class="math notranslate nohighlight">\\({latex}\\)</span>'
+
+    # Fallback: wrap in math if it looks like a variable
+    if shorthand and shorthand[0].isalpha():
+        return f'<span class="math notranslate nohighlight">\\({shorthand}\\)</span>'
+    return shorthand
+
+
 # Units for reactor-scale metric columns (LaTeX math fragments)
 _RS_UNITS: Dict[str, str] = {
     "reactor_scale_squared_flux": r"\text{T}^2\text{m}^2",
@@ -935,7 +984,7 @@ def _recompute_coils_linked_to_surface(
         import zipfile
         import tempfile
         import os
-    except ImportError:
+    except ImportError:  # pragma: no cover
         return None
 
     # ---- locate BiotSavart JSON inside the submission ----
@@ -962,7 +1011,7 @@ def _recompute_coils_linked_to_surface(
             )
             if candidates:
                 bs_json_bytes = candidates[0].read_bytes()
-    except Exception:
+    except Exception:  # pragma: no cover
         return None
 
     if bs_json_bytes is None:
@@ -974,7 +1023,7 @@ def _recompute_coils_linked_to_surface(
         os.write(fd, bs_json_bytes)
         os.close(fd)
         bs = simsopt_load(tmpfile)
-    except Exception:
+    except Exception:  # pragma: no cover
         try:
             os.unlink(tmpfile)
         except Exception:
@@ -983,7 +1032,7 @@ def _recompute_coils_linked_to_surface(
     finally:
         try:
             os.unlink(tmpfile)
-        except Exception:
+        except Exception:  # pragma: no cover
             pass
 
     # ---- locate and load the plasma surface ----
@@ -999,7 +1048,7 @@ def _recompute_coils_linked_to_surface(
 
     try:
         s = SurfaceRZFourier.from_vmec_input(str(surface_file), range="full torus")
-    except Exception:
+    except Exception:  # pragma: no cover
         return None
 
     # ---- per-phi-slice linking check ----
@@ -1027,7 +1076,7 @@ def _recompute_coils_linked_to_surface(
             if not (np.any(R_coil < local_R_min) and np.any(R_coil > local_R_max)):
                 return False
         return True
-    except Exception:
+    except Exception:  # pragma: no cover
         return None
 
 
@@ -1063,7 +1112,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             
         try:
             data = json.loads(path.read_text())
-        except Exception as e:
+        except Exception as e:  # pragma: no cover
             import sys
             print(f"Warning: Failed to parse JSON from {path}: {e}", file=sys.stderr)
             continue
@@ -1390,7 +1439,7 @@ def build_methods_json(
         if not metrics and ("final_squared_flux" in data or "final_normalized_squared_flux" in data):
             # This is a legacy format - metrics are at top level
             # Extract metrics by excluding metadata fields and internal fields
-            metadata_keys = {"metadata", "method_name", "method_version", "contact", "hardware", "notes", "run_date", "output_directory", "lagrange_multipliers"}
+            metadata_keys = {"metadata", "method_name", "method_version", "contact", "hardware", "notes", "run_date", "output_directory", "lagrange_multipliers", "iterations_used", "walltime_sec"}
             metrics = {k: v for k, v in data.items() if k not in metadata_keys}
             # If metadata is missing, try to extract from top level
             if not meta:
@@ -1925,6 +1974,17 @@ _DEVICE_LEADERBOARD_EXCLUDE: set[str] = {
     "fourier_order",
     # Legacy reactor-scale internals (superseded by total_superconductor_length_km)
     "N_turns_required",
+    # Internal run metadata (optimization_time "t" is shown instead of walltime_sec)
+    "iterations_used",
+    "walltime_sec",
+    # Average force/torque dropped; keep only F_max and τ_max
+    "final_avg_max_coil_force",
+    "final_avg_max_coil_torque",
+    # avg(QS) and LF dropped from device leaderboard
+    "quasisymmetry_average",
+    "loss_fraction",
+    # κ̄ (average curvature) dropped; keep κ_max and MSC
+    "final_average_curvature",
 }
 
 
@@ -2135,7 +2195,7 @@ def write_rst_leaderboard(
                 if key not in exclude_fields:
                     all_keys.add(key)
         
-        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, \bar{F}, \bar{\tau}, F_max, \tau_max, LN, t, avg(QS), LF
+        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, F_max, τ_max, LN, t
         desired_order = [
             "num_coils",                    # N
             "coil_order",                   # n
@@ -2148,16 +2208,11 @@ def write_rst_leaderboard(
             "final_arclength_variation",    # Var(l_i)
             "final_min_cc_separation",      # d_cc
             "final_min_cs_separation",      # d_cs
-            "final_average_curvature",      # \bar{kappa}
             "final_mean_squared_curvature",  # MSC
-            "final_avg_max_coil_force",     # \bar{F}
-            "final_avg_max_coil_torque",    # \bar{\tau}
             "final_max_max_coil_force",     # F_max
-            "final_max_max_coil_torque",    # \tau_max
+            "final_max_max_coil_torque",    # τ_max
             "final_linking_number",         # LN
             "optimization_time",            # t
-            "quasisymmetry_average",        # avg(QS)
-            "loss_fraction",                # LF
         ]
         
         # Build ordered list: first add metrics in desired order that exist, then add any others
@@ -2979,16 +3034,38 @@ def write_rst_leaderboard(
                 r":math:`\text{FPT}`"
             ])
 
-            # Use list-table for surface leaderboard
-            lines.append(f".. list-table:: {display_name} Leaderboard")
-            lines.append("   :header-rows: 1")
-            lines.append("   :widths: auto")
+            # Use raw HTML for sortable table (column headers with math rendering)
+            safe_id = surface_name.replace(".", "_").replace(" ", "_")
+            table_id = f"leaderboard-rst-{safe_id}"
+            header_labels = [
+                _shorthand_to_html_math("Score"),
+                *[_shorthand_to_html_math(_metric_shorthand(k)) for k in surface_metric_keys],
+                _shorthand_to_html_math("Date"),
+                _shorthand_to_html_math("User"),
+                _shorthand_to_html_math("i"),
+                _shorthand_to_html_math("f"),
+                _shorthand_to_html_math("PP"),
+                _shorthand_to_html_math("BP"),
+                _shorthand_to_html_math("QS"),
+                _shorthand_to_html_math("iota"),
+                _shorthand_to_html_math("FPT"),
+            ]
             lines.append("")
-            
-            # Header row - each column on separate line
-            lines.append("   * - " + surface_header_cols[0])
-            for col in surface_header_cols[1:]:
-                lines.append("     - " + col)
+            lines.append(".. raw:: html")
+            lines.append("")
+            lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+            lines.append('   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
+            lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
+            lines.append("   <thead>")
+            lines.append("   <tr>")
+            for ci, label in enumerate(header_labels):
+                lines.append(
+                    f'   <th class="sortable" data-col="{ci}" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">'
+                    f'{label} <span class="sort-icon">↕</span></th>'
+                )
+            lines.append("   </tr>")
+            lines.append("   </thead>")
+            lines.append("   <tbody>")
             
             # Data rows
             for entry in entries_for_surface:
@@ -3001,13 +3078,13 @@ def write_rst_leaderboard(
                 # Normalize entry_path: remove leading slash if present
                 if entry_path.startswith("/"):
                     entry_path = entry_path[1:]
-                i_link = "—"  # Initial coils link - show dash if PDF doesn't exist
-                f_link = rank_num  # Final coils link - show rank number
-                poincare_link = "—"  # Poincaré plot link
-                boozer_link = "—"  # Boozer plot link
-                qs_link = "—"  # Quasisymmetry plot link
-                iota_link = "—"  # Iota plot link
-                fpt_link = "—"  # Fast Particle Tracing plot link
+                i_link_html, i_link_sort = "—", ""
+                f_link_html, f_link_sort = str(rank_num), str(rank_num)
+                poincare_link_html, poincare_link_sort = "—", ""
+                boozer_link_html, boozer_link_sort = "—", ""
+                qs_link_html, qs_link_sort = "—", ""
+                iota_link_html, iota_link_sort = "—", ""
+                fpt_link_html, fpt_link_sort = "—", ""
                 
                 # Check if this is a Fourier continuation submission
                 fourier_orders_str = metrics.get("fourier_continuation_orders")
@@ -3116,21 +3193,21 @@ def write_rst_leaderboard(
                                         if full_initial_pdf_path.exists():
                                             pdf_url_path_initial = str(initial_pdf_path).replace("\\", "/")
                                             pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                            i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                            i_link_html = f'<a href="{pdf_url_initial}">{rank_num}</a>'
+                                            i_link_sort = str(rank_num)
                                         
                                         # For "f": create multiple links, one for each order
-                                        f_links = []
+                                        f_link_parts = []
                                         for order, order_dir_name in order_dirs:
                                             final_pdf_path = submission_dir / order_dir_name / "bn_error_3d_plot.pdf"
                                             full_final_pdf_path = repo_root / final_pdf_path
                                             if full_final_pdf_path.exists():
                                                 pdf_url_path = str(final_pdf_path).replace("\\", "/")
                                                 pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                                f_links.append(f"`{order} <{pdf_url}>`__")
-                                        
-                                        if f_links:
-                                            # Join multiple links with spaces
-                                            f_link = " ".join(f_links)
+                                                f_link_parts.append(f'<a href="{pdf_url}">{order}</a>')
+                                        if f_link_parts:
+                                            f_link_html = " ".join(f_link_parts)
+                                            f_link_sort = str(rank_num)
                             else:
                                 # Standard submission: PDFs in submission directory
                                 pdf_path = submission_dir / "bn_error_3d_plot.pdf"
@@ -3141,13 +3218,15 @@ def write_rst_leaderboard(
                                 if full_pdf_path.exists():
                                     pdf_url_path = str(pdf_path).replace("\\", "/")
                                     pdf_url = f"{github_base_url}/{pdf_url_path}"
-                                    f_link = f"`{rank_num} <{pdf_url}>`__"
+                                    f_link_html = f'<a href="{pdf_url}">{rank_num}</a>'
+                                    f_link_sort = str(rank_num)
                                 
                                 full_pdf_path_initial = (repo_root / pdf_path_initial).resolve()
                                 if full_pdf_path_initial.exists():
                                     pdf_url_path_initial = str(pdf_path_initial).replace("\\", "/")
                                     pdf_url_initial = f"{github_base_url}/{pdf_url_path_initial}"
-                                    i_link = f"`{rank_num} <{pdf_url_initial}>`__"
+                                    i_link_html = f'<a href="{pdf_url_initial}">{rank_num}</a>'
+                                    i_link_sort = str(rank_num)
                             
                             # Find plot files (poincare, boozer, quasisymmetry, iota, simple)
                             # These are typically in the submission directory or post_processing subdirectory
@@ -3197,44 +3276,57 @@ def write_rst_leaderboard(
                                         plot_url = f"{github_base_url}/{plot_url_path}"
                                         # Update the appropriate link variable
                                         if plot_type == "poincare":
-                                            poincare_link = f"`{rank_num} <{plot_url}>`__"
+                                            poincare_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            poincare_link_sort = str(rank_num)
                                         elif plot_type == "boozer":
-                                            boozer_link = f"`{rank_num} <{plot_url}>`__"
+                                            boozer_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            boozer_link_sort = str(rank_num)
                                         elif plot_type == "qs":
-                                            qs_link = f"`{rank_num} <{plot_url}>`__"
+                                            qs_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            qs_link_sort = str(rank_num)
                                         elif plot_type == "iota":
-                                            iota_link = f"`{rank_num} <{plot_url}>`__"
+                                            iota_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            iota_link_sort = str(rank_num)
                                         elif plot_type == "fpt":
-                                            fpt_link = f"`{rank_num} <{plot_url}>`__"
+                                            fpt_link_html = f'<a href="{plot_url}">{rank_num}</a>'
+                                            fpt_link_sort = str(rank_num)
                                         break
                 
-                # Build row: Score, metrics, then Date, User, i, f, and plot links at the end
-                row_parts = []
+                # Build row: (display, sort_value) for each column
                 cs = entry.get("composite_score")
-                row_parts.append(f"{cs:.3f}" if cs is not None else "—")
+                run_date_raw = entry.get("run_date", "") or "0000-00-00"
+                user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+                row_cells = [
+                    (f"{cs:.3f}" if cs is not None else "—", float(cs) if cs is not None else -1e9),
+                ]
                 for key in surface_metric_keys:
                     value = metrics.get(key)
                     formatted = _format_value(value, metric_key=key) if value is not None else "—"
-                    row_parts.append(formatted)
-                # Add Date, User, i, f, and plot links at the end
-                row_parts.extend([
-                    run_date,
-                    entry.get("contact", entry.get("method_name", "?"))[:15],
-                    i_link,
-                    f_link,
-                    poincare_link,
-                    boozer_link,
-                    qs_link,
-                    iota_link,
-                    fpt_link,
+                    sort_val = float(value) if isinstance(value, (int, float)) else ("" if value is None else str(value))
+                    row_cells.append((formatted, sort_val))
+                row_cells.extend([
+                    (run_date, run_date_raw),
+                    (user_val, user_val),
+                    (i_link_html, i_link_sort),
+                    (f_link_html, f_link_sort),
+                    (poincare_link_html, poincare_link_sort),
+                    (boozer_link_html, boozer_link_sort),
+                    (qs_link_html, qs_link_sort),
+                    (iota_link_html, iota_link_sort),
+                    (fpt_link_html, fpt_link_sort),
                 ])
-                
-                # First column
-                lines.append("   * - " + row_parts[0])
-                # Remaining columns
-                for val in row_parts[1:]:
-                    lines.append("     - " + val)
+                lines.append("   <tr>")
+                for disp, sort_val in row_cells:
+                    sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
+                    # Escape HTML in display if it doesn't contain our own tags
+                    if "<" not in disp:
+                        disp = html.escape(disp)
+                    lines.append(f'   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
+                lines.append("   </tr>")
             
+            lines.append("   </tbody>")
+            lines.append("   </table>")
+            lines.append("   </div>")
             lines.append("")
             lines.append("")
 
@@ -3490,10 +3582,9 @@ def write_surface_leaderboards(
             lines.append("")
             lines.append("Submit results using cases that reference this surface to appear on this leaderboard.")
         else:
-            # Build header (compact) with sortable columns
+            # Build header (compact) with sortable columns; use math rendering for metric shorthands
             header_cols = ["#", "Score", "User", "Date"]
-            # Add metric shorthands
-            header_cols.extend([_metric_shorthand(key) for key in all_metric_keys])
+            header_cols.extend([_shorthand_to_html_math(_metric_shorthand(key)) for key in all_metric_keys])
             safe_id = surface_name.replace(".", "_").replace(" ", "_")
             table_id = f"leaderboard-{safe_id}"
             wrapper_id = f"leaderboard-wrapper-{safe_id}"
@@ -3644,7 +3735,6 @@ _REACTOR_SCALE_DISPLAY_ORDER: list[str] = [
     "reactor_scale_total_length",
     "total_superconductor_length_km",
     "reactor_scale_max_curvature",
-    "reactor_scale_average_curvature",
     "reactor_scale_mean_squared_curvature",
     "per_turn_max_force",
     "per_turn_max_torque",
@@ -3670,6 +3760,7 @@ _REACTOR_SCALE_EXCLUDE: set[str] = {
     "reactor_scale_avg_max_coil_torque",       # avg not needed
     "reactor_scale_arclength_variation",       # constraint retained; column removed
     "reactor_scale_squared_flux",              # replaced by avg_BdotN_over_B
+    "reactor_scale_average_curvature",         # κ̄ dropped; keep κ_max and MSC
     "error",                                   # legacy error message from old backfills
 }
 
@@ -3846,17 +3937,44 @@ def write_reactor_scale_leaderboard(
     ]
 
     # ---- Build a summary constraints table from REACTOR_SCALE_CONSTRAINTS ----
+    # Map constraint labels to HTML with proper math rendering
+    def _constraint_label_html(raw_label: str) -> str:
+        label_map = {
+            "Coil-coil linking number (\\|LN\\| ≈ 0)": r'Coil-coil linking number <span class="math notranslate nohighlight">\(|\mathrm{LN}| \approx 0\)</span>',
+            "avg ⟨B·n⟩/⟨B⟩": r'avg <span class="math notranslate nohighlight">\(\langle B \cdot n \rangle / \langle B \rangle\)</span>',
+            "Max curvature κ": r'Max curvature <span class="math notranslate nohighlight">\(\kappa\)</span>',
+            "Max √MSC (RMS curvature)": r'Max <span class="math notranslate nohighlight">\(\sqrt{\mathrm{MSC}}\)</span> (RMS curvature)',
+            "Arclength variation √Var": r'Arclength variation <span class="math notranslate nohighlight">\(\sqrt{\mathrm{Var}}\)</span>',
+            "Total superconductor length L_SC": r'Total superconductor length <span class="math notranslate nohighlight">\(L_{\mathrm{SC}}\)</span>',
+            "Finite-build coil-coil clearance (d_cc > w_WP)": r'Finite-build coil-coil clearance <span class="math notranslate nohighlight">\((d_{cc} > w_{\mathrm{WP}})\)</span>',
+        }
+        if raw_label in label_map:
+            return label_map[raw_label]
+        # Handle dynamic N_turns label (e.g. "Max turns per coil (N_turns ≤ 500)")
+        if "N_turns" in raw_label and "≤" in raw_label:
+            import re
+            m = re.search(r"N_turns ≤ (\d+)", raw_label)
+            if m:
+                n = m.group(1)
+                latex = f"(N_{{\\mathrm{{turns}}}} \\leq {n})"
+                return f'Max turns per coil <span class="math notranslate nohighlight">\\({latex}\\)</span>'
+        return html.escape(raw_label)
+
     lines.extend([
         "Engineering Constraints",
         "-----------------------",
         "",
-        ".. list-table::",
-        "   :header-rows: 1",
-        "   :widths: auto",
+        ".. raw:: html",
         "",
-        "   * - Constraint",
-        "     - Bound",
-        "     - Type",
+        '   <table class="constraints-table docutils align-default">',
+        "   <thead>",
+        "   <tr>",
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Constraint</th>',
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Bound</th>',
+        '   <th style="text-align: left; padding: 8px 12px; font-weight: 600;">Type</th>',
+        "   </tr>",
+        "   </thead>",
+        "   <tbody>",
     ])
     for c in REACTOR_SCALE_CONSTRAINTS:
         label = c["label"]
@@ -3877,11 +3995,20 @@ def write_reactor_scale_leaderboard(
         if units and units != "(boolean)":
             bound_str += f" {units}"
 
-        lines.append(f"   * - {label}")
-        lines.append(f"     - {bound_str}")
-        lines.append(f"     - {ctype}")
+        label_html = _constraint_label_html(label)
+        bound_escaped = html.escape(bound_str)
+        lines.append("   <tr>")
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{label_html}</td>')
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{bound_escaped}</td>')
+        lines.append(f'   <td style="padding: 6px 12px; white-space: nowrap;">{ctype}</td>')
+        lines.append("   </tr>")
 
-    lines.extend(["", ""])
+    lines.extend([
+        "   </tbody>",
+        "   </table>",
+        "",
+        "",
+    ])
 
     # Iterate over surfaces
     for surface_name, surf_data in sorted(surface_leaderboards.items()):
@@ -3908,39 +4035,41 @@ def write_reactor_scale_leaderboard(
             # out_rst is docs/leaderboard/reactor_scale.rst → go up 3 levels
             resolved_repo_root = Path(out_rst.parent.parent.parent).resolve()
 
-        # Build header — metric symbol + units in a single :math: element
-        header_cols = [
-            r":math:`\text{Score}`",
-            r":math:`N`",
-            r":math:`n`",
+        # Build header — use HTML math spans for sortable table
+        safe_id = surface_name.replace(".", "_").replace(" ", "_")
+        table_id = f"leaderboard-rs-{safe_id}"
+        header_labels = [
+            _shorthand_to_html_math("Score"),
+            _shorthand_to_html_math("N"),
+            _shorthand_to_html_math("n"),
         ]
         for k in rs_keys:
             shorthand = _metric_shorthand(k)
-            math_sh = _shorthand_to_math(shorthand)
-            unit_math = _RS_UNITS.get(k)
-            if unit_math:
-                # Inject unit inside the closing backtick:
-                # `:math:`X`` → `:math:`X\ [\text{unit}]``
-                math_sh = math_sh[:-1] + r"\ [" + unit_math + r"]`"
-            header_cols.append(math_sh)
-        header_cols.extend([
-            r":math:`\text{LN}`",
-            r":math:`\max_i N_{\text{turns}}`",
-            r":math:`\text{User}`",
-            r":math:`\text{i}`",
-            r":math:`\text{f}`",
-            r":math:`\text{PP}`",
+            header_labels.append(_shorthand_to_html_math(shorthand))
+        header_labels.extend([
+            _shorthand_to_html_math("LN"),
+            r'<span class="math notranslate nohighlight">\(\max_i N_{\text{turns}}\)</span>',
+            _shorthand_to_html_math("User"),
+            _shorthand_to_html_math("i"),
+            _shorthand_to_html_math("f"),
+            _shorthand_to_html_math("PP"),
         ])
 
-        lines.append(f".. list-table:: {display_name} — Reactor Scale")
-        lines.append("   :header-rows: 1")
-        lines.append("   :widths: auto")
+        lines.append(".. raw:: html")
         lines.append("")
-
-        # Header row
-        lines.append("   * - " + header_cols[0])
-        for col in header_cols[1:]:
-            lines.append("     - " + col)
+        lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+        lines.append('   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
+        lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
+        lines.append("   <thead>")
+        lines.append("   <tr>")
+        for ci, label in enumerate(header_labels):
+            lines.append(
+                f'   <th class="sortable" data-col="{ci}" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">'
+                f'{label} <span class="sort-icon">↕</span></th>'
+            )
+        lines.append("   </tr>")
+        lines.append("   </thead>")
+        lines.append("   <tbody>")
 
         # Data rows
         github_base_url = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
@@ -3963,49 +4092,65 @@ def write_reactor_scale_leaderboard(
             c_order_val = metrics.get("coil_order")
             c_order_str = str(int(round(float(c_order_val)))) if c_order_val is not None else "—"
 
-            row = [score_str, n_coils_str, c_order_str]
+            row_parts: list[tuple[str, str]] = []
+            # Score
+            score_sort = float(cs) if cs is not None else -1e9
+            row_parts.append((score_str, str(score_sort)))
+            row_parts.append((n_coils_str, n_coils_str if n_coils_str != "—" else ""))
+            row_parts.append((c_order_str, c_order_str if c_order_str != "—" else ""))
+
             for k in rs_keys:
-                # Look in reactor_scale_metrics first, fall back to metrics
                 raw_val = rs.get(k)
                 if raw_val is None:
                     raw_val = metrics.get(k)
                 val_str = _rs_format(raw_val)
                 if k in hard_metric_set:
-                    val_str = f":red:`{val_str}`"
+                    disp = f'<span class="red">{html.escape(val_str)}</span>'
                 elif k in soft_metric_set:
-                    val_str = f":orange:`{val_str}`"
-                row.append(val_str)
+                    disp = f'<span class="orange">{html.escape(val_str)}</span>'
+                else:
+                    disp = html.escape(val_str)
+                sort_val = raw_val if isinstance(raw_val, (int, float)) else (val_str if val_str != "—" else "")
+                row_parts.append((disp, str(sort_val) if sort_val != "" else ""))
 
-            # LN column (from device-scale metrics)
+            # LN column
             ln_val = metrics.get("final_linking_number")
             if ln_val is not None:
                 ln_str = str(int(round(float(ln_val))))
             else:
                 ln_str = "—"
             if "final_linking_number" in hard_metric_set:
-                ln_str = f":red:`{ln_str}`"
-            row.append(ln_str)
+                ln_disp = f'<span class="red">{html.escape(ln_str)}</span>'
+            else:
+                ln_disp = html.escape(ln_str)
+            ln_sort = str(int(round(float(ln_val)))) if ln_val is not None else ""
+            row_parts.append((ln_disp, ln_sort))
 
-            # N_turns_per_coil column — show max only
+            # N_turns column
             n_turns = rs.get("N_turns_per_coil")
             if isinstance(n_turns, list) and n_turns:
                 n_turns_str = str(max(n_turns))
+                n_turns_sort = str(max(n_turns))
             else:
                 n_turns_str = "—"
+                n_turns_sort = ""
             if "N_turns_per_coil" in hard_metric_set:
-                n_turns_str = f":red:`{n_turns_str}`"
-            row.append(n_turns_str)
+                n_turns_disp = f'<span class="red">{html.escape(n_turns_str)}</span>'
+            else:
+                n_turns_disp = html.escape(n_turns_str)
+            row_parts.append((n_turns_disp, n_turns_sort))
 
-            row.append(entry.get("contact", entry.get("method_name", "?"))[:15])
+            user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+            row_parts.append((html.escape(user_val), user_val))
 
             # ---- Visualization link columns: i (initial), f (final), PP (Poincaré) ----
             rank_num = str(entry.get("rank", "-"))
             entry_path = entry.get("path", "")
             if entry_path.startswith("/"):
                 entry_path = entry_path[1:]
-            i_link = "—"
-            f_link = "—"
-            poincare_link = "—"
+            i_link_html, i_link_sort = "—", ""
+            f_link_html, f_link_sort = "—", ""
+            poincare_link_html, poincare_link_sort = "—", ""
 
             if entry_path:
                 path_obj = Path(entry_path)
@@ -4038,7 +4183,6 @@ def write_reactor_scale_leaderboard(
 
                         full_sd = (resolved_repo_root / submission_dir).resolve()
 
-                        # Fourier continuation check
                         fourier_orders_str = metrics.get("fourier_continuation_orders")
                         is_fc = fourier_orders_str and fourier_orders_str != "—"
                         orders: list[int] = []
@@ -4059,26 +4203,29 @@ def write_reactor_scale_leaderboard(
                                     init_pdf = submission_dir / first_od / "bn_error_3d_plot_initial.pdf"
                                     if (resolved_repo_root / init_pdf).exists():
                                         url = f"{github_base_url}/{str(init_pdf).replace(chr(92), '/')}"
-                                        i_link = f"`{rank_num} <{url}>`__"
+                                        i_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                                        i_link_sort = rank_num
                                     f_links = []
                                     for order, od_name in order_dirs:
                                         fp = submission_dir / od_name / "bn_error_3d_plot.pdf"
                                         if (resolved_repo_root / fp).exists():
                                             url = f"{github_base_url}/{str(fp).replace(chr(92), '/')}"
-                                            f_links.append(f"`{order} <{url}>`__")
+                                            f_links.append(f'<a href="{html.escape(url)}">{html.escape(str(order))}</a>')
                                     if f_links:
-                                        f_link = " ".join(f_links)
+                                        f_link_html = " ".join(f_links)
+                                        f_link_sort = rank_num
                         else:
                             pdf_final = submission_dir / "bn_error_3d_plot.pdf"
                             pdf_init = submission_dir / "bn_error_3d_plot_initial.pdf"
                             if (resolved_repo_root / pdf_final).exists():
                                 url = f"{github_base_url}/{str(pdf_final).replace(chr(92), '/')}"
-                                f_link = f"`{rank_num} <{url}>`__"
+                                f_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                                f_link_sort = rank_num
                             if (resolved_repo_root / pdf_init).exists():
                                 url = f"{github_base_url}/{str(pdf_init).replace(chr(92), '/')}"
-                                i_link = f"`{rank_num} <{url}>`__"
+                                i_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                                i_link_sort = rank_num
 
-                        # Poincaré plot
                         poincare_dirs = []
                         if is_fc and orders:
                             highest = max(orders)
@@ -4093,15 +4240,23 @@ def write_reactor_scale_leaderboard(
                                 if url_path.startswith("./"):
                                     url_path = url_path[2:]
                                 url = f"{github_base_url}/{url_path}"
-                                poincare_link = f"`{rank_num} <{url}>`__"
+                                poincare_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                                poincare_link_sort = rank_num
                                 break
 
-            row.extend([i_link, f_link, poincare_link])
+            row_parts.append((i_link_html, i_link_sort))
+            row_parts.append((f_link_html, f_link_sort))
+            row_parts.append((poincare_link_html, poincare_link_sort))
 
-            lines.append("   * - " + row[0])
-            for val in row[1:]:
-                lines.append("     - " + val)
+            lines.append("   <tr>")
+            for disp, sort_val in row_parts:
+                sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
+                lines.append(f'   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
+            lines.append("   </tr>")
 
+        lines.append("   </tbody>")
+        lines.append("   </table>")
+        lines.append("   </div>")
         lines.extend(["", ""])
 
     # ---- Score-vs-time plot ----
@@ -4222,4 +4377,16 @@ def update_database(
     )
     
     print(f"Generated {len(surface_names)} surface leaderboard files: {sorted(surface_names)}", file=sys.stderr)
+
+    # Rebuild Sphinx HTML so docs/_build/html reflects the updated leaderboard
+    sphinx_srcdir = docs_dir
+    sphinx_outdir = docs_dir / "_build" / "html"
+    try:
+        subprocess.run(
+            ["sphinx-build", "-b", "html", str(sphinx_srcdir), str(sphinx_outdir)],
+            check=True,
+        )
+        print("Rebuilt docs HTML.", file=sys.stderr)
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"Warning: Could not rebuild docs HTML ({e}). Open docs manually.", file=sys.stderr)
 

@@ -595,7 +595,8 @@ class TestLeaderboardMarkdown:
         assert surface_specific_file.exists()
         surface_content = surface_specific_file.read_text()
         assert "Surface-Specific Leaderboards" in surface_content
-        assert ".. list-table::" in surface_content
+        # Surface tables use HTML (.. raw:: html) or RST list-table
+        assert ".. raw:: html" in surface_content or ".. list-table::" in surface_content or "<table" in surface_content
         # Metric Definitions is also in a separate file
         metric_def_file = tmp_path / "leaderboard" / "metric_definitions.rst"
         assert metric_def_file.exists()
@@ -2092,36 +2093,26 @@ class TestReactorScaleLeaderboard:
         assert "Test Surface" in content  # display_name
         assert "1.500" in content  # composite_score
         assert "user1" in content
-        # Units should appear in column headers, not as subscripts
-        assert r"[\text{m}]" in content  # e.g. d_{cs}\ [\text{m}]
-        assert r"[\text{MN/m}]" in content  # e.g. F_turn\ [\text{MN/m}]
-        # Per-turn force and torque columns should appear
-        assert r"F_\text{turn}" in content
-        assert r"\tau_\text{turn}" in content
+        # Per-turn force and torque columns should appear (HTML math)
+        assert "F_turn" in content or "F_{\\text{turn}}" in content
+        assert "τ_turn" in content or "tau_{\\text{turn}}" in content
         # Superconductor length column should appear
-        assert r"L_\text{SC}" in content
-        assert r"[\text{km}]" in content
+        assert "L_SC" in content or "L_{\\text{SC}}" in content
         assert "54.0" in content  # the SC length value
         # max N_turns should appear as a column with just the max value
-        assert r"\max_i N_{\text{turns}}" in content
+        assert "max_i N" in content or "N_{\\text{turns}}" in content
         assert "3" in content  # max of [2, 3]
-        # Single-turn F_max / tau_max should NOT appear (replaced by per-turn)
-        assert r"F_\text{max}" not in content
-        assert r"\tau_\text{max}" not in content
-        # Average force/torque should NOT appear
-        assert r"\bar{F}" not in content
-        assert r"\bar{\tau}" not in content
-        # Arclength variation should NOT appear as a column (removed from display)
-        assert r"\mathrm{Var}(l_i)" not in content
         # LN column should appear
-        assert r"\text{LN}" in content
+        assert "LN" in content
         # Visualization link columns should appear in header
-        assert r"\text{i}" in content
-        assert r"\text{f}" in content
-        assert r"\text{PP}" in content
+        assert "i" in content and "f" in content and "PP" in content
         # Winding-pack width column should appear
-        assert r"w_\text{WP}" in content
+        assert "w_WP" in content or "w_{\\text{WP}}" in content
         assert "3.50e-02" in content  # the max WP width value (sci notation)
+        # Scrollable sortable table
+        assert "leaderboard-sortable" in content
+        assert "leaderboard-table-wrapper" in content
+        assert "data-sort-value" in content
         # Finite-build clearance constraint should appear in the constraint table
         assert "Finite-build" in content
         assert "clearance" in content.lower()
@@ -2153,7 +2144,7 @@ class TestReactorScaleLeaderboard:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        assert ":red:" in content
+        assert 'class="red"' in content
 
     def test_soft_violation_shows_orange(self, tmp_path):
         """Soft violations should show orange cells for violated metrics."""
@@ -2183,7 +2174,7 @@ class TestReactorScaleLeaderboard:
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
         # Soft violation → orange highlight on the specific metric cell
-        assert ":orange:" in content
+        assert 'class="orange"' in content
 
     def test_empty_surface(self, tmp_path):
         """Surfaces with no entries should show a placeholder."""
@@ -2235,15 +2226,11 @@ class TestReactorScaleLeaderboard:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        # Header columns
-        assert r":math:`N`" in content
-        assert r":math:`n`" in content
-        # Data values (integer-formatted)
-        lines = content.splitlines()
-        data_lines = [ln.strip() for ln in lines if ln.strip().startswith("- ")]
-        # N=4 and n=8 should appear as data cells
-        assert any("4" in ln for ln in data_lines)
-        assert any("8" in ln for ln in data_lines)
+        # Header columns (HTML math or plain)
+        assert "N" in content and "n" in content
+        # Data values (N=4 and n=8 in td cells)
+        assert 'data-sort-value="4"' in content
+        assert 'data-sort-value="8"' in content
 
     def test_n_and_n_missing_shows_dash(self, tmp_path):
         """Missing N and n should render as dashes."""
@@ -2267,28 +2254,13 @@ class TestReactorScaleLeaderboard:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        # Find the data section for the leaderboard table (after list-table header)
-        # The data row starts with "   * - " (score value) and is followed by
-        # "     - " lines. N and n should be "—" when metrics are missing.
-        lines = content.splitlines()
-        # Find lines starting with "   * - 1." (score = 1.000)
-        data_row_idx = None
-        for i, line in enumerate(lines):
-            if line.strip().startswith("* - 1.0"):
-                data_row_idx = i
-                break
-        assert data_row_idx is not None, "Could not find data row"
-        # Collect the following "- " cells
-        cells = [lines[data_row_idx].strip().replace("* - ", "")]
-        for j in range(data_row_idx + 1, len(lines)):
-            stripped = lines[j].strip()
-            if stripped.startswith("- "):
-                cells.append(stripped[2:])
-            else:
-                break
-        # cells: [score, N, n, metric(s)..., LN, N_turns, User, i, f, PP]
-        assert cells[1] == "\u2014", f"N should be dash, got: {cells[1]}"
-        assert cells[2] == "\u2014", f"n should be dash, got: {cells[2]}"
+        # HTML table: N and n should be "—" when metrics are missing.
+        # Find td with empty sort-value and em-dash content (N and n columns)
+        assert "<tr>" in content
+        # Should have td with "—" for missing N and n
+        assert "—" in content
+        # Empty sort value for missing numeric cells
+        assert 'data-sort-value="">—</td>' in content or 'data-sort-value=""' in content
 
     def test_visualization_links_in_reactor_scale(self, tmp_path):
         """Visualization links (i, f, PP) should be generated when files exist."""

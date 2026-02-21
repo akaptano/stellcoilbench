@@ -492,7 +492,8 @@ class TestGetAllMetricsFromEntries:
         metrics = _get_all_metrics_from_entries(entries)
         assert "final_squared_flux" in metrics
         assert "final_total_length" in metrics
-        assert "quasisymmetry_average" in metrics
+        # quasisymmetry_average is excluded by _DEVICE_LEADERBOARD_EXCLUDE
+        assert "quasisymmetry_average" not in metrics
 
 
 class TestBuildLeaderboardJsonEdgeCases:
@@ -1566,7 +1567,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
         assert "Force and Torque Metrics" in metric_def        # line 2194
         assert "Topology Metrics" in metric_def                # line 2202
         assert "Performance Metrics" in metric_def             # line 2210
-        assert "Particle Confinement Metrics" in metric_def    # line 2218
+        # Particle Confinement Metrics (quasisymmetry_average, loss_fraction) excluded from leaderboard
 
     def test_composite_score_section_comprehensive(self, tmp_path):
         """Composite Score section includes two-stage description, per-constraint table, and worked example."""

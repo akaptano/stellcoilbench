@@ -13,6 +13,7 @@ from stellcoilbench.coil_optimization import (
     optimize_coils,
     _zip_output_files,
     initialize_coils_loop,
+    initialize_coils_dipole,
 )
 from stellcoilbench.config_scheme import CaseConfig
 from stellcoilbench.evaluate import load_case_config
@@ -662,3 +663,34 @@ class TestInitializeCoilsLoop:
             regularization=None,
         )
         assert len(coils) > 0
+
+
+class TestInitializeCoilsDipole:
+    """Tests for initialize_coils_dipole (requires simsopt auglag_coils branch)."""
+
+    def test_initialize_coils_dipole_smoke(self, tmp_path):
+        """Smoke test for dipole coil initialization (skipped if auglag_coils not available)."""
+        try:
+            from simsopt.util import dipole_array_optimization_function  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch (dipole_array_helper_functions)")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
+            s,
+            surface_file=surface_file,
+            surface_params={"range": "half period"},
+            tf_configuration="LandremanPaulQA",
+            Nx=2,
+            dipole_order=2,
+            out_dir=tmp_path,
+        )
+        assert len(coils) == n_dipole + n_tf
+        assert len(base_dipole) == n_dipole
+        assert len(base_tf) == n_tf

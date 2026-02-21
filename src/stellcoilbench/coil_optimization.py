@@ -10,7 +10,7 @@ import os
 import sys
 from contextlib import contextmanager
 from .config_scheme import CaseConfig
-from .post_processing import timed_section, get_timing_results
+from .post_processing import timed_section, get_timing_results, suppress_output
 
 from simsopt.geo import SurfaceRZFourier
 try:
@@ -203,18 +203,6 @@ def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
             'gtol': [float],
             'eps': [float],
             'maxls': [int],
-        },
-        'L-BFGS-B-custom': {
-            'maxiter': [int],
-            'maxcor': [int],
-            'ftol': [float],
-            'gtol': [float],
-            'maxls': [int],
-            'c1': [float],
-            'c2': [float],
-            'alpha_init': [float],
-            'alpha_min': [float],
-            'verbose': [int],
         },
         'SLSQP': {
             'ftol': [float],
@@ -691,9 +679,25 @@ def optimize_coils(
         skip_post_processing_in_loop = skip_post_processing or is_mpi_parallel
         
         if is_proc0:
-            # Check if Fourier continuation is enabled
             fourier_continuation = case_cfg.fourier_continuation
-            if fourier_continuation and fourier_continuation.get('enabled', False):
+            coil_type = coil_params.get("coil_type", "modular")
+            if coil_type == "dipole":
+                coils, results_dict = optimize_coils_dipole_loop(
+                    surface,
+                    surface_file=surface_file,
+                    surface_params=surface_params,
+                    out_dir=str(output_dir),
+                    max_iterations=optimizer_params.get("max_iterations", 100),
+                    verbose=optimizer_params.get("verbose", False),
+                    skip_post_processing=skip_post_processing_in_loop,
+                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
+                    run_vmec=run_vmec,
+                    run_simple=run_simple,
+                    plot_poincare=plot_poincare,
+                    plot_boozer=pp_params.get("plot_boozer", True),
+                    **{k: v for k, v in coil_params.items() if k not in ("coil_type", "ncoils", "order")},
+                )
+            elif fourier_continuation and fourier_continuation.get('enabled', False):
                 # Use Fourier continuation
                 fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
                 if not isinstance(fourier_orders, list) or not all(isinstance(o, int) for o in fourier_orders):
@@ -792,7 +796,6 @@ def optimize_coils(
         if coils is None:
             raise RuntimeError("Coil optimization failed: no coils were produced")
         save(coils, abs_coils_path)
-        proc0_print(f"Saved optimized coils to {abs_coils_path}")
     
     # Barrier: ensure coils file is written before any process proceeds
     if is_mpi_parallel:
@@ -959,9 +962,6 @@ def initialize_coils_loop(
     
     # Adaptive loop to find suitable R0 and R1
     from simsopt.geo import CurveSurfaceDistance, CurveCurveDistance, LinkingNumber
-    print(f"\nAdaptive coil positioning loop (max {max_adaptive_iterations} iterations):")
-    print(f"  Initial: R0={R0:.3f} m ({R0_scale:.3f}x), R1={R1:.3f} m ({R1_scale:.3f}x)")
-    print(f"  Limits: R0_scale <= {max_R0_scale}, R1_scale <= {max_R1_scale}")
     
     # Track previous values to detect oscillation
     prev_R0_scale = None
@@ -969,16 +969,11 @@ def initialize_coils_loop(
     oscillation_count = 0
     
     for adaptive_iter in range(max_adaptive_iterations):
-        print(f"\n  Iteration {adaptive_iter + 1}/{max_adaptive_iterations}:")
-        print(f"    R0: {R0:.3f} m (scale: {R0_scale:.3f}x)")
-        print(f"    R1: {R1:.3f} m (scale: {R1_scale:.3f}x)")
-        
         # Check for oscillation (values repeating)
         if prev_R0_scale is not None and prev_R1_scale is not None:
             if abs(R0_scale - prev_R0_scale) < 0.01 and abs(R1_scale - prev_R1_scale) < 0.01:
                 oscillation_count += 1
                 if oscillation_count >= 3:
-                    print("    Warning: Detected oscillation (values repeating). Stopping adaptive loop.")
                     break
             else:
                 oscillation_count = 0
@@ -1030,10 +1025,6 @@ def initialize_coils_loop(
         # For equally spaced coils around a torus, linking number should be 0 or very small
         no_coil_interlink = abs(linking_number) < 0.1  # Coils should not interlink each other
         
-        print(f"    Constraints: cs_ok={cs_ok} (min={min_cs_sep:.4f} m, required={min_cs_distance*(1-adaptive_tolerance):.4f} m), "
-              f"cc_ok={cc_ok} (min={min_cc_sep:.4f} m, required={min_cc_distance*(1-adaptive_tolerance):.4f} m), "
-              f"no_interlink={no_coil_interlink} (LN={linking_number:.4f})")
-        
         # For coils to interlink the plasma, they need to pass through the torus hole.
         # A coil interlinks the plasma if it has points both:
         # 1. Inside the torus hole (R < R_min of plasma surface)
@@ -1078,28 +1069,12 @@ def initialize_coils_loop(
         # 2. They have points both inside and outside the plasma volume
         plasma_interlink_ok = cs_ok and coil_interlinks_plasma
         
-        if coil_interlinks_plasma:
-            print(f"    Plasma interlink: OK (found {points_inside_hole_count} in hole, {points_in_plasma_count} in plasma, {points_outside_plasma_count} outside)")
-        else:
-            print(f"    Plasma interlink: FAIL (found {points_inside_hole_count} in hole, {points_in_plasma_count} in plasma, {points_outside_plasma_count} outside)")
-            print(f"      Surface R range: {R_min_surface:.3f} to {R_max_surface:.3f} m")
-            # Additional diagnostics
-            if points_inside_hole_count == 0 and points_outside_plasma_count == 0:
-                print("      -> All coil points are in plasma volume (coils need to extend both inward and outward)")
-            elif points_inside_hole_count == 0:
-                print("      -> No points in torus hole (coils need to extend inward)")
-            elif points_outside_plasma_count == 0:
-                print("      -> No points outside plasma (coils need to extend outward)")
-        
         if cs_ok and cc_ok and no_coil_interlink and plasma_interlink_ok:
             # Constraints satisfied, break out of adaptive loop
-            print("    All constraints satisfied! Breaking out of adaptive loop.")
             break
         
         # Check if we've exceeded maximum scales
         if R0_scale > max_R0_scale or R1_scale > max_R1_scale:
-            print(f"    Warning: R0_scale ({R0_scale:.3f}) or R1_scale ({R1_scale:.3f}) exceeded maximum.")
-            print("    Stopping adaptive loop to prevent coils from going too far.")
             # Cap the scales
             R0_scale = min(R0_scale, max_R0_scale)
             R1_scale = min(R1_scale, max_R1_scale)
@@ -1112,8 +1087,6 @@ def initialize_coils_loop(
         # This prevents oscillation by not adjusting multiple constraints simultaneously
         # Priority: plasma_interlink > cs_ok > cc_ok > no_coil_interlink
         # (Interlinking is most important - coils must pass through torus hole)
-        adjustment_made = False
-        
         if not plasma_interlink_ok:
             # Priority 1: Coils must interlink plasma (most important constraint)
             # If coils don't interlink, we need to adjust R0 and R1 so coils pass through the torus hole
@@ -1126,11 +1099,8 @@ def initialize_coils_loop(
                 if min_cs_sep > min_cs_distance * 1.1:  # Small safety margin
                     R0_scale *= 0.95
                     R0 = major_radius * R0_scale
-                    print(f"    Adjusting: R1_scale={R1_scale:.3f}, R0_scale={R0_scale:.3f} (extending inward to reach hole)")
                 else:
                     R0 = major_radius * R0_scale
-                    print(f"    Adjusting: R1_scale={R1_scale:.3f} (extending inward to reach hole)")
-                adjustment_made = True
             elif points_outside_plasma_count == 0:
                 # No points outside plasma - coils don't extend outward enough, need to extend outward
                 # Increase R1 primarily to extend outward (R0+R1 increases)
@@ -1140,48 +1110,28 @@ def initialize_coils_loop(
                 if min_cs_sep > min_cs_distance * 1.5:  # Large safety margin
                     R0_scale *= 0.98
                     R0 = major_radius * R0_scale
-                    print(f"    Adjusting: R1_scale={R1_scale:.3f}, R0_scale={R0_scale:.3f} (extending outward beyond plasma)")
                 else:
                     R0 = major_radius * R0_scale
-                    print(f"    Adjusting: R1_scale={R1_scale:.3f} (extending outward beyond plasma)")
-                adjustment_made = True
             else:
                 # Some points in hole and outside but not both - try increasing R1 to extend more
                 R1_scale *= 1.15
                 R1 = minor_radius_component * R1_scale
-                print(f"    Adjusting: R1_scale={R1_scale:.3f} (increasing coil extent)")
-                adjustment_made = True
         elif not cs_ok:
             # Priority 2: Coils must not intersect surface (only if interlinking is OK)
             # Move coils outward to increase distance from surface
             R0_scale *= 1.1
             R0 = major_radius * R0_scale
-            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils intersecting surface)")
-            adjustment_made = True
         elif not cc_ok:
             # Priority 2: Coils must not be too close to each other
             # Increase R0 to move coils further from center (increases toroidal separation)
             R0_scale *= 1.1
             R0 = major_radius * R0_scale
-            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils too close to each other)")
-            adjustment_made = True
         elif not no_coil_interlink:
             # Priority 4: Coils should not interlink each other
             R0_scale *= 1.1
             R0 = major_radius * R0_scale
-            print(f"    Adjusting: R0_scale={R0_scale:.3f} (coils interlinking)")
-            adjustment_made = True
-        
-        if not adjustment_made:
-            print("    All constraints satisfied!")
     
     # Final coil creation with determined R0 and R1
-    print("\nFinal coil positioning parameters:")
-    print(f"  R0: {R0:.3f} m (scale: {R0_scale:.3f}x major radius)")
-    print(f"  R1: {R1:.3f} m (scale: {R1_scale:.3f}x minor radius)")
-    print(f"  Major radius: {major_radius:.3f} m")
-    print(f"  Minor radius component: {minor_radius_component:.3f} m")
-    
     base_curves = create_equally_spaced_curves(
         ncoils, s.nfp, stellsym=s.stellsym,
         R0=R0, R1=R1, order=order, numquadpoints=200)
@@ -1226,8 +1176,9 @@ def initialize_coils_loop(
         # Create BiotSavart object to evaluate field
         bs = BiotSavart(coils)
         
-        # Calculate field strength along major radius
-        B_avg = calculate_modB_on_major_radius(bs, s)
+        # Calculate field strength along major radius (suppress simsopt Bmag prints)
+        with suppress_output():
+            B_avg = calculate_modB_on_major_radius(bs, s)
         
         # Check convergence
         if abs(B_avg - target_B) / target_B < tolerance:
@@ -1239,6 +1190,141 @@ def initialize_coils_loop(
         total_current *= current_scale_factor
     
     return coils
+
+
+def initialize_coils_dipole(
+    s: SurfaceRZFourier,
+    surface_file: str,
+    surface_params: Dict[str, Any],
+    tf_configuration: str = "LandremanPaulQA",
+    poff: float = 1.5,
+    coff: float = 3.0,
+    Nx: int = 4,
+    Ny: int | None = None,
+    Nz: int | None = None,
+    dipole_order: int = 2,
+    dipole_coil_size: float = 0.1,
+    tf_coil_size: float = 0.2,
+    remove_inboard_eps: float = -0.4,
+    out_dir: Path | str = "",
+) -> tuple:
+    """
+    Initialize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
+
+    Creates planar dipole coils between two toroidal surfaces (inner and outer, extended
+    from the plasma boundary), removes inboard dipoles, removes interlinking dipoles,
+    and aligns dipole normals with the plasma surface. TF coils are initialized via
+    simsopt.util.initialize_coils for the given configuration.
+
+    Args:
+        s: Plasma boundary surface.
+        surface_file: Path to surface file (for creating s_inner/s_outer).
+        surface_params: Dict with 'range' and other surface params.
+        tf_configuration: TF coil config name ('LandremanPaulQA', 'LandremanPaulQH',
+            'SchuettHennebergQAnfp2').
+        poff: Inner surface extension distance [m].
+        coff: Additional outer extension beyond inner [m].
+        Nx, Ny, Nz: Grid dimensions for dipole placement (Ny, Nz default to Nx).
+        dipole_order: Fourier order for planar dipole curves.
+        dipole_coil_size: Dipole wire cross-section [m] (e.g. 0.1 for 10 cm).
+        tf_coil_size: TF wire cross-section [m] (e.g. 0.2 for 20 cm).
+        remove_inboard_eps: Eps for remove_inboard_dipoles.
+        out_dir: Output directory for saved files.
+
+    Returns:
+        Tuple (coils, base_curves_dipole, base_curves_TF, ncoils_dipole, ncoils_TF)
+        where coils = dipole_coils + TF_coils (all coils for BiotSavart).
+    """
+    from simsopt.geo import SurfaceRZFourier, create_planar_curves_between_two_toroidal_surfaces
+    from simsopt.field import Current, coils_via_symmetries, BiotSavart
+    from simsopt.util import (
+        initialize_coils,
+        remove_inboard_dipoles,
+        remove_interlinking_dipoles_and_TFs,
+        align_dipoles_with_plasma,
+        calculate_modB_on_major_radius,
+    )
+
+    try:
+        from simsopt.field import regularization_rect
+    except ImportError:
+        raise ImportError(
+            "Dipole coil initialization requires simsopt with regularization_rect "
+            "(auglag_coils branch or simsopt >= 0.14)."
+        )
+
+    out_dir = Path(out_dir)
+    Ny = Ny if Ny is not None else Nx
+    Nz = Nz if Nz is not None else Nx
+
+    nphi = getattr(s, "quadpoints_phi", None)
+    ntheta = getattr(s, "quadpoints_theta", None)
+    nphi = len(nphi) if nphi is not None else 32
+    ntheta = len(ntheta) if ntheta is not None else 32
+    range_param = surface_params.get("range", "half period")
+
+    surface_file_lower = surface_file.lower()
+    if "input" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_vmec_input
+    elif "wout" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_wout
+    elif "focus" in surface_file_lower:
+        surface_func = SurfaceRZFourier.from_focus
+    else:
+        raise ValueError(f"Unknown surface type: {surface_file}")
+
+    s_inner = surface_func(
+        filename=surface_file,
+        range=range_param,
+        nphi=nphi * 4,
+        ntheta=ntheta * 4,
+    )
+    s_outer = surface_func(
+        filename=surface_file,
+        range=range_param,
+        nphi=nphi * 4,
+        ntheta=ntheta * 4,
+    )
+    s_inner.extend_via_normal(poff)
+    s_outer.extend_via_normal(poff + coff)
+
+    regularization_TF = regularization_rect(tf_coil_size, tf_coil_size)
+    base_curves_TF, curves_TF, coils_TF, _ = initialize_coils(
+        s, tf_configuration, regularization_TF
+    )
+    num_TF_unique = len(base_curves_TF)
+
+    base_curves, _ = create_planar_curves_between_two_toroidal_surfaces(
+        s, s_inner, s_outer, Nx, Ny, Nz, order=dipole_order
+    )
+    base_curves = remove_inboard_dipoles(s, base_curves, eps=remove_inboard_eps)
+    base_curves = remove_interlinking_dipoles_and_TFs(base_curves, base_curves_TF)
+    alphas, deltas = align_dipoles_with_plasma(s, base_curves)
+
+    for i in range(len(base_curves)):
+        alpha2 = alphas[i] / 2.0
+        delta2 = deltas[i] / 2.0
+        base_curves[i].set("q0", np.cos(alpha2) * np.cos(delta2))
+        base_curves[i].set("qi", np.sin(alpha2) * np.cos(delta2))
+        base_curves[i].set("qj", np.cos(alpha2) * np.sin(delta2))
+        base_curves[i].set("qk", -np.sin(alpha2) * np.sin(delta2))
+
+    ncoils_dipole = len(base_curves)
+    regularization_dipole = regularization_rect(dipole_coil_size, dipole_coil_size)
+    base_currents = [Current(1.0) * 1e7 for _ in range(ncoils_dipole)]
+    regularizations = [regularization_dipole for _ in range(ncoils_dipole)]
+    coils_dipole = coils_via_symmetries(
+        base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations
+    )
+    coils = coils_dipole + coils_TF
+
+    bs_TF = BiotSavart(coils_TF)
+    bs_dipole = BiotSavart(coils_dipole)
+    btot = bs_dipole + bs_TF
+    with suppress_output():
+        calculate_modB_on_major_radius(btot, s)
+
+    return coils, base_curves, base_curves_TF, ncoils_dipole, num_TF_unique
 
 
 def _zip_output_files(out_dir: Path) -> Path:
@@ -1275,13 +1361,9 @@ def _zip_output_files(out_dir: Path) -> Path:
                 # Add file to zip with relative path (just filename)
                 zipf.write(file_path, arcname=file_path.name)
         
-        print(f"Created zip archive: {zip_path}")
-        print(f"  Contains {len(files_to_zip)} files")
-        
         # Remove original VTK files after zipping for compression
         for file_path in files_to_zip:
             file_path.unlink()
-            print(f"  Removed {file_path.name} (now in zip archive)")
     
     return zip_path
 
@@ -1509,8 +1591,6 @@ def _plot_bn_error_3d(
     pdf_path = out_dir / filename
     plt.savefig(pdf_path, format='pdf', dpi=150, bbox_inches='tight')  # type: ignore
     plt.close(fig)  # type: ignore
-    
-    print(f"  Saved 3D B_N/|B| error plot to: {pdf_path}")
 
 
 def _extend_coils_to_higher_order(
@@ -1787,13 +1867,6 @@ def optimize_coils_with_fourier_continuation(
         # Bn error PDF (bn_error_3d_plot.pdf) in order_dir, so they're automatically
         # saved after each continuation step. We just need to ensure they're accessible.
         # The files are saved to: order_dir/coils_optimized.* and order_dir/bn_error_3d_plot.pdf
-        
-        print(f"\nCompleted order={order} optimization:")
-        print(f"  Final flux: {results.get('final_squared_flux', 'N/A'):.2e}")
-        print(f"  Final B-field: {results.get('final_B_field', 'N/A'):.3f} T")
-        print(f"  Files saved to: {order_dir}")
-        print(f"    - VTK files: {order_dir}/coils_optimized.*")
-        print(f"    - Bn error PDF: {order_dir}/bn_error_3d_plot.pdf")
     
     # Combine results from all continuation steps
     combined_results = {
@@ -1998,6 +2071,186 @@ def _redirect_verbose_to_file(output_file: Path):
         sys.stdout = original_stdout
 
 
+def optimize_coils_dipole_loop(
+    s: SurfaceRZFourier,
+    surface_file: str,
+    surface_params: Dict[str, Any],
+    out_dir: Path | str = "",
+    max_iterations: int = 100,
+    verbose: bool = False,
+    skip_post_processing: bool = False,
+    case_path: Path | None = None,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = False,
+    plot_boozer: bool = True,
+    tf_configuration: str = "LandremanPaulQA",
+    Nx: int = 4,
+    dipole_order: int = 2,
+    **kwargs,
+) -> tuple:
+    """
+    Optimize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
+
+    Uses initialize_coils_dipole and dipole_array_optimization_function from simsopt.
+    """
+    from scipy.optimize import minimize
+    from simsopt.geo import (
+        CurveLength,
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+        MeanSquaredCurvature,
+        LpCurveCurvature,
+    )
+    from simsopt.field import BiotSavart, coils_to_vtk
+    from simsopt.objectives import Weight, SquaredFlux, QuadraticPenalty
+
+    try:
+        from simsopt.util import dipole_array_optimization_function, save_coil_sets
+    except ImportError as e:
+        raise ImportError(
+            "Dipole coil optimization requires simsopt with auglag_coils branch "
+            "(dipole_array_helper_functions). Install from: "
+            "https://github.com/hiddenSymmetries/simsopt"
+        ) from e
+
+    out_dir = Path(out_dir).resolve()
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    with timed_section("coil_initialization", print_time=False):
+        with suppress_output():
+            coils, base_curves, base_curves_TF, ncoils_dipole, ncoils_TF = initialize_coils_dipole(
+                s,
+                surface_file=surface_file,
+                surface_params=surface_params,
+                tf_configuration=tf_configuration,
+                Nx=Nx,
+                dipole_order=dipole_order,
+                out_dir=out_dir,
+                **{k: v for k, v in kwargs.items() if k in ("poff", "coff", "Ny", "Nz", "dipole_coil_size", "tf_coil_size", "remove_inboard_eps")},
+            )
+
+    coils_TF = coils[ncoils_dipole:]
+    base_coils_TF = coils_TF[:ncoils_TF]
+    base_coils = coils[:ncoils_dipole]
+    curves = [c.curve for c in coils]
+    curves_TF = [c.curve for c in coils_TF]
+    all_coils = coils
+    all_base_coils = base_coils + base_coils_TF
+
+    bs_TF = BiotSavart(coils_TF)
+    bs_dipole = BiotSavart(coils[:ncoils_dipole])
+    btot = bs_dipole + bs_TF
+    eval_points = s.gamma().reshape(-1, 3)
+    btot.set_points(eval_points)
+
+    try:
+        coils_to_vtk(all_coils, out_dir / "coils_initial")
+    except Exception as e:
+        print(f"Warning: Failed to save initial coils to VTK: {e}")
+
+    LENGTH_WEIGHT = Weight(0.01)
+    LENGTH_WEIGHT2 = Weight(0.01)
+    LENGTH_TARGET = 85
+    LINK_WEIGHT = 1e4
+    CC_THRESHOLD = 0.8
+    CC_WEIGHT = 1e2
+    CS_THRESHOLD = 1.3
+    CS_WEIGHT = 1e1
+    CURVATURE_THRESHOLD = 0.5
+    MSC_THRESHOLD = 0.05
+    CURVATURE_WEIGHT = 1e-2
+    MSC_WEIGHT = 1e-1
+
+    Jf = SquaredFlux(s, btot)
+    Jls = [CurveLength(c) for c in base_curves]
+    Jls_TF = [CurveLength(c) for c in base_curves_TF]
+    Jlength = QuadraticPenalty(sum(Jls_TF), LENGTH_TARGET, "max")
+    Jlength2 = QuadraticPenalty(sum(Jls), LENGTH_TARGET, "max")
+    Jccdist = CurveCurveDistance(curves + curves_TF, CC_THRESHOLD / 2.0, num_basecurves=len(all_coils))
+    Jccdist2 = CurveCurveDistance(curves_TF, CC_THRESHOLD, num_basecurves=len(coils_TF))
+    Jcsdist = CurveSurfaceDistance(curves + curves_TF, s, CS_THRESHOLD)
+    linkNum = LinkingNumber(curves + curves_TF, downsample=2)
+    Jcs = [LpCurveCurvature(c.curve, 2, CURVATURE_THRESHOLD) for c in base_coils_TF]
+    Jmscs = [MeanSquaredCurvature(c.curve) for c in base_coils_TF]
+
+    class _ZeroObj:
+        def J(self): return 0.0
+
+    try:
+        from simsopt.field.force import LpCurveForce, LpCurveTorque
+        Jforce = LpCurveForce(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveForce(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
+        Jtorque = LpCurveTorque(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveTorque(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
+        Jforce2 = Jtorque2 = _ZeroObj()
+    except (ImportError, TypeError):
+        Jforce = Jforce2 = Jtorque = Jtorque2 = _ZeroObj()
+
+    JF = (
+        Jf
+        + CC_WEIGHT * Jccdist
+        + CC_WEIGHT * Jccdist2
+        + CS_WEIGHT * Jcsdist
+        + CURVATURE_WEIGHT * sum(Jcs)
+        + MSC_WEIGHT * sum(QuadraticPenalty(J, MSC_THRESHOLD, "max") for J in Jmscs)
+        + LINK_WEIGHT * linkNum
+        + LENGTH_WEIGHT * Jlength
+        + LENGTH_WEIGHT2 * Jlength2
+    )
+
+    obj_dict = {
+        "JF": JF,
+        "Jf": Jf,
+        "Jlength": Jlength,
+        "Jlength2": Jlength2,
+        "Jls": Jls,
+        "Jls_TF": Jls_TF,
+        "Jcs": Jcs,
+        "Jmscs": Jmscs,
+        "Jccdist": Jccdist,
+        "Jccdist2": Jccdist2,
+        "Jcsdist": Jcsdist,
+        "linkNum": linkNum,
+        "Jforce": 0,
+        "Jforce2": 0,
+        "Jtorque": 0,
+        "Jtorque2": 0,
+        "btot": btot,
+        "s": s,
+        "base_curves_TF": base_curves_TF,
+        "psc_array": None,
+    }
+    weight_dict = {
+        "length_weight": LENGTH_WEIGHT.value,
+        "curvature_weight": CURVATURE_WEIGHT,
+        "msc_weight": MSC_WEIGHT,
+        "msc_threshold": MSC_THRESHOLD,
+        "cc_weight": CC_WEIGHT,
+        "cs_weight": CS_WEIGHT,
+        "link_weight": LINK_WEIGHT,
+        "force_weight": 0.0,
+        "torque_weight": 0.0,
+        "net_force_weight": 0.0,
+        "net_torque_weight": 0.0,
+    }
+
+    dofs = JF.x
+    res = minimize(
+        dipole_array_optimization_function,
+        dofs,
+        args=(obj_dict, weight_dict, None),
+        jac=True,
+        method="L-BFGS-B",
+        options={"maxiter": max_iterations, "maxcor": 1000},
+        tol=1e-20,
+    )
+
+    save_coil_sets(btot, str(out_dir) + "/", "_optimized")
+
+    combined_results = {"success": res.success, "fun": float(res.fun), "nit": int(res.nit)}
+    return coils, combined_results
+
+
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, 
@@ -2176,8 +2429,6 @@ def _optimize_coils_loop_impl(
         algorithm_lower = algorithm.lower()
         if algorithm_lower in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
             algorithm = 'L-BFGS-B'
-        elif algorithm_lower in ['l-bfgs-b-custom', 'lbfgs-custom', 'l-bfgs-custom']:
-            algorithm = 'L-BFGS-B-custom'
         elif algorithm_lower == 'augmented_lagrangian':
             algorithm = 'augmented_lagrangian'
         # Keep other algorithm names as-is (they should match scipy method names)
@@ -2195,16 +2446,11 @@ def _optimize_coils_loop_impl(
         if opt_name in kwargs and opt_name not in algorithm_options:
             algorithm_options[opt_name] = kwargs[opt_name]
 
-    print(f"Starting coil optimization for target B-field: {target_B} T")
-    print(f"Surface major radius: {s.major_radius():.3f} m")
-    print(f"Surface minor radius component: {s.get_rc(1, 0):.3f} m")
-    print(f"Number of base coils: {ncoils}")
-    print(f"Fourier order: {order}")
-
     # Step 1: Initialize coils with target B-field
-    with timed_section("coil_initialization"):
+    with timed_section("coil_initialization", print_time=False):
         if initial_coils is None:
-            coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+            with suppress_output():
+                coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
             # Apply random DOF perturbation to break determinism if requested
             dof_perturbation = kwargs.get('dof_perturbation', 0.0)
             if isinstance(dof_perturbation, (int, float)) and dof_perturbation > 0:
@@ -2216,22 +2462,17 @@ def _optimize_coils_loop_impl(
         else:
             coils = initial_coils
 
-    # Calculate total_current (needed for later printing and possibly for threshold scaling)
+    # Calculate total_current (needed for threshold scaling)
     # Sum the unique base coils (coils[:ncoils]) to get total current
     total_current = sum([c.current.get_value() for c in coils[:ncoils]])
-    
-    # Print individual coil currents before optimization
-    print("\nCoil currents before optimization (unique base coils):")
-    for i, coil in enumerate(coils[:ncoils]):
-        print(f"  Coil {i+1}: {coil.current.get_value():.2e} A")
-    print(f"  Total: {total_current:.2e} A")
     
     # Calculate current_scale_factor for force/torque threshold and weight scaling
     # This makes force/torque thresholds and weights dimensionless relative to reactor scale
     current_scale_factor = 1.0  # Default: no scaling
     total_current_reactor_scale = None  # Will be set if needed for weight scaling
     if not is_continuation_step and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
-        coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+        with suppress_output():
+            coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
         # Sum the unique base coils to get total current
         total_current_reactor_scale = sum([c.current.get_value() for c in coils_backup[:ncoils]])
         current_scale_factor = (total_current / total_current_reactor_scale) ** 2
@@ -2285,12 +2526,10 @@ def _optimize_coils_loop_impl(
                 s_plot.set_zs(m, n, s.get_zs(m, n))
 
     # Step 3: Create BiotSavart object and save initial state
-    with timed_section("biotsavart_setup"):
+    with timed_section("biotsavart_setup", print_time=False):
         bs = BiotSavart(coils)
-        B_avg = calculate_modB_on_major_radius(bs, s)
-        print(f"  Total current: {total_current:.0f} A")
-        print(f"  B-field averaged along major radius: {B_avg:.3f} T")
-        print(f"  Number of coils: {len(coils)}")
+        with suppress_output():
+            calculate_modB_on_major_radius(bs, s)
         curves = [c.curve for c in coils]
         
         # Save initial coils
@@ -2300,10 +2539,10 @@ def _optimize_coils_loop_impl(
             print(f"Warning: Failed to save initial coils to VTK: {e}")
             print("  Continuing optimization without VTK export...")
         
-        # Calculate and display initial B-field
+        # Calculate initial B-field (used for surface data)
         bs.set_points(s_plot.gamma().reshape((-1, 3)))
-        B_initial = calculate_modB_on_major_radius(bs, s_plot)
-        print(f"\nInitial B-field on-axis: {B_initial:.3f} T")
+        with suppress_output():
+            B_initial = calculate_modB_on_major_radius(bs, s_plot)
         
         # Save initial surface data
         bs.set_points(s_plot.gamma().reshape((-1, 3)))
@@ -2461,8 +2700,7 @@ def _optimize_coils_loop_impl(
             "linking_number": {
                 "obj": Jlink,
                 "threshold": None,
-                "": lambda obj, thresh: obj,  # Empty string defaults to including linking number as soft constraint
-                # Note: "hard" is NOT in term_map - it's only used as a hard constraint, not added to objective
+                "": lambda obj, thresh: obj,
             },
             "coil_coil_force": {
                 "obj": Jforce,
@@ -2495,7 +2733,6 @@ def _optimize_coils_loop_impl(
             # Skip _p parameters (already handled above)
             if term_name.endswith("_p"):
                 continue
-            
             if term_name in term_map:
                 term_config = term_map[term_name]
                 obj = term_config["obj"]
@@ -2611,38 +2848,20 @@ def _optimize_coils_loop_impl(
                     
                     # Track constraint index to term name mapping for named weights
                     constraint_idx_to_term[constraint_idx] = term_name
-                elif term_name == "linking_number" and term_value == "hard":
-                    # "hard" is a valid option for linking_number - it's used as a hard constraint only,
-                    # not added to the objective. Validation happens below.
-                    pass
                 else:
                     print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
-    
-    # Validate that linking_number: "hard" is only used with L-BFGS-B-custom
-    # (either standalone or as inner solver for augmented_lagrangian)
-    if coil_objective_terms and coil_objective_terms.get("linking_number") == "hard":
-        is_custom_standalone = algorithm == "L-BFGS-B-custom"
-        is_custom_inner = algorithm == "augmented_lagrangian" and kwargs.get("minimize_method") == "L-BFGS-B-custom"
-        
-        if not (is_custom_standalone or is_custom_inner):
-            raise ValueError(
-                "linking_number: 'hard' requires L-BFGS-B-custom algorithm. "
-                "Use either algorithm: 'L-BFGS-B-custom' or "
-                "algorithm: 'augmented_lagrangian' with minimize_method: 'L-BFGS-B-custom'. "
-                f"Got algorithm: '{algorithm}', minimize_method: '{kwargs.get('minimize_method', 'not specified')}'"
-            )
     
     # Record objective setup time
     objective_setup_time = time.perf_counter() - objective_setup_start
     from .post_processing import _timing_results
     _timing_results["objective_setup"] = objective_setup_time
-    proc0_print(f"[TIMING] objective_setup: {objective_setup_time:.2f}s")
     
     # Step 5: Run optimization
     optimization_start = time.perf_counter()
     start_time = time.time()
     lag_mul = None  # Initialize lag_mul for scipy methods
     iterations_used = 0  # Track total iterations for CI reporting
+    opt_result = None  # Scipy/minimize result for metadata (auglag does not provide this)
     
     # Check if weight is specified for coil-surface distance and coil-coil distance constraints
     cs_weight_specified = False
@@ -2678,34 +2897,14 @@ def _optimize_coils_loop_impl(
                 cc_weight *= constraint_scaling[cc_distance_index]
             c_list[cc_distance_index] = Weight(cc_weight) * c_list[cc_distance_index]
         
-        # Print initial thresholds and weights for augmented_lagrangian
-        # (weights are embedded in Weight() wrappers)
-        if verbose:
-            print("Initial thresholds and weights:")
-            print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight=1.0")
-            # Print distance objectives (they're always included at indices 1 and 2)
-            # Get weights that were applied (with scaling already applied above)
-            weight_cc = kwargs.get(f'constraint_weight_{cc_distance_idx}', 1e3) if not cc_weight_specified else kwargs.get(f'constraint_weight_{cc_distance_idx}', 1.0)
-            weight_cs = kwargs.get(f'constraint_weight_{cs_distance_idx}', 1e3) if not cs_weight_specified else kwargs.get(f'constraint_weight_{cs_distance_idx}', 1.0)
-            # Apply scaling to weights for display (always apply for distance objectives)
-            if cc_distance_idx in constraint_scaling:
-                weight_cc *= constraint_scaling[cc_distance_idx]
-            if cs_distance_idx in constraint_scaling:
-                weight_cs *= constraint_scaling[cs_distance_idx]
-            print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weight_cc:.2e}")
-            print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weight_cs:.2e}")
-            # Print other constraints
-            constraint_idx_offset = 3  # After flux (0), CC distance (1), CS distance (2)
-            for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
-                if i < len(c_list):
-                    weight = 1.0
-                    if threshold is not None:
-                        print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weight:.2e}")
-                    else:
-                        print(f"  [{i}] {name}: weight={weight:.2e}")
-            sys.stdout.flush()  # Ensure output is flushed for test capture
-        
-        from simsopt.solve import augmented_lagrangian_method
+        # auglag_coils: simsopt.solve.augmented_lagrangian; some versions export via solve.__init__
+        try:
+            from simsopt.solve import augmented_lagrangian_method
+        except ImportError:
+            from simsopt.solve.augmented_lagrangian import augmented_lagrangian_method
+        import inspect
+        _alm_sig = inspect.signature(augmented_lagrangian_method)
+        _alm_params = set(_alm_sig.parameters.keys())
         augmented_lagrangian_options = {
             "MAXITER": max_iterations,
             "MAXITER_lag": max_iter_subopt,
@@ -2717,30 +2916,16 @@ def _optimize_coils_loop_impl(
             augmented_lagrangian_options["tau"] = kwargs["tau"]
         if "minimize_method" in kwargs.keys():
             augmented_lagrangian_options["minimize_method"] = kwargs["minimize_method"]
-            
-            # If using L-BFGS-B-custom, pass hard constraints (e.g., linking number)
-            if kwargs["minimize_method"] == "L-BFGS-B-custom":
-                # Determine which constraints should be hard constraints
-                # LinkingNumber is the main use case - it's discrete and has zero gradient
-                hard_constraints = []
-                linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
-                if linking_number_option == "hard":
-                    # Linking number explicitly marked as hard constraint
-                    hard_constraints.append(Jlink)
-                
-                if hard_constraints:
-                    augmented_lagrangian_options["hard_constraints"] = hard_constraints
-                    # Feasibility check: LinkingNumber must be < 0.5 in absolute value (effectively zero)
-                    augmented_lagrangian_options["feasibility_check"] = lambda hcs: all(abs(hc.J()) < 0.5 for hc in hcs)
-        
+        # Filter to only params the function accepts
+        augmented_lagrangian_options = {k: v for k, v in augmented_lagrangian_options.items() if k in _alm_params}
         _, _, lag_mul = augmented_lagrangian_method(
-            f=None,  # No main objective function
-            **augmented_lagrangian_options,
+            f=None,
             equality_constraints=c_list,
+            **augmented_lagrangian_options,
         )
         # augmented_lagrangian_method doesn't return nit; estimate from settings
         iterations_used = max_iterations
-    elif algorithm in ['BFGS', 'L-BFGS-B', 'L-BFGS-B-custom', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
+    elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
         # Build weighted objective function from constraints
         # c_list includes flux first, then other constraints
         # Default weight is 1.0 for all constraints
@@ -2819,24 +3004,6 @@ def _optimize_coils_loop_impl(
         # Create weighted sum of constraints
         JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
         
-        # Print initial thresholds and weights
-        if verbose:
-            print("Initial thresholds and weights:")
-            print(f"  [0] Flux: threshold={flux_threshold:.2e}, weight={weights[0]:.2e}")
-            # Print distance objectives (always included at indices 1 and 2)
-            print(f"  [{cc_distance_idx}] CC Distance: threshold={cc_threshold:.2e}, weight={weights[cc_distance_idx]:.2e}")
-            print(f"  [{cs_distance_idx}] CS Distance: threshold={cs_threshold:.2e}, weight={weights[cs_distance_idx]:.2e}")
-            
-            # Print other constraints (skip indices 0, 1, 2 which are flux, CC distance, CS distance)
-            constraint_idx_offset = 3
-            for i, (name, threshold) in enumerate(constraint_names_and_thresholds[2:], start=constraint_idx_offset):
-                if i < len(weights):
-                    if threshold is not None:
-                        print(f"  [{i}] {name}: threshold={threshold:.2e}, weight={weights[i]:.2e}")
-                    else:
-                        print(f"  [{i}] {name}: weight={weights[i]:.2e}")
-            sys.stdout.flush()  # Ensure output is flushed for test capture
-        
         # Track iteration number for objective function
         iteration_count = [0]  # Use list to allow modification in nested function
 
@@ -2844,37 +3011,39 @@ def _optimize_coils_loop_impl(
         def objective(x: np.ndarray) -> float:
             JF.x = x  # type: ignore[attr-defined]
             J = JF.J()  # type: ignore[attr-defined]
-            if verbose:
-                iteration_count[0] += 1
+            iteration_count[0] += 1
+            if verbose and (iteration_count[0] == 1 or iteration_count[0] % 100 == 0):
                 grad = JF.dJ()  # type: ignore[attr-defined]
-                outstr = f"[{iteration_count[0]}] J={J:.1e}, Jf={Jf.J():.1e}"
-                # cl_string = ", ".join([f"{J.J():.1f}" for J in Jls])
-                outstr += f", Len={sum(J.J() for J in Jls):.2f}"
-                outstr += f", CC-Sep={Jccdist.shortest_distance():.2f}, CS-Sep={Jcsdist.shortest_distance():.2f}"
+                outstr = f"[{iteration_count[0]}]"
+                outstr += f" L={sum(J.J() for J in Jls):.2f}"
+                outstr += f", d_cc={Jccdist.shortest_distance():.2f}, d_cs={Jcsdist.shortest_distance():.2f}"
                 kappa_values = [c.kappa().max() for c in base_curves]
                 msc_values = [MeanSquaredCurvature(c).J() for c in base_curves]
-                kappa_str = ",".join([f"{k:.1e}" for k in kappa_values])
-                msc_str = ",".join([f"{m:.1e}" for m in msc_values])
+                kappa_str = ",".join([f"{k:.1f}" for k in kappa_values])
+                msc_str = ",".join([f"{m:.1f}" for m in msc_values])
                 outstr += f", κ=[{kappa_str}]"  # type: ignore[attr-defined]
-                outstr += f", MSC=[{msc_str}]"  # type: ignore[attr-defined]
-                outstr += f", Link#={Jlink.J():.2e}"
+                outstr += f", MSC=[{msc_str}]"
+                outstr += f", LN={int(round(Jlink.J()))}"
                 outstr += f", F={Jforce.J():.2e}"
-                outstr += f", T={Jtorque.J():.2e}"
-                outstr += f", ║∇J║={np.linalg.norm(grad):.1e}"
+                outstr += f", τ={Jtorque.J():.2e}"
+                outstr += f", ‖∇J‖={np.linalg.norm(grad):.1e}"
                 print(outstr)
                 
                 # Print weighted contributions of each objective term
-                contrib_str = ""
                 contrib_parts = []
+                name_short = {"Flux": "J_f", "CC Distance": "d_cc", "CS Distance": "d_cs",
+                              "Length": "L", "MSC": "MSC", "Arclength Var": "Var",
+                              "κ": "κ", "Link #": "LN", "Force": "F", "Torque": "τ"}
                 # Flux contribution (index 0)
                 flux_contrib = weights[0] * c_list[0].J()
-                contrib_parts.append(f"Flux={flux_contrib:.1e}")
+                contrib_parts.append(f"{name_short.get('Flux', 'Flux')}={flux_contrib:.1e}")
                 # Other constraint contributions
                 for idx, (name, _) in enumerate(constraint_names_and_thresholds, start=1):
                     if idx < len(c_list) and idx < len(weights):
                         constraint_contrib = weights[idx] * c_list[idx].J()
-                        contrib_parts.append(f"{name}={constraint_contrib:.1e}")
-                contrib_str += ", ".join(contrib_parts)
+                        short = name_short.get(name, name)
+                        contrib_parts.append(f"{short}={constraint_contrib:.1e}")
+                contrib_str = "Objs: " + ", ".join(contrib_parts)
                 contrib_str += f", Total={J:.1e}"
                 print(contrib_str)
             return J
@@ -2941,13 +3110,6 @@ def _optimize_coils_loop_impl(
             # if the gradient norm drops below gtol quickly
             options.setdefault('ftol', 1e-12)  # scipy default
             options.setdefault('gtol', 1e-12)  # scipy default
-        elif algorithm == 'L-BFGS-B-custom':
-            # L-BFGS-B-custom uses same options as scipy L-BFGS-B
-            # Use scipy defaults for ftol/gtol to avoid premature convergence
-            options.setdefault('ftol', 2.220446049250313e-09)  # scipy default
-            options.setdefault('gtol', 1e-5)  # scipy default
-            options.setdefault('maxcor', 10)  # scipy default (L-BFGS memory)
-            options.setdefault('maxls', 50)  # scipy default (max line search steps)
         elif algorithm == 'TNC':
             options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
             options.setdefault('gtol', 1e-05)  # scipy default
@@ -2967,79 +3129,27 @@ def _optimize_coils_loop_impl(
             # Merge user options, allowing them to override defaults
             options.update(algorithm_options)
         
-        if algorithm == 'L-BFGS-B-custom':
-            # Use constrained L-BFGS-B with hard constraints (e.g., linking number)
-            from simsopt.solve.constrained_lbfgsb import minimize_with_hard_constraints
-            
-            # Determine which constraints should be hard constraints
-            # LinkingNumber is the main use case - it's discrete and has zero gradient
-            hard_constraints = []
-            linking_number_option = coil_objective_terms.get("linking_number", "") if coil_objective_terms else ""
-            if linking_number_option == "hard":
-                # Linking number explicitly marked as hard constraint
-                hard_constraints.append(Jlink)
-            
-            # Custom feasibility check for linking number (must be zero)
-            def feasibility_check(hcs):
-                return all(abs(hc.J()) < 0.5 for hc in hcs)
-            
-            # Set verbose level for the custom solver if verbose mode is on
-            if verbose and 'verbose' not in options:
-                options['verbose'] = 1  # Basic verbose output from custom solver
-            
-            result = minimize_with_hard_constraints(
-                fun=lambda x: (objective(x), gradient(x)),
-                x0=JF.x,  # type: ignore[attr-defined]
-                hard_constraints=hard_constraints,
-                feasibility_check=feasibility_check,
-                jac=True,  # fun returns (f, g) tuple
-                options=options,
-            )
-            
-            # Print constraint rejection info if any
-            if verbose and hasattr(result, 'n_constraint_rejections'):
-                print(f"  Constraint rejections: {result.n_constraint_rejections}")
-        else:
-            result = minimize(
-                fun=objective,
-                x0=JF.x,  # type: ignore[attr-defined]
-                method=algorithm,
-                jac=gradient,  # Provide gradient function
-                options=options,
-            )
+        result = minimize(
+            fun=objective,
+            x0=JF.x,  # type: ignore[attr-defined]
+            method=algorithm,
+            jac=gradient,
+            options=options,
+        )
         
-        # Record iterations from scipy result
+        # Record iterations and metadata from scipy result
         iterations_used = getattr(result, 'nit', 0)
-
-        # Print optimization result message to help debug early exits
-        if verbose:
-            print(f"Optimization result: {result.message}")
-            print(f"  Success: {result.success}")
-            print(f"  Iterations: {result.nit}")
-            print(f"  Function evaluations: {result.nfev}")
-            if hasattr(result, 'njev'):
-                print(f"  Gradient evaluations: {result.njev}")
+        opt_result = result
     
     end_time = time.time()
     optimization_time = time.perf_counter() - optimization_start
     _timing_results["coil_optimization"] = optimization_time
-    proc0_print(f"[TIMING] coil_optimization: {optimization_time:.2f}s")
     
     # Start timing for save and metrics section
     save_metrics_start = time.perf_counter()
     
-    # Calculate and print final total current
-    # Sum the unique base coils (coils[:ncoils]) to get total current
+    # Calculate final total current (sum of unique base coils)
     total_current_final = sum([c.current.get_value() for c in coils[:ncoils]])
-    
-    # Print individual coil currents after optimization
-    print("\nCoil currents after optimization (unique base coils):")
-    for i, coil in enumerate(coils[:ncoils]):
-        print(f"  Coil {i+1}: {coil.current.get_value():.2e} A")
-    print(f"  Total: {total_current_final:.2e} A")
-    
-    print(f"\nTotal current before optimization: {total_current:.0f} A")
-    print(f"Total current after optimization: {total_current_final:.0f} A")
     
     # Save optimized coils
     try:
@@ -3049,12 +3159,10 @@ def _optimize_coils_loop_impl(
         print("  Continuing without VTK export...")
     bs.save(out_dir / "biot_savart_optimized.json")
     
-    # Calculate and display final B-field
+    # Calculate final B-field (suppress simsopt Bmag output)
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    B_final = calculate_modB_on_major_radius(bs, s_plot)
-    print(f"\nFinal B-field on-axis: {B_final:.3f} T")
-    if 'B_initial' in locals() and B_initial is not None:
-        print(f"B-field change: {B_final - B_initial:.3f} T ({((B_final / B_initial - 1) * 100):+.1f}%)")
+    with suppress_output():
+        B_final = calculate_modB_on_major_radius(bs, s_plot)
     
     # Save final surface data
     bs.set_points(s_plot.gamma().reshape((-1, 3)))
@@ -3067,19 +3175,6 @@ def _optimize_coils_loop_impl(
         "modB": bs.AbsB().reshape((qphi, qtheta, 1))
     }
     s_plot.to_vtk(out_dir / "surface_optimized", extra_data=pointData)
-    
-    # Print final constraint values
-    bs.set_points(s.gamma().reshape((-1, 3)))
-    print("Final constraint values:")
-    print(f"  Normalized flux: {Jf.J():.2e}")
-    print(f"  CS separation: {Jcsdist.J():.2e} (min distance: {Jcsdist.shortest_distance():.3f})")
-    print(f"  CC separation: {Jccdist.J():.2e} (min distance: {Jccdist.shortest_distance():.3f})")
-    print(f"  Length constraint: {sum(Jls).J():.2e}")  # type: ignore[attr-defined]
-    print(f"  Curvature constraint: {sum(Jcs).J():.2e}")  # type: ignore[attr-defined]
-    print(f"  Linking number: {Jlink.J():.2e}")
-    print(f"  Force constraint: {Jforce.J():.2e}")
-    print(f"  Max curvatures: {[np.max(c.kappa()) for c in base_curves]}")
-    print(f"  Lengths: {[CurveLength(c).J() for c in base_curves]}")
     
     # Calculate final forces
     # Try new coil.force() and coil.torque() API (pedro_simsopt), fall back to old API
@@ -3097,9 +3192,6 @@ def _optimize_coils_loop_impl(
             # Neither API available, use zeros as placeholder
             max_force = [0.0] * ncoils
             max_torque = [0.0] * ncoils
-            print("Warning: coil force/torque calculation not available")
-    print(f"  Max forces on each coil: {[f'{f:.2e}' for f in max_force]}")
-    
     # Calculate final B_N metrics
     # If virtual casing is used, we need to subtract B_external_normal from the coil B_N
     vc_target = kwargs.get('vc_target', None)
@@ -3119,7 +3211,6 @@ def _optimize_coils_loop_impl(
         # Standard case: B_N error = |B_N_coils| (target is zero)
         absBn = np.abs(BdotN_coils)
     
-    BdotN = np.mean(absBn)
     abs_B = bs.AbsB().reshape((nphi, ntheta))
     avg_BdotN_over_B = np.mean(absBn) / np.mean(abs_B) if np.mean(abs_B) > 0 else 0.0
     
@@ -3127,9 +3218,6 @@ def _optimize_coils_loop_impl(
     # Avoid division by very small numbers
     abs_B_safe = np.where(abs_B > 1e-10, abs_B, 1e-10)
     max_BdotN_overB = np.max(absBn / abs_B_safe) if np.any(abs_B > 0) else 0.0
-    
-    print(f"  <B_N>/<|B|> = {avg_BdotN_over_B:.2e}")
-    print(f"  Max |B_N|/|B| = {max_BdotN_overB:.2e}")
 
     # Check coil-surface interlinking: each base coil must encircle the
     # plasma by having points both inside the torus hole and outside the
@@ -3169,10 +3257,6 @@ def _optimize_coils_loop_impl(
         if not (has_inside and has_outside):
             coils_linked_to_surface = False
             break
-    print(f"  Coils linked to surface: {coils_linked_to_surface}")
-
-    print("Optimization completed successfully!")
-    print(f"Results saved to: {out_dir}")
     
     # Generate 3D visualization plot
     try:
@@ -3193,7 +3277,6 @@ def _optimize_coils_loop_impl(
     # Record save and metrics time
     save_metrics_time = time.perf_counter() - save_metrics_start
     _timing_results["save_and_metrics"] = save_metrics_time
-    proc0_print(f"[TIMING] save_and_metrics: {save_metrics_time:.2f}s")
     
     # Run post-processing: QFM surface, Poincaré plots, iota profiles, quasisymmetry profiles
     # Skip if this is part of Fourier continuation (will run once at the end)
@@ -3375,11 +3458,17 @@ def _optimize_coils_loop_impl(
         'walltime_sec': end_time - start_time,
         'iterations_used': iterations_used,
         'final_squared_flux': Jf.J(),
+        'optimization_success': opt_result.success if opt_result is not None and hasattr(opt_result, 'success') else None,
+        'optimization_message': str(opt_result.message) if opt_result is not None and hasattr(opt_result, 'message') else None,
+        'optimization_nfev': getattr(opt_result, 'nfev', None) if opt_result is not None else None,
+        'optimization_njev': getattr(opt_result, 'njev', None) if opt_result is not None else None,
         '_cached_thresholds': cached_thresholds,  # Store for continuation steps
         'final_min_cs_separation': Jcsdist.shortest_distance(),
         'final_min_cc_separation': Jccdist.shortest_distance(),
         'final_length_per_coil': [float(CurveLength(c).J()) for c in base_curves],
         'final_current_per_coil': [float(abs(coils[i].current.get_value())) for i in range(ncoils)],
+        'total_current_before': float(total_current),
+        'total_current_after': float(total_current_final),
         'final_total_length': sum(CurveLength(c).J() for c in base_curves),
         'final_max_curvature': max(np.max(c.kappa()) for c in base_curves),
         'final_average_curvature': np.mean([c.kappa() for c in base_curves]),
@@ -3415,21 +3504,7 @@ def _optimize_coils_loop_impl(
                 if isinstance(value, (int, float)):
                     results[key] = float(value)
     
-    # Add timing results to output
+    # Add timing results to output (printed in OPTIMIZATION RESULTS SUMMARY)
     results['timing'] = get_timing_results()
-    
-    # Print timing summary for coil optimization
-    proc0_print("\n" + "=" * 50)
-    proc0_print("COIL OPTIMIZATION TIMING SUMMARY")
-    proc0_print("=" * 50)
-    coil_opt_timing_keys = ['coil_initialization', 'biotsavart_setup', 'objective_setup', 'coil_optimization', 'save_and_metrics']
-    total_coil_opt_time = 0.0
-    for key in coil_opt_timing_keys:
-        if key in _timing_results:
-            total_coil_opt_time += _timing_results[key]
-            proc0_print(f"  {key}: {_timing_results[key]:.2f}s")
-    proc0_print(f"  {'=' * 30}")
-    proc0_print(f"  Total coil optimization: {total_coil_opt_time:.2f}s")
-    proc0_print("=" * 50 + "\n")
     
     return coils, results

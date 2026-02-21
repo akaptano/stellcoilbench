@@ -52,7 +52,8 @@ docs/_build/
 
 # Project specific
 submissions/
-zenodo/._downloads/
+docs/_build/
+knowledge/zenodo/._downloads/
 knowledge/papers/*.pdf
 knowledge/*.sqlite
 coils_runs/

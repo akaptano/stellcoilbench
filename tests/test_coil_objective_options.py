@@ -298,7 +298,7 @@ coil_objective_terms:
   coil_curvature: lp_threshold
   coil_curvature_p: 2
   coil_mean_squared_curvature: l2
-  linking_number: hard
+  linking_number: ""
   coil_coil_force: lp
   coil_coil_force_p: 2.5
   coil_coil_torque: lp_threshold
@@ -314,7 +314,7 @@ coil_objective_terms:
         assert config.coil_objective_terms["coil_curvature"] == "lp_threshold"
         assert config.coil_objective_terms["coil_curvature_p"] == 2
         assert config.coil_objective_terms["coil_mean_squared_curvature"] == "l2"
-        assert config.coil_objective_terms["linking_number"] == "hard"
+        assert config.coil_objective_terms["linking_number"] == ""
         assert config.coil_objective_terms["coil_coil_force"] == "lp"
         assert config.coil_objective_terms["coil_coil_force_p"] == 2.5
         assert config.coil_objective_terms["coil_coil_torque"] == "lp_threshold"
@@ -451,13 +451,13 @@ optimizer_params:
         config = load_case_config(base_case_yaml)
         assert config.coil_objective_terms["linking_number"] == ""
     
-    def test_linking_number_hard(self, base_case_yaml):
-        """Test linking_number with hard option."""
+    def test_linking_number_hard_rejected(self, base_case_yaml):
+        """Test that linking_number: hard is rejected by validation."""
         base_case_yaml.write_text(base_case_yaml.read_text() + """coil_objective_terms:
   linking_number: hard
 """)
-        config = load_case_config(base_case_yaml)
-        assert config.coil_objective_terms["linking_number"] == "hard"
+        with pytest.raises(ValueError, match="linking_number"):
+            load_case_config(base_case_yaml)
     
     def test_coil_coil_force_lp(self, base_case_yaml):
         """Test coil_coil_force with lp option."""

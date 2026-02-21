@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metric Definitions &mdash; StellCoilBench  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=400d0fb7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/leaderboard_sort.js?v=66d0fa50"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Surface-Specific Leaderboards" href="surface_specific.html" />
+    <link rel="prev" title="StellCoilBench Leaderboard" href="../leaderboard.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            StellCoilBench
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cases.html">Cases</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../leaderboard.html">StellCoilBench Leaderboard</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metric Definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notation">Notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#field-quality-metrics">Field Quality Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#coil-geometry-metrics">Coil Geometry Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#separation-metrics">Separation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#force-and-torque-metrics">Force and Torque Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#topology-metrics">Topology Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-metrics">Performance Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#composite-score">Composite Score</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stage-1-hard-constraints">Stage 1: Hard Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stage-2-soft-constraint-geometric-mean">Stage 2: Soft Constraint Geometric Mean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#soft-constraints-and-margin-formulas">Soft Constraints and Margin Formulas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpretation">Interpretation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#worked-example">Worked Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reactor-scale-constraints">Reactor-Scale Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#winding-pack-turn-count-model">Winding-Pack Turn-Count Model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#visualization-links">Visualization Links</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="surface_specific.html">Surface-Specific Leaderboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactor_scale.html">Reactor-Scale Leaderboard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autopilot.html">Nonstop CI Autopilot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">StellCoilBench</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../leaderboard.html">StellCoilBench Leaderboard</a></li>
+      <li class="breadcrumb-item active">Metric Definitions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/leaderboard/metric_definitions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="metric-definitions">
+<h1>Metric Definitions<a class="headerlink" href="#metric-definitions" title="Link to this heading"></a></h1>
+<p>The following metrics are used to evaluate coil optimization submissions:</p>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading"></a></h2>
+<p>The following notation is used throughout the mathematical definitions:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(C_i\)</span> denotes coil curve <span class="math notranslate nohighlight">\(i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(S\)</span> denotes the plasma surface</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{r}_i\)</span> denotes a point on coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{s}\)</span> denotes a point on the plasma surface <span class="math notranslate nohighlight">\(S\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ell_i\)</span> denotes arclength along coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(L_i\)</span> denotes the total length of coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\kappa_i\)</span> denotes curvature along coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{d\vec{F}_i}{d\ell_i}\)</span> denotes force per unit length on coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{d\vec{T}_i}{d\ell_i}\)</span> denotes torque per unit length on coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> denotes the number of coils</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\ell_i\)</span> denotes the differential arclength element along coil curve <span class="math notranslate nohighlight">\(C_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(ds\)</span> denotes the differential surface area element on the plasma surface <span class="math notranslate nohighlight">\(S\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{B}\)</span> denotes the magnetic field vector</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{n}\)</span> denotes the unit normal vector to the plasma surface</p></li>
+</ul>
+</section>
+<section id="field-quality-metrics">
+<h2>Field Quality Metrics<a class="headerlink" href="#field-quality-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Average Normalized Normal Field Component</strong> (<span class="math notranslate nohighlight">\(\bar{B}_n\)</span>)</dt><dd><p>Average of the absolute value of the normalized normal field component across the plasma surface.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\]</div>
+<div class="math notranslate nohighlight">
+\[\bar{B}_n = \frac{\int_{S} |\mathbf{B} \cdot \mathbf{n}| ds}{\int_{S} |\mathbf{B}| ds}\]</div>
+<p>Units: dimensionless</p>
+<p>Lower values indicate better field quality.</p>
+</dd>
+<dt><strong>Maximum Normalized Normal Field Component</strong> (<span class="math notranslate nohighlight">\(\max(B_n)\)</span>)</dt><dd><p>Maximum value of the normalized normal field component across the plasma surface.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}\]</div>
+<div class="math notranslate nohighlight">
+\[\max(B_n) = \max_{\mathbf{s} \in S} B_n(\mathbf{s})\]</div>
+<p>Units: dimensionless</p>
+<p>Lower values indicate better field quality.</p>
+</dd>
+</dl>
+</section>
+<section id="coil-geometry-metrics">
+<h2>Coil Geometry Metrics<a class="headerlink" href="#coil-geometry-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Fourier Order</strong> (<span class="math notranslate nohighlight">\(n\)</span>)</dt><dd><p>Order of the Fourier series representation used for coil curves.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{a}_0\)</span>, <span class="math notranslate nohighlight">\(\mathbf{a}_m\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{b}_m\)</span> are Fourier coefficients and <span class="math notranslate nohighlight">\(\phi\)</span> is the parameterization angle.</p>
+<p>Units: dimensionless</p>
+<p>Higher orders allow more complex coil shapes but increase the number of optimization variables.</p>
+</dd>
+<dt><strong>Arclength Variation</strong> (<span class="math notranslate nohighlight">\(J\)</span>)</dt><dd><p>Variance of incremental arclength between coil segments.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[J = \text{Var}(l_i)\]</div>
+<p>where <span class="math notranslate nohighlight">\(l_i\)</span> is the average incremental arclength on interval <span class="math notranslate nohighlight">\(I_i\)</span> from a partition <span class="math notranslate nohighlight">\(\{I_i\}_{i=1}^L\)</span> of <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}^2\)</span> (meters squared)</p>
+<p>Lower values indicate more uniform spacing along coils, which is important for manufacturing and field quality.</p>
+</dd>
+<dt><strong>Maximum Curvature</strong> (<span class="math notranslate nohighlight">\(\kappa_\text{max}\)</span>)</dt><dd><p>Maximum curvature value across all coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[\kappa_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \kappa_i(\ell_i)\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}^{-1}\)</span> (inverse meters)</p>
+<p>Lower values indicate coils without extreme curvature regions.</p>
+</dd>
+<dt><strong>Mean Squared Curvature</strong> (<span class="math notranslate nohighlight">\(\text{MSC}\)</span>)</dt><dd><p>Mean squared curvature per coil, averaged across all coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[J = \frac{1}{L_i} \int_{C_i} \kappa_i^2(\ell_i) ~d\ell_i\]</div>
+<div class="math notranslate nohighlight">
+\[\text{MSC} = \frac{1}{N} \sum_{i=1}^{N} J_i\]</div>
+<p>where <span class="math notranslate nohighlight">\(L_i\)</span> is the total length of coil curve <span class="math notranslate nohighlight">\(C_i\)</span>, <span class="math notranslate nohighlight">\(\ell_i\)</span> is the arclength along the curve, and <span class="math notranslate nohighlight">\(\kappa_i\)</span> is the curvature.</p>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}^{-2}\)</span> (inverse meters squared)</p>
+<p>This provides a smoother penalty than maximum curvature, encouraging overall smoothness rather than just avoiding extreme values.</p>
+</dd>
+<dt><strong>Total Length</strong> (<span class="math notranslate nohighlight">\(L\)</span>)</dt><dd><p>Total length of all coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[L = \sum_{i=1}^{N} \int_{C_i} d\ell_i\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}\)</span> (meters)</p>
+<p>Shorter coils are generally preferred for reduced material costs and improved manufacturability.</p>
+</dd>
+<dt><strong>Fourier Continuation (FC)</strong></dt><dd><p>Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems.</p>
+<p>Format: comma-separated list of orders (e.g., “4,6,8” means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows “—“.</p>
+</dd>
+<dt><strong>Number of Base Coils</strong> (<span class="math notranslate nohighlight">\(N\)</span>)</dt><dd><p>Number of base coils before applying stellarator symmetry.</p>
+<p>Units: dimensionless</p>
+<p>Typical values: 4, 6, 8, 12. More coils allow more complex field shaping but increase computational cost.</p>
+</dd>
+<dt><strong>Total Superconductor Length</strong> (<span class="math notranslate nohighlight">\(L_{\text{SC}}\)</span>)</dt><dd><p>Total length of superconducting tape required at reactor scale, accounting for the number of turns in each coil’s winding pack.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[L_{\text{SC}} = \frac{1}{1000} \sum_{i=1}^{N_{\text{coils}}} N_{\text{turns},i} \times L_{\text{reactor},i}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_{\text{turns},i} = \max(N_{F,i},\, N_{J_c,i})\)</span> is the number of turns per coil (driven by force limits or REBCO critical-current limits, whichever is larger), and <span class="math notranslate nohighlight">\(L_{\text{reactor},i}\)</span> is the reactor-scale length of coil <span class="math notranslate nohighlight">\(i\)</span>. The factor of 1/1000 converts from meters to kilometers.</p>
+<p>Units: <span class="math notranslate nohighlight">\(\text{km}\)</span> (kilometers)</p>
+<p>Lower values indicate more economical coil designs requiring less superconducting material. This is a derived reactor-scale metric that combines the winding-pack turn count with the scaled coil lengths.</p>
+</dd>
+</dl>
+</section>
+<section id="separation-metrics">
+<h2>Separation Metrics<a class="headerlink" href="#separation-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Minimum Coil-to-Coil Distance</strong> (<span class="math notranslate nohighlight">\(d_{cc}\)</span>)</dt><dd><p>Minimum distance between any two coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[d_{cc} = \min_{i \neq j} \min_{\mathbf{r}_i \in C_i, \mathbf{r}_j \in C_j} \left\| \mathbf{r}_i - \mathbf{r}_j \right\|_2\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}\)</span> (meters)</p>
+<p>Ensures coils maintain a safe separation distance to prevent collisions.</p>
+</dd>
+<dt><strong>Minimum Coil-to-Surface Distance</strong> (<span class="math notranslate nohighlight">\(d_{cs}\)</span>)</dt><dd><p>Minimum distance between any coil and the plasma surface.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[d_{cs} = \min_{i} \min_{\mathbf{r}_i \in C_i, \mathbf{s} \in S} \left\| \mathbf{r}_i - \mathbf{s} \right\|_2\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{m}\)</span> (meters)</p>
+<p>Ensures coils maintain a safe distance from the plasma surface.</p>
+</dd>
+</dl>
+</section>
+<section id="force-and-torque-metrics">
+<h2>Force and Torque Metrics<a class="headerlink" href="#force-and-torque-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Maximum Force Magnitude</strong> (<span class="math notranslate nohighlight">\(F_\text{max}\)</span>)</dt><dd><p>Maximum force magnitude across all coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[F_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{F}_i}{d\ell_i}\right|\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{N}/\text{m}\)</span> (Newtons per meter)</p>
+<p>High forces indicate coils that may be difficult to support mechanically.</p>
+</dd>
+<dt><strong>Maximum Torque Magnitude</strong> (<span class="math notranslate nohighlight">\(\tau_\text{max}\)</span>)</dt><dd><p>Maximum torque magnitude across all coils.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[\tau_\text{max} = \max_{i=1,\ldots,N} \max_{\ell_i \in [0,L_i]} \left|\frac{d\vec{T}_i}{d\ell_i}\right|\]</div>
+<p>Units: <span class="math notranslate nohighlight">\(\text{N}\)</span> (Newtons)</p>
+<p>High torques can lead to mechanical instability.</p>
+</dd>
+</dl>
+</section>
+<section id="topology-metrics">
+<h2>Topology Metrics<a class="headerlink" href="#topology-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Linking Number</strong> (<span class="math notranslate nohighlight">\(\text{LN}\)</span>)</dt><dd><p>Topological measure of how coils are linked together.</p>
+<p>Mathematical form:</p>
+<div class="math notranslate nohighlight">
+\[\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{\left(\mathbf{r}_i - \mathbf{r}_j\right) \cdot \left(d\mathbf{r}_i \times d\mathbf{r}_j\right)}{\left|\mathbf{r}_i - \mathbf{r}_j\right|^3}\]</div>
+<p>Units: dimensionless</p>
+<p>This metric ensures coils maintain their topological structure during optimization.</p>
+</dd>
+</dl>
+</section>
+<section id="performance-metrics">
+<h2>Performance Metrics<a class="headerlink" href="#performance-metrics" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Total Optimization Time</strong> (<span class="math notranslate nohighlight">\(t\)</span>)</dt><dd><p>Total time required to complete the optimization.</p>
+<p>Units: <span class="math notranslate nohighlight">\(\text{s}\)</span> (seconds)</p>
+<p>Lower values indicate more efficient optimization algorithms or faster convergence.</p>
+</dd>
+</dl>
+</section>
+<section id="composite-score">
+<h2>Composite Score<a class="headerlink" href="#composite-score" title="Link to this heading"></a></h2>
+<p>The <strong>Score</strong> column is a single-number summary of reactor-scale
+engineering feasibility.  It is computed in two stages.</p>
+<section id="stage-1-hard-constraints">
+<h3>Stage 1: Hard Constraints<a class="headerlink" href="#stage-1-hard-constraints" title="Link to this heading"></a></h3>
+<p>Hard constraints are evaluated first.  If <strong>any</strong> hard constraint is
+violated the score is set to <strong>0</strong> and the entry is marked <strong>FAIL</strong>
+(excluded from the main leaderboard).  Missing metrics are skipped.</p>
+<p>Two hard constraints apply a transform before comparison:</p>
+<ul class="simple">
+<li><p><strong>Coil-coil linking number</strong> — compared as <span class="math notranslate nohighlight">\(|\text{LN}|\)</span>
+(absolute value), since the linking number may be negative.</p></li>
+<li><p><strong>Max turns per coil</strong> — the element-wise maximum of the per-coil
+turn-count list is compared against the bound.</p></li>
+</ul>
+</section>
+<section id="stage-2-soft-constraint-geometric-mean">
+<h3>Stage 2: Soft Constraint Geometric Mean<a class="headerlink" href="#stage-2-soft-constraint-geometric-mean" title="Link to this heading"></a></h3>
+<p>For each soft constraint whose metric is available (and whose bound is
+non-zero), a margin exponent <span class="math notranslate nohighlight">\(m_i\)</span> is computed:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_i = \begin{cases}
+  1 - \text{value}_i\,/\,\text{bound}_i
+    &amp; \text{value} \leq \text{bound} \;(\text{upper-bound constraint})\\[6pt]
+  \text{value}_i\,/\,\text{bound}_i - 1
+    &amp; \text{value} \geq \text{bound} \;(\text{lower-bound constraint})
+\end{cases}\end{split}\]</div>
+<p>Positive <span class="math notranslate nohighlight">\(m_i\)</span> = constraint satisfied with margin; negative =
+violated.</p>
+<p>Two soft constraints apply a transform to the raw metric before the
+margin calculation:</p>
+<ul class="simple">
+<li><p><strong>RMS curvature</strong> — <span class="math notranslate nohighlight">\(\sqrt{\text{MSC}}\)</span> is used (square root
+of the mean-squared curvature) so the comparison is in m<sup>-1</sup>.</p></li>
+<li><p><strong>Arclength variation</strong> — <span class="math notranslate nohighlight">\(\sqrt{\text{Var}}\)</span> is used (square
+root of the variance) so the comparison is in m.</p></li>
+</ul>
+<p>The composite score is the geometric mean of the individual exponential
+factors:</p>
+<div class="math notranslate nohighlight">
+\[\text{Score}     = \exp\!\left(\frac{1}{n}\sum_{i=1}^{n} m_i\right)     = \left(\prod_{i=1}^{n} e^{m_i}\right)^{\!1/n}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of soft constraints for which metrics
+were available.</p>
+</section>
+<section id="soft-constraints-and-margin-formulas">
+<h3>Soft Constraints and Margin Formulas<a class="headerlink" href="#soft-constraints-and-margin-formulas" title="Link to this heading"></a></h3>
+<p>The following table lists every soft constraint that enters the
+composite score, together with its reactor-scale bound, the source
+metric key, and the resulting margin formula.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 12.0%" />
+<col style="width: 13.0%" />
+<col style="width: 47.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constraint</p></th>
+<th class="head"><p>Direction</p></th>
+<th class="head"><p>Bound</p></th>
+<th class="head"><p>Margin <span class="math notranslate nohighlight">\(m_i\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>avg <span class="math notranslate nohighlight">\(\langle B{\cdot}n\rangle / \langle B\rangle\)</span> (<code class="docutils literal notranslate"><span class="pre">avg_BdotN_over_B</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>0.01</p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \text{value}\;/\;0.01\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Min coil-surface distance (<code class="docutils literal notranslate"><span class="pre">reactor_scale_min_cs_separation</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\geq\)</span></p></td>
+<td><p>1.3 m</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{value}\;/\;1.3 - 1\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Min coil-coil distance (<code class="docutils literal notranslate"><span class="pre">reactor_scale_min_cc_separation</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\geq\)</span></p></td>
+<td><p>0.7 m</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{value}\;/\;0.7 - 1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Total coil length (<code class="docutils literal notranslate"><span class="pre">reactor_scale_total_length</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>220 m</p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - L\;/\;220\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Max curvature <span class="math notranslate nohighlight">\(\kappa\)</span> (<code class="docutils literal notranslate"><span class="pre">reactor_scale_max_curvature</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>1.0 m<sup>-1</sup></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \kappa_{\max}\;/\;1.0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>RMS curvature <span class="math notranslate nohighlight">\(\sqrt{\text{MSC}}\)</span> (<code class="docutils literal notranslate"><span class="pre">reactor_scale_mean_squared_curvature</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>1.0 m<sup>-1</sup></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \sqrt{\text{MSC}}\;/\;1.0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Arclength variation <span class="math notranslate nohighlight">\(\sqrt{\text{Var}}\)</span> (<code class="docutils literal notranslate"><span class="pre">reactor_scale_arclength_variation</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>1.0 m</p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \sqrt{\text{Var}}\;/\;1.0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Total superconductor length <span class="math notranslate nohighlight">\(L_{\text{SC}}\)</span> (<code class="docutils literal notranslate"><span class="pre">total_superconductor_length_km</span></code>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq\)</span></p></td>
+<td><p>100 km</p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - L_{\text{SC}}\;/\;100\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Score = 0</strong></p></td>
+<td><p>Hard infeasibility (coils delinked from plasma, coils interlinked,
+winding packs overlap, or too many turns required).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>0 &lt; Score &lt; 1</strong></p></td>
+<td><p>Feasible but one or more soft constraints violated on average.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Score = 1</strong></p></td>
+<td><p>All soft constraints met exactly on average.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Score &gt; 1</strong></p></td>
+<td><p>All constraints satisfied with engineering margin.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Score = None</strong></p></td>
+<td><p>No soft-constraint metrics available (legacy or missing data).</p></td>
+</tr>
+</tbody>
+</table>
+<p>Entries are sorted by composite score <strong>descending</strong> (higher is better).
+Legacy entries without a composite score fall back to
+<code class="docutils literal notranslate"><span class="pre">score_primary</span></code> (lower squared flux is better) and appear after
+scored entries.</p>
+</section>
+<section id="worked-example">
+<h3>Worked Example<a class="headerlink" href="#worked-example" title="Link to this heading"></a></h3>
+<p>Consider a reactor-scale design with:</p>
+<ul class="simple">
+<li><p>avg <span class="math notranslate nohighlight">\(B_n/|B|\)</span> = 0.005, <span class="math notranslate nohighlight">\(d_{cs}\)</span> = 1.5 m,
+<span class="math notranslate nohighlight">\(d_{cc}\)</span> = 0.8 m, <span class="math notranslate nohighlight">\(L\)</span> = 200 m,
+<span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> = 0.7, <span class="math notranslate nohighlight">\(\sqrt{\text{MSC}}\)</span> = 0.6,
+<span class="math notranslate nohighlight">\(\sqrt{\text{Var}}\)</span> = 0.4, <span class="math notranslate nohighlight">\(L_{\text{SC}}\)</span> = 50 km</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_1 &amp;= 1 - 0.005/0.01   &amp;&amp;= 0.500 \\
+m_2 &amp;= 1.5/1.3 - 1      &amp;&amp;\approx 0.154 \\
+m_3 &amp;= 0.8/0.7 - 1      &amp;&amp;\approx 0.143 \\
+m_4 &amp;= 1 - 200/220       &amp;&amp;\approx 0.091 \\
+m_5 &amp;= 1 - 0.7/1.0       &amp;&amp;= 0.300 \\
+m_6 &amp;= 1 - 0.6/1.0       &amp;&amp;= 0.400 \\
+m_7 &amp;= 1 - 0.4/1.0       &amp;&amp;= 0.600 \\
+m_8 &amp;= 1 - 50/100         &amp;&amp;= 0.500\end{split}\]</div>
+<p>Mean margin <span class="math notranslate nohighlight">\(= (0.500 + 0.154 + 0.143 + 0.091 + 0.300 + 0.400 + 0.600 + 0.500)\,/\,8 \approx 0.336\)</span>.</p>
+<p>Score <span class="math notranslate nohighlight">\(= \exp(0.336) \approx\)</span> <strong>1.399</strong> — all constraints
+satisfied with comfortable engineering margin.</p>
+</section>
+</section>
+<section id="reactor-scale-constraints">
+<h2>Reactor-Scale Constraints<a class="headerlink" href="#reactor-scale-constraints" title="Link to this heading"></a></h2>
+<p>All submissions are scaled to the ARIES-CS reference reactor
+(minor radius <span class="math notranslate nohighlight">\(a = 1.7\,\text{m}\)</span>, on-axis field
+<span class="math notranslate nohighlight">\(B_0 = 5.7\,\text{T}\)</span>) before engineering feasibility is assessed.</p>
+<p><strong>Hard feasibility constraints</strong> — any violation makes the design infeasible
+(score = 0, excluded from the main leaderboard):</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Constraint</p></th>
+<th class="head"><p>Bound</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Coils linked to plasma surface</p></td>
+<td><p>= True</p></td>
+<td><p>Every base coil must topologically encircle the plasma.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coil-coil linking number (|LN| ≈ 0)</p></td>
+<td><p>≤ 0.5 (dimensionless)</p></td>
+<td><p>Coils must not interlink with one another.</p></td>
+</tr>
+<tr class="row-even"><td><p>Max turns per coil (N_turns ≤ 500)</p></td>
+<td><p>≤ 500</p></td>
+<td><p>With <span class="math notranslate nohighlight">\(N_{\text{turns}}\)</span> chosen to keep per-turn force ≤ 0.5 MN/m, no coil may require more than 500 turns.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Finite-build coil-coil clearance (d_cc &gt; w_WP)</p></td>
+<td><p>≥ 0.0 m</p></td>
+<td><p>Centreline distance <span class="math notranslate nohighlight">\(d_{\text{cc,min}}\)</span> must exceed the largest winding-pack width <span class="math notranslate nohighlight">\(w_{\text{WP,max}}\)</span> to prevent physical overlap of finite-build coils.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Soft engineering constraints</strong> — contribute to the composite score via
+exponential margin factors.  Violations lower the score below 1 but do not
+set it to zero:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Bound</p></th>
+<th class="head"><p>Direction</p></th>
+<th class="head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>avg ⟨B·n⟩/⟨B⟩</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 0.01\)</span></p></td>
+<td><p>max</p></td>
+<td><p>(dimensionless)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Minimum coil-surface distance</p></td>
+<td><p><span class="math notranslate nohighlight">\(\geq 1.3\)</span></p></td>
+<td><p>min</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>Minimum coil-coil distance</p></td>
+<td><p><span class="math notranslate nohighlight">\(\geq 0.7\)</span></p></td>
+<td><p>min</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total coil length</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 220.0\)</span></p></td>
+<td><p>max</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>Max curvature κ</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 1.0\)</span></p></td>
+<td><p>max</p></td>
+<td><p>m⁻¹</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max √MSC (RMS curvature)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 1.0\)</span></p></td>
+<td><p>max</p></td>
+<td><p>m⁻¹</p></td>
+</tr>
+<tr class="row-even"><td><p>Arclength variation √Var</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 1.0\)</span></p></td>
+<td><p>max</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total superconductor length L_SC</p></td>
+<td><p><span class="math notranslate nohighlight">\(\leq 100.0\)</span></p></td>
+<td><p>max</p></td>
+<td><p>km</p></td>
+</tr>
+</tbody>
+</table>
+<section id="winding-pack-turn-count-model">
+<h3>Winding-Pack Turn-Count Model<a class="headerlink" href="#winding-pack-turn-count-model" title="Link to this heading"></a></h3>
+<p>The <em>simsopt</em> optimiser models each coil as a single filamentary turn
+carrying the total current <span class="math notranslate nohighlight">\(I\)</span>.  In a real reactor the winding pack
+contains <span class="math notranslate nohighlight">\(N_{\text{turns}}\)</span> turns, each carrying <span class="math notranslate nohighlight">\(I / N_{\text{turns}}\)</span>.
+We estimate the required number of turns from <strong>two independent criteria</strong>
+and take the element-wise maximum:</p>
+<div class="math notranslate nohighlight">
+\[N_{\text{turns},\,i}     = \max\!\bigl(N_{\text{turns},\,i}^{(\text{force})},\;                    N_{\text{turns},\,i}^{(J_c)}\bigr)\]</div>
+<section id="force-based-turns">
+<h4>1. Force-based turns<a class="headerlink" href="#force-based-turns" title="Link to this heading"></a></h4>
+<p>With <span class="math notranslate nohighlight">\(N\)</span> turns the Lorentz force per unit length on each turn is</p>
+<div class="math notranslate nohighlight">
+\[F_{\text{turn}} = \frac{F_{\text{reactor,single-turn}}}{N_{\text{turns}}}\]</div>
+<p>For each coil we find the minimum <span class="math notranslate nohighlight">\(N\)</span> to keep
+<span class="math notranslate nohighlight">\(F_{\text{turn}} \leq 0.5\,\text{MN/m}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[N_{\text{turns},\,i}^{(\text{force})}     = \left\lceil \frac{F_{\text{reactor},\,i}}{0.5\;\text{MN/m}} \right\rceil\]</div>
+</section>
+<section id="critical-current-density-based-turns">
+<h4>2. Critical-current-density-based turns<a class="headerlink" href="#critical-current-density-based-turns" title="Link to this heading"></a></h4>
+<p>This criterion ensures the HTS superconductor operates within its critical
+envelope.  The model follows the Stellaris winding-pack design
+(Lion <em>et al.</em>, <em>Fusion Engineering and Design</em> <strong>214</strong>, 2025, 114868,
+Table 7–8 and Section 2.9).</p>
+<p><strong>REBCO tape-stack</strong> <span class="math notranslate nohighlight">\(J_c\)</span> <strong>model.</strong>
+A Kim-like parametrisation calibrated to tape-stack data at 20 K
+(field-aligned tapes):</p>
+<div class="math notranslate nohighlight">
+\[J_c(B, T) = \frac{C_0}{1 + (B/B_0)^\alpha}     \;\times\;\frac{1 - T/T_c}{1 - T_{\text{ref}}/T_c}\]</div>
+<p>with fitted constants at <span class="math notranslate nohighlight">\(T_{\text{ref}} = 20\,\text{K}\)</span>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(5.0 \times 10^{9}\;\text{A/m}^2\)</span></p></td>
+<td><p>Zero-field engineering <span class="math notranslate nohighlight">\(J_c\)</span> (≈ 5000 A/mm²)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(B_0\)</span></p></td>
+<td><p>18.14 T</p></td>
+<td><p>Characteristic field</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
+<td><p>0.902</p></td>
+<td><p>Field exponent</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(T_c\)</span></p></td>
+<td><p>92 K</p></td>
+<td><p>REBCO critical temperature</p></td>
+</tr>
+</tbody>
+</table>
+<p>Validation against Stellaris Table 8:
+<span class="math notranslate nohighlight">\(B = 20\,\text{T} \rightarrow J_c \approx 2450\;\text{A/mm}^2\)</span>,
+<span class="math notranslate nohighlight">\(B = 25\,\text{T} \rightarrow J_c \approx 2200\;\text{A/mm}^2\)</span>.</p>
+<p><strong>Stellaris winding-pack parameters.</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(T_{\text{op}}\)</span></p></td>
+<td><p>20 K</p></td>
+<td><p>Operating temperature</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\eta\)</span></p></td>
+<td><p>0.80</p></td>
+<td><p>Utilisation cap (<span class="math notranslate nohighlight">\(J_{\text{op}} / J_c \leq \eta\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(I_{\text{lead,max}}\)</span></p></td>
+<td><p>50 kA</p></td>
+<td><p>Current-lead limit</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(A_{\text{HTS}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(36\;\text{mm}^2\)</span> (6 mm × 6 mm)</p></td>
+<td><p>HTS tape-stack cross-section per turn</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(A_{\text{turn}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(400\;\text{mm}^2\)</span> (20 mm × 20 mm)</p></td>
+<td><p>Total turn cross-section (incl. stabiliser, insulation, structure)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(f_{\text{WP}}\)</span></p></td>
+<td><p>1.3</p></td>
+<td><p>Winding-pack self-field enhancement factor</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Algorithm for each coil</strong> <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic">
+<li><p><strong>Required ampere-turns</strong> at reactor scale:</p>
+<div class="math notranslate nohighlight">
+\[NI_i = I_{\text{device},i} \times B_{\text{scale}} \times L_{\text{scale}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(I_{\text{device},i}\)</span> is the <em>simsopt</em> single-turn current.
+If per-coil currents are unavailable, <span class="math notranslate nohighlight">\(I\)</span> is estimated from
+the force data: <span class="math notranslate nohighlight">\(I \approx (F/L) / B_{\text{device}}\)</span>.</p>
+</li>
+<li><p><strong>Peak conductor field</strong> estimate:</p>
+<div class="math notranslate nohighlight">
+\[B_{\text{ext},i} = \frac{(F/L)_{\text{device},i}}{I_{\text{device},i}} \times B_{\text{scale}},      \qquad      B_{\text{peak},i} = f_{\text{WP}} \times B_{\text{ext},i}\]</div>
+<p>The factor <span class="math notranslate nohighlight">\(f_{\text{WP}} = 1.3\)</span> accounts for the additional
+self-field produced by the multi-turn winding pack at its inner edge.</p>
+</li>
+<li><p><strong>Critical current of the HTS cable</strong>:</p>
+<div class="math notranslate nohighlight">
+\[I_{c,\text{cable}} = J_c(B_{\text{peak}},\; T_{\text{op}}) \times A_{\text{HTS}}\]</div>
+</li>
+<li><p><strong>Operating current per turn</strong> (lead- or tape-limited):</p>
+<div class="math notranslate nohighlight">
+\[I_{\text{turn}} = \min\!\bigl(I_{\text{lead,max}},\; \eta \times I_{c,\text{cable}}\bigr)\]</div>
+</li>
+<li><p><strong>Number of turns</strong> from <span class="math notranslate nohighlight">\(J_c\)</span> requirements:</p>
+<div class="math notranslate nohighlight">
+\[N_{\text{turns},\,i}^{(J_c)} = \left\lceil \frac{NI_i}{I_{\text{turn},i}} \right\rceil\]</div>
+</li>
+</ol>
+<p><strong>Hard constraint.</strong>
+The final <span class="math notranslate nohighlight">\(N_{\text{turns},i}\)</span> (element-wise maximum of force and
+<span class="math notranslate nohighlight">\(J_c\)</span> requirements) must satisfy
+<span class="math notranslate nohighlight">\(\max_i N_{\text{turns},\,i} \leq 500\)</span>.</p>
+</section>
+<section id="finite-build-winding-pack-extent">
+<h4>3. Finite-build (winding-pack) extent<a class="headerlink" href="#finite-build-winding-pack-extent" title="Link to this heading"></a></h4>
+<p>With each turn occupying <span class="math notranslate nohighlight">\(A_{\text{turn}} = 20\;\text{mm} \times
+20\;\text{mm} = 400\;\text{mm}^2\)</span> (Table 7 of Lion <em>et al.</em>: this area
+includes the REBCO tape stack, copper stabiliser, solder, steel jacket,
+and helium cooling channel), a square winding pack with <span class="math notranslate nohighlight">\(N\)</span> turns
+has side length</p>
+<div class="math notranslate nohighlight">
+\[w_{\text{WP}} = \sqrt{N_{\text{turns}}} \times 20\;\text{mm}\]</div>
+<p>Validation against Stellaris Table 8:</p>
+<ul class="simple">
+<li><p>Coil 0: <span class="math notranslate nohighlight">\(N = 324 \;\Rightarrow\; w = 18 \times 20\;\text{mm} = 360\;\text{mm} \;\checkmark\)</span></p></li>
+<li><p>Coil 5: <span class="math notranslate nohighlight">\(N = 225 \;\Rightarrow\; w = 15 \times 20\;\text{mm} = 300\;\text{mm} \;\checkmark\)</span></p></li>
+</ul>
+<p>The leaderboard reports <span class="math notranslate nohighlight">\(w_{\text{WP}}\)</span> — the <strong>maximum</strong> winding-pack
+side length across all coils (in metres).  This gives the finite-build extent
+that must be accommodated by the coil-surface and coil-coil separation gaps.</p>
+</section>
+<section id="finite-build-coil-coil-intersection-check">
+<h4>4. Finite-build coil-coil intersection check<a class="headerlink" href="#finite-build-coil-coil-intersection-check" title="Link to this heading"></a></h4>
+<p><em>simsopt</em>’s <code class="docutils literal notranslate"><span class="pre">CurveCurveDistance</span></code> penalty measures the <strong>centreline-to-centreline</strong>
+distance between coil filaments.  Once the winding-pack extent is known, we
+can check whether the finite-build coils would physically overlap.</p>
+<p>Each coil’s winding pack extends <span class="math notranslate nohighlight">\(w_i / 2\)</span> from the centreline in every
+direction.  For two coils <em>i</em> and <em>j</em> separated by centreline distance
+<span class="math notranslate nohighlight">\(d_{ij}\)</span>, the clearance between their outer edges is</p>
+<div class="math notranslate nohighlight">
+\[\text{clearance}_{ij} = d_{ij} - \frac{w_i}{2} - \frac{w_j}{2}\]</div>
+<p>Because we only store the <strong>global minimum</strong> coil-coil distance
+<span class="math notranslate nohighlight">\(d_{\text{cc,min}} = \min_{i&lt;j} d_{ij}\)</span>, the most conservative
+check uses the largest winding-pack width for both coils:</p>
+<div class="math notranslate nohighlight">
+\[\text{clearance} = d_{\text{cc,min}} - w_{\text{WP,max}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(w_{\text{WP,max}} = \max_i w_{\text{WP},i}\)</span>.  This is a <strong>hard
+constraint</strong>: if the clearance is negative (<span class="math notranslate nohighlight">\(d_{\text{cc,min}} &lt;
+w_{\text{WP,max}}\)</span>), the winding packs would intersect and the design is
+infeasible (score = 0).</p>
+</section>
+<section id="per-turn-force-and-torque">
+<h4>5. Per-turn force and torque<a class="headerlink" href="#per-turn-force-and-torque" title="Link to this heading"></a></h4>
+<p>Once <span class="math notranslate nohighlight">\(N_{\text{turns},i}\)</span> is known for each coil, the engineering-relevant
+structural loads are the per-turn quantities:</p>
+<div class="math notranslate nohighlight">
+\[F_{\text{turn},i} = \frac{F_{\text{reactor},i}}{N_{\text{turns},i}},   \qquad   \tau_{\text{turn},i} = \frac{\tau_{\text{reactor},i}}{N_{\text{turns},i}}\]</div>
+<p>The leaderboard reports:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(F_{\text{turn}}\)</span> — <span class="math notranslate nohighlight">\(\max_i F_{\text{turn},i}\)</span> (MN/m), the
+maximum per-turn force across all coils.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\tau_{\text{turn}}\)</span> — <span class="math notranslate nohighlight">\(\max_i \tau_{\text{turn},i}\)</span> (MN), the
+maximum per-turn torque across all coils.</p></li>
+</ul>
+<p>These replace the single-turn <span class="math notranslate nohighlight">\(F_{\max}\)</span> and <span class="math notranslate nohighlight">\(\tau_{\max}\)</span> in the
+reactor-scale leaderboard, since the single-turn values are not physically
+meaningful for a multi-turn winding pack.</p>
+</section>
+</section>
+</section>
+<section id="visualization-links">
+<h2>Visualization Links<a class="headerlink" href="#visualization-links" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(i\)</span>: Link to 3D visualization plot showing <span class="math notranslate nohighlight">\(B_N/|B|\)</span> error on plasma surface with initial (pre-optimization) coils</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span>: Link to 3D visualization plot showing <span class="math notranslate nohighlight">\(B_N/|B|\)</span> error on plasma surface with final (optimized) coils</p></li>
+<li><p><strong>PP</strong>: Link to Poincaré plot showing fieldline trajectories</p></li>
+<li><p><strong>BP</strong>: Link to Boozer surface plot showing flux surfaces</p></li>
+<li><p><strong>QS</strong>: Link to quasisymmetry error profile plot</p></li>
+<li><p><strong>iota</strong>: Link to rotational transform (iota) profile plot</p></li>
+<li><p><strong>FPT</strong>: Link to Fast Particle Tracing (SIMPLE) loss fraction plot</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../leaderboard.html" class="btn btn-neutral float-left" title="StellCoilBench Leaderboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="surface_specific.html" class="btn btn-neutral float-right" title="Surface-Specific Leaderboards" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

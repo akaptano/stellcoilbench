@@ -1813,8 +1813,7 @@ def run_post_processing(
     results = {}
     
     # Load coils and surface
-    proc0_print("Loading coils and plasma surface...")
-    with timed_section("load_coils_and_surface"):
+    with timed_section("load_coils_and_surface", print_time=False):
         bfield, surface = load_coils_and_surface(
             coils_json_path,
             case_yaml_path=case_yaml_path,
@@ -1897,7 +1896,7 @@ def run_post_processing(
     BdotN_over_B = 0.0
     
     if is_proc0:
-        with timed_section("compute_BdotN"):
+        with timed_section("compute_BdotN", print_time=False):
             bfield.set_points(surface.gamma().reshape((-1, 3)))
             B = bfield.B()
             n = surface.unitnormal()
@@ -1909,9 +1908,6 @@ def run_post_processing(
             BdotN = np.mean(np.abs(np.sum(B_reshaped * n_reshaped, axis=2)))
             BdotN_over_B = BdotN / np.mean(bfield.AbsB())
         
-        proc0_print(f"B·n on plasma surface: {BdotN:.2e}")
-        proc0_print(f"B·n/|B|: {BdotN_over_B:.2e}")
-        
         results['BdotN'] = float(BdotN)
         results['BdotN_over_B'] = float(BdotN_over_B)
 
@@ -1919,15 +1915,13 @@ def run_post_processing(
     if plot_finite_build and is_proc0:
         try:
             from stellcoilbench.finite_build import finite_build_coils_to_vtk
-            proc0_print("Generating finite-build coil VTK...")
-            with timed_section("finite_build_vtk"):
+            with timed_section("finite_build_vtk", print_time=False):
                 fb_path = finite_build_coils_to_vtk(
                     bfield.coils,
                     output_dir / "finite_build_coils",
                     width=finite_build_width,
                     height=finite_build_height,
                 )
-                proc0_print(f"Saved finite-build coils to {fb_path}")
                 results['finite_build_vtk_path'] = str(fb_path)
         except Exception as e:
             proc0_print(f"Warning: Finite-build VTK generation failed: {e}")
@@ -2207,12 +2201,7 @@ def run_post_processing(
         with open(output_dir / "post_processing_results.json", 'w') as f:
             json.dump(results_json, f, indent=2)
         
-        # Print timing summary
-        print_timing_summary()
-        
         # Store timing results in return dict
         results['timing'] = get_timing_results()
-        
-        proc0_print(f"Post-processing complete. Results saved to {output_dir}")
     
     return results

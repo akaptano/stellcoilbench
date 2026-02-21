@@ -61,10 +61,17 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
         if not isinstance(coils_params, dict):
             errors.append(f"{file_prefix}coils_params must be a dictionary")
         else:
-            # Valid coils_params keys
+            # Valid coils_params keys (modular + dipole)
             valid_coils_params = {
-                "ncoils",  # Required: number of coils (must be int)
-                "order",  # Required: Fourier order (must be int)
+                "ncoils",
+                "order",
+                "coil_type",
+                "tf_configuration",
+                "Nx", "Ny", "Nz",
+                "dipole_order",
+                "poff", "coff",
+                "dipole_coil_size", "tf_coil_size",
+                "remove_inboard_eps",
             }
             
             # Check for unknown parameters
@@ -75,6 +82,15 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                         f"Valid keys: {sorted(valid_coils_params)}. "
                         f"Note: 'target_B' is no longer used (determined from surface file)."
                     )
+            
+            coil_type = coils_params.get("coil_type", "modular")
+            if coil_type == "dipole":
+                pass  # dipole uses Nx, dipole_order, tf_configuration instead
+            elif "ncoils" not in coils_params:
+                errors.append(
+                    f"{file_prefix}coils_params must include 'ncoils' for modular coils. "
+                    f"For dipole coils, set coil_type: 'dipole'."
+                )
             
             # Validate ncoils (must be integer, not float)
             if "ncoils" in coils_params:
@@ -277,8 +293,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                             f"got '{term_value}'"
                         )
                 elif term_name == "linking_number":
-                    # Empty string means include as soft constraint, "hard" means hard constraint with L-BFGS-B-custom
-                    valid_linking_options = ["", "hard"]
+                    valid_linking_options = [""]
                     if term_value not in valid_linking_options:
                         errors.append(
                             f"{file_prefix}coil_objective_terms.linking_number must be one of {valid_linking_options}, "

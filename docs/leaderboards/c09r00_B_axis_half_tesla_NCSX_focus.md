@@ -15,27 +15,22 @@
 <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f_B <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄_n <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l_i) <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ̄ <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F̄ <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ̄ <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ_max <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F_max <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ_max <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cc <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d_cs <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="20" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="21" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">iterations used <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="22" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B_n) <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="23" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="24" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">walltime sec <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
 </tr>
 </thead>
 <tbody>
@@ -49,9 +44,6 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.005046174996849219">5.0e-03</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003989777057604638">4.0e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.124099103445241">2.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="83824.25071976977">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="44941.790233244355">4.5e+04</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.9649641619963134">4.0e+00</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="144832.06256419353">1.4e+05</td>
@@ -61,37 +53,8 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18309186143091252">1.8e-01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="30.00000025381228">3.0e+01</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.026343616513885518">2.6e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.34167194366455">3.4e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="">—</td>
-</tr>
-<tr>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3637832993284125">1.364</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T10:40:35.312949">11/02/26</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010719469306080158">1.1e-04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0051340677790721765">5.1e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003938213778500548">3.9e-03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2.1247623064437695">2.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="84374.7175535503">8.4e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="46189.34062567887">4.6e+04</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.957194314959725">4.0e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147463.9766604178">1.5e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108248.4663408583">1.1e+05</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.108703974122507">7.1e+00</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1122444981866765">1.1e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18285889883377388">1.8e-01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.997885233143773">3.0e+01</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1000.0">1.0e+03</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024791524202165915">2.5e-02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
-<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
 </tr>
 </tbody>
 </table>
@@ -134,9 +97,6 @@
 - Fourier order $n$ of coil representation: $\mathbf{r}(\phi) = \mathbf{a}_0 + \sum_{m=1}^{n} \left[\mathbf{a}_m \cos(m\phi) + \mathbf{b}_m \sin(m\phi)\right]$ (dimensionless)
 - Average normalized normal field component $\bar{B}_n = \frac{\langle |\mathbf{B} \cdot \mathbf{n} - B_\text{target}| \rangle}{\langle |\mathbf{B}| \rangle}$ (dimensionless). When virtual casing is used, $B_\text{target} = B_\text{external}^\text{normal}$; otherwise $B_\text{target} = 0$.
 - Variance of incremental arclength $J = \text{Var}(l_i)$ where $l_i$ is the average incremental arclength on interval $I_i$ from a partition $\{I_i\}_{i=1}^L$ of $[0,1]$ ($\text{m}^2$)
-- Mean curvature $\bar{\kappa} = \frac{1}{N} \sum_{i=1}^{N} \kappa_i$ over all coils, where $\kappa_i = |\mathbf{r}''(s)|$ ($\text{m}^{-1}$)
-- Average of maximum force $\bar{F} = \frac{1}{N} \sum_{i=1}^{N} \max(|\mathbf{F}_i|)$ per coil ($\text{N}/\text{m}$)
-- Average of maximum torque $\bar{\tau} = \frac{1}{N} \sum_{i=1}^{N} \max(|\boldsymbol{\tau}_i|)$ per coil ($\text{N}$)
 - Linking number $\text{LN} = \frac{1}{4\pi} \sum_{i \neq j} \oint_{C_i} \oint_{C_j} \frac{(\mathbf{r}_i - \mathbf{r}_j) \cdot (d\mathbf{r}_i \times d\mathbf{r}_j)}{|\mathbf{r}_i - \mathbf{r}_j|^3}$ between coil pairs (dimensionless)
 - Maximum curvature $\kappa_\text{max}$ across all coils ($\text{m}^{-1}$)
 - Maximum force magnitude $F_\text{max}$ across all coils ($\text{N}/\text{m}$)
@@ -146,7 +106,5 @@
 - Minimum coil-to-surface distance $d_{cs}$ ($\text{m}$)
 - Total length $L = \sum_{i=1}^{N} \int_{0}^{L_i} ds$ of all coils ($\text{m}$)
 - **Fourier continuation (FC)**: Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems. Format: comma-separated list of orders (e.g., \"4,6,8\" means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows \"—\".
-- Iterations Used
 - Maximum normalized normal field component $\max(B_n)$ where $B_n = \frac{|\mathbf{B} \cdot \mathbf{n}|}{|\mathbf{B}|}$ (dimensionless)
 - Total optimization time $t$ ($\text{s}$)
-- Walltime Sec

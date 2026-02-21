@@ -193,7 +193,7 @@ jobs:
         env:
           MPLBACKEND: Agg
           CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
-          PARALLEL_JOBS: "8"
+          PARALLEL_JOBS: "10"
         run: |
           # Source conda (supports both miniconda3 and anaconda3)
           for p in "$HOME/miniconda3" "$HOME/anaconda3" "/opt/homebrew/Caskroom/miniconda/base"; do
@@ -397,7 +397,7 @@ jobs:
 
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
-          # Cap at 8 cases per batch
+          # Cap at 10 cases per batch
           COUNT=0
           PIDS=()
           CASE_FILES=()
@@ -405,7 +405,7 @@ jobs:
           mkdir -p /tmp/autopilot_logs
 
           for CASE_FILE in "${PENDING_FILES[@]}"; do
-            if [ $COUNT -ge 8 ]; then break; fi
+            if [ $COUNT -ge 10 ]; then break; fi
             CASE_ID=$(basename "$CASE_FILE" .json)
             LOG="/tmp/autopilot_logs/${CASE_ID}.log"
 
@@ -601,6 +601,9 @@ jobs:
                 git add docs/
                 git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
               fi
+            else
+              # On advanced_ci or other branches: pull before push to avoid rejection
+              git pull --rebase origin ${{ env.TARGET_BRANCH }} || git pull origin ${{ env.TARGET_BRANCH }} --no-edit
             fi
             git push origin ${{ env.TARGET_BRANCH }}
             echo "Autopilot results and leaderboard committed"

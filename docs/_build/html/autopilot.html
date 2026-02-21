@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nonstop CI Autopilot &mdash; StellCoilBench  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=400d0fb7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/leaderboard_sort.js?v=66d0fa50"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Reactor-Scale Leaderboard" href="leaderboard/reactor_scale.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            StellCoilBench
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cases.html">Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leaderboard.html">StellCoilBench Leaderboard</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Nonstop CI Autopilot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-scheduling-model">CI Scheduling Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directory-layout">Directory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-case-json-format">CI Case JSON Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary-output-format">Summary Output Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-the-proposer-decides-what-to-run-next">How the Proposer Decides What to Run Next</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-file">Policy File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-reference">Tools Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools-propose-batch-py"><code class="docutils literal notranslate"><span class="pre">tools/propose_batch.py</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tools-build-context-py"><code class="docutils literal notranslate"><span class="pre">tools/build_context.py</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cli-command-run-ci-case">CLI Command: <code class="docutils literal notranslate"><span class="pre">run-ci-case</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-test-scan">Running a Test Scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#emergency-stop">Emergency Stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tuning-recommendations">Tuning Recommendations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">StellCoilBench</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Nonstop CI Autopilot</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/autopilot.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nonstop-ci-autopilot">
+<h1>Nonstop CI Autopilot<a class="headerlink" href="#nonstop-ci-autopilot" title="Link to this heading"></a></h1>
+<p>StellCoilBench includes a <strong>nonstop CI autopilot</strong> that automatically proposes,
+runs, and records coil optimisation cases in a continuous loop.  The system is
+designed to explore the parameter space without human intervention while hard
+guardrails prevent runaway failures.</p>
+<nav class="contents local" id="on-this-page">
+<p class="topic-title">On this page</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#ci-scheduling-model" id="id2">CI Scheduling Model</a></p></li>
+<li><p><a class="reference internal" href="#directory-layout" id="id3">Directory Layout</a></p></li>
+<li><p><a class="reference internal" href="#ci-case-json-format" id="id4">CI Case JSON Format</a></p></li>
+<li><p><a class="reference internal" href="#summary-output-format" id="id5">Summary Output Format</a></p></li>
+<li><p><a class="reference internal" href="#how-the-proposer-decides-what-to-run-next" id="id6">How the Proposer Decides What to Run Next</a></p></li>
+<li><p><a class="reference internal" href="#policy-file" id="id7">Policy File</a></p></li>
+<li><p><a class="reference internal" href="#tools-reference" id="id8">Tools Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tools-propose-batch-py" id="id9"><code class="docutils literal notranslate"><span class="pre">tools/propose_batch.py</span></code></a></p></li>
+<li><p><a class="reference internal" href="#tools-build-context-py" id="id10"><code class="docutils literal notranslate"><span class="pre">tools/build_context.py</span></code></a></p></li>
+<li><p><a class="reference internal" href="#cli-command-run-ci-case" id="id11">CLI Command: <code class="docutils literal notranslate"><span class="pre">run-ci-case</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#running-a-test-scan" id="id12">Running a Test Scan</a></p></li>
+<li><p><a class="reference internal" href="#emergency-stop" id="id13">Emergency Stop</a></p></li>
+<li><p><a class="reference internal" href="#tuning-recommendations" id="id14">Tuning Recommendations</a></p></li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The autopilot loop has three phases that repeat indefinitely:</p>
+<ol class="arabic simple">
+<li><p><strong>Propose</strong> — <code class="docutils literal notranslate"><span class="pre">tools/propose_batch.py</span></code> generates 8 new cases
+(a mix of mutations of the best-so-far results and random explorations).</p></li>
+<li><p><strong>Run</strong> — the CI workflow picks up the pending cases and runs each one
+via <code class="docutils literal notranslate"><span class="pre">stellcoilbench</span> <span class="pre">run-ci-case</span></code>.</p></li>
+<li><p><strong>Record</strong> — results are committed to <code class="docutils literal notranslate"><span class="pre">cases/done/&lt;case_id&gt;/summary.json</span></code>
+and become input for the next proposal round.</p></li>
+</ol>
+<p>A <strong>batch barrier</strong> ensures only one batch of 8 is in-flight at a time:
+the proposer refuses to write new cases while <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code> is non-empty.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────────┐      ┌──────────────────┐      ┌─────────────────┐
+│   propose    │ ───► │  cases/pending/   │ ───► │   run-ci-case   │
+│  batch (8)   │      │  *.json           │      │  (up to 8 ∥)    │
+└─────────────┘      └──────────────────┘      └────────┬────────┘
+      ▲                                                  │
+      │               ┌──────────────────┐               │
+      └────────────── │  cases/done/      │ ◄────────────┘
+                      │  */summary.json   │
+                      └──────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="ci-scheduling-model">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">CI Scheduling Model</a><a class="headerlink" href="#ci-scheduling-model" title="Link to this heading"></a></h2>
+<p>The autopilot and benchmark pipeline share a single workflow file
+(<code class="docutils literal notranslate"><span class="pre">update-db-self-hosted.yml</span></code>) but are triggered independently and do not
+interfere with each other.</p>
+<p><strong>Trigger → job mapping:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Trigger</p></th>
+<th class="head"><p>Jobs that run</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">push</span></code> to main (human code / case changes)</p></td>
+<td><p><strong>Benchmark:</strong> <code class="docutils literal notranslate"><span class="pre">determine-cases</span></code> → <code class="docutils literal notranslate"><span class="pre">run-cases</span></code> → <code class="docutils literal notranslate"><span class="pre">update-leaderboard</span></code>.
+<strong>Autopilot:</strong> <code class="docutils literal notranslate"><span class="pre">run-autopilot-cases</span></code> → <code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">push</span></code> (autopilot proposer adds <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>)</p></td>
+<td><p><strong>Autopilot:</strong> <code class="docutils literal notranslate"><span class="pre">run-autopilot-cases</span></code> → <code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code>.
+Benchmark jobs run <code class="docutils literal notranslate"><span class="pre">determine-cases</span></code> but find no new <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> cases.
+This is the <strong>nonstop loop</strong> trigger.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">push</span></code> (autopilot runner adds <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> only)</p></td>
+<td><p><strong>Nothing</strong> — excluded by <code class="docutils literal notranslate"><span class="pre">paths-ignore</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">schedule</span></code> (cron, every 15 min) or <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code></p></td>
+<td><p><strong>Autopilot only:</strong> <code class="docutils literal notranslate"><span class="pre">run-autopilot-cases</span></code> → <code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code>.
+Benchmark jobs are skipped (filtered by <code class="docutils literal notranslate"><span class="pre">event_name</span> <span class="pre">==</span> <span class="pre">'push'</span></code>).
+Cron acts as a safety net if the push-based loop stalls.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The proposer (<code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code>) runs on <strong>every</strong> event type —
+push, schedule, and dispatch.  This is safe because it has multiple built-in
+guards:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PAUSE_AUTORUN</span></code> file check</p></li>
+<li><p>Batch barrier (refuses to propose while <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code> is non-empty)</p></li>
+<li><p>Guardrails (failure-rate and repeated-failure checks)</p></li>
+</ul>
+<p>Running on push solves the <strong>bootstrap problem</strong>: the first push after merging
+the autopilot code immediately proposes 8 cases, without waiting for a cron
+tick.</p>
+<p><strong>Why autopilot commits don’t cascade:</strong></p>
+<p>When the autopilot runner commits results to <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> or the proposer
+commits new cases to <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>, those pushes only touch paths listed
+in the workflow’s <code class="docutils literal notranslate"><span class="pre">paths-ignore</span></code>.  GitHub skips the workflow entirely for
+such pushes, so the benchmark pipeline (<code class="docutils literal notranslate"><span class="pre">determine-cases</span></code>, <code class="docutils literal notranslate"><span class="pre">run-cases</span></code>,
+<code class="docutils literal notranslate"><span class="pre">update-leaderboard</span></code>) never re-runs on autopilot commits.</p>
+<p><strong>Nonstop loop (self-sustaining):</strong></p>
+<p>Once bootstrapped, the autopilot runs continuously without waiting for cron:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code> proposes 8 cases, commits to <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>,
+pushes to main.</p></li>
+<li><p>That push triggers a new workflow run (<code class="docutils literal notranslate"><span class="pre">cases/pending/**</span></code> is <strong>not</strong> in
+<code class="docutils literal notranslate"><span class="pre">paths-ignore</span></code> for the self-hosted workflow).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run-autopilot-cases</span></code> finds the 8 pending cases, runs them in parallel,
+commits results to <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code>, deletes the pending files, pushes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code> in the same run proposes 8 more, pushes.</p></li>
+<li><p>Goto step 2.</p></li>
+</ol>
+<p>The runner’s push (touching <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> and <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>) may also
+trigger a queued run.  This is harmless: the batch barrier ensures the proposer
+never double-proposes, and extra runs where pending is empty are quick no-ops.</p>
+<p>The cron schedule (every 15 minutes) acts as a <strong>safety net</strong> in case the loop
+stalls (e.g. due to a transient GitHub outage that drops a push event).</p>
+<p><strong>Kickstarting the loop:</strong></p>
+<p>The loop starts automatically on the first <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> that includes the
+autopilot code.  The <code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code> job runs, proposes 8 cases,
+and pushes — which immediately triggers a new run that executes them.</p>
+<p>You can also trigger manually: <strong>GitHub → Actions → “StellCoilBench CI
+(Self-Hosted)” → “Run workflow”</strong> (the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> button).</p>
+<p><strong>Concurrency:</strong></p>
+<p>All triggers share a single concurrency group
+(<code class="docutils literal notranslate"><span class="pre">stellcoilbench-selfhosted-&lt;ref&gt;</span></code>) with <code class="docutils literal notranslate"><span class="pre">cancel-in-progress:</span> <span class="pre">true</span></code>.
+New runs cancel in-progress runs.</p>
+</section>
+<section id="directory-layout">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Directory Layout</a><a class="headerlink" href="#directory-layout" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span><span class="o">/</span>
+  <span class="n">pending</span><span class="o">/</span>              <span class="c1"># proposer writes new cases here (8 at a time)</span>
+  <span class="n">done</span><span class="o">/</span>                 <span class="c1"># CI writes completed results here</span>
+    <span class="o">&lt;</span><span class="n">case_id</span><span class="o">&gt;/</span>
+      <span class="n">summary</span><span class="o">.</span><span class="n">json</span>      <span class="c1"># metrics, timing, success/failure, original config</span>
+      <span class="k">case</span><span class="o">.</span><span class="n">yaml</span>         <span class="c1"># the case config used (for traceability)</span>
+      <span class="n">coils</span><span class="o">.</span><span class="n">json</span>        <span class="c1"># optimised coil geometry (if successful)</span>
+<span class="n">policy</span><span class="o">/</span>
+  <span class="n">proposer_policy</span><span class="o">.</span><span class="n">yaml</span>  <span class="c1"># thresholds, budgets, mutation ranges, guardrails</span>
+<span class="n">tools</span><span class="o">/</span>
+  <span class="n">propose_batch</span><span class="o">.</span><span class="n">py</span>      <span class="c1"># non-LLM batch proposer</span>
+  <span class="n">build_context</span><span class="o">.</span><span class="n">py</span>      <span class="c1"># builds context payload from recent results</span>
+<span class="n">PAUSE_AUTORUN</span>           <span class="c1"># emergency stop: create this file to halt proposals</span>
+</pre></div>
+</div>
+</section>
+<section id="ci-case-json-format">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">CI Case JSON Format</a><a class="headerlink" href="#ci-case-json-format" title="Link to this heading"></a></h2>
+<p>Each pending case is a JSON file in <code class="docutils literal notranslate"><span class="pre">cases/pending/&lt;case_id&gt;.json</span></code>.
+It wraps the standard <code class="docutils literal notranslate"><span class="pre">case.yaml</span></code> config inside a <code class="docutils literal notranslate"><span class="pre">case_config</span></code> key and
+adds resource limits, lineage, and tags:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-08_123045_84721&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;parent_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;2026-02-07_091500_12345&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;exploit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ncoils=4&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;max_total_iterations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeout_minutes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;case_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mutated from parent ...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;surface_params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;surface&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input.LandremanPaul2021_QA&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;range&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;half period&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;coils_params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ncoils&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;optimizer_params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_iterations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;coil_objective_terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;total_length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;l2_threshold&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;length_threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">24.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;length_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;coil_curvature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lp_threshold&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;coil_curvature_p&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;linking_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;random_seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Hard cap: <code class="docutils literal notranslate"><span class="pre">max_total_iterations</span></code> and <code class="docutils literal notranslate"><span class="pre">optimizer_params.max_iterations</span></code> must
+not exceed <strong>10 000</strong> (enforced by both the validator and the runner).</p>
+</section>
+<section id="summary-output-format">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Summary Output Format</a><a class="headerlink" href="#summary-output-format" title="Link to this heading"></a></h2>
+<p>After a case completes (success or failure), the runner writes
+<code class="docutils literal notranslate"><span class="pre">cases/done/&lt;case_id&gt;/summary.json</span></code>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-08_123045_84721&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00123</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;iterations_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;walltime_sec&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1832.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;failure_reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;failure_class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;final_squared_flux&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00123</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;...&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;case_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;...&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="how-the-proposer-decides-what-to-run-next">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">How the Proposer Decides What to Run Next</a><a class="headerlink" href="#how-the-proposer-decides-what-to-run-next" title="Link to this heading"></a></h2>
+<p>The core decision logic lives in two files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tools/build_context.py</span></code> — reads all completed results and computes a
+context payload.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tools/propose_batch.py</span></code> — consumes that context and emits the next batch
+of cases.</p></li>
+</ul>
+<p>Below is the full decision sequence, executed every time the proposer runs
+(every 15 minutes via cron, or on manual dispatch).</p>
+<p><strong>Step 1 — Pre-flight checks</strong> (<code class="docutils literal notranslate"><span class="pre">propose_batch.main()</span></code>)</p>
+<p>Before any analysis, the proposer checks two hard gates:</p>
+<ol class="arabic simple">
+<li><p>Does <code class="docutils literal notranslate"><span class="pre">PAUSE_AUTORUN</span></code> exist in the repo root?  If yes → exit immediately
+(code 0, no error).</p></li>
+<li><p>Are there any <code class="docutils literal notranslate"><span class="pre">*.json</span></code> files still in <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>?  If yes → exit
+immediately.  This is the <strong>batch barrier</strong>: it ensures the previous batch
+finishes before a new one is proposed.</p></li>
+</ol>
+<p><strong>Step 2 — Build context</strong> (<code class="docutils literal notranslate"><span class="pre">build_context.build_context()</span></code>)</p>
+<p>The proposer loads every <code class="docutils literal notranslate"><span class="pre">cases/done/*/summary.json</span></code> (up to the most recent
+200), sorted newest-first.  From these it computes:</p>
+<ul class="simple">
+<li><p><strong>Failure statistics</strong> — over a sliding window (default 30 most recent runs):
+fail count, fail rate, per-reason counts, per-class counts, most common
+failure reason and its count.</p></li>
+<li><p><strong>Top parents</strong> — the <em>K</em> best successful results (lowest <code class="docutils literal notranslate"><span class="pre">total_score</span></code>,
+which is the squared-flux error), each carrying its full <code class="docutils literal notranslate"><span class="pre">case_config</span></code> so
+the proposer can mutate it.  Default <em>K</em> = 10.</p></li>
+<li><p><strong>Recent config hashes</strong> — SHA-256 truncated to 16 hex chars of the last 50
+configs, used to reject duplicates (novelty filter).</p></li>
+<li><p><strong>Surface exploration counts</strong> — how many runs have been completed per plasma
+surface, for coverage awareness.</p></li>
+</ul>
+<p><strong>Step 3 — Guardrail check</strong> (<code class="docutils literal notranslate"><span class="pre">propose_batch.check_guardrails()</span></code>)</p>
+<p>Three guardrails are evaluated in order.  If <em>any</em> fires, the proposer halts:</p>
+<ol class="arabic simple">
+<li><p><strong>Failure rate</strong> — if <code class="docutils literal notranslate"><span class="pre">fail_rate</span> <span class="pre">&gt;</span> <span class="pre">max_fail_rate</span></code> (default 0.6), stop.</p></li>
+<li><p><strong>Repeated failure reason</strong> — if the single most common failure reason
+appears more than <code class="docutils literal notranslate"><span class="pre">max_common_failure_count</span></code> (default 12) times in the
+window, stop.</p></li>
+<li><p><strong>Critical failure class</strong> — if any failure class listed in
+<code class="docutils literal notranslate"><span class="pre">critical_failure_classes</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">nan_in_objective</span></code>, <code class="docutils literal notranslate"><span class="pre">timeout</span></code>)
+appears ≥ <code class="docutils literal notranslate"><span class="pre">max_critical_class_count</span></code> (default 10) times, stop.</p></li>
+</ol>
+<p>When a guardrail fires, the proposer optionally writes <code class="docutils literal notranslate"><span class="pre">PAUSE_AUTORUN</span></code>
+(controlled by <code class="docutils literal notranslate"><span class="pre">cooldown.write_pause_file</span></code>) and exits with code 0.</p>
+<p><strong>Step 4 — Safe mode detection</strong> (<code class="docutils literal notranslate"><span class="pre">propose_batch.is_safe_mode()</span></code>)</p>
+<p>If the failure rate exceeds <code class="docutils literal notranslate"><span class="pre">safe_mode.threshold</span></code> (default 0.35) but is below
+the hard guardrail cutoff, the proposer enters <strong>safe mode</strong>.  In safe mode:</p>
+<ul class="simple">
+<li><p>Mutation uses a smaller <code class="docutils literal notranslate"><span class="pre">weight_sigma</span></code> (less aggressive jitter).</p></li>
+<li><p>Exploration is limited to a lower iteration cap.</p></li>
+<li><p>Surface selection is restricted to <code class="docutils literal notranslate"><span class="pre">safe_mode.preferred_surfaces</span></code> (simpler
+surfaces that are less likely to fail).</p></li>
+</ul>
+<p><strong>Step 5 — Batch composition</strong> (<code class="docutils literal notranslate"><span class="pre">propose_batch.propose_batch()</span></code>)</p>
+<p>The batch is split according to <code class="docutils literal notranslate"><span class="pre">exploit_fraction</span></code> (default 0.5):</p>
+<ul class="simple">
+<li><p><strong>Exploit slots</strong> = <code class="docutils literal notranslate"><span class="pre">floor(exploit_fraction</span> <span class="pre">*</span> <span class="pre">batch_size)</span></code>  → e.g. 4 of 8</p></li>
+<li><p><strong>Explore slots</strong> = <code class="docutils literal notranslate"><span class="pre">batch_size</span> <span class="pre">-</span> <span class="pre">exploit_slots</span></code>              → e.g. 4 of 8</p></li>
+</ul>
+<p>If there are no parents yet (first-ever run), all exploit slots are silently
+converted to explore slots.</p>
+<p><em>Exploit (mutation) — fills the exploit slots:</em></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>repeat (up to 5× exploit_count attempts):
+  1. Pick a random parent from top_parents
+  2. Deep-copy the parent&#39;s case_config
+  3. For each *_threshold key: multiply by exp(N(0, σ_t²)), clamp to [t_min, t_max]
+  4. Assign new case_id, random_seed, parent_ids = [parent.case_id]
+  5. Hash the new config → reject if hash matches any recent or in-batch hash
+  6. Validate via validate_ci_case() → reject if invalid
+  7. Accept into batch
+</pre></div>
+</div>
+<p>The key insight: mutation keeps the parent’s surface, algorithm, ncoils, order,
+and objective term types intact — it only jitters the <em>numeric</em> thresholds.
+Weights are not mutated (augmented_lagrangian auto-tunes them).</p>
+<p><em>Explore (random) — fills the explore slots:</em></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>repeat (up to 5× explore_count attempts):
+  1. Pick a random surface from policy.exploration.surfaces
+  2. Pick a random algorithm from policy.exploration.algorithms
+  3. Pick random ncoils and order from policy choice lists
+  4. Sample max_iterations uniformly from policy range
+  5. Sample each weight from a log-uniform distribution over its range
+  6. Sample each threshold from a log-uniform distribution over its range
+  7. Assemble a complete case_config from scratch
+  8. Hash → reject if duplicate
+  9. Validate → reject if invalid
+ 10. Accept into batch
+</pre></div>
+</div>
+<p>Explore is a global search across the full parameter space, designed to discover
+entirely new promising regions.</p>
+<p><em>Backfill:</em></p>
+<p>If after both phases the batch is still short (e.g. too many duplicates or
+validation failures), additional explore cases are generated without the novelty
+filter until the batch is full.</p>
+<p><strong>Step 6 — Write pending cases</strong></p>
+<p>Each accepted case is written as <code class="docutils literal notranslate"><span class="pre">cases/pending/&lt;case_id&gt;.json</span></code>.  The CI
+commit step then pushes these to <code class="docutils literal notranslate"><span class="pre">main</span></code>, which triggers the runner workflow
+to execute them.</p>
+<p><strong>Step 7 — Runner execution</strong> (<code class="docutils literal notranslate"><span class="pre">stellcoilbench</span> <span class="pre">run-ci-case</span></code>)</p>
+<p>The CI workflow (in <code class="docutils literal notranslate"><span class="pre">update-db-self-hosted.yml</span></code>) picks up all
+<code class="docutils literal notranslate"><span class="pre">cases/pending/*.json</span></code> files and launches up to 8 in parallel:</p>
+<ol class="arabic simple">
+<li><p>Validate the JSON against resource caps.</p></li>
+<li><p>Write a <code class="docutils literal notranslate"><span class="pre">case.yaml</span></code> from the embedded <code class="docutils literal notranslate"><span class="pre">case_config</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">optimize_coils()</span></code> with a hard iteration cap of 10,000.</p></li>
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">cases/done/&lt;case_id&gt;/summary.json</span></code> with metrics, timing, and the
+original config (always — even on failure).</p></li>
+<li><p>Remove the pending JSON file.</p></li>
+<li><p>Commit all results and push to <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p></li>
+</ol>
+<p>That push may trigger another workflow run, but since <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code> is
+now empty the runner will find nothing and the proposer (on the next cron tick)
+will start from Step 2 with the newly recorded results.</p>
+<p id="decision-flowchart"><strong>Decision flowchart:</strong> PAUSE_AUTORUN or non-empty pending → exit. Else: build context → check guardrails
+(fail rate, repeated reason, critical class) → optionally safe mode → compose batch (exploit + explore) → write pending.</p>
+</section>
+<section id="policy-file">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Policy File</a><a class="headerlink" href="#policy-file" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">policy/proposer_policy.yaml</span></code> controls batch size, exploit/explore split, mutation sigmas,
+exploration ranges, guardrails (fail rate, repeated failure, critical classes), and safe mode.
+See the file for the full schema.</p>
+</section>
+<section id="tools-reference">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Tools Reference</a><a class="headerlink" href="#tools-reference" title="Link to this heading"></a></h2>
+<section id="tools-propose-batch-py">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">tools/propose_batch.py</span></code></a><a class="headerlink" href="#tools-propose-batch-py" title="Link to this heading"></a></h3>
+<p>The non-LLM proposer.  Reads recent results, checks guardrails, and writes
+up to 8 validated case JSON files into <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tools/propose_batch.py<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Options:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--batch-size</span> <span class="pre">N</span></code></dt><dd><p>Number of cases to propose (default: 8).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--done-dir</span> <span class="pre">PATH</span></code></dt><dd><p>Directory containing completed summaries (default: <code class="docutils literal notranslate"><span class="pre">cases/done</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--pending-dir</span> <span class="pre">PATH</span></code></dt><dd><p>Directory for new pending cases (default: <code class="docutils literal notranslate"><span class="pre">cases/pending</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--policy</span> <span class="pre">PATH</span></code></dt><dd><p>Path to <code class="docutils literal notranslate"><span class="pre">proposer_policy.yaml</span></code> (default: <code class="docutils literal notranslate"><span class="pre">policy/proposer_policy.yaml</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--seed</span> <span class="pre">N</span></code></dt><dd><p>Random seed for reproducibility.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code></dt><dd><p>Print proposed cases to stdout without writing files.</p>
+</dd>
+</dl>
+</section>
+<section id="tools-build-context-py">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">tools/build_context.py</span></code></a><a class="headerlink" href="#tools-build-context-py" title="Link to this heading"></a></h3>
+<p>Builds a compact JSON context payload from recent completed results.  Used
+internally by the proposer and can be used as input for an LLM proposer.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tools/build_context.py<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Options:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--done-dir</span> <span class="pre">PATH</span></code></dt><dd><p>Directory containing completed summaries (default: <code class="docutils literal notranslate"><span class="pre">cases/done</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--policy</span> <span class="pre">PATH</span></code></dt><dd><p>Path to <code class="docutils literal notranslate"><span class="pre">proposer_policy.yaml</span></code> (default: <code class="docutils literal notranslate"><span class="pre">policy/proposer_policy.yaml</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--out</span> <span class="pre">PATH</span></code></dt><dd><p>Write context JSON to this file (default: stdout).</p>
+</dd>
+</dl>
+<p>The output includes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">policy</span></code> — batch size, resource caps</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failure_stats</span></code> — fail rate, common reasons/classes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top_parents</span></code> — best feasible results with configs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recent_config_hashes</span></code> — for novelty checking</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">surface_exploration_counts</span></code> — how many runs per surface</p></li>
+</ul>
+</section>
+<section id="cli-command-run-ci-case">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">CLI Command: <code class="docutils literal notranslate"><span class="pre">run-ci-case</span></code></a><a class="headerlink" href="#cli-command-run-ci-case" title="Link to this heading"></a></h3>
+<p>Runs a single CI autopilot case from a JSON file.  This is the command
+the CI workflow calls for each pending case.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>stellcoilbench<span class="w"> </span>run-ci-case<span class="w"> </span>&lt;case_file&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Options:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--output-dir</span> <span class="pre">PATH</span></code></dt><dd><p>Root directory for completed case results (default: <code class="docutils literal notranslate"><span class="pre">cases/done</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--policy</span> <span class="pre">PATH</span></code></dt><dd><p>Path to <code class="docutils literal notranslate"><span class="pre">proposer_policy.yaml</span></code> for validation.</p>
+</dd>
+</dl>
+<p>The command:</p>
+<ol class="arabic simple">
+<li><p>Validates the JSON case against resource caps.</p></li>
+<li><p>Writes a <code class="docutils literal notranslate"><span class="pre">case.yaml</span></code> from the embedded <code class="docutils literal notranslate"><span class="pre">case_config</span></code>.</p></li>
+<li><p>Runs coil optimisation.</p></li>
+<li><p>Writes <code class="docutils literal notranslate"><span class="pre">summary.json</span></code> with metrics, timing, and the original config.</p></li>
+</ol>
+<p>A <code class="docutils literal notranslate"><span class="pre">summary.json</span></code> is <strong>always</strong> written, even on failure (with
+<code class="docutils literal notranslate"><span class="pre">&quot;success&quot;:</span> <span class="pre">false</span></code> and the exception details).</p>
+</section>
+</section>
+<section id="running-a-test-scan">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Running a Test Scan</a><a class="headerlink" href="#running-a-test-scan" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tools/propose_batch.py<span class="w"> </span>--batch-size<span class="w"> </span><span class="m">3</span><span class="w"> </span>--dry-run<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w">   </span><span class="c1"># Preview</span>
+python<span class="w"> </span>tools/propose_batch.py<span class="w"> </span>--batch-size<span class="w"> </span><span class="m">3</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w">            </span><span class="c1"># Write pending</span>
+<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>cases/pending/*.json<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>stellcoilbench<span class="w"> </span>run-ci-case<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span>--output-dir<span class="w"> </span>cases/done<span class="w"> </span>--policy<span class="w"> </span>policy/proposer_policy.yaml
+<span class="w">  </span>rm<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+python<span class="w"> </span>tools/build_context.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>json.tool<span class="w">                 </span><span class="c1"># Inspect context</span>
+</pre></div>
+</div>
+</section>
+<section id="emergency-stop">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Emergency Stop</a><a class="headerlink" href="#emergency-stop" title="Link to this heading"></a></h2>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">PAUSE_AUTORUN</span></code> file in the repo root to immediately halt
+proposals:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Manual pause&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>PAUSE_AUTORUN
+</pre></div>
+</div>
+<p>Remove it to resume:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>PAUSE_AUTORUN
+</pre></div>
+</div>
+</section>
+<section id="tuning-recommendations">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Tuning Recommendations</a><a class="headerlink" href="#tuning-recommendations" title="Link to this heading"></a></h2>
+<p>After running 50–200 cases with the non-LLM proposer, review:</p>
+<ul class="simple">
+<li><p><strong>Failure rate</strong>: If consistently above 30%, widen thresholds and lower
+iteration counts in the exploration ranges.</p></li>
+<li><p><strong>Score distribution</strong>: If scores plateau, increase <code class="docutils literal notranslate"><span class="pre">weight_sigma</span></code> and
+<code class="docutils literal notranslate"><span class="pre">threshold_sigma</span></code> to explore more aggressively.</p></li>
+<li><p><strong>Surface coverage</strong>: Check <code class="docutils literal notranslate"><span class="pre">surface_exploration_counts</span></code> in the context
+and adjust the surface list if some surfaces are underexplored.</p></li>
+<li><p><strong>Safe mode triggers</strong>: If safe mode fires too often, raise
+<code class="docutils literal notranslate"><span class="pre">safe_mode.threshold</span></code>.</p></li>
+</ul>
+<p>Only after the non-LLM loop is stable (consistent batch completion, informative
+failure reasons, guardrails trigger when expected) should you consider adding
+an LLM proposer.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="leaderboard/reactor_scale.html" class="btn btn-neutral float-left" title="Reactor-Scale Leaderboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

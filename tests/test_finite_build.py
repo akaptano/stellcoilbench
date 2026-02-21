@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+import warnings
 
 from simsopt.geo import create_equally_spaced_curves
 from simsopt.field import Current, coils_via_symmetries
@@ -9,6 +10,7 @@ from simsopt.field import Current, coils_via_symmetries
 from stellcoilbench.finite_build import (
     _compute_cross_section_frame,
     sweep_rectangular_cross_section,
+    _write_vtk_unstructured,
     finite_build_coils_to_vtk,
 )
 
@@ -34,6 +36,36 @@ class TestComputeCrossSectionFrame:
         assert np.isclose(np.dot(tangent, binormal), 0.0)
         assert np.isclose(np.linalg.norm(normal), 1.0)
         assert np.isclose(np.linalg.norm(binormal), 1.0)
+
+    def test_zero_tangent_raises(self):
+        """Zero-length tangent should raise ValueError."""
+        with pytest.raises(ValueError, match="zero length"):
+            _compute_cross_section_frame(np.array([0.0, 0.0, 0.0]))
+
+    def test_tangent_parallel_to_reference_uses_x_then_y_fallback(self):
+        """When tangent is parallel to default reference (Z), use X then Y fallback."""
+        # Tangent along Z; reference defaults to Z, so cross is zero -> use X
+        # If tangent is along X, reference Z gives cross; but tangent along Z
+        # with reference Z gives zero cross -> use X axis -> cross with X
+        # Tangent [0,0,1] with ref [1,0,0]: cross = [0,1,0], works
+        tangent = np.array([1.0, 0.0, 0.0])
+        reference = np.array([1.0, 0.0, 0.0])  # Same as tangent
+        normal, binormal = _compute_cross_section_frame(tangent, reference)
+        assert np.isclose(np.dot(tangent, normal), 0.0)
+        assert np.isclose(np.linalg.norm(normal), 1.0)
+
+
+class TestWriteVtkUnstructured:
+    """Tests for _write_vtk_unstructured."""
+
+    def test_adds_vtk_suffix_if_missing(self, tmp_path):
+        """Output path without .vtk gets suffix added."""
+        vertices = np.array([[0, 0, 0], [1, 0, 0], [0.5, 1, 0]])
+        faces = np.array([[0, 1, 2]])
+        out_path = tmp_path / "output"
+        _write_vtk_unstructured(vertices, faces, out_path)
+        assert (tmp_path / "output.vtk").exists()
+        assert "POINTS 3 float" in (tmp_path / "output.vtk").read_text()
 
 
 class TestSweepRectangularCrossSection:
@@ -72,6 +104,17 @@ class TestSweepRectangularCrossSection:
         gammadash = np.random.randn(5, 3)
         with pytest.raises(ValueError, match="same length"):
             sweep_rectangular_cross_section(gamma, gammadash, 0.1, 0.1)
+
+    def test_zero_tangent_uses_neighbor_fallback(self):
+        """Zero-length tangent at a point uses neighbor tangent."""
+        # Create gamma/gammadash where one tangent is zero
+        gamma = np.array([[1, 0, 0], [0, 1, 0], [-1, 0, 0]])
+        gammadash = np.array([[0, 1, 0], [0, 0, 0], [0, -1, 0]])  # Middle is zero
+        vertices, faces = sweep_rectangular_cross_section(
+            gamma, gammadash, width=0.01, height=0.01
+        )
+        assert vertices.shape[0] > 0
+        assert faces.shape[0] > 0
 
 
 class TestFiniteBuildCoilsToVtk:
@@ -155,3 +198,35 @@ class TestFiniteBuildCoilsToVtk:
         assert "POINTS" in content
         assert "CELLS" in content
         assert "CELL_TYPES" in content
+
+    def test_parastell_fallback_warns_and_uses_sweep(self, simple_coils, tmp_path):
+        """When parastell fails, warn and fall back to built-in sweep."""
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            out_path = finite_build_coils_to_vtk(
+                simple_coils,
+                tmp_path / "fallback",
+                width=0.02,
+                height=0.02,
+                use_parastell=True,  # Try parastell; may fall back if unavailable
+            )
+        assert out_path.exists()
+        content = out_path.read_text()
+        assert "POINTS" in content
+        # If parastell unavailable, we get the warning
+        if w:
+            assert any("ParaStell" in str(m.message) for m in w)
+
+    def test_n_along_resamples_curve(self, simple_coils, tmp_path):
+        """n_along triggers curve resampling when different from gamma length."""
+        out_path = finite_build_coils_to_vtk(
+            simple_coils,
+            tmp_path / "resampled",
+            width=0.02,
+            height=0.02,
+            n_along=16,
+            use_parastell=False,
+        )
+        assert out_path.exists()
+        content = out_path.read_text()
+        assert "POINTS" in content
