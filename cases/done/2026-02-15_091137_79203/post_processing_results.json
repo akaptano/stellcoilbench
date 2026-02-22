@@ -1,9 +1,0 @@
-{
-  "BdotN": 0.0629629844216793,
-  "BdotN_over_B": 0.030892822760061563,
-  "quasisymmetry_average": null,
-  "timing": {
-    "load_coils_and_surface": 0.021757917013019323,
-    "compute_BdotN": 1.2008671248331666
-  }
-}
