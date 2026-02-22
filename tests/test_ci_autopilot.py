@@ -980,22 +980,28 @@ class TestRunCiCaseCLI:
 # ===================================================================
 
 class TestIterationCap:
-    """Test that _optimize_coils_loop_impl clamps max_iterations."""
+    """Test that _optimize_coils_loop_impl clamps max_iterations via _parse_optimizer_config."""
 
     def test_clamp_message(self, capsys):
         """Verify the warning message is printed when max_iterations exceeds cap."""
-        # We can't easily run the full function, but we can verify the code exists
-        # by importing and checking the source
+        # Cap logic lives in _parse_optimizer_config (shared helper)
         import inspect
-        from stellcoilbench.coil_optimization import _optimize_coils_loop_impl
-        source = inspect.getsource(_optimize_coils_loop_impl)
+        from stellcoilbench.coil_optimization import _parse_optimizer_config
+        source = inspect.getsource(_parse_optimizer_config)
         assert "_CI_MAX_ITER_CAP" in source
         assert "clamping" in source
 
     def test_results_contain_iterations_used(self):
         """Verify that the results dict template includes iterations_used."""
         import inspect
-        from stellcoilbench.coil_optimization import _optimize_coils_loop_impl
-        source = inspect.getsource(_optimize_coils_loop_impl)
-        assert "'iterations_used'" in source
-        assert "'walltime_sec'" in source
+        from stellcoilbench.coil_optimization import (
+            _optimize_coils_loop_impl,
+            _build_optimization_results_dict,
+        )
+        impl_source = inspect.getsource(_optimize_coils_loop_impl)
+        results_source = inspect.getsource(_build_optimization_results_dict)
+        # iterations_used and walltime_sec are in _build_optimization_results_dict
+        assert "'iterations_used'" in results_source
+        assert "'walltime_sec'" in results_source
+        # impl must call the helper (passes iterations_used)
+        assert "iterations_used" in impl_source

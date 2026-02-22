@@ -5,13 +5,14 @@ surface_params:
 
 coils_params:
   coil_type: "dipole"
-  tf_configuration: "LandremanPaulQA"
   Nx: 4
   dipole_order: 2
-  poff: 1.5
-  coff: 3.0
+  fix_shapes: True
+  fix_currents: True
+  fix_center: True
+  fix_orientation: True
 
 optimizer_params:
   algorithm: "L-BFGS-B"
-  max_iterations: 100
+  max_iterations: 500
   verbose: True

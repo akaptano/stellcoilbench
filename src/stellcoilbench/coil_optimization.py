@@ -1,3 +1,11 @@
+"""
+Coil optimization for StellCoilBench.
+
+Provides modular and dipole coil optimization via simsopt, with support for
+augmented Lagrangian, L-BFGS-B, and other scipy algorithms. Handles threshold
+scaling by minor radius, constraint scaling for dimensionless objectives,
+Fourier continuation, and post-processing integration.
+"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -52,6 +60,2065 @@ except ImportError:
 
 # ARIES-CS reactor reference (matches post_processing vmec_RZ_scale scaling)
 ARIES_CS_MINOR_RADIUS = 1.7  # meters (aspect ratio ~4.5)
+
+
+def _compute_thresholds_from_surface(
+    s: "SurfaceRZFourier",
+    kwargs: Dict[str, Any],
+    *,
+    nturns: int = 200,
+) -> Dict[str, Any]:
+    """
+    Compute constraint thresholds scaled by plasma minor radius.
+
+    Scales length, distance, curvature, and MSC thresholds by a0 = ARIES_CS_MINOR_RADIUS
+    / minor_radius so that constraints are dimensionless across reactor scales.
+    Force/torque thresholds are scaled by nturns. Values in kwargs override defaults.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface (used for major/minor radius).
+    kwargs : Dict[str, Any]
+        User overrides for thresholds (e.g. cc_threshold, cs_threshold).
+    nturns : int, optional
+        Number of turns for force/torque scaling (default: 200).
+
+    Returns
+    -------
+    Dict[str, Any]
+        Thresholds dict with keys: length_threshold, flux_threshold, cc_threshold,
+        cs_threshold, msc_threshold, curvature_threshold, force_threshold,
+        torque_threshold, major_radius, minor_radius, a0.
+    """
+    length_threshold = kwargs.get('length_threshold', 200.0)
+    flux_threshold = kwargs.get('flux_threshold', 1e-8)
+    cc_threshold = kwargs.get('cc_threshold', 0.8)
+    cs_threshold = kwargs.get('cs_threshold', 1.3)
+    msc_threshold = kwargs.get('msc_threshold', 1.0)
+    curvature_threshold = kwargs.get('curvature_threshold', 1.0)
+    force_threshold = kwargs.get('force_threshold', 1.0) * nturns
+    torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
+
+    major_radius = s.major_radius()
+    minor_radius = float(s.minor_radius())
+    a0 = ARIES_CS_MINOR_RADIUS / minor_radius
+
+    if 'length_threshold' not in kwargs:
+        length_threshold /= a0
+    if 'cc_threshold' not in kwargs:
+        cc_threshold /= a0
+    if 'cs_threshold' not in kwargs:
+        cs_threshold /= a0
+    if 'curvature_threshold' not in kwargs:
+        curvature_threshold *= a0
+    if 'msc_threshold' not in kwargs:
+        msc_threshold *= a0
+
+    return {
+        'length_threshold': length_threshold,
+        'flux_threshold': flux_threshold,
+        'cc_threshold': cc_threshold,
+        'cs_threshold': cs_threshold,
+        'msc_threshold': msc_threshold,
+        'curvature_threshold': curvature_threshold,
+        'force_threshold': force_threshold,
+        'torque_threshold': torque_threshold,
+        'major_radius': major_radius,
+        'minor_radius': minor_radius,
+        'a0': a0,
+    }
+
+
+def _get_optimization_thresholds(
+    s: "SurfaceRZFourier",
+    kwargs: Dict[str, Any],
+    *,
+    is_continuation_step: bool = False,
+    cached: Dict[str, Any] | None = None,
+    nturns: int = 200,
+    coil_width_default: float = 0.4,
+) -> Dict[str, Any]:
+    """
+    Get full optimization thresholds for the coil optimization loop.
+
+    On continuation steps, uses cached thresholds when available. Otherwise
+    computes from surface and adds arclength_variation_threshold and coil_width.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface.
+    kwargs : Dict[str, Any]
+        User overrides and _cached_thresholds for continuation.
+    is_continuation_step : bool, optional
+        If True and cached is provided, return cached thresholds.
+    cached : Dict[str, Any] | None, optional
+        Cached thresholds from previous Fourier continuation step.
+    nturns : int, optional
+        Number of turns for force/torque scaling.
+    coil_width_default : float, optional
+        Default coil width before minor-radius scaling.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Full thresholds dict including arclength_variation_threshold and coil_width.
+    """
+    if is_continuation_step and cached is not None:
+        return {
+            **cached,
+            'major_radius': cached.get('major_radius', s.major_radius()),
+            'minor_radius': cached.get('minor_radius', 1.7),
+            'a0': cached.get('a0', cached.get('R0')),
+        }
+    th = _compute_thresholds_from_surface(s, kwargs, nturns=nturns)
+    th['arclength_variation_threshold'] = kwargs.get('arclength_variation_threshold', 0.0)
+    if 'arclength_variation_threshold' not in kwargs:
+        th['arclength_variation_threshold'] *= th['a0'] ** 2
+    th['coil_width'] = coil_width_default / th['a0']
+    return th
+
+
+def _parse_optimizer_config(
+    s: "SurfaceRZFourier",
+    kwargs: Dict[str, Any],
+    max_iterations: int,
+    *,
+    is_continuation_step: bool = False,
+    default_algorithm: str = 'augmented_lagrangian',
+) -> Dict[str, Any]:
+    """
+    Parse optimizer configuration from kwargs and surface.
+
+    Clamps max_iterations to CI cap, resolves algorithm name (e.g. lbfgs -> L-BFGS-B),
+    merges algorithm_options from kwargs, and builds full thresholds dict.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface.
+    kwargs : Dict[str, Any]
+        User config: algorithm, algorithm_options, max_iter_subopt, thresholds, etc.
+    max_iterations : int
+        Requested maximum iterations (may be clamped).
+    is_continuation_step : bool, optional
+        Whether this is a Fourier continuation step.
+    default_algorithm : str, optional
+        Default algorithm if not specified (default: augmented_lagrangian).
+
+    Returns
+    -------
+    Dict[str, Any]
+        Keys: algorithm, algorithm_options, max_iter_subopt, max_iterations, thresholds.
+    """
+    _CI_MAX_ITER_CAP = 10_000
+    if max_iterations > _CI_MAX_ITER_CAP:
+        print(f"Warning: max_iterations ({max_iterations}) exceeds CI cap ({_CI_MAX_ITER_CAP}); clamping.")
+        max_iterations = _CI_MAX_ITER_CAP
+    cached = kwargs.get('_cached_thresholds') if is_continuation_step else None
+    thresholds = _get_optimization_thresholds(
+        s, kwargs,
+        is_continuation_step=is_continuation_step,
+        cached=cached,
+    )
+    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 50)
+    algorithm = kwargs.get('algorithm', default_algorithm)
+    if isinstance(algorithm, str):
+        al = algorithm.lower()
+        if al in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
+            algorithm = 'L-BFGS-B'
+        elif al == 'augmented_lagrangian':
+            algorithm = 'augmented_lagrangian'
+    algorithm_options = kwargs.get('algorithm_options', {}).copy()
+    valid_opts = _get_scipy_algorithm_options(algorithm)
+    for opt in valid_opts:
+        if opt in kwargs and opt not in algorithm_options:
+            algorithm_options[opt] = kwargs[opt]
+    return {
+        'algorithm': algorithm,
+        'algorithm_options': algorithm_options,
+        'max_iter_subopt': max_iter_subopt,
+        'max_iterations': max_iterations,
+        'thresholds': thresholds,
+    }
+
+
+def _create_plotting_surface(
+    s: "SurfaceRZFourier",
+    surface_resolution: int,
+    kwargs: Dict[str, Any],
+) -> tuple:
+    """
+    Create a full-torus plotting surface from the optimization surface.
+
+    Uses plot_upsample_factor from kwargs (default 2) to set quadrature points.
+    If s has a filename (VMEC input), loads from file; otherwise copies Fourier
+    coefficients from s.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Optimization surface (may be half-period for stellarator symmetry).
+    surface_resolution : int
+        Base resolution (nphi = ntheta = plot_upsample_factor * surface_resolution).
+    kwargs : Dict[str, Any]
+        May contain plot_upsample_factor (default: 2).
+
+    Returns
+    -------
+    tuple
+        (s_plot, qphi, qtheta) - plotting surface and grid dimensions.
+    """
+    from simsopt.geo import SurfaceRZFourier
+    plot_upsample = kwargs.get('plot_upsample_factor', 2)
+    qphi = plot_upsample * surface_resolution
+    qtheta = plot_upsample * surface_resolution
+    quadpoints_phi = np.linspace(0, 1, qphi)
+    quadpoints_theta = np.linspace(0, 1, qtheta)
+    if hasattr(s, 'filename') and s.filename is not None:
+        s_plot = SurfaceRZFourier.from_vmec_input(
+            s.filename, range="full torus",
+            quadpoints_phi=quadpoints_phi, quadpoints_theta=quadpoints_theta,
+        )
+    else:
+        s_plot = SurfaceRZFourier(
+            nfp=s.nfp, stellsym=s.stellsym,
+            mpol=s.mpol, ntor=s.ntor,
+            quadpoints_phi=quadpoints_phi, quadpoints_theta=quadpoints_theta,
+        )
+    for m in range(s.mpol + 1):
+        for n in range(-s.ntor, s.ntor + 1):
+            if s.get_rc(m, n) != 0:
+                s_plot.set_rc(m, n, s.get_rc(m, n))
+            if s.get_zs(m, n) != 0:
+                s_plot.set_zs(m, n, s.get_zs(m, n))
+    return s_plot, qphi, qtheta
+
+
+def _build_scipy_minimize_options(
+    algorithm: str,
+    max_iterations: int,
+    algorithm_options: Dict[str, Any],
+    max_iter_subopt: int | None = None,
+) -> Dict[str, Any]:
+    """
+    Build options dict for scipy.optimize.minimize.
+
+    Sets algorithm-specific defaults (ftol, gtol, maxfun) and merges user
+    algorithm_options. Validates options against _get_scipy_algorithm_options.
+
+    Parameters
+    ----------
+    algorithm : str
+        Algorithm name (e.g. L-BFGS-B, BFGS, SLSQP).
+    max_iterations : int
+        Maximum iterations for outer loop.
+    algorithm_options : Dict[str, Any]
+        User-provided options to merge.
+    max_iter_subopt : int | None, optional
+        Unused; kept for API compatibility.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Options dict suitable for scipy.optimize.minimize(..., options=...).
+    """
+    options = {'maxiter': max_iterations}
+    if algorithm == 'L-BFGS-B':
+        options.setdefault('ftol', 1e-12)
+        options.setdefault('gtol', 1e-12)
+    elif algorithm == 'TNC':
+        options.setdefault('ftol', 1e-6)
+        options.setdefault('gtol', 1e-05)
+    elif algorithm == 'COBYLA':
+        options.setdefault('tol', 1e-12)
+    if algorithm in ['L-BFGS-B', 'TNC']:
+        if 'maxfun' not in options:
+            options['maxfun'] = max_iterations * 15000
+    if algorithm_options:
+        _validate_algorithm_options(algorithm, algorithm_options)
+        options.update(algorithm_options)
+    return options
+
+
+def _run_taylor_test(
+    objective: Callable,
+    gradient: Callable,
+    x0: np.ndarray,
+    verbose: bool = False,
+) -> bool:
+    """
+    Run Taylor test to verify gradient correctness.
+
+    Checks that J(x0 + εh) ≈ J(x0) + ε * ∇J · h for decreasing ε.
+    Fails if error ratio between successive ε is > 0.6 (gradient inconsistent).
+
+    Parameters
+    ----------
+    objective : Callable
+        Scalar objective J(x).
+    gradient : Callable
+        Gradient function returning ∇J(x).
+    x0 : np.ndarray
+        Point at which to test.
+    verbose : bool, optional
+        If True, print success message when test passes.
+
+    Returns
+    -------
+    bool
+        True if test passed, False otherwise.
+    """
+    np.random.seed(42)
+    h = np.random.randn(len(x0))
+    h = h / np.linalg.norm(h)
+    J0 = objective(x0)
+    grad0 = gradient(x0)
+    epsilons = [1e-6, 1e-7, 1e-8]
+    errors = []
+    for eps in epsilons:
+        xp = x0 + eps * h
+        Jp = objective(xp)
+        Jpred = J0 + eps * np.dot(grad0, h)
+        err = abs(Jp - Jpred) / (abs(J0) + 1e-12)
+        errors.append(err)
+    passed = True
+    for i in range(len(errors) - 1):
+        if errors[i] > 0 and errors[i + 1] / errors[i] > 0.6:
+            print(f"WARNING: Taylor test failed: error ratio {errors[i+1]/errors[i]:.3f} > 0.6 "
+                  f"(ε={epsilons[i]:.1e} -> {epsilons[i+1]:.1e})", file=sys.stderr)
+            passed = False
+    if passed and verbose:
+        print("Taylor test passed: error decreases as expected")
+    return passed
+
+
+def _apply_distance_weights_for_auglag(
+    c_list: list,
+    constraint_scaling: Dict[int, float],
+    cc_distance_idx: int | None,
+    cs_distance_idx: int | None,
+    kwargs: Dict[str, Any],
+    extra_distance_indices: list[int] | None = None,
+) -> None:
+    """
+    Apply weights to distance constraints for augmented Lagrangian (in-place).
+
+    Replaces c_list[idx] with Weight(w) * c_list[idx] for each distance constraint
+    index. Weight includes constraint_scaling for dimensionless objectives.
+    extra_distance_indices supports dipole's second cc-distance constraint.
+
+    Parameters
+    ----------
+    c_list : list
+        List of constraint objectives (modified in-place).
+    constraint_scaling : Dict[int, float]
+        Scaling factors per constraint index.
+    cc_distance_idx, cs_distance_idx : int | None
+        Indices of coil-coil and coil-surface distance constraints.
+    kwargs : Dict[str, Any]
+        May contain constraint_weight_{idx} overrides.
+    extra_distance_indices : list[int] | None, optional
+        Additional distance indices (e.g. dipole cc_dist2).
+    """
+    from simsopt.objectives import Weight
+    indices = [i for i in [cs_distance_idx, cc_distance_idx] if i is not None]
+    if extra_distance_indices:
+        indices.extend(extra_distance_indices)
+    for idx in indices:
+        w = kwargs.get(f'constraint_weight_{idx}', 1e3)
+        if idx in constraint_scaling:
+            w *= constraint_scaling[idx]
+        c_list[idx] = Weight(w) * c_list[idx]
+
+
+def _compute_constraint_scaling_for_term(
+    term_name: str,
+    term_value: str,
+    major_radius: float,
+    total_current: float,
+    p_value: int,
+    base_scaling: float,
+) -> float:
+    """
+    Compute scaling factor to make weight * constraint dimensionless.
+
+    Different formulas for l2/l2_threshold vs lp/lp_threshold. Ensures
+    optimization is scale-invariant across reactor sizes.
+
+    Parameters
+    ----------
+    term_name : str
+        Constraint name (e.g. total_length, coil_curvature, coil_coil_force).
+    term_value : str
+        Option (l2, l2_threshold, lp, lp_threshold, l1, l1_threshold, "").
+    major_radius : float
+        Plasma major radius [m].
+    total_current : float
+        Total coil current [A].
+    p_value : int
+        Lp norm exponent for lp/lp_threshold terms.
+    base_scaling : float
+        Base scaling from _get_base_scaling_for_term.
+
+    Returns
+    -------
+    float
+        Scaling factor to multiply constraint weight.
+    """
+    if term_value in ["l2", "l2_threshold"]:
+        if term_name == "total_length":
+            return base_scaling / major_radius
+        elif term_name == "coil_curvature":
+            return base_scaling * major_radius
+        elif term_name == "coil_mean_squared_curvature":
+            return base_scaling * (major_radius ** 2)
+        elif term_name == "coil_arclength_variation":
+            return base_scaling / (major_radius ** 2)
+        return base_scaling
+    elif term_value in ["lp", "lp_threshold"]:
+        if term_name == "coil_curvature":
+            return major_radius ** (p_value - 1)
+        elif term_name in ["coil_coil_force", "coil_coil_torque"]:
+            return (major_radius ** (p_value - 1)) / (total_current ** (2 * p_value))
+        elif term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
+            return base_scaling / (major_radius ** (p_value - 1))
+        elif term_name == "coil_mean_squared_curvature":
+            return base_scaling * (major_radius ** (2 * p_value - 2))
+        elif term_name == "coil_arclength_variation":
+            return base_scaling / (major_radius ** (2 * p_value - 2))
+        return base_scaling
+    elif term_value == "":
+        return base_scaling
+    else:
+        return base_scaling
+
+
+def _get_base_scaling_for_term(term_name: str, major_radius: float) -> float:
+    """
+    Return base scaling for l1/l1_threshold (linear penalty) terms.
+
+    Parameters
+    ----------
+    term_name : str
+        Constraint name (e.g. total_length, coil_curvature).
+    major_radius : float
+        Plasma major radius [m].
+
+    Returns
+    -------
+    float
+        Base scaling factor (1/R0, 1/R0^2, R0, R0^2, or 1.0).
+    """
+    if term_name == "total_length":
+        return 1.0 / major_radius
+    elif term_name in ["coil_coil_distance", "coil_surface_distance"]:
+        return 1.0 / (major_radius ** 2)
+    elif term_name == "coil_curvature":
+        return major_radius
+    elif term_name == "coil_mean_squared_curvature":
+        return major_radius ** 2
+    elif term_name == "coil_arclength_variation":
+        return 1.0 / (major_radius ** 2)
+    elif term_name == "linking_number":
+        return 1.0
+    elif term_name in ["coil_coil_force", "coil_coil_torque"]:
+        return 1.0
+    return 1.0
+
+
+def _build_weights_for_scipy_minimize(
+    c_list: list,
+    constraint_scaling: Dict[int, float],
+    constraint_idx_to_term: Dict[int, str],
+    cc_distance_idx: int | None,
+    cs_distance_idx: int | None,
+    kwargs: Dict[str, Any],
+    coil_objective_terms: Dict[str, Any] | None,
+) -> list:
+    """
+    Build weights list for weighted objective JF = sum(Weight(w)*c).
+
+    Flux (index 0) gets flux_weight or 1.0. Other constraints get weights from
+    coil_objective_terms (e.g. length_weight, cc_weight) or kwargs
+    (constraint_weight_{i}). Distance constraints default to 1e3 if unspecified.
+    Applies constraint_scaling for dimensionless objectives.
+
+    Parameters
+    ----------
+    c_list : list
+        Constraint objectives (flux first, then distance, length, etc.).
+    constraint_scaling : Dict[int, float]
+        Scaling per constraint index.
+    constraint_idx_to_term : Dict[int, str]
+        Maps constraint index to term name.
+    cc_distance_idx, cs_distance_idx : int | None
+        Indices of coil-coil and coil-surface distance constraints.
+    kwargs : Dict[str, Any]
+        constraint_weight_{i} overrides.
+    coil_objective_terms : Dict[str, Any] | None
+        Case config with flux_weight, length_weight, cc_weight, etc.
+
+    Returns
+    -------
+    list
+        List of float weights, one per constraint in c_list.
+    """
+    term_to_weight_key = {
+        "total_length": "length_weight",
+        "coil_coil_distance": "cc_weight",
+        "coil_surface_distance": "cs_weight",
+        "coil_curvature": "curvature_weight",
+        "coil_arclength_variation": "arclength_variation_weight",
+        "coil_mean_squared_curvature": "msc_weight",
+        "coil_coil_force": "force_weight",
+        "coil_coil_torque": "torque_weight",
+        "linking_number": "linking_weight",
+    }
+    cs_weight_specified = cs_distance_idx is not None and f'constraint_weight_{cs_distance_idx}' in kwargs
+    cc_weight_specified = cc_distance_idx is not None and f'constraint_weight_{cc_distance_idx}' in kwargs
+
+    weights = []
+    for i, _ in enumerate(c_list):
+        if i == 0:
+            if coil_objective_terms and "flux_weight" in coil_objective_terms:
+                weights.append(float(coil_objective_terms["flux_weight"]))
+            else:
+                weights.append(1.0)
+        else:
+            weight_specified = f'constraint_weight_{i}' in kwargs
+            weight = kwargs.get(f'constraint_weight_{i}', 1.0)
+            term_name = constraint_idx_to_term.get(i)
+            if term_name and coil_objective_terms:
+                weight_param = term_to_weight_key.get(term_name)
+                if weight_param and weight_param in coil_objective_terms:
+                    weight = float(coil_objective_terms[weight_param])
+                    weight_specified = True
+            if cs_distance_idx is not None and i == cs_distance_idx:
+                if coil_objective_terms and "cs_weight" in coil_objective_terms:
+                    weight = float(coil_objective_terms["cs_weight"])
+                    weight_specified = True
+                elif cs_weight_specified:
+                    weight = kwargs[f'constraint_weight_{i}']
+                else:
+                    weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+            elif cc_distance_idx is not None and i == cc_distance_idx:
+                if coil_objective_terms and "cc_weight" in coil_objective_terms:
+                    weight = float(coil_objective_terms["cc_weight"])
+                    weight_specified = True
+                elif cc_weight_specified:
+                    weight = kwargs[f'constraint_weight_{i}']
+                else:
+                    weight = kwargs.get(f'constraint_weight_{i}', 1e3)
+            if i in constraint_scaling:
+                dist_indices = [x for x in [cc_distance_idx, cs_distance_idx] if x is not None]
+                if i in dist_indices:
+                    weight *= constraint_scaling[i]
+                elif not weight_specified:
+                    weight *= constraint_scaling[i]
+            weights.append(weight)
+    return weights
+
+
+def _build_c_list_and_constraint_scaling_from_coil_objective_terms(
+    Jf: Any,
+    Jccdist: Any,
+    Jcsdist: Any,
+    Jls: list,
+    Jcs: list,
+    Jalenvar: list,
+    Jmscs: list,
+    Jlink: Any,
+    Jforce: Any,
+    Jtorque: Any,
+    coil_objective_terms: Dict[str, Any] | None,
+    thresholds: Dict[str, float],
+    major_radius: float,
+    total_current: float,
+    *,
+    dipole_length_split: tuple[list, list, float, float] | None = None,
+) -> tuple[list, Dict[int, float], int, int, list, Dict[int, str]]:
+    """
+    Build constraint list and scaling from coil_objective_terms.
+
+    Always includes flux (Jf), coil-coil distance (Jccdist), coil-surface distance
+    (Jcsdist). Adds length, curvature, arclength_variation, MSC, linking_number,
+    force, torque based on coil_objective_terms. Computes constraint_scaling for
+    dimensionless weights.
+
+    Parameters
+    ----------
+    Jf, Jccdist, Jcsdist : objectives
+        Flux and distance objectives.
+    Jls, Jcs, Jalenvar, Jmscs : list
+        Per-coil objectives (length, curvature, arclength variation, MSC).
+    Jlink, Jforce, Jtorque : objectives
+        Linking number and force/torque.
+    coil_objective_terms : Dict[str, Any] | None
+        Case config specifying which terms and options (l2, lp_threshold, etc.).
+    thresholds : Dict[str, float]
+        Threshold values for each constraint type.
+    major_radius, total_current : float
+        For constraint scaling.
+
+    Returns
+    -------
+    tuple
+        (c_list, constraint_scaling, cc_distance_idx, cs_distance_idx,
+         constraint_names_and_thresholds, constraint_idx_to_term).
+    """
+    from simsopt.objectives import QuadraticPenalty
+    c_list = [Jf]
+    cc_distance_idx = len(c_list)
+    c_list.append(Jccdist)
+    cs_distance_idx = len(c_list)
+    c_list.append(Jcsdist)
+    constraint_names_and_thresholds = [("CC Distance", thresholds["cc_threshold"]), ("CS Distance", thresholds["cs_threshold"])]
+    constraint_scaling = {
+        cc_distance_idx: 1.0 / (major_radius ** 2),
+        cs_distance_idx: 1.0 / (major_radius ** 2),
+    }
+    constraint_idx_to_term = {}
+
+    if not coil_objective_terms:
+        return c_list, constraint_scaling, cc_distance_idx, cs_distance_idx, constraint_names_and_thresholds, constraint_idx_to_term
+
+    length_threshold = thresholds["length_threshold"]
+    curvature_threshold = thresholds["curvature_threshold"]
+    arclength_variation_threshold = thresholds.get("arclength_variation_threshold", 0.0)
+    msc_threshold = thresholds["msc_threshold"]
+    force_threshold = thresholds["force_threshold"]
+    torque_threshold = thresholds["torque_threshold"]
+
+    term_map = {
+        "total_length": {
+            "obj": sum(Jls), "threshold": length_threshold,
+            "l1": lambda obj, thresh: obj, "l1_threshold": lambda obj, thresh: obj,
+            "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
+            "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
+        },
+        "coil_curvature": {
+            "obj": sum(Jcs), "threshold": curvature_threshold,
+            "lp": lambda obj, thresh: obj, "lp_threshold": lambda obj, thresh: obj,
+        },
+        "coil_arclength_variation": {
+            "obj": Jalenvar, "threshold": arclength_variation_threshold,
+            "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
+            "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
+            "l1": lambda obj, thresh: sum(obj), "l1_threshold": lambda obj, thresh: sum(obj),
+        },
+        "coil_mean_squared_curvature": {
+            "obj": Jmscs, "threshold": msc_threshold,
+            "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
+            "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
+            "l1": lambda obj, thresh: sum(obj), "l1_threshold": lambda obj, thresh: sum(obj),
+        },
+        "linking_number": {"obj": Jlink, "threshold": None, "": lambda obj, thresh: obj},
+        "coil_coil_force": {"obj": Jforce, "threshold": force_threshold, "lp": lambda obj, thresh: obj, "lp_threshold": lambda obj, thresh: obj},
+        "coil_coil_torque": {"obj": Jtorque, "threshold": torque_threshold, "lp": lambda obj, thresh: obj, "lp_threshold": lambda obj, thresh: obj},
+    }
+    name_map = {
+        "total_length": ("Length", length_threshold),
+        "coil_mean_squared_curvature": ("MSC", msc_threshold),
+        "coil_arclength_variation": ("Arclength Var", arclength_variation_threshold),
+        "coil_curvature": ("κ", curvature_threshold),
+        "linking_number": ("Link #", None),
+        "coil_coil_force": ("Force", force_threshold),
+        "coil_coil_torque": ("Torque", torque_threshold),
+    }
+
+    for term_name, term_value in coil_objective_terms.items():
+        if term_name.endswith("_p"):
+            continue
+        if term_name not in term_map:
+            continue
+        term_config = term_map[term_name]
+        if term_value not in term_config:
+            print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
+            continue
+
+        # Special case: separate length penalties for dipole vs TF when dipole_length_split provided
+        if term_name == "total_length" and dipole_length_split is not None:
+            Jls_dipole, Jls_tf, thresh_dipole, thresh_tf = dipole_length_split
+            obj_dipole = sum(Jls_dipole)
+            obj_tf = sum(Jls_tf)
+            penalty_fn = term_config[term_value]
+            constraint = penalty_fn(obj_dipole, thresh_dipole) + penalty_fn(obj_tf, thresh_tf)
+        else:
+            obj = term_config["obj"]
+            thresh = term_config["threshold"]
+            constraint = term_config[term_value](obj, thresh)
+
+        constraint_idx = len(c_list)
+        c_list.append(constraint)
+        p_value = 2
+        if term_value in ["lp", "lp_threshold"]:
+            p_value = coil_objective_terms.get(f"{term_name}_p", 2)
+        base_scaling = _get_base_scaling_for_term(term_name, major_radius)
+        constraint_scaling[constraint_idx] = _compute_constraint_scaling_for_term(
+            term_name, term_value, major_radius, total_current, p_value, base_scaling
+        )
+        if term_name in name_map:
+            constraint_names_and_thresholds.append(name_map[term_name])
+        constraint_idx_to_term[constraint_idx] = term_name
+
+    return c_list, constraint_scaling, cc_distance_idx, cs_distance_idx, constraint_names_and_thresholds, constraint_idx_to_term
+
+
+def _build_modular_coil_constraint_objects(
+    curves: list,
+    base_curves: list,
+    coils: list,
+    ncoils: int,
+    s: Any,
+    cc_threshold: float,
+    cs_threshold: float,
+    curvature_threshold: float,
+    force_threshold: float,
+    torque_threshold: float,
+    coil_objective_terms: Dict[str, Any] | None,
+) -> Dict[str, Any]:
+    """
+    Build constraint objectives for modular (non-dipole) coils.
+
+    Creates CurveCurveDistance, CurveSurfaceDistance, LinkingNumber,
+    LpCurveCurvature, MeanSquaredCurvature, ArclengthVariation, LpCurveForce,
+    LpCurveTorque. Force/torque thresholds are set to 0 for lp (no threshold)
+    or to force_threshold/torque_threshold for lp_threshold.
+
+    Parameters
+    ----------
+    curves, base_curves : list
+        All curves and base (unique) curves.
+    coils : list
+        Coil objects (for force/torque).
+    ncoils : int
+        Number of base coils.
+    s : Surface
+        Plasma surface (for coil-surface distance).
+    cc_threshold, cs_threshold, curvature_threshold : float
+        Distance and curvature thresholds.
+    force_threshold, torque_threshold : float
+        Force/torque thresholds (used only for lp_threshold option).
+    coil_objective_terms : Dict[str, Any] | None
+        Case config for curvature_p, force_p, torque_p and lp vs lp_threshold.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Keys: Jls, Jccdist, Jcsdist, Jalenvar, Jcs, Jlink, Jforce, Jtorque, Jmscs.
+    """
+    from simsopt.geo import (
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+        LpCurveCurvature,
+        CurveLength,
+        ArclengthVariation,
+        MeanSquaredCurvature,
+    )
+    from simsopt.field.force import LpCurveForce, LpCurveTorque
+
+    curvature_p = coil_objective_terms.get("coil_curvature_p", 2) if coil_objective_terms else 2
+    force_p = coil_objective_terms.get("coil_coil_force_p", 2) if coil_objective_terms else 2
+    torque_p = coil_objective_terms.get("coil_coil_torque_p", 2) if coil_objective_terms else 2
+    force_thresh = force_threshold
+    torque_thresh = torque_threshold
+    if coil_objective_terms:
+        if coil_objective_terms.get("coil_coil_force") and "threshold" in str(coil_objective_terms.get("coil_coil_force", "")):
+            force_thresh = force_threshold
+        else:
+            force_thresh = 0.0
+        if coil_objective_terms.get("coil_coil_torque") and "threshold" in str(coil_objective_terms.get("coil_coil_torque", "")):
+            torque_thresh = torque_threshold
+        else:
+            torque_thresh = 0.0
+
+    Jls = [CurveLength(c) for c in base_curves]
+    Jccdist = CurveCurveDistance(curves, cc_threshold, num_basecurves=ncoils)
+    Jcsdist = CurveSurfaceDistance(curves, s, cs_threshold)
+    Jalenvar = [ArclengthVariation(c) for c in base_curves]
+    Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves]
+    Jlink = LinkingNumber(curves, downsample=2)
+    Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_thresh, downsample=2)
+    Jtorque = LpCurveTorque(coils[:ncoils], coils, p=torque_p, threshold=torque_thresh, downsample=2)
+    Jmscs = [MeanSquaredCurvature(c) for c in base_curves]
+
+    return {
+        "Jls": Jls,
+        "Jccdist": Jccdist,
+        "Jcsdist": Jcsdist,
+        "Jalenvar": Jalenvar,
+        "Jcs": Jcs,
+        "Jlink": Jlink,
+        "Jforce": Jforce,
+        "Jtorque": Jtorque,
+        "Jmscs": Jmscs,
+    }
+
+
+def _build_dipole_coil_constraint_objects(
+    curves: list,
+    base_curves_dipole: list,
+    base_curves_TF: list,
+    dipole_coils: list,
+    coils: list,
+    fix_shapes: bool,
+    fix_center: bool,
+    fix_orientation: bool,
+    s: Any,
+    cc_threshold: float,
+    cs_threshold: float,
+    curvature_threshold: float,
+    force_threshold: float,
+    torque_threshold: float,
+    coil_objective_terms: Dict[str, Any] | None,
+) -> Dict[str, Any]:
+    """
+    Build constraint objectives for dipole + TF coils.
+
+    Creates CurveCurveDistance, CurveSurfaceDistance, LinkingNumber, CurveLength,
+    LpCurveCurvature, MeanSquaredCurvature, ArclengthVariation, LpCurveForce,
+    and LpCurveTorque objectives for the combined dipole and TF coil set.
+
+    Parameters
+    ----------
+    curves : list
+        All coil curves (dipole + TF, after symmetrization).
+    base_curves_dipole : list
+        Base dipole curves (before symmetrization).
+    base_curves_TF : list
+        Base TF curves (before symmetrization).
+    dipole_coils : list
+        Dipole coil objects (all symmetrized).
+    coils : list
+        TF coil objects (all symmetrized).
+    fix_shapes : bool
+        If True, exclude dipole base curves from curvature, MSC, and arclength
+        variation (no shape penalties on dipole coils).
+    fix_center, fix_orientation : bool
+        If True (with fix_shapes), dipole positions/orientations are fixed;
+        then Jccdist, Jcsdist, Jlink use only TF curves.
+    s : Surface
+        Plasma surface (for coil-surface distance).
+    cc_threshold, cs_threshold, curvature_threshold : float
+        Distance and curvature thresholds.
+    force_threshold, torque_threshold : float
+        Force/torque thresholds (used for lp_threshold option).
+    coil_objective_terms : Dict[str, Any] | None
+        Case config for curvature_p, force_p, torque_p and lp vs lp_threshold.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Keys: Jls, Jccdist, Jcsdist, Jalenvar, Jcs, Jlink, Jforce, Jtorque, Jmscs.
+    """
+    from simsopt.geo import (
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+        LpCurveCurvature,
+        CurveLength,
+        ArclengthVariation,
+        MeanSquaredCurvature,
+    )
+    from simsopt.field.force import LpCurveForce, LpCurveTorque
+
+    curvature_p = coil_objective_terms.get("coil_curvature_p", 2) if coil_objective_terms else 2
+    force_p = coil_objective_terms.get("coil_coil_force_p", 2) if coil_objective_terms else 2
+    torque_p = coil_objective_terms.get("coil_coil_torque_p", 2) if coil_objective_terms else 2
+    force_thresh = force_threshold
+    torque_thresh = torque_threshold
+    if coil_objective_terms:
+        if coil_objective_terms.get("coil_coil_force") and "threshold" in str(coil_objective_terms.get("coil_coil_force", "")):
+            force_thresh = force_threshold
+        else:
+            force_thresh = 0.0
+        if coil_objective_terms.get("coil_coil_torque") and "threshold" in str(coil_objective_terms.get("coil_coil_torque", "")):
+            torque_thresh = torque_threshold
+        else:
+            torque_thresh = 0.0
+
+    bcd = list(base_curves_dipole)
+    bct = list(base_curves_TF)
+    ncoils_dipoles = len(bcd)
+    ncoils_TF = len(bct)
+    # When fix_shapes and fix_center, dipole positions are fixed; they cannot move or
+    # become interlinked (with the initialization used). Exclude dipoles from Jls,
+    # Jccdist, Jcsdist, Jlink since those terms are constant for dipoles.
+    dipoles_position_fixed = fix_shapes and fix_center and ncoils_dipoles > 0
+    curves_for_dist = [c.curve for c in coils] if dipoles_position_fixed else curves
+    num_basecurves_dist = ncoils_TF if dipoles_position_fixed else ncoils_dipoles + ncoils_TF
+
+    if dipoles_position_fixed:
+        Jls = [CurveLength(c) for c in bct]
+    else:
+        Jls = [CurveLength(c) for c in bcd] + [CurveLength(c) for c in bct]
+    Jccdist = CurveCurveDistance(curves_for_dist, cc_threshold, num_basecurves=num_basecurves_dist)
+    Jcsdist = CurveSurfaceDistance(curves_for_dist, s, cs_threshold)
+    Jlink = LinkingNumber(curves_for_dist, downsample=2)
+
+    if fix_shapes:
+        base_curves_for_shape = bct
+    else:
+        base_curves_for_shape = bcd + bct
+    Jalenvar = [ArclengthVariation(c) for c in base_curves_for_shape]
+    Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves_for_shape]
+    Jmscs = [MeanSquaredCurvature(c) for c in base_curves_for_shape]
+    # When dipole_coils is empty, use coils for both source args (LpCurveForce needs non-empty sources)
+    src_coarse = dipole_coils if dipole_coils else coils
+    src_fine = coils
+    Jforce = LpCurveForce(
+        coils[:ncoils_TF],
+        source_coils_coarse=src_coarse,
+        source_coils_fine=src_fine,
+        p=force_p,
+        threshold=force_thresh,
+        downsample=2,
+    )
+    if ncoils_dipoles > 0:
+        Jforce = Jforce + LpCurveForce(
+            dipole_coils[:ncoils_dipoles],
+            source_coils_coarse=dipole_coils,
+            source_coils_fine=coils,
+            p=force_p,
+            threshold=force_thresh,
+            downsample=2,
+        )
+    Jtorque = LpCurveTorque(
+        coils[:ncoils_TF],
+        source_coils_coarse=src_coarse,
+        source_coils_fine=src_fine,
+        p=torque_p,
+        threshold=torque_thresh,
+        downsample=2,
+    )
+    if ncoils_dipoles > 0:
+        Jtorque = Jtorque + LpCurveTorque(
+            dipole_coils[:ncoils_dipoles],
+            source_coils_coarse=dipole_coils,
+            source_coils_fine=coils,
+            p=torque_p,
+            threshold=torque_thresh,
+            downsample=2,
+        )
+
+    return {
+        "Jls": Jls,
+        "Jccdist": Jccdist,
+        "Jcsdist": Jcsdist,
+        "Jalenvar": Jalenvar,
+        "Jcs": Jcs,
+        "Jlink": Jlink,
+        "Jforce": Jforce,
+        "Jtorque": Jtorque,
+        "Jmscs": Jmscs,
+    }
+
+
+def _setup_biotSavart_and_initial_save(
+    coils: list,
+    s: Any,
+    s_plot: Any,
+    qphi: int,
+    qtheta: int,
+    out_dir: Path,
+) -> tuple:
+    """
+    Create BiotSavart and save initial state before optimization.
+
+    Saves coils to VTK (coils_initial), surface with B_N/|B| and modB to VTK
+    (surface_initial), and generates bn_error_3d_plot_initial.pdf.
+
+    Parameters
+    ----------
+    coils : list
+        Coil objects.
+    s, s_plot : Surface
+        Optimization surface and plotting surface (full torus).
+    qphi, qtheta : int
+        Plotting grid dimensions.
+    out_dir : Path
+        Output directory.
+
+    Returns
+    -------
+    tuple
+        (bs, curves, B_initial) - BiotSavart, curve list, initial |B| on s_plot.
+    """
+    from simsopt.field import BiotSavart, coils_to_vtk
+    from simsopt.util import calculate_modB_on_major_radius
+
+    bs = BiotSavart(coils)
+    with suppress_output():
+        calculate_modB_on_major_radius(bs, s)
+    curves = [c.curve for c in coils]
+
+    try:
+        coils_to_vtk(coils, out_dir / "coils_initial")
+    except Exception as e:
+        print(f"Warning: Failed to save initial coils to VTK: {e}")
+        print("  Continuing optimization without VTK export...")
+
+    bs.set_points(s_plot.gamma().reshape((-1, 3)))
+    with suppress_output():
+        B_initial = calculate_modB_on_major_radius(bs, s_plot)
+
+    bs.set_points(s_plot.gamma().reshape((-1, 3)))
+    pointData = {
+        "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
+                          s_plot.unitnormal(), axis=2)[:, :, None] /
+                    bs.AbsB().reshape((qphi, qtheta, 1)),
+        "modB": bs.AbsB().reshape((qphi, qtheta, 1))
+    }
+    s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
+
+    try:
+        _plot_bn_error_3d(
+            s_plot,
+            bs,
+            coils,
+            out_dir,
+            filename="bn_error_3d_plot_initial.pdf",
+            title="B_N/|B| Error on Plasma Surface with Initial Coils",
+        )
+    except Exception as e:
+        print(f"Warning: Failed to generate initial 3D plot: {e}")
+
+    return bs, curves, B_initial
+
+
+def _compute_lorentz_force_torque_fallback(
+    coil_subset: list,
+    all_coils: list,
+) -> tuple[list[float], list[float]]:
+    """Compute max force [N/m] and torque [N] per coil via Lorentz formula when coil_force unavailable.
+
+    F/L = I * (t × B), τ = r × F. Excludes self-field to avoid singularity.
+    """
+    from simsopt.field import BiotSavart
+
+    max_force = []
+    max_torque = []
+    for c in coil_subset:
+        other_coils = [ac for ac in all_coils if id(ac) != id(c)]
+        if not other_coils:
+            max_force.append(0.0)
+            max_torque.append(0.0)
+            continue
+        bs = BiotSavart(other_coils)
+        curve = c.curve
+        gamma = curve.gamma()
+        gammadash = curve.gammadash() if hasattr(curve, "gammadash") else curve.dgamma_by_dphi()
+        I_val = float(abs(c.current.get_value()))
+        pts = gamma.reshape(-1, 3)
+        bs.set_points(pts)
+        B = bs.B().reshape(-1, 3)
+        ds = np.linalg.norm(gammadash, axis=1, keepdims=True)
+        ds = np.where(ds > 1e-14, ds, 1.0)
+        tangent = gammadash / ds
+        force_density = I_val * np.cross(tangent, B)
+        force_mag = np.linalg.norm(force_density, axis=1)
+        max_force.append(float(np.max(force_mag)))
+        torque_density = np.cross(pts, force_density)
+        torque_mag = np.linalg.norm(torque_density, axis=1)
+        max_torque.append(float(np.max(torque_mag)))
+    return max_force, max_torque
+
+
+def _compute_coil_subset_metrics(
+    coil_subset: list,
+    base_curves_subset: list,
+    all_coils: list,
+    s: Any,
+    kwargs: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Compute metrics for a subset of coils (dipole or TF only).
+
+    Used for dipole runs to report dipole and TF metrics separately.
+    Force/torque use all_coils for mutual interaction.
+    """
+    from simsopt.geo import CurveLength, ArclengthVariation
+
+    n = len(coil_subset)
+    if n == 0 or len(base_curves_subset) == 0:
+        return {
+            "total_current": 0.0,
+            "max_force": [],
+            "max_torque": [],
+            "coils_linked_to_surface": False,
+            "final_length_per_coil": [],
+            "final_current_per_coil": [],
+            "final_total_length": 0.0,
+            "final_max_curvature": 0.0,
+            "final_average_curvature": 0.0,
+            "final_arclength_variation": 0.0,
+            "final_mean_squared_curvature": 0.0,
+        }
+
+    currents = [float(abs(c.current.get_value())) for c in coil_subset] if coil_subset else []
+    total_current = sum(currents)
+
+    if n > 0 and len(all_coils) > 0:
+        try:
+            from simsopt.field.force import coil_force, coil_torque
+            max_force = [np.max(np.linalg.norm(coil_force(c, all_coils), axis=1)) for c in coil_subset]
+            max_torque = [np.max(np.linalg.norm(coil_torque(c, all_coils), axis=1)) for c in coil_subset]
+        except (ImportError, Exception):
+            max_force, max_torque = _compute_lorentz_force_torque_fallback(coil_subset, all_coils)
+    else:
+        max_force = [0.0] * n
+        max_torque = [0.0] * n
+
+    coils_linked = _check_coils_linked_to_surface(s, base_curves_subset)
+
+    lengths = [float(CurveLength(c).J()) for c in base_curves_subset]
+    kappas = [c.kappa() for c in base_curves_subset]
+
+    return {
+        "total_current": float(total_current),
+        "max_force": [float(f) for f in max_force],
+        "max_torque": [float(t) for t in max_torque],
+        "coils_linked_to_surface": coils_linked,
+        "final_length_per_coil": lengths,
+        "final_current_per_coil": currents,
+        "final_total_length": float(sum(lengths)),
+        "final_max_curvature": float(np.max([np.max(k) for k in kappas])) if kappas else 0.0,
+        "final_average_curvature": float(np.mean([np.mean(k) for k in kappas])) if kappas else 0.0,
+        "final_arclength_variation": float(np.mean([ArclengthVariation(c).J() for c in base_curves_subset])),
+        "final_mean_squared_curvature": float(np.max([np.mean(c.kappa() ** 2) for c in base_curves_subset])),
+    }
+
+
+def _compute_optimization_metrics(
+    bs: Any,
+    coils: list,
+    base_curves: list,
+    ncoils: int,
+    s: Any,
+    s_plot: Any,
+    qphi: int,
+    qtheta: int,
+    kwargs: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Compute final metrics (B_final, force/torque, B_N, coil-surface linking).
+
+    Shared by modular and dipole paths. Does not save files.
+    """
+    from simsopt.util import calculate_modB_on_major_radius
+
+    try:
+        total_current_final = sum(c.current.get_value() for c in coils[:ncoils])
+    except (AttributeError, TypeError):
+        total_current_final = sum(
+            float(abs(coils[i].current.get_value()))
+            for i in range(min(ncoils, len(coils)))
+            if hasattr(coils[i], 'current')
+        )
+
+    bs.set_points(s_plot.gamma().reshape((-1, 3)))
+    with suppress_output():
+        B_final = calculate_modB_on_major_radius(bs, s_plot)
+
+    if ncoils > 0 and len(coils) > 0:
+        if hasattr(coils[0], 'force') and hasattr(coils[0], 'torque'):
+            max_force = [np.max(np.linalg.norm(c.force(coils), axis=1)) for c in coils[:ncoils]]
+            max_torque = [np.max(np.linalg.norm(c.torque(coils), axis=1)) for c in coils[:ncoils]]
+        else:
+            try:
+                from simsopt.field.force import coil_force, coil_torque
+                max_force = [np.max(np.linalg.norm(coil_force(c, coils), axis=1)) for c in coils[:ncoils]]
+                max_torque = [np.max(np.linalg.norm(coil_torque(c, coils), axis=1)) for c in coils[:ncoils]]
+            except (ImportError, Exception):
+                subset = coils[:ncoils]
+                max_force, max_torque = _compute_lorentz_force_torque_fallback(subset, coils)
+    else:
+        max_force = []
+        max_torque = []
+
+    vc_target = kwargs.get('vc_target', None)
+    nphi = len(s.quadpoints_phi)
+    ntheta = len(s.quadpoints_theta)
+    bs.set_points(s.gamma().reshape((-1, 3)))
+    B_field = bs.B().reshape((nphi, ntheta, 3))
+    unit_normal = s.unitnormal().reshape((nphi, ntheta, 3))
+    BdotN_coils = np.sum(B_field * unit_normal, axis=2)
+
+    if vc_target is not None:
+        absBn = np.abs(BdotN_coils - vc_target)
+    else:
+        absBn = np.abs(BdotN_coils)
+
+    abs_B = bs.AbsB().reshape((nphi, ntheta))
+    avg_BdotN_over_B = np.mean(absBn) / np.mean(abs_B) if np.mean(abs_B) > 0 else 0.0
+    abs_B_safe = np.where(abs_B > 1e-10, abs_B, 1e-10)
+    max_BdotN_overB = np.max(absBn / abs_B_safe) if np.any(abs_B > 0) else 0.0
+
+    coils_linked_to_surface = _check_coils_linked_to_surface(s, base_curves)
+
+    return {
+        "B_final": B_final,
+        "max_force": max_force,
+        "max_torque": max_torque,
+        "avg_BdotN_over_B": avg_BdotN_over_B,
+        "max_BdotN_overB": max_BdotN_overB,
+        "coils_linked_to_surface": coils_linked_to_surface,
+        "total_current_final": total_current_final,
+    }
+
+
+def _save_optimized_coils_and_compute_metrics(
+    coils: list,
+    base_curves: list,
+    ncoils: int,
+    s: Any,
+    s_plot: Any,
+    qphi: int,
+    qtheta: int,
+    bs: Any,
+    out_dir: Path,
+    kwargs: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Save optimized coils and compute final metrics.
+
+    Saves coils to VTK (coils_optimized) and JSON (biot_savart_optimized.json),
+    surface with B_N, B_N/|B|, modB to VTK (surface_optimized), and generates
+    bn_error_3d_plot.pdf. Computes force/torque (new or legacy API), B_N metrics
+    (with optional virtual casing target), and coil-surface linking check.
+
+    Parameters
+    ----------
+    coils, base_curves : list
+        Coil objects and base curves.
+    ncoils : int
+        Number of base coils.
+    s, s_plot : Surface
+        Optimization and plotting surfaces.
+    qphi, qtheta : int
+        Plotting grid dimensions.
+    bs : BiotSavart
+        BiotSavart with optimized coils.
+    out_dir : Path
+        Output directory.
+    kwargs : Dict[str, Any]
+        May contain vc_target, vc_target_plot for virtual casing.
+
+    Returns
+    -------
+    Dict[str, Any]
+        B_final, max_force, max_torque, avg_BdotN_over_B, max_BdotN_overB,
+        coils_linked_to_surface, total_current_final.
+    """
+    from simsopt.field import coils_to_vtk
+
+    try:
+        coils_to_vtk(coils, out_dir / "coils_optimized")
+    except Exception as e:
+        print(f"Warning: Failed to save optimized coils to VTK: {e}")
+        print("  Continuing without VTK export...")
+    bs.save(out_dir / "biot_savart_optimized.json")
+
+    bs.set_points(s_plot.gamma().reshape((-1, 3)))
+    pointData = {
+        "B_N": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
+                     s_plot.unitnormal(), axis=2)[:, :, None],
+        "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
+                         s_plot.unitnormal(), axis=2)[:, :, None] /
+                    bs.AbsB().reshape((qphi, qtheta, 1)),
+        "modB": bs.AbsB().reshape((qphi, qtheta, 1))
+    }
+    s_plot.to_vtk(out_dir / "surface_optimized", extra_data=pointData)
+
+    metrics = _compute_optimization_metrics(bs, coils, base_curves, ncoils, s, s_plot, qphi, qtheta, kwargs)
+
+    try:
+        vc_target_plot = kwargs.get('vc_target_plot', None)
+        _plot_bn_error_3d(
+            s_plot,
+            bs,
+            coils,
+            out_dir,
+            filename="bn_error_3d_plot.pdf",
+            title="B_N/|B| Error on Plasma Surface with Optimized Coils",
+            vc_target=vc_target_plot,
+        )
+    except Exception as e:
+        print(f"Warning: Failed to generate 3D plot: {e}")
+
+    return metrics
+
+
+def _build_optimization_results_dict(
+    *,
+    B_initial: Any,
+    B_final: Any,
+    target_B: float,
+    end_time: float,
+    start_time: float,
+    iterations_used: int,
+    Jf: Any,
+    Jcsdist: Any,
+    Jccdist: Any,
+    Jlink: Any,
+    opt_result: Any,
+    cached_thresholds: Dict[str, Any],
+    base_curves: list,
+    coils: list,
+    ncoils: int,
+    total_current: float,
+    total_current_final: float,
+    max_force: list,
+    max_torque: list,
+    avg_BdotN_over_B: float,
+    max_BdotN_overB: float,
+    coils_linked_to_surface: bool,
+    lag_mul: Any,
+    out_dir: Path,
+    th: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Build the optimization results dictionary.
+
+    Aggregates flux, geometry, force/torque, B_N metrics, and thresholds
+    into a single dict for reporting and continuation caching.
+
+    Parameters
+    ----------
+    B_initial, B_final, target_B : float or array
+        Initial/final |B| and target field.
+    end_time, start_time : float
+        Wall-clock times.
+    iterations_used : int
+        Total optimization iterations.
+    Jf, Jcsdist, Jccdist : objectives
+        Flux and distance objectives for final values.
+    opt_result : object or None
+        scipy minimize result (success, message, nfev, njev).
+    cached_thresholds : Dict[str, Any]
+        Thresholds to cache for Fourier continuation.
+    base_curves, coils : list
+        Base curves and coil objects.
+    ncoils : int
+        Number of base coils.
+    total_current, total_current_final : float
+        Current before/after optimization.
+    max_force, max_torque : list
+        Per-coil max force and torque.
+    avg_BdotN_over_B, max_BdotN_overB : float
+        B_N/|B| metrics.
+    coils_linked_to_surface : bool
+        Whether coils encircle plasma.
+    lag_mul : Any
+        Lagrange multipliers (auglag) or None.
+    out_dir : Path
+        Output directory.
+    th : Dict[str, Any]
+        Full thresholds dict for reporting.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Results dict (without post_processing or timing; caller adds those).
+    """
+    from simsopt.geo import CurveLength, ArclengthVariation
+
+    # Convert to flat floats (handles inhomogeneous shapes from dipole+TF mix)
+    max_force_flat = [float(np.asarray(f).max()) for f in max_force]
+    max_torque_flat = [float(np.asarray(t).max()) for t in max_torque]
+
+    return {
+        'initial_B_field': B_initial,
+        'final_B_field': B_final,
+        'target_B_field': target_B,
+        'optimization_time': end_time - start_time,
+        'walltime_sec': end_time - start_time,
+        'iterations_used': iterations_used,
+        'final_squared_flux': Jf.J(),
+        'optimization_success': opt_result.success if opt_result is not None and hasattr(opt_result, 'success') else None,
+        'optimization_message': str(opt_result.message) if opt_result is not None and hasattr(opt_result, 'message') else None,
+        'optimization_nfev': getattr(opt_result, 'nfev', None) if opt_result is not None else None,
+        'optimization_njev': getattr(opt_result, 'njev', None) if opt_result is not None else None,
+        '_cached_thresholds': cached_thresholds,
+        'final_min_cs_separation': Jcsdist.shortest_distance(),
+        'final_min_cc_separation': Jccdist.shortest_distance(),
+        'final_length_per_coil': [float(CurveLength(c).J()) for c in base_curves],
+        'final_current_per_coil': [float(abs(coils[i].current.get_value())) for i in range(ncoils)],
+        'total_current_before': float(total_current),
+        'total_current_after': float(total_current_final),
+        'final_total_length': sum(CurveLength(c).J() for c in base_curves),
+        'final_max_curvature': max(np.max(c.kappa()) for c in base_curves),
+        'final_average_curvature': float(np.mean(np.concatenate([np.atleast_1d(c.kappa()).flatten() for c in base_curves]))),
+        'final_arclength_variation': np.mean([ArclengthVariation(c).J() for c in base_curves]),
+        'final_mean_squared_curvature': np.max([np.mean(c.kappa() ** 2) for c in base_curves]),
+        'final_linking_number': Jlink.J(),
+        'coils_linked_to_surface': coils_linked_to_surface,
+        'final_max_max_coil_force': float(np.max(max_force_flat)) if max_force_flat else 0.0,
+        'final_avg_max_coil_force': float(np.mean(max_force_flat)) if max_force_flat else 0.0,
+        'final_max_force_per_coil': max_force_flat,
+        'final_max_torque_per_coil': max_torque_flat,
+        'final_max_max_coil_torque': float(np.max(max_torque_flat)) if max_torque_flat else 0.0,
+        'final_avg_max_coil_torque': float(np.mean(max_torque_flat)) if max_torque_flat else 0.0,
+        'avg_BdotN_over_B': avg_BdotN_over_B,
+        'max_BdotN_over_B': max_BdotN_overB,
+        'lagrange_multipliers': lag_mul,
+        'output_directory': str(out_dir),
+        'flux_threshold': th.get('flux_threshold'),
+        'cc_threshold': th.get('cc_threshold'),
+        'cs_threshold': th.get('cs_threshold'),
+        'msc_threshold': th.get('msc_threshold'),
+        'arclength_variation_threshold': th.get('arclength_variation_threshold'),
+        'curvature_threshold': th.get('curvature_threshold'),
+        'force_threshold': th.get('force_threshold'),
+        'torque_threshold': th.get('torque_threshold'),
+    }
+
+
+def _check_coils_linked_to_surface(s: Any, base_curves: list) -> bool:
+    """
+    Check that each base coil encircles the plasma.
+
+    A coil is linked if it has points both inside and outside the local
+    surface cross-section (R_min, R_max) at each toroidal angle. Uses
+    per-phi cross-sections for strongly-shaped stellarators.
+
+    Parameters
+    ----------
+    s : Surface
+        Plasma boundary surface.
+    base_curves : list
+        Base coil curves to check.
+
+    Returns
+    -------
+    bool
+        True if all coils encircle the plasma, False otherwise.
+    """
+    surface_gamma = s.gamma()
+    R_surface = np.sqrt(surface_gamma[:, :, 0]**2 + surface_gamma[:, :, 1]**2)
+    R_min_per_phi = np.min(R_surface, axis=1)
+    R_max_per_phi = np.max(R_surface, axis=1)
+    phi_surface_slices = np.arctan2(surface_gamma[:, 0, 1], surface_gamma[:, 0, 0])
+    for c in base_curves:
+        gamma = c.gamma()
+        R_coil = np.sqrt(gamma[:, 0]**2 + gamma[:, 1]**2)
+        phi_coil = np.arctan2(gamma[:, 1], gamma[:, 0])
+        dphi = phi_coil[:, None] - phi_surface_slices[None, :]
+        dphi = np.abs(np.arctan2(np.sin(dphi), np.cos(dphi)))
+        nearest_phi_idx = np.argmin(dphi, axis=1)
+        local_R_min = R_min_per_phi[nearest_phi_idx]
+        local_R_max = R_max_per_phi[nearest_phi_idx]
+        has_inside = np.any(R_coil < local_R_min)
+        has_outside = np.any(R_coil > local_R_max)
+        if not (has_inside and has_outside):
+            return False
+    return True
+
+
+def evaluate_external_coils(
+    coils_json_path: Path,
+    surface_file: str,
+    surface_range: str = "half period",
+    surface_resolution: int = 32,
+    plasma_surfaces_dir: Path | None = None,
+) -> Dict[str, Any]:
+    """
+    Load coils from JSON and compute leaderboard metrics without running optimization.
+
+    Used to evaluate external coil solutions (e.g. from Zenodo) for leaderboard inclusion.
+
+    Parameters
+    ----------
+    coils_json_path : Path
+        Path to coils.json (simsopt BiotSavart or MagneticFieldSum format).
+    surface_file : str
+        Plasma surface file (e.g. input.LandremanPaul2021_QA).
+    surface_range : str
+        Surface range: "half period" or "full torus".
+    surface_resolution : int
+        Quadrature resolution for surface evaluation.
+    plasma_surfaces_dir : Path | None
+        Directory containing plasma surface files. Defaults to plasma_surfaces/.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Metrics dict suitable for results.json (metrics, score_primary, etc.).
+    """
+    from simsopt import load
+    from simsopt.objectives import SquaredFlux
+    from simsopt.geo import (
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+    )
+    import json
+    from .post_processing import _get_coils_from_bfield
+
+    plasma_surfaces_dir = plasma_surfaces_dir or Path("plasma_surfaces")
+    surface_path = plasma_surfaces_dir / surface_file
+
+    # Load coils - strip version-incompatible keys (simsopt auglag_coils vs main)
+    coils_data = json.loads(coils_json_path.read_text())
+    for obj in coils_data.get("simsopt_objs", {}).values():
+        if isinstance(obj, dict):
+            if obj.get("@class") == "CurvePlanarFourier":
+                obj.pop("nfp", None)
+                obj.pop("stellsym", None)
+            if obj.get("@class") == "Coil":
+                obj.pop("regularization", None)  # auglag_coils branch only
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tf:
+        json.dump(coils_data, tf, indent=2)
+        tmp_coils_path = Path(tf.name)
+    try:
+        bfield = load(str(tmp_coils_path))
+    finally:
+        tmp_coils_path.unlink(missing_ok=True)
+
+    if not surface_path.exists():
+        surface_path = Path(surface_file)
+    if not surface_path.exists():
+        raise FileNotFoundError(f"Surface not found: {surface_file}")
+
+    surface_lower = str(surface_path).lower()
+    if "input" in surface_lower:
+        s = SurfaceRZFourier.from_vmec_input(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    elif "wout" in surface_lower:
+        s = SurfaceRZFourier.from_wout(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    elif "focus" in surface_lower:
+        s = SurfaceRZFourier.from_focus(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    else:
+        raise ValueError(f"Unknown surface type: {surface_path}")
+
+    coils = _get_coils_from_bfield(bfield)
+    if not coils:
+        from simsopt.field import BiotSavart
+        if isinstance(bfield, BiotSavart):
+            coils = list(bfield.coils)
+        else:
+            raise ValueError("Could not extract coils from loaded object")
+    from simsopt.field import BiotSavart
+    bs = BiotSavart(coils) if not isinstance(bfield, BiotSavart) else bfield
+
+    nfp = s.nfp
+    stellsym = s.stellsym
+    symmetry_factor = nfp * (2 if stellsym else 1)
+    ncoils = max(1, len(coils) // symmetry_factor)
+    step = max(1, len(coils) // ncoils)
+    base_coil_indices = list(range(0, len(coils), step))[:ncoils]
+    base_curves = [coils[i].curve for i in base_coil_indices]
+    base_coils = [coils[i] for i in base_coil_indices]
+    curves = [c.curve for c in coils]
+
+    target_B = 1.0
+    if "LandremanPaul2021_QA" in surface_file:
+        target_B = 1.0
+    elif "LandremanPaul2021_QH" in surface_file:
+        target_B = 5.7
+    elif "muse" in surface_file.lower():
+        target_B = 0.15
+    else:
+        target_B = 5.7
+
+    th = _compute_thresholds_from_surface(s, {})
+    flux_threshold = th.get("flux_threshold", 1e-8)
+    cc_threshold = th.get("cc_threshold", 0.1)
+    cs_threshold = th.get("cs_threshold", 0.1)
+
+    Jf = SquaredFlux(s, bs, threshold=flux_threshold)
+    Jccdist = CurveCurveDistance(curves, cc_threshold, num_basecurves=ncoils)
+    Jcsdist = CurveSurfaceDistance(curves, s, cs_threshold)
+    Jlink = LinkingNumber(curves, downsample=2)
+
+    s_plot = SurfaceRZFourier.from_vmec_input(
+        str(surface_path), range=surface_range, nphi=64, ntheta=64
+    ) if "input" in surface_lower else s
+    if "wout" in surface_lower:
+        s_plot = SurfaceRZFourier.from_wout(str(surface_path), range=surface_range, nphi=64, ntheta=64)
+    elif "focus" in surface_lower:
+        s_plot = SurfaceRZFourier.from_focus(str(surface_path), range=surface_range, nphi=64, ntheta=64)
+
+    opt_metrics = _compute_optimization_metrics(
+        bs, coils, base_curves, ncoils, s, s_plot, 64, 64, {}
+    )
+    coil_metrics = _compute_coil_subset_metrics(
+        base_coils, base_curves, coils, s, {}
+    )
+
+    try:
+        total_current_final = sum(c.current.get_value() for c in coils[:ncoils])
+    except (AttributeError, TypeError):
+        total_current_final = sum(
+            float(abs(coils[i].current.get_value()))
+            for i in range(min(ncoils, len(coils)))
+            if hasattr(coils[i], "current")
+        )
+
+    coil_order = int(base_curves[0].order) if base_curves and hasattr(base_curves[0], "order") else 16
+
+    metrics = {
+        "final_squared_flux": float(Jf.J()),
+        "score_primary": float(Jf.J()),
+        "final_min_cc_separation": float(Jccdist.shortest_distance()),
+        "final_min_cs_separation": float(Jcsdist.shortest_distance()),
+        "final_linking_number": float(Jlink.J()),
+        "coils_linked_to_surface": opt_metrics["coils_linked_to_surface"],
+        "avg_BdotN_over_B": float(opt_metrics["avg_BdotN_over_B"]),
+        "max_BdotN_over_B": float(opt_metrics["max_BdotN_overB"]),
+        "final_total_length": float(coil_metrics["final_total_length"]),
+        "final_arclength_variation": float(coil_metrics["final_arclength_variation"]),
+        "final_mean_squared_curvature": float(coil_metrics["final_mean_squared_curvature"]),
+        "final_max_curvature": float(np.max([np.max(c.kappa()) for c in base_curves])),
+        "num_coils": ncoils,
+        "coil_order": coil_order,
+        "target_B_field": target_B,
+        "total_current_after": float(total_current_final),
+        "optimization_time": 0.0,
+        "iterations_used": 0,
+        "final_length_per_coil": [float(x) for x in coil_metrics["final_length_per_coil"]],
+        "final_current_per_coil": [float(x) for x in coil_metrics["final_current_per_coil"]],
+        "_cached_thresholds": {
+            "a0": th.get("a0"),
+            "major_radius": th.get("major_radius"),
+            "minor_radius": th.get("minor_radius"),
+        },
+    }
+    if opt_metrics.get("max_force"):
+        metrics["final_max_max_coil_force"] = float(np.max(opt_metrics["max_force"]))
+        metrics["final_max_force_per_coil"] = [float(f) for f in opt_metrics["max_force"]]
+    if opt_metrics.get("max_torque"):
+        metrics["final_max_max_coil_torque"] = float(np.max(opt_metrics["max_torque"]))
+        metrics["final_max_torque_per_coil"] = [float(t) for t in opt_metrics["max_torque"]]
+    return metrics
+
+
+def evaluate_external_dipole_coils(
+    coils_json_path: Path,
+    surface_file: str,
+    ncoils_dipole: int,
+    surface_range: str = "half period",
+    surface_resolution: int = 32,
+    plasma_surfaces_dir: Path | None = None,
+) -> Dict[str, Any]:
+    """
+    Load dipole+TF coils from JSON and compute dipole metrics for leaderboard.
+
+    Used for dipole optimization results (e.g. Zenodo 14934092, Kaptanoglu dipole).
+    Coils are split: first ncoils_dipole are dipole, rest are TF.
+
+    Parameters
+    ----------
+    coils_json_path : Path
+        Path to coils.json (simsopt BiotSavart or MagneticFieldSum format).
+    surface_file : str
+        Plasma surface file (e.g. input.LandremanPaul2021_QA).
+    ncoils_dipole : int
+        Number of dipole coils (first ncoils_dipole in the coil list).
+    surface_range : str
+        Surface range: "half period" or "full torus".
+    surface_resolution : int
+        Quadrature resolution for surface evaluation.
+    plasma_surfaces_dir : Path | None
+        Directory containing plasma surface files. Defaults to plasma_surfaces/.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Metrics dict with dipole_metrics, tf_metrics, flux, B·n, etc.
+    """
+    from simsopt import load
+    from simsopt.objectives import SquaredFlux
+    from simsopt.geo import (
+        CurveCurveDistance,
+        CurveSurfaceDistance,
+        LinkingNumber,
+    )
+    import json
+    from .post_processing import _get_coils_from_bfield
+
+    plasma_surfaces_dir = plasma_surfaces_dir or Path("plasma_surfaces")
+    surface_path = plasma_surfaces_dir / surface_file
+    if not surface_path.exists():
+        surface_path = Path(surface_file)
+    if not surface_path.exists():
+        raise FileNotFoundError(f"Surface not found: {surface_file}")
+
+    coils_data = json.loads(coils_json_path.read_text())
+    for obj in coils_data.get("simsopt_objs", {}).values():
+        if isinstance(obj, dict):
+            if obj.get("@class") == "CurvePlanarFourier":
+                obj.pop("nfp", None)
+                obj.pop("stellsym", None)
+            if obj.get("@class") == "Coil":
+                obj.pop("regularization", None)  # auglag_coils branch only
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tf:
+        json.dump(coils_data, tf, indent=2)
+        tmp_coils_path = Path(tf.name)
+    try:
+        bfield = load(str(tmp_coils_path))
+    finally:
+        tmp_coils_path.unlink(missing_ok=True)
+
+    coils = _get_coils_from_bfield(bfield)
+    if not coils:
+        from simsopt.field import BiotSavart
+        if isinstance(bfield, BiotSavart):
+            coils = list(bfield.coils)
+        else:
+            raise ValueError("Could not extract coils from loaded object")
+    from simsopt.field import BiotSavart
+    bs = BiotSavart(coils) if not isinstance(bfield, BiotSavart) else bfield
+
+    surface_lower = str(surface_path).lower()
+    if "input" in surface_lower:
+        s = SurfaceRZFourier.from_vmec_input(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    elif "wout" in surface_lower:
+        s = SurfaceRZFourier.from_wout(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    elif "focus" in surface_lower:
+        s = SurfaceRZFourier.from_focus(
+            str(surface_path), range=surface_range, nphi=surface_resolution, ntheta=surface_resolution
+        )
+    else:
+        raise ValueError(f"Unknown surface type: {surface_path}")
+
+    ncoils_dipole = min(ncoils_dipole, len(coils))
+    dipole_coils = coils[:ncoils_dipole]
+    tf_coils = coils[ncoils_dipole:]
+    base_curves_dipole = [c.curve for c in dipole_coils]
+    base_curves_tf = [c.curve for c in tf_coils]
+    curves = [c.curve for c in coils]
+    ncoils = len(coils)
+
+    target_B = 1.0
+    if "LandremanPaul2021_QA" in surface_file:
+        target_B = 1.0
+    elif "LandremanPaul2021_QH" in surface_file:
+        target_B = 5.7
+    elif "muse" in surface_file.lower():
+        target_B = 0.15
+    else:
+        target_B = 5.7
+
+    th = _compute_thresholds_from_surface(s, {})
+    flux_threshold = th.get("flux_threshold", 1e-8)
+    cc_threshold = th.get("cc_threshold", 0.1)
+    cs_threshold = th.get("cs_threshold", 0.1)
+
+    Jf = SquaredFlux(s, bs, threshold=flux_threshold)
+    Jccdist = CurveCurveDistance(curves, cc_threshold, num_basecurves=ncoils)
+    Jcsdist = CurveSurfaceDistance(curves, s, cs_threshold)
+    Jlink = LinkingNumber(curves, downsample=2)
+
+    s_plot = SurfaceRZFourier.from_vmec_input(
+        str(surface_path), range=surface_range, nphi=64, ntheta=64
+    ) if "input" in surface_lower else s
+    if "wout" in surface_lower:
+        s_plot = SurfaceRZFourier.from_wout(str(surface_path), range=surface_range, nphi=64, ntheta=64)
+    elif "focus" in surface_lower:
+        s_plot = SurfaceRZFourier.from_focus(str(surface_path), range=surface_range, nphi=64, ntheta=64)
+
+    base_curves = [c.curve for c in coils]
+    opt_metrics = _compute_optimization_metrics(
+        bs, coils, base_curves, ncoils, s, s_plot, 64, 64, {}
+    )
+    dipole_metrics = _compute_coil_subset_metrics(
+        dipole_coils, base_curves_dipole, coils, s, {}
+    )
+    tf_metrics = _compute_coil_subset_metrics(
+        tf_coils, base_curves_tf, coils, s, {}
+    )
+    coil_metrics = _compute_coil_subset_metrics(
+        coils, base_curves, coils, s, {}
+    )
+
+    try:
+        total_current_final = sum(c.current.get_value() for c in coils)
+    except (AttributeError, TypeError):
+        total_current_final = sum(
+            float(abs(c.current.get_value()))
+            for c in coils
+            if hasattr(c, "current")
+        )
+
+    coil_order = int(base_curves[0].order) if base_curves and hasattr(base_curves[0], "order") else 16
+
+    metrics = {
+        "final_squared_flux": float(Jf.J()),
+        "score_primary": float(Jf.J()),
+        "final_min_cc_separation": float(Jccdist.shortest_distance()),
+        "final_min_cs_separation": float(Jcsdist.shortest_distance()),
+        "final_linking_number": float(Jlink.J()),
+        "coils_linked_to_surface": opt_metrics["coils_linked_to_surface"],
+        "avg_BdotN_over_B": float(opt_metrics["avg_BdotN_over_B"]),
+        "max_BdotN_over_B": float(opt_metrics["max_BdotN_overB"]),
+        "final_total_length": float(coil_metrics["final_total_length"]),
+        "final_arclength_variation": float(coil_metrics["final_arclength_variation"]),
+        "final_mean_squared_curvature": float(coil_metrics["final_mean_squared_curvature"]),
+        "final_max_curvature": float(np.max([np.max(c.kappa()) for c in base_curves])) if base_curves else 0.0,
+        "num_coils": ncoils,
+        "coil_order": coil_order,
+        "target_B_field": target_B,
+        "total_current_after": float(total_current_final),
+        "optimization_time": 0.0,
+        "iterations_used": 0,
+        "dipole_metrics": dipole_metrics,
+        "tf_metrics": tf_metrics,
+        "_cached_thresholds": {
+            "a0": th.get("a0"),
+            "major_radius": th.get("major_radius"),
+            "minor_radius": th.get("minor_radius"),
+        },
+    }
+    if opt_metrics.get("max_force"):
+        metrics["final_max_max_coil_force"] = float(np.max(opt_metrics["max_force"]))
+        metrics["final_max_force_per_coil"] = [float(f) for f in opt_metrics["max_force"]]
+    if opt_metrics.get("max_torque"):
+        metrics["final_max_max_coil_torque"] = float(np.max(opt_metrics["max_torque"]))
+        metrics["final_max_torque_per_coil"] = [float(t) for t in opt_metrics["max_torque"]]
+    return metrics
+
+
+def _format_verbose_iteration_output(
+    iteration: int,
+    Jls: list,
+    Jccdist: Any,
+    Jcsdist: Any,
+    base_curves: list,
+    Jlink: Any,
+    Jforce: Any,
+    Jtorque: Any,
+    grad: np.ndarray,
+    weights: list,
+    c_list: list,
+    constraint_names_and_thresholds: list,
+    J_total: float,
+) -> tuple[str, str]:
+    """
+    Format verbose iteration output for scipy minimize callback.
+
+    Builds two lines: (1) main line with iteration, L, d_cc, d_cs, κ, MSC,
+    LN, F, τ, ‖∇J‖; (2) contrib line with weighted objective contributions
+    per term and total.
+
+    Parameters
+    ----------
+    iteration : int
+        Current iteration number.
+    Jls, Jccdist, Jcsdist, Jlink, Jforce, Jtorque : objectives
+        Constraint objectives for value extraction.
+    base_curves : list
+        Base coil curves (for κ, MSC).
+    grad : np.ndarray
+        Gradient vector for ‖∇J‖.
+    weights : list
+        Per-constraint weights.
+    c_list : list
+        Constraint objectives.
+    constraint_names_and_thresholds : list
+        (name, threshold) pairs for contrib labels.
+    J_total : float
+        Total weighted objective value.
+
+    Returns
+    -------
+    tuple[str, str]
+        (main_line, contrib_line) - formatted strings for printing.
+    """
+    from simsopt.geo import MeanSquaredCurvature
+
+    outstr = f"[{iteration}]"
+    outstr += f" L={sum(J.J() for J in Jls):.2f}"
+    outstr += f", d_cc={Jccdist.shortest_distance():.2f}, d_cs={Jcsdist.shortest_distance():.2f}"
+    kappa_values = [c.kappa().max() for c in base_curves]
+    msc_values = [MeanSquaredCurvature(c).J() for c in base_curves]
+    kappa_str = ",".join([f"{k:.1f}" for k in kappa_values])
+    msc_str = ",".join([f"{m:.1f}" for m in msc_values])
+    outstr += f", κ=[{kappa_str}]"
+    outstr += f", MSC=[{msc_str}]"
+    outstr += f", LN={int(round(Jlink.J()))}"
+    outstr += f", F={Jforce.J():.2e}"
+    outstr += f", τ={Jtorque.J():.2e}"
+    outstr += f", ‖∇J‖={np.linalg.norm(grad):.1e}"
+
+    name_short = {"Flux": "J_f", "CC Distance": "d_cc", "CS Distance": "d_cs",
+                  "Length": "L", "MSC": "MSC", "Arclength Var": "Var",
+                  "κ": "κ", "Link #": "LN", "Force": "F", "Torque": "τ"}
+    contrib_parts = []
+    flux_contrib = weights[0] * c_list[0].J()
+    contrib_parts.append(f"{name_short.get('Flux', 'Flux')}={flux_contrib:.1e}")
+    for idx, (name, _) in enumerate(constraint_names_and_thresholds, start=1):
+        if idx < len(c_list) and idx < len(weights):
+            constraint_contrib = weights[idx] * c_list[idx].J()
+            short = name_short.get(name, name)
+            contrib_parts.append(f"{short}={constraint_contrib:.1e}")
+    contrib_str = "Objs: " + ", ".join(contrib_parts)
+    contrib_str += f", Total={J_total:.1e}"
+
+    return outstr, contrib_str
+
+
+def _run_augmented_lagrangian(
+    c_list: list,
+    max_iterations: int,
+    max_iter_subopt: int,
+    verbose: bool,
+    kwargs: Dict[str, Any],
+) -> None:
+    """
+    Run simsopt augmented Lagrangian optimization.
+
+    Treats all c_list entries as equality constraints. Modifies objectives
+    in-place via simsopt's augmented_lagrangian_method. Supports mu_init,
+    tau, minimize_method from kwargs.
+
+    Parameters
+    ----------
+    c_list : list
+        Constraint objectives (equality constraints).
+    max_iterations : int
+        Maximum outer iterations.
+    max_iter_subopt : int
+        Maximum inner (L-BFGS-B) iterations per outer step.
+    verbose : bool
+        Print progress.
+    kwargs : Dict[str, Any]
+        Optional mu_init, tau, minimize_method for augmented Lagrangian.
+    """
+    try:
+        from simsopt.solve import augmented_lagrangian_method
+    except ImportError:
+        from simsopt.solve.augmented_lagrangian import augmented_lagrangian_method
+    import inspect
+    _alm_sig = inspect.signature(augmented_lagrangian_method)
+    _alm_params = set(_alm_sig.parameters.keys())
+    opts = {"MAXITER": max_iterations, "MAXITER_lag": max_iter_subopt, "verbose": verbose}
+    if "mu_init" in kwargs:
+        opts["mu_init"] = kwargs["mu_init"]
+    if "tau" in kwargs:
+        opts["tau"] = kwargs["tau"]
+    if "minimize_method" in kwargs:
+        opts["minimize_method"] = kwargs["minimize_method"]
+    opts = {k: v for k, v in opts.items() if k in _alm_params}
+    augmented_lagrangian_method(f=None, equality_constraints=c_list, **opts)
+
+
+def _run_scipy_minimize_for_modular_coils(
+    c_list: list,
+    constraint_scaling: Dict[int, float],
+    constraint_idx_to_term: Dict[int, str],
+    cc_distance_index: int | None,
+    cs_distance_index: int | None,
+    constraint_names_and_thresholds: list,
+    base_curves: list,
+    Jls: list,
+    Jccdist: Any,
+    Jcsdist: Any,
+    Jlink: Any,
+    Jforce: Any,
+    Jtorque: Any,
+    coil_objective_terms: Dict[str, Any] | None,
+    algorithm: str,
+    max_iterations: int,
+    algorithm_options: Dict[str, Any],
+    verbose: bool,
+    kwargs: Dict[str, Any],
+) -> tuple:
+    """
+    Run scipy minimize (BFGS, L-BFGS-B, SLSQP, etc.) for modular coil optimization.
+
+    Builds weighted objective JF from c_list and weights, defines objective/gradient
+    with verbose iteration output, runs Taylor test, then minimizes. Returns the
+    scipy result and iteration count.
+
+    Parameters
+    ----------
+    c_list : list
+        Constraint objectives (flux first, then distance, length, etc.).
+    constraint_scaling, constraint_idx_to_term : dict
+        Scaling and term mapping for weight building.
+    cc_distance_index, cs_distance_index : int | None
+        Indices of coil-coil and coil-surface distance constraints.
+    constraint_names_and_thresholds : list
+        (name, threshold) pairs for verbose output.
+    base_curves, Jls, Jccdist, Jcsdist, Jlink, Jforce, Jtorque : objectives
+        Constraint objectives for verbose output.
+    coil_objective_terms : Dict | None
+        Case config for weight overrides.
+    algorithm : str
+        Scipy algorithm name (e.g. L-BFGS-B, BFGS, SLSQP).
+    max_iterations : int
+        Maximum iterations.
+    algorithm_options : Dict
+        User-provided options for scipy.
+    verbose : bool
+        Print iteration progress.
+    kwargs : Dict
+        constraint_weight_{i}, flux_weight, etc.
+
+    Returns
+    -------
+    tuple
+        (result, iterations_used) - scipy OptimizeResult and nit.
+    """
+    from scipy.optimize import minimize
+    from simsopt.objectives import Weight
+
+    weights = _build_weights_for_scipy_minimize(
+        c_list, constraint_scaling, constraint_idx_to_term,
+        cc_distance_index, cs_distance_index, kwargs, coil_objective_terms,
+    )
+    JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
+
+    iteration_count = [0]
+
+    def objective(x: np.ndarray) -> float:
+        JF.x = x  # type: ignore[attr-defined]
+        J = JF.J()  # type: ignore[attr-defined]
+        iteration_count[0] += 1
+        if verbose and (iteration_count[0] == 1 or iteration_count[0] % 100 == 0):
+            grad = JF.dJ()  # type: ignore[attr-defined]
+            main_line, contrib_line = _format_verbose_iteration_output(
+                iteration_count[0], Jls, Jccdist, Jcsdist, base_curves,
+                Jlink, Jforce, Jtorque, grad, weights, c_list,
+                constraint_names_and_thresholds, J,
+            )
+            print(main_line)
+            print(contrib_line)
+        return J
+
+    def gradient(x: np.ndarray) -> np.ndarray:
+        JF.x = x  # type: ignore[attr-defined]
+        return JF.dJ()  # type: ignore[attr-defined]
+
+    x0 = JF.x.copy()  # type: ignore[attr-defined]
+    _run_taylor_test(objective, gradient, x0, verbose=verbose)
+    JF.x = x0  # type: ignore[attr-defined, assignment]
+
+    options = _build_scipy_minimize_options(algorithm, max_iterations, algorithm_options)
+    result = minimize(
+        fun=objective,
+        x0=JF.x,  # type: ignore[attr-defined]
+        method=algorithm,
+        jac=gradient,
+        options=options,
+    )
+    iterations_used = getattr(result, 'nit', 0)
+    return result, iterations_used
 
 
 class LinearPenalty:
@@ -459,6 +2526,7 @@ def optimize_coils(
     if coil_objective_terms:
         threshold_keys = [
             "length_threshold",
+            "length_threshold_dipole",
             "cc_threshold",
             "cs_threshold",
             "curvature_threshold",
@@ -539,11 +2607,11 @@ def optimize_coils(
         raise ValueError(f"Unknown surface type: {surface_file}")
 
     surface = surface_func(
-        filename=surface_file, 
+        filename=surface_file,
         range=surface_params["range"],
-        nphi=surface_resolution, 
+        nphi=surface_resolution,
         ntheta=surface_resolution)
-    
+
     # Determine output directory for VTK files
     if output_dir is None:
         output_dir = coils_out_path.parent
@@ -558,6 +2626,12 @@ def optimize_coils(
     # Convert surface_file to absolute path before changing directories
     if not Path(surface_file).is_absolute():
         surface_file = str(Path(surface_file).resolve())
+    # Set filename and range for dipole mode (derived from s in optimize_coils_loop)
+    try:
+        surface.filename = surface_file
+        surface.range = surface_params["range"]
+    except (AttributeError, TypeError):
+        pass
 
     if 'muse' in surface_file:
         target_B = 0.15 
@@ -682,21 +2756,47 @@ def optimize_coils(
             fourier_continuation = case_cfg.fourier_continuation
             coil_type = coil_params.get("coil_type", "modular")
             if coil_type == "dipole":
-                coils, results_dict = optimize_coils_dipole_loop(
-                    surface,
-                    surface_file=surface_file,
-                    surface_params=surface_params,
-                    out_dir=str(output_dir),
-                    max_iterations=optimizer_params.get("max_iterations", 100),
-                    verbose=optimizer_params.get("verbose", False),
-                    skip_post_processing=skip_post_processing_in_loop,
-                    case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
-                    run_vmec=run_vmec,
-                    run_simple=run_simple,
-                    plot_poincare=plot_poincare,
-                    plot_boozer=pp_params.get("plot_boozer", True),
-                    **{k: v for k, v in coil_params.items() if k not in ("coil_type", "ncoils", "order")},
-                )
+                fourier_continuation_dipole = fourier_continuation and fourier_continuation.get('enabled', False)
+                fourier_orders_dipole = fourier_continuation.get('orders', [coil_params.get('order', 16)]) if fourier_continuation else []
+                if fourier_continuation_dipole and fourier_orders_dipole and isinstance(fourier_orders_dipole, list) and all(isinstance(o, int) for o in fourier_orders_dipole):
+                    coil_kw = {k: v for k, v in coil_params.items() if k not in ("coil_type", "ncoils", "order", "target_B")}
+                    opt_kw = {k: v for k, v in optimizer_params.items() if k not in ("max_iterations", "verbose")}
+                    coils, results_dict = optimize_coils_with_fourier_continuation_dipole(
+                        surface,
+                        fourier_orders=fourier_orders_dipole,
+                        target_B=coil_params.get('target_B', 5.7),
+                        out_dir=str(output_dir),
+                        max_iterations=optimizer_params.get("max_iterations", 100),
+                        ncoils=coil_params.get('ncoils', 4),
+                        verbose=optimizer_params.get("verbose", False),
+                        regularization=regularization_circ if regularization_circ is not None else lambda x: None,
+                        coil_objective_terms=coil_objective_terms,
+                        surface_resolution=surface_resolution,
+                        case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
+                        skip_post_processing=skip_post_processing_in_loop,
+                        run_vmec=run_vmec,
+                        run_simple=run_simple,
+                        plot_poincare=plot_poincare,
+                        plot_boozer=pp_params.get("plot_boozer", True),
+                        **coil_kw,
+                        **opt_kw,
+                    )
+                else:
+                    coils, results_dict = optimize_coils_loop(
+                        surface,
+                        dipole_array=True,
+                        out_dir=str(output_dir),
+                        max_iterations=optimizer_params.get("max_iterations", 100),
+                        verbose=optimizer_params.get("verbose", False),
+                        skip_post_processing=skip_post_processing_in_loop,
+                        case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
+                        run_vmec=run_vmec,
+                        run_simple=run_simple,
+                        plot_poincare=plot_poincare,
+                        plot_boozer=pp_params.get("plot_boozer", True),
+                        **{k: v for k, v in coil_params.items() if k not in ("coil_type", "ncoils", "order")},
+                        **{k: v for k, v in optimizer_params.items() if k not in ("max_iterations", "verbose")},
+                    )
             elif fourier_continuation and fourier_continuation.get('enabled', False):
                 # Use Fourier continuation
                 fourier_orders = fourier_continuation.get('orders', [coil_params.get('order', 16)])
@@ -983,7 +3083,7 @@ def initialize_coils_loop(
         # Create equally spaced curves with current R0 and R1
         base_curves = create_equally_spaced_curves(
             ncoils, s.nfp, stellsym=s.stellsym,
-            R0=R0, R1=R1, order=order, numquadpoints=256)
+            R0=R0, R1=R1, order=order, numquadpoints=200)
         
         # Create temporary coils to check distances
         base_currents_temp = [(Current(total_current / ncoils * 1e-7) * 1e7) for _ in range(ncoils - 1)]
@@ -1192,11 +3292,34 @@ def initialize_coils_loop(
     return coils
 
 
+def _surface_file_and_params_from_s(s: SurfaceRZFourier) -> tuple[str, Dict[str, Any]]:
+    """
+    Extract surface_file and surface_params from a SurfaceRZFourier.
+
+    Uses s.filename for surface_file. For surface_params, uses s.range if
+    available, otherwise defaults to "half period".
+
+    Raises
+    ------
+    ValueError
+        If s has no filename attribute or it is None/empty.
+    """
+    surface_file = getattr(s, "filename", None)
+    if not surface_file:
+        raise ValueError(
+            "Dipole mode requires surface s to have a filename attribute "
+            "(e.g. from SurfaceRZFourier.from_vmec_input or from_focus)"
+        )
+    surface_file = str(surface_file)
+    range_param = getattr(s, "range", None) or "half period"
+    surface_params = {"range": range_param}
+    return surface_file, surface_params
+
+
 def initialize_coils_dipole(
     s: SurfaceRZFourier,
     surface_file: str,
     surface_params: Dict[str, Any],
-    tf_configuration: str = "LandremanPaulQA",
     poff: float = 1.5,
     coff: float = 3.0,
     Nx: int = 4,
@@ -1204,45 +3327,46 @@ def initialize_coils_dipole(
     Nz: int | None = None,
     dipole_order: int = 2,
     dipole_coil_size: float = 0.1,
-    tf_coil_size: float = 0.2,
     remove_inboard_eps: float = -0.4,
     out_dir: Path | str = "",
+    base_coils_TF: list | None = None,
+    ncoils_TF: int | None = None,
 ) -> tuple:
     """
     Initialize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
 
     Creates planar dipole coils between two toroidal surfaces (inner and outer, extended
     from the plasma boundary), removes inboard dipoles, removes interlinking dipoles,
-    and aligns dipole normals with the plasma surface. TF coils are initialized via
-    simsopt.util.initialize_coils for the given configuration.
+    and aligns dipole normals with the plasma surface.
+
+    TF coils must be predefined (e.g. from initialize_coils_loop) and passed via
+    base_coils_TF and ncoils_TF. They are used for remove_interlinking_dipoles_and_TFs.
 
     Args:
         s: Plasma boundary surface.
         surface_file: Path to surface file (for creating s_inner/s_outer).
         surface_params: Dict with 'range' and other surface params.
-        tf_configuration: TF coil config name ('LandremanPaulQA', 'LandremanPaulQH',
-            'SchuettHennebergQAnfp2').
-        poff: Inner surface extension distance [m].
-        coff: Additional outer extension beyond inner [m].
+        poff: Inner surface extension distance [m] (reactor-scale; divided by a0).
+        coff: Additional outer extension beyond inner [m] (reactor-scale; divided by a0).
         Nx, Ny, Nz: Grid dimensions for dipole placement (Ny, Nz default to Nx).
         dipole_order: Fourier order for planar dipole curves.
         dipole_coil_size: Dipole wire cross-section [m] (e.g. 0.1 for 10 cm).
-        tf_coil_size: TF wire cross-section [m] (e.g. 0.2 for 20 cm).
         remove_inboard_eps: Eps for remove_inboard_dipoles.
         out_dir: Output directory for saved files.
+        base_coils_TF: List of coil objects from initialize_coils_loop (required).
+        ncoils_TF: Number of base TF coils (required).
 
     Returns:
-        Tuple (coils, base_curves_dipole, base_curves_TF, ncoils_dipole, ncoils_TF)
+        Tuple (coils, base_curves_dipole, base_curves_TF, ncoils_dipole_expanded, num_TF_unique)
         where coils = dipole_coils + TF_coils (all coils for BiotSavart).
+        ncoils_dipole_expanded = len(dipole_coils) after symmetrization (for slicing coils).
     """
     from simsopt.geo import SurfaceRZFourier, create_planar_curves_between_two_toroidal_surfaces
-    from simsopt.field import Current, coils_via_symmetries, BiotSavart
+    from simsopt.field import Current, coils_via_symmetries
     from simsopt.util import (
-        initialize_coils,
         remove_inboard_dipoles,
         remove_interlinking_dipoles_and_TFs,
         align_dipoles_with_plasma,
-        calculate_modB_on_major_radius,
     )
 
     try:
@@ -1285,14 +3409,16 @@ def initialize_coils_dipole(
         nphi=nphi * 4,
         ntheta=ntheta * 4,
     )
-    s_inner.extend_via_normal(poff)
-    s_outer.extend_via_normal(poff + coff)
+    minor_radius = float(s.minor_radius())
+    a0 = ARIES_CS_MINOR_RADIUS / minor_radius
+    poff_scaled = poff / a0
+    coff_scaled = coff / a0
+    s_inner.extend_via_normal(poff_scaled)
+    s_outer.extend_via_normal(poff_scaled + coff_scaled)
 
-    regularization_TF = regularization_rect(tf_coil_size, tf_coil_size)
-    base_curves_TF, curves_TF, coils_TF, _ = initialize_coils(
-        s, tf_configuration, regularization_TF
-    )
-    num_TF_unique = len(base_curves_TF)
+    if base_coils_TF is None or ncoils_TF is None:
+        raise ValueError("base_coils_TF and ncoils_TF are required; TF coils must be predefined (e.g. from initialize_coils_loop)")
+    base_curves_TF = [c.curve for c in base_coils_TF[:ncoils_TF]]
 
     base_curves, _ = create_planar_curves_between_two_toroidal_surfaces(
         s, s_inner, s_outer, Nx, Ny, Nz, order=dipole_order
@@ -1316,15 +3442,10 @@ def initialize_coils_dipole(
     coils_dipole = coils_via_symmetries(
         base_curves, base_currents, s.nfp, s.stellsym, regularizations=regularizations
     )
-    coils = coils_dipole + coils_TF
+    coils = coils_dipole + base_coils_TF
 
-    bs_TF = BiotSavart(coils_TF)
-    bs_dipole = BiotSavart(coils_dipole)
-    btot = bs_dipole + bs_TF
-    with suppress_output():
-        calculate_modB_on_major_radius(btot, s)
-
-    return coils, base_curves, base_curves_TF, ncoils_dipole, num_TF_unique
+    ncoils_dipole_expanded = len(coils_dipole)
+    return coils, base_curves, base_curves_TF, ncoils_dipole_expanded, ncoils_TF
 
 
 def _zip_output_files(out_dir: Path) -> Path:
@@ -1379,18 +3500,29 @@ def _plot_bn_error_3d(
     vc_target: np.ndarray | None = None,
 ) -> None:
     """
-    Generate a 3D plot showing B_N/|B| error on the plasma surface with optimized coils.
-    
+    Generate a 3D plot showing B_N/|B| error on the plasma surface.
+
+    Renders the plasma surface colored by |B_N/|B|| (or B_N error vs vc_target
+    if virtual casing is used). Coils are overlaid. Requires matplotlib.
+
     Parameters
     ----------
-    surface: SurfaceRZFourier
-        The plasma surface for plotting (should be full torus).
-    bs: BiotSavart
+    surface : SurfaceRZFourier
+        Plasma surface for plotting (should be full torus).
+    bs : BiotSavart
         BiotSavart object containing the magnetic field from coils.
-    coils: list
+    coils : list
         List of coil objects to plot.
-    out_dir: Path
-        Directory where the PDF plot will be saved.
+    out_dir : Path
+        Directory where the PDF will be saved.
+    filename : str, optional
+        Output filename (default: bn_error_3d_plot.pdf).
+    title : str, optional
+        Plot title.
+    plot_upsample : int, optional
+        Factor to upsample surface quadrature for smoother plot (default: 2).
+    vc_target : np.ndarray | None, optional
+        Virtual casing target B_N; if provided, error = |B_N - vc_target|.
     """
     if not MATPLOTLIB_AVAILABLE:
         print("Warning: matplotlib not available, skipping 3D plot generation")
@@ -1642,7 +3774,7 @@ def _extend_coils_to_higher_order(
     # Create new base curves with higher order
     new_base_curves = create_equally_spaced_curves(
         ncoils, s.nfp, stellsym=s.stellsym,
-        R0=R0, R1=R1, order=new_order, numquadpoints=256
+        R0=R0, R1=R1, order=new_order, numquadpoints=200
     )
     
     # Copy Fourier coefficients from old curves to new curves
@@ -1766,14 +3898,17 @@ def optimize_coils_with_fourier_continuation(
         Dictionary specifying which objective terms to include.
     surface_resolution: int
         Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
-        Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
     skip_post_processing: bool
-        If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
-        Useful for faster testing and debugging of optimization alone (default: False).
-    **kwargs: Additional keyword arguments
-        Same as optimize_coils_loop (thresholds, algorithm options, etc.).
-        plot_upsample_factor: Factor for upsampling plotting surface (default: 4).
-    
+        If True, skip post-processing after optimization (default: False).
+    run_vmec, run_simple, plot_poincare, plot_boozer: bool
+        Post-processing flags (used only on final order).
+    plot_finite_build: bool
+        Generate finite-build coil VTK (default: False).
+    finite_build_width, finite_build_height: float | None
+        Cross-section dimensions for finite-build coils.
+    **kwargs
+        Same as optimize_coils_loop (thresholds, algorithm, plot_upsample_factor, etc.).
+
     Returns
     -------
     tuple[list, Dict[str, Any]]
@@ -2035,6 +4170,172 @@ def optimize_coils_with_fourier_continuation(
     return coils, combined_results
 
 
+def optimize_coils_with_fourier_continuation_dipole(
+    s: SurfaceRZFourier,
+    fourier_orders: list[int],
+    target_B: float = 5.7,
+    out_dir: Path | str = '',
+    max_iterations: int = 30,
+    ncoils: int = 4,
+    verbose: bool = False,
+    regularization: Callable | None = regularization_circ,
+    coil_objective_terms: Dict[str, Any] | None = None,
+    surface_resolution: int = 32,
+    case_path: Path | None = None,
+    skip_post_processing: bool = False,
+    run_vmec: bool = False,
+    run_simple: bool = False,
+    plot_poincare: bool = False,
+    plot_boozer: bool = True,
+    **kwargs
+) -> tuple[list, Dict[str, Any]]:
+    """
+    Perform dipole coil optimization with Fourier continuation on TF coils only.
+
+    Iterates over fourier_orders for the TF coil Fourier order; dipole_order stays fixed.
+    Dipole coils are unchanged during continuation; only TF coils are extended.
+    """
+    if not fourier_orders:
+        raise ValueError("fourier_orders must be a non-empty list")
+    if not all(isinstance(o, int) and o > 0 for o in fourier_orders):
+        raise ValueError("All fourier_orders must be positive integers")
+    if fourier_orders != sorted(fourier_orders):
+        raise ValueError("fourier_orders must be in ascending order")
+
+    out_dir_path = Path(out_dir).resolve()
+    out_dir_path.mkdir(parents=True, exist_ok=True)
+    coil_width = kwargs.get('coil_width', 0.4)
+    cached_thresholds: Dict[str, Any] = {}
+
+    coils: list | None = None
+    ncoils_dipole = 0
+    base_curves_dipole: list = []
+    base_curves_TF: list = []
+    all_results: list = []
+    results: Dict[str, Any] = {}
+
+    print(f"Starting dipole Fourier continuation (TF order only) with orders: {fourier_orders}")
+
+    for i, order in enumerate(fourier_orders):
+        print(f"\n{'='*60}")
+        print(f"Dipole Fourier continuation step {i+1}/{len(fourier_orders)}: TF order={order}")
+        print(f"{'='*60}")
+
+        order_dir = out_dir_path / f"order_{order}"
+        order_dir.mkdir(exist_ok=True)
+
+        if i == 0:
+            coils, results = optimize_coils_loop(
+                s=s,
+                dipole_array=True,
+                target_B=target_B,
+                out_dir=str(order_dir),
+                max_iterations=max_iterations,
+                ncoils=ncoils,
+                order=order,
+                verbose=verbose,
+                regularization=regularization,
+                coil_objective_terms=coil_objective_terms,
+                surface_resolution=surface_resolution,
+                skip_post_processing=True,
+                **kwargs
+            )
+            cached_thresholds = results.get('_cached_thresholds', {})
+            if coils:
+                ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
+                ncoils_dipole = max(0, len(coils) - ncoils * ntoroidal)
+                dipole_coils = coils[:ncoils_dipole]
+                tf_coils = coils[ncoils_dipole:]
+                base_curves_dipole = [dipole_coils[j].curve for j in range(0, ncoils_dipole, ntoroidal)] if ntoroidal and dipole_coils else []
+                base_curves_TF = [c.curve for c in tf_coils[:ncoils]]
+        else:
+            if coils is None:
+                raise RuntimeError("Cannot extend coils: previous step produced None coils")
+            ncoils_dipole = kwargs.get('continuation_ncoils_dipole', 0)
+            if ncoils_dipole <= 0:
+                ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
+                ncoils_dipole = len(coils) - ncoils * ntoroidal
+                if ncoils_dipole < 0:
+                    ncoils_dipole = 0
+            dipole_coils = coils[:ncoils_dipole]
+            tf_coils = coils[ncoils_dipole:]
+            extended_tf = _extend_coils_to_higher_order(
+                tf_coils, order, s, ncoils, regularization, coil_width
+            )
+            initial_coils = dipole_coils + extended_tf
+            ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
+            base_curves_dipole = [c.curve for c in dipole_coils[::ntoroidal]] if ntoroidal and dipole_coils else [c.curve for c in dipole_coils]
+            base_curves_TF = [c.curve for c in extended_tf[:ncoils]]
+
+            continuation_kwargs = kwargs.copy()
+            continuation_kwargs['_cached_thresholds'] = cached_thresholds
+            continuation_kwargs['continuation_ncoils_dipole'] = ncoils_dipole
+            continuation_kwargs['continuation_base_curves_dipole'] = base_curves_dipole
+            continuation_kwargs['continuation_base_curves_TF'] = base_curves_TF
+
+            coils, results = optimize_coils_loop(
+                s=s,
+                dipole_array=True,
+                target_B=target_B,
+                out_dir=str(order_dir),
+                max_iterations=max_iterations,
+                ncoils=ncoils,
+                order=order,
+                verbose=verbose,
+                regularization=regularization,
+                coil_objective_terms=coil_objective_terms,
+                initial_coils=initial_coils,
+                surface_resolution=surface_resolution,
+                skip_post_processing=True,
+                **continuation_kwargs
+            )
+
+        results['fourier_order'] = order
+        results['continuation_step'] = i + 1
+        all_results.append(results)
+
+    last_results = all_results[-1] if all_results else {}
+    combined_results = {
+        'fourier_continuation': True,
+        'fourier_orders': fourier_orders,
+        'final_order': fourier_orders[-1],
+        'continuation_results': all_results,
+        **last_results,
+    }
+
+    print(f"\n{'='*60}")
+    print("Dipole Fourier continuation completed!")
+    print(f"Final TF order: {fourier_orders[-1]}")
+    print(f"{'='*60}\n")
+
+    if coils is None:
+        raise RuntimeError("Dipole Fourier continuation failed: no coils were produced")
+
+    if not skip_post_processing:
+        try:
+            from .post_processing import run_post_processing
+            final_order_dir = out_dir_path / f"order_{fourier_orders[-1]}"
+            coils_json_path = final_order_dir / "biot_savart_optimized.json"
+            if not coils_json_path.exists():
+                coils_json_path = out_dir_path / "biot_savart_optimized.json"
+            if not coils_json_path.exists():
+                coils_json_path = out_dir_path / "coils.json"
+            if coils_json_path.exists():
+                print("\nRunning post-processing on final optimized coils...")
+                run_post_processing(
+                    coils_json_path=coils_json_path,
+                    output_dir=out_dir_path,
+                    case_yaml_path=Path(case_path) / "case.yaml" if case_path else None,
+                    plot_boozer=plot_boozer,
+                    plot_poincare=plot_poincare,
+                    run_simple=run_simple,
+                )
+        except Exception as e:
+            print(f"Warning: Post-processing failed: {e}")
+
+    return coils, combined_results
+
+
 def _is_ci_running() -> bool:
     """
     Check if the code is running in a CI environment.
@@ -2071,186 +4372,6 @@ def _redirect_verbose_to_file(output_file: Path):
         sys.stdout = original_stdout
 
 
-def optimize_coils_dipole_loop(
-    s: SurfaceRZFourier,
-    surface_file: str,
-    surface_params: Dict[str, Any],
-    out_dir: Path | str = "",
-    max_iterations: int = 100,
-    verbose: bool = False,
-    skip_post_processing: bool = False,
-    case_path: Path | None = None,
-    run_vmec: bool = False,
-    run_simple: bool = False,
-    plot_poincare: bool = False,
-    plot_boozer: bool = True,
-    tf_configuration: str = "LandremanPaulQA",
-    Nx: int = 4,
-    dipole_order: int = 2,
-    **kwargs,
-) -> tuple:
-    """
-    Optimize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.
-
-    Uses initialize_coils_dipole and dipole_array_optimization_function from simsopt.
-    """
-    from scipy.optimize import minimize
-    from simsopt.geo import (
-        CurveLength,
-        CurveCurveDistance,
-        CurveSurfaceDistance,
-        LinkingNumber,
-        MeanSquaredCurvature,
-        LpCurveCurvature,
-    )
-    from simsopt.field import BiotSavart, coils_to_vtk
-    from simsopt.objectives import Weight, SquaredFlux, QuadraticPenalty
-
-    try:
-        from simsopt.util import dipole_array_optimization_function, save_coil_sets
-    except ImportError as e:
-        raise ImportError(
-            "Dipole coil optimization requires simsopt with auglag_coils branch "
-            "(dipole_array_helper_functions). Install from: "
-            "https://github.com/hiddenSymmetries/simsopt"
-        ) from e
-
-    out_dir = Path(out_dir).resolve()
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    with timed_section("coil_initialization", print_time=False):
-        with suppress_output():
-            coils, base_curves, base_curves_TF, ncoils_dipole, ncoils_TF = initialize_coils_dipole(
-                s,
-                surface_file=surface_file,
-                surface_params=surface_params,
-                tf_configuration=tf_configuration,
-                Nx=Nx,
-                dipole_order=dipole_order,
-                out_dir=out_dir,
-                **{k: v for k, v in kwargs.items() if k in ("poff", "coff", "Ny", "Nz", "dipole_coil_size", "tf_coil_size", "remove_inboard_eps")},
-            )
-
-    coils_TF = coils[ncoils_dipole:]
-    base_coils_TF = coils_TF[:ncoils_TF]
-    base_coils = coils[:ncoils_dipole]
-    curves = [c.curve for c in coils]
-    curves_TF = [c.curve for c in coils_TF]
-    all_coils = coils
-    all_base_coils = base_coils + base_coils_TF
-
-    bs_TF = BiotSavart(coils_TF)
-    bs_dipole = BiotSavart(coils[:ncoils_dipole])
-    btot = bs_dipole + bs_TF
-    eval_points = s.gamma().reshape(-1, 3)
-    btot.set_points(eval_points)
-
-    try:
-        coils_to_vtk(all_coils, out_dir / "coils_initial")
-    except Exception as e:
-        print(f"Warning: Failed to save initial coils to VTK: {e}")
-
-    LENGTH_WEIGHT = Weight(0.01)
-    LENGTH_WEIGHT2 = Weight(0.01)
-    LENGTH_TARGET = 85
-    LINK_WEIGHT = 1e4
-    CC_THRESHOLD = 0.8
-    CC_WEIGHT = 1e2
-    CS_THRESHOLD = 1.3
-    CS_WEIGHT = 1e1
-    CURVATURE_THRESHOLD = 0.5
-    MSC_THRESHOLD = 0.05
-    CURVATURE_WEIGHT = 1e-2
-    MSC_WEIGHT = 1e-1
-
-    Jf = SquaredFlux(s, btot)
-    Jls = [CurveLength(c) for c in base_curves]
-    Jls_TF = [CurveLength(c) for c in base_curves_TF]
-    Jlength = QuadraticPenalty(sum(Jls_TF), LENGTH_TARGET, "max")
-    Jlength2 = QuadraticPenalty(sum(Jls), LENGTH_TARGET, "max")
-    Jccdist = CurveCurveDistance(curves + curves_TF, CC_THRESHOLD / 2.0, num_basecurves=len(all_coils))
-    Jccdist2 = CurveCurveDistance(curves_TF, CC_THRESHOLD, num_basecurves=len(coils_TF))
-    Jcsdist = CurveSurfaceDistance(curves + curves_TF, s, CS_THRESHOLD)
-    linkNum = LinkingNumber(curves + curves_TF, downsample=2)
-    Jcs = [LpCurveCurvature(c.curve, 2, CURVATURE_THRESHOLD) for c in base_coils_TF]
-    Jmscs = [MeanSquaredCurvature(c.curve) for c in base_coils_TF]
-
-    class _ZeroObj:
-        def J(self): return 0.0
-
-    try:
-        from simsopt.field.force import LpCurveForce, LpCurveTorque
-        Jforce = LpCurveForce(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveForce(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
-        Jtorque = LpCurveTorque(base_coils_TF, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2) + LpCurveTorque(base_coils, source_coils_coarse=coils[:ncoils_dipole], source_coils_fine=coils_TF, downsample=2)
-        Jforce2 = Jtorque2 = _ZeroObj()
-    except (ImportError, TypeError):
-        Jforce = Jforce2 = Jtorque = Jtorque2 = _ZeroObj()
-
-    JF = (
-        Jf
-        + CC_WEIGHT * Jccdist
-        + CC_WEIGHT * Jccdist2
-        + CS_WEIGHT * Jcsdist
-        + CURVATURE_WEIGHT * sum(Jcs)
-        + MSC_WEIGHT * sum(QuadraticPenalty(J, MSC_THRESHOLD, "max") for J in Jmscs)
-        + LINK_WEIGHT * linkNum
-        + LENGTH_WEIGHT * Jlength
-        + LENGTH_WEIGHT2 * Jlength2
-    )
-
-    obj_dict = {
-        "JF": JF,
-        "Jf": Jf,
-        "Jlength": Jlength,
-        "Jlength2": Jlength2,
-        "Jls": Jls,
-        "Jls_TF": Jls_TF,
-        "Jcs": Jcs,
-        "Jmscs": Jmscs,
-        "Jccdist": Jccdist,
-        "Jccdist2": Jccdist2,
-        "Jcsdist": Jcsdist,
-        "linkNum": linkNum,
-        "Jforce": 0,
-        "Jforce2": 0,
-        "Jtorque": 0,
-        "Jtorque2": 0,
-        "btot": btot,
-        "s": s,
-        "base_curves_TF": base_curves_TF,
-        "psc_array": None,
-    }
-    weight_dict = {
-        "length_weight": LENGTH_WEIGHT.value,
-        "curvature_weight": CURVATURE_WEIGHT,
-        "msc_weight": MSC_WEIGHT,
-        "msc_threshold": MSC_THRESHOLD,
-        "cc_weight": CC_WEIGHT,
-        "cs_weight": CS_WEIGHT,
-        "link_weight": LINK_WEIGHT,
-        "force_weight": 0.0,
-        "torque_weight": 0.0,
-        "net_force_weight": 0.0,
-        "net_torque_weight": 0.0,
-    }
-
-    dofs = JF.x
-    res = minimize(
-        dipole_array_optimization_function,
-        dofs,
-        args=(obj_dict, weight_dict, None),
-        jac=True,
-        method="L-BFGS-B",
-        options={"maxiter": max_iterations, "maxcor": 1000},
-        tol=1e-20,
-    )
-
-    save_coil_sets(btot, str(out_dir) + "/", "_optimized")
-
-    combined_results = {"success": res.success, "fun": float(res.fun), "nit": int(res.nit)}
-    return coils, combined_results
-
-
 def optimize_coils_loop(
     s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
     max_iterations : int = 30, 
@@ -2266,35 +4387,70 @@ def optimize_coils_loop(
     run_simple: bool = False,
     plot_poincare: bool = True,
     plot_boozer: bool = True,
+    dipole_array: bool = False,
     **kwargs):
     """
-    Performs complete coil optimization including initialization and optimization.
-    This function initializes coils with the target B-field and then optimizes
-    them using the augmented Lagrangian method.
+    Optimize modular or dipole coils for a plasma surface.
 
-    Args:
-        s: plasma boundary surface.
-        target_B: Target magnetic field strength in Tesla (default: 5.7).
-        out_dir: Path or string for the output directory for saved files.
-        max_iterations: Maximum number of optimization iterations (default: 1500).
-        ncoils: Number of base coils to create (default: 4).
-        order: Fourier order for coil curves (default: 16).
-        verbose: Print out progress and results (default: False).
-        surface_resolution: Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
-            Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.
-        **kwargs: Additional keyword arguments for constraint thresholds.
-            max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 50).
-            length_threshold: Threshold for the length objective (default: 200.0).
-            flux_threshold: Threshold for the flux objective (default: 1e-8).
-            cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
-            cs_threshold: Threshold for the coil-surface distance objective (default: 1.3).
-            msc_threshold: Threshold for the mean squared curvature objective (default: 1.0).
-            curvature_threshold: Threshold for the curvature objective (default: 1.0).
-            force_threshold: Threshold for the coil force objective (default: 1.0).
-            torque_threshold: Threshold for the coil torque objective (default: 1.0).
-    Returns:
-        coils: List of optimized Coil class objects.
-        results: Dictionary containing optimization results and metrics.
+    For modular coils (default): initializes coils with target B-field (or uses
+    initial_coils for Fourier continuation), then optimizes flux plus constraints
+    via augmented Lagrangian or scipy (L-BFGS-B, BFGS, etc.).
+
+    For dipole coils: pass dipole_array=True. Surface file and params are derived
+    from s. TF coils come from initialize_coils_loop (normal stellcoilbench logic).
+    Dipole coils (Nx × Nx grid) are created via initialize_coils_dipole.
+    Default algorithm for dipole is L-BFGS-B.
+
+    Optionally runs post-processing (QFM, VMEC, Poincaré, quasisymmetry).
+    Delegates to _optimize_coils_loop_impl.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface.
+    target_B : float, optional
+        Target |B| on-axis in Tesla (default: 5.7).
+    out_dir : Path | str, optional
+        Output directory for VTK, JSON, plots.
+    max_iterations : int, optional
+        Maximum optimization iterations (default: 30).
+    ncoils : int, optional
+        Number of base coils (default: 4).
+    order : int, optional
+        Fourier order for coil curves (default: 16).
+    verbose : bool, optional
+        Print iteration progress (default: False).
+    regularization : Callable | None, optional
+        Coil regularization (default: regularization_circ).
+    coil_objective_terms : Dict[str, Any] | None, optional
+        Case config for constraints (length, curvature, MSC, force, torque, etc.).
+    initial_coils : list | None, optional
+        Coils from previous Fourier step; if set, skips initialization.
+    surface_resolution : int, optional
+        Surface quadrature for evaluation (default: 32). Lower values speed up
+        optimization; use 8 for faster unit tests.
+    skip_post_processing : bool, optional
+        If True, skip QFM/VMEC/Poincaré (default: False).
+    case_path : Path | None, optional
+        Path to case.yaml for post-processing.
+    run_vmec, run_simple, plot_poincare, plot_boozer : bool, optional
+        Post-processing flags.
+    dipole_array : bool, optional
+        If True, use dipole + modular coil optimization. Surface file/params
+        are derived from s; TF coils from initialize_coils_loop.
+    **kwargs
+        algorithm, max_iter_subopt, thresholds (length_threshold, flux_threshold,
+        cc_threshold, cs_threshold, msc_threshold, curvature_threshold),
+        vc_target, dof_perturbation, poff, coff, dipole_coil_size,
+        Nx, dipole_order (dipole mode), dipole_coils_planar (default True;
+        assume CurvePlanarFourier), fix_shapes, fix_currents (any Curve),
+        fix_center, fix_orientation (CurvePlanarFourier only; when fix_shapes=True,
+        curvature/MSC penalties are not applied to dipole coils), etc.
+
+    Returns
+    -------
+    tuple
+        (coils, results) - optimized coils and metrics dict.
     """
     out_dir = Path(out_dir).resolve()
     
@@ -2307,14 +4463,183 @@ def optimize_coils_loop(
     
     # Use context manager to redirect output when needed
     redirect_context = _redirect_verbose_to_file(verbose_output_file) if verbose_output_file else _nullcontext()
-    
+
+    impl_kwargs = dict(kwargs)
+    if dipole_array:
+        impl_kwargs["dipole_array"] = True
+
     with redirect_context:
         return _optimize_coils_loop_impl(
             s, target_B, out_dir, max_iterations, ncoils, order, verbose,
             regularization, coil_objective_terms, initial_coils, surface_resolution,
             skip_post_processing, case_path, run_vmec, run_simple, plot_poincare,
-            plot_boozer, **kwargs
+            plot_boozer, **impl_kwargs
         )
+
+
+def _run_post_processing_after_optimization(
+    out_dir: Path,
+    s: Any,
+    case_path: Path | str | None,
+    run_vmec: bool,
+    run_simple: bool,
+    plot_poincare: bool,
+    plot_boozer: bool,
+    kwargs: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Run post-processing (QFM, Poincaré, VMEC, quasisymmetry) after coil optimization.
+
+    Resolves case.yaml path via case_path, out_dir, surface filename, and cases/
+    directory search. Runs run_post_processing if coils JSON exists. Returns empty
+    dict on failure or if coils not found.
+
+    Parameters
+    ----------
+    out_dir : Path
+        Output directory (contains biot_savart_optimized.json or coils.json).
+    s : Surface
+        Plasma surface (for filename-based case.yaml search).
+    case_path : Path | str | None
+        Case path hint (file or directory).
+    run_vmec, run_simple, plot_poincare, plot_boozer : bool
+        Post-processing flags.
+    kwargs : Dict[str, Any]
+        May contain plot_finite_build, finite_build_width, finite_build_height.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Post-processing results (quasisymmetry_average, loss_fraction, etc.) or {}.
+    """
+    try:
+        from .post_processing import run_post_processing
+
+        case_yaml_path = None
+        if case_path is not None:
+            case_path_obj = Path(case_path) if isinstance(case_path, str) else case_path
+            if case_path_obj.is_absolute() and case_path_obj.exists():
+                if case_path_obj.is_file():
+                    case_yaml_path = case_path_obj
+                elif case_path_obj.is_dir():
+                    case_yaml_path = case_path_obj / "case.yaml"
+                    if not case_yaml_path.exists():
+                        case_yaml_path = None
+            elif case_path_obj.exists():
+                case_yaml_path = case_path_obj.resolve()
+                if case_yaml_path.is_dir():
+                    case_yaml_path = case_yaml_path / "case.yaml"
+                    if not case_yaml_path.exists():
+                        case_yaml_path = None
+
+        if case_yaml_path is None or not case_yaml_path.exists():
+            case_yaml_path = out_dir / "case.yaml"
+        if not case_yaml_path.exists():
+            case_yaml_path = out_dir.parent / "case.yaml"
+
+        if case_yaml_path is None or not case_yaml_path.exists():
+            if hasattr(s, 'filename') and s.filename:
+                surface_dir = Path(s.filename).parent
+                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+                for path in [
+                    surface_dir / "case.yaml",
+                    surface_dir.parent / "case.yaml",
+                    Path("cases") / surface_stem / "case.yaml",
+                ]:
+                    if path.exists():
+                        case_yaml_path = path
+                        break
+
+        if case_yaml_path is None or not case_yaml_path.exists():
+            cases_dir = None
+            current_dir = Path(out_dir)
+            for _ in range(10):
+                potential_cases_dir = current_dir / "cases"
+                if potential_cases_dir.exists() and potential_cases_dir.is_dir():
+                    cases_dir = potential_cases_dir
+                    break
+                if current_dir.parent == current_dir:
+                    break
+                current_dir = current_dir.parent
+            if cases_dir is None:
+                cases_dir = Path("cases")
+
+            if cases_dir.exists():
+                import yaml as yaml_module
+                surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
+                for yaml_file in cases_dir.glob("*.yaml"):
+                    try:
+                        case_data = yaml_module.safe_load(yaml_file.read_text())
+                        if case_data and isinstance(case_data, dict):
+                            surface_in_case = case_data.get("surface_params", {}).get("surface", "")
+                            if surface_filename and surface_filename in surface_in_case:
+                                case_yaml_path = yaml_file.resolve()
+                                break
+                            if surface_in_case in surface_filename:
+                                case_yaml_path = yaml_file.resolve()
+                                break
+                    except Exception:
+                        continue
+
+        coils_json_path = out_dir / "biot_savart_optimized.json"
+        if not coils_json_path.exists():
+            coils_json_path = out_dir / "coils.json"
+
+        if not coils_json_path.exists():
+            print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
+            return {}
+
+        print("\nRunning post-processing (QFM, Poincaré plots, profiles)...")
+
+        helicity_n = 0
+        if case_yaml_path is not None and case_yaml_path.exists():
+            import yaml
+            try:
+                case_data = yaml.safe_load(case_yaml_path.read_text())
+                surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
+                if "qh" in surface_name or "qash" in surface_name:
+                    helicity_n = -1
+            except Exception:
+                pass
+
+        plasma_surfaces_dir = None
+        current_dir = Path(out_dir)
+        for _ in range(5):
+            potential_plasma_dir = current_dir / "plasma_surfaces"
+            if potential_plasma_dir.exists():
+                plasma_surfaces_dir = potential_plasma_dir
+                break
+            if current_dir.parent == current_dir:
+                break
+            current_dir = current_dir.parent
+
+        post_processing_results = run_post_processing(
+            coils_json_path=coils_json_path,
+            output_dir=out_dir,
+            case_yaml_path=case_yaml_path if (case_yaml_path is not None and case_yaml_path.exists()) else None,
+            plasma_surfaces_dir=plasma_surfaces_dir,
+            run_vmec=run_vmec,
+            helicity_m=1,
+            helicity_n=helicity_n,
+            ns=50,
+            plot_boozer=plot_boozer,
+            plot_poincare=plot_poincare,
+            nfieldlines=20,
+            run_simple=run_simple,
+            plot_finite_build=kwargs.get('plot_finite_build', False),
+            finite_build_width=kwargs.get('finite_build_width'),
+            finite_build_height=kwargs.get('finite_build_height'),
+        )
+        print("Post-processing complete!")
+        if 'quasisymmetry_average' in post_processing_results:
+            print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
+        return post_processing_results
+
+    except Exception as e:
+        print(f"Warning: Post-processing failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return {}
 
 
 def _optimize_coils_loop_impl(
@@ -2332,123 +4657,167 @@ def _optimize_coils_loop_impl(
     run_simple: bool = False,
     plot_poincare: bool = False,
     plot_boozer: bool = True,
+    dipole_array: bool = False,
     **kwargs):
     """
-    Internal implementation of optimize_coils_loop.
-    This function contains the actual optimization logic.
+    Internal implementation of modular coil optimization.
+
+    Performs the full pipeline: (1) initialize coils with target B-field or use
+    initial_coils for Fourier continuation; (2) create BiotSavart and save initial
+    state; (3) build constraint list from coil_objective_terms; (4) run augmented
+    Lagrangian or scipy (L-BFGS-B, BFGS, etc.); (5) save optimized coils and
+    compute metrics; (6) optionally run post-processing (QFM, VMEC, Poincaré).
+
+    Thresholds are scaled by minor radius (a0) unless overridden in kwargs.
+    Constraint scaling makes weights dimensionless. Supports virtual casing
+    target via kwargs['vc_target'].
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface.
+    target_B : float, optional
+        Target |B| on-axis in Tesla (default: 5.7).
+    out_dir : Path | str, optional
+        Output directory for VTK, JSON, plots.
+    max_iterations : int, optional
+        Maximum optimization iterations (default: 30).
+    ncoils : int, optional
+        Number of base coils (default: 4).
+    order : int, optional
+        Fourier order for coil curves (default: 16).
+    verbose : bool, optional
+        Print iteration progress (default: False).
+    regularization : Callable | None, optional
+        Coil regularization (default: regularization_circ).
+    coil_objective_terms : Dict[str, Any] | None, optional
+        Case config for constraints (length, curvature, MSC, force, torque, etc.).
+    initial_coils : list | None, optional
+        Coils from previous Fourier step; if set, skips initialization.
+    surface_resolution : int, optional
+        Surface quadrature for evaluation (default: 32).
+    skip_post_processing : bool, optional
+        If True, skip QFM/VMEC/Poincaré (default: False).
+    case_path : Path | None, optional
+        Path to case.yaml for post-processing.
+    run_vmec, run_simple, plot_poincare, plot_boozer : bool, optional
+        Post-processing flags.
+    **kwargs
+        Algorithm, thresholds, vc_target, dof_perturbation, etc.
+
+    Returns
+    -------
+    tuple
+        (coils, results) - optimized coils and metrics dict.
     """
     import time
-    from scipy.optimize import minimize
-    from simsopt.geo import SurfaceRZFourier
-    from simsopt.geo import LinkingNumber, CurveLength, CurveCurveDistance, ArclengthVariation
-    from simsopt.geo import LpCurveCurvature, CurveSurfaceDistance, MeanSquaredCurvature
-    from simsopt.objectives import SquaredFlux, QuadraticPenalty, Weight
-    from simsopt.field import BiotSavart, coils_to_vtk
-    from simsopt.field.force import LpCurveForce, LpCurveTorque
-    from simsopt.util import calculate_modB_on_major_radius
+    from simsopt.objectives import SquaredFlux
 
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-    
-    # nturns is constant for all cases (defined here so it's always available)
-    nturns = 200 # nturns = 200 to give reasonable upper bound on reactor scale forces
-    
-    # Check if this is a continuation step (initial_coils provided) to avoid duplicate work
-    is_continuation_step = initial_coils is not None
-    
-    # For continuation steps, reuse pre-computed thresholds/weights from kwargs if available
-    # This avoids recalculating thresholds and weights that don't change between continuation steps
-    if is_continuation_step and '_cached_thresholds' in kwargs:
-        # Use cached thresholds from first step
-        cached = kwargs['_cached_thresholds']
-        length_threshold = cached['length_threshold']
-        flux_threshold = cached['flux_threshold']
-        cc_threshold = cached['cc_threshold']
-        cs_threshold = cached['cs_threshold']
-        msc_threshold = cached['msc_threshold']
-        arclength_variation_threshold = cached['arclength_variation_threshold']
-        curvature_threshold = cached['curvature_threshold']
-        force_threshold = cached['force_threshold']
-        torque_threshold = cached['torque_threshold']
-        coil_width = cached['coil_width']
-        # a0 = minor-radius scale factor (ARIES_CS_MINOR_RADIUS / minor_radius); support legacy "R0" key
-        a0 = cached.get('a0', cached.get('R0'))
-        major_radius = cached.get('major_radius', s.major_radius())
-        minor_radius = cached.get('minor_radius', ARIES_CS_MINOR_RADIUS / a0 if a0 and a0 != 0 else 1.7)
-    else:
-        # First step or no cache: compute thresholds normally
-        # Set default constraint thresholds if not provided
-        # Defaults here are for ARIES-CS reactor (minor radius 1.7 m, 5.7 T)
-        length_threshold = kwargs.get('length_threshold', 200.0)
-        flux_threshold = kwargs.get('flux_threshold', 1e-8)
-        cc_threshold = kwargs.get('cc_threshold', 0.8)
-        cs_threshold = kwargs.get('cs_threshold', 1.3)
-        msc_threshold = kwargs.get('msc_threshold', 1.0)
-        arclength_variation_threshold = kwargs.get('arclength_variation_threshold', 0.0)
-        curvature_threshold = kwargs.get('curvature_threshold', 1.0)
 
-        coil_width = 0.4  # 0.4 m at reactor-scale is the default coil width
-        force_threshold = kwargs.get('force_threshold', 1.0) * nturns
-        torque_threshold = kwargs.get('torque_threshold', 1.0) * nturns
+    is_continuation_step = initial_coils is not None and not dipole_array
+    config = _parse_optimizer_config(s, kwargs, max_iterations, is_continuation_step=is_continuation_step)
+    algorithm = config['algorithm']
+    algorithm_options = config['algorithm_options']
+    max_iter_subopt = config['max_iter_subopt']
+    max_iterations = config['max_iterations']
+    th = config['thresholds']
+    length_threshold = th['length_threshold']
+    flux_threshold = th['flux_threshold']
+    cc_threshold = th['cc_threshold']
+    cs_threshold = th['cs_threshold']
+    msc_threshold = th['msc_threshold']
+    arclength_variation_threshold = th.get('arclength_variation_threshold', 0.0)
+    curvature_threshold = th['curvature_threshold']
+    force_threshold = th['force_threshold']
+    torque_threshold = th['torque_threshold']
+    coil_width = th.get('coil_width', 0.4 / th['a0'])
+    major_radius = th['major_radius']
 
-        # Rescale thresholds by plasma minor radius (consistent with post_processing vmec_RZ_scale)
-        # a0 = ARIES_CS_MINOR_RADIUS / minor_radius scales device-size thresholds to reactor scale
-        major_radius = s.major_radius()  # Major radius in meters [L]
-        minor_radius = float(s.minor_radius())  # Minor radius in meters [L]
-        a0 = ARIES_CS_MINOR_RADIUS / minor_radius  # Minor-radius scale factor (same convention as vmec_RZ_scale)
-        if 'length_threshold' not in kwargs:
-            length_threshold /= a0
-        if 'cc_threshold' not in kwargs:
-            cc_threshold /= a0
-        if 'cs_threshold' not in kwargs:
-            cs_threshold /= a0
-        if 'curvature_threshold' not in kwargs:
-            curvature_threshold *= a0
-        if 'msc_threshold' not in kwargs:
-            msc_threshold *= a0
-        if 'arclength_variation_threshold' not in kwargs:
-            arclength_variation_threshold *= a0 ** 2
-        # coil_width is not a threshold parameter, so always scale it
-        coil_width /= a0
-
-    # CI autopilot hard cap: clamp max_iterations to 10 000
-    _CI_MAX_ITER_CAP = 10_000
-    if max_iterations > _CI_MAX_ITER_CAP:
-        print(
-            f"Warning: max_iterations ({max_iterations}) exceeds CI cap "
-            f"({_CI_MAX_ITER_CAP}); clamping."
-        )
-        max_iterations = _CI_MAX_ITER_CAP
-
-    # If there is a suboptimization, set the max iterations 
-    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 50)
-    algorithm = kwargs.get('algorithm', 'augmented_lagrangian')
-    
-    # Normalize algorithm name (handle case variations)
-    if isinstance(algorithm, str):
-        algorithm_lower = algorithm.lower()
-        if algorithm_lower in ['l-bfgs', 'lbfgs', 'l-bfgs-b']:
-            algorithm = 'L-BFGS-B'
-        elif algorithm_lower == 'augmented_lagrangian':
-            algorithm = 'augmented_lagrangian'
-        # Keep other algorithm names as-is (they should match scipy method names)
-    
-    # Extract algorithm-specific options from kwargs
-    # These will be passed to scipy.minimize for scipy algorithms
-    # First check for nested 'algorithm_options' dict
-    algorithm_options = kwargs.get('algorithm_options', {}).copy()
-    
-    # Also look for algorithm-specific options directly in kwargs (for convenience)
-    # This allows users to specify options like 'maxls' directly in optimizer_params
-    # instead of requiring a nested algorithm_options dict
-    valid_algo_options = _get_scipy_algorithm_options(algorithm)
-    for opt_name in valid_algo_options:
-        if opt_name in kwargs and opt_name not in algorithm_options:
-            algorithm_options[opt_name] = kwargs[opt_name]
-
-    # Step 1: Initialize coils with target B-field
+    # Step 1: Initialize coils (TF coils) and optionally dipole coils
+    dipole_coils = None
+    ncoils_dipole = 0
+    base_curves_dipole = []
+    base_curves_TF = []
+    fix_shapes = False
     with timed_section("coil_initialization", print_time=False):
-        if initial_coils is None:
+        if dipole_array:
+            continuation_ncoils_dipole = kwargs.get('continuation_ncoils_dipole')
+            continuation_base_dipole = kwargs.get('continuation_base_curves_dipole')
+            continuation_base_TF = kwargs.get('continuation_base_curves_TF')
+            if initial_coils is not None and continuation_ncoils_dipole is not None and continuation_base_dipole is not None and continuation_base_TF is not None:
+                # Use quadpoints-based split: dipole coils (planar) have different quadpoints than
+                # TF coils (CurveXYZFourier). Extended TF coils use 200; dipole uses ~(order + 1) * 40.
+                # LpCurveForce requires source_coils_coarse/fine to have uniform quadpoints each.
+                nqp0 = len(initial_coils[0].curve.quadpoints)
+                split_idx = continuation_ncoils_dipole
+                for j in range(1, len(initial_coils)):
+                    if len(initial_coils[j].curve.quadpoints) != nqp0:
+                        split_idx = j
+                        break
+                dipole_coils = initial_coils[:split_idx]
+                coils = initial_coils[split_idx:]
+                ncoils_dipole = split_idx
+                # Use the passed base curves directly — the caller computed them correctly.
+                # Recomputing from dipole_coils[::ntoroidal] can double-count when dipole and
+                # extended TF coils share the same quadpoints (e.g. both 200), causing the
+                # quadpoints loop to never find a split and split_idx to be wrong.
+                base_curves_dipole = list(continuation_base_dipole)
+                base_curves_TF = list(continuation_base_TF)
+            else:
+                surface_file, surface_params = _surface_file_and_params_from_s(s)
+                Nx = kwargs.get('Nx', 4)
+                dipole_order = kwargs.get('dipole_order', 2)
+                with suppress_output():
+                    coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
+                    all_coils, base_curves_dipole, base_curves_TF, ncoils_dipole, _ = initialize_coils_dipole(
+                    s,
+                    surface_file=surface_file,
+                    surface_params=surface_params,
+                    Nx=Nx,
+                    dipole_order=dipole_order,
+                    out_dir=out_dir,
+                    base_coils_TF=coils,
+                    ncoils_TF=ncoils,
+                    **{k: v for k, v in kwargs.items() if k in ("poff", "coff", "Ny", "Nz", "dipole_coil_size", "remove_inboard_eps")},
+                )
+                print(len(all_coils), len(base_curves_dipole), len(base_curves_TF), ncoils_dipole)
+                dipole_coils = all_coils[:ncoils_dipole]
+                coils = all_coils[ncoils_dipole:]
+            if not dipole_coils:
+                print(
+                    "Warning: All dipole coils were removed by inboard/interlinking filters. "
+                    "Try increasing poff/coff or less aggressive remove_inboard_eps in coils_params."
+                )
+            dipole_coils_planar = kwargs.get('dipole_coils_planar', True)
+            fix_shapes = kwargs.get('fix_shapes', False)
+            fix_currents = kwargs.get('fix_currents', False)
+            fix_center = kwargs.get('fix_center', False)
+            fix_orientation = kwargs.get('fix_orientation', False)
+            for c in dipole_coils:
+                if fix_shapes and hasattr(c.curve, 'fix_all'):
+                    c.curve.fix_all()
+                if fix_currents and hasattr(c.current, 'fix_all'):
+                    c.current.fix_all()
+                if dipole_coils_planar and (fix_center or fix_orientation) and hasattr(c.curve, 'fix'):
+                    names = getattr(c.curve, 'local_dof_names', None) or getattr(c.curve, 'dof_names', None)
+                    if names is not None:
+                        for i, name in enumerate(names):
+                            if not name:
+                                continue
+                            n = str(name)
+                            if fix_center and n in ('X', 'Y', 'Z'):
+                                try:
+                                    c.curve.fix(i)
+                                except Exception:
+                                    pass
+                            elif fix_orientation and n in ('q0', 'qi', 'qj', 'qk'):
+                                try:
+                                    c.curve.fix(i)
+                                except Exception:
+                                    pass
+        elif initial_coils is None:
             with suppress_output():
                 coils = initialize_coils_loop(s, out_dir=out_dir, target_B=target_B, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
             # Apply random DOF perturbation to break determinism if requested
@@ -2470,7 +4839,7 @@ def _optimize_coils_loop_impl(
     # This makes force/torque thresholds and weights dimensionless relative to reactor scale
     current_scale_factor = 1.0  # Default: no scaling
     total_current_reactor_scale = None  # Will be set if needed for weight scaling
-    if not is_continuation_step and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
+    if not is_continuation_step and not dipole_array and ('force_threshold' not in kwargs or 'torque_threshold' not in kwargs):
         with suppress_output():
             coils_backup = initialize_coils_loop(s, out_dir=out_dir, ncoils=ncoils, order=order, coil_width=coil_width, regularization=regularization)
         # Sum the unique base coils to get total current
@@ -2482,380 +4851,152 @@ def _optimize_coils_loop_impl(
             torque_threshold *= current_scale_factor
 
     # Extract base curves and currents from the initialized coils
-    base_curves = [coil.curve for coil in coils[:ncoils]]
-    
-    # Step 2: Create plotting surface for visualization
-    # Use surface_resolution for plotting (can be upsampled, but respect the surface_resolution parameter)
-    # For tests, use lower upsampling factor to speed things up
-    plot_upsample_factor = kwargs.get('plot_upsample_factor', 2)
-    # Use surface_resolution directly, don't override with len(s.quadpoints_phi) which may be higher
-    base_resolution = surface_resolution
-    qphi = plot_upsample_factor * base_resolution
-    qtheta = plot_upsample_factor * base_resolution
-    quadpoints_phi = np.linspace(0, 1, qphi)
-    quadpoints_theta = np.linspace(0, 1, qtheta)
-    
-    # Create a plotting surface (full torus)
-    # Handle case where surface was created manually (no filename)
-    if hasattr(s, 'filename') and s.filename is not None:
-        s_plot = SurfaceRZFourier.from_vmec_input(
-            s.filename,
-            range="full torus",
-            quadpoints_phi=quadpoints_phi,
-            quadpoints_theta=quadpoints_theta,
-            nfp=s.nfp,
-            stellsym=s.stellsym
-        )
+    if dipole_array:
+        base_curves = (list(base_curves_TF) if fix_shapes else list(base_curves_dipole) + list(base_curves_TF))
     else:
-        # Create surface manually with same parameters
-        s_plot = SurfaceRZFourier(
-            nfp=s.nfp,
-            stellsym=s.stellsym,
-            mpol=s.mpol,
-            ntor=s.ntor,
-            quadpoints_phi=quadpoints_phi,
-            quadpoints_theta=quadpoints_theta
-        )
-    
-    # Copy the surface coefficients
-    for m in range(s.mpol + 1):
-        for n in range(-s.ntor, s.ntor + 1):
-            if s.get_rc(m, n) != 0:
-                s_plot.set_rc(m, n, s.get_rc(m, n))
-            if s.get_zs(m, n) != 0:
-                s_plot.set_zs(m, n, s.get_zs(m, n))
+        base_curves = [coil.curve for coil in coils[:ncoils]]
+
+    # Step 2: Create plotting surface for visualization
+    s_plot, qphi, qtheta = _create_plotting_surface(s, surface_resolution, kwargs)
 
     # Step 3: Create BiotSavart object and save initial state
     with timed_section("biotsavart_setup", print_time=False):
-        bs = BiotSavart(coils)
-        with suppress_output():
-            calculate_modB_on_major_radius(bs, s)
-        curves = [c.curve for c in coils]
-        
-        # Save initial coils
-        try:
-            coils_to_vtk(coils, out_dir / "coils_initial")
-        except Exception as e:
-            print(f"Warning: Failed to save initial coils to VTK: {e}")
-            print("  Continuing optimization without VTK export...")
-        
-        # Calculate initial B-field (used for surface data)
-        bs.set_points(s_plot.gamma().reshape((-1, 3)))
-        with suppress_output():
-            B_initial = calculate_modB_on_major_radius(bs, s_plot)
-        
-        # Save initial surface data
-        bs.set_points(s_plot.gamma().reshape((-1, 3)))
-        pointData = {
-            "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
-                              s_plot.unitnormal(), axis=2)[:, :, None] / 
-                            bs.AbsB().reshape((qphi, qtheta, 1)),
-            "modB": bs.AbsB().reshape((qphi, qtheta, 1))
-        }
-        s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
-        
-        # Generate 3D visualization plot for initial coils
-        try:
-            _plot_bn_error_3d(
-                s_plot,
-                bs,
-                coils,
-                out_dir,
-                filename="bn_error_3d_plot_initial.pdf",
-                title="B_N/|B| Error on Plasma Surface with Initial Coils",
-            )
-        except Exception as e:
-            print(f"Warning: Failed to generate initial 3D plot: {e}")
+        coils_for_bs = (dipole_coils + coils) if dipole_array else coils
+        bs, curves, B_initial = _setup_biotSavart_and_initial_save(
+            coils_for_bs, s, s_plot, qphi, qtheta, out_dir
+        )
 
     # Step 4: Define objective function and constraints
     objective_setup_start = time.perf_counter()
     bs.set_points(s.gamma().reshape((-1, 3)))
-    
+    dipole_coil_objective_terms = coil_objective_terms  # set for dipole; overwritten in dipole block
+
     # Main objective: Squared flux (always included)
-    # If virtual casing target is provided, use B_external_normal as the target
-    # Otherwise use default (zero normal field)
     vc_target = kwargs.get('vc_target', None)
     if vc_target is not None:
         print(f"Using virtual casing target for SquaredFlux (target shape: {vc_target.shape})")
         Jf = SquaredFlux(s, bs, target=vc_target, threshold=flux_threshold)
     else:
         Jf = SquaredFlux(s, bs, threshold=flux_threshold)
-    
-    # Build constraint terms based on coil_objective_terms configuration
-    # If coil_objective_terms is None or empty, omit all constraint objectives (only flux objective included)
-    # Only explicitly specified objectives in coil_objective_terms will be included
-    
-    # Prepare all constraint objects (create them regardless, but only add to c_list if specified)
-    Jls = [CurveLength(c) for c in base_curves]
-    
-    # Get p values for lp terms (default to 2)
-    curvature_p = coil_objective_terms.get("coil_curvature_p", 2) if coil_objective_terms else 2
-    force_p = coil_objective_terms.get("coil_coil_force_p", 2) if coil_objective_terms else 2
-    torque_p = coil_objective_terms.get("coil_coil_torque_p", 2) if coil_objective_terms else 2
-    
-    # Determine thresholds for distance and force/torque terms based on options
-    # Default to using thresholds (for backward compatibility with default behavior)
-    cc_thresh = cc_threshold
-    cs_thresh = cs_threshold
-    force_thresh = force_threshold
-    torque_thresh = torque_threshold
-    
-    # coil_coil_distance and coil_surface_distance are always included automatically
-    # They use CurveCurveDistance and CurveSurfaceDistance which handle thresholding internally
-    # No need to check coil_objective_terms for these - they're always enabled
-    
-    # Check if l1 (no threshold) or l1_threshold is specified for force/torque
-    # Only adjust thresholds if the term is explicitly specified in coil_objective_terms
-    if coil_objective_terms:
-        
-        coil_force_option = coil_objective_terms.get("coil_coil_force")
-        if coil_force_option and "threshold" in coil_force_option:
-            force_thresh = force_threshold
-        else:
-            force_thresh = 0.0
-        
-        coil_torque_option = coil_objective_terms.get("coil_coil_torque")
-        if coil_torque_option and "threshold" in coil_torque_option:
-            torque_thresh = torque_threshold
-        else:
-            torque_thresh = 0.0
-    
-    # Create distance and force/torque objects with appropriate thresholds
-    Jccdist = CurveCurveDistance(curves, cc_thresh, num_basecurves=ncoils)
-    Jcsdist = CurveSurfaceDistance(curves, s, cs_thresh)
-    Jalenvar = [ArclengthVariation(c) for c in base_curves]
-    Jcs = [LpCurveCurvature(c, 2, curvature_threshold) for c in base_curves]
-    Jlink = LinkingNumber(curves, downsample=2)
-    Jforce = LpCurveForce(coils[:ncoils], coils, p=force_p, threshold=force_thresh, downsample=2)
-    Jtorque = LpCurveTorque(coils[:ncoils], coils, p=torque_p, threshold=torque_thresh, downsample=2)
-    Jmscs = [MeanSquaredCurvature(c) for c in base_curves]
-    
-    # Update curvature with correct p value if specified
-    if coil_objective_terms and curvature_p != 2:
-        Jcs = [LpCurveCurvature(c, curvature_p, curvature_threshold) for c in base_curves]
 
-    # Print initial constraint values and weights (will be updated after building c_list and weights)
-    # This will be printed after weights are determined
-    
-    # Build constraint list dynamically based on coil_objective_terms
-    # coil_coil_distance and coil_surface_distance are always included automatically
-    # Other objectives are only included if explicitly specified in coil_objective_terms
-    # If coil_objective_terms is None or empty, only flux and distance objectives are included
-    c_list = [Jf]  # Always include flux
-    
-    # Always include coil_coil_distance and coil_surface_distance
-    # These use CurveCurveDistance and CurveSurfaceDistance which handle thresholding internally
-    cc_distance_idx = len(c_list)
-    c_list.append(Jccdist)
-    cs_distance_idx = len(c_list)
-    c_list.append(Jcsdist)
-    
-    # Track constraint names and thresholds for printing
-    constraint_names_and_thresholds = []
-    constraint_names_and_thresholds.append(("CC Distance", cc_threshold))
-    constraint_names_and_thresholds.append(("CS Distance", cs_threshold))
-    
-    # Track index of coil_surface_distance and coil_coil_distance constraints for heavy weighting
-    cs_distance_index = cs_distance_idx
-    cc_distance_index = cc_distance_idx
-    
-    # Build constraint list based on coil_objective_terms
-    # Map term names to constraint objects and penalty types
-    # Note: Thresholds for l1/l1_threshold/lp/lp_threshold are already set during object creation
-    # Only l2/l2_threshold options need QuadraticPenalty wrapping
-    # Initialize term_map (empty if no coil_objective_terms)
-    term_map = {}
-    if coil_objective_terms:
-        term_map = {
-            "total_length": {
-                "obj": sum(Jls),
-                "threshold": length_threshold,
-                "l1": lambda obj, thresh: obj,
-                "l1_threshold": lambda obj, thresh: obj,  # max(obj - threshold, 0)
-                "l2": lambda obj, thresh: QuadraticPenalty(obj, 0.0, "max"),
-                "l2_threshold": lambda obj, thresh: QuadraticPenalty(obj, thresh, "max"),
-            },
-            "coil_curvature": {
-                "obj": sum(Jcs),
-                "threshold": curvature_threshold,
-                "lp": lambda obj, thresh: obj,  # Threshold already set in object creation
-                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
-            },
-            "coil_arclength_variation": {
-                "obj": Jalenvar,
-                "threshold": arclength_variation_threshold,
-                "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
-                "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
-                "l1": lambda obj, thresh: sum(obj),
-                "l1_threshold": lambda obj, thresh: sum(obj)
-            },
-            "coil_mean_squared_curvature": {
-                "obj": Jmscs,
-                "threshold": msc_threshold,
-                "l2": lambda obj, thresh: sum([QuadraticPenalty(j, 0.0, "max") for j in obj]),
-                "l2_threshold": lambda obj, thresh: sum([QuadraticPenalty(j, thresh, "max") for j in obj]),
-                "l1": lambda obj, thresh: sum(obj),
-                "l1_threshold": lambda obj, thresh: sum(obj)
-            },
-            "linking_number": {
-                "obj": Jlink,
-                "threshold": None,
-                "": lambda obj, thresh: obj,
-            },
-            "coil_coil_force": {
-                "obj": Jforce,
-                "threshold": force_threshold,
-                "lp": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
-                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
-            },
-            "coil_coil_torque": {
-                "obj": Jtorque,
-                "threshold": torque_threshold,
-                "lp": lambda obj, thresh: obj,  # Threshold already set to 0.0 in object creation
-                "lp_threshold": lambda obj, thresh: obj,  # Threshold already set in object creation
-            },
+    if dipole_array:
+        dipole_coil_objective_terms = coil_objective_terms
+        if dipole_coil_objective_terms is None:
+            dipole_coil_objective_terms = {
+                "total_length": "l2_threshold",
+                "coil_curvature": "lp_threshold",
+                "coil_mean_squared_curvature": "l2_threshold",
+                "linking_number": "",
+                "coil_coil_force": "lp",
+            }
+        constraint_objs = _build_dipole_coil_constraint_objects(
+            curves,
+            base_curves_dipole,
+            base_curves_TF,
+            dipole_coils,
+            coils,
+            fix_shapes,
+            kwargs.get("fix_center", True),
+            kwargs.get("fix_orientation", True),
+            s,
+            cc_threshold,
+            cs_threshold,
+            curvature_threshold,
+            force_threshold,
+            torque_threshold,
+            dipole_coil_objective_terms,
+        )
+        Jls = constraint_objs["Jls"]
+        Jccdist = constraint_objs["Jccdist"]
+        Jcsdist = constraint_objs["Jcsdist"]
+        Jalenvar = constraint_objs["Jalenvar"]
+        Jcs = constraint_objs["Jcs"]
+        Jlink = constraint_objs["Jlink"]
+        Jforce = constraint_objs["Jforce"]
+        Jtorque = constraint_objs["Jtorque"]
+        Jmscs = constraint_objs["Jmscs"]
+
+        ncoils_dipoles = len(base_curves_dipole)
+        dipole_length_split = None
+        if not fix_shapes and ncoils_dipoles > 0 and "total_length" in (dipole_coil_objective_terms or {}):
+            from simsopt.geo import CurveLength
+            Jls_dipole = Jls[:ncoils_dipoles]
+            Jls_tf = Jls[ncoils_dipoles:]
+            initial_dipole_length = sum(float(CurveLength(c).J()) for c in base_curves_dipole)
+            length_threshold_dipole = float(
+                kwargs.get("length_threshold_dipole")
+                or (dipole_coil_objective_terms or {}).get("length_threshold_dipole", initial_dipole_length)
+            )
+            length_threshold_tf = float(length_threshold)
+            dipole_length_split = (Jls_dipole, Jls_tf, length_threshold_dipole, length_threshold_tf)
+
+        thresholds_for_build = {
+            "cc_threshold": cc_threshold,
+            "cs_threshold": cs_threshold,
+            "length_threshold": length_threshold,
+            "curvature_threshold": curvature_threshold,
+            "arclength_variation_threshold": arclength_variation_threshold,
+            "msc_threshold": msc_threshold,
+            "force_threshold": force_threshold,
+            "torque_threshold": torque_threshold,
         }
-    
-    # Map constraint indices to their scaling factors for dimensionless weights
-    # Use major_radius (with units [L]) for proper dimensional scaling
-    constraint_scaling = {}  # Maps constraint index to scaling factor
-    constraint_idx_to_term = {}  # Maps constraint index to term name for named weights
-    major_radius = s.major_radius()  # Major radius in meters [L]
-    
-    # Add scaling for always-included distance objectives
-    # CurveCurveDistance and CurveSurfaceDistance compute squared penalties, so units are [L^2]
-    # Weight scaling = 1 / (major_radius^2) to make weight * constraint dimensionless
-    constraint_scaling[cc_distance_idx] = 1.0 / (major_radius ** 2)  # [L^2] -> weight [1/L^2]
-    constraint_scaling[cs_distance_idx] = 1.0 / (major_radius ** 2)  # [L^2] -> weight [1/L^2]
-    
-    if coil_objective_terms:
-        for term_name, term_value in coil_objective_terms.items():
-            # Skip _p parameters (already handled above)
-            if term_name.endswith("_p"):
-                continue
-            if term_name in term_map:
-                term_config = term_map[term_name]
-                obj = term_config["obj"]
-                thresh = term_config["threshold"]
-                
-                if term_value in term_config:
-                    constraint = term_config[term_value](obj, thresh)
-                    constraint_idx = len(c_list)  # Index before appending
-                    c_list.append(constraint)
-                    
-                    # Scaling factors to make weight * constraint dimensionless
-                    # 
-                    # Base constraint units (from simsopt):
-                    # - Length/distance: [L] (m)
-                    # - Curvature: [1/L] for l1/l2, [1/L^(p-1)] for lp (LpCurveCurvature)
-                    # - Mean squared curvature: [1/L^2]
-                    # - Arclength variation: [L^2]
-                    # - Force: [F^p / L^(p-1)] where F is force per unit length [F/L] = [N/m]
-                    # - Torque: [T^p / L^(p-1)] where T is torque per unit length [T/L] = [N]
-                    # 
-                    # Penalty type affects final units:
-                    # - l1/l1_threshold: same as base constraint
-                    # - l2/l2_threshold: base units squared
-                    # - lp/lp_threshold: depends on constraint type (see below)
-                    
-                    # Get p value for lp penalties
-                    p_value = 2  # Default p value
-                    if term_value in ["lp", "lp_threshold"]:
-                        p_key = f"{term_name}_p"
-                        p_value = coil_objective_terms.get(p_key, 2)
-                    
-                    # Base scaling for l1/l1_threshold (linear penalties)
-                    # Weight scaling = 1 / (constraint units) to make weight * constraint dimensionless
-                    base_scaling = 1.0
-                    if term_name == "total_length":
-                        base_scaling = 1.0 / major_radius  # [L] -> weight needs [1/L]
-                    elif term_name == "coil_coil_distance":
-                        # CurveCurveDistance already computes squared penalty, so units are [L^2]
-                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
-                    elif term_name == "coil_surface_distance":
-                        # CurveSurfaceDistance already computes squared penalty, so units are [L^2]
-                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
-                    elif term_name == "coil_curvature":
-                        base_scaling = major_radius  # [1/L] -> weight needs [L]
-                    elif term_name == "coil_mean_squared_curvature":
-                        base_scaling = major_radius ** 2  # [1/L^2] -> weight needs [L^2]
-                    elif term_name == "coil_arclength_variation":
-                        base_scaling = 1.0 / (major_radius ** 2)  # [L^2] -> weight needs [1/L^2]
-                    elif term_name == "linking_number":
-                        base_scaling = 1.0  # Already dimensionless
-                    elif term_name in ["coil_coil_force", "coil_coil_torque"]:
-                        base_scaling = 1.0  # Handled in lp section (always uses lp/lp_threshold)
-                    
-                    # Adjust scaling for penalty type
-                    if term_value in ["l2", "l2_threshold"]:
-                        # Squared penalty: constraint units squared, so weight scaling squared
-                        if term_name == "total_length":
-                            constraint_scaling[constraint_idx] = base_scaling / major_radius  # [L^2] -> weight [1/L^2]
-                        # coil_coil_distance and coil_surface_distance already have squared units, handled above
-                        elif term_name == "coil_curvature":
-                            constraint_scaling[constraint_idx] = base_scaling * major_radius  # [1/L^2] -> weight [L^2]
-                        elif term_name == "coil_mean_squared_curvature":
-                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** 2)  # [1/L^4] -> weight [L^4]
-                        elif term_name == "coil_arclength_variation":
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** 2)  # [L^4] -> weight [1/L^4]
-                        else:
-                            constraint_scaling[constraint_idx] = base_scaling
-                    elif term_value in ["lp", "lp_threshold"]:
-                        # Lp penalty: units depend on constraint type
-                        if term_name == "coil_curvature":
-                            # LpCurveCurvature: (1/p) ∫ max(κ - κ₀, 0)^p dl has units [1/L^(p-1)]
-                            # Weight needs [L^(p-1)]: weight *= major_radius^(p-1)
-                            constraint_scaling[constraint_idx] = major_radius ** (p_value - 1)
-                        elif term_name in ["coil_coil_force", "coil_coil_torque"]:
-                            # LpCurveForce/LpCurveTorque: (1/p) ∫ max(|F| - F₀, 0)^p dℓ
-                            # F is force per unit length [F/L] = [N/m], so constraint has units [F^p / L^(p-1)]
-                            # Force scales with current^2: F ∝ I^2, so F^p ∝ I^(2p)
-                            # Weight needs [L^(p-1) / F^p] = [L^(p-1) / I^(2p)] to make weight * constraint dimensionless
-                            # 
-                            # To get units [L^(p-1)] (since weight * constraint must be dimensionless):
-                            #   weight *= major_radius^(p-1) / total_current^(2p)
-                            # This scales the weight inversely with current^(2p) to account for force scaling as I^2
-                            constraint_scaling[constraint_idx] = (major_radius ** (p_value - 1)) / (total_current ** (2 * p_value))
-                        elif term_name in ["total_length", "coil_coil_distance", "coil_surface_distance"]:
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (p_value - 1))  # [L^p] -> weight [1/L^p]
-                        elif term_name == "coil_mean_squared_curvature":
-                            constraint_scaling[constraint_idx] = base_scaling * (major_radius ** (2 * p_value - 2))  # [1/L^(2p)] -> weight [L^(2p)]
-                        elif term_name == "coil_arclength_variation":
-                            constraint_scaling[constraint_idx] = base_scaling / (major_radius ** (2 * p_value - 2))  # [L^(2p)] -> weight [1/L^(2p)]
-                        else:
-                            constraint_scaling[constraint_idx] = base_scaling
-                    elif term_value == "":
-                        # Empty string: for coil_coil_distance and coil_surface_distance
-                        # These already compute squared penalties internally, so units are [L^2]
-                        # Scaling already set correctly above (base_scaling = 1.0 / (major_radius ** 2))
-                        constraint_scaling[constraint_idx] = base_scaling
-                    else:
-                        # For l1/l1_threshold (linear penalties), use base scaling
-                        constraint_scaling[constraint_idx] = base_scaling
-                    
-                    # Track constraint name and threshold for printing
-                    name_map = {
-                        "total_length": ("Length", length_threshold),
-                        "coil_mean_squared_curvature": ("MSC", msc_threshold),
-                        "coil_arclength_variation": ("Arclength Var", arclength_variation_threshold),
-                        "coil_curvature": ("κ", curvature_threshold),
-                        "linking_number": ("Link #", None),
-                        "coil_coil_force": ("Force", force_threshold),
-                        "coil_coil_torque": ("Torque", torque_threshold),
-                    }
-                    if term_name in name_map:
-                        constraint_names_and_thresholds.append(name_map[term_name])
-                    
-                    # Track constraint index to term name mapping for named weights
-                    constraint_idx_to_term[constraint_idx] = term_name
-                else:
-                    print(f"Warning: Unknown option '{term_value}' for {term_name}, skipping")
+        c_list, constraint_scaling, cc_distance_idx, cs_distance_idx, constraint_names_and_thresholds, constraint_idx_to_term = (
+            _build_c_list_and_constraint_scaling_from_coil_objective_terms(
+                Jf, Jccdist, Jcsdist, Jls, Jcs, Jalenvar, Jmscs, Jlink, Jforce, Jtorque,
+                dipole_coil_objective_terms, thresholds_for_build, major_radius, total_current,
+                dipole_length_split=dipole_length_split,
+            )
+        )
+        cc_distance_index = cc_distance_idx
+        cs_distance_index = cs_distance_idx
+    else:
+        # Build constraint objects for modular coils
+        constraint_objs = _build_modular_coil_constraint_objects(
+            curves, base_curves, coils, ncoils, s,
+            cc_threshold, cs_threshold, curvature_threshold, force_threshold, torque_threshold,
+            coil_objective_terms,
+        )
+        Jls = constraint_objs["Jls"]
+        Jccdist = constraint_objs["Jccdist"]
+        Jcsdist = constraint_objs["Jcsdist"]
+        Jalenvar = constraint_objs["Jalenvar"]
+        Jcs = constraint_objs["Jcs"]
+        Jlink = constraint_objs["Jlink"]
+        Jforce = constraint_objs["Jforce"]
+        Jtorque = constraint_objs["Jtorque"]
+        Jmscs = constraint_objs["Jmscs"]
+
+        thresholds_for_build = {
+            "cc_threshold": cc_threshold,
+            "cs_threshold": cs_threshold,
+            "length_threshold": length_threshold,
+            "curvature_threshold": curvature_threshold,
+            "arclength_variation_threshold": arclength_variation_threshold,
+            "msc_threshold": msc_threshold,
+            "force_threshold": force_threshold,
+            "torque_threshold": torque_threshold,
+        }
+        c_list, constraint_scaling, cc_distance_idx, cs_distance_idx, constraint_names_and_thresholds, constraint_idx_to_term = (
+            _build_c_list_and_constraint_scaling_from_coil_objective_terms(
+                Jf, Jccdist, Jcsdist, Jls, Jcs, Jalenvar, Jmscs, Jlink, Jforce, Jtorque,
+                coil_objective_terms, thresholds_for_build, major_radius, total_current,
+            )
+        )
+        cs_distance_index = cs_distance_idx
+        cc_distance_index = cc_distance_idx
     
     # Record objective setup time
     objective_setup_time = time.perf_counter() - objective_setup_start
     from .post_processing import _timing_results
     _timing_results["objective_setup"] = objective_setup_time
-    
+
+    # Print coil counts before optimization
+    ncoils_tf_total = len(coils)
+    print(f"TF coils: {ncoils} unique, {ncoils_tf_total} total (before optimization)")
+    if dipole_array and dipole_coils is not None:
+        ncoils_dipole_unique = len(base_curves_dipole)
+        print(f"Dipole coils: {ncoils_dipole_unique} unique, {ncoils_dipole} total (before optimization)")
+
     # Step 5: Run optimization
     optimization_start = time.perf_counter()
     start_time = time.time()
@@ -2863,282 +5004,34 @@ def _optimize_coils_loop_impl(
     iterations_used = 0  # Track total iterations for CI reporting
     opt_result = None  # Scipy/minimize result for metadata (auglag does not provide this)
     
-    # Check if weight is specified for coil-surface distance and coil-coil distance constraints
-    cs_weight_specified = False
-    cc_weight_specified = False
-    if cs_distance_index is not None:
-        cs_weight_key = f'constraint_weight_{cs_distance_index}'
-        cs_weight_specified = cs_weight_key in kwargs
-    if cc_distance_index is not None:
-        cc_weight_key = f'constraint_weight_{cc_distance_index}'
-        cc_weight_specified = cc_weight_key in kwargs
-    
     if algorithm == "augmented_lagrangian":
-        # Apply weight to coil-surface distance and coil-coil distance for augmented_lagrangian
-        # Use specified weight or default to 1e3, then apply scaling
-        if cs_distance_index is not None:
-            # If weight is specified, use it; otherwise default to 1e3
-            if cs_weight_specified:
-                cs_weight = kwargs[f'constraint_weight_{cs_distance_index}']
-            else:
-                cs_weight = kwargs.get(f'constraint_weight_{cs_distance_index}', 1e3)
-            # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
-            if cs_distance_index in constraint_scaling:
-                cs_weight *= constraint_scaling[cs_distance_index]
-            c_list[cs_distance_index] = Weight(cs_weight) * c_list[cs_distance_index]
-        if cc_distance_index is not None:
-            # If weight is specified, use it; otherwise default to 1e3
-            if cc_weight_specified:
-                cc_weight = kwargs[f'constraint_weight_{cc_distance_index}']
-            else:
-                cc_weight = kwargs.get(f'constraint_weight_{cc_distance_index}', 1e3)
-            # Apply scaling to make weight dimensionless (always apply scaling for distance objectives)
-            if cc_distance_index in constraint_scaling:
-                cc_weight *= constraint_scaling[cc_distance_index]
-            c_list[cc_distance_index] = Weight(cc_weight) * c_list[cc_distance_index]
-        
-        # auglag_coils: simsopt.solve.augmented_lagrangian; some versions export via solve.__init__
-        try:
-            from simsopt.solve import augmented_lagrangian_method
-        except ImportError:
-            from simsopt.solve.augmented_lagrangian import augmented_lagrangian_method
-        import inspect
-        _alm_sig = inspect.signature(augmented_lagrangian_method)
-        _alm_params = set(_alm_sig.parameters.keys())
-        augmented_lagrangian_options = {
-            "MAXITER": max_iterations,
-            "MAXITER_lag": max_iter_subopt,
-            "verbose": verbose,
-        }
-        if "mu_init" in kwargs.keys():
-            augmented_lagrangian_options["mu_init"] = kwargs["mu_init"]
-        if "tau" in kwargs.keys():
-            augmented_lagrangian_options["tau"] = kwargs["tau"]
-        if "minimize_method" in kwargs.keys():
-            augmented_lagrangian_options["minimize_method"] = kwargs["minimize_method"]
-        # Filter to only params the function accepts
-        augmented_lagrangian_options = {k: v for k, v in augmented_lagrangian_options.items() if k in _alm_params}
-        _, _, lag_mul = augmented_lagrangian_method(
-            f=None,
-            equality_constraints=c_list,
-            **augmented_lagrangian_options,
-        )
-        # augmented_lagrangian_method doesn't return nit; estimate from settings
+        if dipole_array:
+            _apply_distance_weights_for_auglag(
+                c_list, constraint_scaling, cc_distance_index, cs_distance_index, kwargs,
+            )
+        else:
+            _apply_distance_weights_for_auglag(
+                c_list, constraint_scaling, cc_distance_index, cs_distance_index, kwargs
+            )
+        _run_augmented_lagrangian(c_list, max_iterations, max_iter_subopt, verbose, kwargs)
         iterations_used = max_iterations
     elif algorithm in ['BFGS', 'L-BFGS-B', 'SLSQP', 'Nelder-Mead', 'Powell', 'CG', 'Newton-CG', 'TNC', 'COBYLA', 'trust-constr']:
-        # Build weighted objective function from constraints
-        # c_list includes flux first, then other constraints
-        # Default weight is 1.0 for all constraints
-        weights = []
-        
-        # Mapping from term names to their weight parameter names in coil_objective_terms
-        term_to_weight_key = {
-            "total_length": "length_weight",
-            "coil_coil_distance": "cc_weight",
-            "coil_surface_distance": "cs_weight",
-            "coil_curvature": "curvature_weight",
-            "coil_arclength_variation": "arclength_variation_weight",
-            "coil_mean_squared_curvature": "msc_weight",
-            "coil_coil_force": "force_weight",
-            "coil_coil_torque": "torque_weight",
-            "linking_number": "linking_weight",
-        }
-        
-        for i, constraint in enumerate(c_list):
-            # Map constraint index to weight name (for backward compatibility)
-            # Flux (index 0) always has weight 1.0 (dimensionless)
-            if i == 0:
-                # Check for flux_weight in coil_objective_terms
-                if coil_objective_terms and "flux_weight" in coil_objective_terms:
-                    weights.append(float(coil_objective_terms["flux_weight"]))
-                else:
-                    weights.append(1.0)  # Flux weight default
-            else:
-                # For other constraints, try to get specific weight or default to 1.0
-                weight_key = f'constraint_weight_{i}'
-                weight_specified = weight_key in kwargs
-                weight = kwargs.get(weight_key, 1.0)
-                
-                # Check for named weight in coil_objective_terms (takes precedence)
-                term_name = constraint_idx_to_term.get(i)
-                if term_name and coil_objective_terms:
-                    weight_param = term_to_weight_key.get(term_name)
-                    if weight_param and weight_param in coil_objective_terms:
-                        weight = float(coil_objective_terms[weight_param])  # Convert to float (handles string "1e3")
-                        weight_specified = True
-                
-                # Apply weight to coil-surface distance and coil-coil distance constraints
-                # Use specified weight or default to 1e3 for distance constraints
-                if cs_distance_index is not None and i == cs_distance_index:
-                    # Check named weight first
-                    if coil_objective_terms and "cs_weight" in coil_objective_terms:
-                        weight = float(coil_objective_terms["cs_weight"])
-                        weight_specified = True
-                    elif cs_weight_specified:
-                        weight = kwargs[f'constraint_weight_{i}']
-                    else:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
-                elif cc_distance_index is not None and i == cc_distance_index:
-                    # Check named weight first
-                    if coil_objective_terms and "cc_weight" in coil_objective_terms:
-                        weight = float(coil_objective_terms["cc_weight"])
-                        weight_specified = True
-                    elif cc_weight_specified:
-                        weight = kwargs[f'constraint_weight_{i}']
-                    else:
-                        weight = kwargs.get(f'constraint_weight_{i}', 1e3)
-                
-                # Rescale weight to be dimensionless
-                # Always apply scaling for distance objectives (they have squared units)
-                # For other constraints, only apply if weight not explicitly specified
-                if i in constraint_scaling:
-                    if i in [cc_distance_idx, cs_distance_idx]:
-                        # Always apply scaling for distance objectives
-                        weight *= constraint_scaling[i]
-                    elif not weight_specified:
-                        # For other constraints, only if weight not explicitly specified
-                        weight *= constraint_scaling[i]
-                
-                weights.append(weight)
-        
-        # Create weighted sum of constraints
-        JF = sum([Weight(w) * c for c, w in zip(c_list, weights)])
-        
-        # Track iteration number for objective function
-        iteration_count = [0]  # Use list to allow modification in nested function
-
-        # Define the objective function and gradient
-        def objective(x: np.ndarray) -> float:
-            JF.x = x  # type: ignore[attr-defined]
-            J = JF.J()  # type: ignore[attr-defined]
-            iteration_count[0] += 1
-            if verbose and (iteration_count[0] == 1 or iteration_count[0] % 100 == 0):
-                grad = JF.dJ()  # type: ignore[attr-defined]
-                outstr = f"[{iteration_count[0]}]"
-                outstr += f" L={sum(J.J() for J in Jls):.2f}"
-                outstr += f", d_cc={Jccdist.shortest_distance():.2f}, d_cs={Jcsdist.shortest_distance():.2f}"
-                kappa_values = [c.kappa().max() for c in base_curves]
-                msc_values = [MeanSquaredCurvature(c).J() for c in base_curves]
-                kappa_str = ",".join([f"{k:.1f}" for k in kappa_values])
-                msc_str = ",".join([f"{m:.1f}" for m in msc_values])
-                outstr += f", κ=[{kappa_str}]"  # type: ignore[attr-defined]
-                outstr += f", MSC=[{msc_str}]"
-                outstr += f", LN={int(round(Jlink.J()))}"
-                outstr += f", F={Jforce.J():.2e}"
-                outstr += f", τ={Jtorque.J():.2e}"
-                outstr += f", ‖∇J‖={np.linalg.norm(grad):.1e}"
-                print(outstr)
-                
-                # Print weighted contributions of each objective term
-                contrib_parts = []
-                name_short = {"Flux": "J_f", "CC Distance": "d_cc", "CS Distance": "d_cs",
-                              "Length": "L", "MSC": "MSC", "Arclength Var": "Var",
-                              "κ": "κ", "Link #": "LN", "Force": "F", "Torque": "τ"}
-                # Flux contribution (index 0)
-                flux_contrib = weights[0] * c_list[0].J()
-                contrib_parts.append(f"{name_short.get('Flux', 'Flux')}={flux_contrib:.1e}")
-                # Other constraint contributions
-                for idx, (name, _) in enumerate(constraint_names_and_thresholds, start=1):
-                    if idx < len(c_list) and idx < len(weights):
-                        constraint_contrib = weights[idx] * c_list[idx].J()
-                        short = name_short.get(name, name)
-                        contrib_parts.append(f"{short}={constraint_contrib:.1e}")
-                contrib_str = "Objs: " + ", ".join(contrib_parts)
-                contrib_str += f", Total={J:.1e}"
-                print(contrib_str)
-            return J
-        
-        def gradient(x: np.ndarray) -> np.ndarray:
-            JF.x = x  # type: ignore[attr-defined]
-            return JF.dJ()  # type: ignore[attr-defined]
-        
-        # Taylor test to verify gradient computation
-        # Check that f(x + εh) ≈ f(x) + ε * ∇f(x) · h for small ε
-        # The error should decrease by at least a factor of 0.6 as ε decreases
-        x0 = JF.x.copy()  # type: ignore[attr-defined]
-        J0 = objective(x0)
-        grad0 = gradient(x0)
-        
-        # Generate random direction h (normalized)
-        np.random.seed(42)  # For reproducibility
-        h = np.random.randn(len(x0))
-        h = h / np.linalg.norm(h)
-        
-        # Test with small perturbation (decreasing epsilon)
-        epsilons = [1e-6, 1e-7, 1e-8]
-        errors = []
-        for eps in epsilons:
-            x_perturbed = x0 + eps * h
-            J_perturbed = objective(x_perturbed)
-            J_predicted = J0 + eps * np.dot(grad0, h)
-            error = abs(J_perturbed - J_predicted) / (abs(J0) + 1e-12)
-            errors.append(error)
-            
-            # if verbose:
-            #     print(f"Taylor test ε={eps:.1e}: error={error:.2e}")
-        
-        # Check that error decreases by at least a factor of 0.6 as epsilon decreases
-        # (epsilon decreases by factor of 10, so error should decrease by at least 0.6)
-        taylor_test_passed = True
-        for i in range(len(errors) - 1):
-            if errors[i] > 0:
-                error_ratio = errors[i + 1] / errors[i]
-                # Error should decrease, so ratio should be < 1.0
-                # We require it to decrease by at least factor of 0.6
-                if error_ratio > 0.6:
-                    print(f"WARNING: Taylor test failed: error ratio {error_ratio:.3f} > 0.6 "
-                          f"(ε={epsilons[i]:.1e} -> {epsilons[i+1]:.1e}, "
-                          f"error={errors[i]:.2e} -> {errors[i+1]:.2e})", file=sys.stderr)
-                    taylor_test_passed = False
-        
-        if not taylor_test_passed:
-            print("Gradient computation may be incorrect!", file=sys.stderr)
-        elif verbose:
-            print("Taylor test passed: error decreases as expected")
-        
-        # Restore original state
-        JF.x = x0  # type: ignore[attr-defined, assignment]
-        
-        # Build options dictionary, starting with defaults
-        options = {'maxiter': max_iterations}
-        # Set algorithm-specific tolerance defaults
-        if algorithm == 'L-BFGS-B':
-            # L-BFGS-B uses ftol and gtol, not tol
-            # Defaults: ftol=2.220446049250313e-09, gtol=1e-05
-            # Use scipy defaults to avoid premature convergence
-            # Note: Very strict tolerances (like 1e-12) can cause early convergence
-            # if the gradient norm drops below gtol quickly
-            options.setdefault('ftol', 1e-12)  # scipy default
-            options.setdefault('gtol', 1e-12)  # scipy default
-        elif algorithm == 'TNC':
-            options.setdefault('ftol', 1e-6)  # Reasonable default for TNC
-            options.setdefault('gtol', 1e-05)  # scipy default
-        elif algorithm in ['COBYLA']:
-            options.setdefault('tol', 1e-12)  # COBYLA uses tol
-        if algorithm in ['L-BFGS-B', 'TNC']:
-            if 'maxfun' not in options:
-                options['maxfun'] = max_iterations * 15000
-            if 'max_iter_subopt' in options:
-                options['maxfun'] = max_iter_subopt * 15000
-            # If user explicitly set maxfun in algorithm_options, it will override via options.update() below
-        
-        # Add user-specified algorithm-specific options
-        # Validate them first to catch errors early
-        if algorithm_options:
-            _validate_algorithm_options(algorithm, algorithm_options)
-            # Merge user options, allowing them to override defaults
-            options.update(algorithm_options)
-        
-        result = minimize(
-            fun=objective,
-            x0=JF.x,  # type: ignore[attr-defined]
-            method=algorithm,
-            jac=gradient,
-            options=options,
-        )
-        
-        # Record iterations and metadata from scipy result
-        iterations_used = getattr(result, 'nit', 0)
+        if dipole_array:
+            result, iterations_used = _run_scipy_minimize_for_modular_coils(
+                c_list, constraint_scaling, constraint_idx_to_term,
+                cc_distance_index, cs_distance_index, constraint_names_and_thresholds,
+                base_curves, Jls, Jccdist, Jcsdist, Jlink, Jforce, Jtorque,
+                dipole_coil_objective_terms, algorithm, max_iterations, algorithm_options,
+                verbose, kwargs,
+            )
+        else:
+            result, iterations_used = _run_scipy_minimize_for_modular_coils(
+                c_list, constraint_scaling, constraint_idx_to_term,
+                cc_distance_index, cs_distance_index, constraint_names_and_thresholds,
+                base_curves, Jls, Jccdist, Jcsdist, Jlink, Jforce, Jtorque,
+                coil_objective_terms, algorithm, max_iterations, algorithm_options,
+                verbose, kwargs,
+            )
         opt_result = result
     
     end_time = time.time()
@@ -3147,364 +5040,184 @@ def _optimize_coils_loop_impl(
     
     # Start timing for save and metrics section
     save_metrics_start = time.perf_counter()
-    
-    # Calculate final total current (sum of unique base coils)
-    total_current_final = sum([c.current.get_value() for c in coils[:ncoils]])
-    
-    # Save optimized coils
-    try:
-        coils_to_vtk(coils, out_dir / "coils_optimized")
-    except Exception as e:
-        print(f"Warning: Failed to save optimized coils to VTK: {e}")
-        print("  Continuing without VTK export...")
-    bs.save(out_dir / "biot_savart_optimized.json")
-    
-    # Calculate final B-field (suppress simsopt Bmag output)
-    bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    with suppress_output():
-        B_final = calculate_modB_on_major_radius(bs, s_plot)
-    
-    # Save final surface data
-    bs.set_points(s_plot.gamma().reshape((-1, 3)))
-    pointData = {
-        "B_N": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
-                     s_plot.unitnormal(), axis=2)[:, :, None],
-        "B_N/|B|": np.sum(bs.B().reshape((qphi, qtheta, 3)) *
-                         s_plot.unitnormal(), axis=2)[:, :, None] /
-                    bs.AbsB().reshape((qphi, qtheta, 1)),
-        "modB": bs.AbsB().reshape((qphi, qtheta, 1))
-    }
-    s_plot.to_vtk(out_dir / "surface_optimized", extra_data=pointData)
-    
-    # Calculate final forces
-    # Try new coil.force() and coil.torque() API (pedro_simsopt), fall back to old API
-    if hasattr(coils[0], 'force') and hasattr(coils[0], 'torque'):
-        # New API: coil.force(coils) and coil.torque(coils)
-        max_force = [np.max(np.linalg.norm(c.force(coils), axis=1)) for c in coils[:ncoils]]
-        max_torque = [np.max(np.linalg.norm(c.torque(coils), axis=1)) for c in coils[:ncoils]]
-    else:
-        # Old API: coil_force(coil, coils) and coil_torque(coil, coils)
+
+    if dipole_array:
         try:
-            from simsopt.field.force import coil_force, coil_torque
-            max_force = [np.max(np.linalg.norm(coil_force(c, coils), axis=1)) for c in coils[:ncoils]]
-            max_torque = [np.max(np.linalg.norm(coil_torque(c, coils), axis=1)) for c in coils[:ncoils]]
-        except ImportError:
-            # Neither API available, use zeros as placeholder
-            max_force = [0.0] * ncoils
-            max_torque = [0.0] * ncoils
-    # Calculate final B_N metrics
-    # If virtual casing is used, we need to subtract B_external_normal from the coil B_N
-    vc_target = kwargs.get('vc_target', None)
-    
-    nphi = len(s.quadpoints_phi)
-    ntheta = len(s.quadpoints_theta)
-    bs.set_points(s.gamma().reshape((-1, 3)))
-    B_field = bs.B().reshape((nphi, ntheta, 3))
-    unit_normal = s.unitnormal().reshape((nphi, ntheta, 3))
-    BdotN_coils = np.sum(B_field * unit_normal, axis=2)  # B_N from coils
-    
-    if vc_target is not None:
-        # B_N error = |B_N_coils - B_external_normal|
-        # vc_target is B_external_normal from virtual casing
-        absBn = np.abs(BdotN_coils - vc_target)
-    else:
-        # Standard case: B_N error = |B_N_coils| (target is zero)
-        absBn = np.abs(BdotN_coils)
-    
-    abs_B = bs.AbsB().reshape((nphi, ntheta))
-    avg_BdotN_over_B = np.mean(absBn) / np.mean(abs_B) if np.mean(abs_B) > 0 else 0.0
-    
-    # For max calculation, use the same surface (with vc_target if available)
-    # Avoid division by very small numbers
-    abs_B_safe = np.where(abs_B > 1e-10, abs_B, 1e-10)
-    max_BdotN_overB = np.max(absBn / abs_B_safe) if np.any(abs_B > 0) else 0.0
-
-    # Check coil-surface interlinking: each base coil must encircle the
-    # plasma by having points both inside the torus hole and outside the
-    # plasma.  We compare each coil against the *local* surface
-    # cross-section at the coil's toroidal angle, not against the global
-    # R_min/R_max of the entire surface.  The global check fails on
-    # strongly-shaped stellarators (e.g. HSX) where the surface
-    # cross-section varies substantially with toroidal angle.
-    surface_gamma = s.gamma()
-    R_surface = np.sqrt(surface_gamma[:, :, 0]**2 + surface_gamma[:, :, 1]**2)
-
-    # Per-phi-slice R_min and R_max  (axis 1 = theta)
-    R_min_per_phi = np.min(R_surface, axis=1)   # (nphi,)
-    R_max_per_phi = np.max(R_surface, axis=1)   # (nphi,)
-
-    # Toroidal angle of each phi slice (use first theta point)
-    phi_surface_slices = np.arctan2(
-        surface_gamma[:, 0, 1], surface_gamma[:, 0, 0]
-    )  # (nphi,)
-
-    coils_linked_to_surface = True
-    for c in base_curves:
-        gamma = c.gamma()
-        R_coil = np.sqrt(gamma[:, 0]**2 + gamma[:, 1]**2)
-        phi_coil = np.arctan2(gamma[:, 1], gamma[:, 0])  # (npts,)
-
-        # For each coil point find the nearest surface phi slice
-        dphi = phi_coil[:, None] - phi_surface_slices[None, :]
-        dphi = np.abs(np.arctan2(np.sin(dphi), np.cos(dphi)))
-        nearest_phi_idx = np.argmin(dphi, axis=1)  # (npts,)
-
-        local_R_min = R_min_per_phi[nearest_phi_idx]  # (npts,)
-        local_R_max = R_max_per_phi[nearest_phi_idx]  # (npts,)
-
-        has_inside = np.any(R_coil < local_R_min)
-        has_outside = np.any(R_coil > local_R_max)
-        if not (has_inside and has_outside):
-            coils_linked_to_surface = False
-            break
-    
-    # Generate 3D visualization plot
-    try:
-        # Get vc_target_plot from kwargs if provided (for virtual casing cases)
-        vc_target_plot = kwargs.get('vc_target_plot', None)
-        _plot_bn_error_3d(
-            s_plot,
-            bs,
-            coils,
-            out_dir,
-            filename="bn_error_3d_plot.pdf",
-            title="B_N/|B| Error on Plasma Surface with Optimized Coils",
-            vc_target=vc_target_plot,
+            from simsopt.util import save_coil_sets
+            from simsopt.field import BiotSavart
+        except ImportError as e:
+            raise ImportError(
+                "Dipole coil optimization requires simsopt with auglag_coils branch "
+                "(save_coil_sets). Install from: "
+                "https://github.com/hiddenSymmetries/simsopt"
+            ) from e
+        btot_dipole = BiotSavart(dipole_coils) + BiotSavart(coils)
+        save_coil_sets(btot_dipole, str(out_dir) + "/", "_optimized")
+        out_dir_path = Path(out_dir)
+        btot_dipole.save(out_dir_path / "biot_savart_optimized.json")
+        # Save surface with B_N, B_N/|B|, modB (matches modular path)
+        btot_dipole.set_points(s_plot.gamma().reshape((-1, 3)))
+        pointData = {
+            "B_N": np.sum(btot_dipole.B().reshape((qphi, qtheta, 3)) *
+                          s_plot.unitnormal(), axis=2)[:, :, None],
+            "B_N/|B|": np.sum(btot_dipole.B().reshape((qphi, qtheta, 3)) *
+                              s_plot.unitnormal(), axis=2)[:, :, None] /
+                        btot_dipole.AbsB().reshape((qphi, qtheta, 1)),
+            "modB": btot_dipole.AbsB().reshape((qphi, qtheta, 1))
+        }
+        s_plot.to_vtk(out_dir_path / "surface_optimized", extra_data=pointData)
+        # Compute full metrics (same as modular path)
+        ncoils_dipole_all = len(coils_for_bs)
+        metrics = _compute_optimization_metrics(
+            btot_dipole, coils_for_bs, base_curves, ncoils_dipole_all,
+            s, s_plot, qphi, qtheta, kwargs
         )
-    except Exception as e:
-        print(f"Warning: Failed to generate 3D plot: {e}")
-    
+        B_final = metrics["B_final"]
+        max_force = metrics["max_force"]
+        max_torque = metrics["max_torque"]
+        avg_BdotN_over_B = metrics["avg_BdotN_over_B"]
+        max_BdotN_overB = metrics["max_BdotN_overB"]
+        coils_linked_to_surface = metrics["coils_linked_to_surface"]
+        total_current_final = metrics["total_current_final"]
+        try:
+            vc_target_plot = kwargs.get('vc_target_plot', None)
+            _plot_bn_error_3d(
+                s_plot,
+                btot_dipole,
+                coils_for_bs,
+                out_dir_path,
+                filename="bn_error_3d_plot.pdf",
+                title="B_N/|B| Error on Plasma Surface with Optimized Coils",
+                vc_target=vc_target_plot,
+            )
+        except Exception as e:
+            print(f"Warning: Failed to generate 3D plot: {e}")
+        # Compute dipole-only and TF-only metrics for separate reporting
+        dipole_metrics = _compute_coil_subset_metrics(
+            dipole_coils, base_curves_dipole, coils_for_bs, s, kwargs
+        )
+        tf_metrics = _compute_coil_subset_metrics(
+            coils, base_curves_TF, coils_for_bs, s, kwargs
+        )
+        coils_return = coils_for_bs
+    else:
+        metrics = _save_optimized_coils_and_compute_metrics(
+            coils, base_curves, ncoils, s, s_plot, qphi, qtheta, bs, out_dir, kwargs
+        )
+        B_final = metrics["B_final"]
+        max_force = metrics["max_force"]
+        max_torque = metrics["max_torque"]
+        avg_BdotN_over_B = metrics["avg_BdotN_over_B"]
+        max_BdotN_overB = metrics["max_BdotN_overB"]
+        coils_linked_to_surface = metrics["coils_linked_to_surface"]
+        total_current_final = metrics["total_current_final"]
+        coils_return = coils
+
     # Record save and metrics time
     save_metrics_time = time.perf_counter() - save_metrics_start
     _timing_results["save_and_metrics"] = save_metrics_time
-    
-    # Run post-processing: QFM surface, Poincaré plots, iota profiles, quasisymmetry profiles
-    # Skip if this is part of Fourier continuation (will run once at the end)
-    # Initialize post_processing_results to empty dict
-    post_processing_results = {}
-    
-    if not skip_post_processing:
-        try:
-            from .post_processing import run_post_processing
-            
-            # Determine case.yaml path for post-processing
-            # case_path should already be resolved to absolute path by optimize_coils
-            case_yaml_path = None
-            if case_path is not None:
-                case_path_obj = Path(case_path) if isinstance(case_path, str) else case_path
-                # If it's already absolute and exists, use it directly
-                if case_path_obj.is_absolute() and case_path_obj.exists():
-                    if case_path_obj.is_file():
-                        case_yaml_path = case_path_obj
-                    elif case_path_obj.is_dir():
-                        case_yaml_path = case_path_obj / "case.yaml"
-                        if not case_yaml_path.exists():
-                            case_yaml_path = None
-                elif case_path_obj.exists():
-                    # Resolve relative path
-                    case_yaml_path = case_path_obj.resolve()
-                    if case_yaml_path.is_dir():
-                        case_yaml_path = case_yaml_path / "case.yaml"
-                        if not case_yaml_path.exists():
-                            case_yaml_path = None
-            
-            # Check if case.yaml is in out_dir (from submit-case)
-            if case_yaml_path is None or not case_yaml_path.exists():
-                case_yaml_path = out_dir / "case.yaml"
-            if not case_yaml_path.exists():
-                # Try parent directory (for Fourier continuation subdirectories)
-                case_yaml_path = out_dir.parent / "case.yaml"
-            
-            # Also try searching relative to surface file and in cases directory
-            if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
-                # Try to find case.yaml relative to the surface file
-                surface_dir = Path(s.filename).parent
-                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
-                potential_case_paths = [
-                    surface_dir / "case.yaml",
-                    surface_dir.parent / "case.yaml",
-                    Path("cases") / surface_stem / "case.yaml",
-                ]
-                for path in potential_case_paths:
-                    if path.exists():
-                        case_yaml_path = path
-                        break
-            
-            # If still not found, search cases directory for YAML files that reference this surface
-            # First try to find cases directory relative to repo root (go up from out_dir)
-            if case_yaml_path is None or not case_yaml_path.exists():
-                cases_dir = None
-                current_dir = Path(out_dir)
-                for _ in range(10):  # Search up to 10 levels
-                    potential_cases_dir = current_dir / "cases"
-                    if potential_cases_dir.exists() and potential_cases_dir.is_dir():
-                        cases_dir = potential_cases_dir
-                        break
-                    if current_dir.parent == current_dir:  # Reached root
-                        break
-                    current_dir = current_dir.parent
-                
-                # Also try relative to current working directory
-                if cases_dir is None:
-                    cases_dir = Path("cases")
-                
-                if cases_dir.exists():
-                    import yaml as yaml_module
-                    surface_filename = Path(s.filename).name if hasattr(s, 'filename') and s.filename else ""
-                    for yaml_file in cases_dir.glob("*.yaml"):
-                        try:
-                            case_data = yaml_module.safe_load(yaml_file.read_text())
-                            if case_data and isinstance(case_data, dict):
-                                surface_in_case = case_data.get("surface_params", {}).get("surface", "")
-                                # Check if this case references the same surface file
-                                if surface_filename and surface_filename in surface_in_case:
-                                    case_yaml_path = yaml_file.resolve()
-                                    break
-                                elif surface_in_case in surface_filename:
-                                    case_yaml_path = yaml_file.resolve()
-                                    break
-                        except Exception:
-                            continue
-            
-            # Coils JSON path - check both biot_savart_optimized.json and coils.json
-            coils_json_path = out_dir / "biot_savart_optimized.json"
-            if not coils_json_path.exists():
-                coils_json_path = out_dir / "coils.json"
-            
-            if coils_json_path.exists():
-                print("\nRunning post-processing (QFM, Poincaré plots, profiles)...")
-                
-                # Determine helicity_n based on surface type (QA=0, QH=-1)
-                # Default to QA (helicity_n=0)
-                helicity_n = 0
-                if case_yaml_path.exists():
-                    import yaml
-                    try:
-                        case_data = yaml.safe_load(case_yaml_path.read_text())
-                        surface_name = case_data.get("surface_params", {}).get("surface", "").lower()
-                        # Check for QH surfaces
-                        if "qh" in surface_name or "qash" in surface_name:
-                            helicity_n = -1
-                    except Exception:
-                        pass  # Use default
-                
-                # Determine plasma_surfaces_dir - go up from output directory to find repo root
-                plasma_surfaces_dir = None
-                current_dir = Path(out_dir)
-                for _ in range(5):  # Search up to 5 levels
-                    potential_plasma_dir = current_dir / "plasma_surfaces"
-                    if potential_plasma_dir.exists():
-                        plasma_surfaces_dir = potential_plasma_dir
-                        break
-                    if current_dir.parent == current_dir:  # Reached root
-                        break
-                    current_dir = current_dir.parent
-                
-                post_processing_results = run_post_processing(
-                    coils_json_path=coils_json_path,
-                    output_dir=out_dir,
-                    case_yaml_path=case_yaml_path if case_yaml_path.exists() else None,
-                    plasma_surfaces_dir=plasma_surfaces_dir,  # Pass repo root plasma_surfaces directory
-                    run_vmec=run_vmec,
-                    helicity_m=1,
-                    helicity_n=helicity_n,
-                    ns=50,
-                    plot_boozer=plot_boozer,
-                    plot_poincare=plot_poincare,
-                    nfieldlines=20,
-                    run_simple=run_simple,
-                    plot_finite_build=kwargs.get('plot_finite_build', False),
-                    finite_build_width=kwargs.get('finite_build_width'),
-                    finite_build_height=kwargs.get('finite_build_height'),
-                )
-                print("Post-processing complete!")
-                if 'quasisymmetry_average' in post_processing_results:
-                    print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
-            else:
-                print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
-        except Exception as e:
-            print(f"Warning: Post-processing failed: {e}")
-            import traceback
-            traceback.print_exc()
-            post_processing_results = {}  # Initialize empty dict if post-processing failed
+
+    post_processing_results = (
+        _run_post_processing_after_optimization(
+            out_dir, s, case_path, run_vmec, run_simple, plot_poincare, plot_boozer, kwargs
+        )
+        if not skip_post_processing
+        else {}
+    )
     
     # Note: Individual file zipping is disabled - the entire submission directory
     # will be zipped by submit-case command after all files are written
-    
-    # Cache thresholds for continuation steps (remove internal cache key before returning)
-    cached_thresholds = {
-        'length_threshold': length_threshold,
-        'flux_threshold': flux_threshold,
-        'cc_threshold': cc_threshold,
-        'cs_threshold': cs_threshold,
-        'msc_threshold': msc_threshold,
-        'arclength_variation_threshold': arclength_variation_threshold,
-        'curvature_threshold': curvature_threshold,
-        'force_threshold': force_threshold,
-        'torque_threshold': torque_threshold,
-        'coil_width': coil_width,
-        'a0': a0,                        # Minor-radius scale factor: ARIES_CS_MINOR_RADIUS / minor_radius
-        'major_radius': major_radius,    # actual device major radius [m]
-        'minor_radius': minor_radius,    # actual device minor radius [m]
-    }
-    
-    # Prepare results dictionary
-    bs.set_points(s.gamma().reshape((-1, 3)))
-    results = {
-        'initial_B_field': B_initial,
-        'final_B_field': B_final,
-        'target_B_field': target_B,
-        'optimization_time': end_time - start_time,
-        'walltime_sec': end_time - start_time,
-        'iterations_used': iterations_used,
-        'final_squared_flux': Jf.J(),
-        'optimization_success': opt_result.success if opt_result is not None and hasattr(opt_result, 'success') else None,
-        'optimization_message': str(opt_result.message) if opt_result is not None and hasattr(opt_result, 'message') else None,
-        'optimization_nfev': getattr(opt_result, 'nfev', None) if opt_result is not None else None,
-        'optimization_njev': getattr(opt_result, 'njev', None) if opt_result is not None else None,
-        '_cached_thresholds': cached_thresholds,  # Store for continuation steps
-        'final_min_cs_separation': Jcsdist.shortest_distance(),
-        'final_min_cc_separation': Jccdist.shortest_distance(),
-        'final_length_per_coil': [float(CurveLength(c).J()) for c in base_curves],
-        'final_current_per_coil': [float(abs(coils[i].current.get_value())) for i in range(ncoils)],
-        'total_current_before': float(total_current),
-        'total_current_after': float(total_current_final),
-        'final_total_length': sum(CurveLength(c).J() for c in base_curves),
-        'final_max_curvature': max(np.max(c.kappa()) for c in base_curves),
-        'final_average_curvature': np.mean([c.kappa() for c in base_curves]),
-        'final_arclength_variation': np.mean([ArclengthVariation(c).J() for c in base_curves]),
-        'final_mean_squared_curvature': np.max([np.mean(c.kappa() ** 2) for c in base_curves]),
-        'final_linking_number': Jlink.J(),
-        'coils_linked_to_surface': coils_linked_to_surface,
-        'final_max_max_coil_force': np.max(max_force),
-        'final_avg_max_coil_force': np.mean(max_force),
-        'final_max_force_per_coil': [float(f) for f in max_force],
-        'final_max_torque_per_coil': [float(t) for t in max_torque],
-        'final_max_max_coil_torque': np.max(max_torque),
-        'final_avg_max_coil_torque': np.mean(max_torque),
-        'avg_BdotN_over_B': avg_BdotN_over_B,
-        'max_BdotN_over_B': max_BdotN_overB,
-        'lagrange_multipliers': lag_mul,
-        'output_directory': str(out_dir),
-        'flux_threshold': flux_threshold,
-        'cc_threshold': cc_threshold,
-        'cs_threshold': cs_threshold,
-        'msc_threshold': msc_threshold,
-        'arclength_variation_threshold': arclength_variation_threshold,
-        'curvature_threshold': curvature_threshold,
-        'force_threshold': force_threshold,
-        'torque_threshold': torque_threshold,
-    }
-    
-    # Merge post-processing results (quasisymmetry_average, loss_fraction, etc.) into results
-    if post_processing_results:
-        # Only include numeric/metric values, not objects like 'vmec' or 'qfm_surface'
-        for key, value in post_processing_results.items():
-            if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
-                if isinstance(value, (int, float)):
-                    results[key] = float(value)
-    
-    # Add timing results to output (printed in OPTIMIZATION RESULTS SUMMARY)
+
+    if dipole_array:
+        cached_thresholds = {k: v for k, v in th.items() if k in (
+            'length_threshold', 'flux_threshold', 'cc_threshold', 'cs_threshold',
+            'msc_threshold', 'arclength_variation_threshold', 'curvature_threshold',
+            'force_threshold', 'torque_threshold', 'coil_width', 'a0',
+            'major_radius', 'minor_radius',
+        )}
+        btot_dipole.set_points(s.gamma().reshape((-1, 3)))
+        results = _build_optimization_results_dict(
+            B_initial=B_initial,
+            B_final=B_final,
+            target_B=target_B,
+            end_time=end_time,
+            start_time=start_time,
+            iterations_used=iterations_used,
+            Jf=Jf,
+            Jcsdist=Jcsdist,
+            Jccdist=Jccdist,
+            Jlink=Jlink,
+            opt_result=opt_result,
+            cached_thresholds=cached_thresholds,
+            base_curves=base_curves,
+            coils=coils_for_bs,
+            ncoils=len(coils_for_bs),
+            total_current=total_current,
+            total_current_final=total_current_final,
+            max_force=max_force,
+            max_torque=max_torque,
+            avg_BdotN_over_B=avg_BdotN_over_B,
+            max_BdotN_overB=max_BdotN_overB,
+            coils_linked_to_surface=coils_linked_to_surface,
+            lag_mul=None,
+            out_dir=out_dir,
+            th=th,
+        )
+        # Backward compatibility: success, fun, nit (used by tests and evaluate)
+        results["success"] = results.get("optimization_success", True) if results.get("optimization_success") is not None else True
+        results["fun"] = float(opt_result.fun) if opt_result is not None and hasattr(opt_result, 'fun') else 0.0
+        results["nit"] = int(iterations_used)
+        # Fix total_current_after if metrics returned 0 (e.g. dipole coil API)
+        if results.get("total_current_after", 0) == 0 and results.get("final_current_per_coil"):
+            results["total_current_after"] = float(sum(results["final_current_per_coil"]))
+        # Separate dipole and TF coil metrics for dipole runs
+        results["dipole_metrics"] = dipole_metrics
+        results["tf_metrics"] = tf_metrics
+        if post_processing_results:
+            for key, value in post_processing_results.items():
+                if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
+                    if isinstance(value, (int, float)):
+                        results[key] = float(value)
+    else:
+        cached_thresholds = {k: v for k, v in th.items() if k in (
+            'length_threshold', 'flux_threshold', 'cc_threshold', 'cs_threshold',
+            'msc_threshold', 'arclength_variation_threshold', 'curvature_threshold',
+            'force_threshold', 'torque_threshold', 'coil_width', 'a0',
+            'major_radius', 'minor_radius',
+        )}
+        bs.set_points(s.gamma().reshape((-1, 3)))
+        results = _build_optimization_results_dict(
+            B_initial=B_initial,
+            B_final=B_final,
+            target_B=target_B,
+            end_time=end_time,
+            start_time=start_time,
+            iterations_used=iterations_used,
+            Jf=Jf,
+            Jcsdist=Jcsdist,
+            Jccdist=Jccdist,
+            Jlink=Jlink,
+            opt_result=opt_result,
+            cached_thresholds=cached_thresholds,
+            base_curves=base_curves,
+            coils=coils,
+            ncoils=ncoils,
+            total_current=total_current,
+            total_current_final=total_current_final,
+            max_force=max_force,
+            max_torque=max_torque,
+            avg_BdotN_over_B=avg_BdotN_over_B,
+            max_BdotN_overB=max_BdotN_overB,
+            coils_linked_to_surface=coils_linked_to_surface,
+            lag_mul=lag_mul,
+            out_dir=out_dir,
+            th=th,
+        )
+        if post_processing_results:
+            for key, value in post_processing_results.items():
+                if key in ['quasisymmetry_average', 'loss_fraction', 'BdotN', 'BdotN_over_B']:
+                    if isinstance(value, (int, float)):
+                        results[key] = float(value)
+
     results['timing'] = get_timing_results()
-    
-    return coils, results
+    return coils_return, results

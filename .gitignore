@@ -46,10 +46,6 @@ Thumbs.db
 htmlcov/
 .tox/
 
-# Documentation
-docs/_build/
-
-
 # Project specific
 submissions/
 docs/_build/

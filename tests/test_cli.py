@@ -427,6 +427,25 @@ def test_reactor_scale_returns_error_when_params_missing():
     assert "error" in result
 
 
+def test_reactor_scale_already_reactor_scaled_skips_scaling():
+    """When already_reactor_scaled=True, raw metrics are used as reactor-scale (L_scale=1, B_scale=1)."""
+    metrics = _make_metrics(
+        minor_radius=0.2, target_B=1.0,
+        final_min_cc_separation=0.5,
+        final_min_cs_separation=1.5,
+        final_total_length=200.0,
+        final_max_curvature=0.5,
+    )
+    result = _compute_reactor_scale_metrics(metrics, already_reactor_scaled=True)
+    assert result["scaling_factors"]["length_scale"] == 1.0
+    assert result["scaling_factors"]["B_field_scale"] == 1.0
+    assert result["scaling_factors"].get("already_reactor_scaled") is True
+    assert result["reactor_scale_min_cc_separation"] == 0.5
+    assert result["reactor_scale_min_cs_separation"] == 1.5
+    assert result["reactor_scale_total_length"] == 200.0
+    assert result["reactor_scale_max_curvature"] == 0.5
+
+
 def test_reactor_scale_length_scaling():
     """Lengths [m] should scale as L_scale = ARIES_CS_MINOR_RADIUS / minor_radius."""
     minor_radius = 0.2
@@ -554,6 +573,27 @@ def test_reactor_scale_n_turns_minimum_one():
     )
     result = _compute_reactor_scale_metrics(metrics)
     assert result["N_turns_per_coil"] == [1, 1]
+
+
+def test_reactor_scale_n_turns_from_currents_only():
+    """N_turns finite-build runs when only currents/lengths present (e.g. Zenodo coils).
+
+    When final_max_force_per_coil is missing, Jc model uses final_current_per_coil
+    to compute N_turns_jc; n_turns_force=1; total_superconductor_length_km is computed.
+    """
+    metrics = _make_metrics(
+        minor_radius=0.2, target_B=1.0,
+        final_total_length=40.0,
+        final_current_per_coil=[1e5, 1e5, 1e5, 1e5],  # 100 kA per coil
+        final_length_per_coil=[10.0, 10.0, 10.0, 10.0],
+    )
+    result = _compute_reactor_scale_metrics(metrics)
+    assert "N_turns_per_coil" in result
+    assert "N_turns_jc" in result
+    assert "total_superconductor_length_km" in result
+    assert result["N_turns_force"] == [1, 1, 1, 1]
+    # Jc-based N_turns should be > 1 for 100 kA coils at reactor scale
+    assert all(n >= 1 for n in result["N_turns_per_coil"])
 
 
 # ---------------------------------------------------------------------------

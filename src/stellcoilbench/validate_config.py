@@ -66,12 +66,13 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
                 "ncoils",
                 "order",
                 "coil_type",
-                "tf_configuration",
                 "Nx", "Ny", "Nz",
                 "dipole_order",
                 "poff", "coff",
-                "dipole_coil_size", "tf_coil_size",
+                "dipole_coil_size",
                 "remove_inboard_eps",
+                "dipole_coils_planar",
+                "fix_shapes", "fix_currents", "fix_center", "fix_orientation",
             }
             
             # Check for unknown parameters
@@ -85,7 +86,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             
             coil_type = coils_params.get("coil_type", "modular")
             if coil_type == "dipole":
-                pass  # dipole uses Nx, dipole_order, tf_configuration instead
+                pass  # dipole uses Nx, dipole_order; TF coils from initialize_coils_loop
             elif "ncoils" not in coils_params:
                 errors.append(
                     f"{file_prefix}coils_params must include 'ncoils' for modular coils. "
@@ -160,6 +161,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             # Valid threshold parameter names (these are extracted and passed as kwargs)
             valid_threshold_names = {
                 "length_threshold",
+                "length_threshold_dipole",
                 "cc_threshold",
                 "cs_threshold",
                 "curvature_threshold",

@@ -1,0 +1,16 @@
+{
+  "zenodo_id": "18497939",
+  "zenodo_title": "Coilsets and Scripts from Augmented Lagrangian Methods for Stellarator Coils",
+  "zenodo_doi": "10.5281/zenodo.18497939",
+  "zenodo_publication_date": "2026-02-05",
+  "citing_paper": {
+    "paper_id": "direct",
+    "paper_title": "",
+    "paper_authors": [],
+    "paper_year": null,
+    "arxiv_id": null
+  },
+  "paper_sources": [
+    "direct"
+  ]
+}

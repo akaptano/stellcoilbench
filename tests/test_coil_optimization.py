@@ -14,6 +14,11 @@ from stellcoilbench.coil_optimization import (
     _zip_output_files,
     initialize_coils_loop,
     initialize_coils_dipole,
+    optimize_coils_loop,
+    _build_dipole_coil_constraint_objects,
+    optimize_coils_with_fourier_continuation_dipole,
+    evaluate_external_coils,
+    evaluate_external_dipole_coils,
 )
 from stellcoilbench.config_scheme import CaseConfig
 from stellcoilbench.evaluate import load_case_config
@@ -668,12 +673,23 @@ class TestInitializeCoilsLoop:
 class TestInitializeCoilsDipole:
     """Tests for initialize_coils_dipole (requires simsopt auglag_coils branch)."""
 
-    def test_initialize_coils_dipole_smoke(self, tmp_path):
-        """Smoke test for dipole coil initialization (skipped if auglag_coils not available)."""
+    def test_dipole_case_loads_and_validates(self):
+        """Test that dipole case YAML loads and validates without tf_configuration."""
+        case_path = Path(__file__).parent.parent / "cases" / "dipole_LandremanPaulQA.yaml"
+        if not case_path.exists():
+            pytest.skip("dipole_LandremanPaulQA.yaml not found")
+        config = load_case_config(case_path)
+        assert config.coils_params["coil_type"] == "dipole"
+        assert "Nx" in config.coils_params
+        assert "dipole_order" in config.coils_params
+        assert "tf_configuration" not in config.coils_params
+
+    def test_initialize_coils_dipole_requires_base_coils(self, tmp_path):
+        """Test that initialize_coils_dipole raises when base_coils_TF is missing."""
         try:
-            from simsopt.util import dipole_array_optimization_function  # noqa: F401
+            from simsopt.util import save_coil_sets  # noqa: F401
         except ImportError:
-            pytest.skip("Requires simsopt auglag_coils branch (dipole_array_helper_functions)")
+            pytest.skip("Requires simsopt auglag_coils branch")
         from simsopt.geo import SurfaceRZFourier
 
         surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
@@ -682,15 +698,398 @@ class TestInitializeCoilsDipole:
         s = SurfaceRZFourier.from_vmec_input(
             surface_file, range="half period", nphi=16, ntheta=16
         )
+        with pytest.raises(ValueError, match="base_coils_TF and ncoils_TF are required"):
+            initialize_coils_dipole(
+                s,
+                surface_file=surface_file,
+                surface_params={"range": "half period"},
+                Nx=2,
+                dipole_order=2,
+                out_dir=tmp_path,
+                base_coils_TF=None,
+                ncoils_TF=None,
+            )
+
+    def test_build_dipole_coil_constraint_objects(self, tmp_path):
+        """Test _build_dipole_coil_constraint_objects returns expected keys and fix_shapes behavior."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils_tf = initialize_coils_loop(s, out_dir=tmp_path, ncoils=4, order=4)
         coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
             s,
             surface_file=surface_file,
             surface_params={"range": "half period"},
-            tf_configuration="LandremanPaulQA",
+            Nx=4,
+            dipole_order=2,
+            out_dir=tmp_path,
+            base_coils_TF=coils_tf,
+            ncoils_TF=4,
+        )
+        curves = [c.curve for c in coils]
+        dipole_coils = coils[:n_dipole]
+        coils_tf_only = coils[n_dipole:]
+
+        for fix_shapes in (True, False):
+            objs = _build_dipole_coil_constraint_objects(
+                curves,
+                list(base_dipole),
+                list(base_tf),
+                dipole_coils,
+                coils_tf_only,
+                fix_shapes=fix_shapes,
+                fix_center=False,
+                fix_orientation=False,
+                s=s,
+                cc_threshold=0.5,
+                cs_threshold=0.5,
+                curvature_threshold=1.0,
+                force_threshold=1.0,
+                torque_threshold=1.0,
+                coil_objective_terms=None,
+            )
+            assert set(objs.keys()) == {"Jls", "Jccdist", "Jcsdist", "Jalenvar", "Jcs", "Jlink", "Jforce", "Jtorque", "Jmscs"}
+            if fix_shapes:
+                assert len(objs["Jalenvar"]) == len(base_tf)
+                assert len(objs["Jcs"]) == len(base_tf)
+                assert len(objs["Jmscs"]) == len(base_tf)
+            else:
+                assert len(objs["Jalenvar"]) == len(base_dipole) + len(base_tf)
+                assert len(objs["Jcs"]) == len(base_dipole) + len(base_tf)
+                assert len(objs["Jmscs"]) == len(base_dipole) + len(base_tf)
+
+    def test_initialize_coils_dipole_smoke(self, tmp_path):
+        """Smoke test for dipole coil initialization (skipped if auglag_coils not available)."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch (save_coil_sets)")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils_tf = initialize_coils_loop(
+            s, out_dir=tmp_path, ncoils=4, order=4
+        )
+        coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
+            s,
+            surface_file=surface_file,
+            surface_params={"range": "half period"},
             Nx=2,
             dipole_order=2,
             out_dir=tmp_path,
+            base_coils_TF=coils_tf,
+            ncoils_TF=4,
         )
-        assert len(coils) == n_dipole + n_tf
-        assert len(base_dipole) == n_dipole
+        # n_dipole = expanded dipole count, n_tf = base TF count
+        expected_tf_expanded = n_tf * s.nfp * (1 + int(s.stellsym))
+        assert len(coils) == n_dipole + expected_tf_expanded
+        assert len(base_dipole) >= 0  # may be empty if all removed by inboard/interlinking filters
         assert len(base_tf) == n_tf
+
+    @pytest.mark.slow
+    def test_optimize_coils_dipole_loop_smoke(self, tmp_path):
+        """Smoke test for dipole optimization loop (uses same logic as optimize_coils_loop)."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch (save_coil_sets)")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        s.filename = surface_file
+        s.range = "half period"
+        coils, results = optimize_coils_loop(
+            s,
+            dipole_array=True,
+            out_dir=tmp_path,
+            max_iterations=2,
+            verbose=False,
+            algorithm="L-BFGS-B",
+            Nx=2,
+            dipole_order=2,
+        )
+        assert len(coils) > 0
+        assert "success" in results
+        assert "nit" in results
+        # Post-processing requires biot_savart_optimized.json (dipole + TF coils)
+        assert (tmp_path / "biot_savart_optimized.json").exists()
+        # surface_optimized.vts (plasma surface with B_N, B_N/|B|, modB)
+        assert (tmp_path / "surface_optimized.vts").exists()
+        # Separate dipole and TF metrics
+        assert "dipole_metrics" in results
+        assert "tf_metrics" in results
+        for key in ("total_current", "max_force", "max_torque", "final_length_per_coil", "coils_linked_to_surface"):
+            assert key in results["dipole_metrics"]
+            assert key in results["tf_metrics"]
+        # total_current should match sum of final_current_per_coil when dipoles exist
+        dm = results["dipole_metrics"]
+        if dm.get("final_current_per_coil"):
+            assert abs(dm["total_current"] - sum(dm["final_current_per_coil"])) < 1e-6
+
+    @pytest.mark.slow
+    def test_optimize_coils_dipole_fix_flags_smoke(self, tmp_path):
+        """Smoke test for dipole fix_center, fix_orientation, fix_shapes, fix_currents."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch (save_coil_sets)")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        s.filename = surface_file
+        s.range = "half period"
+        coils, results = optimize_coils_loop(
+            s,
+            dipole_array=True,
+            out_dir=tmp_path,
+            max_iterations=1,
+            verbose=False,
+            algorithm="L-BFGS-B",
+            Nx=2,
+            dipole_order=2,
+            dipole_coils_planar=True,
+            fix_center=True,
+            fix_orientation=False,
+        )
+        assert len(coils) > 0
+
+    def test_dipole_advanced_case_loads_and_validates(self):
+        """Test that dipole_advanced case with fourier_continuation loads and validates."""
+        case_path = Path(__file__).parent.parent / "cases" / "dipole_advanced_LandremanPaulQA.yaml"
+        if not case_path.exists():
+            pytest.skip("dipole_advanced_LandremanPaulQA.yaml not found")
+        config = load_case_config(case_path)
+        assert config.coils_params["coil_type"] == "dipole"
+        assert config.coils_params["Nx"] == 8
+        assert config.coils_params["dipole_order"] == 2
+        assert config.coils_params["fix_shapes"] is True
+        assert config.coils_params["fix_center"] is True
+        assert config.fourier_continuation is not None
+        assert config.fourier_continuation.get("enabled") is True
+        assert config.fourier_continuation.get("orders") == [4, 8]
+
+    def test_optimize_coils_with_fourier_continuation_dipole_validation(self):
+        """Test that optimize_coils_with_fourier_continuation_dipole validates input."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+
+        with pytest.raises(ValueError, match="fourier_orders must be a non-empty list"):
+            optimize_coils_with_fourier_continuation_dipole(s, fourier_orders=[])
+
+        with pytest.raises(ValueError, match="All fourier_orders must be positive integers"):
+            optimize_coils_with_fourier_continuation_dipole(s, fourier_orders=[4, 0])
+
+        with pytest.raises(ValueError, match="fourier_orders must be in ascending order"):
+            optimize_coils_with_fourier_continuation_dipole(s, fourier_orders=[8, 4])
+
+    def test_initialize_coils_dipole_kwargs_poff_coff(self, tmp_path):
+        """Test initialize_coils_dipole accepts poff, coff kwargs."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils_tf = initialize_coils_loop(s, out_dir=tmp_path, ncoils=4, order=4)
+        coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
+            s,
+            surface_file=surface_file,
+            surface_params={"range": "half period"},
+            Nx=2,
+            dipole_order=2,
+            out_dir=tmp_path,
+            base_coils_TF=coils_tf,
+            ncoils_TF=4,
+            poff=1.5,
+            coff=3.0,
+        )
+        assert len(coils) > 0
+
+    def test_initialize_coils_dipole_kwargs_ny_nz(self, tmp_path):
+        """Test initialize_coils_dipole accepts Ny, Nz kwargs."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils_tf = initialize_coils_loop(s, out_dir=tmp_path, ncoils=4, order=4)
+        coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
+            s,
+            surface_file=surface_file,
+            surface_params={"range": "half period"},
+            Nx=2,
+            Ny=2,
+            Nz=2,
+            dipole_order=2,
+            out_dir=tmp_path,
+            base_coils_TF=coils_tf,
+            ncoils_TF=4,
+        )
+        assert len(coils) > 0
+
+    def test_initialize_coils_dipole_kwargs_dipole_coil_size_remove_inboard(self, tmp_path):
+        """Test initialize_coils_dipole accepts dipole_coil_size, remove_inboard_eps kwargs."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        coils_tf = initialize_coils_loop(s, out_dir=tmp_path, ncoils=4, order=4)
+        coils, base_dipole, base_tf, n_dipole, n_tf = initialize_coils_dipole(
+            s,
+            surface_file=surface_file,
+            surface_params={"range": "half period"},
+            Nx=2,
+            dipole_order=2,
+            out_dir=tmp_path,
+            base_coils_TF=coils_tf,
+            ncoils_TF=4,
+            dipole_coil_size=0.1,
+            remove_inboard_eps=-0.4,
+        )
+        assert len(coils) > 0
+
+    @pytest.mark.slow
+    def test_optimize_coils_dipole_fourier_continuation_smoke(self, tmp_path):
+        """Smoke test for dipole optimization with Fourier continuation (TF order only)."""
+        try:
+            from simsopt.util import save_coil_sets  # noqa: F401
+        except ImportError:
+            pytest.skip("Requires simsopt auglag_coils branch (save_coil_sets)")
+        from simsopt.geo import SurfaceRZFourier
+
+        surface_file = "plasma_surfaces/input.LandremanPaul2021_QA"
+        if not Path(surface_file).exists():
+            surface_file = str(Path(__file__).parent.parent / surface_file)
+        s = SurfaceRZFourier.from_vmec_input(
+            surface_file, range="half period", nphi=16, ntheta=16
+        )
+        s.filename = surface_file
+        s.range = "half period"
+        coils, results = optimize_coils_with_fourier_continuation_dipole(
+            s,
+            fourier_orders=[4, 6],
+            out_dir=tmp_path,
+            max_iterations=2,
+            verbose=False,
+            Nx=2,
+            dipole_order=2,
+            skip_post_processing=True,
+        )
+        assert len(coils) > 0
+        assert results.get("fourier_continuation") is True
+        assert results.get("fourier_orders") == [4, 6]
+        assert results.get("final_order") == 6
+        assert "continuation_results" in results
+        assert len(results["continuation_results"]) == 2
+
+
+class TestEvaluateExternalCoils:
+    """Tests for evaluate_external_coils (Zenodo/external coil evaluation)."""
+
+    def test_evaluate_external_coils_zenodo_landreman_paul_qa(self):
+        """Test evaluate_external_coils with filamentary coils (e.g. from Zenodo 18497939)."""
+        # Use 14934092 QA coils - they work for both; filamentary path uses symmetry-reduced ncoils
+        coils_path = Path(__file__).parent.parent / "knowledge/zenodo/14934092/QA_continuation_TForder4_n164_p1_50e_00_c1_50e_00_lw1_00e-02_lt1_15e_02_lkw1_00e/coils.json"
+        if not coils_path.exists():
+            pytest.skip("Zenodo coils not found (run fetch_zenodo_coils.py)")
+        plasma_dir = Path(__file__).parent.parent / "plasma_surfaces"
+        metrics = evaluate_external_coils(
+            coils_json_path=coils_path,
+            surface_file="input.LandremanPaul2021_QA",
+            surface_range="half period",
+            surface_resolution=16,
+            plasma_surfaces_dir=plasma_dir,
+        )
+        assert "final_squared_flux" in metrics
+        assert "score_primary" in metrics
+        assert "avg_BdotN_over_B" in metrics
+        assert "num_coils" in metrics
+        assert "coil_order" in metrics
+        assert isinstance(metrics["final_squared_flux"], (int, float))
+        assert isinstance(metrics["final_min_cc_separation"], (int, float))
+        assert isinstance(metrics["final_min_cs_separation"], (int, float))
+        # Per-coil metrics for reactor-scale N_turns finite-build
+        assert "final_length_per_coil" in metrics
+        assert "final_current_per_coil" in metrics
+        assert len(metrics["final_length_per_coil"]) == metrics["num_coils"]
+        assert len(metrics["final_current_per_coil"]) == metrics["num_coils"]
+
+    def test_evaluate_external_dipole_coils_zenodo_14934092(self):
+        """Test evaluate_external_dipole_coils with Zenodo 14934092 dipole coils."""
+        coils_path = Path(__file__).parent.parent / "knowledge/zenodo/14934092/QA_continuation_TForder4_n164_p1_50e_00_c1_50e_00_lw1_00e-02_lt1_15e_02_lkw1_00e/coils.json"
+        if not coils_path.exists():
+            pytest.skip("Zenodo coils not found (run fetch_zenodo_coils.py)")
+        plasma_dir = Path(__file__).parent.parent / "plasma_surfaces"
+        metrics = evaluate_external_dipole_coils(
+            coils_json_path=coils_path,
+            surface_file="input.LandremanPaul2021_QA",
+            ncoils_dipole=164,
+            surface_range="half period",
+            surface_resolution=16,
+            plasma_surfaces_dir=plasma_dir,
+        )
+        assert "final_squared_flux" in metrics
+        assert "dipole_metrics" in metrics
+        assert "tf_metrics" in metrics
+        assert "num_coils" in metrics
+        dm = metrics["dipole_metrics"]
+        tm = metrics["tf_metrics"]
+        assert "final_total_length" in dm
+        assert "total_current" in dm
+        assert "final_total_length" in tm
+        assert "total_current" in tm

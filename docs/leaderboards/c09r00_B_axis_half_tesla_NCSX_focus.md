@@ -6,7 +6,8 @@
 
 ---
 
-<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>
+<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }
+.leaderboard-table-wrapper tr.zenodo-entry { background: #e8f4f8; font-weight: 500; }</style>
 <div id="leaderboard-wrapper-c09r00_B_axis_half_tesla_NCSX_focus" class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">
 <table id="leaderboard-c09r00_B_axis_half_tesla_NCSX_focus" class="leaderboard-sortable" style="font-size: 0.85em;">
 <thead>
@@ -15,22 +16,22 @@
 <th class="sortable" data-col="1" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Score <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="2" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">User <span class="sort-icon">↕</span></th>
 <th class="sortable" data-col="3" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Date <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(f_{B}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(N\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(n\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\bar{B}_n\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{Var}(l_i)\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{LN}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\kappa_{\max}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(F_{\max}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\tau_{\max}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{MSC}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cc}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(d_{cs}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(L\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\mathrm{FC}\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(\max(B_n)\)</span> <span class="sort-icon">↕</span></th>
-<th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort"><span class="math notranslate nohighlight">\(t\)</span> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="4" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">f<sub>B</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="5" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">N <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="6" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">n <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="7" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">B̄<sub>n</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="8" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">Var(l<sub>i</sub>) <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="9" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">LN <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="10" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">κ<sub>max</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="11" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">F<sub>max</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="12" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">τ<sub>max</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="13" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">MSC <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="14" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d<sub>cc</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="15" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">d<sub>cs</sub> <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="16" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">L <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="17" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">FC <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="18" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">max(B<sub>n</sub>) <span class="sort-icon">↕</span></th>
+<th class="sortable" data-col="19" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">t <span class="sort-icon">↕</span></th>
 </tr>
 </thead>
 <tbody>
@@ -55,6 +56,28 @@
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.026343616513885518">2.6e-02</td>
 <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="336.34167194366455">3.4e+02</td>
+</tr>
+<tr>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2">2</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="1.3637832993284125">1.364</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="akaptano">akaptano</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="2026-02-11T10:40:35.312949">11/02/26</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.00010719469306080158">1.1e-04</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4.0">4</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0051340677790721765">5.1e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.003938213778500548">3.9e-03</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.0">0</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="3.957194314959725">4.0e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="147463.9766604178">1.5e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="108248.4663408583">1.1e+05</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="7.108703974122507">7.1e+00</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.1122444981866765">1.1e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.18285889883377388">1.8e-01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="29.997885233143773">3.0e+01</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="4,8">4,8</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="0.024791524202165915">2.5e-02</td>
+<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="100.75859689712524">1.0e+02</td>
 </tr>
 </tbody>
 </table>

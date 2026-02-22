@@ -20,6 +20,7 @@ from stellcoilbench.update_db import (
     write_markdown_leaderboard,
     write_rst_leaderboard,
     write_surface_leaderboards,
+    write_dipole_leaderboard,
     update_database,
 )
 
@@ -3158,7 +3159,6 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                         "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 0.0,
-                        # No constraint_violations or empty hard list
                         "constraint_violations": [],
                         "reactor_scale_metrics": {
                             "reactor_scale_min_cs_separation": 2.0,
@@ -3170,6 +3170,52 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
         out_rst = tmp_path / "reactor_scale.rst"
         write_reactor_scale_leaderboard(leaderboard, surface_leaderboards, out_rst)
         content = out_rst.read_text()
-        # Should show FAIL even without hard violations since score is 0.0
         assert "FAIL" in content
         assert ":red:" in content
+
+    def test_write_dipole_leaderboard_with_dipole_entries(self, tmp_path):
+        """write_dipole_leaderboard produces valid RST with dipole_metrics."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {
+            "LandremanPaul2021_QA": {
+                "entries": [
+                    {
+                        "rank": 1,
+                        "contact": "user1",
+                        "composite_score": 0.5,
+                        "path": "submissions/LandremanPaul2021_QA/user1/dipole_run/all_files.zip",
+                        "metrics": {
+                            "num_coils": 4,
+                            "coil_order": 4,
+                            "avg_BdotN_over_B": 0.02,
+                            "dipole_metrics": {
+                                "final_total_length": 12.5,
+                                "total_current": 8e7,
+                                "final_max_curvature": 2.0,
+                            },
+                            "tf_metrics": {
+                                "final_total_length": 15.0,
+                                "total_current": 1e7,
+                                "final_max_curvature": 1.5,
+                            },
+                        },
+                    }
+                ]
+            }
+        }
+        out_rst = tmp_path / "dipole.rst"
+        write_dipole_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        assert "Dipole Coil Leaderboard" in content
+        assert "12.50" in content or "12.5" in content
+        assert "Landreman-Paul" in content or "LandremanPaul" in content
+
+    def test_write_dipole_leaderboard_empty(self, tmp_path):
+        """write_dipole_leaderboard handles empty surface leaderboards."""
+        leaderboard = {"entries": []}
+        surface_leaderboards = {}
+        out_rst = tmp_path / "dipole.rst"
+        write_dipole_leaderboard(leaderboard, surface_leaderboards, out_rst)
+        content = out_rst.read_text()
+        assert "Dipole Coil Leaderboard" in content
+        assert out_rst.exists()

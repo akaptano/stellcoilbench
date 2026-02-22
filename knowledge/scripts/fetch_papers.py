@@ -61,6 +61,9 @@ DEFAULT_QUERIES = [
     "DESC stellarator",
     "winding surface optimization"
     "stellarator permanent magnet optimization"
+    "Thea Energy"
+    "Proxima Fusion"
+    "Type One Energy"
 ]
 
 # Title must contain at least one of these (case-insensitive) to be accepted
@@ -265,7 +268,7 @@ def _ensure_arxiv() -> bool:
 def fetch_from_arxiv(
     queries: list[str],
     output_dir: Path,
-    max_per_query: int = 15,
+    max_per_query: int = 500,
     delay_seconds: float = 3.0,
     min_year: int | None = 1990,
     title_filter: bool = True,

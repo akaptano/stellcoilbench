@@ -93,11 +93,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#stellcoilbench.coil_optimization.LinearPenalty.x"><code class="docutils literal notranslate"><span class="pre">LinearPenalty.x</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.evaluate_external_coils"><code class="docutils literal notranslate"><span class="pre">evaluate_external_coils()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.evaluate_external_dipole_coils"><code class="docutils literal notranslate"><span class="pre">evaluate_external_dipole_coils()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.initialize_coils_dipole"><code class="docutils literal notranslate"><span class="pre">initialize_coils_dipole()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.initialize_coils_loop"><code class="docutils literal notranslate"><span class="pre">initialize_coils_loop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.load_coils_config"><code class="docutils literal notranslate"><span class="pre">load_coils_config()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.optimize_coils"><code class="docutils literal notranslate"><span class="pre">optimize_coils()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.optimize_coils_loop"><code class="docutils literal notranslate"><span class="pre">optimize_coils_loop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.optimize_coils_with_fourier_continuation"><code class="docutils literal notranslate"><span class="pre">optimize_coils_with_fourier_continuation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.coil_optimization.optimize_coils_with_fourier_continuation_dipole"><code class="docutils literal notranslate"><span class="pre">optimize_coils_with_fourier_continuation_dipole()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-stellcoilbench.update_db">Update Database Module</a><ul>
@@ -107,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.check_reactor_constraints"><code class="docutils literal notranslate"><span class="pre">check_reactor_constraints()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.compute_composite_score"><code class="docutils literal notranslate"><span class="pre">compute_composite_score()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.update_database"><code class="docutils literal notranslate"><span class="pre">update_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.write_dipole_leaderboard"><code class="docutils literal notranslate"><span class="pre">write_dipole_leaderboard()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.write_markdown_leaderboard"><code class="docutils literal notranslate"><span class="pre">write_markdown_leaderboard()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.write_reactor_scale_leaderboard"><code class="docutils literal notranslate"><span class="pre">write_reactor_scale_leaderboard()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stellcoilbench.update_db.write_rst_leaderboard"><code class="docutils literal notranslate"><span class="pre">write_rst_leaderboard()</span></code></a></li>
@@ -332,8 +337,8 @@ hardware information, and timestamps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>submissions</strong> – Iterable of (path, data-dict) pairs, as loaded from results.json.</p></li>
-<li><p><strong>primary_score_key</strong> – Name of the score inside each case’s <cite>scores</cite> dict to use as the
+<li><p><strong>submissions</strong> -- Iterable of (path, data-dict) pairs, as loaded from results.json.</p></li>
+<li><p><strong>primary_score_key</strong> -- Name of the score inside each case's <cite>scores</cite> dict to use as the
 primary scalar objective.</p></li>
 </ul>
 </dd>
@@ -364,8 +369,8 @@ primary scalar objective.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>case_cfg</strong> – CaseConfig object containing the case configuration.</p></li>
-<li><p><strong>results_dict</strong> – Dictionary containing the results of the optimization.</p></li>
+<li><p><strong>case_cfg</strong> -- CaseConfig object containing the case configuration.</p></li>
+<li><p><strong>results_dict</strong> -- Dictionary containing the results of the optimization.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -421,11 +426,11 @@ building.</p>
 <li><p>Optimization time</p></li>
 </ul>
 </dd>
-<dt><strong>build_leaderboard(submissions: Iterable[Tuple[Path, Dict[str, Any]]], primary_score_key: str = “score_primary”) -&gt; Dict[str, Any]</strong></dt><dd><p>Build a leaderboard from submission results.</p>
+<dt><strong>build_leaderboard(submissions: Iterable[Tuple[Path, Dict[str, Any]]], primary_score_key: str = &quot;score_primary&quot;) -&gt; Dict[str, Any]</strong></dt><dd><p>Build a leaderboard from submission results.</p>
 <p>Parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">submissions</span></code>: Iterable of (path, results_dict) tuples</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">primary_score_key</span></code>: Key to use for ranking (default: “score_primary”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">primary_score_key</span></code>: Key to use for ranking (default: &quot;score_primary&quot;)</p></li>
 </ul>
 <p>Returns:</p>
 <ul class="simple">
@@ -436,6 +441,11 @@ building.</p>
 </section>
 <section id="module-stellcoilbench.coil_optimization">
 <span id="coil-optimization-module"></span><h2>Coil Optimization Module<a class="headerlink" href="#module-stellcoilbench.coil_optimization" title="Link to this heading"></a></h2>
+<p>Coil optimization for StellCoilBench.</p>
+<p>Provides modular and dipole coil optimization via simsopt, with support for
+augmented Lagrangian, L-BFGS-B, and other scipy algorithms. Handles threshold
+scaling by minor radius, constraint scaling for dimensionless objectives,
+Fourier continuation, and post-processing integration.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="stellcoilbench.coil_optimization.LinearPenalty">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">LinearPenalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objective</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stellcoilbench.coil_optimization.LinearPenalty" title="Link to this definition"></a></dt>
@@ -464,28 +474,114 @@ above the threshold and zero below.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="stellcoilbench.coil_optimization.evaluate_external_coils">
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">evaluate_external_coils</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coils_json_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'half</span> <span class="pre">period'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma_surfaces_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stellcoilbench.coil_optimization.evaluate_external_coils" title="Link to this definition"></a></dt>
+<dd><p>Load coils from JSON and compute leaderboard metrics without running optimization.</p>
+<p>Used to evaluate external coil solutions (e.g. from Zenodo) for leaderboard inclusion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coils_json_path</strong> (<em>Path</em>) -- Path to coils.json (simsopt BiotSavart or MagneticFieldSum format).</p></li>
+<li><p><strong>surface_file</strong> (<em>str</em>) -- Plasma surface file (e.g. input.LandremanPaul2021_QA).</p></li>
+<li><p><strong>surface_range</strong> (<em>str</em>) -- Surface range: &quot;half period&quot; or &quot;full torus&quot;.</p></li>
+<li><p><strong>surface_resolution</strong> (<em>int</em>) -- Quadrature resolution for surface evaluation.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em> | </em><em>None</em>) -- Directory containing plasma surface files. Defaults to plasma_surfaces/.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Metrics dict suitable for results.json (metrics, score_primary, etc.).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stellcoilbench.coil_optimization.evaluate_external_dipole_coils">
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">evaluate_external_dipole_coils</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coils_json_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncoils_dipole</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'half</span> <span class="pre">period'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plasma_surfaces_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stellcoilbench.coil_optimization.evaluate_external_dipole_coils" title="Link to this definition"></a></dt>
+<dd><p>Load dipole+TF coils from JSON and compute dipole metrics for leaderboard.</p>
+<p>Used for dipole optimization results (e.g. Zenodo 14934092, Kaptanoglu dipole).
+Coils are split: first ncoils_dipole are dipole, rest are TF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coils_json_path</strong> (<em>Path</em>) -- Path to coils.json (simsopt BiotSavart or MagneticFieldSum format).</p></li>
+<li><p><strong>surface_file</strong> (<em>str</em>) -- Plasma surface file (e.g. input.LandremanPaul2021_QA).</p></li>
+<li><p><strong>ncoils_dipole</strong> (<em>int</em>) -- Number of dipole coils (first ncoils_dipole in the coil list).</p></li>
+<li><p><strong>surface_range</strong> (<em>str</em>) -- Surface range: &quot;half period&quot; or &quot;full torus&quot;.</p></li>
+<li><p><strong>surface_resolution</strong> (<em>int</em>) -- Quadrature resolution for surface evaluation.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em> | </em><em>None</em>) -- Directory containing plasma surface files. Defaults to plasma_surfaces/.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Metrics dict with dipole_metrics, tf_metrics, flux, B·n, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stellcoilbench.coil_optimization.initialize_coils_dipole">
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">initialize_coils_dipole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SurfaceRZFourier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_coil_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_inboard_eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_coils_TF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncoils_TF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#stellcoilbench.coil_optimization.initialize_coils_dipole" title="Link to this definition"></a></dt>
+<dd><p>Initialize dipole coils plus TF coils, modeled after dipole_array_tutorial_advanced.py.</p>
+<p>Creates planar dipole coils between two toroidal surfaces (inner and outer, extended
+from the plasma boundary), removes inboard dipoles, removes interlinking dipoles,
+and aligns dipole normals with the plasma surface.</p>
+<p>TF coils must be predefined (e.g. from initialize_coils_loop) and passed via
+base_coils_TF and ncoils_TF. They are used for remove_interlinking_dipoles_and_TFs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> -- Plasma boundary surface.</p></li>
+<li><p><strong>surface_file</strong> -- Path to surface file (for creating s_inner/s_outer).</p></li>
+<li><p><strong>surface_params</strong> -- Dict with 'range' and other surface params.</p></li>
+<li><p><strong>poff</strong> -- Inner surface extension distance [m] (reactor-scale; divided by a0).</p></li>
+<li><p><strong>coff</strong> -- Additional outer extension beyond inner [m] (reactor-scale; divided by a0).</p></li>
+<li><p><strong>Nx</strong> -- Grid dimensions for dipole placement (Ny, Nz default to Nx).</p></li>
+<li><p><strong>Ny</strong> -- Grid dimensions for dipole placement (Ny, Nz default to Nx).</p></li>
+<li><p><strong>Nz</strong> -- Grid dimensions for dipole placement (Ny, Nz default to Nx).</p></li>
+<li><p><strong>dipole_order</strong> -- Fourier order for planar dipole curves.</p></li>
+<li><p><strong>dipole_coil_size</strong> -- Dipole wire cross-section [m] (e.g. 0.1 for 10 cm).</p></li>
+<li><p><strong>remove_inboard_eps</strong> -- Eps for remove_inboard_dipoles.</p></li>
+<li><p><strong>out_dir</strong> -- Output directory for saved files.</p></li>
+<li><p><strong>base_coils_TF</strong> -- List of coil objects from initialize_coils_loop (required).</p></li>
+<li><p><strong>ncoils_TF</strong> -- Number of base TF coils (required).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple (coils, base_curves_dipole, base_curves_TF, ncoils_dipole_expanded, num_TF_unique)
+where coils = dipole_coils + TF_coils (all coils for BiotSavart).
+ncoils_dipole_expanded = len(dipole_coils) after symmetrization (for slicing coils).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="stellcoilbench.coil_optimization.initialize_coils_loop">
 <span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">initialize_coils_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SurfaceRZFourier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncoils</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coil_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">regularization_circ&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stellcoilbench.coil_optimization.initialize_coils_loop" title="Link to this definition"></a></dt>
 <dd><p>Initializes coils with order=16 and total current set to produce
 a target B-field on-axis. Uses an adaptive strategy to determine R0 and R1
 parameters to ensure coils:
-- Don’t intersect with the plasma surface
+- Don't intersect with the plasma surface
 - Interlink the plasma (go around it) by being positioned outside the surface
 - Maintain safe distance from surface
-- Don’t interlink with each other (linking number ~0, maintain separation)</p>
+- Don't interlink with each other (linking number ~0, maintain separation)</p>
 <p>The function iteratively adjusts R0 and R1 until all constraints are satisfied,
 then iteratively adjusts the total current until the field strength along the
 major radius averages to the target value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> – plasma boundary surface.</p></li>
-<li><p><strong>out_dir</strong> – Path or string for the output directory for saved files.</p></li>
-<li><p><strong>target_B</strong> – Target magnetic field strength in Tesla (default: 5.7).</p></li>
-<li><p><strong>ncoils</strong> – Number of coils to create (default: 4).</p></li>
-<li><p><strong>order</strong> – Fourier order for coil curves (default: 16).</p></li>
-<li><p><strong>coil_width</strong> – Width of the coil in meters (default: 0.4).</p></li>
-<li><p><strong>regularization</strong> – Regularization function (default: regularization_circ).</p></li>
+<li><p><strong>s</strong> -- plasma boundary surface.</p></li>
+<li><p><strong>out_dir</strong> -- Path or string for the output directory for saved files.</p></li>
+<li><p><strong>target_B</strong> -- Target magnetic field strength in Tesla (default: 5.7).</p></li>
+<li><p><strong>ncoils</strong> -- Number of coils to create (default: 4).</p></li>
+<li><p><strong>order</strong> -- Fourier order for coil curves (default: 16).</p></li>
+<li><p><strong>coil_width</strong> -- Width of the coil in meters (default: 0.4).</p></li>
+<li><p><strong>regularization</strong> -- Regularization function (default: regularization_circ).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -505,7 +601,7 @@ major radius averages to the target value.</p>
 which includes validation via validate_case_config().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config_path</strong> (<em>Path</em>) – Path to the coils.yaml file.</p>
+<dd class="field-odd"><p><strong>config_path</strong> (<em>Path</em>) -- Path to the coils.yaml file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary containing the loaded coils configuration.</p>
@@ -514,7 +610,7 @@ which includes validation via validate_case_config().</p>
 <dd class="field-odd"><p>Dict[str, Any]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the config file is not a dictionary.:</p>
+<dd class="field-even"><p><strong>ValueError</strong> -- If the config file is not a dictionary.:</p>
 </dd>
 </dl>
 </dd></dl>
@@ -528,23 +624,23 @@ and write the resulting coils file to coils_out_path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>case_path</strong> – Path to case directory containing case.yaml and geometry files.</p></li>
-<li><p><strong>coils_out_path</strong> – Where to write the coil geometry file (JSON format).</p></li>
-<li><p><strong>case_cfg</strong> – Optional CaseConfig object. If None, loads from case_path / “case.yaml”.</p></li>
-<li><p><strong>output_dir</strong> – Optional directory where VTK files and other optimization outputs will be saved.
+<li><p><strong>case_path</strong> -- Path to case directory containing case.yaml and geometry files.</p></li>
+<li><p><strong>coils_out_path</strong> -- Where to write the coil geometry file (JSON format).</p></li>
+<li><p><strong>case_cfg</strong> -- Optional CaseConfig object. If None, loads from case_path / &quot;case.yaml&quot;.</p></li>
+<li><p><strong>output_dir</strong> -- Optional directory where VTK files and other optimization outputs will be saved.
 If None, uses the directory containing coils_out_path.</p></li>
-<li><p><strong>surface_resolution</strong> – Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
+<li><p><strong>surface_resolution</strong> -- Resolution of plasma surface (nphi=ntheta) for evaluation (default: 16).
 Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.</p></li>
-<li><p><strong>skip_post_processing</strong> – If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
+<li><p><strong>skip_post_processing</strong> -- If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
 Useful for faster testing and debugging of optimization alone (default: False).</p></li>
-<li><p><strong>run_vmec</strong> – If True, run QFM and VMEC equilibrium calculation during post-processing.
+<li><p><strong>run_vmec</strong> -- If True, run QFM and VMEC equilibrium calculation during post-processing.
 This is expensive and disabled by default (default: False).</p></li>
-<li><p><strong>run_simple</strong> – If True, run SIMPLE fast particle tracing during post-processing.
+<li><p><strong>run_simple</strong> -- If True, run SIMPLE fast particle tracing during post-processing.
 Requires run_vmec=True. Disabled by default (default: False).</p></li>
-<li><p><strong>plot_poincare</strong> – If True, generate Poincaré plot during post-processing (default: False).</p></li>
-<li><p><strong>plot_finite_build</strong> – If True, generate finite-build coil VTK during post-processing (default: False).</p></li>
-<li><p><strong>finite_build_width</strong> – Cross-section width [m] for finite-build coils. If None, uses default (5 cm).</p></li>
-<li><p><strong>finite_build_height</strong> – Cross-section height [m] for finite-build coils. If None, uses default (5 cm).</p></li>
+<li><p><strong>plot_poincare</strong> -- If True, generate Poincaré plot during post-processing (default: False).</p></li>
+<li><p><strong>plot_finite_build</strong> -- If True, generate finite-build coil VTK during post-processing (default: False).</p></li>
+<li><p><strong>finite_build_width</strong> -- Cross-section width [m] for finite-build coils. If None, uses default (5 cm).</p></li>
+<li><p><strong>finite_build_height</strong> -- Cross-section height [m] for finite-build coils. If None, uses default (5 cm).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -556,9 +652,9 @@ Requires run_vmec=True. Disabled by default (default: False).</p></li>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>The benchmark repository doesn’t need to know the details of your optimizer; it just
+<li><p>The benchmark repository doesn't need to know the details of your optimizer; it just
 calls this function.</p></li>
-<li><p>You can dispatch on <cite>optimizer_params[“algorithm”]</cite> to different backends.</p></li>
+<li><p>You can dispatch on <cite>optimizer_params[&quot;algorithm&quot;]</cite> to different backends.</p></li>
 <li><p>When running with MPI, coil optimization runs only on rank 0, while post-processing
 uses all MPI processes for VMEC and fieldline tracing.</p></li>
 </ul>
@@ -566,40 +662,54 @@ uses all MPI processes for VMEC and fieldline tracing.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stellcoilbench.coil_optimization.optimize_coils_loop">
-<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">optimize_coils_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SurfaceRZFourier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncoils</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">regularization_circ&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coil_objective_terms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_coils</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_post_processing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_vmec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_simple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_poincare</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_boozer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stellcoilbench.coil_optimization.optimize_coils_loop" title="Link to this definition"></a></dt>
-<dd><p>Performs complete coil optimization including initialization and optimization.
-This function initializes coils with the target B-field and then optimizes
-them using the augmented Lagrangian method.</p>
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">optimize_coils_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SurfaceRZFourier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncoils</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">regularization_circ&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coil_objective_terms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_coils</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_post_processing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_vmec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_simple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_poincare</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_boozer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stellcoilbench.coil_optimization.optimize_coils_loop" title="Link to this definition"></a></dt>
+<dd><p>Optimize modular or dipole coils for a plasma surface.</p>
+<p>For modular coils (default): initializes coils with target B-field (or uses
+initial_coils for Fourier continuation), then optimizes flux plus constraints
+via augmented Lagrangian or scipy (L-BFGS-B, BFGS, etc.).</p>
+<p>For dipole coils: pass dipole_array=True. Surface file and params are derived
+from s. TF coils come from initialize_coils_loop (normal stellcoilbench logic).
+Dipole coils (Nx × Nx grid) are created via initialize_coils_dipole.
+Default algorithm for dipole is L-BFGS-B.</p>
+<p>Optionally runs post-processing (QFM, VMEC, Poincaré, quasisymmetry).
+Delegates to _optimize_coils_loop_impl.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> – plasma boundary surface.</p></li>
-<li><p><strong>target_B</strong> – Target magnetic field strength in Tesla (default: 5.7).</p></li>
-<li><p><strong>out_dir</strong> – Path or string for the output directory for saved files.</p></li>
-<li><p><strong>max_iterations</strong> – Maximum number of optimization iterations (default: 1500).</p></li>
-<li><p><strong>ncoils</strong> – Number of base coils to create (default: 4).</p></li>
-<li><p><strong>order</strong> – Fourier order for coil curves (default: 16).</p></li>
-<li><p><strong>verbose</strong> – Print out progress and results (default: False).</p></li>
-<li><p><strong>surface_resolution</strong> – Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
-Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments for constraint thresholds.
-max_iter_subopt: Maximum number of suboptimization iterations (default: max_iterations // 50).
-length_threshold: Threshold for the length objective (default: 200.0).
-flux_threshold: Threshold for the flux objective (default: 1e-8).
-cc_threshold: Threshold for the coil-coil distance objective (default: 1.0).
-cs_threshold: Threshold for the coil-surface distance objective (default: 1.3).
-msc_threshold: Threshold for the mean squared curvature objective (default: 1.0).
-curvature_threshold: Threshold for the curvature objective (default: 1.0).
-force_threshold: Threshold for the coil force objective (default: 1.0).
-torque_threshold: Threshold for the coil torque objective (default: 1.0).</p></li>
+<li><p><strong>s</strong> (<em>SurfaceRZFourier</em>) -- Plasma boundary surface.</p></li>
+<li><p><strong>target_B</strong> (<em>float</em><em>, </em><em>optional</em>) -- Target <a href="#id1"><span class="problematic" id="id2">|B|</span></a> on-axis in Tesla (default: 5.7).</p></li>
+<li><p><strong>out_dir</strong> (<em>Path</em><em> | </em><em>str</em><em>, </em><em>optional</em>) -- Output directory for VTK, JSON, plots.</p></li>
+<li><p><strong>max_iterations</strong> (<em>int</em><em>, </em><em>optional</em>) -- Maximum optimization iterations (default: 30).</p></li>
+<li><p><strong>ncoils</strong> (<em>int</em><em>, </em><em>optional</em>) -- Number of base coils (default: 4).</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) -- Fourier order for coil curves (default: 16).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Print iteration progress (default: False).</p></li>
+<li><p><strong>regularization</strong> (<em>Callable</em><em> | </em><em>None</em><em>, </em><em>optional</em>) -- Coil regularization (default: regularization_circ).</p></li>
+<li><p><strong>coil_objective_terms</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) -- Case config for constraints (length, curvature, MSC, force, torque, etc.).</p></li>
+<li><p><strong>initial_coils</strong> (<em>list</em><em> | </em><em>None</em><em>, </em><em>optional</em>) -- Coils from previous Fourier step; if set, skips initialization.</p></li>
+<li><p><strong>surface_resolution</strong> (<em>int</em><em>, </em><em>optional</em>) -- Surface quadrature for evaluation (default: 32). Lower values speed up
+optimization; use 8 for faster unit tests.</p></li>
+<li><p><strong>skip_post_processing</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, skip QFM/VMEC/Poincaré (default: False).</p></li>
+<li><p><strong>case_path</strong> (<em>Path</em><em> | </em><em>None</em><em>, </em><em>optional</em>) -- Path to case.yaml for post-processing.</p></li>
+<li><p><strong>run_vmec</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Post-processing flags.</p></li>
+<li><p><strong>run_simple</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Post-processing flags.</p></li>
+<li><p><strong>plot_poincare</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Post-processing flags.</p></li>
+<li><p><strong>plot_boozer</strong> (<em>bool</em><em>, </em><em>optional</em>) -- Post-processing flags.</p></li>
+<li><p><strong>dipole_array</strong> (<em>bool</em><em>, </em><em>optional</em>) -- If True, use dipole + modular coil optimization. Surface file/params
+are derived from s; TF coils from initialize_coils_loop.</p></li>
+<li><p><strong>**kwargs</strong> -- algorithm, max_iter_subopt, thresholds (length_threshold, flux_threshold,
+cc_threshold, cs_threshold, msc_threshold, curvature_threshold),
+vc_target, dof_perturbation, poff, coff, dipole_coil_size,
+Nx, dipole_order (dipole mode), dipole_coils_planar (default True;
+assume CurvePlanarFourier), fix_shapes, fix_currents (any Curve),
+fix_center, fix_orientation (CurvePlanarFourier only; when fix_shapes=True,
+curvature/MSC penalties are not applied to dipole coils), etc.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of optimized Coil class objects.
-results: Dictionary containing optimization results and metrics.</p>
+<dd class="field-even"><p>(coils, results) - optimized coils and metrics dict.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>coils</p>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -614,23 +724,27 @@ as an initial condition for the next optimization with more Fourier modes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> (<em>SurfaceRZFourier</em>) – Plasma boundary surface.</p></li>
-<li><p><strong>fourier_orders</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – Sequence of Fourier orders to use (e.g., [4, 6, 8]).
+<li><p><strong>s</strong> (<em>SurfaceRZFourier</em>) -- Plasma boundary surface.</p></li>
+<li><p><strong>fourier_orders</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) -- Sequence of Fourier orders to use (e.g., [4, 6, 8]).
 Must be in ascending order.</p></li>
-<li><p><strong>target_B</strong> (<em>float</em>) – Target magnetic field strength in Tesla (default: 5.7).</p></li>
-<li><p><strong>out_dir</strong> (<em>Path</em><em> | </em><em>str</em>) – Output directory for saved files.</p></li>
-<li><p><strong>case_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to case directory containing case.yaml. Used for post-processing.</p></li>
-<li><p><strong>max_iterations</strong> (<em>int</em>) – Maximum number of optimization iterations per order (default: 30).</p></li>
-<li><p><strong>ncoils</strong> (<em>int</em>) – Number of base coils to create (default: 4).</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em>) – Print out progress and results (default: False).</p></li>
-<li><p><strong>regularization</strong> (<em>Callable</em>) – Regularization function (default: regularization_circ).</p></li>
-<li><p><strong>coil_objective_terms</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – Dictionary specifying which objective terms to include.</p></li>
-<li><p><strong>surface_resolution</strong> (<em>int</em>) – Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).
-Lower values speed up optimization but reduce accuracy. Use 8 for faster unit tests.</p></li>
-<li><p><strong>skip_post_processing</strong> (<em>bool</em>) – If True, skip post-processing (QFM, VMEC, Poincaré plots, etc.) after optimization.
-Useful for faster testing and debugging of optimization alone (default: False).</p></li>
-<li><p><strong>**kwargs</strong> (<em>Additional keyword arguments</em>) – Same as optimize_coils_loop (thresholds, algorithm options, etc.).
-plot_upsample_factor: Factor for upsampling plotting surface (default: 4).</p></li>
+<li><p><strong>target_B</strong> (<em>float</em>) -- Target magnetic field strength in Tesla (default: 5.7).</p></li>
+<li><p><strong>out_dir</strong> (<em>Path</em><em> | </em><em>str</em>) -- Output directory for saved files.</p></li>
+<li><p><strong>case_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to case directory containing case.yaml. Used for post-processing.</p></li>
+<li><p><strong>max_iterations</strong> (<em>int</em>) -- Maximum number of optimization iterations per order (default: 30).</p></li>
+<li><p><strong>ncoils</strong> (<em>int</em>) -- Number of base coils to create (default: 4).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) -- Print out progress and results (default: False).</p></li>
+<li><p><strong>regularization</strong> (<em>Callable</em>) -- Regularization function (default: regularization_circ).</p></li>
+<li><p><strong>coil_objective_terms</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) -- Dictionary specifying which objective terms to include.</p></li>
+<li><p><strong>surface_resolution</strong> (<em>int</em>) -- Resolution of plasma surface (nphi=ntheta) for evaluation (default: 32).</p></li>
+<li><p><strong>skip_post_processing</strong> (<em>bool</em>) -- If True, skip post-processing after optimization (default: False).</p></li>
+<li><p><strong>run_vmec</strong> (<em>bool</em>) -- Post-processing flags (used only on final order).</p></li>
+<li><p><strong>run_simple</strong> (<em>bool</em>) -- Post-processing flags (used only on final order).</p></li>
+<li><p><strong>plot_poincare</strong> (<em>bool</em>) -- Post-processing flags (used only on final order).</p></li>
+<li><p><strong>plot_boozer</strong> (<em>bool</em>) -- Post-processing flags (used only on final order).</p></li>
+<li><p><strong>plot_finite_build</strong> (<em>bool</em>) -- Generate finite-build coil VTK (default: False).</p></li>
+<li><p><strong>finite_build_width</strong> (<em>float</em><em> | </em><em>None</em>) -- Cross-section dimensions for finite-build coils.</p></li>
+<li><p><strong>finite_build_height</strong> (<em>float</em><em> | </em><em>None</em>) -- Cross-section dimensions for finite-build coils.</p></li>
+<li><p><strong>**kwargs</strong> -- Same as optimize_coils_loop (thresholds, algorithm, plot_upsample_factor, etc.).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -640,6 +754,14 @@ plot_upsample_factor: Factor for upsampling plotting surface (default: 4).</p></
 <dd class="field-odd"><p>tuple[list, Dict[str, Any]]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stellcoilbench.coil_optimization.optimize_coils_with_fourier_continuation_dipole">
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.coil_optimization.</span></span><span class="sig-name descname"><span class="pre">optimize_coils_with_fourier_continuation_dipole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">s:</span> <span class="pre">~simsopt.geo.surfacerzfourier.SurfaceRZFourier,</span> <span class="pre">fourier_orders:</span> <span class="pre">list[int],</span> <span class="pre">target_B:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">5.7,</span> <span class="pre">out_dir:</span> <span class="pre">~pathlib.Path</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'',</span> <span class="pre">max_iterations:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30,</span> <span class="pre">ncoils:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">4,</span> <span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">regularization:</span> <span class="pre">~typing.Callable</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">regularization_circ&gt;,</span> <span class="pre">coil_objective_terms:</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">surface_resolution:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">32,</span> <span class="pre">case_path:</span> <span class="pre">~pathlib.Path</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">skip_post_processing:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">run_vmec:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">run_simple:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">plot_poincare:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">plot_boozer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">**kwargs</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stellcoilbench.coil_optimization.optimize_coils_with_fourier_continuation_dipole" title="Link to this definition"></a></dt>
+<dd><p>Perform dipole coil optimization with Fourier continuation on TF coils only.</p>
+<p>Iterates over fourier_orders for the TF coil Fourier order; dipole_order stays fixed.
+Dipole coils are unchanged during continuation; only TF coils are extended.</p>
 </dd></dl>
 
 <p>The <code class="docutils literal notranslate"><span class="pre">coil_optimization</span></code> module contains the core optimization logic.</p>
@@ -676,7 +798,7 @@ Lower values speed up optimization but reduce accuracy. Use 8 for faster unit te
 <li><p><code class="docutils literal notranslate"><span class="pre">optimization_info</span></code>: Optimization algorithm information</p></li>
 </ul>
 </dd>
-<dt><strong>initialize_coils_loop(s: SurfaceRZFourier, out_dir: Path | str = ‘’, target_B: float = 5.7, ncoils: int = 4, order: int = 16, coil_width: float = 0.4, regularization: Callable = regularization_circ)</strong></dt><dd><p>Initialize coils around a plasma surface.</p>
+<dt><strong>initialize_coils_loop(s: SurfaceRZFourier, out_dir: Path | str = '', target_B: float = 5.7, ncoils: int = 4, order: int = 16, coil_width: float = 0.4, regularization: Callable = regularization_circ)</strong></dt><dd><p>Initialize coils around a plasma surface.</p>
 <p>Creates equally-spaced coils with Fourier representation and adjusts total
 current to produce a target B-field on-axis.</p>
 <p>Parameters:</p>
@@ -694,7 +816,7 @@ current to produce a target B-field on-axis.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">coils</span></code>: List of initialized coil objects</p></li>
 </ul>
 </dd>
-<dt><strong>optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = ‘’, max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, surface_resolution: int = 32, skip_post_processing: bool = False, case_path: Path | None = None, **kwargs)</strong></dt><dd><p>Complete coil optimization including initialization and optimization.</p>
+<dt><strong>optimize_coils_loop(s: SurfaceRZFourier, target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, order: int = 16, verbose: bool = False, regularization: Callable = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, initial_coils: list | None = None, surface_resolution: int = 32, skip_post_processing: bool = False, case_path: Path | None = None, **kwargs)</strong></dt><dd><p>Complete coil optimization including initialization and optimization.</p>
 <p>This function combines initialization and optimization into a single call.
 It initializes coils with the target B-field and then optimizes them using
 the specified algorithm.</p>
@@ -722,7 +844,7 @@ Lower values speed up optimization but reduce accuracy. Use 8 for faster unit te
 <li><p><code class="docutils literal notranslate"><span class="pre">results</span></code>: Optimization results dictionary</p></li>
 </ul>
 </dd>
-<dt><strong>optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = ‘’, max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, surface_resolution: int = 32, case_path: Path | None = None, **kwargs) -&gt; tuple[list, Dict[str, Any]]</strong></dt><dd><p>Perform coil optimization with Fourier continuation.</p>
+<dt><strong>optimize_coils_with_fourier_continuation(s: SurfaceRZFourier, fourier_orders: list[int], target_B: float = 5.7, out_dir: Path | str = '', max_iterations: int = 30, ncoils: int = 4, verbose: bool = False, regularization: Callable | None = regularization_circ, coil_objective_terms: Dict[str, Any] | None = None, surface_resolution: int = 32, case_path: Path | None = None, **kwargs) -&gt; tuple[list, Dict[str, Any]]</strong></dt><dd><p>Perform coil optimization with Fourier continuation.</p>
 <p>This function solves a sequence of coil optimizations, starting with a low
 Fourier order and progressively increasing to higher orders. Each step uses
 the previous solution as an initial condition, helping achieve convergence
@@ -844,7 +966,7 @@ with <code class="docutils literal notranslate"><span class="pre">Weight</span><
 <li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: Output VTK file path</p></li>
 </ul>
 </dd>
-<dt><strong>plot_bn_error_3d(surface, bs, coils, out_dir: Path, filename: str = “bn_error_3d_plot.pdf”, title: str = “B_N/|B| Error on Plasma Surface with Optimized Coils”, plot_upsample: int = 3) -&gt; None</strong></dt><dd><p>Create 3D visualization of B_N error on plasma surface.</p>
+<dt><strong>plot_bn_error_3d(surface, bs, coils, out_dir: Path, filename: str = &quot;bn_error_3d_plot.pdf&quot;, title: str = &quot;B_N/|B| Error on Plasma Surface with Optimized Coils&quot;, plot_upsample: int = 3) -&gt; None</strong></dt><dd><p>Create 3D visualization of B_N error on plasma surface.</p>
 <p>Generates a high-resolution PDF plot showing:</p>
 <ul class="simple">
 <li><p>Plasma surface colored by <span class="math notranslate nohighlight">\(B_N/|B|\)</span> error magnitude</p></li>
@@ -884,7 +1006,7 @@ score_primary) are also filtered out.</p>
 <dd><p>Build the per-method summary dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Keys are “method_name:version”, values hold metadata + metrics.</p>
+<dd class="field-odd"><p>Keys are &quot;method_name:version&quot;, values hold metadata + metrics.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
@@ -899,7 +1021,7 @@ score_primary) are also filtered out.</p>
 <p>Submission paths can be:
 - Old: submissions/&lt;surface&gt;/&lt;username&gt;/&lt;timestamp&gt;.zip
 - New: submissions/&lt;username&gt;/&lt;timestamp&gt;/all_files.zip</p>
-<p>Returns dict mapping surface_name -&gt; {“entries”: […]}</p>
+<p>Returns dict mapping surface_name -&gt; {&quot;entries&quot;: [...]}</p>
 </dd></dl>
 
 <dl class="py function">
@@ -909,16 +1031,16 @@ score_primary) are also filtered out.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metrics</strong> (<em>dict</em>) – Device-scale metrics dict (from results.json <code class="docutils literal notranslate"><span class="pre">&quot;metrics&quot;</span></code>).</p></li>
-<li><p><strong>reactor_scale_metrics</strong> (<em>dict</em>) – Reactor-scale metrics dict (from results.json <code class="docutils literal notranslate"><span class="pre">&quot;reactor_scale_metrics&quot;</span></code>).</p></li>
+<li><p><strong>metrics</strong> (<em>dict</em>) -- Device-scale metrics dict (from results.json <code class="docutils literal notranslate"><span class="pre">&quot;metrics&quot;</span></code>).</p></li>
+<li><p><strong>reactor_scale_metrics</strong> (<em>dict</em>) -- Reactor-scale metrics dict (from results.json <code class="docutils literal notranslate"><span class="pre">&quot;reactor_scale_metrics&quot;</span></code>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>passes_hard</strong> (<em>bool</em>) – True if all <strong>hard</strong> constraints are satisfied.  Soft-constraint
+<li><p><strong>passes_hard</strong> (<em>bool</em>) -- True if all <strong>hard</strong> constraints are satisfied.  Soft-constraint
 violations do <em>not</em> affect this flag — they only lower the
 composite score.</p></li>
-<li><p><strong>violations</strong> (<em>list[dict]</em>) – List of <em>all</em> violated constraints (hard <strong>and</strong> soft).  Each
+<li><p><strong>violations</strong> (<em>list[dict]</em>) -- List of <em>all</em> violated constraints (hard <strong>and</strong> soft).  Each
 entry has keys <code class="docutils literal notranslate"><span class="pre">label</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">bound</span></code>, <code class="docutils literal notranslate"><span class="pre">direction</span></code>,
 <code class="docutils literal notranslate"><span class="pre">units</span></code>, and <code class="docutils literal notranslate"><span class="pre">hard</span></code> (True for infeasibility constraints).</p></li>
 </ul>
@@ -938,8 +1060,8 @@ a geometric mean of exponential margin factors:</p>
               = \left(\prod_i e^{m_i}\right)^{1/n}\]</div>
 <p>where the margin <em>m_i</em> for each constraint is:</p>
 <ul class="simple">
-<li><p><strong>“max” constraints</strong> (value ≤ bound): <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">−</span> <span class="pre">value</span> <span class="pre">/</span> <span class="pre">bound</span></code></p></li>
-<li><p><strong>“min” constraints</strong> (value ≥ bound): <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">value</span> <span class="pre">/</span> <span class="pre">bound</span> <span class="pre">−</span> <span class="pre">1</span></code></p></li>
+<li><p><strong>&quot;max&quot; constraints</strong> (value ≤ bound): <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">−</span> <span class="pre">value</span> <span class="pre">/</span> <span class="pre">bound</span></code></p></li>
+<li><p><strong>&quot;min&quot; constraints</strong> (value ≥ bound): <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">value</span> <span class="pre">/</span> <span class="pre">bound</span> <span class="pre">−</span> <span class="pre">1</span></code></p></li>
 </ul>
 <p>Interpretation:</p>
 <ul class="simple">
@@ -951,15 +1073,15 @@ a geometric mean of exponential margin factors:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metrics</strong> (<em>dict</em>) – Device-scale metrics dict.</p></li>
-<li><p><strong>reactor_scale_metrics</strong> (<em>dict</em>) – Reactor-scale metrics dict.</p></li>
+<li><p><strong>metrics</strong> (<em>dict</em>) -- Device-scale metrics dict.</p></li>
+<li><p><strong>reactor_scale_metrics</strong> (<em>dict</em>) -- Reactor-scale metrics dict.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>score</strong> (<em>float | None</em>) – Composite score: 0.0 for hard infeasibility, &gt; 0 for feasible
+<li><p><strong>score</strong> (<em>float | None</em>) -- Composite score: 0.0 for hard infeasibility, &gt; 0 for feasible
 designs, or None when no soft-constraint metrics are available.</p></li>
-<li><p><strong>details</strong> (<em>dict</em>) – Diagnostic information: per-factor margins, hard-constraint status.</p></li>
+<li><p><strong>details</strong> (<em>dict</em>) -- Diagnostic information: per-factor margins, hard-constraint status.</p></li>
 </ul>
 </p>
 </dd>
@@ -982,14 +1104,22 @@ designs, or None when no soft-constraint metrics are available.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repo_root</strong> – Root of the git repo (e.g. Path.cwd() when called from repo root).</p></li>
-<li><p><strong>submissions_root</strong> – Directory containing per-method submissions. Defaults to repo_root / “submissions”.</p></li>
-<li><p><strong>docs_dir</strong> – Directory where docs/leaderboards/ leaderboards and leaderboard.json are written. Defaults to repo_root / “docs”.</p></li>
-<li><p><strong>cases_root</strong> – Directory containing case.yaml files. Defaults to repo_root / “cases”.</p></li>
-<li><p><strong>plasma_surfaces_dir</strong> – Directory containing plasma surface files. Defaults to repo_root / “plasma_surfaces”.</p></li>
+<li><p><strong>repo_root</strong> -- Root of the git repo (e.g. Path.cwd() when called from repo root).</p></li>
+<li><p><strong>submissions_root</strong> -- Directory containing per-method submissions. Defaults to repo_root / &quot;submissions&quot;.</p></li>
+<li><p><strong>docs_dir</strong> -- Directory where docs/leaderboards/ leaderboards and leaderboard.json are written. Defaults to repo_root / &quot;docs&quot;.</p></li>
+<li><p><strong>cases_root</strong> -- Directory containing case.yaml files. Defaults to repo_root / &quot;cases&quot;.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> -- Directory containing plasma surface files. Defaults to repo_root / &quot;plasma_surfaces&quot;.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stellcoilbench.update_db.write_dipole_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">stellcoilbench.update_db.</span></span><span class="sig-name descname"><span class="pre">write_dipole_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">leaderboard</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_leaderboards</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_rst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stellcoilbench.update_db.write_dipole_leaderboard" title="Link to this definition"></a></dt>
+<dd><p>Write a dipole-specific leaderboard RST file with per-surface tables.</p>
+<p>Only entries with dipole_metrics (metrics.dipole_metrics) are included.
+See <span class="xref std std-doc">metric_definitions</span> for dipole metric definitions.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1030,10 +1160,10 @@ leaderboard files.</p>
 <p>Parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">repo_root</span></code>: Repository root directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">submissions_root</span></code>: Submissions directory (default: repo_root / “submissions”)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docs_dir</span></code>: Documentation directory (default: repo_root / “docs”)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cases_root</span></code>: Cases directory (default: repo_root / “cases”)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plasma_surfaces_dir</span></code>: Plasma surfaces directory (default: repo_root / “plasma_surfaces”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">submissions_root</span></code>: Submissions directory (default: repo_root / &quot;submissions&quot;)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs_dir</span></code>: Documentation directory (default: repo_root / &quot;docs&quot;)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cases_root</span></code>: Cases directory (default: repo_root / &quot;cases&quot;)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plasma_surfaces_dir</span></code>: Plasma surfaces directory (default: repo_root / &quot;plasma_surfaces&quot;)</p></li>
 </ul>
 </dd>
 <dt><strong>build_surface_leaderboards(leaderboard: Dict[str, Any], submissions_root: Path, plasma_surfaces_dir: Path) -&gt; Dict[str, Dict[str, Any]]</strong></dt><dd><p>Group leaderboard entries by plasma surface.</p>
@@ -1095,7 +1225,7 @@ zips as needed.</p>
 </ul>
 <p>Returns:</p>
 <ul class="simple">
-<li><p>Shorthand/acronym (e.g., “f_B” for “final_normalized_squared_flux”)</p></li>
+<li><p>Shorthand/acronym (e.g., &quot;f_B&quot; for &quot;final_normalized_squared_flux&quot;)</p></li>
 </ul>
 </dd>
 <dt><strong>metric_definition(metric_name: str) -&gt; str</strong></dt><dd><p>Get detailed mathematical definition for a metric.</p>
@@ -1129,8 +1259,8 @@ quasisymmetry metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>surface</strong> (<em>SurfaceRZFourier</em>) – Plasma boundary surface.</p></li>
-<li><p><strong>bfield</strong> (<em>BiotSavart</em>) – Magnetic field from coils.</p></li>
+<li><p><strong>surface</strong> (<em>SurfaceRZFourier</em>) -- Plasma boundary surface.</p></li>
+<li><p><strong>bfield</strong> (<em>BiotSavart</em>) -- Magnetic field from coils.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1149,10 +1279,10 @@ quasisymmetry metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>equil</strong> (<em>Vmec</em>) – VMEC equilibrium object.</p></li>
-<li><p><strong>helicity_m</strong> (<em>int</em><em>, </em><em>default=1</em>) – Poloidal mode number for quasisymmetry.</p></li>
-<li><p><strong>helicity_n</strong> (<em>int</em><em>, </em><em>default=0</em>) – Toroidal mode number for quasisymmetry.</p></li>
-<li><p><strong>ns</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of radial surfaces to evaluate.</p></li>
+<li><p><strong>equil</strong> (<em>Vmec</em>) -- VMEC equilibrium object.</p></li>
+<li><p><strong>helicity_m</strong> (<em>int</em><em>, </em><em>default=1</em>) -- Poloidal mode number for quasisymmetry.</p></li>
+<li><p><strong>helicity_n</strong> (<em>int</em><em>, </em><em>default=0</em>) -- Toroidal mode number for quasisymmetry.</p></li>
+<li><p><strong>ns</strong> (<em>int</em><em>, </em><em>default=50</em>) -- Number of radial surfaces to evaluate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1177,9 +1307,9 @@ quasisymmetry metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coils_json_path</strong> (<em>Path</em>) – Path to coils JSON file (e.g., biot_savart_optimized.json or coils.json).</p></li>
-<li><p><strong>case_yaml_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to case.yaml file. If None, tries to find it relative to coils_json_path.</p></li>
-<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) – Directory containing plasma surface files. Defaults to “plasma_surfaces”.</p></li>
+<li><p><strong>coils_json_path</strong> (<em>Path</em>) -- Path to coils JSON file (e.g., biot_savart_optimized.json or coils.json).</p></li>
+<li><p><strong>case_yaml_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to case.yaml file. If None, tries to find it relative to coils_json_path.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Directory containing plasma surface files. Defaults to &quot;plasma_surfaces&quot;.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1190,8 +1320,8 @@ quasisymmetry metrics.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – If coils JSON or surface file cannot be found.</p></li>
-<li><p><strong>ValueError</strong> – If surface file type is not recognized.</p></li>
+<li><p><strong>FileNotFoundError</strong> -- If coils JSON or surface file cannot be found.</p></li>
+<li><p><strong>ValueError</strong> -- If surface file type is not recognized.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1204,8 +1334,8 @@ quasisymmetry metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>surface_path</strong> (<em>Path</em>) – Path to surface file.</p></li>
-<li><p><strong>surface_range</strong> (<em>str</em><em>, </em><em>default=&quot;full torus&quot;</em>) – Range for surface loading (“full torus” or “half period”).</p></li>
+<li><p><strong>surface_path</strong> (<em>Path</em>) -- Path to surface file.</p></li>
+<li><p><strong>surface_range</strong> (<em>str</em><em>, </em><em>default=&quot;full torus&quot;</em>) -- Range for surface loading (&quot;full torus&quot; or &quot;half period&quot;).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1225,11 +1355,11 @@ quasisymmetry metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>equil</strong> (<em>Vmec</em>) – VMEC equilibrium object.</p></li>
-<li><p><strong>output_path</strong> (<em>Path</em>) – Where to save the plot.</p></li>
-<li><p><strong>js</strong> (<em>int</em><em>, </em><em>optional</em>) – Deprecated. If provided, plots only that surface index (for backward compatibility).
+<li><p><strong>equil</strong> (<em>Vmec</em>) -- VMEC equilibrium object.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) -- Where to save the plot.</p></li>
+<li><p><strong>js</strong> (<em>int</em><em>, </em><em>optional</em>) -- Deprecated. If provided, plots only that surface index (for backward compatibility).
 Otherwise, creates 2x2 grid at s = 0, 0.25, 0.5, 1.0.</p></li>
-<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) – Resolution for saved figure.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) -- Resolution for saved figure.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1242,11 +1372,11 @@ Otherwise, creates 2x2 grid at s = 0, 0.25, 0.5, 1.0.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>equil</strong> (<em>Vmec</em>) – VMEC equilibrium object (self-consistent solution).</p></li>
-<li><p><strong>output_path</strong> (<em>Path</em>) – Where to save the plot.</p></li>
-<li><p><strong>sign</strong> (<em>int</em><em>, </em><em>default=1</em>) – Sign to apply to iota (1 or -1).</p></li>
-<li><p><strong>equil_original</strong> (<em>Vmec</em><em>, </em><em>optional</em>) – Original VMEC equilibrium object for comparison.</p></li>
-<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) – Resolution for saved figure.</p></li>
+<li><p><strong>equil</strong> (<em>Vmec</em>) -- VMEC equilibrium object (self-consistent solution).</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) -- Where to save the plot.</p></li>
+<li><p><strong>sign</strong> (<em>int</em><em>, </em><em>default=1</em>) -- Sign to apply to iota (1 or -1).</p></li>
+<li><p><strong>equil_original</strong> (<em>Vmec</em><em>, </em><em>optional</em>) -- Original VMEC equilibrium object for comparison.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) -- Resolution for saved figure.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1259,12 +1389,12 @@ Otherwise, creates 2x2 grid at s = 0, 0.25, 0.5, 1.0.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qs_profile</strong> (<em>np.ndarray</em>) – Quasisymmetry error at each radius (self-consistent solution).</p></li>
-<li><p><strong>radii</strong> (<em>np.ndarray</em>) – Normalized toroidal flux radii.</p></li>
-<li><p><strong>output_path</strong> (<em>Path</em>) – Where to save the plot.</p></li>
-<li><p><strong>qs_profile_original</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Original quasisymmetry error profile for comparison.</p></li>
-<li><p><strong>radii_original</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Normalized toroidal flux radii for original profile.</p></li>
-<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) – Resolution for saved figure.</p></li>
+<li><p><strong>qs_profile</strong> (<em>np.ndarray</em>) -- Quasisymmetry error at each radius (self-consistent solution).</p></li>
+<li><p><strong>radii</strong> (<em>np.ndarray</em>) -- Normalized toroidal flux radii.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) -- Where to save the plot.</p></li>
+<li><p><strong>qs_profile_original</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) -- Original quasisymmetry error profile for comparison.</p></li>
+<li><p><strong>radii_original</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) -- Normalized toroidal flux radii for original profile.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) -- Resolution for saved figure.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1289,29 +1419,29 @@ Otherwise, creates 2x2 grid at s = 0, 0.25, 0.5, 1.0.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coils_json_path</strong> (<em>Path</em>) – Path to coils JSON file.</p></li>
-<li><p><strong>output_dir</strong> (<em>Path</em>) – Directory where output files will be saved.</p></li>
-<li><p><strong>case_yaml_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to case.yaml file.</p></li>
-<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) – Directory containing plasma surface files.</p></li>
-<li><p><strong>run_vmec</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to run QFM surface computation and VMEC equilibrium calculation.
+<li><p><strong>coils_json_path</strong> (<em>Path</em>) -- Path to coils JSON file.</p></li>
+<li><p><strong>output_dir</strong> (<em>Path</em>) -- Directory where output files will be saved.</p></li>
+<li><p><strong>case_yaml_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to case.yaml file.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Directory containing plasma surface files.</p></li>
+<li><p><strong>run_vmec</strong> (<em>bool</em><em>, </em><em>default=False</em>) -- Whether to run QFM surface computation and VMEC equilibrium calculation.
 This is computationally expensive and disabled by default.</p></li>
-<li><p><strong>helicity_m</strong> (<em>int</em><em>, </em><em>default=1</em>) – Poloidal mode number for quasisymmetry.</p></li>
-<li><p><strong>helicity_n</strong> (<em>int</em><em>, </em><em>default=0</em>) – Toroidal mode number for quasisymmetry.</p></li>
-<li><p><strong>ns</strong> (<em>int</em><em>, </em><em>default=50</em>) – Number of radial surfaces for quasisymmetry evaluation.</p></li>
-<li><p><strong>plot_boozer</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to generate Boozer surface plot (requires run_vmec=True).</p></li>
-<li><p><strong>plot_poincare</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to generate Poincaré plot.</p></li>
-<li><p><strong>nfieldlines</strong> (<em>int</em><em>, </em><em>default=10</em>) – Number of fieldlines to trace for Poincaré plot.</p></li>
-<li><p><strong>mpi</strong> (<em>Any</em><em>, </em><em>optional</em>) – MPI partition for parallel execution. If None, one is created based on ngroups.</p></li>
-<li><p><strong>run_simple</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable
+<li><p><strong>helicity_m</strong> (<em>int</em><em>, </em><em>default=1</em>) -- Poloidal mode number for quasisymmetry.</p></li>
+<li><p><strong>helicity_n</strong> (<em>int</em><em>, </em><em>default=0</em>) -- Toroidal mode number for quasisymmetry.</p></li>
+<li><p><strong>ns</strong> (<em>int</em><em>, </em><em>default=50</em>) -- Number of radial surfaces for quasisymmetry evaluation.</p></li>
+<li><p><strong>plot_boozer</strong> (<em>bool</em><em>, </em><em>default=True</em>) -- Whether to generate Boozer surface plot (requires run_vmec=True).</p></li>
+<li><p><strong>plot_poincare</strong> (<em>bool</em><em>, </em><em>default=True</em>) -- Whether to generate Poincaré plot.</p></li>
+<li><p><strong>nfieldlines</strong> (<em>int</em><em>, </em><em>default=10</em>) -- Number of fieldlines to trace for Poincaré plot.</p></li>
+<li><p><strong>mpi</strong> (<em>Any</em><em>, </em><em>optional</em>) -- MPI partition for parallel execution. If None, one is created based on ngroups.</p></li>
+<li><p><strong>run_simple</strong> (<em>bool</em><em>, </em><em>default=False</em>) -- Whether to run SIMPLE fast particle tracing after VMEC (requires simple.x executable
 and run_vmec=True). Disabled by default.</p></li>
-<li><p><strong>simple_executable_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to simple.x executable. If None, searches in common locations.</p></li>
-<li><p><strong>run_vmec_original</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to also run VMEC on the original plasma surface for comparison.
+<li><p><strong>simple_executable_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to simple.x executable. If None, searches in common locations.</p></li>
+<li><p><strong>run_vmec_original</strong> (<em>bool</em><em>, </em><em>default=False</em>) -- Whether to also run VMEC on the original plasma surface for comparison.
 This doubles the VMEC computation time but provides comparison plots.</p></li>
-<li><p><strong>plot_finite_build</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Whether to generate finite-build coil geometry (rectangular cross-section
+<li><p><strong>plot_finite_build</strong> (<em>bool</em><em>, </em><em>default=False</em>) -- Whether to generate finite-build coil geometry (rectangular cross-section
 swept along centerline) and export to VTK.</p></li>
-<li><p><strong>finite_build_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Cross-section width [m] for finite-build coils. If None, uses Stellaris
+<li><p><strong>finite_build_width</strong> (<em>float</em><em>, </em><em>optional</em>) -- Cross-section width [m] for finite-build coils. If None, uses Stellaris
 default (5 cm).</p></li>
-<li><p><strong>finite_build_height</strong> (<em>float</em><em>, </em><em>optional</em>) – Cross-section height [m] for finite-build coils. If None, uses
+<li><p><strong>finite_build_height</strong> (<em>float</em><em>, </em><em>optional</em>) -- Cross-section height [m] for finite-build coils. If None, uses
 default (5 cm).</p></li>
 </ul>
 </dd>
@@ -1323,11 +1453,11 @@ default (5 cm).</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary containing post-processing results:
-- ‘qfm_surface’: QFM surface object
-- ‘quasisymmetry_average’: Average quasisymmetry error
-- ‘quasisymmetry_profile’: Radial quasisymmetry profile
-- ‘vmec’: VMEC equilibrium object (if run_vmec=True)
-- ‘simple_results’: Dictionary with SIMPLE results (if run_simple=True and VMEC succeeded)</p>
+- 'qfm_surface': QFM surface object
+- 'quasisymmetry_average': Average quasisymmetry error
+- 'quasisymmetry_profile': Radial quasisymmetry profile
+- 'vmec': VMEC equilibrium object (if run_vmec=True)
+- 'simple_results': Dictionary with SIMPLE results (if run_simple=True and VMEC succeeded)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dict[str, Any]</p>
@@ -1346,10 +1476,10 @@ See <a class="reference external" href="https://github.com/itpplasma/SIMPLE/blob
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>vmec_equil</strong> (<em>Vmec</em>) – VMEC equilibrium object with output_file attribute containing path to wout file.</p></li>
-<li><p><strong>output_dir</strong> (<em>Path</em>) – Directory where simple.in and output files will be written.</p></li>
-<li><p><strong>simple_executable_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to simple.x executable. If None, assumes simple.x is in the project root directory.</p></li>
-<li><p><strong>**kwargs</strong> (<em>Any</em>) – <p>SIMPLE configuration parameters. All parameters are optional with defaults
+<li><p><strong>vmec_equil</strong> (<em>Vmec</em>) -- VMEC equilibrium object with output_file attribute containing path to wout file.</p></li>
+<li><p><strong>output_dir</strong> (<em>Path</em>) -- Directory where simple.in and output files will be written.</p></li>
+<li><p><strong>simple_executable_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to simple.x executable. If None, assumes simple.x is in the project root directory.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) -- <p>SIMPLE configuration parameters. All parameters are optional with defaults
 matching the SIMPLE simple.in file. Key parameters include:</p>
 <p><strong>Particle Tracing Parameters:</strong></p>
 <ul>
@@ -1486,11 +1616,11 @@ or list of values (e.g., [0.6, 0.7]) to distribute particles on multiple surface
 <ul>
 <li><dl class="simple">
 <dt>startmode<span class="classifier">int, default=1</span></dt><dd><p>Mode for initial conditions:
-1 = only on one fieldline (“local”),
+1 = only on one fieldline (&quot;local&quot;),
 2 = read and run,
 3 = read ANTS and run,
 4 = read and run a batch,
-5 = distribute in volume (“global”).</p>
+5 = distribute in volume (&quot;global&quot;).</p>
 </dd>
 </dl>
 </li>
@@ -1528,7 +1658,7 @@ or list of values (e.g., [0.6, 0.7]) to distribute particles on multiple surface
 </dl>
 </li>
 <li><dl class="simple">
-<dt>fast_class<span class="classifier">bool, default=False</span></dt><dd><p>If True, quit immediately after fast classification and don’t trace orbits to the end.</p>
+<dt>fast_class<span class="classifier">bool, default=False</span></dt><dd><p>If True, quit immediately after fast classification and don't trace orbits to the end.</p>
 </dd>
 </dl>
 </li>
@@ -1620,7 +1750,7 @@ Very large default effectively disables batch mode.</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>macrostep_time_grid<span class="classifier">str, default=’linear’</span></dt><dd><p>Macrostep time grid: ‘linear’ (constant steps) or ‘log’ (logarithmic distribution).</p>
+<dt>macrostep_time_grid<span class="classifier">str, default='linear'</span></dt><dd><p>Macrostep time grid: 'linear' (constant steps) or 'log' (logarithmic distribution).</p>
 </dd>
 </dl>
 </li>
@@ -1650,14 +1780,14 @@ Very large default effectively disables batch mode.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dictionary containing:
-- ‘simple_output_dir’: Path to directory where simple.x outputs were written
-- ‘confined_fraction_file’: Path to confined_fraction.dat
-- ‘times_lost_file’: Path to times_lost.dat
-- ‘loss_fraction’: Final loss fraction (if available)
-- ‘confined_fraction’: Final confined fraction (if available)
-- ‘confined_passing’: Final confined passing fraction (if available)
-- ‘confined_trapped’: Final confined trapped fraction (if available)
-- ‘final_time’: Final time value (if available)</p>
+- 'simple_output_dir': Path to directory where simple.x outputs were written
+- 'confined_fraction_file': Path to confined_fraction.dat
+- 'times_lost_file': Path to times_lost.dat
+- 'loss_fraction': Final loss fraction (if available)
+- 'confined_fraction': Final confined fraction (if available)
+- 'confined_passing': Final confined passing fraction (if available)
+- 'confined_trapped': Final confined trapped fraction (if available)
+- 'final_time': Final time value (if available)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict[str, Any]</p>
@@ -1672,11 +1802,11 @@ Very large default effectively disables batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>qfm_surface</strong> (<em>SurfaceRZFourier</em>) – QFM surface to use as VMEC boundary.</p></li>
-<li><p><strong>vmec_input_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to VMEC input file. If None or if the file is not a VMEC input file
+<li><p><strong>qfm_surface</strong> (<em>SurfaceRZFourier</em>) -- QFM surface to use as VMEC boundary.</p></li>
+<li><p><strong>vmec_input_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Path to VMEC input file. If None or if the file is not a VMEC input file
 (e.g., .focus file), uses a reference VMEC input file as a template.</p></li>
-<li><p><strong>mpi</strong> (<em>Any</em><em>, </em><em>optional</em>) – MPI partition for parallel execution. If None, creates a single-process partition.</p></li>
-<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) – Directory containing plasma surface files. Used to find a reference VMEC input file.</p></li>
+<li><p><strong>mpi</strong> (<em>Any</em><em>, </em><em>optional</em>) -- MPI partition for parallel execution. If None, creates a single-process partition.</p></li>
+<li><p><strong>plasma_surfaces_dir</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Directory containing plasma surface files. Used to find a reference VMEC input file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1701,8 +1831,8 @@ Very large default effectively disables batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em>) – Name of the section being timed.</p></li>
-<li><p><strong>print_time</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to print the elapsed time immediately.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) -- Name of the section being timed.</p></li>
+<li><p><strong>print_time</strong> (<em>bool</em><em>, </em><em>default=True</em>) -- Whether to print the elapsed time immediately.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
@@ -1726,23 +1856,23 @@ starting from points on the magnetic axis outward toward the plasma boundary.</p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bfield</strong> (<em>BiotSavart</em>) – Magnetic field from coils.</p></li>
-<li><p><strong>surface</strong> (<em>SurfaceRZFourier</em>) – Plasma boundary surface.</p></li>
-<li><p><strong>output_path</strong> (<em>Path</em>) – Where to save the Poincaré plot.</p></li>
-<li><p><strong>nfieldlines</strong> (<em>int</em><em>, </em><em>default=10</em>) – Number of fieldlines to trace.</p></li>
-<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>default=10000</em>) – Maximum integration time for fieldline tracing.</p></li>
-<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=1e-8</em>) – Tolerance for fieldline integration.</p></li>
-<li><p><strong>n_phi_slices</strong> (<em>int</em><em>, </em><em>default=4</em>) – Number of toroidal angles at which to record Poincaré sections.</p></li>
-<li><p><strong>use_interpolated_field</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether to use InterpolatedField for faster tracing (recommended).</p></li>
-<li><p><strong>comm</strong> (<em>Any</em><em>, </em><em>optional</em>) – MPI communicator for parallel tracing.</p></li>
-<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) – Resolution for saved figure.</p></li>
+<li><p><strong>bfield</strong> (<em>BiotSavart</em>) -- Magnetic field from coils.</p></li>
+<li><p><strong>surface</strong> (<em>SurfaceRZFourier</em>) -- Plasma boundary surface.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) -- Where to save the Poincaré plot.</p></li>
+<li><p><strong>nfieldlines</strong> (<em>int</em><em>, </em><em>default=10</em>) -- Number of fieldlines to trace.</p></li>
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>default=10000</em>) -- Maximum integration time for fieldline tracing.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=1e-8</em>) -- Tolerance for fieldline integration.</p></li>
+<li><p><strong>n_phi_slices</strong> (<em>int</em><em>, </em><em>default=4</em>) -- Number of toroidal angles at which to record Poincaré sections.</p></li>
+<li><p><strong>use_interpolated_field</strong> (<em>bool</em><em>, </em><em>default=True</em>) -- Whether to use InterpolatedField for faster tracing (recommended).</p></li>
+<li><p><strong>comm</strong> (<em>Any</em><em>, </em><em>optional</em>) -- MPI communicator for parallel tracing.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>default=300</em>) -- Resolution for saved figure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dictionary containing:
-- ‘poincare_plot_path’: Path to the generated Poincaré plot
-- ‘nfieldlines’: Number of fieldlines traced
-- ‘tmax’: Maximum integration time used</p>
+- 'poincare_plot_path': Path to the generated Poincaré plot
+- 'nfieldlines': Number of fieldlines traced
+- 'tmax': Maximum integration time used</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict[str, Any]</p>
@@ -1816,10 +1946,10 @@ adds <code class="docutils literal notranslate"><span class="pre">case_id</span>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dict</em>) – Parsed JSON for the CI case.</p></li>
-<li><p><strong>policy</strong> (<em>dict</em><em>, </em><em>optional</em>) – Proposer policy (from <code class="docutils literal notranslate"><span class="pre">policy/proposer_policy.yaml</span></code>).  If provided,
+<li><p><strong>data</strong> (<em>dict</em>) -- Parsed JSON for the CI case.</p></li>
+<li><p><strong>policy</strong> (<em>dict</em><em>, </em><em>optional</em>) -- Proposer policy (from <code class="docutils literal notranslate"><span class="pre">policy/proposer_policy.yaml</span></code>).  If provided,
 resource caps are taken from <code class="docutils literal notranslate"><span class="pre">policy[&quot;resource_caps&quot;]</span></code>.</p></li>
-<li><p><strong>file_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Used for error-message prefixes.</p></li>
+<li><p><strong>file_path</strong> (<em>Path</em><em>, </em><em>optional</em>) -- Used for error-message prefixes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1911,7 +2041,7 @@ implement default like this:</p>
 1. Loads metadata from metadata.yaml
 2. Loads case.yaml and evaluates the coils
 3. Creates a results.json file ready for submission</p>
-<p>Note: For running optimizations and generating submissions, use ‘submit-case’ instead.
+<p>Note: For running optimizations and generating submissions, use 'submit-case' instead.
 This command is for creating submissions from pre-existing coils files.</p>
 </dd></dl>
 
@@ -1927,16 +2057,16 @@ This command is for creating submissions from pre-existing coils files.</p>
 <p>This command performs analysis of optimized coil configurations, including:
 - Computing B·n on plasma surface (always)
 - Generating Poincaré plots (by default)
-- Computing QFM surfaces (with –run-vmec)
-- Running VMEC equilibrium calculations (with –run-vmec)
-- Computing quasisymmetry metrics (with –run-vmec)
-- Generating Boozer/iota/quasisymmetry plots (with –run-vmec)
-- Running SIMPLE particle tracing (with –run-vmec –run-simple)
-- Generating finite-build coil VTK (with –plot-finite-build)</p>
+- Computing QFM surfaces (with --run-vmec)
+- Running VMEC equilibrium calculations (with --run-vmec)
+- Computing quasisymmetry metrics (with --run-vmec)
+- Generating Boozer/iota/quasisymmetry plots (with --run-vmec)
+- Running SIMPLE particle tracing (with --run-vmec --run-simple)
+- Generating finite-build coil VTK (with --plot-finite-build)</p>
 <p class="rubric">Examples</p>
-<p>stellcoilbench post-process coils.json –output-dir results
-stellcoilbench post-process coils.json –run-vmec –output-dir results
-stellcoilbench post-process coils.json –plot-finite-build –output-dir results</p>
+<p>stellcoilbench post-process coils.json --output-dir results
+stellcoilbench post-process coils.json --run-vmec --output-dir results
+stellcoilbench post-process coils.json --plot-finite-build --output-dir results</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1946,7 +2076,7 @@ stellcoilbench post-process coils.json –plot-finite-build –output-dir result
 then evaluate the resulting coil set.</p>
 <p>Creates a subdirectory in submissions/ with structure:
 submissions/&lt;surface&gt;/&lt;username&gt;/&lt;datetime&gt;/</p>
-<p>Note: For generating submissions, use ‘submit-case’ instead.</p>
+<p>Note: For generating submissions, use 'submit-case' instead.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1971,23 +2101,23 @@ the original <code class="docutils literal notranslate"><span class="pre">case_c
 1. Loads case.yaml from cases/
 2. Runs the coil optimization
 3. Evaluates the results (B·n, Poincaré plot by default)
-4. Optionally runs QFM/VMEC/SIMPLE (with –run-vmec –run-simple)
-5. Optionally generates finite-build coil VTK (with –plot-finite-build)
+4. Optionally runs QFM/VMEC/SIMPLE (with --run-vmec --run-simple)
+5. Optionally generates finite-build coil VTK (with --plot-finite-build)
 6. Generates results.json in submissions/&lt;surface&gt;/&lt;username&gt;/&lt;case&gt;/&lt;datetime&gt;/ with metadata and metrics</p>
 <p>Directory structure: submissions/&lt;github_username&gt;/&lt;MM-DD-YYYY_HH-MM&gt;/all_files.zip
 GitHub username and hardware are auto-detected if not provided.</p>
 <p class="rubric">Examples</p>
 <p>stellcoilbench submit-case cases/case.yaml
-stellcoilbench submit-case cases/case.yaml –run-vmec
-stellcoilbench submit-case cases/case.yaml –run-vmec –run-simple
-stellcoilbench submit-case cases/case.yaml –plot-finite-build
-stellcoilbench submit-case cases/case.yaml –plot-finite-build –finite-build-width 0.05 –finite-build-height 0.05</p>
+stellcoilbench submit-case cases/case.yaml --run-vmec
+stellcoilbench submit-case cases/case.yaml --run-vmec --run-simple
+stellcoilbench submit-case cases/case.yaml --plot-finite-build
+stellcoilbench submit-case cases/case.yaml --plot-finite-build --finite-build-width 0.05 --finite-build-height 0.05</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stellcoilbench.cli.update_db_cmd">
 <span class="sig-prename descclassname"><span class="pre">stellcoilbench.cli.</span></span><span class="sig-name descname"><span class="pre">update_db_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">submissions_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docs_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stellcoilbench.cli.update_db_cmd" title="Link to this definition"></a></dt>
-<dd><p>Rebuild the on-repo ‘database’ of submissions and leaderboards.</p>
+<dd><p>Rebuild the on-repo 'database' of submissions and leaderboards.</p>
 <p>This scans submissions_dir for results.json files, aggregates them into
 docs/leaderboard.json, and writes per-surface leaderboards in docs/leaderboards/.</p>
 </dd></dl>
@@ -2003,7 +2133,7 @@ results to JSON.</p>
 <dt><strong>submit_case(case_file: Path) -&gt; None</strong></dt><dd><p>CLI command: Run a case and create a submission.</p>
 <p>See <span class="xref std std-doc">usage</span> for usage details.</p>
 </dd>
-<dt><strong>run_case(case_file: Path, coils_out_dir: Path = “coils_runs/”) -&gt; None</strong></dt><dd><p>CLI command: Run a case without creating a submission.</p>
+<dt><strong>run_case(case_file: Path, coils_out_dir: Path = &quot;coils_runs/&quot;) -&gt; None</strong></dt><dd><p>CLI command: Run a case without creating a submission.</p>
 <p>See <span class="xref std std-doc">usage</span> for usage details.</p>
 </dd>
 <dt><strong>generate_submission(case_file: Path, coils_file: Path, results_dir: Path | None = None) -&gt; None</strong></dt><dd><p>CLI command: Create a submission from existing results.</p>

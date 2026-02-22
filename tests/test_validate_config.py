@@ -178,7 +178,6 @@ class TestValidateCaseConfig:
             "surface_params": {"surface": "input.LandremanPaul2021_QA"},
             "coils_params": {
                 "coil_type": "dipole",
-                "tf_configuration": "LandremanPaulQA",
                 "Nx": 4,
                 "dipole_order": 2,
             },

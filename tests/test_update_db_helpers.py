@@ -7,9 +7,34 @@ from stellcoilbench.update_db import (
     _shorthand_to_math,
     _metric_definition,
     _metric_detailed_definition,
+    _is_zenodo_entry,
     compute_composite_score,
     write_rst_leaderboard,
 )
+
+
+class TestIsZenodoEntry:
+    """Tests for _is_zenodo_entry function."""
+
+    def test_zenodo_path(self):
+        """Entry with zenodo_14934092 in path is Zenodo."""
+        assert _is_zenodo_entry({"path": "submissions/LandremanPaul2021_QA/zenodo_14934092_Gil/QA/all_files.zip"})
+        assert _is_zenodo_entry({"path": "submissions/zenodo_14934092_Gil/QA/all_files.zip"})
+
+    def test_zenodo_contact(self):
+        """Entry with zenodo_14934092 in contact is Zenodo."""
+        assert _is_zenodo_entry({"contact": "zenodo_14934092_Gil"})
+
+    def test_zenodo_method_name(self):
+        """Entry with Zenodo 14934092 in method_name is Zenodo."""
+        assert _is_zenodo_entry({"method_name": "Zenodo 14934092 (Pedro Gil augmented Lagrangian)"})
+
+    def test_non_zenodo(self):
+        """Regular entries are not Zenodo."""
+        assert not _is_zenodo_entry({"path": "submissions/user123/run/all_files.zip"})
+        assert not _is_zenodo_entry({"contact": "user123"})
+        assert not _is_zenodo_entry({"method_name": "L-BFGS-B"})
+        assert not _is_zenodo_entry({})
 
 
 class TestMetricShorthand:

@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api.html" />
-    <link rel="prev" title="Reactor-Scale Leaderboard" href="leaderboard/reactor_scale.html" /> 
+    <link rel="prev" title="Dipole Coil Leaderboard" href="leaderboard/dipole.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -195,10 +195,10 @@ guards:</p>
 <p>Running on push solves the <strong>bootstrap problem</strong>: the first push after merging
 the autopilot code immediately proposes 8 cases, without waiting for a cron
 tick.</p>
-<p><strong>Why autopilot commits don’t cascade:</strong></p>
+<p><strong>Why autopilot commits don't cascade:</strong></p>
 <p>When the autopilot runner commits results to <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> or the proposer
 commits new cases to <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>, those pushes only touch paths listed
-in the workflow’s <code class="docutils literal notranslate"><span class="pre">paths-ignore</span></code>.  GitHub skips the workflow entirely for
+in the workflow's <code class="docutils literal notranslate"><span class="pre">paths-ignore</span></code>.  GitHub skips the workflow entirely for
 such pushes, so the benchmark pipeline (<code class="docutils literal notranslate"><span class="pre">determine-cases</span></code>, <code class="docutils literal notranslate"><span class="pre">run-cases</span></code>,
 <code class="docutils literal notranslate"><span class="pre">update-leaderboard</span></code>) never re-runs on autopilot commits.</p>
 <p><strong>Nonstop loop (self-sustaining):</strong></p>
@@ -213,7 +213,7 @@ commits results to <code class="docutils literal notranslate"><span class="pre">
 <li><p><code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code> in the same run proposes 8 more, pushes.</p></li>
 <li><p>Goto step 2.</p></li>
 </ol>
-<p>The runner’s push (touching <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> and <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>) may also
+<p>The runner's push (touching <code class="docutils literal notranslate"><span class="pre">cases/done/</span></code> and <code class="docutils literal notranslate"><span class="pre">cases/pending/</span></code>) may also
 trigger a queued run.  This is harmless: the batch barrier ensures the proposer
 never double-proposes, and extra runs where pending is empty are quick no-ops.</p>
 <p>The cron schedule (every 15 minutes) acts as a <strong>safety net</strong> in case the loop
@@ -222,8 +222,8 @@ stalls (e.g. due to a transient GitHub outage that drops a push event).</p>
 <p>The loop starts automatically on the first <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> that includes the
 autopilot code.  The <code class="docutils literal notranslate"><span class="pre">propose-autopilot-batch</span></code> job runs, proposes 8 cases,
 and pushes — which immediately triggers a new run that executes them.</p>
-<p>You can also trigger manually: <strong>GitHub → Actions → “StellCoilBench CI
-(Self-Hosted)” → “Run workflow”</strong> (the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> button).</p>
+<p>You can also trigger manually: <strong>GitHub → Actions → &quot;StellCoilBench CI
+(Self-Hosted)&quot; → &quot;Run workflow&quot;</strong> (the <code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> button).</p>
 <p><strong>Concurrency:</strong></p>
 <p>All triggers share a single concurrency group
 (<code class="docutils literal notranslate"><span class="pre">stellcoilbench-selfhosted-&lt;ref&gt;</span></code>) with <code class="docutils literal notranslate"><span class="pre">cancel-in-progress:</span> <span class="pre">true</span></code>.
@@ -381,7 +381,7 @@ converted to explore slots.</p>
   7. Accept into batch
 </pre></div>
 </div>
-<p>The key insight: mutation keeps the parent’s surface, algorithm, ncoils, order,
+<p>The key insight: mutation keeps the parent's surface, algorithm, ncoils, order,
 and objective term types intact — it only jitters the <em>numeric</em> thresholds.
 Weights are not mutated (augmented_lagrangian auto-tunes them).</p>
 <p><em>Explore (random) — fills the explore slots:</em></p>
@@ -554,7 +554,7 @@ an LLM proposer.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="leaderboard/reactor_scale.html" class="btn btn-neutral float-left" title="Reactor-Scale Leaderboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="leaderboard/dipole.html" class="btn btn-neutral float-left" title="Dipole Coil Leaderboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

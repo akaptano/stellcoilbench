@@ -75,6 +75,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="surface_specific.html">Surface-Specific Leaderboards</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reactor_scale.html">Reactor-Scale Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dipole.html">Dipole Coil Leaderboard</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../autopilot.html">Nonstop CI Autopilot</a></li>
@@ -196,13 +197,13 @@
 <p>Shorter coils are generally preferred for reduced material costs and improved manufacturability.</p>
 </dd>
 <dt><strong>Fourier Continuation (FC)</strong></dt><dd><p>Sequence of Fourier orders used in continuation method. The optimization starts with a low-order representation, converges, then extends the solution to higher orders using the previous solution as initial condition. This helps achieve convergence for complex problems.</p>
-<p>Format: comma-separated list of orders (e.g., “4,6,8” means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows “—“.</p>
+<p>Format: comma-separated list of orders (e.g., &quot;4,6,8&quot; means optimization was performed at orders 4, 6, and 8 sequentially). If not used, the column shows &quot;—&quot;.</p>
 </dd>
 <dt><strong>Number of Base Coils</strong> (<span class="math notranslate nohighlight">\(N\)</span>)</dt><dd><p>Number of base coils before applying stellarator symmetry.</p>
 <p>Units: dimensionless</p>
 <p>Typical values: 4, 6, 8, 12. More coils allow more complex field shaping but increase computational cost.</p>
 </dd>
-<dt><strong>Total Superconductor Length</strong> (<span class="math notranslate nohighlight">\(L_{\text{SC}}\)</span>)</dt><dd><p>Total length of superconducting tape required at reactor scale, accounting for the number of turns in each coil’s winding pack.</p>
+<dt><strong>Total Superconductor Length</strong> (<span class="math notranslate nohighlight">\(L_{\text{SC}}\)</span>)</dt><dd><p>Total length of superconducting tape required at reactor scale, accounting for the number of turns in each coil's winding pack.</p>
 <p>Mathematical form:</p>
 <div class="math notranslate nohighlight">
 \[L_{\text{SC}} = \frac{1}{1000} \sum_{i=1}^{N_{\text{coils}}} N_{\text{turns},i} \times L_{\text{reactor},i}\]</div>
@@ -668,10 +669,10 @@ that must be accommodated by the coil-surface and coil-coil separation gaps.</p>
 </section>
 <section id="finite-build-coil-coil-intersection-check">
 <h4>4. Finite-build coil-coil intersection check<a class="headerlink" href="#finite-build-coil-coil-intersection-check" title="Link to this heading"></a></h4>
-<p><em>simsopt</em>’s <code class="docutils literal notranslate"><span class="pre">CurveCurveDistance</span></code> penalty measures the <strong>centreline-to-centreline</strong>
+<p><em>simsopt</em>'s <code class="docutils literal notranslate"><span class="pre">CurveCurveDistance</span></code> penalty measures the <strong>centreline-to-centreline</strong>
 distance between coil filaments.  Once the winding-pack extent is known, we
 can check whether the finite-build coils would physically overlap.</p>
-<p>Each coil’s winding pack extends <span class="math notranslate nohighlight">\(w_i / 2\)</span> from the centreline in every
+<p>Each coil's winding pack extends <span class="math notranslate nohighlight">\(w_i / 2\)</span> from the centreline in every
 direction.  For two coils <em>i</em> and <em>j</em> separated by centreline distance
 <span class="math notranslate nohighlight">\(d_{ij}\)</span>, the clearance between their outer edges is</p>
 <div class="math notranslate nohighlight">

@@ -338,8 +338,12 @@ def _compute_N_turns_critical_current(
     }
 
 
-def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
+def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None, already_reactor_scaled: bool = False) -> dict:
     """Convert final device-scale metrics to reactor-scale equivalents.
+
+    When already_reactor_scaled is True, the coil metrics are already in ARIES-CS
+    reactor-scale (a=1.7 m, B=5.7 T); no scaling is applied (L_scale=1, B_scale=1).
+    Use this for external coil sets (e.g. Zenodo) that were produced at reactor scale.
 
     Scaling relationships (L = L_reactor/L_device, B = B_reactor/B_device):
 
@@ -430,21 +434,33 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     if major_radius is None or target_B is None:
         reactor_metrics["error"] = "Could not determine device scale parameters"
         return reactor_metrics
-    
-    # Compute scaling factors (use minor radius when available, consistent with vmec_RZ_scale)
-    from stellcoilbench.coil_optimization import ARIES_CS_MINOR_RADIUS
-    if minor_radius is not None and minor_radius > 0:
-        L_scale = ARIES_CS_MINOR_RADIUS / minor_radius  # Same as vmec_RZ_scale
+
+    # Skip scaling when coils are already at reactor scale (e.g. Zenodo QA from Gil et al.)
+    if already_reactor_scaled:
+        L_scale = 1.0
+        B_scale = 1.0
+        reactor_metrics["scaling_factors"] = {
+            "length_scale": 1.0,
+            "B_field_scale": 1.0,
+            "device_major_radius": float(REACTOR_REFERENCE["major_radius"]),
+            "device_target_B": float(REACTOR_REFERENCE["B_field"]),
+            "already_reactor_scaled": True,
+        }
     else:
-        L_scale = REACTOR_REFERENCE["major_radius"] / major_radius  # Legacy: major radius
-    B_scale = REACTOR_REFERENCE["B_field"] / target_B  # B-field scale factor
-    
-    reactor_metrics["scaling_factors"] = {
-        "length_scale": float(L_scale),
-        "B_field_scale": float(B_scale),
-        "device_major_radius": float(major_radius),
-        "device_target_B": float(target_B),
-    }
+        # Compute scaling factors (use minor radius when available, consistent with vmec_RZ_scale)
+        from stellcoilbench.coil_optimization import ARIES_CS_MINOR_RADIUS
+        if minor_radius is not None and minor_radius > 0:
+            L_scale = ARIES_CS_MINOR_RADIUS / minor_radius  # Same as vmec_RZ_scale
+        else:
+            L_scale = REACTOR_REFERENCE["major_radius"] / major_radius  # Legacy: major radius
+        B_scale = REACTOR_REFERENCE["B_field"] / target_B  # B-field scale factor
+
+        reactor_metrics["scaling_factors"] = {
+            "length_scale": float(L_scale),
+            "B_field_scale": float(B_scale),
+            "device_major_radius": float(major_radius),
+            "device_target_B": float(target_B),
+        }
     
     # Scale length quantities (multiply by L_scale)
     length_metrics = [
@@ -520,16 +536,32 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None) -> dict:
     #
     FORCE_LIMIT_MN_PER_M = 0.5  # MN/m engineering limit
     per_coil_forces = metrics.get("final_max_force_per_coil")
-    if per_coil_forces is not None and len(per_coil_forces) > 0:
-        reactor_force_per_coil = [f * force_scale / 1e6 for f in per_coil_forces]  # MN/m
-        n_turns_force = [max(1, int(np.ceil(f / FORCE_LIMIT_MN_PER_M)))
-                         for f in reactor_force_per_coil]
+    per_coil_currents = metrics.get("final_current_per_coil")
+    per_coil_lengths = metrics.get("final_length_per_coil")
 
-        # --- Critical-current–based turn count ---
-        per_coil_currents = metrics.get("final_current_per_coil")
-        per_coil_lengths = metrics.get("final_length_per_coil")
+    # Run N_turns finite-build when we have force data, or when we have
+    # currents/lengths (e.g. Zenodo coils) so Jc-based N_turns can be computed.
+    has_forces = per_coil_forces is not None and len(per_coil_forces) > 0
+    n_from_currents = len(per_coil_currents) if per_coil_currents is not None else 0
+    n_from_lengths = len(per_coil_lengths) if per_coil_lengths is not None else 0
+    can_run_jc = n_from_currents > 0 or n_from_lengths > 0
+    n_coils_for_turns = (
+        len(per_coil_forces) if has_forces and per_coil_forces else max(n_from_currents, n_from_lengths)
+    )
+
+    if (has_forces or can_run_jc) and n_coils_for_turns > 0:
+        if has_forces and per_coil_forces is not None:
+            reactor_force_per_coil = [f * force_scale / 1e6 for f in per_coil_forces]  # MN/m
+            n_turns_force = [max(1, int(np.ceil(f / FORCE_LIMIT_MN_PER_M)))
+                             for f in reactor_force_per_coil]
+            forces_for_jc: list = per_coil_forces
+        else:
+            # Zenodo coils: no force data, use Jc model only
+            forces_for_jc = [0.0] * n_coils_for_turns
+            reactor_force_per_coil = [0.0] * n_coils_for_turns
+            n_turns_force = [1] * n_coils_for_turns
         jc_result = _compute_N_turns_critical_current(
-            per_coil_forces=per_coil_forces,
+            per_coil_forces=forces_for_jc,
             per_coil_currents=per_coil_currents,
             per_coil_lengths=per_coil_lengths,
             L_scale=L_scale,
@@ -856,6 +888,7 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
         'simple_loss_fraction',  # SIMPLE fast particle tracing plot
         'simple',  # Also match any file with 'simple' in name
     ]
+    # surface_initial, surface_optimized: zipped only (deleted from disk after zip)
     
     # Remove files that should be zipped, but keep PDFs and post-processing files
     for file_path in files_to_zip:
@@ -1129,6 +1162,7 @@ def submit_case(
 
     # 4) Build submission results.json
     version_info = _get_version_info()
+    is_dipole = (case_cfg.coils_params or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
             "method_name": method_name or "",
@@ -1136,6 +1170,7 @@ def submit_case(
             "hardware": hardware,
             "notes": notes,
             "run_date": run_date,
+            "dipole_array": is_dipole,
         },
         "version_info": version_info,
         "metrics": metrics,
@@ -1259,9 +1294,11 @@ def run_case(
     # Build submission with version info
     version_info = _get_version_info()
     run_date = datetime.now().isoformat()
+    is_dipole = (case_cfg.coils_params or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
             "run_date": run_date,
+            "dipole_array": is_dipole,
         },
         "version_info": version_info,
         "metrics": metrics,
@@ -1498,6 +1535,7 @@ def _write_autopilot_submission(
     version_info = _get_version_info()
     reactor_scale_metrics = _compute_reactor_scale_metrics(full_metrics, case_cfg)
 
+    is_dipole = (case_config_dict.get("coils_params") or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
             "method_name": case_config_dict.get("description", f"autopilot_{case_id}"),
@@ -1505,6 +1543,7 @@ def _write_autopilot_submission(
             "hardware": "CPU: self-hosted runner",
             "notes": f"Autopilot case {case_id}",
             "run_date": _dt.now().isoformat(),
+            "dipole_array": is_dipole,
         },
         "version_info": version_info,
         "metrics": full_metrics,
@@ -1732,6 +1771,7 @@ def generate_submission(
     # Build submission results
     run_date = datetime.now().isoformat()
     version_info = _get_version_info()
+    is_dipole = (case_cfg.coils_params or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
             "method_name": metadata.method_name,
@@ -1740,6 +1780,7 @@ def generate_submission(
             "hardware": metadata.hardware,
             "notes": metadata.notes,
             "run_date": run_date,
+            "dipole_array": is_dipole,
         },
         "version_info": version_info,
         "metrics": metrics,

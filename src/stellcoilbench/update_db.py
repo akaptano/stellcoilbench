@@ -622,49 +622,48 @@ def _shorthand_to_math(shorthand: str) -> str:
 
 def _shorthand_to_html_math(shorthand: str) -> str:
     """
-    Convert metric shorthand to MathJax HTML for surface-specific leaderboard headers.
-    Returns <span class="math notranslate nohighlight">\\(...\\)</span> for math,
-    or plain text for non-math labels (Score, Date, User, i, f, PP, BP, QS, iota, FPT).
+    Convert metric shorthand to HTML that renders correctly without MathJax.
+    Uses Unicode symbols and <sub> tags for reliable display in raw HTML tables.
     """
-    # Plain-text labels (no math)
+    # Plain-text labels (no formatting)
     plain_labels = {"Score", "Date", "User", "i", "f", "PP", "BP", "QS", "iota", "FPT"}
     if shorthand in plain_labels:
         return shorthand
 
-    # Shorthand -> LaTeX for MathJax
-    latex_map = {
-        "f_B": r"f_{B}",
-        "B̄_n": r"\bar{B}_n",
-        "κ̄": r"\bar{\kappa}",
-        "max(B_n)": r"\max(B_n)",
-        "Var(l_i)": r"\mathrm{Var}(l_i)",
-        "d_cc": r"d_{cc}",
-        "d_cs": r"d_{cs}",
-        "MSC": r"\mathrm{MSC}",
-        "F_max": r"F_{\max}",
-        "τ_max": r"\tau_{\max}",
-        "κ_max": r"\kappa_{\max}",
-        "LN": r"\mathrm{LN}",
-        "FC": r"\mathrm{FC}",
-        "avg(QS)": r"\mathrm{avg}(\mathrm{QS})",
-        "LF": r"\mathrm{LF}",
-        "n": r"n",
-        "N": r"N",
-        "L": r"L",
-        "t": r"t",
-        "L_SC": r"L_{\text{SC}}",
-        "w_WP": r"w_{\text{WP}}",
-        "F_turn": r"F_{\text{turn}}",
-        "τ_turn": r"\tau_{\text{turn}}",
+    # Shorthand -> HTML using Unicode and subscripts (no MathJax required)
+    html_map = {
+        "f_B": "f<sub>B</sub>",
+        "B̄_n": "B̄<sub>n</sub>",  # B with macron + subscript
+        "κ̄": "κ̄",
+        "max(B_n)": "max(B<sub>n</sub>)",
+        "Var(l_i)": "Var(l<sub>i</sub>)",
+        "d_cc": "d<sub>cc</sub>",
+        "d_cs": "d<sub>cs</sub>",
+        "MSC": "MSC",
+        "F_max": "F<sub>max</sub>",
+        "τ_max": "τ<sub>max</sub>",
+        "κ_max": "κ<sub>max</sub>",
+        "LN": "LN",
+        "FC": "FC",
+        "avg(QS)": "avg(QS)",
+        "LF": "LF",
+        "n": "n",
+        "N": "N",
+        "L": "L",
+        "t": "t",
+        "L_SC": "L<sub>SC</sub>",
+        "w_WP": "w<sub>WP</sub>",
+        "F_turn": "F<sub>turn</sub>",
+        "τ_turn": "τ<sub>turn</sub>",
+        # Dipole leaderboard columns
+        "L_dip": "L<sub>dip</sub>",
+        "I_dip": "I<sub>dip</sub>",
+        "κ_dip": "κ<sub>dip</sub>",
+        "L_tf": "L<sub>TF</sub>",
+        "I_tf": "I<sub>TF</sub>",
+        "κ_tf": "κ<sub>TF</sub>",
     }
-    latex = latex_map.get(shorthand)
-    if latex is not None:
-        return f'<span class="math notranslate nohighlight">\\({latex}\\)</span>'
-
-    # Fallback: wrap in math if it looks like a variable
-    if shorthand and shorthand[0].isalpha():
-        return f'<span class="math notranslate nohighlight">\\({shorthand}\\)</span>'
-    return shorthand
+    return html_map.get(shorthand, shorthand)
 
 
 # Units for reactor-scale metric columns (LaTeX math fragments)
@@ -1496,7 +1495,12 @@ def build_methods_json(
             print(f"Warning: Duplicate method_key '{method_key}'. Previous: {methods[method_key].get('path')}, New: {path} (will overwrite)", file=sys.stderr)
 
         metrics_numeric = _numeric_fields(metrics)
-        
+        # Preserve dipole/TF nested metrics for dipole leaderboard (stripped by _numeric_fields)
+        if "dipole_metrics" in metrics and isinstance(metrics["dipole_metrics"], dict):
+            metrics_numeric["dipole_metrics"] = metrics["dipole_metrics"]
+        if "tf_metrics" in metrics and isinstance(metrics["tf_metrics"], dict):
+            metrics_numeric["tf_metrics"] = metrics["tf_metrics"]
+
         # Extract coil parameters from case.yaml if available
         # Handle both regular directories and zip files
         import zipfile
@@ -1522,13 +1526,27 @@ def build_methods_json(
                     import sys
                     print(f"Warning: Failed to load case.yaml from {case_yaml_path}: {e}", file=sys.stderr)
         
+        # dipole_array: from metadata, or case.yaml coil_type (for dipole leaderboard filter)
+        dipole_array = meta.get("dipole_array")
+        if dipole_array is None and case_yaml_data:
+            dipole_array = (case_yaml_data.get("coils_params") or {}).get("coil_type") == "dipole"
+        dipole_array = dipole_array if dipole_array is not None else False
+
         if case_yaml_data:
             coils_params = case_yaml_data.get("coils_params", {})
             # Add coil order and number of coils to metrics
             if "order" in coils_params:
                 metrics_numeric["coil_order"] = float(coils_params["order"])
+            elif "dipole_order" in coils_params:
+                metrics_numeric["coil_order"] = float(coils_params["dipole_order"])
             if "ncoils" in coils_params:
                 metrics_numeric["num_coils"] = float(coils_params["ncoils"])
+            elif dipole_array and "Nx" in coils_params:
+                # Dipole: Nx*Ny*Nz (Ny defaults to Nx; Nz defaults to 1 for typical 2D arrays)
+                nx = int(coils_params.get("Nx", 4))
+                ny = int(coils_params.get("Ny", nx))
+                nz = int(coils_params.get("Nz", 1))
+                metrics_numeric["num_coils"] = float(nx * ny * nz)
             
             # Extract Fourier continuation information
             fourier_continuation = case_yaml_data.get("fourier_continuation", {})
@@ -1827,6 +1845,7 @@ def build_methods_json(
             "reactor_scale_metrics": reactor_scale,
             "passes_constraints": passes_constraints,
             "constraint_violations": violations,
+            "dipole_array": dipole_array,
         }
     
     # Log summary
@@ -1895,6 +1914,7 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
             "path": md.get("path", ""),
             "metrics": metrics,
             "reactor_scale_metrics": md.get("reactor_scale_metrics", {}),
+            "dipole_array": md.get("dipole_array", False),
         }
 
         # Exclude entries that fail *hard* reactor-scale constraints
@@ -1939,6 +1959,21 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
     return {"entries": entries, "excluded_entries": excluded_entries}
 
 
+# Set to False to hide post-processing visualization columns (PP, BP, QS, iota, FPT).
+_LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS: bool = False
+
+
+def _is_zenodo_entry(entry: Dict[str, Any]) -> bool:
+    """Return True if entry is from Zenodo (Pedro Gil augmented Lagrangian, etc.)."""
+    path = entry.get("path", "") or ""
+    contact = entry.get("contact", "") or ""
+    method = entry.get("method_name", "") or ""
+    return (
+        "zenodo_14934092" in path
+        or "zenodo_14934092" in contact
+        or "Zenodo 14934092" in method
+    )
+
 # Metrics that should never appear in device-scale leaderboard tables.
 # These are either internal bookkeeping, duplicates of other columns, or
 # belong exclusively in the reactor-scale leaderboard.
@@ -1977,6 +2012,12 @@ _DEVICE_LEADERBOARD_EXCLUDE: set[str] = {
     # Internal run metadata (optimization_time "t" is shown instead of walltime_sec)
     "iterations_used",
     "walltime_sec",
+    # Optimization internals (nfev, njev, success) and current bookkeeping
+    "optimization_nfev",
+    "optimization_njev",
+    "optimization_success",
+    "total_current_after",
+    "total_current_before",
     # Average force/torque dropped; keep only F_max and τ_max
     "final_avg_max_coil_force",
     "final_avg_max_coil_torque",
@@ -2125,7 +2166,8 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
                 value = metrics.get(key)
                 row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
             
-            lines.append("<tr>")
+            tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(e) else ""
+            lines.append(f"<tr{tr_class}>")
             for cell in row_parts:
                 lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;">{cell}</td>')
             lines.append("</tr>")
@@ -2279,6 +2321,7 @@ def write_rst_leaderboard(
         "   leaderboard/metric_definitions",
         "   leaderboard/surface_specific",
         "   leaderboard/reactor_scale",
+        "   leaderboard/dipole",
         "",
     ]
     
@@ -3021,18 +3064,21 @@ def write_rst_leaderboard(
                 # Convert shorthand to math mode (e.g., "d_cc" -> ":math:`d_{cc}`", "F_max" -> ":math:`F_\text{max}`")
                 math_shorthand = _shorthand_to_math(shorthand)
                 surface_header_cols.append(math_shorthand)
-            # Add Date, User, i, f, and plot links at the end (use math mode with \text{} to avoid bold formatting)
+            # Add Date, User, i, f, and optionally plot links (PP, BP, QS, iota, FPT) at the end
             surface_header_cols.extend([
                 r":math:`\text{Date}`",
                 r":math:`\text{User}`",
                 r":math:`\text{i}`",
                 r":math:`\text{f}`",
-                r":math:`\text{PP}`",
-                r":math:`\text{BP}`",
-                r":math:`\text{QS}`",
-                r":math:`\text{iota}`",
-                r":math:`\text{FPT}`"
             ])
+            if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+                surface_header_cols.extend([
+                    r":math:`\text{PP}`",
+                    r":math:`\text{BP}`",
+                    r":math:`\text{QS}`",
+                    r":math:`\text{iota}`",
+                    r":math:`\text{FPT}`"
+                ])
 
             # Use raw HTML for sortable table (column headers with math rendering)
             safe_id = surface_name.replace(".", "_").replace(" ", "_")
@@ -3044,16 +3090,20 @@ def write_rst_leaderboard(
                 _shorthand_to_html_math("User"),
                 _shorthand_to_html_math("i"),
                 _shorthand_to_html_math("f"),
-                _shorthand_to_html_math("PP"),
-                _shorthand_to_html_math("BP"),
-                _shorthand_to_html_math("QS"),
-                _shorthand_to_html_math("iota"),
-                _shorthand_to_html_math("FPT"),
             ]
+            if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+                header_labels.extend([
+                    _shorthand_to_html_math("PP"),
+                    _shorthand_to_html_math("BP"),
+                    _shorthand_to_html_math("QS"),
+                    _shorthand_to_html_math("iota"),
+                    _shorthand_to_html_math("FPT"),
+                ])
             lines.append("")
             lines.append(".. raw:: html")
             lines.append("")
-            lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+            lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }')
+            lines.append('   .leaderboard-table-wrapper tr.zenodo-entry { background: #e8f4f8; font-weight: 500; }</style>')
             lines.append('   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
             lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
             lines.append("   <thead>")
@@ -3309,13 +3359,17 @@ def write_rst_leaderboard(
                     (user_val, user_val),
                     (i_link_html, i_link_sort),
                     (f_link_html, f_link_sort),
-                    (poincare_link_html, poincare_link_sort),
-                    (boozer_link_html, boozer_link_sort),
-                    (qs_link_html, qs_link_sort),
-                    (iota_link_html, iota_link_sort),
-                    (fpt_link_html, fpt_link_sort),
                 ])
-                lines.append("   <tr>")
+                if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+                    row_cells.extend([
+                        (poincare_link_html, poincare_link_sort),
+                        (boozer_link_html, boozer_link_sort),
+                        (qs_link_html, qs_link_sort),
+                        (iota_link_html, iota_link_sort),
+                        (fpt_link_html, fpt_link_sort),
+                    ])
+                tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(entry) else ""
+                lines.append(f"   <tr{tr_class}>")
                 for disp, sort_val in row_cells:
                     sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
                     # Escape HTML in display if it doesn't contain our own tags
@@ -3590,7 +3644,8 @@ def write_surface_leaderboards(
             wrapper_id = f"leaderboard-wrapper-{safe_id}"
             
             # Scrollable wrapper: max-height ~10 rows, overflow for scroll
-            lines.append('<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+            lines.append('<style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }')
+            lines.append('.leaderboard-table-wrapper tr.zenodo-entry { background: #e8f4f8; font-weight: 500; }</style>')
             lines.append(f'<div id="{wrapper_id}" class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
             lines.append('<table id="' + table_id + '" class="leaderboard-sortable" style="font-size: 0.85em;">')
             lines.append("<thead>")
@@ -3628,7 +3683,8 @@ def write_surface_leaderboards(
                         sort_val = "" if value is None else str(value)
                     row_parts.append((disp, sort_val))
                 
-                lines.append("<tr>")
+                tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(entry) else ""
+                lines.append(f"<tr{tr_class}>")
                 for disp, sort_val in row_parts:
                     sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
                     lines.append(f'<td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
@@ -4052,12 +4108,14 @@ def write_reactor_scale_leaderboard(
             _shorthand_to_html_math("User"),
             _shorthand_to_html_math("i"),
             _shorthand_to_html_math("f"),
-            _shorthand_to_html_math("PP"),
         ])
+        if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+            header_labels.append(_shorthand_to_html_math("PP"))
 
         lines.append(".. raw:: html")
         lines.append("")
-        lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }</style>')
+        lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }')
+        lines.append('   .leaderboard-table-wrapper tr.zenodo-entry { background: #e8f4f8; font-weight: 500; }</style>')
         lines.append('   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
         lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
         lines.append("   <thead>")
@@ -4246,9 +4304,11 @@ def write_reactor_scale_leaderboard(
 
             row_parts.append((i_link_html, i_link_sort))
             row_parts.append((f_link_html, f_link_sort))
-            row_parts.append((poincare_link_html, poincare_link_sort))
+            if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+                row_parts.append((poincare_link_html, poincare_link_sort))
 
-            lines.append("   <tr>")
+            tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(entry) else ""
+            lines.append(f"   <tr{tr_class}>")
             for disp, sort_val in row_parts:
                 sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
                 lines.append(f'   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
@@ -4274,6 +4334,287 @@ def write_reactor_scale_leaderboard(
         ])
 
     # Footer
+    lines.extend([
+        ".. note::",
+        "   Last updated: run ``stellcoilbench update-db`` to refresh locally.",
+        "",
+    ])
+
+    out_rst.parent.mkdir(parents=True, exist_ok=True)
+    out_rst.write_text("\n".join(lines))
+
+
+def write_dipole_leaderboard(
+    leaderboard: Dict[str, Any],
+    surface_leaderboards: Dict[str, Dict[str, Any]],
+    out_rst: Path,
+    repo_root: Path | None = None,
+) -> None:
+    """Write a dipole-specific leaderboard RST file with per-surface tables.
+
+    Only entries with dipole_metrics (metrics.dipole_metrics) are included.
+    See :doc:`metric_definitions` for dipole metric definitions.
+    """
+    def _dip_format(value: Any) -> str:
+        if value is None:
+            return "—"
+        if isinstance(value, (dict, list)):
+            return "—"
+        if isinstance(value, str):
+            return "—"
+        try:
+            v = float(value)
+        except (ValueError, TypeError):
+            return "—"
+        if abs(v) < 1e-100:
+            return "0"
+        # Use scientific notation for very large (e.g. F_max, I_dipole) or very small values
+        if abs(v) >= 1000 or (0 < abs(v) < 0.01):
+            return f"{v:.2e}"
+        if abs(v) >= 100:
+            return f"{v:.1f}"
+        if abs(v) >= 1:
+            return f"{v:.2f}"
+        return f"{v:.2e}"
+
+    lines: list[str] = [
+        "Dipole Coil Leaderboard",
+        "=======================",
+        "",
+        "Dipole cases use TF coils plus planar saddle (dipole) coils. "
+        "Metrics are reported separately for dipole and TF coil sets. "
+        "See :doc:`metric_definitions` for objective terms and dipole metrics.",
+        "",
+    ]
+
+    resolved_repo_root = repo_root
+    if resolved_repo_root is None:
+        resolved_repo_root = Path(out_rst.parent.parent.parent).resolve()
+    github_base_url = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
+
+    # Standard surface-specific metrics (same as surface leaderboard)
+    dipole_standard_metrics = [
+        ("fourier_continuation_orders", "FC"),
+        ("final_squared_flux", "f_B"),
+        ("max_BdotN_over_B", "max(B_n)"),
+        ("final_total_length", "L"),
+        ("final_arclength_variation", "Var(l_i)"),
+        ("final_min_cc_separation", "d_cc"),
+        ("final_min_cs_separation", "d_cs"),
+        ("final_mean_squared_curvature", "MSC"),
+        ("final_max_max_coil_force", "F_max"),
+        ("final_max_max_coil_torque", "τ_max"),
+        ("final_linking_number", "LN"),
+        ("optimization_time", "t"),
+        ("final_max_curvature", "κ_max"),
+    ]
+    # Dipole-specific column order
+    dipole_cols = [
+        ("dipole_total_length", "L_dip"),
+        ("dipole_total_current", "I_dip"),
+        ("dipole_max_curvature", "κ_dip"),
+        ("tf_total_length", "L_tf"),
+        ("tf_total_current", "I_tf"),
+        ("tf_max_curvature", "κ_tf"),
+    ]
+
+    for surface_name, surf_data in sorted(surface_leaderboards.items()):
+        entries = surf_data.get("entries", [])
+        display_name = _surface_display_name(surface_name)
+        lines.extend([display_name, "-" * len(display_name), ""])
+
+        if not entries:
+            lines.extend(["No dipole submissions for this surface.", ""])
+            continue
+
+        safe_id = surface_name.replace(".", "_").replace(" ", "_")
+        table_id = f"leaderboard-dipole-{safe_id}"
+        header_labels = [
+            _shorthand_to_html_math("Score"),
+            _shorthand_to_html_math("N"),
+            _shorthand_to_html_math("n"),
+            _shorthand_to_html_math("B̄_n"),
+        ]
+        for _, label in dipole_standard_metrics:
+            header_labels.append(_shorthand_to_html_math(label))
+        for _, label in dipole_cols:
+            header_labels.append(_shorthand_to_html_math(label))
+        header_labels.extend([
+            _shorthand_to_html_math("Date"),
+            _shorthand_to_html_math("User"),
+            _shorthand_to_html_math("i"),
+            _shorthand_to_html_math("f"),
+        ])
+        if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+            header_labels.extend([
+                _shorthand_to_html_math("PP"),
+                _shorthand_to_html_math("BP"),
+                _shorthand_to_html_math("QS"),
+                _shorthand_to_html_math("iota"),
+                _shorthand_to_html_math("FPT"),
+            ])
+
+        lines.append(".. raw:: html")
+        lines.append("")
+        lines.append('   <style>.leaderboard-table-wrapper .sortable:hover { background: #f0f0f0; }')
+        lines.append('   .leaderboard-table-wrapper tr.zenodo-entry { background: #e8f4f8; font-weight: 500; }</style>')
+        lines.append('   <div class="leaderboard-table-wrapper" style="max-height: 420px; overflow-y: auto; margin-bottom: 1em;">')
+        lines.append(f'   <table id="{table_id}" class="leaderboard-sortable" style="font-size: 0.85em;">')
+        lines.append("   <thead>")
+        lines.append("   <tr>")
+        for ci, label in enumerate(header_labels):
+            lines.append(
+                f'   <th class="sortable" data-col="{ci}" style="font-size: 0.9em; padding: 4px 8px; cursor: pointer; user-select: none;" title="Click to sort">'
+                f'{label} <span class="sort-icon">↕</span></th>'
+            )
+        lines.append("   </tr>")
+        lines.append("   </thead>")
+        lines.append("   <tbody>")
+
+        for entry in entries:
+            metrics = entry.get("metrics") or {}
+            dm = metrics.get("dipole_metrics") or {}
+            tm = metrics.get("tf_metrics") or {}
+            cs = entry.get("composite_score")
+            score_str = f"{cs:.3f}" if cs is not None else "—"
+            score_sort = float(cs) if cs is not None else -1e9
+
+            n_coils_val = metrics.get("num_coils")
+            n_coils_str = str(int(round(float(n_coils_val)))) if n_coils_val is not None else "—"
+            c_order_val = metrics.get("coil_order")
+            c_order_str = str(int(round(float(c_order_val)))) if c_order_val is not None else "—"
+            bdotn = metrics.get("avg_BdotN_over_B")
+            bdotn_str = _dip_format(bdotn)
+
+            row_parts: list[tuple[str, str]] = [
+                (score_str, str(score_sort)),
+                (n_coils_str, n_coils_str or ""),
+                (c_order_str, c_order_str or ""),
+                (bdotn_str, str(bdotn) if bdotn is not None else ""),
+            ]
+
+            # Standard surface-specific metrics
+            for key, _ in dipole_standard_metrics:
+                val = metrics.get(key)
+                if key == "fourier_continuation_orders":
+                    disp = str(val) if val else "—"
+                    sort_val = str(val) if val else ""
+                else:
+                    disp = _dip_format(val)
+                    sort_val = str(val) if val is not None else ""
+                row_parts.append((disp, sort_val))
+
+            for key, _ in dipole_cols:
+                if key == "dipole_total_length":
+                    val = dm.get("final_total_length")
+                elif key == "dipole_total_current":
+                    val = dm.get("total_current")
+                elif key == "dipole_max_curvature":
+                    val = dm.get("final_max_curvature")
+                elif key == "tf_total_length":
+                    val = tm.get("final_total_length")
+                elif key == "tf_total_current":
+                    val = tm.get("total_current")
+                elif key == "tf_max_curvature":
+                    val = tm.get("final_max_curvature")
+                else:
+                    val = None
+                row_parts.append((_dip_format(val), str(val) if val is not None else ""))
+
+            run_date = _format_date(entry.get("run_date", "_unknown_"))
+            run_date_sort = entry.get("run_date", "") or "0000-00-00"
+            row_parts.append((run_date, run_date_sort))
+
+            user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+            row_parts.append((html.escape(user_val), user_val))
+
+            # Visualization links
+            entry_path = entry.get("path", "")
+            if entry_path.startswith("/"):
+                entry_path = entry_path[1:]
+            i_link_html, i_link_sort = "—", ""
+            f_link_html, f_link_sort = "—", ""
+            pp_link_html, pp_link_sort = "—", ""
+            bp_link_html, bp_link_sort = "—", ""
+            qs_link_html, qs_link_sort = "—", ""
+            iota_link_html, iota_link_sort = "—", ""
+            fpt_link_html, fpt_link_sort = "—", ""
+            rank_num = str(entry.get("rank", "-"))
+
+            if entry_path:
+                path_obj = Path(entry_path)
+                submission_dir = path_obj.parent
+                if submission_dir.is_absolute():
+                    try:
+                        submission_dir = submission_dir.relative_to(resolved_repo_root.resolve())
+                    except ValueError:
+                        sd_str = str(submission_dir)
+                        if "submissions" in sd_str:
+                            idx = sd_str.find("submissions")
+                            submission_dir = Path(sd_str[idx:])
+                        else:
+                            submission_dir = None
+                if submission_dir:
+                    sd_str = str(submission_dir).replace("\\", "/").lstrip("/")
+                    if sd_str.startswith("./"):
+                        sd_str = sd_str[2:]
+                    init_pdf = Path(sd_str) / "bn_error_3d_plot_initial.pdf"
+                    final_pdf = Path(sd_str) / "bn_error_3d_plot.pdf"
+                    if (resolved_repo_root / init_pdf).exists():
+                        url = f"{github_base_url}/{str(init_pdf).replace(chr(92), '/')}"
+                        i_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                        i_link_sort = rank_num
+                    if (resolved_repo_root / final_pdf).exists():
+                        url = f"{github_base_url}/{str(final_pdf).replace(chr(92), '/')}"
+                        f_link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                        f_link_sort = rank_num
+                    # Plot files: poincare, boozer, quasisymmetry, iota, simple
+                    plot_files = [
+                        ("poincare_plot.png", "pp"),
+                        ("boozer_surface.png", "bp"),
+                        ("quasisymmetry_profile.png", "qs"),
+                        ("iota_profile.png", "iota"),
+                        ("simple_loss_fraction.png", "fpt"),
+                    ]
+                    for filename, plot_type in plot_files:
+                        for subdir in ["", "post_processing"]:
+                            pp_path = Path(sd_str) / subdir / filename if subdir else Path(sd_str) / filename
+                            if (resolved_repo_root / pp_path).exists():
+                                url = f"{github_base_url}/{str(pp_path).replace(chr(92), '/')}"
+                                link_html = f'<a href="{html.escape(url)}">{html.escape(rank_num)}</a>'
+                                if plot_type == "pp":
+                                    pp_link_html, pp_link_sort = link_html, rank_num
+                                elif plot_type == "bp":
+                                    bp_link_html, bp_link_sort = link_html, rank_num
+                                elif plot_type == "qs":
+                                    qs_link_html, qs_link_sort = link_html, rank_num
+                                elif plot_type == "iota":
+                                    iota_link_html, iota_link_sort = link_html, rank_num
+                                elif plot_type == "fpt":
+                                    fpt_link_html, fpt_link_sort = link_html, rank_num
+                                break
+
+            row_parts.append((i_link_html, i_link_sort))
+            row_parts.append((f_link_html, f_link_sort))
+            if _LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS:
+                row_parts.append((pp_link_html, pp_link_sort))
+                row_parts.append((bp_link_html, bp_link_sort))
+                row_parts.append((qs_link_html, qs_link_sort))
+                row_parts.append((iota_link_html, iota_link_sort))
+                row_parts.append((fpt_link_html, fpt_link_sort))
+
+            tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(entry) else ""
+            lines.append(f"   <tr{tr_class}>")
+            for disp, sort_val in row_parts:
+                sv = str(sort_val).replace('"', "&quot;").replace("<", "&lt;")
+                lines.append(f'   <td style="font-size: 0.9em; padding: 4px 8px;" data-sort-value="{sv}">{disp}</td>')
+            lines.append("   </tr>")
+
+        lines.append("   </tbody>")
+        lines.append("   </table>")
+        lines.append("   </div>")
+        lines.extend(["", ""])
+
     lines.extend([
         ".. note::",
         "   Last updated: run ``stellcoilbench update-db`` to refresh locally.",
@@ -4375,6 +4716,23 @@ def update_database(
         leaderboard, rs_surface_leaderboards, docs_dir / "leaderboard" / "reactor_scale.rst",
         repo_root=repo_root,
     )
+
+    # Dipole leaderboard: entries with dipole_array=True (from metadata or case.yaml coil_type)
+    dipole_entries = [
+        e for e in (all_entries_leaderboard.get("entries") or [])
+        if e.get("dipole_array") is True
+    ]
+    dipole_leaderboard = {"entries": dipole_entries}
+    dipole_surface_leaderboards = build_surface_leaderboards(
+        dipole_leaderboard, submissions_root, plasma_surfaces_dir
+    )
+    write_dipole_leaderboard(
+        dipole_leaderboard, dipole_surface_leaderboards,
+        docs_dir / "leaderboard" / "dipole.rst",
+        repo_root=repo_root,
+    )
+    if dipole_entries:
+        print(f"Generated dipole leaderboard with {len(dipole_entries)} entries", file=sys.stderr)
     
     print(f"Generated {len(surface_names)} surface leaderboard files: {sorted(surface_names)}", file=sys.stderr)
 

@@ -14,6 +14,8 @@ Record-specific filtering (final solutions only):
 - Single-stage optimization (7655077): Only one final coil set (biot_savart_opt.json
   from results/) with final plasma surface (wout_final.nc). Excludes coil_inputs and
   biot_savart_inner_loop*. Direct JSON files are skipped (zip only).
+- CWS CurveCWSFourier (13207692): Only paper_output_cws and paper_output_cws_circular
+  (final paper outputs). Excludes paper_evn_sweeping_*/0.XXXXX iteration checkpoints.
 
 Metadata is taken from the citing paper so it accurately reflects the publication.
 
@@ -48,15 +50,23 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 QUASR_RECORD_ID = "10050656"
 
 # Record IDs with "final-only" filtering (exclude intermediate/checkpoint solutions)
-# Augmented Lagrangian paper (Reactor-scale stellarators, Kaptanoglu et al.): exclude
-# coil_pareto_plots/SMF/* (hash-named Pareto exploration points) and any path matching
-# intermediate patterns like inner_loop, coil_inputs.
+# 14934092: Kaptanoglu dipole (arXiv 2412.13937) - reactor-scale dipole arrays.
+# Exclude coil_pareto_plots/SMF/*, inner_loop, coil_inputs.
 AUGMENTED_LAGRANGIAN_RECORD_IDS = frozenset({"14934092"})
+
+# 18497939: Gil augmented Lagrangian filamentary coils (arXiv 2507.12681).
+# Single zip (zenodo_repository_auglag.zip); extract coil JSONs with standard filtering.
+GIL_AUGLAG_RECORD_IDS = frozenset({"18497939"})
 
 # Single-stage optimization (Jorge et al.): only biot_savart_opt.json from results/,
 # exclude coil_inputs/ and biot_savart_inner_loop*. Also extract wout_final.nc (final
 # VMEC equilibrium surface) alongside each coil solution.
 SINGLE_STAGE_RECORD_IDS = frozenset({"7655077"})
+
+# CWS (CurveCWSFourier) optimization (Biu & Jorge): only final paper outputs.
+# Excludes paper_evn_sweeping_*/0.XXXXX iteration checkpoints (hundreds of runs).
+# Keeps paper_output_cws and paper_output_cws_circular (well-established benchmarks).
+CWS_OPTIMIZATION_RECORD_IDS = frozenset({"13207692"})
 
 # Zenodo URL patterns: record ID is numeric
 _ZENODO_RECORD_RE = re.compile(
@@ -252,6 +262,16 @@ def _should_include_coil_path(
         if "results/" not in path_lower:
             return False
         return True
+
+    if record_id in GIL_AUGLAG_RECORD_IDS:
+        # Gil auglag: include coil JSONs; exclude input/intermediate (same as default)
+        return True
+
+    if record_id in CWS_OPTIMIZATION_RECORD_IDS:
+        # Only final paper outputs; exclude paper_evn_sweeping_*/0.XXXXX iteration checkpoints
+        if "/paper_output_cws/" in path_lower or "/paper_output_cws_circular/" in path_lower:
+            return True
+        return False
 
     return True
 
@@ -480,6 +500,15 @@ def _process_zenodo_record(
                         pass
                 print(f"  Record {record_id}: saved {config_name}/coils.json from {fname}")
 
+    # Prune iteration checkpoints for CWS records (keep only final paper outputs)
+    if record_id in CWS_OPTIMIZATION_RECORD_IDS and record_out.exists():
+        allowed = {"paper_output_cws", "paper_output_cws_circular"}
+        for subdir in list(record_out.iterdir()):
+            if subdir.is_dir() and subdir.name not in allowed:
+                import shutil
+                shutil.rmtree(subdir)
+                print(f"  Record {record_id}: pruned {subdir.name}/ (iteration checkpoint)")
+
     if saved_count == 0:
         print(f"  Record {record_id}: no coil JSON found in {len(files)} file(s)")
 
@@ -526,9 +555,36 @@ def main() -> int:
         default=None,
         help="Limit number of PDFs to search (for faster testing)",
     )
+    parser.add_argument(
+        "--prune-cws-only",
+        action="store_true",
+        help="Prune Zenodo 13207692 to final outputs only (paper_output_cws, paper_output_cws_circular). No download.",
+    )
+    parser.add_argument(
+        "--record-ids",
+        nargs="*",
+        default=[],
+        help="Additional record IDs to fetch (e.g. 18497939 for Gil auglag). Fetched even if not found in PDFs.",
+    )
     args = parser.parse_args()
 
     output_dir = args.output.resolve()
+
+    if args.prune_cws_only:
+        import shutil
+        record_out = output_dir / "13207692"
+        if not record_out.exists():
+            print("Record 13207692 not found in output directory.", file=sys.stderr)
+            return 1
+        allowed = {"paper_output_cws", "paper_output_cws_circular"}
+        pruned = 0
+        for subdir in list(record_out.iterdir()):
+            if subdir.is_dir() and subdir.name not in allowed:
+                shutil.rmtree(subdir)
+                print(f"Pruned {subdir.name}/")
+                pruned += 1
+        print(f"Pruned {pruned} iteration checkpoint(s). Kept {allowed}.")
+        return 0
     download_dir = args.download_dir or (output_dir / "._downloads")
     download_dir = download_dir.resolve()
 
@@ -537,27 +593,27 @@ def main() -> int:
     pdf_paths = _get_pdf_paths(args.papers_dir, args.manifest)
     if args.limit:
         pdf_paths = pdf_paths[: args.limit]
-    if not pdf_paths:
-        print(
-            "No PDFs found in papers directory or manifest. "
-            "Run fetch_papers.py to download papers to knowledge/papers/ first.",
-            file=sys.stderr,
-        )
-        return 1
 
     all_ids: set[str] = set()
     paper_sources: dict[str, list[str]] = {}
 
-    for pdf_path in pdf_paths:
-        try:
-            text = _extract_text_from_pdf(pdf_path)
-        except Exception as e:
-            print(f"Skip {pdf_path.name}: {e}", file=sys.stderr)
-            continue
-        ids = _extract_zenodo_ids_from_text(text)
-        for rid in ids:
+    if args.record_ids:
+        # Restrict to only the specified record IDs (skip PDF search)
+        for rid in args.record_ids:
             all_ids.add(rid)
-            paper_sources.setdefault(rid, []).append(pdf_path.stem)
+            paper_sources.setdefault(rid, []).append("direct")
+    else:
+        # Search PDFs for Zenodo links
+        for pdf_path in pdf_paths:
+            try:
+                text = _extract_text_from_pdf(pdf_path)
+            except Exception as e:
+                print(f"Skip {pdf_path.name}: {e}", file=sys.stderr)
+                continue
+            ids = _extract_zenodo_ids_from_text(text)
+            for rid in ids:
+                all_ids.add(rid)
+                paper_sources.setdefault(rid, []).append(pdf_path.stem)
 
     # Skip QUASR
     all_ids.discard(QUASR_RECORD_ID)
@@ -565,7 +621,7 @@ def main() -> int:
         print(f"Skipping QUASR (record {QUASR_RECORD_ID}): incompatible data format")
 
     if not all_ids:
-        print("No Zenodo links found in PDFs.")
+        print("No Zenodo links found in PDFs or --record-ids.")
         return 0
 
     print(f"Found {len(all_ids)} Zenodo record(s): {sorted(all_ids)}")

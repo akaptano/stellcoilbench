@@ -744,7 +744,48 @@ surface_params:
             )
             assert bfield is not None
             assert isinstance(bfield, BiotSavart)
-    
+
+    def test_load_coils_from_magnetic_field_sum(self, tmp_path):
+        """Test loading when JSON contains MagneticFieldSum (dipole + TF coils)."""
+        case_yaml = tmp_path / "case.yaml"
+        case_yaml.write_text("""
+surface_params:
+  surface: "input.test"
+  range: "half period"
+""")
+        surface_file = tmp_path / "input.test"
+        surface_file.write_text("dummy")
+
+        coils_json = tmp_path / "biot_savart_optimized.json"
+        coils = create_equally_spaced_curves(2, 1, stellsym=True, R0=1.2, R1=0.1, order=2)
+        base_currents = [Current(1e6) for _ in range(2)]
+        coils_list = coils_via_symmetries(coils, base_currents, 1, True)
+        bs1 = BiotSavart(coils_list[:1])
+        bs2 = BiotSavart(coils_list[1:])
+        msum = bs1 + bs2  # MagneticFieldSum (like dipole + TF)
+
+        from simsopt import save
+        save(msum, coils_json)
+
+        surface = SurfaceRZFourier(nfp=1, stellsym=True, mpol=1, ntor=1)
+        with patch('stellcoilbench.post_processing.SurfaceRZFourier.from_vmec_input') as mock_from_input:
+            mock_from_input.return_value = surface
+            bfield, loaded_surface = load_coils_and_surface(
+                coils_json,
+                case_yaml_path=case_yaml,
+                plasma_surfaces_dir=tmp_path,
+            )
+        assert bfield is not None
+        assert loaded_surface is not None
+        # bfield should be MagneticFieldSum, usable for set_points/B
+        bfield.set_points(surface.gamma().reshape((-1, 3)))
+        B = bfield.B()
+        assert B.shape[1] == 3
+        # _get_coils_from_bfield should extract coils for finite-build
+        from stellcoilbench.post_processing import _get_coils_from_bfield
+        coils_extracted = _get_coils_from_bfield(bfield)
+        assert len(coils_extracted) == len(coils_list)
+
     def test_load_coils_and_surface_wout_file(self, tmp_path):
         """Test loading surface from wout file."""
         case_yaml = tmp_path / "case.yaml"

@@ -17,3 +17,4 @@ feasibility of the coil designs.
    leaderboard/metric_definitions
    leaderboard/surface_specific
    leaderboard/reactor_scale
+   leaderboard/dipole

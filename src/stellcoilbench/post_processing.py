@@ -17,6 +17,22 @@ from simsopt import load
 from simsopt.geo import SurfaceRZFourier
 from simsopt.field import BiotSavart
 try:
+    from simsopt.field.magneticfield import MagneticFieldSum
+except ImportError:
+    MagneticFieldSum = None  # type: ignore
+
+
+def _get_coils_from_bfield(bfield: Any) -> list:
+    """Extract list of coils from BiotSavart or MagneticFieldSum (dipole + TF)."""
+    if isinstance(bfield, BiotSavart):
+        return list(bfield.coils)
+    if MagneticFieldSum is not None and isinstance(bfield, MagneticFieldSum):
+        coils = []
+        for bf in bfield.Bfields:
+            coils.extend(_get_coils_from_bfield(bf))
+        return coils
+    return []
+try:
     from simsopt.util.permanent_magnet_helper_functions import make_qfm  # type: ignore
 except ImportError:
     # Fallback import path
@@ -26,8 +42,8 @@ except ImportError:
         raise ImportError(
             "make_qfm not found. Please ensure simsopt is installed with permanent magnet utilities."
         )
-from simsopt.mhd.vmec import Vmec  # type: ignore
-from simsopt.mhd import QuasisymmetryRatioResidual  # type: ignore
+from simsopt.mhd.vmec import Vmec  # type: ignore  # noqa: E402
+from simsopt.mhd import QuasisymmetryRatioResidual  # type: ignore  # noqa: E402
 
 # MPI imports - wrapped to handle systems without MPI (e.g., ReadTheDocs)
 try:
@@ -51,13 +67,13 @@ try:
     TRACING_AVAILABLE = True
 except ImportError:
     TRACING_AVAILABLE = False
-import json
-import yaml
-import subprocess
-import sys
-import os
-import time
-from contextlib import contextmanager
+import json  # noqa: E402
+import yaml  # noqa: E402
+import subprocess  # noqa: E402
+import sys  # noqa: E402
+import os  # noqa: E402
+import time  # noqa: E402
+from contextlib import contextmanager  # noqa: E402
 
 
 # Global dictionary to store timing results
@@ -195,9 +211,12 @@ def load_coils_and_surface(
     bfield = load(str(coils_json_path))
     
     # If loaded object is BiotSavart, use it directly
+    # If MagneticFieldSum (e.g. dipole + TF from biot_savart_optimized.json), use it directly
     # Otherwise, assume it's coils and create BiotSavart
     if isinstance(bfield, BiotSavart):
-        coils = bfield.coils
+        pass  # use as-is
+    elif MagneticFieldSum is not None and isinstance(bfield, MagneticFieldSum):
+        pass  # use as-is (dipole + TF combined field)
     else:
         # Assume it's a list of coils
         coils = bfield if isinstance(bfield, list) else [bfield]
@@ -1915,13 +1934,15 @@ def run_post_processing(
     if plot_finite_build and is_proc0:
         try:
             from stellcoilbench.finite_build import finite_build_coils_to_vtk
-            with timed_section("finite_build_vtk", print_time=False):
-                fb_path = finite_build_coils_to_vtk(
-                    bfield.coils,
-                    output_dir / "finite_build_coils",
-                    width=finite_build_width,
-                    height=finite_build_height,
-                )
+            coils_for_fb = _get_coils_from_bfield(bfield)
+            if coils_for_fb:
+                with timed_section("finite_build_vtk", print_time=False):
+                    fb_path = finite_build_coils_to_vtk(
+                        coils_for_fb,
+                        output_dir / "finite_build_coils",
+                        width=finite_build_width,
+                        height=finite_build_height,
+                    )
                 results['finite_build_vtk_path'] = str(fb_path)
         except Exception as e:
             proc0_print(f"Warning: Finite-build VTK generation failed: {e}")
