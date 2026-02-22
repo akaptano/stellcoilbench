@@ -48,6 +48,7 @@ htmlcov/
 
 # Project specific
 submissions/
+cases/done/
 docs/_build/
 knowledge/zenodo/._downloads/
 knowledge/papers/*.pdf
