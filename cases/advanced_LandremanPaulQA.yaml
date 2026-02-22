@@ -1,35 +1,17 @@
-description: "Advanced coil optimization case with the Landreman-Paul QA surface"
+description: "Modular coil optimization for the Landreman-Paul 2021 QA surface with Fourier continuation and coil-coil force constraint: 4 coils, L-BFGS-B, Fourier continuation from order 4 to 16, lp_threshold on coil-coil force."
 surface_params:
   surface: "input.LandremanPaul2021_QA"
-  range: "half period"
 
 coils_params:
   ncoils: 4
-  order: 8  # Final order (used if fourier_continuation is disabled)
 
-# Fourier continuation: solve sequence of optimizations with increasing Fourier orders
-# Each step uses the previous solution as initial condition
 fourier_continuation:
   enabled: true
-  orders: [4, 8, 16]  # Start with order 4, then 6, then 8
+  orders: [4, 8, 16]
 
 optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 1000
-  max_iter_subopt: 10
-  verbose: True
 
-# options for each term are l2, l2_threshold, l1, l1_threshold.
-# Unspecified terms are not included in the objective function.
-# Note that SquaredFlux is always included (can't think of why it would ever be excluded
-coil_objective_terms: 
-  total_length: "l2_threshold"  
-  coil_curvature: "lp_threshold"  # options are lp, lp_threshold
-  coil_curvature_p: 2  # defaults to 2 if not specified
-  coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
-  linking_number: ""  # Whether or not to use the linking number
-  coil_coil_force: "lp_threshold"  # options are lp, lp_threshold
-  # coil_coil_force_p: 2  # defaults to 2 if not specified
-  coil_arclength_variation: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
-  # coil_coil_torque: "lp_threshold"  # options are lp, lp_threshold
-  # coil_coil_torque_p: 2  # defaults to 2 if not specified
+coil_objective_terms:
+  coil_coil_force: "lp_threshold"

@@ -1,7 +1,6 @@
-description: "Dipole coil optimization with Landreman-Paul QA surface (TF + dipole array)"
+description: "Dipole coil optimization for the Landreman-Paul 2021 QA surface: TF coils plus planar dipole array (4×4 grid, dipole_order=2), fixed shapes/currents/center/orientation, L-BFGS-B, 500 iterations."
 surface_params:
   surface: "input.LandremanPaul2021_QA"
-  range: "half period"
 
 coils_params:
   coil_type: "dipole"
@@ -15,4 +14,3 @@ coils_params:
 optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 500
-  verbose: True

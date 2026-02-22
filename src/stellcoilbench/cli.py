@@ -1,4 +1,11 @@
 # src/stellcoilbench/cli.py
+"""
+Typer CLI entry point for StellCoilBench.
+
+Provides commands: submit-case, run-case, run-ci-case, update-db, generate-submission,
+post-process. Handles hardware detection, version tracking, and REBCO reactor-scale
+scaling calculations.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -8,32 +15,25 @@ import subprocess
 import zipfile
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import typer
 
 # MPI utilities for rank-aware file operations
-# Use lazy import to avoid MPI library loading issues on systems without MPI (e.g., ReadTheDocs)
-try:
-    from simsopt.util import comm_world
-except (ImportError, RuntimeError):
-    # ImportError: simsopt not installed
-    # RuntimeError: mpi4py installed but MPI library not available
-    comm_world = None
-
-def _is_proc0() -> bool:
-    """Check if this is rank 0 (or non-MPI environment)."""
-    return comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
+from .mpi_utils import is_proc0
+from .path_utils import resolve_surface_path
 
 
-def _get_version_info() -> dict:
-    """Get version information for reproducibility tracking.
-    
-    Returns a dict with:
-    - stellcoilbench_commit: git commit hash of stellcoilbench repo
-    - simsopt_version: simsopt package version
-    - simsopt_git_info: simsopt git info if installed from source (branch, commit)
+def _get_version_info() -> Dict[str, str]:
+    """
+    Get version information for reproducibility tracking.
+
+    Returns
+    -------
+    dict[str, str]
+        Keys include: stellcoilbench_commit, stellcoilbench_branch, simsopt_version,
+        simsopt_commit, simsopt_branch, simsopt_remote (when available).
     """
     info = {}
     
@@ -187,9 +187,9 @@ def _rebco_jc_tape_stack(B: float, T_op: float = 20.0) -> float:
 
 
 def _compute_N_turns_critical_current(
-    per_coil_forces: list,
-    per_coil_currents: list | None,
-    per_coil_lengths: list | None,
+    per_coil_forces: List[float],
+    per_coil_currents: List[float] | None,
+    per_coil_lengths: List[float] | None,
     L_scale: float,
     B_scale: float,
     target_B: float,
@@ -199,7 +199,7 @@ def _compute_N_turns_critical_current(
     I_lead_max: float = STELLARIS_I_LEAD_MAX,
     A_HTS: float = STELLARIS_A_HTS,
     wp_enhancement: float = WP_B_ENHANCEMENT,
-) -> dict:
+) -> Dict[str, Any]:
     """Compute per-coil turn counts based on critical-current density.
 
     Following the Stellaris winding-pack model (Lion et al., FED 2025):
@@ -338,7 +338,11 @@ def _compute_N_turns_critical_current(
     }
 
 
-def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None, already_reactor_scaled: bool = False) -> dict:
+def _compute_reactor_scale_metrics(
+    metrics: Dict[str, Any],
+    case_cfg: Any | None = None,
+    already_reactor_scaled: bool = False,
+) -> Dict[str, Any]:
     """Convert final device-scale metrics to reactor-scale equivalents.
 
     When already_reactor_scaled is True, the coil metrics are already in ARIES-CS
@@ -402,26 +406,11 @@ def _compute_reactor_scale_metrics(metrics: dict, case_cfg=None, already_reactor
             else:
                 surface_name = ""
             if surface_name:
-                # Search for surface file in plasma_surfaces/
-                candidates = [
-                    Path("plasma_surfaces") / surface_name,
-                    Path.cwd() / "plasma_surfaces" / surface_name,
+                base_dirs = [
+                    Path("plasma_surfaces"),
+                    Path.cwd() / "plasma_surfaces",
                 ]
-                surface_path = None
-                for p in candidates:
-                    if p.exists():
-                        surface_path = p
-                        break
-                # Case-insensitive fallback
-                if surface_path is None:
-                    ps_dir = Path("plasma_surfaces")
-                    if not ps_dir.exists():
-                        ps_dir = Path.cwd() / "plasma_surfaces"
-                    if ps_dir.exists():
-                        for f in ps_dir.iterdir():
-                            if f.name.lower() == surface_name.lower():
-                                surface_path = f
-                                break
+                surface_path = resolve_surface_path(surface_name, base_dirs)
                 if surface_path is not None:
                     from simsopt.geo import SurfaceRZFourier
                     s = SurfaceRZFourier.from_vmec_input(
@@ -724,7 +713,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 
-def _print_submission_summary(submission: dict) -> None:
+def _print_submission_summary(submission: Dict[str, Any]) -> None:
     """Print a clearly formatted summary of the submission results."""
     typer.echo("")
     typer.echo("=" * 60)
@@ -738,8 +727,13 @@ def _print_submission_summary(submission: dict) -> None:
     typer.echo("")
     metrics = submission.get("metrics", {})
     # Exclude internal/verbose keys from printed metrics (still stored in results.json)
-    _metrics_suppress = {"timing", "_cached_thresholds", "continuation_results"}
-    metrics_to_print = {k: v for k, v in metrics.items() if k not in _metrics_suppress}
+    _metrics_suppress = {"timing", "_cached_thresholds", "continuation_results", "dipole_metrics", "tf_metrics"}
+    _per_coil_suppress = {"final_max_torque_per_coil", "final_max_force_per_coil", "final_current_per_coil"}
+    _subset_per_coil_suppress = _per_coil_suppress | {"max_force", "max_torque", "final_length_per_coil"}
+    metrics_to_print = {
+        k: v for k, v in metrics.items()
+        if k not in _metrics_suppress and k not in _per_coil_suppress
+    }
     if metrics_to_print:
         typer.echo("  Metrics:")
         for k, v in sorted(metrics_to_print.items()):
@@ -749,6 +743,30 @@ def _print_submission_summary(submission: dict) -> None:
                 typer.echo(f"    {k}: {fmt}")
             else:
                 typer.echo(f"    {k}: {v}")
+        typer.echo("")
+
+    def _print_metrics_dict(d: dict, per_coil_suppress: set) -> None:
+        for k, v in sorted(d.items()):
+            if k in per_coil_suppress:
+                continue
+            if isinstance(v, (int, float)):
+                av = abs(float(v))
+                fmt = f"{v:.4e}" if (av and (av < 1e-2 or av >= 1e4)) else str(v)
+                typer.echo(f"    {k}: {fmt}")
+            elif isinstance(v, list) and len(v) > 4:
+                typer.echo(f"    {k}: {v}")
+            else:
+                typer.echo(f"    {k}: {v}")
+
+    dipole_metrics = metrics.get("dipole_metrics")
+    if isinstance(dipole_metrics, dict) and dipole_metrics:
+        typer.echo("  Dipole metrics:")
+        _print_metrics_dict(dipole_metrics, _subset_per_coil_suppress)
+        typer.echo("")
+    tf_metrics = metrics.get("tf_metrics")
+    if isinstance(tf_metrics, dict) and tf_metrics:
+        typer.echo("  TF metrics:")
+        _print_metrics_dict(tf_metrics, _subset_per_coil_suppress)
         typer.echo("")
     # Coil optimization timing (merged from COIL OPTIMIZATION TIMING SUMMARY)
     timing = metrics.get("timing") or submission.get("timing")
@@ -888,7 +906,6 @@ def _zip_submission_directory(submission_dir: Path) -> Path:
         'simple_loss_fraction',  # SIMPLE fast particle tracing plot
         'simple',  # Also match any file with 'simple' in name
     ]
-    # surface_initial, surface_optimized: zipped only (deleted from disk after zip)
     
     # Remove files that should be zipped, but keep PDFs and post-processing files
     for file_path in files_to_zip:
@@ -1019,13 +1036,6 @@ def submit_case(
         ...,
         help="Path to case.yaml file (e.g., cases/case.yaml).",
     ),
-    method_name: Optional[str] = typer.Option(
-        None,
-        "--method-name",
-        "-m",
-        help="Name of your optimization method (optional, stored in metadata).",
-    ),
-    notes: str = typer.Option("", "--notes", "-n", help="Additional notes."),
     submissions_dir: Path = typer.Option(
         Path("submissions"),
         "--submissions-dir",
@@ -1135,7 +1145,7 @@ def submit_case(
     # 1) Run the optimizer, writing coils_out_path and VTK files to submission_dir.
     # Note: optimize_coils handles MPI internally - only rank 0 runs optimization,
     # but all ranks participate in post-processing (fieldline tracing)
-    if _is_proc0():
+    if is_proc0():
         typer.echo("Running optimizer...")
     results_dict = optimize_coils(
         case_path=case_path, 
@@ -1151,7 +1161,7 @@ def submit_case(
     )
     
     # Only rank 0 should write files and print messages
-    if not _is_proc0():
+    if not is_proc0():
         return  # Non-rank-0 processes exit after optimization/post-processing
 
     # 2) Evaluate the resulting coils.
@@ -1165,10 +1175,8 @@ def submit_case(
     is_dipole = (case_cfg.coils_params or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
-            "method_name": method_name or "",
             "contact": contact,
             "hardware": hardware,
-            "notes": notes,
             "run_date": run_date,
             "dipole_array": is_dipole,
         },
@@ -1269,12 +1277,12 @@ def run_case(
     # 1) Run the optimizer, writing coils_out_path.
     # Note: optimize_coils handles MPI internally - only rank 0 runs optimization,
     # but all ranks participate in post-processing (fieldline tracing)
-    if _is_proc0():
+    if is_proc0():
         typer.echo("Running optimizer...")
     results_dict = optimize_coils(case_path=case_path, coils_out_path=coils_out_path, case_cfg=case_cfg)
     
     # Only rank 0 should write files and print messages
-    if not _is_proc0():
+    if not is_proc0():
         return  # Non-rank-0 processes exit after optimization/post-processing
 
     # 2) Evaluate the resulting coils.
@@ -1538,10 +1546,8 @@ def _write_autopilot_submission(
     is_dipole = (case_config_dict.get("coils_params") or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
-            "method_name": case_config_dict.get("description", f"autopilot_{case_id}"),
             "contact": "auto",
             "hardware": "CPU: self-hosted runner",
-            "notes": f"Autopilot case {case_id}",
             "run_date": _dt.now().isoformat(),
             "dipole_array": is_dipole,
         },
@@ -1600,7 +1606,7 @@ def _write_autopilot_submission(
     typer.echo(f"Wrote submission to {sub_path}")
 
 
-def _config_hash(cfg: dict) -> str:
+def _config_hash(cfg: Dict[str, Any]) -> str:
     """Deterministic hash of case_config for KB dedup and novelty checking."""
     canonical = json.dumps(cfg, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode()).hexdigest()[:16]
@@ -1625,7 +1631,7 @@ def _canonical_failure_class(exc: BaseException) -> str:
     return "unknown"
 
 
-def _compute_margins(metrics: dict) -> dict:
+def _compute_margins(metrics: Dict[str, Any]) -> Dict[str, Any]:
     """Compute constraint margins from metrics vs thresholds (positive = satisfied)."""
     margins: dict = {}
     # cc: separation >= threshold → margin = actual - threshold
@@ -1736,11 +1742,9 @@ def generate_submission(
     # Load metadata
     metadata_data = yaml.safe_load(metadata_path.read_text())
     metadata = SubmissionMetadata(
-        method_name=metadata_data.get("method_name", "UNKNOWN"),
         method_version=metadata_data.get("method_version", "0.0.0"),
         contact=metadata_data.get("contact", ""),
         hardware=metadata_data.get("hardware", ""),
-        notes=metadata_data.get("notes", ""),
     )
 
     # Load case configuration
@@ -1774,11 +1778,9 @@ def generate_submission(
     is_dipole = (case_cfg.coils_params or {}).get("coil_type") == "dipole"
     submission = {
         "metadata": {
-            "method_name": metadata.method_name,
             "method_version": metadata.method_version,
             "contact": metadata.contact,
             "hardware": metadata.hardware,
-            "notes": metadata.notes,
             "run_date": run_date,
             "dipole_array": is_dipole,
         },
@@ -1789,7 +1791,7 @@ def generate_submission(
 
     # Write output
     if submission_out is None:
-        submission_out = Path("submissions") / metadata.method_name / metadata.method_version / "results.json"
+        submission_out = Path("submissions") / metadata.contact / metadata.method_version / "results.json"
     
     # Ensure output path has .json extension for JSON format
     if not str(submission_out).endswith('.json'):

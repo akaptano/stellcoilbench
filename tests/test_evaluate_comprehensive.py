@@ -106,14 +106,14 @@ class TestBuildLeaderboard:
         """Test building leaderboard with simple submissions."""
         submissions = [
             (Path("sub1"), {
-                "metadata": {"method_name": "method1"},
+                "metadata": {"contact": "method1"},
                 "cases": [{
                     "case_name": "case1",
                     "scores": {"score_primary": 0.5}
                 }]
             }),
             (Path("sub2"), {
-                "metadata": {"method_name": "method2"},
+                "metadata": {"contact": "method2"},
                 "cases": [{
                     "case_name": "case1",
                     "scores": {"score_primary": 0.3}
@@ -131,7 +131,7 @@ class TestBuildLeaderboard:
         """Test building leaderboard with custom score key."""
         submissions = [
             (Path("sub1"), {
-                "metadata": {"method_name": "method1"},
+                "metadata": {"contact": "method1"},
                 "cases": [{
                     "case_name": "case1",
                     "scores": {"custom_score": 0.5}
@@ -147,7 +147,7 @@ class TestBuildLeaderboard:
         """Test building leaderboard with multiple cases per submission."""
         submissions = [
             (Path("sub1"), {
-                "metadata": {"method_name": "method1"},
+                "metadata": {"contact": "method1"},
                 "cases": [
                     {"case_name": "case1", "scores": {"score_primary": 0.5}},
                     {"case_name": "case2", "scores": {"score_primary": 0.3}},
@@ -217,15 +217,15 @@ class TestBuildLeaderboard:
         """Test that leaderboard is sorted correctly."""
         submissions = [
             (Path("sub3"), {
-                "metadata": {"method_name": "method3"},
+                "metadata": {"contact": "method3"},
                 "cases": [{"case_name": "case1", "scores": {"score_primary": 0.9}}]
             }),
             (Path("sub1"), {
-                "metadata": {"method_name": "method1"},
+                "metadata": {"contact": "method1"},
                 "cases": [{"case_name": "case1", "scores": {"score_primary": 0.1}}]
             }),
             (Path("sub2"), {
-                "metadata": {"method_name": "method2"},
+                "metadata": {"contact": "method2"},
                 "cases": [{"case_name": "case1", "scores": {"score_primary": 0.5}}]
             }),
         ]
@@ -244,7 +244,6 @@ class TestSubmissionResults:
     def test_submission_results_init(self):
         """Test SubmissionResults initialization."""
         metadata = SubmissionMetadata(
-            method_name="testmethod",
             method_version="1.0",
             contact="test@example.com",
             hardware="CPU"
@@ -258,7 +257,6 @@ class TestSubmissionResults:
     def test_submission_results_empty_metrics(self):
         """Test SubmissionResults with empty metrics."""
         metadata = SubmissionMetadata(
-            method_name="testmethod",
             method_version="1.0",
             contact="test@example.com",
             hardware="CPU"

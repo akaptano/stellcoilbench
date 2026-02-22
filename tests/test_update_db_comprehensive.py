@@ -9,6 +9,7 @@ import yaml
 import pytest
 from unittest.mock import patch
 
+from stellcoilbench import update_db
 from stellcoilbench.update_db import (
     _format_date,
     _shorthand_to_math,
@@ -165,7 +166,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -183,7 +184,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = user_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -201,7 +202,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = surface_dir / "all_files.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -219,7 +220,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = surface_dir / "01-25-2026_10-00.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -236,7 +237,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -260,7 +261,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -285,7 +286,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = surface_dir / "all_files.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
             zf.writestr("case.yaml", yaml.dump({
@@ -307,7 +308,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -325,7 +326,7 @@ class TestLoadSubmissionsEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "method_version": "v2.0",
             "final_normalized_squared_flux": 1e-5,
         }))
@@ -345,7 +346,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = user_dir / "all_files.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -361,7 +362,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = surface_dir / "all_files.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -376,7 +377,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = tmp_path / "external.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -394,7 +395,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = surface_dir / "all_files.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
             zf.writestr("case.yaml", yaml.dump({
@@ -417,7 +418,7 @@ class TestLoadSubmissionsEdgeCases:
         zip_file = user_dir / "01-25-2026_10-00.zip"
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
-                "method_name": "test_method",
+                "contact": "test_method",
                 "final_normalized_squared_flux": 1e-5,
             }))
         
@@ -449,7 +450,7 @@ class TestBuildMethodsJsonEdgeCases:
         surface_dir1.mkdir(parents=True)
         (surface_dir1 / "results.json").write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
+                "contact": "test_method",
             },
             "metrics": {
                 "final_normalized_squared_flux": 1e-5,
@@ -460,7 +461,7 @@ class TestBuildMethodsJsonEdgeCases:
         surface_dir2.mkdir(parents=True)
         (surface_dir2 / "results.json").write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
+                "contact": "test_method",
             },
             "metrics": {
                 "final_normalized_squared_flux": 2e-5,
@@ -627,7 +628,7 @@ class TestUpdateDatabaseEdgeCases:
         
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 1e-5,
         }))
         
@@ -653,7 +654,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_linking_number": 3.7,  # Should be rounded to 4
@@ -676,7 +677,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_normalized_squared_flux": 1e-150,  # Very small, should become "0"
@@ -698,7 +699,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_normalized_squared_flux": 0.05,  # Should format as ".5e-1" or similar
@@ -720,7 +721,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_linking_number": 5.8,  # Should round to 6
@@ -745,7 +746,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "fourier_continuation_orders": "1,2,3",
@@ -768,7 +769,7 @@ class TestValueFormattingEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "fourier_continuation_orders": "",
@@ -818,7 +819,7 @@ class TestZipPathParsingEdgeCases:
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
+                    "contact": "test_method",
                 },
                 "metrics": {
                     "final_normalized_squared_flux": 1e-5,
@@ -838,7 +839,7 @@ class TestZipPathParsingEdgeCases:
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
+                    "contact": "test_method",
                 },
                 "metrics": {
                     "final_normalized_squared_flux": 1e-5,
@@ -858,7 +859,7 @@ class TestZipPathParsingEdgeCases:
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
+                    "contact": "test_method",
                 },
                 "metrics": {
                     "final_normalized_squared_flux": 1e-5,
@@ -882,7 +883,7 @@ class TestCoilInfoExtraction:
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
+                "contact": "test_method",
             },
             "metrics": {
                 "final_normalized_squared_flux": 1e-5,
@@ -919,7 +920,7 @@ class TestRstLeaderboardMetricCategorization:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_coil_coil_distance": 0.1,
@@ -943,7 +944,7 @@ class TestRstLeaderboardMetricCategorization:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_coil_coil_force_lp": 1e-3,
@@ -967,7 +968,7 @@ class TestRstLeaderboardMetricCategorization:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_linking_number": 3,
@@ -990,7 +991,7 @@ class TestRstLeaderboardMetricCategorization:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "optimization_time": 100.5,
@@ -1013,7 +1014,7 @@ class TestRstLeaderboardMetricCategorization:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "fourier_continuation_orders": "4,6,8",
@@ -1042,7 +1043,7 @@ class TestSurfaceLeaderboardBuilding:
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
+                "contact": "test_method",
             },
             "metrics": {
                 "final_normalized_squared_flux": 1e-5,
@@ -1079,7 +1080,7 @@ class TestSurfaceLeaderboardBuilding:
         with zipfile.ZipFile(zip_file, 'w') as zf:
             zf.writestr("results.json", json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
+                    "contact": "test_method",
                 },
                 "metrics": {
                     "final_normalized_squared_flux": 1e-5,
@@ -1113,7 +1114,7 @@ class TestSurfaceLeaderboardBuilding:
         results_file = surface_dir / "results.json"
         results_file.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
+                "contact": "test_method",
             },
             "metrics": {
                 "final_normalized_squared_flux": 1e-5,
@@ -1151,7 +1152,7 @@ class TestValueFormattingAdditionalEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_linking_number": "invalid",  # Non-numeric
@@ -1174,7 +1175,7 @@ class TestValueFormattingAdditionalEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_normalized_squared_flux": -0.05,  # Should format as "-.5e-1"
@@ -1196,7 +1197,7 @@ class TestValueFormattingAdditionalEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_normalized_squared_flux": "N/A",  # Non-numeric
@@ -1218,7 +1219,7 @@ class TestValueFormattingAdditionalEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_linking_number": "invalid",  # Non-numeric
@@ -1241,7 +1242,7 @@ class TestValueFormattingAdditionalEdgeCases:
                 {
                     "rank": 1,
                     "contact": "user1",
-                    "method_name": "test_method",
+                    "method_version": "test_method",
                     "run_date": "2025-01-01",
                     "metrics": {
                         "final_normalized_squared_flux": "N/A",  # Non-numeric
@@ -1513,8 +1514,8 @@ class TestWriteRstLeaderboardMetricDefinitions:
         return [
             {
                 "rank": 1,
-                "contact": "user1",
-                "method_name": "full_method",
+                    "contact": "user1",
+                    "method_version": "full_method",
                 "run_date": "2025-06-15",
                 "composite_score": 1.5,
                 "path": "submissions/TestSurface/user1/01-15-2025_10-00/results.json",
@@ -1620,7 +1621,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": "submissions/S/u1/01-01-2025_00-00/results.json",
@@ -1646,7 +1647,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "metrics": {"final_squared_flux": 1e-5},
@@ -1669,7 +1670,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": "/submissions/S/u1/01-01-2025_00-00/results.json",
@@ -1697,7 +1698,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -1737,7 +1738,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -1749,7 +1750,10 @@ class TestWriteRstLeaderboardMetricDefinitions:
 
         out_file = tmp_path / "docs" / "leaderboard.rst"
         out_file.parent.mkdir(parents=True, exist_ok=True)
-        write_rst_leaderboard(leaderboard, out_file, surface_leaderboards)
+        with patch.object(
+            update_db, "_LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS", True
+        ):
+            write_rst_leaderboard(leaderboard, out_file, surface_leaderboards)
 
         surface_file = tmp_path / "docs" / "leaderboard" / "surface_specific.rst"
         content = surface_file.read_text()
@@ -1782,7 +1786,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "fc_method",
+                "method_version": "fc_method",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -1812,7 +1816,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": "submissions/S/u1/01-01-2025_00-00/results.json",
@@ -1841,7 +1845,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": "submissions/S/u1/01-01-2025_00-00/results.json",
@@ -1868,7 +1872,7 @@ class TestWriteRstLeaderboardMetricDefinitions:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": "submissions/S/u1/01-01-2025_00-00/results.json",
@@ -1904,7 +1908,7 @@ class TestBuildMethodsJsonBackfill:
     def test_backfill_per_turn_max_force_per_coil(self, tmp_path):
         """Lines 1547-1550: per_turn_max_force from per-coil reactor-scale forces."""
         submissions_root = self._write_submission(tmp_path, {
-            "metadata": {"method_name": "bf_force", "contact": "u1", "run_date": "2025-06-15"},
+            "metadata": {"contact": "bf_force", "run_date": "2025-06-15"},
             "metrics": {
                 "final_squared_flux": 1e-5,
                 "coils_linked_to_surface": True,
@@ -1936,7 +1940,7 @@ class TestBuildMethodsJsonBackfill:
     def test_backfill_per_turn_max_force_fallback(self, tmp_path):
         """Lines 1551-1555: per_turn_max_force from overall max force / min(N_turns)."""
         submissions_root = self._write_submission(tmp_path, {
-            "metadata": {"method_name": "bf_force_fb", "contact": "u1", "run_date": "2025-06-15"},
+            "metadata": {"contact": "bf_force_fb", "run_date": "2025-06-15"},
             "metrics": {
                 "final_squared_flux": 1e-5,
                 "coils_linked_to_surface": True,
@@ -1969,7 +1973,7 @@ class TestBuildMethodsJsonBackfill:
     def test_backfill_per_turn_max_torque(self, tmp_path):
         """Lines 1559-1563: per_turn_max_torque from overall max torque / min(N_turns)."""
         submissions_root = self._write_submission(tmp_path, {
-            "metadata": {"method_name": "bf_torque", "contact": "u1", "run_date": "2025-06-15"},
+            "metadata": {"contact": "bf_torque", "run_date": "2025-06-15"},
             "metrics": {
                 "final_squared_flux": 1e-5,
                 "coils_linked_to_surface": True,
@@ -2001,7 +2005,7 @@ class TestBuildMethodsJsonBackfill:
     def test_backfill_total_sc_length_per_coil(self, tmp_path):
         """Lines 1569-1581: total_superconductor_length_km from per-coil lengths."""
         submissions_root = self._write_submission(tmp_path, {
-            "metadata": {"method_name": "bf_sc_len", "contact": "u1", "run_date": "2025-06-15"},
+            "metadata": {"contact": "bf_sc_len", "run_date": "2025-06-15"},
             "metrics": {
                 "final_squared_flux": 1e-5,
                 "coils_linked_to_surface": True,
@@ -2035,7 +2039,7 @@ class TestBuildMethodsJsonBackfill:
     def test_backfill_total_sc_length_fallback_uniform(self, tmp_path):
         """Lines 1582-1589: total_superconductor_length_km fallback (uniform coil length)."""
         submissions_root = self._write_submission(tmp_path, {
-            "metadata": {"method_name": "bf_sc_fb", "contact": "u1", "run_date": "2025-06-15"},
+            "metadata": {"contact": "bf_sc_fb", "run_date": "2025-06-15"},
             "metrics": {
                 "final_squared_flux": 1e-5,
                 "coils_linked_to_surface": True,
@@ -2155,9 +2159,8 @@ class TestBuildLeaderboardJsonSortEdgeCases:
         """Line 1721: sort key returns (-1, 0) when entry has no score at all."""
         methods = {
             "m1:s:u:v": {
-                "method_name": "m1",
-                "method_version": "v",
                 "contact": "u",
+                "method_version": "v",
                 "run_date": "2025-01-01",
                 "path": "submissions/s/u/v/results.json",
                 "metrics": {"final_total_length": 25.0},
@@ -2263,7 +2266,7 @@ class TestWriteRstLegacyZipAndAbsolutePaths:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -2291,7 +2294,7 @@ class TestWriteRstLegacyZipAndAbsolutePaths:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": abs_path,
@@ -2319,7 +2322,7 @@ class TestWriteRstLegacyZipAndAbsolutePaths:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": abs_path,
@@ -2346,7 +2349,7 @@ class TestWriteRstLegacyZipAndAbsolutePaths:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -2373,7 +2376,7 @@ class TestWriteRstLegacyZipAndAbsolutePaths:
             {
                 "rank": 1,
                 "contact": "u1",
-                "method_name": "m1",
+                "method_version": "m1",
                 "run_date": "2025-01-01",
                 "composite_score": 1.0,
                 "path": entry_path,
@@ -2402,7 +2405,7 @@ class TestWriteMarkdownValueFormatting:
                 {
                     "rank": 1,
                     "contact": "u1",
-                    "method_name": "m1",
+                    "method_version": "m1",
                     "run_date": "2025-01-01",
                     "metrics": {"final_squared_flux": 1e-200},
                 },
@@ -2422,7 +2425,7 @@ class TestWriteMarkdownValueFormatting:
                 {
                     "rank": 1,
                     "contact": "u1",
-                    "method_name": "m1",
+                    "method_version": "m1",
                     "run_date": "2025-01-01",
                     "metrics": {"final_squared_flux": 5e-3},   # 5.0e-03 → formatted
                 },
@@ -2441,7 +2444,7 @@ class TestWriteMarkdownValueFormatting:
                 {
                     "rank": 1,
                     "contact": "u1",
-                    "method_name": "m1",
+                    "method_version": "m1",
                     "run_date": "2025-01-01",
                     "metrics": {"final_squared_flux": -0.05},   # negative with leading zero
                 },
@@ -2460,7 +2463,7 @@ class TestWriteMarkdownValueFormatting:
                 {
                     "rank": 1,
                     "contact": "u1",
-                    "method_name": "m1",
+                    "method_version": "m1",
                     "run_date": "2025-01-01",
                     "metrics": {"final_squared_flux": "CUSTOM_VALUE"},
                 },
@@ -2500,20 +2503,20 @@ class TestLoadSubmissionsPathParsingBranches:
     # ------------------------------------------------------------------ #
 
     @staticmethod
-    def _make_results_json(path, method_name="M", metrics=None):
+    def _make_results_json(path, contact="M", metrics=None):
         """Create a minimal results.json at *path*."""
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({
-            "metadata": {"method_name": method_name},
+            "metadata": {"contact": contact},
             "metrics": metrics or {"final_normalized_squared_flux": 0.01},
         }))
 
     @staticmethod
-    def _make_zip_with_results(zip_path, method_name="ZM",
+    def _make_zip_with_results(zip_path, contact="ZM",
                                 case_yaml_content=None, run_date=None):
         """Create a zip containing results.json (and optionally case.yaml)."""
         zip_path.parent.mkdir(parents=True, exist_ok=True)
-        meta = {"method_name": method_name}
+        meta = {"contact": contact}
         if run_date is not None:
             meta["run_date"] = run_date
         with zipfile.ZipFile(zip_path, "w") as zf:
@@ -2829,7 +2832,7 @@ class TestLoadSubmissionsPathParsingBranches:
         d = root / "surface" / "the_user" / "ts"
         d.mkdir(parents=True)
         (d / "results.json").write_text(json.dumps({
-            "method_name": "legacy_m",
+            "contact": "legacy_m",
             "final_normalized_squared_flux": 0.001,
         }))
         (d / "case.yaml").write_text(
@@ -2848,7 +2851,7 @@ class TestLoadSubmissionsPathParsingBranches:
         d = root / "surface" / "the_user" / "ts"
         d.mkdir(parents=True)
         (d / "results.json").write_text(json.dumps({
-            "method_name": "legacy_m",
+            "contact": "legacy_m",
             "final_normalized_squared_flux": 0.001,
         }))
         (d / "case.yaml").write_text(
@@ -2879,8 +2882,8 @@ class TestJcNturnsBackfill:
         present, the Jc backfill should compute and set N_turns_jc."""
         submissions_root = self._write_submission(tmp_path, {
             "metadata": {
-                "method_name": "jc_test",
                 "contact": "u1",
+                "method_version": "jc_test",
                 "run_date": "2025-06-15",
             },
             "metrics": {
@@ -2929,8 +2932,8 @@ class TestJcNturnsBackfill:
         max_winding_pack_width is absent, winding pack width is computed."""
         submissions_root = self._write_submission(tmp_path, {
             "metadata": {
-                "method_name": "wp_test",
                 "contact": "u1",
+                "method_version": "wp_test",
                 "run_date": "2025-06-15",
             },
             "metrics": {
@@ -2970,8 +2973,8 @@ class TestJcNturnsBackfill:
         a warning is printed to stderr with eq/max/min direction operators."""
         submissions_root = self._write_submission(tmp_path, {
             "metadata": {
-                "method_name": "fail_test",
                 "contact": "u1",
+                "method_version": "fail_test",
                 "run_date": "2025-06-15",
             },
             "metrics": {
@@ -3045,8 +3048,8 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
+                        "method_version": "m1",
                         "composite_score": 1.0,
                         "reactor_scale_metrics": {
                             # Use a metric that will be displayed
@@ -3073,8 +3076,8 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
+                        "method_version": "m1",
                         "composite_score": 1.0,
                         "reactor_scale_metrics": {
                             "reactor_scale_squared_flux": 0,
@@ -3099,8 +3102,8 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
+                        "method_version": "m1",
                         "composite_score": 1.0,
                         "reactor_scale_metrics": {
                             "reactor_scale_min_cs_separation": 2.0,
@@ -3128,8 +3131,8 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
+                        "method_version": "m1",
                         "composite_score": 1.0,
                         "reactor_scale_metrics": {
                             "reactor_scale_min_cs_separation": 3.14159,  # |v| >= 1 → .2f → 3.14
@@ -3156,8 +3159,8 @@ class TestWriteReactorScaleLeaderboardEdgeCases:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
+                        "method_version": "m1",
                         "composite_score": 0.0,
                         "constraint_violations": [],
                         "reactor_scale_metrics": {

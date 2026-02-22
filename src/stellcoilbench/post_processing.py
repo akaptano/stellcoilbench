@@ -1,13 +1,20 @@
 """
 Post-processing utilities for coil optimization results.
 
-This module provides functions to analyze optimized coil configurations,
-including generating Poincaré plots, computing QFM surfaces, and evaluating
-quasisymmetry metrics.
+This module provides functions to analyze optimized coil configurations:
+- Poincaré plots (fieldline tracing)
+- QFM surface computation
+- VMEC equilibrium
+- Quasisymmetry and iota profiles
+- Boozer surface plots
+- SIMPLE particle tracing
+- VTK output and B·n error visualization
+
+MPI-parallel for VMEC and fieldline tracing; plotting on rank 0 only.
 """
 
 from pathlib import Path
-from typing import Optional, Dict, Any, Tuple
+from typing import Any, Dict, Generator, List, Optional, Tuple
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend by default
@@ -22,8 +29,20 @@ except ImportError:
     MagneticFieldSum = None  # type: ignore
 
 
-def _get_coils_from_bfield(bfield: Any) -> list:
-    """Extract list of coils from BiotSavart or MagneticFieldSum (dipole + TF)."""
+def _get_coils_from_bfield(bfield: Any) -> List[Any]:
+    """
+    Extract list of coils from BiotSavart or MagneticFieldSum (dipole + TF).
+
+    Parameters
+    ----------
+    bfield : BiotSavart | MagneticFieldSum
+        Magnetic field object containing coils.
+
+    Returns
+    -------
+    list
+        Flat list of coil objects (simsopt Coil instances).
+    """
     if isinstance(bfield, BiotSavart):
         return list(bfield.coils)
     if MagneticFieldSum is not None and isinstance(bfield, MagneticFieldSum):
@@ -48,14 +67,10 @@ from simsopt.mhd import QuasisymmetryRatioResidual  # type: ignore  # noqa: E402
 # MPI imports - wrapped to handle systems without MPI (e.g., ReadTheDocs)
 try:
     from simsopt.util.mpi import MpiPartition  # type: ignore
-    from simsopt.util import proc0_print, comm_world
 except (ImportError, RuntimeError):
-    # ImportError: simsopt MPI utils not installed
-    # RuntimeError: mpi4py installed but MPI library not available
     MpiPartition = None  # type: ignore
-    comm_world = None
-    def proc0_print(*args, **kwargs):
-        print(*args, **kwargs)
+from .mpi_utils import comm_world, is_proc0, proc0_print  # noqa: E402
+from .path_utils import find_dir_up, find_file_up, find_plasma_surfaces_dir  # noqa: E402
 try:
     from simsopt.field.tracing import (
         compute_fieldlines,
@@ -67,6 +82,7 @@ try:
     TRACING_AVAILABLE = True
 except ImportError:
     TRACING_AVAILABLE = False
+import io  # noqa: E402
 import json  # noqa: E402
 import yaml  # noqa: E402
 import subprocess  # noqa: E402
@@ -81,21 +97,24 @@ _timing_results: Dict[str, float] = {}
 
 
 @contextmanager
-def timed_section(name: str, print_time: bool = True):
+def timed_section(name: str, print_time: bool = True) -> Generator[None, None, None]:
     """
     Context manager for timing code sections.
-    
+
+    Stores elapsed time in a global dict (accessible via get_timing_results)
+    and optionally prints it on exit.
+
     Parameters
     ----------
     name : str
         Name of the section being timed.
     print_time : bool, default=True
-        Whether to print the elapsed time immediately.
-    
+        Whether to print the elapsed time immediately on exit.
+
     Yields
     ------
     None
-    
+
     Example
     -------
     >>> with timed_section("my_computation"):
@@ -150,24 +169,31 @@ def print_timing_summary() -> None:
 
 
 @contextmanager
-def suppress_output():
-    """Context manager to suppress stdout and stderr (for VMEC, booz_xform, etc.)."""
-    # Save original file descriptors
-    stdout_fd = sys.stdout.fileno()
-    stderr_fd = sys.stderr.fileno()
+def suppress_output() -> Generator[None, None, None]:
+    """
+    Context manager to suppress stdout and stderr.
+
+    Used when running VMEC, booz_xform, and other tools that print to console.
+    Redirects file descriptors to /dev/null for the duration of the block.
+    When fileno() is unavailable (e.g. pytest capsys), yields without redirecting.
+    """
+    try:
+        stdout_fd = sys.stdout.fileno()
+        stderr_fd = sys.stderr.fileno()
+    except (io.UnsupportedOperation, OSError):
+        # e.g. pytest capsys or other non-fd streams
+        yield
+        return
+
     saved_stdout_fd = os.dup(stdout_fd)
     saved_stderr_fd = os.dup(stderr_fd)
-    
-    # Open /dev/null
     devnull = os.open(os.devnull, os.O_WRONLY)
-    
+
     try:
-        # Redirect stdout and stderr to /dev/null
         os.dup2(devnull, stdout_fd)
         os.dup2(devnull, stderr_fd)
         yield
     finally:
-        # Restore original file descriptors
         os.dup2(saved_stdout_fd, stdout_fd)
         os.dup2(saved_stderr_fd, stderr_fd)
         os.close(saved_stdout_fd)
@@ -225,15 +251,11 @@ def load_coils_and_surface(
     # Find case YAML if not provided
     potential_case_paths: list[Path] = []
     if case_yaml_path is None:
-        # Search in various locations, starting from coils JSON directory and going up
-        # Start from coils JSON directory and search up the directory tree
-        current_dir = coils_json_path.parent
-        for _ in range(5):  # Search up to 5 levels up
-            potential_case_paths.append(current_dir / "case.yaml")
-            if current_dir.parent == current_dir:  # Reached root
-                break
-            current_dir = current_dir.parent
-        
+        # Search from coils JSON directory going up
+        case_yaml_from_up = find_file_up(coils_json_path.parent, "case.yaml")
+        if case_yaml_from_up:
+            potential_case_paths.append(case_yaml_from_up)
+
         # Also try cases directory based on JSON filename
         potential_case_paths.append(
             Path("cases") / coils_json_path.stem.replace("coils", "").replace("biot_savart", "").replace("_optimized", "").replace(".json", "") / "case.yaml"
@@ -248,18 +270,8 @@ def load_coils_and_surface(
         # If still not found, search for case YAML files in the cases directory
         # that might reference the surface (based on path components)
         if case_yaml_path is None:
-            cases_dir = None
-            # Find cases directory by going up from coils JSON
-            current_dir = coils_json_path.parent
-            for _ in range(7):  # Search up to 7 levels
-                potential_cases_dir = current_dir / "cases"
-                if potential_cases_dir.exists():
-                    cases_dir = potential_cases_dir
-                    break
-                if current_dir.parent == current_dir:
-                    break
-                current_dir = current_dir.parent
-            
+            cases_dir = find_dir_up(coils_json_path.parent, "cases", max_levels=7)
+
             if cases_dir is not None:
                 # Extract surface name hint from the path (e.g., "LandremanPaul2021_QA" from submissions path)
                 path_parts = coils_json_path.parts
@@ -361,15 +373,10 @@ def load_coils_and_surface(
                 potential_surface_paths.append(base_path / surface_file_lower)
             # Also try case-insensitive search in repo root plasma_surfaces
             if case_yaml_path:
-                current_dir = case_yaml_path.parent
-                for _ in range(5):
-                    plasma_dir = current_dir / "plasma_surfaces"
-                    if plasma_dir.exists():
-                        potential_surface_paths.append(plasma_dir / surface_file_lower)
-                    if current_dir.parent == current_dir:
-                        break
-                    current_dir = current_dir.parent
-    
+                plasma_dir = find_plasma_surfaces_dir(case_yaml_path.parent)
+                if plasma_dir:
+                    potential_surface_paths.append(plasma_dir / surface_file_lower)
+
     # Remove duplicates while preserving order
     seen = set()
     unique_paths = []
@@ -396,15 +403,10 @@ def load_coils_and_surface(
         
         # Search from case.yaml location
         if case_yaml_path:
-            current_dir = case_yaml_path.parent
-            for _ in range(5):
-                plasma_dir = current_dir / "plasma_surfaces"
-                if plasma_dir.exists() and plasma_dir not in plasma_surfaces_dirs:
-                    plasma_surfaces_dirs.append(plasma_dir)
-                if current_dir.parent == current_dir:
-                    break
-                current_dir = current_dir.parent
-        
+            plasma_dir = find_plasma_surfaces_dir(case_yaml_path.parent)
+            if plasma_dir and plasma_dir not in plasma_surfaces_dirs:
+                plasma_surfaces_dirs.append(plasma_dir)
+
         # Also check default locations
         for default_dir in [Path("plasma_surfaces"), Path.cwd() / "plasma_surfaces"]:
             if default_dir.exists() and default_dir not in plasma_surfaces_dirs:
@@ -1823,7 +1825,6 @@ def run_post_processing(
     
     # Check if we're running with MPI
     is_mpi_parallel = comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1
-    is_proc0 = comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
     
     if is_mpi_parallel:
         proc0_print(f"Running with MPI: {comm_world.size} processes")  # type: ignore
@@ -1914,7 +1915,7 @@ def run_post_processing(
     BdotN = 0.0
     BdotN_over_B = 0.0
     
-    if is_proc0:
+    if is_proc0():
         with timed_section("compute_BdotN", print_time=False):
             bfield.set_points(surface.gamma().reshape((-1, 3)))
             B = bfield.B()
@@ -1931,7 +1932,7 @@ def run_post_processing(
         results['BdotN_over_B'] = float(BdotN_over_B)
 
     # Generate finite-build coil VTK if requested
-    if plot_finite_build and is_proc0:
+    if plot_finite_build and is_proc0():
         try:
             from stellcoilbench.finite_build import finite_build_coils_to_vtk
             coils_for_fb = _get_coils_from_bfield(bfield)
@@ -1956,7 +1957,7 @@ def run_post_processing(
     qfm_surface = None
     
     if run_vmec:
-        if is_proc0:
+        if is_proc0():
             proc0_print("Computing QFM surface...")
             with timed_section("compute_qfm_surface"):
                 qfm_surface = compute_qfm_surface(surface, bfield)
@@ -1977,7 +1978,7 @@ def run_post_processing(
         if is_mpi_parallel:
             # Rank 0 saves QFM surface to file, other ranks load it
             qfm_temp_path = output_dir / "_qfm_surface_temp.json"
-            if is_proc0:
+            if is_proc0():
                 # Save surface using simsopt serialization
                 from simsopt._core import save
                 save(qfm_surface, str(qfm_temp_path))
@@ -1986,7 +1987,7 @@ def run_post_processing(
             comm_world.Barrier()  # type: ignore
             
             # All ranks load the surface
-            if not is_proc0:
+            if not is_proc0():
                 from simsopt._core import load
                 qfm_surface = load(str(qfm_temp_path))
     
@@ -2025,15 +2026,10 @@ def run_post_processing(
                             ])
                             
                             # Also search relative to coils_json_path
-                            coils_json_dir = coils_json_path.parent
-                            for _ in range(5):  # Search up to 5 levels
-                                potential_plasma_dir = coils_json_dir / "plasma_surfaces"
-                                if potential_plasma_dir.exists() and potential_plasma_dir not in search_dirs:
-                                    search_dirs.append(potential_plasma_dir)
-                                if coils_json_dir.parent == coils_json_dir:
-                                    break
-                                coils_json_dir = coils_json_dir.parent
-                            
+                            potential_plasma_dir = find_plasma_surfaces_dir(coils_json_path.parent)
+                            if potential_plasma_dir and potential_plasma_dir not in search_dirs:
+                                search_dirs.append(potential_plasma_dir)
+
                             for search_dir in search_dirs:
                                 potential_path = search_dir / surface_file
                                 if potential_path.exists():
@@ -2097,7 +2093,7 @@ def run_post_processing(
                         )
                     
                     # Compute quasisymmetry for original surface (only on rank 0)
-                    if is_proc0:
+                    if is_proc0():
                         with timed_section("quasisymmetry_original"):
                             qs_average_original, qs_profile_original = compute_quasisymmetry(
                                 equil_original,
@@ -2122,7 +2118,7 @@ def run_post_processing(
             results['vmec'] = equil
             
             # Post-VMEC analysis: only run on rank 0 (not MPI parallelized)
-            if is_proc0:
+            if is_proc0():
                 # Compute quasisymmetry for QFM surface
                 proc0_print("Computing quasisymmetry metrics...")
                 with timed_section("quasisymmetry_qfm"):
@@ -2197,7 +2193,7 @@ def run_post_processing(
             proc0_print("Skipping VMEC-dependent post-processing.")
     
     # Save results to JSON (only on rank 0)
-    if is_proc0:
+    if is_proc0():
         results_json = {
             'BdotN': results.get('BdotN'),
             'BdotN_over_B': results.get('BdotN_over_B'),

@@ -5,6 +5,9 @@ import json
 import tempfile
 import zipfile
 from pathlib import Path
+from unittest.mock import patch
+
+import stellcoilbench.update_db as update_db
 from stellcoilbench.update_db import (
     N_TURNS_MODEL,
     _metric_shorthand,
@@ -93,8 +96,7 @@ class TestLoadSubmissions:
             results_file = submission_dir / "results.json"
             results_file.write_text(json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
-                    "contact": "test@example.com"
+                    "contact": "test_method",
                 },
                 "metrics": {
                     "final_normalized_squared_flux": 0.001
@@ -109,7 +111,7 @@ class TestLoadSubmissions:
             assert len(submissions) == 1
             method_key, path, data = submissions[0]
             assert method_key == "test_method:surface1:user1:2024-01-01_12-00"
-            assert data["metadata"]["method_name"] == "test_method"
+            assert data["metadata"]["contact"] == "test_method"
     
     def test_load_submissions_skips_non_results_json(self):
         """Test that non-results.json files are skipped."""
@@ -151,7 +153,7 @@ class TestLoadSubmissions:
                     "results.json",
                     json.dumps(
                         {
-                            "metadata": {"method_name": "test_method"},
+                            "metadata": {"contact": "test_method"},
                             "metrics": {"final_normalized_squared_flux": 0.002},
                         }
                     ),
@@ -188,7 +190,7 @@ class TestLoadSubmissions:
             )
             zip_path.parent.mkdir(parents=True)
             results = {
-                "metadata": {"method_name": "zip_case", "contact": "u"},
+                "metadata": {"contact": "zip_case"},
                 "metrics": {"final_squared_flux": 0.1},
             }
             case_yaml = {
@@ -202,7 +204,7 @@ class TestLoadSubmissions:
             submissions = list(_load_submissions(submissions_root))
             assert len(submissions) == 1
             _, path, data = submissions[0]
-            assert data["metadata"]["method_name"] == "zip_case"
+            assert data["metadata"]["contact"] == "zip_case"
 
 
 class TestBuildMethodsJson:
@@ -229,8 +231,7 @@ class TestBuildMethodsJson:
             results_file = submission_dir / "results.json"
             results_file.write_text(json.dumps({
                 "metadata": {
-                    "method_name": "test_method",
-                    "contact": "test@example.com",
+                    "contact": "test_method",
                     "hardware": "CPU: Test",
                     "run_date": "2024-01-01T12:00:00"
                 },
@@ -250,8 +251,7 @@ class TestBuildMethodsJson:
             method_key = "test_method:surface1:user1:2024-01-01_12-00"
             assert method_key in methods
             method_data = methods[method_key]
-            assert method_data["method_name"] == "test_method"
-            # Contact field now uses GitHub username from path, not metadata
+            # Contact field uses GitHub username from path, not metadata
             assert method_data["contact"] == "user1"  # Extracted from path structure
             assert method_data["metrics"]["final_normalized_squared_flux"] == 0.001
             assert method_data["score_primary"] == 0.001
@@ -268,7 +268,7 @@ class TestBuildMethodsJson:
             
             results_file = submission_dir / "results.json"
             results_file.write_text(json.dumps({
-                "metadata": {"method_name": "test_method"},
+                "metadata": {"contact": "test_method"},
                 "metrics": {"final_normalized_squared_flux": 0.001}
             }))
             
@@ -299,7 +299,7 @@ coils_params:
             
             results_file = submission_dir / "results.json"
             results_file.write_text(json.dumps({
-                "metadata": {"method_name": "test_method"},
+                "metadata": {"contact": "test_method"},
                 "metrics": {}
             }))
             
@@ -318,7 +318,7 @@ coils_params:
             results_file.write_text(
                 json.dumps(
                     {
-                        "metadata": {"method_name": "method1"},
+                        "metadata": {"contact": "method1"},
                         "metrics": {"final_flux": 0.5},
                     }
                 )
@@ -344,7 +344,7 @@ coils_params:
             results_file.write_text(
                 json.dumps(
                     {
-                        "metadata": {"method_name": "method1"},
+                        "metadata": {"contact": "method1"},
                         "metrics": {"final_flux": "bad"},
                     }
                 )
@@ -372,7 +372,7 @@ coils_params:
                     json.dumps(
                         {
                             "metadata": {
-                                "method_name": "method1",
+                                "contact": "method1",
                                 "method_version": "v1",
                             },
                             "metrics": {"final_normalized_squared_flux": 0.1},
@@ -397,9 +397,8 @@ class TestBuildLeaderboardJson:
         """Test building leaderboard with single entry."""
         methods = {
             "method1:1.0": {
-                "method_name": "method1",
+                "contact": "user1",  # From path
                 "method_version": "1.0",
-                "contact": "user1",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00",
                 "path": "submissions/surface1/user1/2024-01-01_12-00/results.json",
@@ -413,15 +412,14 @@ class TestBuildLeaderboardJson:
         entry = leaderboard["entries"][0]
         assert entry["rank"] == 1
         assert entry["score_primary"] == 0.001
-        assert entry["method_name"] == "method1"
+        assert entry["contact"] == "user1"
     
     def test_build_leaderboard_json_sorts_ascending(self):
         """Test that leaderboard is sorted by score_primary ascending."""
         methods = {
             "method1:1.0": {
-                "method_name": "method1",
-                "method_version": "1.0",
                 "contact": "user1",
+                "method_version": "1.0",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00",
                 "path": "path1",
@@ -429,9 +427,8 @@ class TestBuildLeaderboardJson:
                 "metrics": {}
             },
             "method2:1.0": {
-                "method_name": "method2",
-                "method_version": "1.0",
                 "contact": "user2",
+                "method_version": "1.0",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00",
                 "path": "path2",
@@ -452,9 +449,8 @@ class TestBuildLeaderboardJson:
         """Test that entries without score_primary are skipped."""
         methods = {
             "method1:1.0": {
-                "method_name": "method1",
-                "method_version": "1.0",
                 "contact": "user1",
+                "method_version": "1.0",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00",
                 "path": "path1",
@@ -474,9 +470,8 @@ class TestLeaderboardAdditional:
         """Test that entries with missing score_primary are filtered out."""
         methods = {
             "method1:1.0": {
-                "method_name": "method1",
-                "method_version": "1.0",
                 "contact": "user1",
+                "method_version": "1.0",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00",
                 "path": "path1",
@@ -484,9 +479,8 @@ class TestLeaderboardAdditional:
                 "metrics": {"final_normalized_squared_flux": 0.1},
             },
             "method2:1.0": {
-                "method_name": "method2",
-                "method_version": "1.0",
                 "contact": "user2",
+                "method_version": "1.0",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-02T12:00:00",
                 "path": "path2",
@@ -496,7 +490,7 @@ class TestLeaderboardAdditional:
         }
         leaderboard = build_leaderboard_json(methods)
         assert len(leaderboard["entries"]) == 1
-        assert leaderboard["entries"][0]["method_name"] == "method2"
+        assert leaderboard["entries"][0]["contact"] == "user2"
 
 
 class TestLeaderboardMarkdown:
@@ -532,12 +526,11 @@ class TestLeaderboardMarkdown:
                 {
                     "rank": 1,
                     "method_key": "method1",
-                    "method_name": "method1",
+                    "contact": "user1",
                     "method_version": "v1",
                     "score_primary": 0.01,
                     "composite_score": 1.5,
                     "run_date": "2024-01-01T12:00:00",
-                    "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
@@ -568,11 +561,10 @@ class TestLeaderboardMarkdown:
                 {
                     "rank": 1,
                     "method_key": "method1",
-                    "method_name": "method1",
+                    "contact": "user1",
                     "method_version": "v1",
                     "score_primary": 0.01,
                     "run_date": "2024-01-01T12:00:00",
-                    "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
@@ -619,7 +611,6 @@ class TestLeaderboardMarkdown:
             "entries": [
                 {
                     "method_key": "m1",
-                    "method_name": "m1",
                     "method_version": "v1",
                     "score_primary": 0.2,
                     "run_date": "2024-01-01T12:00:00",
@@ -633,7 +624,6 @@ class TestLeaderboardMarkdown:
                 },
                 {
                     "method_key": "m2",
-                    "method_name": "m2",
                     "method_version": "v1",
                     "score_primary": 0.1,
                     "run_date": "2024-01-02T12:00:00",
@@ -675,7 +665,7 @@ class TestLeaderboardEdgeCases:
         write_markdown_leaderboard(leaderboard, out_md)
         content = out_md.read_text()
         assert "_No valid submissions found._" in content
-        assert '"method_name": "your_method"' in content
+        assert '"contact": "your_username"' in content
 
     def test_build_surface_leaderboards_skips_missing_path(self):
         leaderboard = {"entries": [{"metrics": {"final_normalized_squared_flux": 0.1}}]}
@@ -873,7 +863,7 @@ class TestBuildMethodsJsonComprehensive:
         
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "metadata": {"method_name": "test_method"},
+            "metadata": {"contact": "test_method"},
             "metrics": {"final_normalized_squared_flux": 0.001}
         }))
         
@@ -906,7 +896,6 @@ fourier_continuation:
         # Legacy format: metrics at top level, no "metrics" key
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
             "contact": "user1@example.com",
             "final_normalized_squared_flux": 0.001,
             "final_total_length": 100.0,
@@ -916,10 +905,10 @@ fourier_continuation:
         case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
         
         methods = build_methods_json(submissions_root, repo_root)
-        # Method key uses "UNKNOWN" when method_name is at top level but not in metadata
+        # Method key uses "UNKNOWN" when contact is at top level but not in metadata
         method_key = "UNKNOWN:surface1:user1:2024-01-01_12-00"
         assert method_key in methods
-        assert methods[method_key]["method_name"] == "test_method"  # But method_name is still extracted
+        assert methods[method_key]["contact"] == "user1"  # Extracted from path
         assert methods[method_key]["metrics"]["final_normalized_squared_flux"] == 0.001
     
     def test_build_methods_json_extract_date_from_path(self, tmp_path):
@@ -933,7 +922,7 @@ fourier_continuation:
         
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 0.001,
         }))
         
@@ -941,7 +930,7 @@ fourier_continuation:
         case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
         
         methods = build_methods_json(submissions_root, repo_root)
-        # Method key uses "UNKNOWN" when method_name is at top level but not in metadata
+        # Method key uses "UNKNOWN" when contact is at top level but not in metadata
         method_key = "UNKNOWN:surface1:user1:01-15-2024_14-30"
         assert method_key in methods
         # Should extract date from path
@@ -959,7 +948,7 @@ fourier_continuation:
         # No contact in metadata - should extract from path
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "method_name": "test_method",
+            "contact": "test_method",
             "final_normalized_squared_flux": 0.001,
         }))
         
@@ -967,7 +956,7 @@ fourier_continuation:
         case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
         
         methods = build_methods_json(submissions_root, repo_root)
-        # Method key uses "UNKNOWN" when method_name is at top level but not in metadata
+        # Method key uses "UNKNOWN" when contact is at top level but not in metadata
         method_key = "UNKNOWN:surface1:github_user:2024-01-01_12-00"
         assert method_key in methods
         # Contact should be extracted from path
@@ -984,16 +973,15 @@ fourier_continuation:
             submission_dir.mkdir(parents=True)
             results_file = submission_dir / "results.json"
             results_file.write_text(json.dumps({
-                "method_name": "same_method",
-                "method_version": "v1",
-                "final_normalized_squared_flux": float(i) * 0.001,
+                "metadata": {"contact": "same_method"},
+                "metrics": {"final_normalized_squared_flux": float(i) * 0.001},
             }))
             case_yaml = submission_dir / "case.yaml"
             case_yaml.write_text("surface_params:\n  surface: input.surface1\n")
         
         methods = build_methods_json(submissions_root, repo_root)
-        # Both submissions have same method_name and version, but different timestamps
-        # So they should have different keys (different timestamps)
+        # Both submissions have same contact; version comes from path (timestamp).
+        # Different timestamps → different keys.
         method_keys = [k for k in methods.keys() if "same_method" in k or "surface1" in k]
         # Both will have different timestamps, so different keys
         assert len(method_keys) == 2
@@ -1009,7 +997,7 @@ fourier_continuation:
         
         with zipfile.ZipFile(zip_path, "w") as zf:
             zf.writestr("results.json", json.dumps({
-                "metadata": {"method_name": "test_method"},
+                "metadata": {"contact": "test_method"},
                 "metrics": {"final_normalized_squared_flux": 0.001}
             }))
             zf.writestr("case.yaml", """surface_params:
@@ -1035,7 +1023,7 @@ coils_params:
         
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "metadata": {"method_name": "test_method"},
+            "metadata": {"contact": "test_method"},
             "metrics": {"final_normalized_squared_flux": 0.001}
         }))
         
@@ -1073,7 +1061,7 @@ coils_params:
         
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
-            "metadata": {"method_name": "test_method"},
+            "metadata": {"contact": "test_method"},
             "metrics": {"final_normalized_squared_flux": 0.001}
         }))
         
@@ -1095,11 +1083,10 @@ class TestWriteMarkdownLeaderboardComprehensive:
                 {
                     "rank": 1,
                     "method_key": "method1",
-                    "method_name": "method1",
+                    "contact": "user1",
                     "method_version": "v1",
                     "score_primary": 1e-100,  # Very small value
                     "run_date": "2024-01-01T12:00:00",
-                    "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
@@ -1111,11 +1098,10 @@ class TestWriteMarkdownLeaderboardComprehensive:
                 {
                     "rank": 2,
                     "method_key": "method2",
-                    "method_name": "method2",
+                    "contact": "user2",
                     "method_version": "v2",
                     "score_primary": 1e10,  # Very large value
                     "run_date": "2024-01-02T12:00:00",
-                    "contact": "user2",
                     "hardware": "GPU",
                     "path": "submissions/surface/user2/ts2/results.json",
                     "metrics": {
@@ -1139,12 +1125,11 @@ class TestWriteMarkdownLeaderboardComprehensive:
                 {
                     "rank": 1,
                     "method_key": "method1",
-                    "method_name": "method1",
+                    "contact": "user1",
                     "method_version": "v1",
                     "score_primary": 0.001,
                     "composite_score": 1.8,
                     "run_date": "2024-01-01T12:00:00",
-                    "contact": "user1",
                     "hardware": "CPU",
                     "path": "submissions/surface/user/ts/results.json",
                     "metrics": {
@@ -1156,12 +1141,11 @@ class TestWriteMarkdownLeaderboardComprehensive:
                 {
                     "rank": 2,
                     "method_key": "method2",
-                    "method_name": "method2",
+                    "contact": "user2",
                     "method_version": "v2",
                     "score_primary": 0.002,
                     "composite_score": 1.2,
                     "run_date": "2024-01-02T12:00:00",
-                    "contact": "user2",
                     "hardware": "GPU",
                     "path": "submissions/surface/user2/ts2/results.json",
                     "metrics": {
@@ -1193,7 +1177,6 @@ class TestWriteRstLeaderboardComprehensive:
                 {
                     "rank": 1,
                     "method_key": "m1",
-                    "method_name": "m1",
                     "method_version": "v1",
                     "score_primary": 0.1,
                     "run_date": "2024-01-01T12:00:00",
@@ -1232,7 +1215,6 @@ class TestWriteRstLeaderboardComprehensive:
                 {
                     "rank": 1,
                     "method_key": "m1",
-                    "method_name": "m1",
                     "method_version": "v1",
                     "score_primary": 0.1,
                     "run_date": "2024-01-01T12:00:00",
@@ -1244,7 +1226,6 @@ class TestWriteRstLeaderboardComprehensive:
                 {
                     "rank": 1,
                     "method_key": "m2",
-                    "method_name": "m2",
                     "method_version": "v1",
                     "score_primary": 0.2,
                     "run_date": "2024-01-01T12:00:00",
@@ -1299,7 +1280,6 @@ class TestWriteSurfaceLeaderboardsComprehensive:
                     {
                         "rank": 1,
                         "method_key": "m1",
-                        "method_name": "m1",
                         "method_version": "v1",
                         "score_primary": 0.1,
                         "run_date": "2024-01-01T12:00:00",
@@ -1344,7 +1324,6 @@ class TestWriteSurfaceLeaderboardsComprehensive:
                     {
                         "rank": 1,
                         "method_key": "m1",
-                        "method_name": "m1",
                         "method_version": "v1",
                         "score_primary": 0.1,
                         "run_date": "2024-01-01T12:00:00",
@@ -1423,9 +1402,8 @@ class TestUpdateDatabase:
         results_file = submission_dir / "results.json"
         results_file.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
-                "method_version": "v1",
                 "contact": "user1@example.com",
+                "method_version": "v1",
                 "hardware": "CPU",
             },
             "metrics": {
@@ -1731,7 +1709,6 @@ class TestLeaderboardConstraintFiltering:
     def test_passing_entry_included(self):
         methods = {
             "good_method": {
-                "method_name": "good",
                 "score_primary": 0.001,
                 "metrics": {"final_squared_flux": 0.001},
                 "passes_constraints": True,
@@ -1745,7 +1722,7 @@ class TestLeaderboardConstraintFiltering:
     def test_failing_entry_excluded(self):
         methods = {
             "bad_method": {
-                "method_name": "bad",
+                "contact": "bad",
                 "score_primary": 0.001,
                 "metrics": {"final_squared_flux": 0.001},
                 "passes_constraints": False,
@@ -1759,20 +1736,20 @@ class TestLeaderboardConstraintFiltering:
         lb = build_leaderboard_json(methods)
         assert len(lb["entries"]) == 0
         assert len(lb["excluded_entries"]) == 1
-        assert lb["excluded_entries"][0]["method_name"] == "bad"
+        assert lb["excluded_entries"][0]["contact"] == "bad"
         assert len(lb["excluded_entries"][0]["constraint_violations"]) == 1
 
     def test_mixed_entries(self):
         methods = {
             "good": {
-                "method_name": "good",
+                "contact": "good",
                 "score_primary": 0.002,
                 "metrics": {"final_squared_flux": 0.002},
                 "passes_constraints": True,
                 "constraint_violations": [],
             },
             "bad": {
-                "method_name": "bad",
+                "contact": "bad",
                 "score_primary": 0.001,
                 "metrics": {"final_squared_flux": 0.001},
                 "passes_constraints": False,
@@ -1784,15 +1761,15 @@ class TestLeaderboardConstraintFiltering:
         }
         lb = build_leaderboard_json(methods)
         assert len(lb["entries"]) == 1
-        assert lb["entries"][0]["method_name"] == "good"
+        assert lb["entries"][0]["contact"] == "good"
         assert len(lb["excluded_entries"]) == 1
-        assert lb["excluded_entries"][0]["method_name"] == "bad"
+        assert lb["excluded_entries"][0]["contact"] == "bad"
 
     def test_legacy_entry_without_constraint_field(self):
         """Legacy entries without passes_constraints default to included."""
         methods = {
             "legacy": {
-                "method_name": "legacy",
+                "contact": "legacy",
                 "score_primary": 0.005,
                 "metrics": {"final_squared_flux": 0.005},
                 # No passes_constraints key
@@ -1806,7 +1783,7 @@ class TestLeaderboardConstraintFiltering:
         """Entries with composite_score=0 should be excluded even if passes_constraints is True."""
         methods = {
             "infeasible": {
-                "method_name": "infeasible",
+                "contact": "infeasible",
                 "composite_score": 0.0,
                 "score_primary": 0.001,
                 "metrics": {"final_squared_flux": 0.001},
@@ -1821,7 +1798,7 @@ class TestLeaderboardConstraintFiltering:
         """Entries with only soft violations should stay in main leaderboard."""
         methods = {
             "soft_fail": {
-                "method_name": "soft_fail",
+                "contact": "soft_fail",
                 "composite_score": 0.7,  # below 1 due to soft violations
                 "score_primary": 0.003,
                 "metrics": {"final_squared_flux": 0.003},
@@ -1844,7 +1821,7 @@ class TestLeaderboardConstraintFiltering:
         """Leaderboard should sort by composite_score descending (higher is better)."""
         methods = {
             "medium": {
-                "method_name": "medium",
+                "contact": "medium",
                 "composite_score": 1.5,
                 "score_primary": 0.002,
                 "metrics": {"final_squared_flux": 0.002},
@@ -1852,7 +1829,7 @@ class TestLeaderboardConstraintFiltering:
                 "constraint_violations": [],
             },
             "best": {
-                "method_name": "best",
+                "contact": "best",
                 "composite_score": 2.5,
                 "score_primary": 0.001,
                 "metrics": {"final_squared_flux": 0.001},
@@ -1860,7 +1837,7 @@ class TestLeaderboardConstraintFiltering:
                 "constraint_violations": [],
             },
             "worst": {
-                "method_name": "worst",
+                "contact": "worst",
                 "composite_score": 0.8,
                 "score_primary": 0.003,
                 "metrics": {"final_squared_flux": 0.003},
@@ -1870,11 +1847,11 @@ class TestLeaderboardConstraintFiltering:
         }
         lb = build_leaderboard_json(methods)
         assert len(lb["entries"]) == 3
-        assert lb["entries"][0]["method_name"] == "best"
+        assert lb["entries"][0]["contact"] == "best"
         assert lb["entries"][0]["rank"] == 1
-        assert lb["entries"][1]["method_name"] == "medium"
+        assert lb["entries"][1]["contact"] == "medium"
         assert lb["entries"][1]["rank"] == 2
-        assert lb["entries"][2]["method_name"] == "worst"
+        assert lb["entries"][2]["contact"] == "worst"
         assert lb["entries"][2]["rank"] == 3
 
 
@@ -2067,7 +2044,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.5,
                         "reactor_scale_metrics": {
@@ -2093,21 +2069,21 @@ class TestReactorScaleLeaderboard:
         assert "Test Surface" in content  # display_name
         assert "1.500" in content  # composite_score
         assert "user1" in content
-        # Per-turn force and torque columns should appear (HTML math)
-        assert "F_turn" in content or "F_{\\text{turn}}" in content
-        assert "τ_turn" in content or "tau_{\\text{turn}}" in content
+        # Per-turn force and torque columns should appear (HTML math or subscript)
+        assert "F_turn" in content or "F_{\\text{turn}}" in content or "F<sub>turn</sub>" in content
+        assert "τ_turn" in content or "tau_{\\text{turn}}" in content or "τ<sub>turn</sub>" in content
         # Superconductor length column should appear
-        assert "L_SC" in content or "L_{\\text{SC}}" in content
+        assert "L_SC" in content or "L_{\\text{SC}}" in content or "L<sub>SC</sub>" in content
         assert "54.0" in content  # the SC length value
         # max N_turns should appear as a column with just the max value
         assert "max_i N" in content or "N_{\\text{turns}}" in content
         assert "3" in content  # max of [2, 3]
         # LN column should appear
         assert "LN" in content
-        # Visualization link columns should appear in header
-        assert "i" in content and "f" in content and "PP" in content
+        # Visualization link columns should appear in header (i=initial, f=final; PP only if enabled)
+        assert "i" in content and "f" in content
         # Winding-pack width column should appear
-        assert "w_WP" in content or "w_{\\text{WP}}" in content
+        assert "w_WP" in content or "w_{\\text{WP}}" in content or "w<sub>WP</sub>" in content
         assert "3.50e-02" in content  # the max WP width value (sci notation)
         # Scrollable sortable table
         assert "leaderboard-sortable" in content
@@ -2125,7 +2101,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 0.0,
                         "constraint_violations": [
@@ -2154,7 +2129,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 0.8,
                         "constraint_violations": [
@@ -2191,7 +2165,7 @@ class TestReactorScaleLeaderboard:
         surface_leaderboards = {
             "surf": {
                 "entries": [
-                    {"rank": 1, "method_name": "m1", "contact": "u",
+                    {"rank": 1, "contact": "u",
                      "composite_score": None, "reactor_scale_metrics": {}}
                 ]
             }
@@ -2209,7 +2183,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.5,
                         "metrics": {
@@ -2240,7 +2213,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.0,
                         "metrics": {},
@@ -2280,7 +2252,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.5,
                         "path": rel_path,
@@ -2293,10 +2264,13 @@ class TestReactorScaleLeaderboard:
             }
         }
         out_rst = tmp_path / "reactor_scale.rst"
-        write_reactor_scale_leaderboard(
-            leaderboard, surface_leaderboards, out_rst,
-            repo_root=tmp_path,
-        )
+        with patch.object(
+            update_db, "_LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS", True
+        ):
+            write_reactor_scale_leaderboard(
+                leaderboard, surface_leaderboards, out_rst,
+                repo_root=tmp_path,
+            )
         content = out_rst.read_text()
         # The links should be generated (not "—")
         assert "bn_error_3d_plot.pdf" in content
@@ -2324,7 +2298,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.5,
                         "path": rel_path,
@@ -2339,10 +2312,13 @@ class TestReactorScaleLeaderboard:
             }
         }
         out_rst = tmp_path / "reactor_scale.rst"
-        write_reactor_scale_leaderboard(
-            leaderboard, surface_leaderboards, out_rst,
-            repo_root=tmp_path,
-        )
+        with patch.object(
+            update_db, "_LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS", True
+        ):
+            write_reactor_scale_leaderboard(
+                leaderboard, surface_leaderboards, out_rst,
+                repo_root=tmp_path,
+            )
         content = out_rst.read_text()
         # Should have links to order-specific PDFs
         assert "order_4" in content
@@ -2364,7 +2340,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.0,
                         "path": rel_path,
@@ -2402,7 +2377,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.0,
                         "path": rel_path,
@@ -2415,10 +2389,13 @@ class TestReactorScaleLeaderboard:
             }
         }
         out_rst = tmp_path / "reactor_scale.rst"
-        write_reactor_scale_leaderboard(
-            leaderboard, surface_leaderboards, out_rst,
-            repo_root=tmp_path,
-        )
+        with patch.object(
+            update_db, "_LEADERBOARD_INCLUDE_POST_PROCESSING_COLUMNS", True
+        ):
+            write_reactor_scale_leaderboard(
+                leaderboard, surface_leaderboards, out_rst,
+                repo_root=tmp_path,
+            )
         content = out_rst.read_text()
         assert "poincare_plot.png" in content
         assert "bn_error_3d_plot.pdf" in content
@@ -2431,7 +2408,6 @@ class TestReactorScaleLeaderboard:
                 "entries": [
                     {
                         "rank": 1,
-                        "method_name": "m1",
                         "contact": "user1",
                         "composite_score": 1.0,
                         "metrics": {},

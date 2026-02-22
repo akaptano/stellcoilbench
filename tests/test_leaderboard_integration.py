@@ -28,7 +28,6 @@ class TestLeaderboardIntegration:
         results_json = submission_path / "results.json"
         results_json.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
                 "contact": "testuser",
                 "hardware": "CPU: Test",
                 "run_date": "2024-01-01T12:00:00"
@@ -79,7 +78,6 @@ optimizer_params:
         
         # Verify first entry structure
         first_entry = entries[0]
-        assert "method_name" in first_entry
         assert "contact" in first_entry
         assert "score_primary" in first_entry
         assert "metrics" in first_entry
@@ -135,7 +133,6 @@ optimizer_params:
         results_json = submission_path / "results.json"
         results_json.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
                 "contact": "testuser",
                 "run_date": "2024-01-01T12:00:00"
             },
@@ -192,7 +189,6 @@ optimizer_params:
         results_json = submission_path / "results.json"
         results_json.write_text(json.dumps({
             "metadata": {
-                "method_name": "test_method",
                 "contact": "testuser",
                 "run_date": "2024-01-01T12:00:00"
             },
@@ -249,7 +245,7 @@ optimizer_params:
             results_json = submission_path / "results.json"
             results_json.write_text(json.dumps({
                 "metadata": {
-                    "method_name": f"method{i}",
+                    "method_version": f"method{i}",
                     "contact": f"user{i}",
                     "run_date": f"2024-01-01T12:00:0{i}"
                 },

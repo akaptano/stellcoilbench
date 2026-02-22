@@ -1,10 +1,18 @@
 # src/stellcoilbench/update_db.py
+"""
+Leaderboard generation and database update for StellCoilBench.
+
+Scans ``submissions/`` for zip files containing results.json, aggregates metrics,
+and generates per-surface leaderboards in RST, Markdown, and JSON under
+``docs/leaderboards/``. Handles reactor-scale constraints, composite scoring,
+and Zenodo/external submission formatting.
+"""
 from __future__ import annotations
 
 import html
 import json
-import subprocess
 import math
+import subprocess
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
@@ -413,7 +421,7 @@ def _metric_shorthand(metric_name: str) -> str:
     return shorthand_map.get(metric_name, metric_name.replace("_", " "))
 
 
-def _format_date(date_str: str) -> str:
+def _format_date(date_str: str | None) -> str:
     """
     Format date from ISO format (YYYY-MM-DD) to DD/MM/YY format.
     
@@ -515,6 +523,110 @@ def _format_date(date_str: str) -> str:
     
     # Return as-is if parsing fails
     return date_str
+
+
+# Metric keys that should be displayed as integers
+_INTEGER_METRICS: set[str] = {"final_linking_number", "coil_order", "num_coils"}
+
+
+def _format_metric_value(
+    value: Any,
+    metric_key: str = "",
+    compact: bool = False,
+) -> str:
+    """
+    Format a metric value for leaderboard display.
+
+    Parameters
+    ----------
+    value : Any
+        Raw metric value.
+    metric_key : str, optional
+        Metric key (affects formatting for integer/special metrics).
+    compact : bool, default=False
+        If True, use ultra-compact scientific notation (for HTML tables).
+        If False, use standard .1e format.
+
+    Returns
+    -------
+    str
+        Formatted string for display.
+    """
+    if metric_key in _INTEGER_METRICS:
+        if isinstance(value, (float, int)):
+            return str(int(round(value)))
+        return str(value)
+    if metric_key == "fourier_continuation_orders":
+        return str(value) if value else "—"
+    if isinstance(value, (float, int)):
+        val = float(value)
+        if abs(val) < 1e-100:
+            return "0"
+        if compact:
+            s = f"{val:.1e}".replace("e+", "e")
+            if s.startswith("0."):
+                s = "." + s[2:]
+            elif s.startswith("-0."):
+                s = "-." + s[3:]
+            if "e" in s:
+                parts = s.split("e")
+                if len(parts) == 2:
+                    base, exp = parts[0], parts[1]
+                    if exp.startswith("0") and len(exp) > 1:
+                        exp = exp[1:]
+                    s = base + "e" + exp
+            return s
+        return f"{val:.1e}"
+    return str(value)
+
+
+def _format_numeric_for_leaderboard(
+    value: Any,
+    *,
+    scientific_for_large: float | None = None,
+    scientific_for_small: float | None = None,
+) -> str:
+    """
+    Format a numeric value for leaderboard display (reactor-scale, dipole, etc.).
+
+    Parameters
+    ----------
+    value : Any
+        Raw value to format.
+    scientific_for_large : float, optional
+        If abs(v) >= this, use scientific notation (e.g. 1000 for dipole F_max).
+    scientific_for_small : float, optional
+        If 0 < abs(v) < this, use scientific notation (e.g. 0.01 for dipole).
+
+    Returns
+    -------
+    str
+        Formatted string or "—" for non-numeric.
+    """
+    if value is None:
+        return "—"
+    if isinstance(value, (dict, list, str)):
+        return "—"
+    try:
+        v = float(value)
+    except (ValueError, TypeError):
+        return "—"
+    if abs(v) < 1e-100:
+        return "0"
+    if scientific_for_large is not None and abs(v) >= scientific_for_large:
+        return f"{v:.2e}"
+    if scientific_for_small is not None and 0 < abs(v) < scientific_for_small:
+        return f"{v:.2e}"
+    if abs(v) >= 100:
+        return f"{v:.1f}"
+    if abs(v) >= 1:
+        return f"{v:.2f}"
+    return f"{v:.2e}"
+
+
+def _metric_display_name(metric_key: str) -> str:
+    """Convert metric key to human-readable display name (e.g. 'final_squared_flux' -> 'Final Squared Flux')."""
+    return metric_key.replace("_", " ").title()
 
 
 def _shorthand_to_math(shorthand: str) -> str:
@@ -747,7 +859,7 @@ def _metric_definition(metric_name: str) -> str:
         "loss_fraction": r"Final particle loss fraction from SIMPLE fast particle tracing. The loss fraction is computed as $1 - f_c$ where $f_c$ is the confined fraction (sum of confined passing and trapped particles). Lower values indicate better particle confinement (dimensionless).",
     }
     
-    return definitions.get(metric_name, metric_name.replace("_", " ").title())
+    return definitions.get(metric_name, _metric_display_name(metric_name))
 
 
 def _metric_detailed_definition(metric_name: str) -> dict | None:
@@ -1089,7 +1201,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
     Yields
     ------
     (method_key, path, data)
-        method_key: "method_name:version_or_run_id"
+        method_key: "contact:surface:user:version"
         path: path to results.json (or zip file containing it)
         data: parsed JSON dict
     """
@@ -1117,7 +1229,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             continue
 
         meta = data.get("metadata") or {}
-        method_name = meta.get("method_name", "UNKNOWN")
+        contact = meta.get("contact", "UNKNOWN")
         
         # Extract surface and user from path to make method_key unique
         # Current structure: submissions_root/surface_name/user/timestamp/results.json
@@ -1251,7 +1363,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
             version = meta.get("method_version") or path.parent.name
         
         # Include surface and user in method_key to ensure uniqueness
-        method_key = f"{method_name}:{surface}:{user}:{version}"
+        method_key = f"{contact}:{surface}:{user}:{version}"
         
         found_count += 1
         yield method_key, path, data
@@ -1269,7 +1381,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                 data = json.loads(results_json_content.decode('utf-8'))
                 
                 meta = data.get("metadata") or {}
-                method_name = meta.get("method_name", "UNKNOWN")
+                contact = meta.get("contact", "UNKNOWN")
                 
                 # If run_date is missing or all the same, try to extract from zip filename
                 # Zip filename format: MM-DD-YYYY_HH-MM-SS.zip
@@ -1381,7 +1493,7 @@ def _load_submissions(submissions_root: Path) -> Iterable[Tuple[str, Path, Dict[
                 else:
                     version = meta.get("method_version") or zip_path.stem
                 # Include surface and user in method_key to ensure uniqueness
-                method_key = f"{method_name}:{surface}:{user}:{version}"
+                method_key = f"{contact}:{surface}:{user}:{version}"
                 
                 found_count += 1
                 # Yield with zip_path as the path (even though results.json is inside)
@@ -1408,7 +1520,7 @@ def build_methods_json(
     Returns
     -------
     dict
-        Keys are "method_name:version", values hold metadata + metrics.
+        Keys are "contact:surface:user:version", values hold metadata + metrics.
     """
     import yaml
     
@@ -1438,11 +1550,11 @@ def build_methods_json(
         if not metrics and ("final_squared_flux" in data or "final_normalized_squared_flux" in data):
             # This is a legacy format - metrics are at top level
             # Extract metrics by excluding metadata fields and internal fields
-            metadata_keys = {"metadata", "method_name", "method_version", "contact", "hardware", "notes", "run_date", "output_directory", "lagrange_multipliers", "iterations_used", "walltime_sec"}
+            metadata_keys = {"metadata", "method_version", "contact", "hardware", "run_date", "output_directory", "lagrange_multipliers", "iterations_used", "walltime_sec"}
             metrics = {k: v for k, v in data.items() if k not in metadata_keys}
             # If metadata is missing, try to extract from top level
             if not meta:
-                meta = {k: data.get(k) for k in ["method_name", "contact", "hardware", "notes", "run_date"] if k in data}
+                meta = {k: data.get(k) for k in ["contact", "hardware", "run_date"] if k in data}
             
             # If still no metadata, try to extract from path
             if not meta.get("contact"):
@@ -1832,7 +1944,6 @@ def build_methods_json(
         composite_score, score_details = compute_composite_score(metrics, reactor_scale)
 
         methods[method_key] = {
-            "method_name": meta.get("method_name", "UNKNOWN"),
             "method_version": meta.get("method_version", path.stem if path.suffix == ".zip" else path.parent.name),
             "contact": github_username,  # Use GitHub username from path, not metadata
             "hardware": meta.get("hardware", ""),
@@ -1904,7 +2015,6 @@ def build_leaderboard_json(methods: Dict[str, Any]) -> Dict[str, Any]:
 
         entry = {
             "method_key": method_key,
-            "method_name": md.get("method_name", "UNKNOWN"),
             "method_version": md.get("method_version", ""),
             "composite_score": float(composite_score) if composite_score is not None else None,
             "score_primary": float(score_primary) if score_primary is not None else None,
@@ -1967,11 +2077,10 @@ def _is_zenodo_entry(entry: Dict[str, Any]) -> bool:
     """Return True if entry is from Zenodo (Pedro Gil augmented Lagrangian, etc.)."""
     path = entry.get("path", "") or ""
     contact = entry.get("contact", "") or ""
-    method = entry.get("method_name", "") or ""
     return (
         "zenodo_14934092" in path
         or "zenodo_14934092" in contact
-        or "Zenodo 14934092" in method
+        or "Zenodo 14934092" in contact
     )
 
 # Metrics that should never appear in device-scale leaderboard tables.
@@ -2028,6 +2137,72 @@ _DEVICE_LEADERBOARD_EXCLUDE: set[str] = {
     "final_average_curvature",
 }
 
+# Default metric display order for surface leaderboards
+_DEVICE_LEADERBOARD_DESIRED_ORDER: list[str] = [
+    "num_coils",
+    "coil_order",
+    "fourier_continuation_orders",
+    "final_squared_flux",
+    "final_normalized_squared_flux",
+    "avg_BdotN_over_B",
+    "max_BdotN_over_B",
+    "final_total_length",
+    "final_arclength_variation",
+    "final_min_cc_separation",
+    "final_min_cs_separation",
+    "final_mean_squared_curvature",
+    "final_max_max_coil_force",
+    "final_max_max_coil_torque",
+    "final_linking_number",
+    "optimization_time",
+]
+_DEVICE_LEADERBOARD_ALWAYS_INCLUDE: list[str] = [
+    "num_coils",
+    "coil_order",
+    "fourier_continuation_orders",
+]
+
+
+def _get_ordered_metrics_for_entries(
+    entries: list[Dict[str, Any]],
+    desired_order: list[str] | None = None,
+    always_include: list[str] | None = None,
+) -> list[str]:
+    """
+    Extract unique metric keys from entries and return in display order.
+
+    Parameters
+    ----------
+    entries : list[dict]
+        Leaderboard entries (each with "metrics" dict).
+    desired_order : list[str], optional
+        Preferred column order. Defaults to _DEVICE_LEADERBOARD_DESIRED_ORDER.
+    always_include : list[str], optional
+        Keys to always include even if no entry has them.
+
+    Returns
+    -------
+    list[str]
+        Ordered metric keys for display.
+    """
+    exclude = _DEVICE_LEADERBOARD_EXCLUDE
+    desired_order = desired_order or _DEVICE_LEADERBOARD_DESIRED_ORDER
+    always_include = always_include or []
+
+    all_keys: set[str] = set()
+    for entry in entries:
+        for key in entry.get("metrics", {}).keys():
+            if key not in exclude:
+                all_keys.add(key)
+
+    ordered: list[str] = []
+    for key in desired_order:
+        if key in all_keys or key in always_include:
+            ordered.append(key)
+    remaining = sorted(all_keys - set(ordered))
+    ordered.extend(remaining)
+    return ordered
+
 
 def _get_all_metrics_from_entries(entries: list[Dict[str, Any]]) -> list[str]:
     """Get all unique metric keys from overall leaderboard entries."""
@@ -2083,9 +2258,8 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         lines.append("```json")
         lines.append("{")
         lines.append('  "metadata": {')
-        lines.append('    "method_name": "your_method",')
+        lines.append('    "contact": "your_username",')
         lines.append('    "method_version": "v1.0.0",')
-        lines.append('    "contact": "your@email.com",')
         lines.append('    "hardware": "your_hardware"')
         lines.append("  },")
         lines.append('  "metrics": {...}')
@@ -2110,41 +2284,6 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         lines.append("</thead>")
         lines.append("<tbody>")
         
-        def _format_value(value: Any, metric_key: str = "") -> str:
-            """Format a metric value in compact scientific notation."""
-            # Special handling for linking number - use integer format
-            if metric_key == "final_linking_number":
-                if isinstance(value, (float, int)):
-                    return str(int(round(value)))
-                return str(value)
-            # All other numeric values use ultra-compact scientific notation, wrapped in span for smaller font
-            if isinstance(value, (float, int)):
-                val = float(value)
-                if abs(val) < 1e-100:
-                    return "0"
-                # Use ultra-compact format: single digit, no + sign, no leading zero
-                s = f"{val:.1e}"
-                # Remove + sign for compactness
-                s = s.replace("e+", "e")
-                # Remove leading zero (e.g., "0.5e-2" -> ".5e-2")
-                if s.startswith("0."):
-                    s = "." + s[2:]
-                elif s.startswith("-0."):
-                    s = "-." + s[3:]
-                # For very large numbers, use shorter format if possible
-                # Wrap in span for smaller font
-                if "e" in s:
-                    parts = s.split("e")
-                    if len(parts) == 2:
-                        base, exp = parts[0], parts[1]
-                        # Remove leading zero from exponent if present
-                        if exp.startswith("0") and len(exp) > 1:
-                            exp = exp[1:]
-                        s = base + "e" + exp
-                # Return formatted number (markdown tables can use HTML if needed, but CSS handles styling)
-                return s
-            return str(value)
-        
         # Write rows for each entry
         for e in entries:
             metrics = e.get("metrics", {})
@@ -2157,14 +2296,14 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
             row_parts = [
                 str(e['rank']),
                 score_str,
-                e.get('contact', e.get('method_name', '?'))[:15],  # Truncate long names
+                e.get('contact', '?')[:15],  # Truncate long names
                 run_date,
             ]
             
             # Add all metrics
             for key in all_metric_keys:
                 value = metrics.get(key)
-                row_parts.append(_format_value(value, metric_key=key) if value is not None else "—")
+                row_parts.append(_format_metric_value(value, metric_key=key, compact=True) if value is not None else "—")
             
             tr_class = ' class="zenodo-entry"' if _is_zenodo_entry(e) else ""
             lines.append(f"<tr{tr_class}>")
@@ -2184,7 +2323,7 @@ def write_markdown_leaderboard(leaderboard: Dict[str, Any], out_md: Path) -> Non
         legend_items = []
         for key in all_metric_keys:
             shorthand = _metric_shorthand(key)
-            full_name = key.replace("_", " ").title()
+            full_name = _metric_display_name(key)
             legend_items.append(f"- **{shorthand}**: {full_name}")
         
         lines.extend(legend_items)
@@ -2211,76 +2350,15 @@ def write_rst_leaderboard(
     entries = leaderboard.get("entries") or []
     surface_names = sorted(surface_leaderboards.keys())
 
-    def _format_value(value: Any, metric_key: str = "") -> str:
-        """Format metric values for display in RST tables."""
-        integer_metrics = {"final_linking_number", "coil_order", "num_coils"}
-        if metric_key in integer_metrics:
-            if isinstance(value, (float, int)):
-                return str(int(round(value)))
-            return str(value)
-        # Fourier continuation orders are stored as comma-separated string
-        if metric_key == "fourier_continuation_orders":
-            return str(value) if value else "—"
-        if isinstance(value, (float, int)):
-            # Use scientific notation with 1 significant digit
-            # CSS will handle making numbers smaller (no HTML needed)
-            return f"{float(value):.1e}"
-        return str(value)
-
-    def _get_metrics_for_surface(entries_for_surface: list[Dict[str, Any]]) -> list[str]:
-        """Extract all unique metric keys from entries for a specific surface."""
-        exclude_fields = _DEVICE_LEADERBOARD_EXCLUDE
-        all_keys = set()
-        for entry in entries_for_surface:
-            metrics = entry.get("metrics", {})
-            for key in metrics.keys():
-                if key not in exclude_fields:
-                    all_keys.add(key)
-        
-        # Define the desired order: N, n, FC, fB, \bar{B_n}, max(B_n), L, d_cc, d_cs, \bar{kappa}, MSC, F_max, τ_max, LN, t
-        desired_order = [
-            "num_coils",                    # N
-            "coil_order",                   # n
-            "fourier_continuation_orders",  # FC
-            "final_squared_flux",           # fB (new name)
-            "final_normalized_squared_flux", # fB (legacy name, for backwards compatibility)
-            "avg_BdotN_over_B",             # \bar{B_n}
-            "max_BdotN_over_B",             # max(B_n)
-            "final_total_length",           # L
-            "final_arclength_variation",    # Var(l_i)
-            "final_min_cc_separation",      # d_cc
-            "final_min_cs_separation",      # d_cs
-            "final_mean_squared_curvature",  # MSC
-            "final_max_max_coil_force",     # F_max
-            "final_max_max_coil_torque",    # τ_max
-            "final_linking_number",         # LN
-            "optimization_time",            # t
-        ]
-        
-        # Build ordered list: first add metrics in desired order that exist, then add any others
-        ordered_keys = []
-        # Always include these columns even if no entries have them (show "—" when missing)
-        always_include = ["num_coils", "coil_order", "fourier_continuation_orders"]
-        for key in desired_order:
-            if key in all_keys or key in always_include:
-                ordered_keys.append(key)
-        
-        # Add any remaining keys that weren't in the desired order
-        remaining_keys = sorted(all_keys - set(ordered_keys))
-        ordered_keys.extend(remaining_keys)
-        
-        return ordered_keys
-
-    def _get_surface_display_name(surface_name: str) -> str:
-        """Convert surface file name to a descriptive display name."""
-        return _surface_display_name(surface_name)
-
     # Collect all unique metrics across all surfaces for definitions
     all_metric_keys_set = set()
     for surface_name in surface_names:
         entries_for_surface = surface_leaderboards[surface_name].get("entries", [])
         if entries_for_surface:
-            surface_metrics = _get_metrics_for_surface(entries_for_surface)
+            surface_metrics = _get_ordered_metrics_for_entries(
+                entries_for_surface,
+                always_include=_DEVICE_LEADERBOARD_ALWAYS_INCLUDE,
+            )
             all_metric_keys_set.update(surface_metrics)
     
     # Also check overall entries if available
@@ -2397,7 +2475,7 @@ def write_rst_leaderboard(
             """Format a detailed metric definition into RST lines."""
             lines = []
             symbol = def_dict.get("symbol", "")
-            title = def_dict.get("title", key.replace("_", " ").title())
+            title = def_dict.get("title", _metric_display_name(key))
             if symbol:
                 lines.append(f"**{title}** ({symbol})")
             else:
@@ -3025,7 +3103,7 @@ def write_rst_leaderboard(
         lines.append("")
     else:
         for surface_name in surface_names:
-            display_name = _get_surface_display_name(surface_name)
+            display_name = _surface_display_name(surface_name)
             # Create a proper RST anchor
             anchor = surface_name.replace(".", "-").replace("_", "-").lower()
             lines.append(f".. _{anchor}:")
@@ -3055,7 +3133,10 @@ def write_rst_leaderboard(
                 lines.append("")
                 continue
 
-            surface_metric_keys = _get_metrics_for_surface(entries_for_surface)
+            surface_metric_keys = _get_ordered_metrics_for_entries(
+                entries_for_surface,
+                always_include=_DEVICE_LEADERBOARD_ALWAYS_INCLUDE,
+            )
             # Build header columns: Score, metrics, then Date, User, IC, # at the end
             surface_header_cols = [r":math:`\text{Score}`"]  # Composite score column first
             # Wrap metric shorthands in math mode for table headers
@@ -3345,13 +3426,13 @@ def write_rst_leaderboard(
                 # Build row: (display, sort_value) for each column
                 cs = entry.get("composite_score")
                 run_date_raw = entry.get("run_date", "") or "0000-00-00"
-                user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+                user_val = entry.get("contact", "?")[:15]
                 row_cells = [
                     (f"{cs:.3f}" if cs is not None else "—", float(cs) if cs is not None else -1e9),
                 ]
                 for key in surface_metric_keys:
                     value = metrics.get(key)
-                    formatted = _format_value(value, metric_key=key) if value is not None else "—"
+                    formatted = _format_metric_value(value, metric_key=key) if value is not None else "—"
                     sort_val = float(value) if isinstance(value, (int, float)) else ("" if value is None else str(value))
                     row_cells.append((formatted, sort_val))
                 row_cells.extend([
@@ -3560,54 +3641,6 @@ def write_surface_leaderboards(
         import sys
         raise RuntimeError(f"Failed to create or access surface_dir: {surface_dir}")
     
-    def _format_value(value: Any, metric_key: str = "") -> str:
-        """Format a metric value in scientific notation with 2 digits."""
-        # Special handling for integer metrics - use integer format
-        integer_metrics = {"final_linking_number", "coil_order", "num_coils"}
-        if metric_key in integer_metrics:
-            if isinstance(value, (float, int)):
-                return str(int(round(value)))
-            return str(value)
-        # All other numeric values use scientific notation with 1 digit
-        # CSS will handle making numbers smaller (no HTML needed)
-        if isinstance(value, (float, int)):
-            return f"{float(value):.1e}"
-        return str(value)
-    
-    def _get_all_metrics_for_surface(surf_data: Dict[str, Any]) -> list[str]:
-        """Get all unique metric keys for a surface."""
-        exclude_fields = _DEVICE_LEADERBOARD_EXCLUDE
-        
-        all_keys = set()
-        for entry in surf_data.get("entries", []):
-            metrics = entry.get("metrics", {})
-            for key in metrics.keys():
-                if key not in exclude_fields:
-                    all_keys.add(key)
-        
-        # Sort with priority order: primary metric first, then coil parameters, then others
-        sorted_keys = sorted(all_keys)
-        
-        # Priority order for display
-        priority_order = [
-            "final_squared_flux",  # Primary metric (new name)
-            "final_normalized_squared_flux",  # Primary metric (legacy name)
-            "num_coils",  # Coil configuration
-            "coil_order",  # Coil configuration
-        ]
-        
-        # Reorder: priority items first, then rest alphabetically
-        ordered_keys = []
-        for priority_key in priority_order:
-            if priority_key in sorted_keys:
-                ordered_keys.append(priority_key)
-                sorted_keys.remove(priority_key)
-        
-        # Add remaining keys alphabetically
-        ordered_keys.extend(sorted(sorted_keys))
-        
-        return ordered_keys
-    
     surface_names = sorted(surface_leaderboards.keys())
     
     for surface_name in surface_names:
@@ -3615,10 +3648,18 @@ def write_surface_leaderboards(
         entries = surf_data.get("entries", [])
         
         # Get all metrics for this surface
-        all_metric_keys = _get_all_metrics_for_surface(surf_data)
+        all_metric_keys = _get_ordered_metrics_for_entries(
+            surf_data.get("entries", []),
+            desired_order=[
+                "final_squared_flux",
+                "final_normalized_squared_flux",
+                "num_coils",
+                "coil_order",
+            ],
+        )
         
         # Create nice display name
-        display_name = surface_name.replace("input.", "").replace("_", " ").title()
+        display_name = _surface_display_name(surface_name)
         
         lines = [
             f"# {display_name} Leaderboard",
@@ -3667,7 +3708,7 @@ def write_surface_leaderboards(
                 cs = entry.get("composite_score")
                 score_str = f"{cs:.3f}" if cs is not None else "—"
                 rank_val = entry.get("rank", 0)
-                user_val = entry.get('contact', entry.get('method_name', '?'))[:15]
+                user_val = entry.get('contact', '?')[:15]
                 row_parts = [
                     (str(rank_val), rank_val if isinstance(rank_val, (int, float)) else 0),
                     (score_str, float(cs) if cs is not None else -1e9),
@@ -3676,7 +3717,7 @@ def write_surface_leaderboards(
                 ]
                 for key in all_metric_keys:
                     value = metrics.get(key)
-                    disp = _format_value(value, metric_key=key) if value is not None else "—"
+                    disp = _format_metric_value(value, metric_key=key) if value is not None else "—"
                     if isinstance(value, (int, float)):
                         sort_val = float(value)
                     else:
@@ -3780,7 +3821,7 @@ def _surface_display_name(surface_name: str) -> str:
     base = surface_name.replace("input.", "").replace(".focus", "")
     if base in _SURFACE_DISPLAY_NAMES:
         return _SURFACE_DISPLAY_NAMES[base]
-    return surface_name.replace("_", " ").title()
+    return _metric_display_name(surface_name)
 
 
 # Reactor-scale metrics to display, in order.
@@ -3913,23 +3954,7 @@ def write_reactor_scale_leaderboard(
     """
 
     def _rs_format(value: Any) -> str:
-        if value is None:
-            return "—"
-        if isinstance(value, (dict, list)):
-            return "—"
-        if isinstance(value, str):
-            return "—"
-        try:
-            v = float(value)
-        except (ValueError, TypeError):
-            return "—"
-        if abs(v) < 1e-100:
-            return "0"
-        if abs(v) >= 100:
-            return f"{v:.1f}"
-        if abs(v) >= 1:
-            return f"{v:.2f}"
-        return f"{v:.2e}"
+        return _format_numeric_for_leaderboard(value)
 
     def _get_rs_keys(entries: list[Dict[str, Any]]) -> list[str]:
         """Collect reactor-scale metric keys present in entries, in display order.
@@ -4198,7 +4223,7 @@ def write_reactor_scale_leaderboard(
                 n_turns_disp = html.escape(n_turns_str)
             row_parts.append((n_turns_disp, n_turns_sort))
 
-            user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+            user_val = entry.get("contact", "?")[:15]
             row_parts.append((html.escape(user_val), user_val))
 
             # ---- Visualization link columns: i (initial), f (final), PP (Poincaré) ----
@@ -4356,26 +4381,11 @@ def write_dipole_leaderboard(
     See :doc:`metric_definitions` for dipole metric definitions.
     """
     def _dip_format(value: Any) -> str:
-        if value is None:
-            return "—"
-        if isinstance(value, (dict, list)):
-            return "—"
-        if isinstance(value, str):
-            return "—"
-        try:
-            v = float(value)
-        except (ValueError, TypeError):
-            return "—"
-        if abs(v) < 1e-100:
-            return "0"
-        # Use scientific notation for very large (e.g. F_max, I_dipole) or very small values
-        if abs(v) >= 1000 or (0 < abs(v) < 0.01):
-            return f"{v:.2e}"
-        if abs(v) >= 100:
-            return f"{v:.1f}"
-        if abs(v) >= 1:
-            return f"{v:.2f}"
-        return f"{v:.2e}"
+        return _format_numeric_for_leaderboard(
+            value,
+            scientific_for_large=1000,
+            scientific_for_small=0.01,
+        )
 
     lines: list[str] = [
         "Dipole Coil Leaderboard",
@@ -4525,7 +4535,7 @@ def write_dipole_leaderboard(
             run_date_sort = entry.get("run_date", "") or "0000-00-00"
             row_parts.append((run_date, run_date_sort))
 
-            user_val = entry.get("contact", entry.get("method_name", "?"))[:15]
+            user_val = entry.get("contact", "?")[:15]
             row_parts.append((html.escape(user_val), user_val))
 
             # Visualization links

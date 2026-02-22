@@ -97,7 +97,6 @@ def main() -> int:
         })
 
     user = "zenodo_18497939_Gil"
-    method_name = "Gil augmented Lagrangian (Zenodo 18497939)"
 
     config_dirs = [d for d in zenodo_dir.iterdir() if d.is_dir() and (d / "coils.json").exists()]
     if not config_dirs:
@@ -135,8 +134,8 @@ def main() -> int:
 
         submission = {
             "metadata": {
-                "method_name": method_name,
                 "contact": "Zenodo 18497939 / Gil et al.",
+                "method_version": "Gil augmented Lagrangian (Zenodo 18497939)",
                 "hardware": "Paper results",
                 "notes": "Augmented Lagrangian filamentary coils (arXiv 2507.12681)",
                 "run_date": "2025-02-22",

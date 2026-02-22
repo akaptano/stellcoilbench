@@ -22,18 +22,15 @@ class TestIsZenodoEntry:
         assert _is_zenodo_entry({"path": "submissions/zenodo_14934092_Gil/QA/all_files.zip"})
 
     def test_zenodo_contact(self):
-        """Entry with zenodo_14934092 in contact is Zenodo."""
+        """Entry with zenodo_14934092 or Zenodo 14934092 in contact is Zenodo."""
         assert _is_zenodo_entry({"contact": "zenodo_14934092_Gil"})
-
-    def test_zenodo_method_name(self):
-        """Entry with Zenodo 14934092 in method_name is Zenodo."""
-        assert _is_zenodo_entry({"method_name": "Zenodo 14934092 (Pedro Gil augmented Lagrangian)"})
+        assert _is_zenodo_entry({"contact": "Zenodo 14934092 (Pedro Gil augmented Lagrangian)"})
 
     def test_non_zenodo(self):
         """Regular entries are not Zenodo."""
         assert not _is_zenodo_entry({"path": "submissions/user123/run/all_files.zip"})
         assert not _is_zenodo_entry({"contact": "user123"})
-        assert not _is_zenodo_entry({"method_name": "L-BFGS-B"})
+        assert not _is_zenodo_entry({"contact": "L-BFGS-B"})
         assert not _is_zenodo_entry({})
 
 

@@ -40,7 +40,11 @@ def _install_stub_modules(monkeypatch, metrics=None, surface="input.TestSurface"
         metrics = {"final_normalized_squared_flux": 0.001}
 
     def load_case_config(_path):
-        return types.SimpleNamespace(surface_params={"surface": surface})
+        return types.SimpleNamespace(
+            surface_params={"surface": surface},
+            coils_params={},
+            optimizer_params={},
+        )
 
     def evaluate_case(case_cfg, results_dict):
         return metrics
@@ -276,11 +280,9 @@ def test_generate_submission_writes_results(tmp_path, monkeypatch):
 
     metadata_yaml = tmp_path / "metadata.yaml"
     metadata_yaml.write_text(
-        "method_name: demo\n"
         "method_version: v1\n"
-        "contact: test@example.com\n"
+        "contact: demo\n"
         "hardware: CPU\n"
-        "notes: note\n"
     )
 
     generate_submission(
@@ -293,7 +295,7 @@ def test_generate_submission_writes_results(tmp_path, monkeypatch):
     submission_path = tmp_path / "submissions" / "demo" / "v1" / "results.json"
     assert submission_path.exists()
     data = json.loads(submission_path.read_text())
-    assert data["metadata"]["method_name"] == "demo"
+    assert data["metadata"]["contact"] == "demo"
     assert data["metrics"]["final_normalized_squared_flux"] == 0.007
 
 
@@ -303,7 +305,7 @@ def test_generate_submission_missing_coils_file(tmp_path, monkeypatch):
     case_dir.mkdir()
     (case_dir / "case.yaml").write_text("description: test\n")
     metadata_yaml = tmp_path / "metadata.yaml"
-    metadata_yaml.write_text("method_name: demo\nmethod_version: v1\n")
+    metadata_yaml.write_text("contact: demo\nmethod_version: v1\n")
 
     with pytest.raises(typer.Exit):
         generate_submission(
@@ -328,15 +330,13 @@ def test_submit_case_creates_submission(tmp_path, monkeypatch):
     submissions_dir = tmp_path / "submissions"
     submit_case(
         case_path=case_path,
-        method_name="method1",
-        notes="",
         submissions_dir=submissions_dir,
     )
 
     results_files = list(submissions_dir.rglob("results.json"))
     assert len(results_files) == 1
     results_data = json.loads(results_files[0].read_text())
-    assert results_data["metadata"]["method_name"] == "method1"
+    assert results_data["metadata"]["contact"] == "user1"
     assert results_data["metadata"]["contact"] == "user1"
 
     case_copies = list(submissions_dir.rglob("case.yaml"))
@@ -359,8 +359,6 @@ def test_submit_case_unknown_user_and_hardware(tmp_path, monkeypatch):
     submissions_dir = tmp_path / "submissions"
     submit_case(
         case_path=case_path,
-        method_name="method1",
-        notes="",
         submissions_dir=submissions_dir,
     )
 
@@ -1263,7 +1261,6 @@ def test_post_process_success(tmp_path, monkeypatch):
     ])
     assert result.exit_code == 0
     assert "Post-processing complete!" in result.output
-    assert "B·n on plasma surface" in result.output
     assert "quasisymmetry" in result.output
 
 
@@ -1369,8 +1366,6 @@ def test_submit_case_surface_with_extension(tmp_path, monkeypatch):
     submissions_dir = tmp_path / "submissions"
     submit_case(
         case_path=case_path,
-        method_name="method1",
-        notes="",
         submissions_dir=submissions_dir,
     )
 
@@ -1399,8 +1394,6 @@ def test_submit_case_relative_path_fallback(tmp_path, monkeypatch):
     submissions_dir = tmp_path / "submissions"
     submit_case(
         case_path=case_path,
-        method_name="method1",
-        notes="",
         submissions_dir=submissions_dir,
     )
 

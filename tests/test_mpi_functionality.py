@@ -479,35 +479,35 @@ class TestCLIMPIFunctionality:
     """Tests for MPI functionality in CLI commands."""
     
     def test_is_proc0_function_rank0(self):
-        """Test that _is_proc0() returns True for rank 0."""
-        from stellcoilbench.cli import _is_proc0
-        
+        """Test that is_proc0() returns True for rank 0."""
+        from stellcoilbench.cli import is_proc0
+
         mock_comm = MockMPIComm(rank=0, size=4)
-        with patch('stellcoilbench.cli.comm_world', mock_comm):
-            assert _is_proc0() is True
-    
+        with patch('stellcoilbench.mpi_utils.comm_world', mock_comm):
+            assert is_proc0() is True
+
     def test_is_proc0_function_rank1(self):
-        """Test that _is_proc0() returns False for rank > 0."""
-        from stellcoilbench.cli import _is_proc0
-        
+        """Test that is_proc0() returns False for rank > 0."""
+        from stellcoilbench.cli import is_proc0
+
         mock_comm = MockMPIComm(rank=1, size=4)
-        with patch('stellcoilbench.cli.comm_world', mock_comm):
-            assert _is_proc0() is False
-    
+        with patch('stellcoilbench.mpi_utils.comm_world', mock_comm):
+            assert is_proc0() is False
+
     def test_is_proc0_function_no_mpi(self):
-        """Test that _is_proc0() returns True when MPI is not available."""
-        from stellcoilbench.cli import _is_proc0
-        
-        with patch('stellcoilbench.cli.comm_world', None):
-            assert _is_proc0() is True
-    
+        """Test that is_proc0() returns True when MPI is not available."""
+        from stellcoilbench.cli import is_proc0
+
+        with patch('stellcoilbench.mpi_utils.comm_world', None):
+            assert is_proc0() is True
+
     def test_is_proc0_function_single_process(self):
-        """Test that _is_proc0() returns True for single-process MPI."""
-        from stellcoilbench.cli import _is_proc0
-        
+        """Test that is_proc0() returns True for single-process MPI."""
+        from stellcoilbench.cli import is_proc0
+
         mock_comm = MockMPIComm(rank=0, size=1)
-        with patch('stellcoilbench.cli.comm_world', mock_comm):
-            assert _is_proc0() is True
+        with patch('stellcoilbench.mpi_utils.comm_world', mock_comm):
+            assert is_proc0() is True
     
     def test_submit_case_only_rank0_writes_files(self, tmp_path):
         """Test that submit_case only writes files on rank 0."""
@@ -543,13 +543,13 @@ optimizer_params:
         # Test with rank 1 - should NOT write files after optimize_coils
         mock_comm_rank1 = MockMPIComm(rank=1, size=4)
         
-        with patch('stellcoilbench.cli.comm_world', mock_comm_rank1):
-            with patch('stellcoilbench.cli._is_proc0', return_value=False):
+        with patch('stellcoilbench.mpi_utils.comm_world', mock_comm_rank1):
+            with patch('stellcoilbench.cli.is_proc0', return_value=False):
                 with patch('stellcoilbench.coil_optimization.optimize_coils') as mock_optimize:
                     mock_optimize.return_value = {'initial_B_field': 1.0}
                     with patch.object(Path, 'write_text', mock_write_text):
                         # The function should return early after optimize_coils
-                        # due to _is_proc0() returning False
+                        # due to is_proc0() returning False
                         try:
                             # Note: We can't easily test the actual function
                             # because it requires many dependencies.
@@ -558,8 +558,8 @@ optimizer_params:
                         except Exception:
                             pass
         
-        # Verify the logic: _is_proc0() should control file writing
-        assert cli._is_proc0 is not None, "_is_proc0 should be defined in cli module"
+        # Verify the logic: is_proc0() should control file writing
+        assert cli.is_proc0 is not None, "is_proc0 should be defined in cli module"
     
     def test_run_case_only_rank0_writes_files(self, tmp_path):
         """Test that run_case only writes files on rank 0."""
@@ -582,14 +582,13 @@ optimizer_params:
         submissions_dir = tmp_path / "submissions"
         submissions_dir.mkdir()
         
-        # Verify the _is_proc0 function is used in run_case
-        # by checking the source code
+        # Verify is_proc0 (or _is_proc0) is used in run_case to check MPI rank
         import inspect
         source = inspect.getsource(cli.run_case)
         
-        # The function should check _is_proc0() and return early for non-rank-0
-        assert '_is_proc0()' in source or '_is_proc0' in source, \
-            "run_case should use _is_proc0() to check MPI rank"
+        # The function should check is_proc0() and return early for non-rank-0
+        assert 'is_proc0()' in source or '_is_proc0()' in source or 'is_proc0' in source, \
+            "run_case should use is_proc0() to check MPI rank"
         assert 'return' in source, \
             "run_case should have a return statement for early exit"
     
@@ -597,13 +596,15 @@ optimizer_params:
         """Test that CLI module imports MPI safely with fallback."""
         # Reimport to test import logic
         import stellcoilbench.cli as cli_module
-        
-        # comm_world should be defined (either MPI or None)
-        assert hasattr(cli_module, 'comm_world'), \
-            "cli module should have comm_world attribute"
-        
-        # _is_proc0 should be defined
-        assert hasattr(cli_module, '_is_proc0'), \
-            "cli module should have _is_proc0 function"
-        assert callable(cli_module._is_proc0), \
-            "_is_proc0 should be callable"
+        import stellcoilbench.mpi_utils as mpi_module
+
+        # mpi_utils provides comm_world (either MPI or None) for rank-aware ops
+        assert hasattr(mpi_module, 'comm_world'), \
+            "mpi_utils module should have comm_world attribute"
+
+        # CLI uses is_proc0 from mpi_utils for rank checks
+        assert hasattr(cli_module, 'is_proc0') or hasattr(cli_module, '_is_proc0'), \
+            "cli module should have is_proc0 or _is_proc0 function"
+        rank_check = getattr(cli_module, 'is_proc0', None) or getattr(cli_module, '_is_proc0', None)
+        assert callable(rank_check), \
+            "is_proc0/_is_proc0 should be callable"

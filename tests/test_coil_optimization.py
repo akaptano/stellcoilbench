@@ -35,7 +35,8 @@ order: 16
 verbose: "True"
 """)
         
-        config = load_coils_config(config_file)
+        with pytest.warns(DeprecationWarning, match="load_coils_config is deprecated"):
+            config = load_coils_config(config_file)
         assert config["ncoils"] == 4
         assert config["order"] == 16
         assert config["verbose"] == "True"
@@ -43,24 +44,27 @@ verbose: "True"
     def test_load_coils_config_nonexistent(self):
         """Test loading nonexistent config file raises error."""
         config_file = Path("/nonexistent/config.yaml")
-        with pytest.raises(Exception):  # FileNotFoundError or similar
-            load_coils_config(config_file)
+        with pytest.warns(DeprecationWarning, match="load_coils_config is deprecated"):
+            with pytest.raises(Exception):  # FileNotFoundError or similar
+                load_coils_config(config_file)
     
     def test_load_coils_config_invalid_yaml(self, tmp_path):
         """Test loading invalid YAML raises error."""
         config_file = tmp_path / "coils.yaml"
         config_file.write_text("invalid: yaml: [")
         
-        with pytest.raises(Exception):  # YAML parsing error
-            load_coils_config(config_file)
+        with pytest.warns(DeprecationWarning, match="load_coils_config is deprecated"):
+            with pytest.raises(Exception):  # YAML parsing error
+                load_coils_config(config_file)
     
     def test_load_coils_config_not_dict(self, tmp_path):
         """Test that non-dict YAML raises error."""
         config_file = tmp_path / "coils.yaml"
         config_file.write_text("- item1\n- item2\n")
         
-        with pytest.raises(ValueError, match="Expected dict"):
-            load_coils_config(config_file)
+        with pytest.warns(DeprecationWarning, match="load_coils_config is deprecated"):
+            with pytest.raises(ValueError, match="Expected dict"):
+                load_coils_config(config_file)
 
 
 class TestCoilsParamsValidation:
@@ -884,8 +888,8 @@ class TestInitializeCoilsDipole:
             pytest.skip("dipole_advanced_LandremanPaulQA.yaml not found")
         config = load_case_config(case_path)
         assert config.coils_params["coil_type"] == "dipole"
-        assert config.coils_params["Nx"] == 8
-        assert config.coils_params["dipole_order"] == 2
+        assert config.coils_params["Nx"] == 6  # case file has Nx: 6
+        assert config.coils_params["dipole_order"] == 0  # case file has dipole_order: 0
         assert config.coils_params["fix_shapes"] is True
         assert config.coils_params["fix_center"] is True
         assert config.fourier_continuation is not None

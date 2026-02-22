@@ -109,7 +109,7 @@ class TestBuildLeaderboard:
             (
                 Path("submission1.json"),
                 {
-                    "metadata": {"method_name": "method1", "method_version": "1.0"},
+                    "metadata": {"contact": "method1", "method_version": "1.0"},
                     "cases": [
                         {"scores": {"score_primary": 0.5}},
                         {"scores": {"score_primary": 0.3}},
@@ -121,7 +121,7 @@ class TestBuildLeaderboard:
         
         assert len(leaderboard["entries"]) == 1
         entry = leaderboard["entries"][0]
-        assert entry["method_name"] == "method1"
+        assert entry["contact"] == "method1"
         assert entry["method_version"] == "1.0"
         assert entry["mean_score_primary"] == 0.4
         assert entry["num_cases"] == 2
@@ -133,14 +133,14 @@ class TestBuildLeaderboard:
             (
                 Path("submission1.json"),
                 {
-                    "metadata": {"method_name": "method1", "method_version": "1.0"},
+                    "metadata": {"contact": "method1", "method_version": "1.0"},
                     "cases": [{"scores": {"score_primary": 0.5}}]
                 }
             ),
             (
                 Path("submission2.json"),
                 {
-                    "metadata": {"method_name": "method2", "method_version": "2.0"},
+                    "metadata": {"contact": "method2", "method_version": "2.0"},
                     "cases": [{"scores": {"score_primary": 0.3}}]
                 }
             ),
@@ -160,14 +160,14 @@ class TestBuildLeaderboard:
             (
                 Path("submission1.json"),
                 {
-                    "metadata": {"method_name": "method1"},
+                    "metadata": {"contact": "method1"},
                     "cases": []
                 }
             ),
             (
                 Path("submission2.json"),
                 {
-                    "metadata": {"method_name": "method2"},
+                    "metadata": {"contact": "method2"},
                     "cases": [{"scores": {"score_primary": 0.3}}]
                 }
             ),
@@ -175,7 +175,7 @@ class TestBuildLeaderboard:
         leaderboard = build_leaderboard(submissions)
         
         assert len(leaderboard["entries"]) == 1
-        assert leaderboard["entries"][0]["method_name"] == "method2"
+        assert leaderboard["entries"][0]["contact"] == "method2"
     
     def test_build_leaderboard_skips_no_scores(self):
         """Test that entries with no scores are skipped."""
@@ -183,7 +183,7 @@ class TestBuildLeaderboard:
             (
                 Path("submission1.json"),
                 {
-                    "metadata": {"method_name": "method1"},
+                    "metadata": {"contact": "method1"},
                     "cases": [{"scores": {}}]
                 }
             ),
@@ -198,7 +198,7 @@ class TestBuildLeaderboard:
             (
                 Path("submission1.json"),
                 {
-                    "metadata": {"method_name": "method1"},
+                    "metadata": {"contact": "method1"},
                     "cases": [{"scores": {"custom_score": 0.7}}]
                 }
             ),

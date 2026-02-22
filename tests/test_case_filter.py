@@ -142,7 +142,7 @@ def main():
                 zf.writestr('case.yaml', yaml.dump(case_data))
                 # Write a mock results.json
                 zf.writestr('results.json', json.dumps({
-                    "metadata": {"method_name": "test"},
+                    "metadata": {"contact": "test"},
                     "metrics": {"final_normalized_squared_flux": 0.001}
                 }))
             

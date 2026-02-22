@@ -1,10 +1,8 @@
-description: "Basic test case with virtual casing included"
+description: "Modular coil optimization for the Schuett-Henneberg quasi-axisymmetric ARIES-CS surface (nfp=2): 4 coils at order 8, L-BFGS-B, virtual casing enabled for B-field target, Boozer and Poincaré plots disabled due to surface geometry."
 surface_params:
   surface: "wout_schuetthenneberg_nfp2.nc"
-  range: "half period"
   virtual_casing: true
 
-# Disable Boozer and Poincaré plots for this case (surface geometry issues)
 post_processing_params:
   plot_boozer: false
   plot_poincare: false
@@ -13,24 +11,9 @@ coils_params:
   ncoils: 4
   order: 8
 
-# fourier_continuation:
-#   enabled: true
-#   orders: [4, 8, 16]  # Start with order 4, then 6, then 8
-
 optimizer_params:
   algorithm: "L-BFGS-B"
   max_iterations: 500
-  max_iter_subopt: 10
-  verbose: True
 
-# options for each term are l2, l2_threshold, l1, l1_threshold.
-# Unspecified terms are not included in the objective function.
-# Note that SquaredFlux is always included (can't think of why it would ever be excluded
-coil_objective_terms: 
-  total_length: "l2_threshold"  
+coil_objective_terms:
   length_threshold: 150.0
-  coil_curvature: "lp_threshold"  # options are lp, lp_threshold
-  coil_curvature_p: 2  # defaults to 2 if not specified
-  coil_mean_squared_curvature: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold
-  linking_number: ""  # Whether or not to use the linking number
-  coil_arclength_variation: "l2_threshold"  # options are l2, l2_threshold, l1, l1_threshold

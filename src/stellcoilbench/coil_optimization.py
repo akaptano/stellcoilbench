@@ -9,15 +9,16 @@ Fourier continuation, and post-processing integration.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple
 import numpy as np
-from typing import Callable
 from datetime import datetime
 import zipfile
 import os
 import sys
 from contextlib import contextmanager
 from .config_scheme import CaseConfig
+from .mpi_utils import comm_world, is_proc0, proc0_print
+from .path_utils import find_plasma_surfaces_dir, surface_stem_from_filename
 from .post_processing import timed_section, get_timing_results, suppress_output
 
 from simsopt.geo import SurfaceRZFourier
@@ -25,16 +26,6 @@ try:
     from simsopt.field import regularization_circ
 except ImportError:  # pragma: no cover - fallback for older simsopt
     regularization_circ = None
-
-# MPI support for parallel post-processing
-try:
-    from simsopt.util import comm_world, proc0_print
-except (ImportError, RuntimeError):
-    # ImportError: simsopt not installed
-    # RuntimeError: mpi4py installed but MPI library not available
-    comm_world = None
-    def proc0_print(*args, **kwargs):
-        print(*args, **kwargs)
 
 try:
     import matplotlib
@@ -60,6 +51,15 @@ except ImportError:
 
 # ARIES-CS reactor reference (matches post_processing vmec_RZ_scale scaling)
 ARIES_CS_MINOR_RADIUS = 1.7  # meters (aspect ratio ~4.5)
+
+# Default coil objective terms for modular coils (case overrides)
+DEFAULT_COIL_OBJECTIVE_TERMS = {
+    "total_length": "l2_threshold",
+    "coil_curvature": "lp_threshold",
+    "coil_mean_squared_curvature": "l2_threshold",
+    "linking_number": "",
+    "coil_arclength_variation": "l2_threshold",
+}
 
 
 def _compute_thresholds_from_surface(
@@ -222,7 +222,7 @@ def _parse_optimizer_config(
         is_continuation_step=is_continuation_step,
         cached=cached,
     )
-    max_iter_subopt = kwargs.get('max_iter_subopt', max_iterations // 50)
+    max_iter_subopt = kwargs.get('max_iter_subopt', 10)
     algorithm = kwargs.get('algorithm', default_algorithm)
     if isinstance(algorithm, str):
         al = algorithm.lower()
@@ -248,7 +248,7 @@ def _create_plotting_surface(
     s: "SurfaceRZFourier",
     surface_resolution: int,
     kwargs: Dict[str, Any],
-) -> tuple:
+) -> Tuple["SurfaceRZFourier", int, int]:
     """
     Create a full-torus plotting surface from the optimization surface.
 
@@ -343,8 +343,8 @@ def _build_scipy_minimize_options(
 
 
 def _run_taylor_test(
-    objective: Callable,
-    gradient: Callable,
+    objective: Callable[[np.ndarray], float],
+    gradient: Callable[[np.ndarray], np.ndarray],
     x0: np.ndarray,
     verbose: bool = False,
 ) -> bool:
@@ -1438,10 +1438,26 @@ def _build_optimization_results_dict(
         'walltime_sec': end_time - start_time,
         'iterations_used': iterations_used,
         'final_squared_flux': Jf.J(),
-        'optimization_success': opt_result.success if opt_result is not None and hasattr(opt_result, 'success') else None,
-        'optimization_message': str(opt_result.message) if opt_result is not None and hasattr(opt_result, 'message') else None,
-        'optimization_nfev': getattr(opt_result, 'nfev', None) if opt_result is not None else None,
-        'optimization_njev': getattr(opt_result, 'njev', None) if opt_result is not None else None,
+        'optimization_success': (
+            opt_result.success
+            if opt_result is not None and hasattr(opt_result, 'success')
+            else True
+        ),
+        'optimization_message': (
+            str(opt_result.message)
+            if opt_result is not None and hasattr(opt_result, 'message')
+            else 'Completed'
+        ),
+        'optimization_nfev': (
+            getattr(opt_result, 'nfev', None) or iterations_used
+            if opt_result is not None
+            else iterations_used
+        ),
+        'optimization_njev': (
+            getattr(opt_result, 'njev', None)
+            if opt_result is not None
+            else None
+        ),
         '_cached_thresholds': cached_thresholds,
         'final_min_cs_separation': Jcsdist.shortest_distance(),
         'final_min_cc_separation': Jccdist.shortest_distance(),
@@ -2124,11 +2140,20 @@ def _run_scipy_minimize_for_modular_coils(
 class LinearPenalty:
     """
     Linear penalty function that implements max(objective - threshold, 0).
-    
-    This is used for l1_threshold options where we want a linear penalty
-    above the threshold and zero below.
+
+    Wraps a simsopt objective so that the effective value is zero below the
+    threshold and (J - threshold) above. Used for l1_threshold options in
+    coil_objective_terms (length, curvature, distances, etc.).
+
+    Attributes
+    ----------
+    objective : simsopt objective
+        Underlying objective (must have J() and dJ() methods).
+    threshold : float
+        Value below which the penalty is zero.
     """
-    def __init__(self, objective, threshold: float):
+
+    def __init__(self, objective: Any, threshold: float) -> None:
         self.objective = objective
         self.threshold = threshold
         # Add simsopt compatibility attributes
@@ -2235,7 +2260,7 @@ class LinearPenalty:
         self.objective.x = value
 
 
-def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, list]:
+def _get_scipy_algorithm_options(algorithm: str) -> Dict[str, List[type]]:
     """
     Get valid options for a given scipy optimization algorithm.
     
@@ -2363,13 +2388,15 @@ def _validate_algorithm_options(algorithm: str, options: Dict[str, Any]) -> None
 def load_coils_config(config_path: Path) -> Dict[str, Any]:
     """
     Load a coils.yaml-style config into a dict.
-    
-    Note: This function is deprecated. Use CaseConfig.from_dict() instead,
-    which includes validation via validate_case_config().
+
+    .. deprecated::
+        Use :func:`stellcoilbench.evaluate.load_case_config` and
+        :class:`stellcoilbench.config_scheme.CaseConfig` instead for case configs
+        with validation.
 
     Parameters
     ----------
-    config_path: Path
+    config_path : Path
         Path to the coils.yaml file.
 
     Returns
@@ -2379,10 +2406,18 @@ def load_coils_config(config_path: Path) -> Dict[str, Any]:
 
     Raises
     ------
-    ValueError: If the config file is not a dictionary.
+    ValueError
+        If the config file is not a dictionary.
     """
+    import warnings
+
     import yaml
 
+    warnings.warn(
+        "load_coils_config is deprecated. Use load_case_config and CaseConfig for case configs.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     data = yaml.safe_load(config_path.read_text())
     if not isinstance(data, dict):
         raise ValueError(f"Expected dict in {config_path}, got {type(data)}")
@@ -2461,7 +2496,6 @@ def optimize_coils(
     
     # Check MPI rank - coil optimization runs only on rank 0
     is_mpi_parallel = comm_world is not None and hasattr(comm_world, 'size') and comm_world.size > 1
-    is_proc0 = comm_world is None or not hasattr(comm_world, 'rank') or comm_world.rank == 0
     
     # Create MPI partition for post-processing (will be used after optimization)
     # Only create if MPI is available and we're using multiple processes
@@ -2518,8 +2552,15 @@ def optimize_coils(
     coil_params = dict(case_cfg.coils_params)
     optimizer_params = dict(case_cfg.optimizer_params)
     surface_params = dict(case_cfg.surface_params)
-    coil_objective_terms = case_cfg.coil_objective_terms
-    
+    # For modular coils, merge case coil_objective_terms with defaults (case overrides).
+    # Dipole coils use their own default when case has none.
+    if coil_params.get("coil_type") == "dipole":
+        coil_objective_terms = case_cfg.coil_objective_terms
+    else:
+        coil_objective_terms = dict(DEFAULT_COIL_OBJECTIVE_TERMS)
+        if case_cfg.coil_objective_terms:
+            coil_objective_terms.update(case_cfg.coil_objective_terms)
+
     # Extract threshold values from coil_objective_terms if present
     # These will be passed as kwargs to optimize_coils_loop
     threshold_kwargs = {}
@@ -2608,7 +2649,7 @@ def optimize_coils(
 
     surface = surface_func(
         filename=surface_file,
-        range=surface_params["range"],
+        range=surface_params.get("range", "half period"),
         nphi=surface_resolution,
         ntheta=surface_resolution)
 
@@ -2629,7 +2670,7 @@ def optimize_coils(
     # Set filename and range for dipole mode (derived from s in optimize_coils_loop)
     try:
         surface.filename = surface_file
-        surface.range = surface_params["range"]
+        surface.range = surface_params.get("range", "half period")
     except (AttributeError, TypeError):
         pass
 
@@ -2752,7 +2793,7 @@ def optimize_coils(
         # So we skip it in the optimization loop and run it separately
         skip_post_processing_in_loop = skip_post_processing or is_mpi_parallel
         
-        if is_proc0:
+        if is_proc0():
             fourier_continuation = case_cfg.fourier_continuation
             coil_type = coil_params.get("coil_type", "modular")
             if coil_type == "dipole":
@@ -2768,7 +2809,7 @@ def optimize_coils(
                         out_dir=str(output_dir),
                         max_iterations=optimizer_params.get("max_iterations", 100),
                         ncoils=coil_params.get('ncoils', 4),
-                        verbose=optimizer_params.get("verbose", False),
+                        verbose=optimizer_params.get("verbose", True),
                         regularization=regularization_circ if regularization_circ is not None else lambda x: None,
                         coil_objective_terms=coil_objective_terms,
                         surface_resolution=surface_resolution,
@@ -2787,7 +2828,7 @@ def optimize_coils(
                         dipole_array=True,
                         out_dir=str(output_dir),
                         max_iterations=optimizer_params.get("max_iterations", 100),
-                        verbose=optimizer_params.get("verbose", False),
+                        verbose=optimizer_params.get("verbose", True),
                         skip_post_processing=skip_post_processing_in_loop,
                         case_path=case_yaml_path_abs if case_yaml_path_abs and case_yaml_path_abs.exists() else case_path,
                         run_vmec=run_vmec,
@@ -2810,7 +2851,7 @@ def optimize_coils(
                     out_dir=str(output_dir),
                     max_iterations=optimizer_params.get('max_iterations', 30),
                     ncoils=coil_params.get('ncoils', 4),
-                    verbose=optimizer_params.get('verbose', False),
+                    verbose=optimizer_params.get('verbose', True),
                     regularization=regularization_circ if regularization_circ is not None else lambda x: None,
                     coil_objective_terms=coil_objective_terms,
                     surface_resolution=surface_resolution,
@@ -2892,7 +2933,7 @@ def optimize_coils(
     # Save coils to JSON file (only rank 0 writes, but all ranks need to wait)
     # Use absolute path to ensure correct location
     abs_coils_path = coils_out_path if coils_out_path.is_absolute() else (output_dir / coils_out_path.name)
-    if is_proc0:
+    if is_proc0():
         if coils is None:
             raise RuntimeError("Coil optimization failed: no coils were produced")
         save(coils, abs_coils_path)
@@ -2921,7 +2962,7 @@ def optimize_coils(
                 # Determine helicity_n based on surface type (QA=0, QH=-1)
                 # Only rank 0 needs to read the file, but all processes need the value
                 helicity_n = 0
-                if is_proc0 and case_yaml_path_abs and case_yaml_path_abs.exists():
+                if is_proc0() and case_yaml_path_abs and case_yaml_path_abs.exists():
                     import yaml
                     try:
                         case_data = yaml.safe_load(case_yaml_path_abs.read_text())
@@ -2934,7 +2975,7 @@ def optimize_coils(
                 # Broadcast helicity_n to all processes (simple approach: all processes read)
                 # Actually, run_post_processing will handle this, so we can just use default
                 # But let's read it on all processes for simplicity
-                if not is_proc0 and case_yaml_path_abs and case_yaml_path_abs.exists():
+                if not is_proc0() and case_yaml_path_abs and case_yaml_path_abs.exists():
                     import yaml
                     try:
                         case_data = yaml.safe_load(case_yaml_path_abs.read_text())
@@ -2945,17 +2986,8 @@ def optimize_coils(
                         pass
                 
                 # Find plasma_surfaces_dir (all processes need this)
-                plasma_surfaces_dir = None
-                current_dir = Path(output_dir)
-                for _ in range(5):
-                    potential_plasma_dir = current_dir / "plasma_surfaces"
-                    if potential_plasma_dir.exists():
-                        plasma_surfaces_dir = potential_plasma_dir
-                        break
-                    if current_dir.parent == current_dir:
-                        break
-                    current_dir = current_dir.parent
-                
+                plasma_surfaces_dir = find_plasma_surfaces_dir(Path(output_dir))
+
                 # Run post-processing (ALL MPI processes participate - function handles MPI internally)
                 post_processing_results = run_post_processing(
                     coils_json_path=coils_json_path,
@@ -2976,17 +3008,17 @@ def optimize_coils(
                     finite_build_height=finite_build_height,
                 )
                 proc0_print("Post-processing complete!")
-                if is_proc0 and 'quasisymmetry_average' in post_processing_results:
+                if is_proc0() and 'quasisymmetry_average' in post_processing_results:
                     proc0_print(f"  Average quasisymmetry error: {post_processing_results['quasisymmetry_average']:.2e}")
                 
                 # Add post-processing results to results_dict (only rank 0 returns this)
-                if is_proc0:
+                if is_proc0():
                     results_dict['post_processing'] = post_processing_results
             else:
                 proc0_print(f"Warning: Skipping post-processing (coils_json not found: {coils_json_path})")
         except Exception as e:
             proc0_print(f"Warning: Post-processing failed: {e}")
-            if is_proc0:
+            if is_proc0():
                 import traceback
                 traceback.print_exc()
     
@@ -2994,32 +3026,47 @@ def optimize_coils(
 
 
 def initialize_coils_loop(
-    s : SurfaceRZFourier, out_dir: Path | str = '', 
-    target_B: float = 5.7, ncoils: int = 4, order: int = 16, coil_width : float = 0.4,
-    regularization: Callable | None = regularization_circ):
+    s: SurfaceRZFourier,
+    out_dir: Path | str = "",
+    target_B: float = 5.7,
+    ncoils: int = 4,
+    order: int = 16,
+    coil_width: float = 0.4,
+    regularization: Callable[..., Any] | None = regularization_circ,
+) -> List[Any]:
     """
-    Initializes coils with order=16 and total current set to produce 
-    a target B-field on-axis. Uses an adaptive strategy to determine R0 and R1
-    parameters to ensure coils:
-    - Don't intersect with the plasma surface
-    - Interlink the plasma (go around it) by being positioned outside the surface
-    - Maintain safe distance from surface
-    - Don't interlink with each other (linking number ~0, maintain separation)
-    
-    The function iteratively adjusts R0 and R1 until all constraints are satisfied,
-    then iteratively adjusts the total current until the field strength along the 
-    major radius averages to the target value.
+    Initialize modular coils with adaptive R0/R1 and target B-field scaling.
 
-    Args:
-        s: plasma boundary surface.
-        out_dir: Path or string for the output directory for saved files.
-        target_B: Target magnetic field strength in Tesla (default: 5.7).
-        ncoils: Number of coils to create (default: 4).
-        order: Fourier order for coil curves (default: 16).
-        coil_width: Width of the coil in meters (default: 0.4).
-        regularization: Regularization function (default: regularization_circ).
-    Returns:
-        coils: List of Coil class objects.
+    Uses an adaptive strategy to determine R0 and R1 so that coils:
+    - Do not intersect the plasma surface
+    - Interlink the plasma (go around it)
+    - Maintain safe coil-surface and coil-coil distances
+    - Do not interlink each other (linking number ≈ 0)
+
+    Iteratively adjusts R0/R1 until constraints are satisfied, then adjusts
+    total current until the field along the major radius averages to target_B.
+
+    Parameters
+    ----------
+    s : SurfaceRZFourier
+        Plasma boundary surface.
+    out_dir : Path | str, optional
+        Output directory for saved files.
+    target_B : float, default=5.7
+        Target magnetic field strength [T] on-axis.
+    ncoils : int, default=4
+        Number of base coils.
+    order : int, default=16
+        Fourier order for coil curves.
+    coil_width : float, default=0.4
+        Coil width [m] for regularization.
+    regularization : callable, optional
+        Regularization function (default: regularization_circ).
+
+    Returns
+    -------
+    list
+        List of simsopt Coil objects (including symmetric copies).
     """
     from simsopt.geo import create_equally_spaced_curves
     from simsopt.field import Current, coils_via_symmetries, BiotSavart
@@ -4057,7 +4104,7 @@ def optimize_coils_with_fourier_continuation(
             if not case_yaml_path.exists() and hasattr(s, 'filename') and s.filename:
                 # Try to find case YAML relative to the surface file
                 surface_dir = Path(s.filename).parent
-                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+                surface_stem = surface_stem_from_filename(s.filename)
                 potential_case_paths = [
                     surface_dir / "case.yaml",
                     surface_dir.parent / "case.yaml",
@@ -4115,17 +4162,8 @@ def optimize_coils_with_fourier_continuation(
                         pass
                 
                 # Determine plasma_surfaces_dir - go up from output directory to find repo root
-                plasma_surfaces_dir = None
-                current_dir = out_dir_path
-                for _ in range(5):  # Search up to 5 levels
-                    potential_plasma_dir = current_dir / "plasma_surfaces"
-                    if potential_plasma_dir.exists():
-                        plasma_surfaces_dir = potential_plasma_dir
-                        break
-                    if current_dir.parent == current_dir:  # Reached root
-                        break
-                    current_dir = current_dir.parent
-                
+                plasma_surfaces_dir = find_plasma_surfaces_dir(out_dir_path)
+
                 # Save post-processing outputs to main output directory (same level as order subdirectories)
                 # This ensures QFM surface, Poincaré plots, etc. are easily accessible
                 post_processing_results = run_post_processing(
@@ -4242,29 +4280,39 @@ def optimize_coils_with_fourier_continuation_dipole(
             )
             cached_thresholds = results.get('_cached_thresholds', {})
             if coils:
-                ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
-                ncoils_dipole = max(0, len(coils) - ncoils * ntoroidal)
-                dipole_coils = coils[:ncoils_dipole]
-                tf_coils = coils[ncoils_dipole:]
+                # Split by quadpoints: dipole (CurvePlanarFourier) ~40 qp; TF (CurveXYZFourier) 200 qp.
+                # s.nfp/stellsym can give wrong ntoroidal for half-period surfaces.
+                nqp0 = len(coils[0].curve.quadpoints)
+                split_idx = len(coils)
+                for j in range(1, len(coils)):
+                    if len(coils[j].curve.quadpoints) != nqp0:
+                        split_idx = j
+                        break
+                dipole_coils = coils[:split_idx]
+                tf_coils = coils[split_idx:]
+                ncoils_dipole = split_idx
+                ntoroidal = len(tf_coils) // ncoils if ncoils and tf_coils else (s.nfp if s.stellsym else 2 * s.nfp)
                 base_curves_dipole = [dipole_coils[j].curve for j in range(0, ncoils_dipole, ntoroidal)] if ntoroidal and dipole_coils else []
                 base_curves_TF = [c.curve for c in tf_coils[:ncoils]]
         else:
             if coils is None:
                 raise RuntimeError("Cannot extend coils: previous step produced None coils")
-            ncoils_dipole = kwargs.get('continuation_ncoils_dipole', 0)
-            if ncoils_dipole <= 0:
-                ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
-                ncoils_dipole = len(coils) - ncoils * ntoroidal
-                if ncoils_dipole < 0:
-                    ncoils_dipole = 0
-            dipole_coils = coils[:ncoils_dipole]
-            tf_coils = coils[ncoils_dipole:]
+            # Split by quadpoints (same as step 1) so ncoils_dipole and ntoroidal are correct
+            nqp0 = len(coils[0].curve.quadpoints)
+            split_idx = len(coils)
+            for j in range(1, len(coils)):
+                if len(coils[j].curve.quadpoints) != nqp0:
+                    split_idx = j
+                    break
+            dipole_coils = coils[:split_idx]
+            tf_coils = coils[split_idx:]
+            ncoils_dipole = split_idx
+            ntoroidal = len(tf_coils) // ncoils if ncoils and tf_coils else (s.nfp if s.stellsym else 2 * s.nfp)
             extended_tf = _extend_coils_to_higher_order(
                 tf_coils, order, s, ncoils, regularization, coil_width
             )
             initial_coils = dipole_coils + extended_tf
-            ntoroidal = s.nfp if s.stellsym else 2 * s.nfp
-            base_curves_dipole = [c.curve for c in dipole_coils[::ntoroidal]] if ntoroidal and dipole_coils else [c.curve for c in dipole_coils]
+            base_curves_dipole = [dipole_coils[j].curve for j in range(0, ncoils_dipole, ntoroidal)] if ntoroidal and dipole_coils else []
             base_curves_TF = [c.curve for c in extended_tf[:ncoils]]
 
             continuation_kwargs = kwargs.copy()
@@ -4349,13 +4397,13 @@ def _is_ci_running() -> bool:
 
 
 @contextmanager
-def _nullcontext():
-    """Null context manager that does nothing."""
+def _nullcontext() -> Generator[None, None, None]:
+    """Null context manager that does nothing (no-op for with statement)."""
     yield
 
 
 @contextmanager
-def _redirect_verbose_to_file(output_file: Path):
+def _redirect_verbose_to_file(output_file: Path) -> Generator[None, None, None]:
     """
     Context manager to redirect stdout to a file while preserving stderr.
     
@@ -4373,13 +4421,16 @@ def _redirect_verbose_to_file(output_file: Path):
 
 
 def optimize_coils_loop(
-    s : SurfaceRZFourier, target_B : float = 5.7, out_dir : Path | str = '', 
-    max_iterations : int = 30, 
-    ncoils : int = 4, order : int = 16, 
-    verbose : bool = False,
-    regularization : Callable | None = regularization_circ, 
+    s: SurfaceRZFourier,
+    target_B: float = 5.7,
+    out_dir: Path | str = "",
+    max_iterations: int = 30,
+    ncoils: int = 4,
+    order: int = 16,
+    verbose: bool = True,
+    regularization: Callable[..., Any] | None = regularization_circ,
     coil_objective_terms: Dict[str, Any] | None = None,
-    initial_coils: list | None = None,
+    initial_coils: List[Any] | None = None,
     surface_resolution: int = 32,
     skip_post_processing: bool = False,
     case_path: Path | None = None,
@@ -4388,7 +4439,8 @@ def optimize_coils_loop(
     plot_poincare: bool = True,
     plot_boozer: bool = True,
     dipole_array: bool = False,
-    **kwargs):
+    **kwargs: Any,
+) -> Tuple[List[Any], Dict[str, Any]]:
     """
     Optimize modular or dipole coils for a plasma surface.
 
@@ -4540,7 +4592,7 @@ def _run_post_processing_after_optimization(
         if case_yaml_path is None or not case_yaml_path.exists():
             if hasattr(s, 'filename') and s.filename:
                 surface_dir = Path(s.filename).parent
-                surface_stem = Path(s.filename).stem.replace("input.", "").replace(".focus", "")
+                surface_stem = surface_stem_from_filename(s.filename)
                 for path in [
                     surface_dir / "case.yaml",
                     surface_dir.parent / "case.yaml",
@@ -4602,16 +4654,7 @@ def _run_post_processing_after_optimization(
             except Exception:
                 pass
 
-        plasma_surfaces_dir = None
-        current_dir = Path(out_dir)
-        for _ in range(5):
-            potential_plasma_dir = current_dir / "plasma_surfaces"
-            if potential_plasma_dir.exists():
-                plasma_surfaces_dir = potential_plasma_dir
-                break
-            if current_dir.parent == current_dir:
-                break
-            current_dir = current_dir.parent
+        plasma_surfaces_dir = find_plasma_surfaces_dir(Path(out_dir))
 
         post_processing_results = run_post_processing(
             coils_json_path=coils_json_path,
@@ -4747,11 +4790,10 @@ def _optimize_coils_loop_impl(
             continuation_base_dipole = kwargs.get('continuation_base_curves_dipole')
             continuation_base_TF = kwargs.get('continuation_base_curves_TF')
             if initial_coils is not None and continuation_ncoils_dipole is not None and continuation_base_dipole is not None and continuation_base_TF is not None:
-                # Use quadpoints-based split: dipole coils (planar) have different quadpoints than
-                # TF coils (CurveXYZFourier). Extended TF coils use 200; dipole uses ~(order + 1) * 40.
-                # LpCurveForce requires source_coils_coarse/fine to have uniform quadpoints each.
+                # Split by quadpoints: dipole (CurvePlanarFourier) uses ~40 qp; extended TF
+                # (CurveXYZFourier) uses 200. LpCurveForce requires uniform quadpoints per source.
                 nqp0 = len(initial_coils[0].curve.quadpoints)
-                split_idx = continuation_ncoils_dipole
+                split_idx = len(initial_coils)
                 for j in range(1, len(initial_coils)):
                     if len(initial_coils[j].curve.quadpoints) != nqp0:
                         split_idx = j
@@ -4759,12 +4801,10 @@ def _optimize_coils_loop_impl(
                 dipole_coils = initial_coils[:split_idx]
                 coils = initial_coils[split_idx:]
                 ncoils_dipole = split_idx
-                # Use the passed base curves directly — the caller computed them correctly.
-                # Recomputing from dipole_coils[::ntoroidal] can double-count when dipole and
-                # extended TF coils share the same quadpoints (e.g. both 200), causing the
-                # quadpoints loop to never find a split and split_idx to be wrong.
+                # Caller now uses quadpoints split + TF-based ntoroidal, so continuation_base_dipole
+                # has the correct count (e.g. 21 unique for 84 dipole coils).
                 base_curves_dipole = list(continuation_base_dipole)
-                base_curves_TF = list(continuation_base_TF)
+                base_curves_TF = [c.curve for c in coils[:ncoils]]
             else:
                 surface_file, surface_params = _surface_file_and_params_from_s(s)
                 Nx = kwargs.get('Nx', 4)
@@ -5164,8 +5204,12 @@ def _optimize_coils_loop_impl(
             th=th,
         )
         # Backward compatibility: success, fun, nit (used by tests and evaluate)
-        results["success"] = results.get("optimization_success", True) if results.get("optimization_success") is not None else True
-        results["fun"] = float(opt_result.fun) if opt_result is not None and hasattr(opt_result, 'fun') else 0.0
+        results["success"] = results.get("optimization_success", True)
+        results["fun"] = (
+            float(opt_result.fun)
+            if opt_result is not None and hasattr(opt_result, 'fun')
+            else float(results.get("final_squared_flux", 0.0))
+        )
         results["nit"] = int(iterations_used)
         # Fix total_current_after if metrics returned 0 (e.g. dipole coil API)
         if results.get("total_current_after", 0) == 0 and results.get("final_current_per_coil"):

@@ -1,19 +1,42 @@
 """
 Validation functions for case.yaml configuration files and CI autopilot case JSON.
+
+This module validates:
+- Case YAML: surface_params, coils_params, optimizer_params, coil_objective_terms,
+  fourier_continuation, and related fields.
+- CI case JSON: case_id, resource caps, case_config embedding, and policy limits.
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List
 from pathlib import Path
+from typing import Any, Dict, List
+
 import json
 import yaml
 
 
-def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) -> List[str]:
+def validate_case_config(
+    data: Dict[str, Any],
+    file_path: Path | None = None,
+) -> List[str]:
     """
     Validate a case.yaml configuration dictionary.
-    
-    Returns a list of error messages. Empty list means validation passed.
+
+    Checks required fields (description, surface_params, coils_params, optimizer_params),
+    valid keys for each section, and type/value constraints (e.g., ncoils integer,
+    fourier_continuation.orders ascending).
+
+    Parameters
+    ----------
+    data : dict[str, Any]
+        Parsed YAML/JSON configuration to validate.
+    file_path : Path, optional
+        Path to source file; used for error message prefixes.
+
+    Returns
+    -------
+    list[str]
+        Error messages. Empty list means validation passed.
     """
     errors: List[str] = []
     file_prefix = f"{file_path}: " if file_path else ""
@@ -196,7 +219,7 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
             valid_options_arclength = ["l2", "l2_threshold", "l1", "l1_threshold"]
             valid_options_force_torque = ["lp", "lp_threshold"]
             
-            def is_valid_non_negative_number(value):
+            def is_valid_non_negative_number(value: Any) -> bool:
                 """Check if value is a valid non-negative number (int, float, or parseable string)."""
                 if isinstance(value, bool):  # bool is subclass of int, reject it
                     return False
@@ -340,9 +363,24 @@ def validate_case_config(data: Dict[str, Any], file_path: Path | None = None) ->
 
 def validate_case_yaml_file(file_path: Path) -> List[str]:
     """
-    Validate a case.yaml file.
-    
-    Returns a list of error messages. Empty list means validation passed.
+    Validate a case.yaml file on disk.
+
+    Loads the file with yaml.safe_load, then delegates to validate_case_config.
+
+    Parameters
+    ----------
+    file_path : Path
+        Path to the case YAML file.
+
+    Returns
+    -------
+    list[str]
+        Error messages. Empty list means validation passed.
+
+    Raises
+    ------
+    (none)
+        File I/O and YAML parse errors are caught and returned as error strings.
     """
     try:
         with open(file_path, 'r') as f:
@@ -469,11 +507,28 @@ def validate_ci_case(
     return errors
 
 
-def validate_ci_case_file(file_path: Path, policy: Dict[str, Any] | None = None) -> List[str]:
+def validate_ci_case_file(
+    file_path: Path,
+    policy: Dict[str, Any] | None = None,
+) -> List[str]:
     """
     Validate a CI autopilot case JSON file on disk.
 
-    Returns a list of error messages.  Empty list means validation passed.
+    Loads the file with json.load, then delegates to validate_ci_case. Resource
+    caps (max_total_iterations, timeout_minutes) are enforced from policy if
+    provided.
+
+    Parameters
+    ----------
+    file_path : Path
+        Path to the CI case JSON file.
+    policy : dict[str, Any], optional
+        Proposer policy (e.g., from policy/proposer_policy.yaml) for resource caps.
+
+    Returns
+    -------
+    list[str]
+        Error messages. Empty list means validation passed.
     """
     try:
         with open(file_path, "r") as fh:

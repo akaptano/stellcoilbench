@@ -94,7 +94,6 @@ def main() -> int:
     from stellcoilbench.coil_optimization import evaluate_external_dipole_coils
 
     user = "zenodo_14934092_Kaptanoglu"
-    method_name = "Kaptanoglu dipole (Zenodo 14934092)"
 
     for config_name, (surface_file, surface_range, ncoils_dipole) in CONFIG_TO_SURFACE.items():
         coils_path = zenodo_dir / config_name / "coils.json"
@@ -124,8 +123,8 @@ def main() -> int:
 
         submission = {
             "metadata": {
-                "method_name": method_name,
                 "contact": "Zenodo 14934092 / Kaptanoglu et al.",
+                "method_version": "Kaptanoglu dipole (Zenodo 14934092)",
                 "hardware": "Paper results",
                 "notes": "Reactor-scale dipole array solutions (arXiv 2412.13937)",
                 "run_date": "2025-02-22",
