@@ -1,0 +1,730 @@
+# .github/workflows/update-db-viper.yml
+# Viper (MPCDF) HPC workflow: benchmark cases + nonstop CI autopilot.
+#
+# The self-hosted runner lives on a Viper LOGIN NODE.  Heavy compute is
+# dispatched to SLURM compute nodes via sbatch job arrays.  Results are
+# committed back by the runner after SLURM jobs complete.
+#
+# Environment:
+#   module load intel/2024.0 impi/2021.11
+#   module load python-waterboa/2025.06
+#   source $HOME/stellcoilbench-env/bin/activate
+#
+# TRIGGER → JOB MAPPING:
+#
+#   push (human code / case changes):
+#     determine-cases → run-cases → update-leaderboard   (benchmark path)
+#     run-autopilot-cases  → propose-autopilot-batch      (autopilot path)
+#
+#   push (autopilot proposer commits cases/pending/):
+#     run-autopilot-cases  → propose-autopilot-batch      (nonstop loop!)
+#     benchmark jobs skipped (event_name==push but no new cases/*.yaml)
+#
+#   push (autopilot runner commits cases/done/ only):
+#     SKIPPED entirely via paths-ignore
+#
+#   schedule (every 10 min) or workflow_dispatch:
+#     run-autopilot-cases  → propose-autopilot-batch      (autopilot path only)
+name: StellCoilBench CI (Viper)
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'cases/done/**'
+      - 'PAUSE_AUTORUN'
+  schedule:
+    - cron: '*/10 * * * *'   # autopilot: every 10 minutes
+  workflow_dispatch:
+
+concurrency:
+  group: stellcoilbench-viper-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  # SLURM resource defaults for benchmark case job arrays
+  SLURM_CPUS: "8"
+  SLURM_MEM: "10000M"
+  SLURM_TIME_CASES: "00:30:00"
+  # Autopilot cases: single job on 1 node, 128 tasks × 1 core (128 cases on 128 cores)
+  SLURM_AUTOPILOT_NODES: "1"
+  SLURM_AUTOPILOT_NTASKS: "2"
+  SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
+  SLURM_AUTOPILOT_MEM: "256000M"
+
+jobs:
+  # ---- Standard benchmark path (only on push) ----
+  determine-cases:
+    if: github.repository == 'akaptano/stellcoilbench' && github.event_name == 'push'
+    runs-on: self-hosted
+    outputs:
+      cases_to_run_json: ${{ steps.filter.outputs.cases_to_run_json }}
+      has_cases: ${{ steps.filter.outputs.has_cases }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Filter cases to run
+        id: filter
+        shell: bash
+        run: |
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          pip install pyyaml --quiet 2>/dev/null || true
+
+          ALL_CASE_FILES=$(find cases -name "*.yaml" -type f \
+            -not -path "cases/done/*" -not -path "cases/pending/*" | sort)
+
+          if [ -z "$ALL_CASE_FILES" ]; then
+            echo "ERROR: No .yaml files found in cases/ directory!"
+            exit 1
+          fi
+
+          TEMP_SCRIPT=$(mktemp).py
+          echo 'import sys, yaml, zipfile, json
+          from pathlib import Path
+
+          SUBMISSION_FIELDS = ["source_case_file", "submission_timestamp", "submission_user"]
+
+          def normalize_yaml_content(content, strip_submission_fields=False):
+              try:
+                  data = yaml.safe_load(content)
+                  if strip_submission_fields and isinstance(data, dict):
+                      for field in SUBMISSION_FIELDS:
+                          data.pop(field, None)
+                  return yaml.dump(data, sort_keys=True, default_flow_style=False)
+              except:
+                  return content
+
+          def case_has_successful_submission(case_file_path):
+              case_path = Path(case_file_path)
+              if not case_path.exists():
+                  return False
+              try:
+                  current_case_content = case_path.read_text()
+                  current_case_normalized = normalize_yaml_content(current_case_content)
+              except Exception as e:
+                  return False
+              try:
+                  repo_root = Path.cwd()
+                  case_file_rel = str(case_path.resolve().relative_to(repo_root.resolve()))
+              except ValueError:
+                  case_file_rel = str(case_path.resolve())
+              case_file_rel_normalized = case_file_rel.replace("\\", "/")
+              submissions_dir = Path("submissions")
+              if not submissions_dir.exists():
+                  return False
+              zip_files = list(submissions_dir.rglob("*.zip"))
+              if len(zip_files) == 0:
+                  return False
+              for zip_path in zip_files:
+                  try:
+                      with zipfile.ZipFile(zip_path, "r") as zf:
+                          if "case.yaml" not in zf.namelist() or "results.json" not in zf.namelist():
+                              continue
+                          zip_case_content = zf.read("case.yaml").decode("utf-8")
+                          zip_case_data = yaml.safe_load(zip_case_content)
+                          submission_source = zip_case_data.get("source_case_file", "")
+                          submission_source_normalized = submission_source.replace("\\", "/")
+                          source_filename = Path(submission_source_normalized).name
+                          case_filename = Path(case_file_rel_normalized).name
+                          if submission_source_normalized == case_file_rel_normalized or source_filename == case_filename:
+                              zip_case_normalized = normalize_yaml_content(zip_case_content, strip_submission_fields=True)
+                              if zip_case_normalized == current_case_normalized:
+                                  return True
+                  except:
+                      continue
+              return False
+
+          case_files = [line.strip() for line in sys.stdin if line.strip()]
+          to_run = [cf for cf in case_files if not case_has_successful_submission(cf)]
+          already_successful = [cf for cf in case_files if case_has_successful_submission(cf)]
+          print(json.dumps({"to_run": to_run, "already_successful": already_successful}))' > "$TEMP_SCRIPT"
+
+          PYTHON_OUTPUT=$(echo "$ALL_CASE_FILES" | python3 "$TEMP_SCRIPT")
+          rm -f "$TEMP_SCRIPT"
+
+          CASES_TO_RUN=$(echo "$PYTHON_OUTPUT" | python3 -c "import sys, json; data = json.load(sys.stdin); print(json.dumps(data['to_run']))")
+
+          echo "cases_to_run_json=$CASES_TO_RUN" >> $GITHUB_OUTPUT
+
+          if [ "$CASES_TO_RUN" = "[]" ]; then
+            echo "has_cases=false" >> $GITHUB_OUTPUT
+            echo "No cases need to be run - all have successful submissions"
+          else
+            echo "has_cases=true" >> $GITHUB_OUTPUT
+            echo "Cases to run: $CASES_TO_RUN"
+          fi
+
+  # ---- Run benchmark cases via SLURM job array ----
+  run-cases:
+    needs: [determine-cases]
+    if: >
+      github.repository == 'akaptano/stellcoilbench' &&
+      github.event_name == 'push' &&
+      needs.determine-cases.outputs.has_cases == 'true'
+    runs-on: self-hosted
+    timeout-minutes: 1440
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install stellcoilbench
+        shell: bash
+        run: |
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+          pip install -e .
+
+      - name: Submit SLURM job array for cases
+        id: slurm_submit
+        shell: bash
+        env:
+          CASES_JSON: ${{ needs.determine-cases.outputs.cases_to_run_json }}
+        run: |
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          WORKSPACE="$GITHUB_WORKSPACE"
+          LOG_DIR="$WORKSPACE/slurm_logs"
+          mkdir -p "$LOG_DIR"
+
+          # Write case list (one file per line)
+          echo "$CASES_JSON" | python3 -c "
+          import sys, json
+          for c in json.load(sys.stdin):
+              print(c)" > "$WORKSPACE/slurm_case_list.txt"
+
+          NUM_CASES=$(wc -l < "$WORKSPACE/slurm_case_list.txt" | tr -d ' ')
+          ARRAY_MAX=$((NUM_CASES - 1))
+
+          echo "Submitting SLURM array for $NUM_CASES case(s) (array 0-${ARRAY_MAX})"
+
+          # Generate the SLURM batch script (quoted heredoc preserves $ for SLURM)
+          cat > /tmp/stellcoilbench_cases.sh << 'SLURM_SCRIPT'
+          #!/bin/bash
+          #SBATCH -J stellcoilbench-cases
+          #SBATCH -o __LOG_DIR__/case_%A_%a.out
+          #SBATCH -e __LOG_DIR__/case_%A_%a.err
+          #SBATCH --array=0-__ARRAY_MAX__
+          #SBATCH --ntasks=1
+          #SBATCH --cpus-per-task=__CPUS__
+          #SBATCH --mem=__MEM__
+          #SBATCH --time=__TIME__
+          #SBATCH --mail-type=none
+
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          export MPLBACKEND=Agg PYTHONUNBUFFERED=1
+
+          cd __WORKSPACE__
+
+          mapfile -t FILES < __WORKSPACE__/slurm_case_list.txt
+          N=${#FILES[@]}
+
+          if [ "$SLURM_ARRAY_TASK_ID" -ge "$N" ]; then
+            echo "Array task $SLURM_ARRAY_TASK_ID >= number of cases ($N), skipping."
+            exit 0
+          fi
+
+          case_file="${FILES[$SLURM_ARRAY_TASK_ID]}"
+          echo "Running case: $case_file"
+          srun stellcoilbench submit-case "$case_file"
+          SLURM_SCRIPT
+
+          # Substitute placeholders with actual values
+          sed -i "s|__LOG_DIR__|${LOG_DIR}|g;
+                  s|__ARRAY_MAX__|${ARRAY_MAX}|g;
+                  s|__CPUS__|${SLURM_CPUS}|g;
+                  s|__MEM__|${SLURM_MEM}|g;
+                  s|__TIME__|${SLURM_TIME_CASES}|g;
+                  s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_cases.sh
+
+          echo "=== Generated SLURM script ==="
+          cat /tmp/stellcoilbench_cases.sh
+          echo "=============================="
+
+          JOB_ID=$(sbatch --parsable /tmp/stellcoilbench_cases.sh)
+          echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+          echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
+          echo "Submitted SLURM job array: $JOB_ID"
+
+      - name: Wait for SLURM jobs to complete
+        shell: bash
+        env:
+          JOB_ID: ${{ steps.slurm_submit.outputs.slurm_job_id }}
+          LOG_DIR: ${{ steps.slurm_submit.outputs.log_dir }}
+        run: |
+          echo "Waiting for SLURM job $JOB_ID ..."
+
+          while squeue -j "$JOB_ID" -h 2>/dev/null | grep -q .; do
+            RUNNING=$(squeue -j "$JOB_ID" -h -t RUNNING 2>/dev/null | wc -l | tr -d ' ')
+            PENDING_Q=$(squeue -j "$JOB_ID" -h -t PENDING 2>/dev/null | wc -l | tr -d ' ')
+            echo "[$(date '+%H:%M:%S')] SLURM job $JOB_ID: $RUNNING running, $PENDING_Q pending"
+            sleep 30
+          done
+
+          echo "All SLURM tasks completed."
+          echo "=== SLURM job accounting ==="
+          sacct -j "$JOB_ID" --format=JobID%20,State%12,ExitCode%8,Elapsed%12,MaxRSS%12 -n
+
+          FAILED_COUNT=$(sacct -j "$JOB_ID" --format=State -n -X | grep -c -E "FAILED|TIMEOUT|CANCELLED|OUT_OF_MEMORY" || true)
+          if [ "$FAILED_COUNT" -gt 0 ]; then
+            echo "WARNING: $FAILED_COUNT SLURM task(s) failed"
+            echo "=== Failed task logs ==="
+            sacct -j "$JOB_ID" --format=JobID%20,State%12 -n -X | while read -r jobid state; do
+              state=$(echo "$state" | xargs)
+              if echo "$state" | grep -qE "FAILED|TIMEOUT|CANCELLED|OUT_OF_MEMORY"; then
+                task_id=$(echo "$jobid" | grep -oP '_\K\d+$' || true)
+                if [ -n "$task_id" ]; then
+                  echo "--- Task $task_id ($state) stderr ---"
+                  cat "$LOG_DIR/case_${JOB_ID}_${task_id}.err" 2>/dev/null || echo "(no err file)"
+                  echo "--- Task $task_id stdout ---"
+                  cat "$LOG_DIR/case_${JOB_ID}_${task_id}.out" 2>/dev/null || echo "(no out file)"
+                fi
+              fi
+            done
+          fi
+
+      - name: Show SLURM logs on failure
+        if: failure()
+        shell: bash
+        env:
+          LOG_DIR: ${{ steps.slurm_submit.outputs.log_dir }}
+        run: |
+          echo "=== ALL SLURM LOG FILES ==="
+          for f in "$LOG_DIR"/*.out "$LOG_DIR"/*.err; do
+            [ -f "$f" ] && [ -s "$f" ] && echo "=== $(basename "$f") ===" && cat "$f"
+          done
+
+      - name: Commit all submissions
+        if: always()
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+          git add -f submissions/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No new submissions to commit"
+          else
+            git commit -m "chore: add CI-generated submissions (Viper SLURM run)"
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
+            git push origin main
+            echo "Submissions committed"
+          fi
+
+  update-leaderboard:
+    needs: [determine-cases, run-cases]
+    if: >
+      always() &&
+      github.repository == 'akaptano/stellcoilbench' &&
+      github.event_name == 'push' &&
+      needs.determine-cases.outputs.has_cases == 'true'
+    runs-on: self-hosted
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Generate leaderboard
+        shell: bash
+        run: |
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+          echo "=== Generating leaderboard ==="
+          stellcoilbench update-db
+
+      - name: Commit leaderboard
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "$GITHUB_ACTOR"
+          git add docs/leaderboard.json docs/leaderboard.rst docs/leaderboards/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No leaderboard changes to commit"
+          else
+            git commit -m "chore: update StellCoilBench leaderboard"
+            git pull --rebase origin main || git pull origin main --no-edit
+            git push origin main
+            echo "Leaderboard updated"
+          fi
+
+  # =========================================================================
+  # Nonstop CI autopilot: run pending cases via SLURM, then commit results
+  # =========================================================================
+  run-autopilot-cases:
+    if: github.repository == 'akaptano/stellcoilbench'
+    runs-on: self-hosted
+    timeout-minutes: 120
+    outputs:
+      ran_cases: ${{ steps.slurm_submit.outputs.ran_cases }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest and check PAUSE_AUTORUN
+        id: pause_check
+        shell: bash
+        run: |
+          git pull origin main
+          if [ -f PAUSE_AUTORUN ]; then
+            echo "PAUSE_AUTORUN exists — skipping case execution for this run."
+            echo "paused=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "paused=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for pending cases
+        id: pending
+        if: steps.pause_check.outputs.paused != 'true'
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(cases/pending/*.json)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No pending autopilot cases."
+            echo "has_pending=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found ${#files[@]} pending autopilot case(s)."
+            echo "has_pending=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit SLURM job array for autopilot cases
+        id: slurm_submit
+        if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        env:
+          MPLBACKEND: Agg
+        run: |
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+          pip install -e . --quiet 2>/dev/null || true
+
+          WORKSPACE="$GITHUB_WORKSPACE"
+          LOG_DIR="$WORKSPACE/slurm_logs"
+          mkdir -p "$LOG_DIR"
+
+          # Collect pending cases (cap at 128)
+          shopt -s nullglob
+          PENDING_FILES=(cases/pending/*.json)
+          COUNT=0
+          > "$WORKSPACE/slurm_autopilot_list.txt"
+          for f in "${PENDING_FILES[@]}"; do
+            if [ $COUNT -ge 128 ]; then break; fi
+            echo "$f" >> "$WORKSPACE/slurm_autopilot_list.txt"
+            COUNT=$((COUNT + 1))
+          done
+
+          # Compute max timeout from per-case resource.timeout_minutes
+          MAX_TIMEOUT_MIN=60
+          while IFS= read -r CASE_FILE; do
+            T=$(python3 -c "
+          import json
+          try:
+              d = json.load(open('$CASE_FILE'))
+              print(d.get('resource', {}).get('timeout_minutes', 60))
+          except: print(60)" 2>/dev/null || echo 60)
+            if [ "$T" -gt "$MAX_TIMEOUT_MIN" ]; then
+              MAX_TIMEOUT_MIN=$T
+            fi
+          done < "$WORKSPACE/slurm_autopilot_list.txt"
+
+          # Add 5 min buffer for module loads and teardown
+          MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
+          SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
+
+          echo "Submitting SLURM job for $COUNT autopilot case(s) on 1 node / 128 cores (timeout: ${SLURM_TIME})"
+
+          cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
+          #!/bin/bash
+          #SBATCH -J stellcoilbench-autopilot
+          #SBATCH -o __LOG_DIR__/autopilot_%j.out
+          #SBATCH -e __LOG_DIR__/autopilot_%j.err
+          #SBATCH --nodes=1
+          #SBATCH --ntasks=__AUTOPILOT_NTASKS__
+          #SBATCH --cpus-per-task=__AUTOPILOT_CPUS_PER_TASK__
+          #SBATCH --mem=__AUTOPILOT_MEM__
+          #SBATCH --time=__TIME__
+          #SBATCH --mail-type=none
+
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          export MPLBACKEND=Agg PYTHONUNBUFFERED=1 STELLCOILBENCH_CI_VERBOSE_STDOUT=1
+
+          cd __WORKSPACE__
+
+          mapfile -t FILES < __WORKSPACE__/slurm_autopilot_list.txt
+          N=${#FILES[@]}
+
+          echo "Running $N cases on 128 cores of one node (one case per core)"
+
+          for ((i=0; i<N; i++)); do
+            (
+              case_file="${FILES[$i]}"
+              CASE_ID=$(basename "$case_file" .json)
+              srun -n 1 -N 1 --exclusive stellcoilbench run-ci-case "$case_file" \
+                --output-dir cases/done \
+                --policy policy/proposer_policy.yaml \
+                > "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.out" 2> "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.err"
+              EXIT=$?
+              rm -f "$case_file"
+              echo $EXIT > "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit"
+              if [ $EXIT -eq 0 ]; then
+                echo "[OK] $CASE_ID"
+              else
+                echo "[FAIL] $CASE_ID (exit $EXIT)"
+              fi
+              exit $EXIT
+            ) &
+          done
+          wait
+
+          FAILED=0
+          for ((i=0; i<N; i++)); do
+            if [ -f "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit" ]; then
+              code=$(cat "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit")
+              [ "$code" != "0" ] && FAILED=$((FAILED + 1))
+            fi
+          done
+          exit $FAILED
+          SLURM_SCRIPT
+
+          sed -i "s|__LOG_DIR__|${LOG_DIR}|g;
+                  s|__AUTOPILOT_NTASKS__|${SLURM_AUTOPILOT_NTASKS}|g;
+                  s|__AUTOPILOT_CPUS_PER_TASK__|${SLURM_AUTOPILOT_CPUS_PER_TASK}|g;
+                  s|__AUTOPILOT_MEM__|${SLURM_AUTOPILOT_MEM}|g;
+                  s|__TIME__|${SLURM_TIME}|g;
+                  s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_autopilot.sh
+
+          echo "=== Generated SLURM script (1 node, 128 tasks × 1 core) ==="
+          cat /tmp/stellcoilbench_autopilot.sh
+          echo "=============================="
+
+          JOB_ID=$(sbatch --parsable /tmp/stellcoilbench_autopilot.sh)
+          echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+          echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
+          echo "ran_cases=true" >> "$GITHUB_OUTPUT"
+          echo "Submitted SLURM autopilot job (128 cores on 1 node): $JOB_ID"
+
+      - name: Wait for SLURM autopilot jobs to complete
+        if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        env:
+          JOB_ID: ${{ steps.slurm_submit.outputs.slurm_job_id }}
+          LOG_DIR: ${{ steps.slurm_submit.outputs.log_dir }}
+        run: |
+          echo "Waiting for SLURM autopilot job $JOB_ID ..."
+
+          while squeue -j "$JOB_ID" -h 2>/dev/null | grep -q .; do
+            RUNNING=$(squeue -j "$JOB_ID" -h -t RUNNING 2>/dev/null | wc -l | tr -d ' ')
+            PENDING_Q=$(squeue -j "$JOB_ID" -h -t PENDING 2>/dev/null | wc -l | tr -d ' ')
+            COMPLETED=$(squeue -j "$JOB_ID" -h -t COMPLETED 2>/dev/null | wc -l | tr -d ' ')
+            echo "[$(date '+%H:%M:%S')] SLURM job $JOB_ID: $RUNNING running, $PENDING_Q pending"
+            sleep 30
+          done
+
+          echo "All SLURM autopilot job steps completed."
+          echo "=== SLURM job accounting ==="
+          sacct -j "$JOB_ID" --format=JobID%20,JobName%25,State%12,ExitCode%8,Elapsed%12,MaxRSS%12 -n
+
+          # Report failures
+          FAILED_COUNT=$(sacct -j "$JOB_ID" --format=State -n -X | grep -c -E "FAILED|TIMEOUT|CANCELLED|OUT_OF_MEMORY" || true)
+          if [ "$FAILED_COUNT" -gt 0 ]; then
+            echo "WARNING: $FAILED_COUNT autopilot SLURM task(s) failed"
+            echo "=== Failed task logs ==="
+            for f in "$LOG_DIR"/autopilot_${JOB_ID}_*.err; do
+              if [ -f "$f" ] && [ -s "$f" ]; then
+                echo "--- $(basename "$f") ---"
+                cat "$f"
+              fi
+            done
+            for f in "$LOG_DIR"/autopilot_${JOB_ID}_*.out; do
+              if [ -f "$f" ] && [ -s "$f" ]; then
+                echo "--- $(basename "$f") ---"
+                tail -30 "$f"
+              fi
+            done
+          fi
+
+          # Show summary from done directories
+          echo "=== Autopilot results summary ==="
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          for f in cases/done/*/summary.json; do
+            [ -f "$f" ] || continue
+            cid=$(basename "$(dirname "$f")")
+            python3 -c "
+          import json
+          d = json.load(open('$f'))
+          if d['success']:
+              print(f'  [OK]   $cid  score={d[\"total_score\"]:.4e}  iters={d[\"iterations_used\"]}  wall={d[\"walltime_sec\"]:.0f}s')
+          else:
+              print(f'  [FAIL] $cid  {d.get(\"failure_class\",\"?\")}: {d.get(\"failure_reason\",\"?\")[:80]}')" 2>/dev/null || true
+          done
+
+      - name: Show autopilot logs on failure
+        if: failure()
+        shell: bash
+        env:
+          LOG_DIR: ${{ steps.slurm_submit.outputs.log_dir }}
+        run: |
+          echo "=== ALL SLURM AUTOPILOT LOG FILES ==="
+          for f in "$LOG_DIR"/autopilot_*.out "$LOG_DIR"/autopilot_*.err; do
+            [ -f "$f" ] && [ -s "$f" ] && echo "=== $(basename "$f") ===" && cat "$f"
+          done
+
+      - name: Commit autopilot results and update leaderboard
+        if: always() && steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "ci-autopilot[bot]"
+
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          echo "Rebuilding leaderboard from submissions/ ..."
+          stellcoilbench update-db 2>&1 || echo "WARNING: update-db failed, leaderboard may be stale"
+
+          git add cases/done/  2>/dev/null || true
+          git add -u cases/pending/ 2>/dev/null || true
+          git add -f submissions/ 2>/dev/null || true
+          git add docs/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No autopilot results to commit"
+          else
+            git commit -m "ci: autopilot batch results + leaderboard update"
+            git fetch origin main
+            if ! git merge origin/main --no-edit 2>/dev/null; then
+              echo "Merge conflicts detected — resolving..."
+              git checkout --ours cases/done/ 2>/dev/null || true
+              git checkout --ours submissions/ 2>/dev/null || true
+              git checkout --theirs cases/pending/ 2>/dev/null || true
+              git checkout --theirs docs/ 2>/dev/null || true
+              git add -f cases/done/ cases/pending/ docs/ submissions/
+              stellcoilbench update-db 2>&1 || true
+              git add docs/
+              git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
+            fi
+            git push origin main
+            echo "Autopilot results and leaderboard committed"
+          fi
+
+  # =========================================================================
+  # Nonstop CI autopilot: propose next batch (login node, no SLURM needed)
+  # =========================================================================
+  propose-autopilot-batch:
+    needs: [run-autopilot-cases]
+    if: >
+      always() &&
+      github.repository == 'akaptano/stellcoilbench'
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull latest (after autopilot run)
+        run: git pull origin main
+
+      - name: Propose batch
+        shell: bash
+        run: |
+          if [ -f PAUSE_AUTORUN ]; then
+            echo "PAUSE_AUTORUN file exists — skipping proposal."
+            exit 0
+          fi
+
+          shopt -s nullglob
+          pending=(cases/pending/*.json)
+          if [ ${#pending[@]} -gt 0 ]; then
+            echo "Pending directory not empty (${#pending[@]} cases). Skipping."
+            exit 0
+          fi
+
+          source /etc/profile.d/modules.sh 2>/dev/null || true
+          module purge
+          module load intel/2024.0 impi/2021.11
+          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+          module load python-waterboa/2025.06
+          source $HOME/stellcoilbench-env/bin/activate
+
+          python tools/propose_batch.py \
+            --batch-size 128 \
+            --done-dir cases/done \
+            --pending-dir cases/pending \
+            --policy policy/proposer_policy.yaml
+
+      - name: Commit proposed cases
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "ci-autopilot[bot]"
+          git add cases/pending/ 2>/dev/null || true
+          git add PAUSE_AUTORUN 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No new cases proposed"
+          else
+            git commit -m "ci: propose next autopilot batch"
+            git pull --rebase origin main || { git rebase --abort 2>/dev/null; git pull origin main --no-edit; }
+            git push origin main
+            echo "Proposed cases committed"
+          fi
+
