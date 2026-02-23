@@ -436,19 +436,19 @@ jobs:
           MPLBACKEND: Agg
         run: |
           echo "DEBUG: step start (Submit SLURM autopilot)"
-          source /etc/profile.d/modules.sh 2>/dev/null || true
-          if ! command -v module &>/dev/null; then
-            echo "::error::Environment Modules not loaded. The 'module' command is not available."
-            echo "Ensure the self-hosted runner is started in an environment where module is in PATH (e.g. run 'source /etc/profile.d/modules.sh' in the runner's shell profile or start the runner from an interactive login session that has already loaded modules)."
-            exit 1
+
+          # Load modules/venv only if available (runner may not have them; SLURM script loads them on compute nodes)
+          if ( source /etc/profile.d/modules.sh 2>/dev/null && command -v module &>/dev/null ); then
+            module purge
+            module load intel/2024.0 impi/2021.11
+            export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
+            module load python-waterboa/2025.06
+            source "$HOME/stellcoilbench-env/bin/activate"
+            pip install -e . --quiet 2>/dev/null || true
+            echo "DEBUG: after module load and venv activate"
+          else
+            echo "::warning::Environment Modules not available on runner; submitted SLURM job will load them on compute nodes."
           fi
-          module purge
-          module load intel/2024.0 impi/2021.11
-          export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
-          module load python-waterboa/2025.06
-          source $HOME/stellcoilbench-env/bin/activate
-          echo "DEBUG: after module load and venv activate"
-          pip install -e . --quiet 2>/dev/null || true
 
           WORKSPACE="$GITHUB_WORKSPACE"
           LOG_DIR="$WORKSPACE/slurm_logs"
