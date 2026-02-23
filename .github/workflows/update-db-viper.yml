@@ -53,7 +53,7 @@ env:
   SLURM_AUTOPILOT_NODES: "1"
   SLURM_AUTOPILOT_NTASKS: "2"
   SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
-  SLURM_AUTOPILOT_MEM: "256000M"
+  SLURM_AUTOPILOT_MEM: "240000M"
 
 jobs:
   # ---- Standard benchmark path (only on push) ----
