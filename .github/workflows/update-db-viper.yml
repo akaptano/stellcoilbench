@@ -435,12 +435,14 @@ jobs:
         env:
           MPLBACKEND: Agg
         run: |
+          echo "DEBUG: step start (Submit SLURM autopilot)"
           source /etc/profile.d/modules.sh 2>/dev/null || true
           module purge
           module load intel/2024.0 impi/2021.11
           export LD_LIBRARY_PATH=$I_MPI_ROOT/lib/release:$LD_LIBRARY_PATH
           module load python-waterboa/2025.06
           source $HOME/stellcoilbench-env/bin/activate
+          echo "DEBUG: after module load and venv activate"
           pip install -e . --quiet 2>/dev/null || true
 
           WORKSPACE="$GITHUB_WORKSPACE"
