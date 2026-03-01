@@ -49,11 +49,10 @@ env:
   SLURM_CPUS: "8"
   SLURM_MEM: "10000M"
   SLURM_TIME_CASES: "00:30:00"
-  # Autopilot cases: single job on 1 node, 2 tasks × 1 core (2 cases in parallel on 2 cores)
+  # Autopilot: 2 separate array tasks (2 jobs), each 1 task × 1 core, one case per job
   SLURM_AUTOPILOT_NODES: "1"
-  SLURM_AUTOPILOT_NTASKS: "2"
   SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
-  SLURM_AUTOPILOT_MEM: "240000M"
+  SLURM_AUTOPILOT_MEM_PER_TASK: "120000M"
 
 jobs:
   # ---- Standard benchmark path (only on push) ----
@@ -483,17 +482,21 @@ jobs:
           MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
-          echo "Submitting SLURM job for $COUNT autopilot case(s) on 1 node, 2 cores (timeout: ${SLURM_TIME}), logs in $LOG_DIR"
+          ARRAY_MAX=$((COUNT - 1))
+          [ "$ARRAY_MAX" -lt 0 ] && ARRAY_MAX=0
+
+          echo "Submitting SLURM job array for $COUNT autopilot case(s) (array 0-${ARRAY_MAX}, one job per case, 1 core each), logs in $LOG_DIR"
 
           cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
           #!/bin/bash
           #SBATCH -J stellcoilbench-autopilot
-          #SBATCH -o __LOG_DIR__/autopilot_%j.out
-          #SBATCH -e __LOG_DIR__/autopilot_%j.err
+          #SBATCH -o __LOG_DIR__/autopilot_%A_%a.out
+          #SBATCH -e __LOG_DIR__/autopilot_%A_%a.err
+          #SBATCH --array=0-__ARRAY_MAX__
           #SBATCH --nodes=1
-          #SBATCH --ntasks=__AUTOPILOT_NTASKS__
+          #SBATCH --ntasks=1
           #SBATCH --cpus-per-task=__AUTOPILOT_CPUS_PER_TASK__
-          #SBATCH --mem=__AUTOPILOT_MEM__
+          #SBATCH --mem=__AUTOPILOT_MEM_PER_TASK__
           #SBATCH --time=__TIME__
           #SBATCH --mail-type=none
 
@@ -511,48 +514,36 @@ jobs:
           mapfile -t FILES < __WORKSPACE__/slurm_autopilot_list.txt
           N=${#FILES[@]}
 
-          echo "Running $N cases on 2 cores of one node (one case per core)"
+          if [ "$SLURM_ARRAY_TASK_ID" -ge "$N" ]; then
+            echo "Array task $SLURM_ARRAY_TASK_ID >= number of cases ($N), skipping."
+            exit 0
+          fi
 
-          for ((i=0; i<N; i++)); do
-            (
-              case_file="${FILES[$i]}"
-              CASE_ID=$(basename "$case_file" .json)
-              srun -n 1 -N 1 --exclusive stellcoilbench run-ci-case "$case_file" \
-                --output-dir cases/done \
-                --policy policy/proposer_policy.yaml \
-                > "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.out" 2> "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.err"
-              EXIT=$?
-              rm -f "$case_file"
-              echo $EXIT > "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit"
-              if [ $EXIT -eq 0 ]; then
-                echo "[OK] $CASE_ID"
-              else
-                echo "[FAIL] $CASE_ID (exit $EXIT)"
-              fi
-              exit $EXIT
-            ) &
-          done
-          wait
+          case_file="${FILES[$SLURM_ARRAY_TASK_ID]}"
+          CASE_ID=$(basename "$case_file" .json)
+          echo "Running case $SLURM_ARRAY_TASK_ID: $CASE_ID (one optimization, one core)"
 
-          FAILED=0
-          for ((i=0; i<N; i++)); do
-            if [ -f "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit" ]; then
-              code=$(cat "__LOG_DIR__/autopilot_${SLURM_JOB_ID}_${i}.exit")
-              [ "$code" != "0" ] && FAILED=$((FAILED + 1))
-            fi
-          done
-          exit $FAILED
+          stellcoilbench run-ci-case "$case_file" \
+            --output-dir cases/done \
+            --policy policy/proposer_policy.yaml
+          EXIT=$?
+          rm -f "$case_file"
+          if [ $EXIT -eq 0 ]; then
+            echo "[OK] $CASE_ID"
+          else
+            echo "[FAIL] $CASE_ID (exit $EXIT)"
+          fi
+          exit $EXIT
           SLURM_SCRIPT
 
-          echo "DEBUG: about to run sed (substitute placeholders)"
           sed -i.bak "s|__LOG_DIR__|${LOG_DIR}|g;
-                  s|__AUTOPILOT_NTASKS__|${SLURM_AUTOPILOT_NTASKS}|g;
+                  s|__ARRAY_MAX__|${ARRAY_MAX}|g;
                   s|__AUTOPILOT_CPUS_PER_TASK__|${SLURM_AUTOPILOT_CPUS_PER_TASK}|g;
-                  s|__AUTOPILOT_MEM__|${SLURM_AUTOPILOT_MEM}|g;
+                  s|__AUTOPILOT_MEM_PER_TASK__|${SLURM_AUTOPILOT_MEM_PER_TASK}|g;
                   s|__TIME__|${SLURM_TIME}|g;
                   s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
 
-          echo "=== Generated SLURM script (1 node, 2 tasks × 1 core) ==="
+          echo "=== Generated SLURM script (job array 0-${ARRAY_MAX}, 1 task × 1 core per job) ==="
           cat /tmp/stellcoilbench_autopilot.sh
           echo "=============================="
 
@@ -560,7 +551,7 @@ jobs:
           echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
           echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
           echo "ran_cases=true" >> "$GITHUB_OUTPUT"
-          echo "Submitted SLURM autopilot job (2 cores on 1 node): $JOB_ID"
+          echo "Submitted SLURM autopilot job array (2 separate jobs, 1 core each): $JOB_ID"
 
       - name: Wait for SLURM autopilot jobs to complete
         if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
@@ -583,10 +574,10 @@ jobs:
           echo "=== SLURM job accounting ==="
           sacct -j "$JOB_ID" --format=JobID%20,JobName%25,State%12,ExitCode%8,Elapsed%12,MaxRSS%12 -n
 
-          # Report failures
+          # Report failures (array tasks: autopilot_<JOB_ID>_0.out, autopilot_<JOB_ID>_1.out)
           FAILED_COUNT=$(sacct -j "$JOB_ID" --format=State -n -X | grep -c -E "FAILED|TIMEOUT|CANCELLED|OUT_OF_MEMORY" || true)
           if [ "$FAILED_COUNT" -gt 0 ]; then
-            echo "WARNING: $FAILED_COUNT autopilot SLURM task(s) failed"
+            echo "WARNING: $FAILED_COUNT autopilot SLURM array task(s) failed"
             echo "=== Failed task logs ==="
             for f in "$LOG_DIR"/autopilot_${JOB_ID}_*.err; do
               if [ -f "$f" ] && [ -s "$f" ]; then
@@ -620,6 +611,13 @@ jobs:
           else:
               print(f'  [FAIL] $cid  {d.get(\"failure_class\",\"?\")}: {d.get(\"failure_reason\",\"?\")[:80]}')" 2>/dev/null || true
           done
+
+      - name: Upload SLURM logs (preserve across runs)
+        if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: slurm-logs-run-${{ github.run_id }}
+          path: slurm_logs/run_${{ github.run_id }}
 
       - name: Show autopilot logs on failure
         if: failure()
