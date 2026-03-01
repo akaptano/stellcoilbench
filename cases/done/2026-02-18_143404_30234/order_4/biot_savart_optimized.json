@@ -7,10 +7,10 @@
     "value": "BiotSavart5"
   },
   "simsopt_objs": {
-    "140504923355280": {
+    "140138274830480": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923355280",
+      "@name": "140138274830480",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -393,13 +393,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923355280"
+        "value": "140138274830480"
       }
     },
-    "140504922574864": {
+    "140138274033680": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922574864",
+      "@name": "140138274033680",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -445,7 +445,7 @@
       "current": 1.7928644885272824,
       "dofs": {
         "$type": "ref",
-        "value": "140504922574864"
+        "value": "140138274033680"
       }
     },
     "ScaledCurrent301": {
@@ -479,10 +479,10 @@
         "data": 0.09755090797006478
       }
     },
-    "140504923355952": {
+    "140138274831152": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923355952",
+      "@name": "140138274831152",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -865,13 +865,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923355952"
+        "value": "140138274831152"
       }
     },
-    "140504922606672": {
+    "140138274065488": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922606672",
+      "@name": "140138274065488",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -917,7 +917,7 @@
       "current": 63.942862991363825,
       "dofs": {
         "$type": "ref",
-        "value": "140504922606672"
+        "value": "140138274065488"
       }
     },
     "ScaledCurrent302": {
@@ -951,10 +951,10 @@
         "data": 0.09755090797006478
       }
     },
-    "140504923356624": {
+    "140138274831824": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923356624",
+      "@name": "140138274831824",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -1337,13 +1337,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923356624"
+        "value": "140138274831824"
       }
     },
-    "140504922607824": {
+    "140138274066640": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922607824",
+      "@name": "140138274066640",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -1389,7 +1389,7 @@
       "current": -111.30863475805079,
       "dofs": {
         "$type": "ref",
-        "value": "140504922607824"
+        "value": "140138274066640"
       }
     },
     "ScaledCurrent303": {
@@ -1423,10 +1423,10 @@
         "data": 0.09755090797006478
       }
     },
-    "140504923488432": {
+    "140138274947248": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923488432",
+      "@name": "140138274947248",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -1809,13 +1809,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923488432"
+        "value": "140138274947248"
       }
     },
-    "140504922608880": {
+    "140138274067696": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922608880",
+      "@name": "140138274067696",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -1861,7 +1861,7 @@
       "current": -126.09923130815018,
       "dofs": {
         "$type": "ref",
-        "value": "140504922608880"
+        "value": "140138274067696"
       }
     },
     "ScaledCurrent304": {
@@ -1895,10 +1895,10 @@
         "data": 0.09755090797006478
       }
     },
-    "140504923489104": {
+    "140138274947920": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923489104",
+      "@name": "140138274947920",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -2281,13 +2281,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923489104"
+        "value": "140138274947920"
       }
     },
-    "140504922610128": {
+    "140138274068944": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922610128",
+      "@name": "140138274068944",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -2333,7 +2333,7 @@
       "current": -110.59321173149334,
       "dofs": {
         "$type": "ref",
-        "value": "140504922610128"
+        "value": "140138274068944"
       }
     },
     "ScaledCurrent305": {
@@ -2367,10 +2367,10 @@
         "data": 0.09755090797006478
       }
     },
-    "140504923489776": {
+    "140138274948592": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504923489776",
+      "@name": "140138274948592",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -2753,13 +2753,13 @@
       "order": 4,
       "dofs": {
         "$type": "ref",
-        "value": "140504923489776"
+        "value": "140138274948592"
       }
     },
-    "140504922611280": {
+    "140138274070096": {
       "@module": "simsopt._core.optimizable",
       "@class": "DOFs",
-      "@name": "140504922611280",
+      "@name": "140138274070096",
       "@version": "0.1.dev5668+ga79006b0b",
       "x": {
         "@module": "numpy",
@@ -2805,7 +2805,7 @@
       "current": 48712739.63916376,
       "dofs": {
         "$type": "ref",
-        "value": "140504922611280"
+        "value": "140138274070096"
       }
     },
     "CurrentSum51": {
