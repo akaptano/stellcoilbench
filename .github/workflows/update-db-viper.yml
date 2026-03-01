@@ -49,7 +49,7 @@ env:
   SLURM_CPUS: "8"
   SLURM_MEM: "10000M"
   SLURM_TIME_CASES: "00:30:00"
-  # Autopilot cases: single job on 1 node, 128 tasks × 1 core (128 cases on 128 cores)
+  # Autopilot cases: single job on 1 node, 2 tasks × 1 core (2 cases in parallel on 2 cores)
   SLURM_AUTOPILOT_NODES: "1"
   SLURM_AUTOPILOT_NTASKS: "2"
   SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
@@ -451,16 +451,16 @@ jobs:
           fi
 
           WORKSPACE="$GITHUB_WORKSPACE"
-          LOG_DIR="$WORKSPACE/slurm_logs"
+          LOG_DIR="$WORKSPACE/slurm_logs/run_${GITHUB_RUN_ID}"
           mkdir -p "$LOG_DIR"
 
-          # Collect pending cases (cap at 128)
+          # Collect pending cases (cap at 2: two optimization jobs on two single cores)
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
           COUNT=0
           > "$WORKSPACE/slurm_autopilot_list.txt"
           for f in "${PENDING_FILES[@]}"; do
-            if [ $COUNT -ge 128 ]; then break; fi
+            if [ $COUNT -ge 2 ]; then break; fi
             echo "$f" >> "$WORKSPACE/slurm_autopilot_list.txt"
             COUNT=$((COUNT + 1))
           done
@@ -483,7 +483,7 @@ jobs:
           MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
-          echo "Submitting SLURM job for $COUNT autopilot case(s) on 1 node / 128 cores (timeout: ${SLURM_TIME})"
+          echo "Submitting SLURM job for $COUNT autopilot case(s) on 1 node, 2 cores (timeout: ${SLURM_TIME}), logs in $LOG_DIR"
 
           cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
           #!/bin/bash
@@ -511,7 +511,7 @@ jobs:
           mapfile -t FILES < __WORKSPACE__/slurm_autopilot_list.txt
           N=${#FILES[@]}
 
-          echo "Running $N cases on 128 cores of one node (one case per core)"
+          echo "Running $N cases on 2 cores of one node (one case per core)"
 
           for ((i=0; i<N; i++)); do
             (
@@ -544,14 +544,15 @@ jobs:
           exit $FAILED
           SLURM_SCRIPT
 
-          sed -i "s|__LOG_DIR__|${LOG_DIR}|g;
+          echo "DEBUG: about to run sed (substitute placeholders)"
+          sed -i.bak "s|__LOG_DIR__|${LOG_DIR}|g;
                   s|__AUTOPILOT_NTASKS__|${SLURM_AUTOPILOT_NTASKS}|g;
                   s|__AUTOPILOT_CPUS_PER_TASK__|${SLURM_AUTOPILOT_CPUS_PER_TASK}|g;
                   s|__AUTOPILOT_MEM__|${SLURM_AUTOPILOT_MEM}|g;
                   s|__TIME__|${SLURM_TIME}|g;
-                  s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_autopilot.sh
+                  s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
 
-          echo "=== Generated SLURM script (1 node, 128 tasks × 1 core) ==="
+          echo "=== Generated SLURM script (1 node, 2 tasks × 1 core) ==="
           cat /tmp/stellcoilbench_autopilot.sh
           echo "=============================="
 
@@ -559,7 +560,7 @@ jobs:
           echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
           echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
           echo "ran_cases=true" >> "$GITHUB_OUTPUT"
-          echo "Submitted SLURM autopilot job (128 cores on 1 node): $JOB_ID"
+          echo "Submitted SLURM autopilot job (2 cores on 1 node): $JOB_ID"
 
       - name: Wait for SLURM autopilot jobs to complete
         if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
@@ -734,4 +735,5 @@ jobs:
             git push origin main
             echo "Proposed cases committed"
           fi
+
 
