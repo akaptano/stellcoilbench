@@ -450,7 +450,8 @@ jobs:
           fi
 
           WORKSPACE="$GITHUB_WORKSPACE"
-          LOG_DIR="$WORKSPACE/slurm_logs/run_${GITHUB_RUN_ID}"
+          # Logs outside workspace so they persist across runs (checkout would remove workspace/slurm_logs)
+          LOG_DIR="${HOME}/stellcoilbench_slurm_logs/run_${GITHUB_RUN_ID}"
           mkdir -p "$LOG_DIR"
 
           # Collect pending cases (cap at 2: two optimization jobs on two single cores)
@@ -617,7 +618,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: slurm-logs-run-${{ github.run_id }}
-          path: slurm_logs/run_${{ github.run_id }}
+          path: ${{ steps.slurm_submit.outputs.log_dir }}
 
       - name: Show autopilot logs on failure
         if: failure()
