@@ -523,7 +523,7 @@ jobs:
           CASE_ID=$(basename "$case_file" .json)
           echo "Running case $SLURM_ARRAY_TASK_ID: $CASE_ID (one optimization, one core)"
 
-          stellcoilbench run-ci-case "$case_file" \
+          srun -n 1 stellcoilbench run-ci-case "$case_file" \
             --output-dir cases/done \
             --policy policy/proposer_policy.yaml
           EXIT=$?
