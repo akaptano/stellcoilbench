@@ -49,9 +49,9 @@ env:
   SLURM_CPUS: "8"
   SLURM_MEM: "10000M"
   SLURM_TIME_CASES: "00:30:00"
-  # Autopilot: 10 nodes × 128 tasks/node = 1280 optimizations, each 1 task × 1 core
+  # Autopilot: 1 node × 64 tasks/node = 64 optimizations, each 1 task × 1 core (conservative for single-node)
   SLURM_AUTOPILOT_NODES: "1"
-  SLURM_AUTOPILOT_NTASKS_PER_NODE: "128"
+  SLURM_AUTOPILOT_NTASKS_PER_NODE: "64"
   SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
   SLURM_AUTOPILOT_MEM_PER_TASK: "120000M"
 
@@ -455,13 +455,13 @@ jobs:
           LOG_DIR="${HOME}/stellcoilbench_slurm_logs/run_${GITHUB_RUN_ID}"
           mkdir -p "$LOG_DIR"
 
-          # Collect pending cases (cap at 128: 10 nodes × 128 per node, each on one core)
+          # Collect pending cases (cap at 64: 1 node × 64 per node, each on one core)
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
           COUNT=0
           > "$WORKSPACE/slurm_autopilot_list.txt"
           for f in "${PENDING_FILES[@]}"; do
-            if [ $COUNT -ge 128 ]; then break; fi
+            if [ $COUNT -ge 64 ]; then break; fi
             echo "$f" >> "$WORKSPACE/slurm_autopilot_list.txt"
             COUNT=$((COUNT + 1))
           done
@@ -484,7 +484,7 @@ jobs:
           MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
-          echo "Submitting SLURM job for $COUNT autopilot case(s) (10 nodes × 128 tasks/node, 1 core per task), logs in $LOG_DIR"
+          echo "Submitting SLURM job for $COUNT autopilot case(s) (1 node × 64 tasks/node, 1 core per task), logs in $LOG_DIR"
 
           cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
           #!/bin/bash
@@ -533,7 +533,7 @@ jobs:
                   s|__WORKSPACE__|${WORKSPACE}|g;
                   s|__COUNT__|${COUNT}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
 
-          echo "=== Generated SLURM script (10 nodes × 128 tasks/node, 1 core per task) ==="
+          echo "=== Generated SLURM script (1 node × 64 tasks/node, 1 core per task) ==="
           cat /tmp/stellcoilbench_autopilot.sh
           echo "=============================="
 
@@ -541,7 +541,7 @@ jobs:
           echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
           echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
           echo "ran_cases=true" >> "$GITHUB_OUTPUT"
-          echo "Submitted SLURM autopilot job (10 nodes × 128 tasks/node, 1280 tasks, 1 core each): $JOB_ID"
+          echo "Submitted SLURM autopilot job (1 node × 64 tasks/node, up to 64 tasks, 1 core each): $JOB_ID"
 
       - name: Wait for SLURM autopilot jobs to complete
         if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
@@ -703,7 +703,7 @@ jobs:
           source $HOME/stellcoilbench-env/bin/activate
 
           python tools/propose_batch.py \
-            --batch-size 128 \
+            --batch-size 64 \
             --done-dir cases/done \
             --pending-dir cases/pending \
             --policy policy/proposer_policy.yaml
