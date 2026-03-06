@@ -34,7 +34,7 @@ on:
       - 'cases/done/**'
       - 'PAUSE_AUTORUN'
   schedule:
-    - cron: '*/5 * * * *'   # autopilot: every 10 minutes
+    - cron: '*/10 * * * *'   # autopilot: every 10 minutes
   workflow_dispatch:
 
 concurrency:
@@ -49,8 +49,9 @@ env:
   SLURM_CPUS: "8"
   SLURM_MEM: "10000M"
   SLURM_TIME_CASES: "00:30:00"
-  # Autopilot: 128 separate array tasks (128 jobs), each 1 task × 1 core, one case per job
-  SLURM_AUTOPILOT_NODES: "1"
+  # Autopilot: 10 nodes × 128 tasks/node = 1280 optimizations, each 1 task × 1 core
+  SLURM_AUTOPILOT_NODES: "10"
+  SLURM_AUTOPILOT_NTASKS_PER_NODE: "128"
   SLURM_AUTOPILOT_CPUS_PER_TASK: "1"
   SLURM_AUTOPILOT_MEM_PER_TASK: "120000M"
 
@@ -454,13 +455,13 @@ jobs:
           LOG_DIR="${HOME}/stellcoilbench_slurm_logs/run_${GITHUB_RUN_ID}"
           mkdir -p "$LOG_DIR"
 
-          # Collect pending cases (cap at 128: 128 optimization jobs, each on one core)
+          # Collect pending cases (cap at 1280: 10 nodes × 128 per node, each on one core)
           shopt -s nullglob
           PENDING_FILES=(cases/pending/*.json)
           COUNT=0
           > "$WORKSPACE/slurm_autopilot_list.txt"
           for f in "${PENDING_FILES[@]}"; do
-            if [ $COUNT -ge 128 ]; then break; fi
+            if [ $COUNT -ge 1280 ]; then break; fi
             echo "$f" >> "$WORKSPACE/slurm_autopilot_list.txt"
             COUNT=$((COUNT + 1))
           done
@@ -483,21 +484,17 @@ jobs:
           MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
-          ARRAY_MAX=$((COUNT - 1))
-          [ "$ARRAY_MAX" -lt 0 ] && ARRAY_MAX=0
-
-          echo "Submitting SLURM job array for $COUNT autopilot case(s) (array 0-${ARRAY_MAX}, one job per case, 1 core each), logs in $LOG_DIR"
+          echo "Submitting SLURM job for $COUNT autopilot case(s) (10 nodes × 128 tasks/node, 1 core per task), logs in $LOG_DIR"
 
           cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
           #!/bin/bash
           #SBATCH -J stellcoilbench-autopilot
-          #SBATCH -o __LOG_DIR__/autopilot_%A_%a.out
-          #SBATCH -e __LOG_DIR__/autopilot_%A_%a.err
-          #SBATCH --array=0-__ARRAY_MAX__
-          #SBATCH --nodes=1
-          #SBATCH --ntasks=1
+          #SBATCH -o __LOG_DIR__/autopilot_%j.out
+          #SBATCH -e __LOG_DIR__/autopilot_%j.err
+          #SBATCH --nodes=__AUTOPILOT_NODES__
+          #SBATCH --ntasks-per-node=__AUTOPILOT_NTASKS_PER_NODE__
           #SBATCH --cpus-per-task=__AUTOPILOT_CPUS_PER_TASK__
-          #SBATCH --mem=__AUTOPILOT_MEM_PER_TASK__
+          #SBATCH --mem-per-cpu=__AUTOPILOT_MEM_PER_TASK__
           #SBATCH --time=__TIME__
           #SBATCH --mail-type=none
 
@@ -511,40 +508,32 @@ jobs:
           export MPLBACKEND=Agg PYTHONUNBUFFERED=1 STELLCOILBENCH_CI_VERBOSE_STDOUT=1
 
           cd __WORKSPACE__
+          LOG_DIR="__LOG_DIR__"
+          LIST="__WORKSPACE__/slurm_autopilot_list.txt"
+          COUNT=__COUNT__
+          export LIST
 
-          mapfile -t FILES < __WORKSPACE__/slurm_autopilot_list.txt
-          N=${#FILES[@]}
-
-          if [ "$SLURM_ARRAY_TASK_ID" -ge "$N" ]; then
-            echo "Array task $SLURM_ARRAY_TASK_ID >= number of cases ($N), skipping."
-            exit 0
-          fi
-
-          case_file="${FILES[$SLURM_ARRAY_TASK_ID]}"
-          CASE_ID=$(basename "$case_file" .json)
-          echo "Running case $SLURM_ARRAY_TASK_ID: $CASE_ID (one optimization, one core)"
-
-          srun -n 1 stellcoilbench run-ci-case "$case_file" \
-            --output-dir cases/done \
-            --policy policy/proposer_policy.yaml
-          EXIT=$?
-          rm -f "$case_file"
-          if [ $EXIT -eq 0 ]; then
-            echo "[OK] $CASE_ID"
-          else
-            echo "[FAIL] $CASE_ID (exit $EXIT)"
-          fi
-          exit $EXIT
+          srun -n "$COUNT" --output="${LOG_DIR}/autopilot_%j_%t.out" --error="${LOG_DIR}/autopilot_%j_%t.err" bash -c '
+            idx=$SLURM_PROCID
+            case_file=$(sed -n "$((idx+1))p" "$LIST")
+            if [ -z "$case_file" ] || [ ! -f "$case_file" ]; then exit 0; fi
+            stellcoilbench run-ci-case "$case_file" --output-dir cases/done --policy policy/proposer_policy.yaml
+            EXIT=$?
+            rm -f "$case_file"
+            exit $EXIT
+          '
           SLURM_SCRIPT
 
           sed -i.bak "s|__LOG_DIR__|${LOG_DIR}|g;
-                  s|__ARRAY_MAX__|${ARRAY_MAX}|g;
+                  s|__AUTOPILOT_NODES__|${SLURM_AUTOPILOT_NODES}|g;
+                  s|__AUTOPILOT_NTASKS_PER_NODE__|${SLURM_AUTOPILOT_NTASKS_PER_NODE}|g;
                   s|__AUTOPILOT_CPUS_PER_TASK__|${SLURM_AUTOPILOT_CPUS_PER_TASK}|g;
                   s|__AUTOPILOT_MEM_PER_TASK__|${SLURM_AUTOPILOT_MEM_PER_TASK}|g;
                   s|__TIME__|${SLURM_TIME}|g;
-                  s|__WORKSPACE__|${WORKSPACE}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
+                  s|__WORKSPACE__|${WORKSPACE}|g;
+                  s|__COUNT__|${COUNT}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
 
-          echo "=== Generated SLURM script (job array 0-${ARRAY_MAX}, 1 task × 1 core per job) ==="
+          echo "=== Generated SLURM script (10 nodes × 128 tasks/node, 1 core per task) ==="
           cat /tmp/stellcoilbench_autopilot.sh
           echo "=============================="
 
@@ -552,7 +541,7 @@ jobs:
           echo "slurm_job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
           echo "log_dir=$LOG_DIR" >> "$GITHUB_OUTPUT"
           echo "ran_cases=true" >> "$GITHUB_OUTPUT"
-          echo "Submitted SLURM autopilot job array (128 separate jobs, 1 core each): $JOB_ID"
+          echo "Submitted SLURM autopilot job (10 nodes × 128 tasks/node, 1280 tasks, 1 core each): $JOB_ID"
 
       - name: Wait for SLURM autopilot jobs to complete
         if: steps.pause_check.outputs.paused != 'true' && steps.pending.outputs.has_pending == 'true'
@@ -575,10 +564,10 @@ jobs:
           echo "=== SLURM job accounting ==="
           sacct -j "$JOB_ID" --format=JobID%20,JobName%25,State%12,ExitCode%8,Elapsed%12,MaxRSS%12 -n
 
-          # Report failures (array tasks: autopilot_<JOB_ID>_0.out, autopilot_<JOB_ID>_1.out)
+          # Report failures (per-task logs: autopilot_<JOB_ID>_0.out, autopilot_<JOB_ID>_1.out, ...)
           FAILED_COUNT=$(sacct -j "$JOB_ID" --format=State -n -X | grep -c -E "FAILED|TIMEOUT|CANCELLED|OUT_OF_MEMORY" || true)
           if [ "$FAILED_COUNT" -gt 0 ]; then
-            echo "WARNING: $FAILED_COUNT autopilot SLURM array task(s) failed"
+            echo "WARNING: $FAILED_COUNT autopilot SLURM task(s) failed"
             echo "=== Failed task logs ==="
             for f in "$LOG_DIR"/autopilot_${JOB_ID}_*.err; do
               if [ -f "$f" ] && [ -s "$f" ]; then
