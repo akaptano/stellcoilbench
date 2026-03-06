@@ -484,6 +484,9 @@ jobs:
           MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 5))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
+          # Total job memory for shared partition (memory limit required; COUNT * 120000 MB per task)
+          AUTOPILOT_MEM="$((COUNT * 120000))M"
+
           echo "Submitting SLURM job for $COUNT autopilot case(s) (1 node × 64 tasks/node, 1 core per task), logs in $LOG_DIR"
 
           cat > /tmp/stellcoilbench_autopilot.sh << 'SLURM_SCRIPT'
@@ -494,7 +497,7 @@ jobs:
           #SBATCH --nodes=__AUTOPILOT_NODES__
           #SBATCH --ntasks-per-node=__AUTOPILOT_NTASKS_PER_NODE__
           #SBATCH --cpus-per-task=__AUTOPILOT_CPUS_PER_TASK__
-          #SBATCH --mem-per-cpu=__AUTOPILOT_MEM_PER_TASK__
+          #SBATCH --mem=__AUTOPILOT_MEM__
           #SBATCH --time=__TIME__
           #SBATCH --mail-type=none
 
@@ -528,7 +531,7 @@ jobs:
                   s|__AUTOPILOT_NODES__|${SLURM_AUTOPILOT_NODES}|g;
                   s|__AUTOPILOT_NTASKS_PER_NODE__|${SLURM_AUTOPILOT_NTASKS_PER_NODE}|g;
                   s|__AUTOPILOT_CPUS_PER_TASK__|${SLURM_AUTOPILOT_CPUS_PER_TASK}|g;
-                  s|__AUTOPILOT_MEM_PER_TASK__|${SLURM_AUTOPILOT_MEM_PER_TASK}|g;
+                  s|__AUTOPILOT_MEM__|${AUTOPILOT_MEM}|g;
                   s|__TIME__|${SLURM_TIME}|g;
                   s|__WORKSPACE__|${WORKSPACE}|g;
                   s|__COUNT__|${COUNT}|g" /tmp/stellcoilbench_autopilot.sh && rm -f /tmp/stellcoilbench_autopilot.sh.bak
