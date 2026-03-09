@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "method_name": "Exploration case: input.LandremanPaul2021_QA ncoils=6 order=4",
+    "contact": "auto",
+    "hardware": "CPU: self-hosted runner",
+    "notes": "Autopilot case 2026-03-09_163750_81494",
+    "run_date": "2026-03-09T18:51:59.589954"
+  },
+  "version_info": {
+    "stellcoilbench_commit": "d8879b32f96e9864d09649154d7a494063a30395",
+    "stellcoilbench_branch": "main",
+    "simsopt_version": "0.1.dev5668+ga79006b0b",
+    "simsopt_commit": "a79006b0b"
+  },
+  "metrics": {},
+  "reactor_scale_metrics": {
+    "reference": {
+      "major_radius": 7.5,
+      "B_field": 5.7,
+      "description": "ARIES-CS reactor-scale reference"
+    },
+    "error": "Could not determine device scale parameters"
+  }
+}

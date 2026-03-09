@@ -1,0 +1,52 @@
+{
+  "case_id": "2026-03-09_163750_88418",
+  "random_seed": 675265845,
+  "tags": [
+    "explore"
+  ],
+  "parent_ids": [],
+  "success": true,
+  "total_score": Infinity,
+  "iterations_used": 0,
+  "walltime_sec": 423.16,
+  "failure_reason": "",
+  "failure_class": "",
+  "metrics": {},
+  "case_config": {
+    "description": "Exploration case: input.LandremanPaul2021_QA ncoils=7 order=4",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QA",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 7,
+      "order": 4
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 500,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "coil_arclength_variation": "l2_threshold",
+      "linking_number": "",
+      "length_threshold": 19.4,
+      "cc_threshold": 0.099,
+      "cs_threshold": 0.081,
+      "curvature_threshold": 4.854,
+      "msc_threshold": 1.134
+    },
+    "fourier_continuation": {
+      "enabled": true,
+      "orders": [
+        4,
+        8,
+        16
+      ]
+    }
+  }
+}

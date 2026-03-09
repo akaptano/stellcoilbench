@@ -1,0 +1,31 @@
+coil_objective_terms:
+  cc_threshold: 0.059957
+  coil_arclength_variation: l2_threshold
+  coil_curvature: lp_threshold
+  coil_curvature_p: 2
+  coil_mean_squared_curvature: l2_threshold
+  cs_threshold: 0.085948
+  curvature_threshold: 7.957719
+  flux_threshold: 1.0e-06
+  force_threshold: 2.814903
+  linking_number: ''
+  msc_threshold: 16.890913
+  torque_threshold: 4.54455
+  total_length: l2_threshold
+coils_params:
+  ncoils: 3
+  order: 4
+description: 'Mutation: input.LandremanPaul2021_QA ncoils=3 order=4'
+fourier_continuation:
+  enabled: true
+  orders:
+  - 4
+  - 8
+  - 16
+optimizer_params:
+  algorithm: augmented_lagrangian
+  max_iterations: 500
+  verbose: true
+surface_params:
+  range: half period
+  surface: input.LandremanPaul2021_QA
