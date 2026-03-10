@@ -4,10 +4,10 @@
     "contact": "auto",
     "hardware": "CPU: self-hosted runner",
     "notes": "Autopilot case 2026-03-09_163750_61740",
-    "run_date": "2026-03-10T09:09:03.980248"
+    "run_date": "2026-03-10T10:17:22.997842"
   },
   "version_info": {
-    "stellcoilbench_commit": "ea731d8089832193bd06c2dd5ea3d343fb07647d",
+    "stellcoilbench_commit": "c1df27c3e789e4b4436db7a760893c118f5bdb17",
     "stellcoilbench_branch": "main",
     "simsopt_version": "0.1.dev5668+ga79006b0b",
     "simsopt_commit": "a79006b0b"
