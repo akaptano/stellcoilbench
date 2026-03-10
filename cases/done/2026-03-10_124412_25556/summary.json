@@ -1,0 +1,99 @@
+{
+  "case_id": "2026-03-10_124412_25556",
+  "random_seed": 1803193871,
+  "tags": [
+    "exploit"
+  ],
+  "parent_ids": [
+    "2026-03-06_022433_55885"
+  ],
+  "success": true,
+  "total_score": 0.0,
+  "iterations_used": 500,
+  "walltime_sec": 363.96,
+  "failure_reason": "",
+  "failure_class": "",
+  "metrics": {
+    "fourier_continuation": true,
+    "final_order": 16,
+    "initial_B_field": 1.0959996636998444,
+    "final_B_field": 1.0963883410795356,
+    "target_B_field": 1.0,
+    "optimization_time": 79.59718084335327,
+    "walltime_sec": 79.59718084335327,
+    "iterations_used": 500,
+    "final_squared_flux": 0.0,
+    "final_min_cs_separation": 0.2552106316847971,
+    "final_min_cc_separation": 0.0928682118419092,
+    "final_max_curvature": 6.408110551052896,
+    "final_average_curvature": 2.1068112263576997,
+    "final_arclength_variation": 8.493548214188703e-05,
+    "final_mean_squared_curvature": 8.32477876952344,
+    "final_linking_number": 0,
+    "coils_linked_to_surface": true,
+    "final_max_max_coil_force": 485342.7195096189,
+    "final_avg_max_coil_force": 321211.4278522962,
+    "final_max_max_coil_torque": 211172.7676006227,
+    "final_avg_max_coil_torque": 131994.90339041912,
+    "avg_BdotN_over_B": 0.00043888269121956615,
+    "max_BdotN_over_B": 0.0016862333420837234,
+    "flux_threshold": 1e-06,
+    "cc_threshold": 0.092835,
+    "cs_threshold": 0.069605,
+    "msc_threshold": 17.178757,
+    "arclength_variation_threshold": 0.0,
+    "curvature_threshold": 16.728498,
+    "force_threshold": 1714.2710000000002,
+    "torque_threshold": 823.7268,
+    "fourier_order": 16,
+    "continuation_step": 3,
+    "BdotN": 0.0004154346422604877,
+    "BdotN_over_B": 0.0004391182305541704
+  },
+  "case_config": {
+    "description": "Mutation: input.LandremanPaul2021_QA ncoils=4 order=4",
+    "surface_params": {
+      "surface": "input.LandremanPaul2021_QA",
+      "range": "half period"
+    },
+    "coils_params": {
+      "ncoils": 4,
+      "order": 4
+    },
+    "optimizer_params": {
+      "algorithm": "augmented_lagrangian",
+      "max_iterations": 500,
+      "verbose": true
+    },
+    "coil_objective_terms": {
+      "total_length": "l2_threshold",
+      "coil_curvature": "lp_threshold",
+      "coil_curvature_p": 2,
+      "coil_mean_squared_curvature": "l2_threshold",
+      "coil_arclength_variation": "l2_threshold",
+      "linking_number": "",
+      "cc_threshold": 0.092835,
+      "cs_threshold": 0.069605,
+      "msc_threshold": 17.178757,
+      "curvature_threshold": 16.728498,
+      "flux_threshold": 1e-06,
+      "force_threshold": 8.571355,
+      "torque_threshold": 4.118634
+    },
+    "fourier_continuation": {
+      "enabled": true,
+      "orders": [
+        4,
+        8,
+        16
+      ]
+    }
+  },
+  "timing": {
+    "coil_initialization": 1.6100239008665085e-06,
+    "biotsavart_setup": 4.098449683981016,
+    "objective_setup": 0.007766116061247885,
+    "coil_optimization": 79.5971822469728,
+    "save_and_metrics": 4.331711400998756
+  }
+}

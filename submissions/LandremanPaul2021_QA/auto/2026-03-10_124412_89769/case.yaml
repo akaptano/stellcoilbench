@@ -1,0 +1,29 @@
+coil_objective_terms:
+  cc_threshold: 0.093
+  coil_arclength_variation: l2_threshold
+  coil_curvature: lp_threshold
+  coil_curvature_p: 2
+  coil_mean_squared_curvature: l2_threshold
+  cs_threshold: 0.15
+  curvature_threshold: 1.67
+  length_threshold: 27.13
+  linking_number: ''
+  msc_threshold: 1.936
+  total_length: l2_threshold
+coils_params:
+  ncoils: 3
+  order: 4
+description: 'Exploration case: input.LandremanPaul2021_QA ncoils=3 order=4'
+fourier_continuation:
+  enabled: true
+  orders:
+  - 4
+  - 8
+  - 16
+optimizer_params:
+  algorithm: augmented_lagrangian
+  max_iterations: 500
+  verbose: true
+surface_params:
+  range: half period
+  surface: input.LandremanPaul2021_QA
