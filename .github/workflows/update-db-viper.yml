@@ -480,7 +480,7 @@ jobs:
           done < "$WORKSPACE/slurm_autopilot_list.txt"
 
           # Add 5 hour buffer for module loads and teardown
-          MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 300))
+          MAX_TIMEOUT_MIN=$((MAX_TIMEOUT_MIN + 60))
           SLURM_TIME=$(printf "%02d:%02d:00" $((MAX_TIMEOUT_MIN / 60)) $((MAX_TIMEOUT_MIN % 60)))
 
           ARRAY_MAX=$((COUNT - 1))
