@@ -714,7 +714,7 @@ jobs:
           source $HOME/stellcoilbench-env/bin/activate
 
           python tools/propose_batch.py \
-            --batch-size 128 \
+            --batch-size 3200 \
             --done-dir cases/done \
             --pending-dir cases/pending \
             --policy policy/proposer_policy.yaml
