@@ -1,0 +1,15 @@
+{
+  "BdotN": 0.004877434157486283,
+  "BdotN_over_B": 0.0010768747576337322,
+  "quasisymmetry_average": 8.282308112288753e-05,
+  "timing": {
+    "load_coils_and_surface": 0.11798037501284853,
+    "compute_BdotN": 0.6843879999942146,
+    "compute_qfm_surface": 117.51687641700846,
+    "save_qfm_vtk": 0.13705425002262928,
+    "vmec_qfm_surface": 9.134431375015993,
+    "quasisymmetry_qfm": 0.18543654200038873,
+    "plot_iota_profile": 0.1572634170006495,
+    "plot_quasisymmetry_profile": 0.21137691699550487
+  }
+}

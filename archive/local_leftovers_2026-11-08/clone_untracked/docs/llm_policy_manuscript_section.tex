@@ -1,0 +1,26 @@
+% LLM Policy Section — Manuscript-ready prose for Sec. II.C
+% Integrate after the genetic algorithm description in "Policy algorithms".
+% Focus: structure, motivation, and policy; implementation details minimal.
+%
+% Usage: \input{docs/llm_policy_manuscript_section} or copy the content below.
+% ----------------------------------------------------------------------------
+
+\subsection{Context-aware LLM policy}
+
+Learning optimal hyperparameters for stellarator coil optimization---thresholds, convergence tolerances, Fourier schedules, and the balance between exploit and explore---is inherently difficult.
+The genetic algorithm addresses this with a fixed heuristic: log-normal mutation and log-uniform exploration.
+An alternative is a \emph{context-aware LLM policy}, which reasons over the full history of runs and failures to propose targeted batches.
+The LLM can identify under-explored plasma surfaces, avoid recurring failure modes, adjust constraint thresholds based on which margins are tight or slack, and shift between exploitation (refining good parents) and exploration (trying new regions) in response to score trends.
+When the score trend plateaus, the policy favors exploration; when constraint violations dominate, it targets threshold adjustments to restore feasibility.
+This differs from the GA not in the space of actions (both propose mutate and explore cases) but in \emph{how} actions are chosen: the LLM synthesizes domain knowledge, run history, and strategic guidance rather than applying fixed sampling rules.
+
+The policy rests on two layers of context.
+First, a \emph{domain layer} provides the LLM with stellarator coil optimization expertise: an optimization guide (objective terms, failure modes, metrics interpretation), threshold scaling rules at ARIES-CS reactor scale, a plasma surface catalog, and curated excerpts from 31 stellarator coil and equilibrium papers.
+This enables informed choices even for surfaces or constraint combinations that have not yet been tried.
+Second, a \emph{run-history layer} summarizes the current state: top-performing runs with their scores and constraint margins, failure postmortems with rule-based suggestions, surface exploration coverage, and the score trend (improving, plateaued, or regressing).
+The LLM also receives its own prior reasoning from past batches, so it can build on its choices and avoid contradicting itself.
+
+Each proposal batch mixes \emph{mutate} actions (derive from a top parent with targeted overrides) and \emph{explore} actions (sample a new surface, coil count, or threshold combination).
+Every action includes a short justification explaining the choice---which run is being refined, which failure is being avoided, or why a region is worth exploring.
+These justifications form a running log that supports reproducibility and future analysis.
+The proposer shares the same guardrails as the GA (failure-rate limits, safe mode, policy constraints); when the LLM is unavailable or returns too few valid cases, it falls back automatically to the deterministic genetic algorithm.

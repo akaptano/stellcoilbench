@@ -1,0 +1,34 @@
+% Table: Coil optimization objective terms
+% Benchmark: Landreman-Paul QA, 4 coils order 8, Mac M3 MAX
+% Timing from tools/time_objective_terms.py (median over 10 J, 10 dJ runs)
+% Structural FEM: mesh resolution 0.16 m, quadrature degree 1
+
+\begin{table*}[t]
+\centering
+\caption{Coil optimization objective terms in StellCoilBench. Benchmark: The Landreman-Paul QA stellarator with four order-eight coils; timing for objective and gradient calls is reported from an average over 10 J() and 10 dJ() runs on a Mac M3 MAX. Structural FEM uses mesh resolution $\Delta x = 0.16\,\mathrm{m}$, $E = 100\,\mathrm{GPa}$.}
+\label{tab:coil_objective_terms}
+\scriptsize
+\setlength{\tabcolsep}{7pt}
+\adjustbox{max width=\textwidth}{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Name & Term & Default Obj. & Default params. & Incl. by default? & Obj. (ms) & Grad. (ms) & Units \\
+  \hline
+  Squared flux & $f_b$ & $\ell_2(\lambda_{f_b})$ & $\lambda_{f_b}=10^{-8}$ & Yes & 15.6 & 51.1 & T$^2$m$^2$\\\hline
+  coil-coil distance & $d_{\mathrm{cc}}$ & $\ell_2(\lambda_{d_{cc}})$ & $\lambda_{d_{\mathrm{cc}}}=0.8\,\mathrm{m}$ & Yes & 3.3 & 8.4 & m\\\hline
+  coil-surface distance & $d_{\mathrm{cs}}$ & $\ell_2(\lambda_{d_{cs}})$ & $\lambda_{d_{\mathrm{cs}}}=1.3\,\mathrm{m}$ & Yes & 9.4 & 10.1 & m\\\hline
+  total coil length & $L$ & $\ell_2(\lambda_L)$ & $\lambda_L=200\,\mathrm{m}$ & Yes & 0.3 & 1.7 & m\\\hline
+  pointwise curvature & $\kappa$ &  $\ell_p(\lambda_\kappa)$ & $\lambda_\kappa=1\,\mathrm{m}^{-1}$, $p{=}2$ & Yes & 0.5 & 0.9 & m$^{-1}$\\\hline
+  mean-squared curvature & $\kappa_\text{msc}$ &  $\ell_2(\lambda_{\mathrm{MSC}})$ & $\lambda_{\mathrm{MSC}}=1\,\mathrm{m}^{-2}$ & Yes & 0.6 & 1.1 & m$^{-2}$\\\hline
+  Gauss linking number & $G_L$ & --- & --- & Yes & 7.2 & 0.1 & ---  \\\hline
+  arclength variation & $V_L$ & $\ell_2(\lambda_{V_L})$ & $\lambda_{V_L}=0$ & Yes & 0.3 & 0.6 & m$^2$ \\\hline
+  pointwise force per unit length & $F$ & $\ell_p(\lambda_F)$ & $\lambda_F=200\,\mathrm{N}/\mathrm{m}$, $p{=}2$ & No & 1.1 & 25.3 & N/m \\\hline
+  pointwise torque per unit length & $T$ & $\ell_p(\lambda_T)$ & $\lambda_T=200\,\mathrm{N}$, $p{=}2$ & No & 1.1 & 23.6 & N \\\hline
+  pointwise torsion & $\zeta$ & $\ell_p(\lambda_\zeta)$ & $\lambda_\zeta=1\,\mathrm{m}^{-1}$, $p{=}2$ & No & 0.7 & 1.2 & m$^{-1}$ \\\hline
+  Von Mises stress & $\sigma_{\mathrm{vm}}$ & $\ell_p(\lambda_{\sigma_{\mathrm{vm}}})$ & $\Delta x=0.16$m, $E{=}100\,\mathrm{GPa}$ & No & 43.5 & 8480 & GPa \\\hline
+\end{tabular}%
+}
+\par\vspace{0.3em}
+\footnotesize
+\textbf{Algorithm default:} Augmented Lagrangian using $N_\text{iter}=$1000, $N_\text{subiter}=$10 with L-BFGS-B default parameters.
+\end{table*}

@@ -1,0 +1,1473 @@
+From d17e2c05f3df7f062c848181d6ffd3201800bf57 Mon Sep 17 00:00:00 2001
+From: "ci-autopilot[bot]" <action@github.com>
+Date: Wed, 11 Mar 2026 17:17:56 -0400
+Subject: [PATCH 1/3] test
+
+---
+ .github/workflows/update-db-self-hosted.yml   |  10 +-
+ .gitignore                                    |   1 -
+ docs/api.rst                                  |   8 +-
+ docs/overview.rst                             |   3 +-
+ src/stellcoilbench/config_scheme.py           |   4 +-
+ src/stellcoilbench/finite_build/_core.py      |   3 +-
+ .../path_utils/_case_resolution.py            |   5 +-
+ .../update_db/_plot_composite_score.py        | 166 ------------------
+ .../update_db/_writers_reactor.py             |  30 +---
+ tests/update_db/test_plot_composite_score.py  |  95 ----------
+ tools/ci_commit_autopilot_results.sh          |   4 +-
+ tools/ci_commit_leaderboard.sh                |   2 +-
+ 12 files changed, 22 insertions(+), 309 deletions(-)
+ delete mode 100644 src/stellcoilbench/update_db/_plot_composite_score.py
+ delete mode 100644 tests/update_db/test_plot_composite_score.py
+
+diff --git a/.github/workflows/update-db-self-hosted.yml b/.github/workflows/update-db-self-hosted.yml
+index 64bd52aece..d8017853d6 100644
+--- a/.github/workflows/update-db-self-hosted.yml
++++ b/.github/workflows/update-db-self-hosted.yml
+@@ -38,7 +38,7 @@ jobs:
+   # ---- Standard benchmark path (only on push to main) ----
+   determine_cases:
+     if: >
+-      github.repository == 'akaptano/stellcoilbench_fork' &&
++      github.repository == 'akaptano/stellcoilbench' &&
+       github.event_name == 'push' &&
+       github.ref == 'refs/heads/main'
+     runs-on: self-hosted
+@@ -61,7 +61,7 @@ jobs:
+   run_cases:
+     needs: [determine_cases]
+     if: >
+-      github.repository == 'akaptano/stellcoilbench_fork' &&
++      github.repository == 'akaptano/stellcoilbench' &&
+       github.event_name == 'push' &&
+       needs.determine_cases.outputs.has_cases == 'true'
+     runs-on: self-hosted
+@@ -102,7 +102,7 @@ jobs:
+     needs: [determine_cases, run_cases]
+     if: >
+       always() &&
+-      github.repository == 'akaptano/stellcoilbench_fork' &&
++      github.repository == 'akaptano/stellcoilbench' &&
+       github.event_name == 'push' &&
+       needs.determine_cases.outputs.has_cases == 'true'
+     runs-on: self-hosted
+@@ -131,7 +131,7 @@ jobs:
+   # Nonstop CI autopilot: run pending cases from cases/pending/*.json
+   # =========================================================================
+   run_autopilot_cases:
+-    if: github.repository == 'akaptano/stellcoilbench_fork'
++    if: github.repository == 'akaptano/stellcoilbench'
+     runs-on: self-hosted
+     timeout-minutes: 90  # Must be > max per-case timeout (60m) + buffer for commit
+     outputs:
+@@ -178,7 +178,7 @@ jobs:
+     needs: [run_autopilot_cases]
+     if: >
+       always() &&
+-      github.repository == 'akaptano/stellcoilbench_fork'
++      github.repository == 'akaptano/stellcoilbench'
+     runs-on: self-hosted
+     steps:
+       - name: Check out repository
+diff --git a/.gitignore b/.gitignore
+index c4202f9d3c..9ad707d8bf 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -59,7 +59,6 @@ docs/leaderboard.rst
+ docs/leaderboard/surface_specific.rst
+ docs/leaderboard/reactor_scale.rst
+ docs/leaderboard/metric_definitions.rst
+-docs/leaderboard/composite_score_vs_date.png
+ docs/leaderboards/*.md
+ docs/leaderboard.json
+ knowledge/papers/*.pdf
+diff --git a/docs/api.rst b/docs/api.rst
+index ae22e08b0d..fc0a07961a 100644
+--- a/docs/api.rst
++++ b/docs/api.rst
+@@ -98,6 +98,7 @@ Coil Optimization Module
+    :members:
+    :undoc-members:
+    :show-inheritance:
++   :no-index:
+ 
+ The ``coil_optimization`` module contains the core optimization logic. Key
+ functions: ``optimize_coils`` (main entry point), ``initialize_coils_loop``,
+@@ -297,12 +298,13 @@ equilibrium calculations, Poincaré plots, quasisymmetry analysis, and Boozer su
+      - ``vmec``: VMEC equilibrium object (if run_vmec=True)
+ 
+ Sensitivity Module
+------------------
++------------------
+ 
+ .. automodule:: stellcoilbench.sensitivity
+    :members:
+    :undoc-members:
+    :show-inheritance:
++   :no-index:
+ 
+ Coil sensitivity analysis via stochastic perturbation (CurvePerturbed / GaussianSampler).
+ Quantifies robustness to geometric perturbations. Key entry point:
+@@ -332,7 +334,7 @@ Finite-build coil geometry: rectangular cross-section swept along centerline.
+ Key function: ``finite_build_coils_to_vtk``. Requires ``pip install .[structural]`` for Gmsh.
+ 
+ Structural Analysis Module
+--------------------------
++--------------------------
+ 
+ .. automodule:: stellcoilbench.structural_analysis
+    :members:
+@@ -343,7 +345,7 @@ FEM structural analysis (Von Mises stress, Lorentz force). Backends: DOLFINx or
+ Key function: ``run_structural_analysis``. Optional: ``pip install .[structural]``.
+ 
+ Evaluate and Submission Pipeline (Module Responsibilities)
+----------------------------------------------------------
++----------------------------------------------------------
+ 
+ - **``evaluate``**: Defines ``SubmissionResults`` dataclass (metadata + metrics). Lightweight container; used when structuring evaluation output.
+ - **``submission_packaging``**: Assembles the physical submission: builds dirs, writes ``results.json``, copies case YAML, zips. Used by ``submit-case``.
+diff --git a/docs/overview.rst b/docs/overview.rst
+index 8d16bcbff3..cf8d071085 100644
+--- a/docs/overview.rst
++++ b/docs/overview.rst
+@@ -36,13 +36,14 @@ Optional dependencies enable extra features. Install as needed:
+ 
+ - **Post-processing** (VMEC, Poincaré, quasisymmetry, Boozer plots, SIMPLE): ``pip install .[post-processing]``. Requires VMEC2000 and SIMPLE binaries; see CI workflow for build steps.
+ - **Structural analysis** (FEM, Von Mises stress): ``pip install .[structural]``. DOLFINx via ``conda install -c conda-forge fenics-dolfinx`` for full parallelism.
++- **ParaStell** (finite-build tetrahedral mesh, structural analysis): Use ``conda env create -f environment-parastell.yml`` for a dedicated env, or run ``bash tools/install_parastell_in_vmec.sh`` with stellcoilbench_vmec active.
+ - **LLM autopilot proposer**: ``pip install .[llm]``. Needs ``ANTHROPIC_API_KEY``.
+ - **Documentation build**: ``pip install .[DOCS]``.
+ 
+ See the `simsopt wiki <https://github.com/hiddenSymmetries/simsopt/wiki>`_ for VMEC and booz_xform installation details.
+ 
+ MPI Parallelization
+-------------------
++-------------------
+ 
+ Post-processing (VMEC, fieldline tracing) uses all MPI processes; optimization runs on rank 0 only. Run with ``mpirun -n 4 stellcoilbench submit-case cases/basic_MUSE.yaml`` (or ``--bind-to core --map-by core`` for CPU binding). Set ``OMP_NUM_THREADS=1``, ``MKL_NUM_THREADS=1``, ``OPENBLAS_NUM_THREADS=1`` to avoid thread oversubscription. CI uses 4 MPI processes per case. If MPI is not detected, the code runs in single-process mode.
+ 
+diff --git a/src/stellcoilbench/config_scheme.py b/src/stellcoilbench/config_scheme.py
+index 2ac38e1418..cdc1a9b510 100644
+--- a/src/stellcoilbench/config_scheme.py
++++ b/src/stellcoilbench/config_scheme.py
+@@ -173,10 +173,10 @@ class PostProcessingConfig:
+         coil geometry.  Requires DOLFINx and a tetrahedral mesh (Gmsh).
+     structural_E : Optional[float]
+         Young's modulus [Pa] for the winding-pack material.  ``None`` uses the
+-        default from :pydata:`constants.WP_YOUNGS_MODULUS_PA`.
++        default from :obj:`constants.WP_YOUNGS_MODULUS_PA`.
+     structural_nu : Optional[float]
+         Poisson ratio for the winding-pack material.  ``None`` uses the
+-        default from :pydata:`constants.WP_POISSON_RATIO`.
++        default from :obj:`constants.WP_POISSON_RATIO`.
+     compute_shape_gradient : bool
+         Whether to compute per-coil shape gradients and save to VTK.
+     """
+diff --git a/src/stellcoilbench/finite_build/_core.py b/src/stellcoilbench/finite_build/_core.py
+index 35bd5bb488..d14dc6650a 100644
+--- a/src/stellcoilbench/finite_build/_core.py
++++ b/src/stellcoilbench/finite_build/_core.py
+@@ -193,8 +193,7 @@ def finite_build_coils_to_vtk(
+     - Uniform (width, height) for all coils
+     - Per-coil (width_per_coil, height_per_coil)
+     - Stellaris-derived: sqrt(N_turns) * 20 mm square when N_turns available
+-    - Default: 35 cm × 35 cm (reactor scale); callers typically pass
+-      a0-scaled values with a 5 cm lower bound
++    - Default: 35 cm × 35 cm (reactor scale).
+ 
+     Parameters
+     ----------
+diff --git a/src/stellcoilbench/path_utils/_case_resolution.py b/src/stellcoilbench/path_utils/_case_resolution.py
+index 3c668abe9f..faa5e61fcf 100644
+--- a/src/stellcoilbench/path_utils/_case_resolution.py
++++ b/src/stellcoilbench/path_utils/_case_resolution.py
+@@ -70,8 +70,9 @@ def resolve_case_yaml_path(
+     """
+     Resolve case.yaml path from output directory, hints, and surface filename.
+ 
+-    Search order: (1) case_path_hint if valid file/dir, (2) out_dir/case.yaml,
+-    (3) out_dir.parent/case.yaml, (4) surface-based paths (surface_dir, cases/stem),
++    Search order: (1) case_path_hint if valid file/dir, (2) ``out_dir/case.yaml``,
++    (3) ``out_dir.parent/case.yaml``, (4) surface-based paths (``surface_dir``,
++    ``cases/stem``),
+     (5) scan cases/*.yaml for surface match.
+ 
+     Parameters
+diff --git a/src/stellcoilbench/update_db/_plot_composite_score.py b/src/stellcoilbench/update_db/_plot_composite_score.py
+deleted file mode 100644
+index 0a5718618e..0000000000
+--- a/src/stellcoilbench/update_db/_plot_composite_score.py
++++ /dev/null
+@@ -1,166 +0,0 @@
+-"""Composite score vs. date plot for reactor-scale leaderboard.
+-
+-Generates a time-series plot of composite score by submission date, with
+-one color per plasma surface. Used in the reactor-scale leaderboard docs.
+-"""
+-
+-from __future__ import annotations
+-
+-import logging
+-from datetime import datetime
+-from pathlib import Path
+-from typing import Any, Dict
+-
+-from ._writers_common import _surface_display_name
+-
+-logger = logging.getLogger(__name__)
+-
+-# Color palette: distinct, colorblind-friendly colors for up to ~12 surfaces
+-_SURFACE_COLORS = [
+-    "#0173b2",  # blue
+-    "#de8f05",  # orange
+-    "#029e73",  # teal
+-    "#cc78bc",  # magenta
+-    "#ca9161",  # brown
+-    "#fbafe4",  # pink
+-    "#949494",  # gray
+-    "#ece133",  # yellow
+-    "#56b4e9",  # light blue
+-    "#d55e00",  # red-orange
+-    "#009e73",  # green
+-    "#f0e442",  # pale yellow
+-]
+-
+-
+-def _parse_run_date(run_date: str) -> datetime | None:
+-    """Parse ISO-format run_date string to datetime."""
+-    if not run_date:
+-        return None
+-    try:
+-        # Handle both "2026-02-27T01:39:12.423195" and "2026-02-27"
+-        if "T" in run_date:
+-            return datetime.fromisoformat(run_date.replace("Z", "+00:00"))
+-        return datetime.strptime(run_date[:10], "%Y-%m-%d")
+-    except (ValueError, TypeError):
+-        return None
+-
+-
+-def plot_composite_score_vs_date(
+-    surface_leaderboards: Dict[str, Dict[str, Any]],
+-    out_path: Path,
+-    figsize: tuple[float, float] = (10, 6),
+-    dpi: int = 150,
+-) -> bool:
+-    """Plot composite score vs. submission date, one series per plasma surface.
+-
+-    Parameters
+-    ----------
+-    surface_leaderboards : dict[str, dict]
+-        Per-surface data from build_surface_leaderboards. Each surface has
+-        ``entries`` with ``composite_score`` and ``run_date``.
+-    out_path : Path
+-        Output file path (PNG or SVG).
+-    figsize : tuple[float, float], optional
+-        Figure size in inches (width, height).
+-    dpi : int, optional
+-        DPI for raster output (PNG).
+-
+-    Returns
+-    -------
+-    bool
+-        True if the plot was written successfully; False if no plottable data.
+-    """
+-    import matplotlib.dates as mdates
+-    import matplotlib.pyplot as plt
+-    import numpy as np
+-
+-    # Collect (date, composite_score) per surface
+-    surface_data: Dict[str, list[tuple[datetime, float]]] = {}
+-    for surface_name, surf_data in surface_leaderboards.items():
+-        entries = surf_data.get("entries", [])
+-        points: list[tuple[datetime, float]] = []
+-        for e in entries:
+-            run_date = e.get("run_date", "")
+-            composite = e.get("composite_score")
+-            if composite is None:
+-                continue
+-            dt = _parse_run_date(run_date)
+-            if dt is not None:
+-                points.append((dt, float(composite)))
+-        if points:
+-            points.sort(key=lambda p: p[0])
+-            surface_data[surface_name] = points
+-
+-    if not surface_data:
+-        logger.debug(
+-            "No plottable composite_score/run_date data for score-vs-date plot"
+-        )
+-        return False
+-
+-    fig, ax = plt.subplots(figsize=figsize)
+-    ax.set_facecolor("#fafafa")
+-    fig.patch.set_facecolor("white")
+-
+-    surfaces_sorted = sorted(surface_data.keys())
+-    for i, surface_name in enumerate(surfaces_sorted):
+-        points = surface_data[surface_name]
+-        color = _SURFACE_COLORS[i % len(_SURFACE_COLORS)]
+-        dates = [p[0] for p in points]
+-        scores = np.array([p[1] for p in points])
+-        label = _surface_display_name(surface_name)
+-        ax.scatter(
+-            dates,
+-            scores,
+-            c=color,
+-            s=36,
+-            alpha=0.85,
+-            edgecolors="white",
+-            linewidths=0.5,
+-            zorder=3,
+-            label=f"{label} (n={len(points)})",
+-        )
+-        # Optional: connect points with a light line for trend
+-        ax.plot(
+-            dates,
+-            scores,
+-            color=color,
+-            alpha=0.4,
+-            linewidth=1.5,
+-            zorder=2,
+-        )
+-
+-    ax.set_xlabel("Submission date", fontsize=11, fontweight="medium")
+-    ax.set_ylabel("Composite score", fontsize=11, fontweight="medium")
+-    ax.set_title(
+-        "Reactor-scale composite score over time",
+-        fontsize=13,
+-        fontweight="bold",
+-        pad=12,
+-    )
+-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+-    ax.xaxis.set_major_locator(mdates.AutoDateLocator(maxticks=10))
+-    plt.xticks(rotation=35, ha="right")
+-    # Start x-axis at February 20, 2026
+-    ax.set_xlim(left=datetime(2026, 2, 20))
+-    ax.legend(
+-        loc="upper left",
+-        fontsize=9,
+-        framealpha=0.95,
+-        edgecolor="#cccccc",
+-        fancybox=True,
+-    )
+-    ax.grid(True, linestyle="--", alpha=0.6)
+-    ax.spines["top"].set_visible(False)
+-    ax.spines["right"].set_visible(False)
+-    ax.set_axisbelow(True)
+-    plt.tight_layout()
+-
+-    out_path.parent.mkdir(parents=True, exist_ok=True)
+-    suffix = out_path.suffix.lower()
+-    if suffix == ".svg":
+-        fig.savefig(out_path, format="svg", bbox_inches="tight")
+-    else:
+-        fig.savefig(out_path, format="png", dpi=dpi, bbox_inches="tight")
+-    plt.close(fig)
+-    logger.info("Wrote composite score vs. date plot to %s", out_path)
+-    return True
+diff --git a/src/stellcoilbench/update_db/_writers_reactor.py b/src/stellcoilbench/update_db/_writers_reactor.py
+index 29be86a01a..7cd25932ca 100644
+--- a/src/stellcoilbench/update_db/_writers_reactor.py
++++ b/src/stellcoilbench/update_db/_writers_reactor.py
+@@ -2,8 +2,7 @@
+ 
+ Generates ``leaderboard/reactor_scale.rst`` with per-surface tables showing
+ engineering metrics scaled to the ARIES-CS reference reactor. Violated
+-constraints are highlighted (red = hard, orange = soft). Also generates a
+-composite score vs. date plot.
++constraints are highlighted (red = hard, orange = soft).
+ """
+ 
+ from __future__ import annotations
+@@ -16,7 +15,6 @@ from ._formatting import (
+     _metric_shorthand,
+     _shorthand_to_html_math,
+ )
+-from ._plot_composite_score import plot_composite_score_vs_date
+ from ._writers_common import (
+     _build_reactor_scale_row_cells,
+     _get_constraint_violation_sets,
+@@ -148,31 +146,6 @@ def write_reactor_scale_leaderboard(
+         "",
+     ]
+ 
+-    trailer_lines: list[str] = []
+-    plot_path = out_rst.parent / "composite_score_vs_date.png"
+-    if plot_composite_score_vs_date(surface_leaderboards, plot_path):
+-        trailer_lines.extend(
+-            [
+-                "Composite Score Over Time",
+-                "=========================",
+-                "",
+-                "The plot below shows how the best composite score has evolved as submissions",
+-                "roll in. Each color represents a different plasma surface. Higher scores",
+-                "indicate better engineering margin (see :doc:`metric_definitions`).",
+-                "",
+-                ".. figure:: composite_score_vs_date.png",
+-                "   :alt: Composite score vs. submission date by plasma surface",
+-                "   :align: center",
+-                "   :width: 100%",
+-                "",
+-                "   Reactor-scale composite score over time. Each series corresponds to a",
+-                "   plasma surface; points are individual submissions, connected by light",
+-                "   lines to show trends. The legend shows the surface name and submission",
+-                "   count (n).",
+-                "",
+-            ]
+-        )
+-
+     _write_surface_leaderboard_rst(
+         surface_leaderboards,
+         _reactor_row_builder,
+@@ -181,5 +154,4 @@ def write_reactor_scale_leaderboard(
+         "rs",
+         empty_entries_message="No submissions for this surface.",
+         empty_no_data_message="No reactor-scale data available for this surface.",
+-        trailer_lines=trailer_lines if trailer_lines else None,
+     )
+diff --git a/tests/update_db/test_plot_composite_score.py b/tests/update_db/test_plot_composite_score.py
+deleted file mode 100644
+index 61a58a3741..0000000000
+--- a/tests/update_db/test_plot_composite_score.py
++++ /dev/null
+@@ -1,95 +0,0 @@
+-"""Tests for update_db._plot_composite_score module."""
+-
+-from __future__ import annotations
+-
+-from pathlib import Path
+-from unittest.mock import MagicMock, patch
+-
+-import pytest
+-
+-from stellcoilbench.update_db._plot_composite_score import (
+-    _parse_run_date,
+-    plot_composite_score_vs_date,
+-)
+-
+-
+-@pytest.mark.parametrize(
+-    "input_val",
+-    ["", "not-a-date", "2026-99-99", 42, None],
+-    ids=["empty", "invalid", "bad_date", "int", "none"],
+-)
+-def test_parse_run_date_returns_none_for_invalid(input_val) -> None:
+-    """Invalid or non-string input returns None."""
+-    assert _parse_run_date(input_val) is None  # type: ignore[arg-type]
+-
+-
+-@pytest.mark.parametrize(
+-    "date_str,expected_hms",
+-    [
+-        ("2026-02-27T01:39:12.423195", (1, 39, 12)),
+-        ("2026-03-11", (0, 0, 0)),
+-    ],
+-    ids=["iso_with_t", "date_only"],
+-)
+-def test_parse_run_date_valid_formats(date_str: str, expected_hms: tuple) -> None:
+-    """Valid date formats parse to datetime."""
+-    result = _parse_run_date(date_str)
+-    assert result is not None
+-    assert result.year == 2026
+-    h, m, s = expected_hms
+-    assert (result.hour, result.minute, result.second) == (h, m, s)
+-
+-
+-@pytest.mark.parametrize(
+-    "surface_leaderboards",
+-    [
+-        {},
+-        {"surface1": {"entries": []}},
+-        {"surface1": {"entries": [{"run_date": "2026-03-01"}]}},
+-    ],
+-    ids=["empty", "empty_entries", "no_composite_score"],
+-)
+-def test_plot_composite_score_no_plottable_returns_false(
+-    surface_leaderboards: dict, tmp_path: Path
+-) -> None:
+-    """No plottable data returns False."""
+-    result = plot_composite_score_vs_date(
+-        surface_leaderboards=surface_leaderboards,
+-        out_path=tmp_path / "plot.png",
+-    )
+-    assert result is False
+-
+-
+-@pytest.mark.parametrize("suffix", [".png", ".svg"], ids=["png", "svg"])
+-def test_plot_composite_score_writes_file(suffix: str, tmp_path: Path) -> None:
+-    """Minimal data writes PNG or SVG."""
+-    out_file = tmp_path / f"composite_score{suffix}"
+-    result = plot_composite_score_vs_date(
+-        surface_leaderboards={
+-            "surface1": {
+-                "entries": [{"composite_score": 0.85, "run_date": "2026-03-01"}]
+-            }
+-        },
+-        out_path=out_file,
+-    )
+-    assert result is True
+-    assert out_file.exists()
+-
+-
+-def test_plot_composite_score_savefig_called(tmp_path: Path) -> None:
+-    """Mock matplotlib; assert savefig called with correct args."""
+-    out_file = tmp_path / "subdir" / "plot.png"
+-    mock_fig = MagicMock()
+-    mock_ax = MagicMock()
+-    with patch("matplotlib.pyplot") as mock_plt:
+-        mock_plt.subplots.return_value = (mock_fig, mock_ax)
+-        result = plot_composite_score_vs_date(
+-            surface_leaderboards={
+-                "s1": {"entries": [{"composite_score": 0.5, "run_date": "2026-03-10"}]}
+-            },
+-            out_path=out_file,
+-        )
+-    assert result is True
+-    mock_fig.savefig.assert_called_once_with(
+-        out_file, format="png", dpi=150, bbox_inches="tight"
+-    )
+diff --git a/tools/ci_commit_autopilot_results.sh b/tools/ci_commit_autopilot_results.sh
+index 264eaa6945..59feed2011 100755
+--- a/tools/ci_commit_autopilot_results.sh
++++ b/tools/ci_commit_autopilot_results.sh
+@@ -16,7 +16,7 @@ stellcoilbench update-db 2>&1 || echo "WARNING: update-db failed, leaderboard ma
+ git add -u cases/pending/ 2>/dev/null || true
+ git add -f submissions/ 2>/dev/null || true
+ git add -f policy/autopilot_failures.json 2>/dev/null || true
+-git add docs/leaderboard.rst 2>/dev/null || true
++git add -f docs/leaderboard.rst 2>/dev/null || true
+ 
+ if git diff --staged --quiet; then
+   echo "No autopilot results to commit"
+@@ -34,7 +34,7 @@ if ! git merge origin/main --no-edit 2>/dev/null; then
+   git checkout --theirs docs/leaderboard.rst 2>/dev/null || true
+   git add -f cases/pending/ submissions/ policy/autopilot_failures.json
+   stellcoilbench update-db 2>&1 || true
+-  git add docs/leaderboard.rst
++  git add -f docs/leaderboard.rst
+   git commit -m "ci: autopilot batch results + leaderboard update (merge)" --no-edit
+ fi
+ git push origin main
+diff --git a/tools/ci_commit_leaderboard.sh b/tools/ci_commit_leaderboard.sh
+index 42beac8214..f01540e390 100755
+--- a/tools/ci_commit_leaderboard.sh
++++ b/tools/ci_commit_leaderboard.sh
+@@ -4,7 +4,7 @@ set -euo pipefail
+ 
+ git config --local user.email "action@github.com"
+ git config --local user.name "$GITHUB_ACTOR"
+-git add docs/leaderboard.rst 2>/dev/null || true
++git add -f docs/leaderboard.rst 2>/dev/null || true
+ if git diff --staged --quiet; then
+   echo "No leaderboard changes to commit"
+ else
+-- 
+2.54.0 (Apple Git-157)
+
+
+From fde2f4428e2f532da21dd36fe30a2ba21adb4298 Mon Sep 17 00:00:00 2001
+From: "ci-autopilot[bot]" <action@github.com>
+Date: Wed, 11 Mar 2026 17:20:26 -0400
+Subject: [PATCH 2/3] Attempt to get CI working again and simplify script for
+ viper. Here goes nothing
+
+---
+ CHANGELOG.md                              |  2 +-
+ CLAUDE.md                                 |  2 +-
+ README.md                                 |  2 +-
+ docs/api.rst                              |  9 +--
+ docs/autopilot.rst                        |  8 +-
+ docs/overview.rst                         | 11 ++-
+ src/stellcoilbench/cli/__init__.py        | 15 +---
+ src/stellcoilbench/cli/sensitivity_cmd.py | 91 -----------------------
+ tests/test_sensitivity.py                 | 63 +---------------
+ tools/ci_commit_benchmark_submissions.sh  | 17 +----
+ tools/ci_commit_leaderboard.sh            | 14 +---
+ tools/ci_commit_proposed_cases.sh         | 24 ++----
+ tools/ci_propose_batch_wrapper.sh         | 18 +++--
+ 13 files changed, 45 insertions(+), 231 deletions(-)
+ delete mode 100644 src/stellcoilbench/cli/sensitivity_cmd.py
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index e131f3be63..2b6ab8f9c5 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+ - Structural analysis (DOLFINx / scikit-fem)
+ - Sensitivity analysis via stochastic perturbation
+ - Leaderboard generation from submissions
+-- CLI: validate-config, list-cases, submit-case, run-case, run-ci-case, generate-submission, post-process, update-db, sensitivity
++- CLI: validate-config, list-cases, submit-case, run-case, run-ci-case, generate-submission, post-process, update-db
+ - Autopilot: GA and LLM proposers for autonomous case exploration
+ - ReadTheDocs documentation
+ - CI workflows: lint, test, case validation, self-hosted benchmark runner
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 7ec0294e5e..fd93ad675a 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -52,7 +52,7 @@ python -m tools.propose_batch --batch-size 3 --dry-run --seed 42
+ 
+ The package lives in `src/stellcoilbench/` with these core modules:
+ 
+-- **`cli/`** — Typer CLI package (`stellcoilbench` command). Commands: validate-config, list-cases, submit-case, run-case, run-ci-case, update-db, generate-submission, post-process, sensitivity. `validate_cmd.py`, `list_cases_cmd.py`, `submit_run.py`, `post_process.py`, `update_db_cmd.py`, `sensitivity_cmd.py`. Hardware detection and version tracking live in `cli_helpers.py`.
++- **`cli/`** — Typer CLI package (`stellcoilbench` command). Commands: validate-config, list-cases, submit-case, run-case, run-ci-case, update-db, generate-submission, post-process. `validate_cmd.py`, `list_cases_cmd.py`, `submit_run.py`, `post_process.py`, `update_db_cmd.py`. Hardware detection and version tracking live in `cli_helpers.py`.
+ 
+ - **`coil_optimization/`** — Core optimization logic. `optimization.py` wraps scipy.optimize (L-BFGS-B, BFGS, SLSQP) and a custom augmented Lagrangian solver. Implements Fourier continuation (progressively increasing coil Fourier orders) and `LinearPenalty` threshold wrappers for objectives. MPI-aware: only rank 0 optimizes, other ranks wait at barrier.
+ 
+diff --git a/README.md b/README.md
+index 13fd9b9a34..11ccb483eb 100644
+--- a/README.md
++++ b/README.md
+@@ -49,7 +49,7 @@ stellcoilbench update-db                     # Rebuild leaderboards from submiss
+ Continuous CI loop: propose → run → record. Create `PAUSE_AUTORUN` to halt.
+ 
+ ```bash
+-python tools/propose_batch.py --batch-size 3 --dry-run   # Preview
++python -m tools.propose_batch --batch-size 3 --dry-run   # Preview
+ python tools/build_context.py | python -m json.tool      # Inspect context
+ ```
+ 
+diff --git a/docs/api.rst b/docs/api.rst
+index fc0a07961a..353c9d5d31 100644
+--- a/docs/api.rst
++++ b/docs/api.rst
+@@ -16,7 +16,7 @@ Module Overview
+ - **``stellcoilbench.update_db``**: Scans submissions, aggregates metrics, generates leaderboards (RST/MD/JSON)
+ - **``stellcoilbench.validate_config``**: Configuration validation
+ - **``stellcoilbench.post_processing``**: VMEC, Poincaré, QFM, Boozer plots, SIMPLE, finite-build VTK
+-- **``stellcoilbench.sensitivity``**: Coil sensitivity analysis via stochastic perturbation
++- **``stellcoilbench.sensitivity``**: Coil sensitivity analysis via stochastic perturbation (post-processing step in ``submit-case``)
+ - **``stellcoilbench.path_utils``**: Path resolution, surface/case lookup, YAML load/dump
+ - **``stellcoilbench.finite_build``**: Finite-build coil geometry (rectangular cross-section swept along centerline)
+ - **``stellcoilbench.structural_analysis``**: FEM structural analysis (DOLFINx / scikit-fem)
+@@ -307,7 +307,8 @@ Sensitivity Module
+    :no-index:
+ 
+ Coil sensitivity analysis via stochastic perturbation (CurvePerturbed / GaussianSampler).
+-Quantifies robustness to geometric perturbations. Key entry point:
++Quantifies robustness to geometric perturbations. Available as a post-processing step in
++``submit-case`` via ``--run-sensitivity`` or ``--all-post-processing``. Key entry point:
+ ``run_sensitivity_analysis(coils_json_path, case_yaml_path, ...)``.
+ 
+ Path Utils Module
+@@ -401,7 +402,7 @@ public. Helpers such as ``_detect_github_username``, ``_zip_submission_directory
+ 
+ **app**
+    Typer application instance. Commands: validate-config, list-cases, submit-case,
+-   run-case, run-ci-case, update-db, generate-submission, post-process, sensitivity.
++   run-case, run-ci-case, update-db, generate-submission, post-process.
+ 
+ **NumpyJSONEncoder**
+    Custom JSON encoder that handles numpy types and arrays. Used for serializing
+@@ -427,8 +428,6 @@ public. Helpers such as ``_detect_github_username``, ``_zip_submission_directory
+ 
+ **update_db_cmd** — CLI command: Regenerate leaderboards.
+ 
+-**sensitivity_cmd** — CLI command: Run coil sensitivity analysis.
+-
+ See :doc:`overview` for usage details.
+ 
+ Usage Examples
+diff --git a/docs/autopilot.rst b/docs/autopilot.rst
+index 4960a0ce39..b33249b5eb 100644
+--- a/docs/autopilot.rst
++++ b/docs/autopilot.rst
+@@ -12,7 +12,7 @@ How it works
+ 
+ Three phases repeat indefinitely:
+ 
+-1. **Propose** — ``tools/propose_batch.py`` generates a batch of cases
++1. **Propose** — ``python -m tools.propose_batch`` generates a batch of cases
+    (default 10; configurable via ``policy/proposer_policy.yaml``).
+ 2. **Run** — The CI runner executes each case via
+    ``stellcoilbench run-ci-case``.  Cases run in parallel (up to 10
+@@ -68,7 +68,7 @@ Each batch is split into two halves (ratio set by
+ .. code-block:: bash
+ 
+    # Default (deterministic) proposer
+-   python tools/propose_batch.py --batch-size 10 --dry-run --seed 42
++   python -m tools.propose_batch --batch-size 10 --dry-run --seed 42
+ 
+ LLM-powered policy — opt-in
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@@ -138,7 +138,7 @@ Directory layout
+    cases/done/<case_id>/    summary.json, case.yaml, coils.json
+    submissions/<surface>/auto/<case_id>/   Results for leaderboard
+    policy/proposer_policy.yaml             Proposer configuration
+-   tools/propose_batch.py                  Proposer script
++   tools/propose_batch/                    Proposer package (python -m tools.propose_batch)
+    tools/build_context.py                  Context builder
+ 
+ Pending-case format
+@@ -161,7 +161,7 @@ Commands
+ .. code-block:: bash
+ 
+    # Preview a batch (dry run)
+-   python tools/propose_batch.py --batch-size 10 --dry-run --seed 42
++   python -m tools.propose_batch --batch-size 10 --dry-run --seed 42
+ 
+    # Build context payload from completed cases
+    python tools/build_context.py [--out context.json]
+diff --git a/docs/overview.rst b/docs/overview.rst
+index cf8d071085..ed7375c6df 100644
+--- a/docs/overview.rst
++++ b/docs/overview.rst
+@@ -73,7 +73,10 @@ Commands
+ - **generate-submission** — Create a submission from existing results (coils, results.json).
+ - **post-process** — Run post-processing on existing coils: Poincaré plots, VMEC, quasisymmetry, VTK output.
+ - **update-db** — Regenerate leaderboards from submissions in ``submissions/``.
+-- **sensitivity** — Run coil sensitivity analysis via stochastic perturbation.
++
++**Sensitivity analysis** (coil robustness to geometric perturbations) is available as a post-processing
++step in ``submit-case`` via ``--run-sensitivity`` or ``--all-post-processing``; there is no standalone
++``sensitivity`` command.
+ 
+ Submissions are organized as ``submissions/<surface>/<user>/<case_name>/<datetime>/all_files.zip`` (human) or ``submissions/<surface>/auto/<case_id>/results.json`` (autopilot). Each zip contains ``results.json``, ``coils.json``, and optional PDF outputs. CI scans submissions and regenerates leaderboards in ``docs/leaderboard/`` (RST) and ``docs/leaderboards/`` (Markdown).
+ 
+@@ -82,10 +85,10 @@ Submissions are organized as ``submissions/<surface>/<user>/<case_name>/<datetim
+ .. code-block:: bash
+ 
+    # Preview what the GA proposer would generate
+-   python tools/propose_batch.py --batch-size 10 --dry-run --seed 42
++   python -m tools.propose_batch --batch-size 10 --dry-run --seed 42
+ 
+    # Run the full loop locally (propose → run → record)
+-   python tools/propose_batch.py --batch-size 3
++   python -m tools.propose_batch --batch-size 3
+    for f in cases/pending/*.json; do stellcoilbench run-ci-case "$f"; done
+ 
+ Repository Layout
+@@ -95,7 +98,7 @@ Repository Layout
+ - **``submissions/``** — Results: ``submissions/<surface>/<user>/<case_name>/<datetime>/all_files.zip`` (human) or ``submissions/<surface>/auto/<case_id>/results.json`` (autopilot).
+ - **``plasma_surfaces/``** — VMEC (``input.*``) and FOCUS (``*.focus``) surface files.
+ - **``policy/``** — Autopilot configuration (``proposer_policy.yaml``). See :doc:`autopilot`.
+-- **``tools/``** — Proposer (``propose_batch.py``) and context builder (``build_context.py``).
++- **``tools/``** — Proposer (``tools/propose_batch/``) and context builder (``build_context.py``).
+ - **``tests/``** — Unit and integration tests.
+ - **``docs/``** — Leaderboards and generated documentation.
+ 
+diff --git a/src/stellcoilbench/cli/__init__.py b/src/stellcoilbench/cli/__init__.py
+index 7ee8ff6e73..6f14201b3e 100644
+--- a/src/stellcoilbench/cli/__init__.py
++++ b/src/stellcoilbench/cli/__init__.py
+@@ -2,7 +2,7 @@
+ Typer CLI package for StellCoilBench.
+ 
+ Provides commands: submit-case, run-case, run-ci-case, update-db,
+-generate-submission, post-process, sensitivity. Subcommand implementations
++generate-submission, post-process. Subcommand implementations
+ live in sibling modules; this module wires the app and exports the public API.
+ """
+ 
+@@ -37,7 +37,7 @@ app = typer.Typer(
+     help=(
+         "StellCoilBench: benchmarking framework for stellarator coil optimization. "
+         "Commands: validate-config, list-cases, submit-case, run-case, run-ci-case, "
+-        "update-db, generate-submission, post-process, sensitivity."
++        "update-db, generate-submission, post-process."
+     ),
+ )
+ 
+@@ -66,13 +66,6 @@ def _root_callback(
+     """Root callback; --version is handled by the callback."""
+ 
+ 
+-def _run_sensitivity_if_configured(*args: Any, **kwargs: Any) -> dict[str, Any] | None:
+-    """Backward-compat alias for tests that patch this."""
+-    from ._shared import run_sensitivity_if_configured
+-
+-    return run_sensitivity_if_configured(*args, **kwargs)
+-
+-
+ def _apply_all_post_processing_flags(
+     *args: Any, **kwargs: Any
+ ) -> tuple[bool, bool, bool, bool, bool, bool, bool]:
+@@ -86,7 +79,6 @@ def _register_commands() -> None:
+     """Register all subcommands with the app."""
+     from . import list_cases_cmd
+     from . import post_process
+-    from . import sensitivity_cmd
+     from . import submit_run
+     from . import update_db_cmd
+     from . import validate_cmd
+@@ -96,7 +88,6 @@ def _register_commands() -> None:
+     update_db_cmd.register(app)
+     submit_run.register(app)
+     post_process.register(app)
+-    sensitivity_cmd.register(app)
+ 
+ 
+ _register_commands()
+@@ -109,7 +100,6 @@ def main() -> None:
+ # Re-export command functions for tests (imports after _register_commands to avoid circular deps)
+ from . import list_cases_cmd as _list_cases_mod  # noqa: E402
+ from . import post_process as _post_process_mod  # noqa: E402
+-from . import sensitivity_cmd as _sensitivity_mod  # noqa: E402
+ from . import submit_run as _submit_run_mod  # noqa: E402
+ from . import update_db_cmd as _update_db_mod  # noqa: E402
+ from . import validate_cmd as _validate_mod  # noqa: E402
+@@ -122,4 +112,3 @@ run_case = _submit_run_mod.run_case
+ run_ci_case = _submit_run_mod.run_ci_case
+ generate_submission = _submit_run_mod.generate_submission
+ post_process = _post_process_mod.post_process
+-sensitivity_cmd = _sensitivity_mod.sensitivity_cmd
+diff --git a/src/stellcoilbench/cli/sensitivity_cmd.py b/src/stellcoilbench/cli/sensitivity_cmd.py
+deleted file mode 100644
+index 3733051d10..0000000000
+--- a/src/stellcoilbench/cli/sensitivity_cmd.py
++++ /dev/null
+@@ -1,91 +0,0 @@
+-"""sensitivity CLI command implementation.
+-
+-Runs stochastic coil sensitivity analysis on optimized coils. Perturbs
+-coil positions with spatially correlated noise, evaluates B·n degradation,
+-and reports the critical sigma* (positional tolerance) below which
+-performance stays within a specified degradation factor.
+-"""
+-
+-from __future__ import annotations
+-
+-from pathlib import Path
+-from typing import Optional
+-
+-import typer
+-
+-from ..cli_helpers import _cli_error
+-
+-
+-def sensitivity_cmd(
+-    coils_json: Path = typer.Argument(
+-        ...,
+-        help="Path to coils JSON file (e.g., coils.json or biot_savart_optimized.json).",
+-    ),
+-    case_yaml: Optional[Path] = typer.Option(
+-        None, "--case-yaml", help="Path to case.yaml. Auto-detected if not provided."
+-    ),
+-    plasma_surfaces_dir: Optional[Path] = typer.Option(
+-        None, "--plasma-surfaces-dir", help="Directory containing plasma surface files."
+-    ),
+-    output_dir: Path = typer.Option(
+-        Path("sensitivity_output"),
+-        "--output-dir",
+-        "-o",
+-        help="Directory where results will be saved.",
+-    ),
+-    correlation_length: float = typer.Option(1.0, "--correlation-length"),
+-    n_samples: int = typer.Option(100, "--n-samples", "-n"),
+-    factor: float = typer.Option(2.0, "--factor"),
+-    percentile: float = typer.Option(95.0, "--percentile"),
+-    sigma_min: float = typer.Option(1e-5, "--sigma-min"),
+-    sigma_max: float = typer.Option(0.05, "--sigma-max"),
+-    seed: int = typer.Option(42, "--seed"),
+-    plot: bool = typer.Option(True, "--plot/--no-plot"),
+-    n_sweep: int = typer.Option(8, "--n-sweep"),
+-    n_vtk_samples: int = typer.Option(0, "--n-vtk-samples"),
+-) -> None:
+-    """Run coil sensitivity analysis via stochastic perturbation."""
+-    import time as _time_sens
+-
+-    from ..sensitivity import run_sensitivity_analysis
+-
+-    typer.echo(f"Running sensitivity analysis on {coils_json}")
+-    typer.echo(f"  correlation length = {correlation_length:.2f} m")
+-    typer.echo(
+-        f"  n_samples = {n_samples}, factor = {factor}, percentile = {percentile}"
+-    )
+-
+-    try:
+-        t0 = _time_sens.time()
+-        result = run_sensitivity_analysis(
+-            coils_json_path=coils_json,
+-            case_yaml_path=case_yaml,
+-            plasma_surfaces_dir=plasma_surfaces_dir,
+-            correlation_length_m=correlation_length,
+-            n_samples=n_samples,
+-            factor=factor,
+-            percentile=percentile,
+-            sigma_min=sigma_min,
+-            sigma_max=sigma_max,
+-            seed=seed,
+-            output_dir=output_dir,
+-            make_plot=plot,
+-            n_sweep=n_sweep,
+-            n_vtk_samples=n_vtk_samples,
+-        )
+-        elapsed = _time_sens.time() - t0
+-        typer.echo("\nSensitivity analysis complete!")
+-        typer.echo(f"  Nominal f_B:    {result.nominal_fb:.6e}")
+-        typer.echo(
+-            "  sigma* is the coil positional tolerance: perturbations below "
+-            "this level keep f_B within the specified degradation factor."
+-        )
+-        typer.echo(f"  Critical sigma*: {result.critical_sigma_m * 1e3:.2f} mm")
+-        typer.echo(f"  Time elapsed:   {elapsed:.1f} s")
+-        typer.echo(f"  Results saved to: {output_dir}")
+-    except (OSError, RuntimeError, ValueError) as e:
+-        _cli_error(f"Sensitivity analysis failed: {e}")
+-
+-
+-def register(app: typer.Typer) -> None:
+-    app.command("sensitivity")(sensitivity_cmd)
+diff --git a/tests/test_sensitivity.py b/tests/test_sensitivity.py
+index 2f33aea409..3425fcb25a 100644
+--- a/tests/test_sensitivity.py
++++ b/tests/test_sensitivity.py
+@@ -479,21 +479,7 @@ class TestRepairSamplerL:
+ 
+ 
+ class TestCLI:
+-    """Smoke-test the CLI command registration."""
+-
+-    def test_sensitivity_help(self):
+-        """Verify the sensitivity command is registered and shows help."""
+-        from typer.testing import CliRunner
+-
+-        from stellcoilbench.cli import app
+-
+-        runner = CliRunner()
+-        result = runner.invoke(app, ["sensitivity", "--help"])
+-        assert result.exit_code == 0
+-        assert "sensitivity" in result.output.lower()
+-        # Check option names (substrings; Rich may truncate in narrow CI terminals)
+-        assert "sigma-max" in result.output or "sigma" in result.output
+-        assert "n-vtk" in result.output or "vtk-samples" in result.output
++    """Smoke-test submit-case sensitivity post-processing options."""
+ 
+     def test_submit_case_has_sensitivity_flag(self):
+         """Verify submit-case exposes the run-sensitivity flag and sensitivity options."""
+@@ -511,50 +497,3 @@ class TestCLI:
+         assert "sensitivity-n-sam" in output or "sensitivity-n-samples" in output
+         assert "sensitivity-corre" in output or "sensitivity-correlation" in output
+         assert "sensitivity-n-vtk" in output
+-
+-    def test_sensitivity_cmd_success(self, tmp_path):
+-        """Test sensitivity command success path with mocked run_sensitivity_analysis."""
+-        from unittest.mock import MagicMock, patch
+-        from typer.testing import CliRunner
+-
+-        from stellcoilbench.cli import app
+-
+-        from tests.conftest import minimal_coils_json
+-
+-        coils_path = minimal_coils_json(tmp_path)
+-        mock_result = MagicMock()
+-        mock_result.nominal_fb = 1e-6
+-        mock_result.critical_sigma_m = 0.001
+-        with patch(
+-            "stellcoilbench.sensitivity.run_sensitivity_analysis",
+-            return_value=mock_result,
+-        ):
+-            runner = CliRunner()
+-            result = runner.invoke(
+-                app,
+-                ["sensitivity", str(coils_path), "-o", str(tmp_path)],
+-            )
+-        assert result.exit_code == 0
+-        assert "Sensitivity analysis complete" in result.output
+-        assert "sigma*" in result.output
+-
+-    def test_sensitivity_cmd_exception(self, tmp_path):
+-        """Test sensitivity command exits non-zero when analysis raises."""
+-        from unittest.mock import patch
+-        from typer.testing import CliRunner
+-
+-        from stellcoilbench.cli import app
+-
+-        from tests.conftest import minimal_coils_json
+-
+-        coils_path = minimal_coils_json(tmp_path)
+-        with patch(
+-            "stellcoilbench.sensitivity.run_sensitivity_analysis",
+-            side_effect=ValueError("mock failure"),
+-        ):
+-            runner = CliRunner()
+-            result = runner.invoke(
+-                app,
+-                ["sensitivity", str(coils_path), "-o", str(tmp_path)],
+-            )
+-        assert result.exit_code != 0
+diff --git a/tools/ci_commit_benchmark_submissions.sh b/tools/ci_commit_benchmark_submissions.sh
+index a4ea38fb3b..2aeaab1521 100755
+--- a/tools/ci_commit_benchmark_submissions.sh
++++ b/tools/ci_commit_benchmark_submissions.sh
+@@ -1,15 +1,4 @@
+ #!/usr/bin/env bash
+-# Commit CI-generated submissions. Called from update-db-self-hosted run_cases job.
+-set -euo pipefail
+-
+-git config --local user.email "action@github.com"
+-git config --local user.name "$GITHUB_ACTOR"
+-git add -f submissions/ 2>/dev/null || true
+-if git diff --staged --quiet; then
+-  echo "No new submissions to commit"
+-else
+-  git commit -m "chore: add CI-generated submissions (parallel run)"
+-  bash tools/ci_pull.sh
+-  git push origin main
+-  echo "Submissions committed"
+-fi
++# Commit CI-generated submissions. Called from update-db-self-hosted and Viper run_cases job.
++# Set CI_COMMIT_MSG env to override the default (e.g. for Viper).
++exec bash tools/ci_commit.sh submissions/ --message "${CI_COMMIT_MSG:-chore: add CI-generated submissions (parallel run)}"
+diff --git a/tools/ci_commit_leaderboard.sh b/tools/ci_commit_leaderboard.sh
+index f01540e390..36bf0cdf8f 100755
+--- a/tools/ci_commit_leaderboard.sh
++++ b/tools/ci_commit_leaderboard.sh
+@@ -1,15 +1,3 @@
+ #!/usr/bin/env bash
+ # Commit leaderboard update. Called from update-db-self-hosted update_leaderboard job.
+-set -euo pipefail
+-
+-git config --local user.email "action@github.com"
+-git config --local user.name "$GITHUB_ACTOR"
+-git add -f docs/leaderboard.rst 2>/dev/null || true
+-if git diff --staged --quiet; then
+-  echo "No leaderboard changes to commit"
+-else
+-  git commit -m "chore: update StellCoilBench leaderboard"
+-  bash tools/ci_pull.sh
+-  git push origin main
+-  echo "Leaderboard updated"
+-fi
++exec bash tools/ci_commit.sh docs/leaderboard.rst --message "chore: update StellCoilBench leaderboard"
+diff --git a/tools/ci_commit_proposed_cases.sh b/tools/ci_commit_proposed_cases.sh
+index 37a7d97c06..e832eb8ed5 100755
+--- a/tools/ci_commit_proposed_cases.sh
++++ b/tools/ci_commit_proposed_cases.sh
+@@ -1,18 +1,8 @@
+ #!/usr/bin/env bash
+-# Commit proposed autopilot cases. Called from update-db-self-hosted propose_autopilot_batch job.
+-set -euo pipefail
+-
+-git config --local user.email "action@github.com"
+-git config --local user.name "ci-autopilot[bot]"
+-git add cases/pending/ 2>/dev/null || true
+-git add -f policy/llm_reasoning_history.json 2>/dev/null || true
+-git add -f policy/autopilot_failures.json 2>/dev/null || true
+-git add PAUSE_AUTORUN 2>/dev/null || true
+-if git diff --staged --quiet; then
+-  echo "No new cases proposed"
+-else
+-  git commit -m "ci: propose next autopilot batch"
+-  bash tools/ci_pull.sh
+-  git push origin main
+-  echo "Proposed cases committed"
+-fi
++# Commit proposed autopilot cases. Called from update-db-self-hosted and Viper propose_autopilot_batch job.
++CI_GIT_USER_NAME="ci-autopilot[bot]" exec bash tools/ci_commit.sh \
++  cases/pending/ \
++  policy/llm_reasoning_history.json \
++  policy/autopilot_failures.json \
++  PAUSE_AUTORUN \
++  --message "ci: propose next autopilot batch"
+diff --git a/tools/ci_propose_batch_wrapper.sh b/tools/ci_propose_batch_wrapper.sh
+index 7371dad7cb..3df789cda3 100755
+--- a/tools/ci_propose_batch_wrapper.sh
++++ b/tools/ci_propose_batch_wrapper.sh
+@@ -1,6 +1,8 @@
+ #!/usr/bin/env bash
+ # Run propose_batch with CI guards (PAUSE_AUTORUN, batch barrier).
+-# Expects KB_LLM_PROVIDER, KB_LLM_MODEL, ANTHROPIC_API_KEY from env.
++# Supports both LLM (self-hosted) and GA (Viper) modes via env vars:
++#   CI_PROPOSE_BATCH_SIZE  default 10
++#   CI_PROPOSE_USE_LLM      1 = LLM (requires KB_LLM_*, ANTHROPIC_API_KEY), 0 = GA
+ set -euo pipefail
+ 
+ if [ -f PAUSE_AUTORUN ]; then
+@@ -15,13 +17,19 @@ if [ ${#pending[@]} -gt 0 ]; then
+   exit 0
+ fi
+ 
+-pip install anthropic 2>/dev/null || echo "WARNING: failed to install anthropic"
++BATCH_SIZE="${CI_PROPOSE_BATCH_SIZE:-10}"
++USE_LLM="${CI_PROPOSE_USE_LLM:-1}"
++
++LLM_ARGS=()
++if [ "$USE_LLM" = "1" ]; then
++  pip install anthropic 2>/dev/null || echo "WARNING: failed to install anthropic"
++  LLM_ARGS=(--llm --verify-llm)
++fi
+ 
+ python -m tools.propose_batch \
+-  --batch-size 10 \
++  --batch-size "$BATCH_SIZE" \
+   --submissions-dir submissions \
+   --failures-file policy/autopilot_failures.json \
+   --pending-dir cases/pending \
+   --policy policy/proposer_policy.yaml \
+-  --llm \
+-  --verify-llm
++  "${LLM_ARGS[@]}"
+-- 
+2.54.0 (Apple Git-157)
+
+
+From 3f85345614d0322a068157f850ff04937dce8cf9 Mon Sep 17 00:00:00 2001
+From: "ci-autopilot[bot]" <action@github.com>
+Date: Wed, 11 Mar 2026 17:40:46 -0400
+Subject: [PATCH 3/3] Delete old pdfs to reduce github repo size.
+
+---
+ src/stellcoilbench/ci_autopilot.py            | 21 +++++---
+ .../_fourier_continuation.py                  |  8 ++-
+ .../coil_optimization/_optimization_loop.py   |  2 +
+ .../coil_optimization/_optimization_setup.py  | 15 +++---
+ .../coil_optimization/_plotting.py            | 12 ++---
+ src/stellcoilbench/update_db/_viz_links.py    | 49 ++++++++++++-------
+ tests/cli/test_submit_run.py                  | 14 +++---
+ tests/test_coil_optimization.py               |  6 +--
+ 8 files changed, 80 insertions(+), 47 deletions(-)
+
+diff --git a/src/stellcoilbench/ci_autopilot.py b/src/stellcoilbench/ci_autopilot.py
+index ce590e6e22..23a6d92b20 100644
+--- a/src/stellcoilbench/ci_autopilot.py
++++ b/src/stellcoilbench/ci_autopilot.py
+@@ -82,7 +82,7 @@ def _write_autopilot_submission(
+     dump_yaml(case_config_dict, path=case_yaml_path)
+ 
+     # Copy plot files so leaderboard links (i, f, PP) work.
+-    # Only Poincaré + Bnormal PDFs are generated by CI runs (VMEC/SIMPLE are off).
++    # Only Poincaré + B·n plots are generated by CI runs (VMEC/SIMPLE are off).
+     if case_output_dir and case_output_dir.is_dir():
+         # For Fourier continuation cases, plots live in order_X/ subdirectories.
+         # Check the highest-order directory first, then fall back to the top level.
+@@ -106,15 +106,22 @@ def _write_autopilot_submission(
+                                 shutil.copy2(f, dst_order_dir / f.name)
+ 
+         for plot_name in (
+-            "bn_error_3d_plot.pdf",
+-            "bn_error_3d_plot_initial.pdf",
++            "bn_error_3d_plot.png",
++            "bn_error_3d_plot_initial.png",
+             "poincare_plot.png",
+         ):
+             for search_dir in search_dirs:
+-                src = search_dir / plot_name
+-                if src.exists():
+-                    shutil.copy2(src, sub_dir / plot_name)
+-                    break
++                # Prefer PNG, fall back to PDF for B·n plots (backward compat)
++                exts = (".png", ".pdf") if "bn_error" in plot_name else (".png",)
++                for ext in exts:
++                    src_name = plot_name.replace(".png", ext) if ext != ".png" else plot_name
++                    src = search_dir / src_name
++                    if src.exists():
++                        shutil.copy2(src, sub_dir / src_name)
++                        break
++                else:
++                    continue
++                break
+ 
+     typer.echo(f"Wrote submission to {sub_path}")
+ 
+diff --git a/src/stellcoilbench/coil_optimization/_fourier_continuation.py b/src/stellcoilbench/coil_optimization/_fourier_continuation.py
+index da69979bf9..404fa4df1e 100644
+--- a/src/stellcoilbench/coil_optimization/_fourier_continuation.py
++++ b/src/stellcoilbench/coil_optimization/_fourier_continuation.py
+@@ -247,6 +247,8 @@ def optimize_coils_with_fourier_continuation(
+         order_dir.mkdir(exist_ok=True)
+ 
+         fc_kwargs = {**kwargs, "save_coils_surface_vtk": True}
++        if i > 0:
++            fc_kwargs["save_initial_state"] = False
+ 
+         if i == 0:
+             proc0_print(f"Initializing coils with order={order}...")
+@@ -277,7 +279,11 @@ def optimize_coils_with_fourier_continuation(
+                 coils, order, s, ncoils, regularization, coil_width
+             )
+ 
+-            continuation_kwargs = {**kwargs, "save_coils_surface_vtk": True}
++            continuation_kwargs = {
++                **kwargs,
++                "save_coils_surface_vtk": True,
++                "save_initial_state": False,
++            }
+             if cached_thresholds:
+                 continuation_kwargs["_cached_thresholds"] = cached_thresholds
+ 
+diff --git a/src/stellcoilbench/coil_optimization/_optimization_loop.py b/src/stellcoilbench/coil_optimization/_optimization_loop.py
+index 98b4d39047..5db11ab475 100644
+--- a/src/stellcoilbench/coil_optimization/_optimization_loop.py
++++ b/src/stellcoilbench/coil_optimization/_optimization_loop.py
+@@ -464,6 +464,7 @@ def _optimize_coils_loop_impl(
+ 
+     # Step 3: Create BiotSavart and save initial state
+     save_coils_surface_vtk = kwargs.get("save_coils_surface_vtk", True)
++    save_initial_state = kwargs.get("save_initial_state", True)
+     with timed_section("biotsavart_setup"):
+         coils_for_bs = coils
+         bs, curves, B_initial = _setup_biotSavart_and_initial_save(
+@@ -474,6 +475,7 @@ def _optimize_coils_loop_impl(
+             qtheta,
+             out_dir,
+             save_coils_surface_vtk=save_coils_surface_vtk,
++            save_initial_state=save_initial_state,
+         )
+ 
+     # Step 4: Build objectives and constraints
+diff --git a/src/stellcoilbench/coil_optimization/_optimization_setup.py b/src/stellcoilbench/coil_optimization/_optimization_setup.py
+index 8fc8983519..2d193cc477 100644
+--- a/src/stellcoilbench/coil_optimization/_optimization_setup.py
++++ b/src/stellcoilbench/coil_optimization/_optimization_setup.py
+@@ -35,12 +35,15 @@ def _setup_biotSavart_and_initial_save(
+     out_dir: Path,
+     *,
+     save_coils_surface_vtk: bool = True,
++    save_initial_state: bool = True,
+ ) -> tuple:
+     """
+     Create BiotSavart and save initial state before optimization.
+ 
+     Saves coils to VTK (coils_initial), surface with B_N/|B| and modB to VTK
+-    (surface_initial), and generates bn_error_3d_plot_initial.pdf.
++    (surface_initial), and generates bn_error_3d_plot_initial.png.
++    When save_initial_state=False (e.g. Fourier continuation order_8/order_16),
++    skips initial VTK and plot to reduce submission size.
+ 
+     Parameters
+     ----------
+@@ -66,7 +69,7 @@ def _setup_biotSavart_and_initial_save(
+         calculate_modB_on_major_radius(bs, s)
+     curves = [c.curve for c in coils]
+ 
+-    if save_coils_surface_vtk:
++    if save_coils_surface_vtk and save_initial_state:
+         with proc0_try(
+             "Failed to save initial coils to VTK: {e}",
+             OSError,
+@@ -83,7 +86,7 @@ def _setup_biotSavart_and_initial_save(
+         bs.set_points(s_plot.gamma().reshape((-1, 3)))
+         B_initial = calculate_modB_on_major_radius(bs, s_plot)
+ 
+-    if save_coils_surface_vtk:
++    if save_coils_surface_vtk and save_initial_state:
+         pointData = _compute_surface_vtk_data(bs, s_plot, qphi, qtheta)
+         s_plot.to_vtk(out_dir / "surface_initial", extra_data=pointData)
+ 
+@@ -93,7 +96,7 @@ def _setup_biotSavart_and_initial_save(
+                 bs,
+                 coils,
+                 out_dir,
+-                filename="bn_error_3d_plot_initial.pdf",
++                filename="bn_error_3d_plot_initial.png",
+                 title="B_N/|B| Error on Plasma Surface with Initial Coils",
+             )
+ 
+@@ -117,7 +120,7 @@ def _save_optimized_coils_and_compute_metrics(
+ 
+     Saves coils to VTK (coils_optimized) and JSON (biot_savart_optimized.json),
+     surface with B_N, B_N/|B|, modB to VTK (surface_optimized), and generates
+-    bn_error_3d_plot.pdf. Computes force/torque (new or legacy API), B_N metrics
++    bn_error_3d_plot.png. Computes force/torque (new or legacy API), B_N metrics
+     (with optional virtual casing target), and coil-surface linking check.
+ 
+     Parameters
+@@ -197,7 +200,7 @@ def _save_optimized_coils_and_compute_metrics(
+                 bs,
+                 coils,
+                 out_dir,
+-                filename="bn_error_3d_plot.pdf",
++                filename="bn_error_3d_plot.png",
+                 title="B_N/|B| Error on Plasma Surface with Optimized Coils",
+                 vc_target=vc_target_plot,
+             )
+diff --git a/src/stellcoilbench/coil_optimization/_plotting.py b/src/stellcoilbench/coil_optimization/_plotting.py
+index 37b7e0203e..29eeaa673a 100644
+--- a/src/stellcoilbench/coil_optimization/_plotting.py
++++ b/src/stellcoilbench/coil_optimization/_plotting.py
+@@ -179,7 +179,7 @@ def _plot_bn_error_3d(
+     bs,
+     coils,
+     out_dir: Path,
+-    filename: str = "bn_error_3d_plot.pdf",
++    filename: str = "bn_error_3d_plot.png",
+     title: str = "B_N/|B| Error on Plasma Surface with Optimized Coils",
+     plot_upsample: int = 1,
+     vc_target: np.ndarray | None = None,
+@@ -199,9 +199,9 @@ def _plot_bn_error_3d(
+     coils : list
+         List of coil objects to plot.
+     out_dir : Path
+-        Directory where the PDF will be saved.
++        Directory where the PNG will be saved.
+     filename : str, optional
+-        Output filename (default: bn_error_3d_plot.pdf).
++        Output filename (default: bn_error_3d_plot.png).
+     title : str, optional
+         Plot title.
+     plot_upsample : int, optional
+@@ -402,9 +402,9 @@ def _plot_bn_error_3d(
+         axis.pane.fill = False  # type: ignore
+         axis.pane.set_edgecolor("w")  # type: ignore
+ 
+-    # Save as PDF
+-    pdf_path = out_dir / filename
+-    plt.savefig(pdf_path, format="pdf", dpi=100, bbox_inches="tight")  # type: ignore
++    # Save as PNG for smaller file size
++    plot_path = out_dir / filename
++    plt.savefig(plot_path, format="png", dpi=100, bbox_inches="tight")  # type: ignore
+     plt.close(fig)  # type: ignore
+ 
+ 
+diff --git a/src/stellcoilbench/update_db/_viz_links.py b/src/stellcoilbench/update_db/_viz_links.py
+index c2c2699af2..71a0cf825e 100644
+--- a/src/stellcoilbench/update_db/_viz_links.py
++++ b/src/stellcoilbench/update_db/_viz_links.py
+@@ -1,4 +1,4 @@
+-"""Resolve visualization PDF links for leaderboard entries."""
++"""Resolve visualization plot links for leaderboard entries."""
+ 
+ from __future__ import annotations
+ 
+@@ -14,6 +14,15 @@ GITHUB_BASE_URL = "https://cdn.jsdelivr.net/gh/akaptano/stellcoilbench@main"
+ LOCAL_LINK_PREFIX = "../../../../"
+ 
+ 
++def _resolve_plot_path(repo_root: Path, base: Path) -> Path | None:
++    """Return path to plot file if it exists. Prefer PNG, fall back to PDF."""
++    for ext in (".png", ".pdf"):
++        cand = base.with_suffix(ext)
++        if (repo_root / cand).exists():
++            return cand
++    return None
++
++
+ def resolve_visualization_links(
+     entry: Dict[str, Any],
+     repo_root: Path,
+@@ -21,10 +30,10 @@ def resolve_visualization_links(
+     github_base_url: str = GITHUB_BASE_URL,
+     use_local_links: bool = False,
+ ) -> Tuple[str, str, str, str]:
+-    """Resolve initial (i) and final (f) coil visualization PDF links for a leaderboard entry.
++    """Resolve initial (i) and final (f) coil visualization plot links for a leaderboard entry.
+ 
+-    Handles both standard submissions (PDFs in submission dir) and Fourier continuation
+-    submissions (PDFs in order_X subdirs). Returns HTML link strings and sort values.
++    Handles both standard submissions and Fourier continuation submissions (plots in
++    order_X subdirs). Prefers PNG, falls back to PDF for backward compatibility.
+ 
+     Parameters
+     ----------
+@@ -36,7 +45,7 @@ def resolve_visualization_links(
+         Base URL for CDN links (default: jsdelivr stellcoilbench).
+     use_local_links : bool, optional
+         If True, emit relative file paths (e.g. ../../../../submissions/.../file.pdf)
+-        instead of CDN URLs. Use when building docs for local viewing so PDFs open
++        instead of CDN URLs. Use when building docs for local viewing so plots open
+         from disk and avoid jsDelivr's 50 MB package limit.
+ 
+     Returns
+@@ -97,33 +106,39 @@ def resolve_visualization_links(
+                 order_dirs.append((order, f"order_{order}"))
+         if order_dirs:
+             first_order, first_od = order_dirs[0]
+-            init_pdf = submission_dir / first_od / "bn_error_3d_plot_initial.pdf"
+-            if (repo_root / init_pdf).exists():
+-                i_link_html = _link(_url(init_pdf), rank_num)
++            init_base = submission_dir / first_od / "bn_error_3d_plot_initial"
++            init_plot = _resolve_plot_path(repo_root, init_base)
++            if init_plot is not None:
++                i_link_html = _link(_url(init_plot), rank_num)
+                 i_link_sort = rank_num
+             f_links = []
+             for order, od_name in order_dirs:
+-                fp = submission_dir / od_name / "bn_error_3d_plot.pdf"
+-                if (repo_root / fp).exists():
++                fp_base = submission_dir / od_name / "bn_error_3d_plot"
++                fp = _resolve_plot_path(repo_root, fp_base)
++                if fp is not None:
+                     f_links.append(_link(_url(fp), str(order)))
+             if f_links:
+                 f_link_html = " ".join(f_links)
+                 f_link_sort = rank_num
+     else:
+-        pdf_final = submission_dir / "bn_error_3d_plot.pdf"
+-        pdf_init = submission_dir / "bn_error_3d_plot_initial.pdf"
+-        if (repo_root / pdf_final).exists():
+-            f_link_html = _link(_url(pdf_final), rank_num)
++        final_plot = _resolve_plot_path(
++            repo_root, submission_dir / "bn_error_3d_plot"
++        )
++        init_plot = _resolve_plot_path(
++            repo_root, submission_dir / "bn_error_3d_plot_initial"
++        )
++        if final_plot is not None:
++            f_link_html = _link(_url(final_plot), rank_num)
+             f_link_sort = rank_num
+-        if (repo_root / pdf_init).exists():
+-            i_link_html = _link(_url(pdf_init), rank_num)
++        if init_plot is not None:
++            i_link_html = _link(_url(init_plot), rank_num)
+             i_link_sort = rank_num
+ 
+     return i_link_html, i_link_sort, f_link_html, f_link_sort
+ 
+ 
+ def _resolve_submission_dir(path_obj: Path, repo_root: Path) -> Path | None:
+-    """Resolve submission directory from entry path for PDF lookup.
++    """Resolve submission directory from entry path for plot lookup.
+ 
+     Handles three path types:
+     - **all_files.zip**: uses parent directory as submission dir.
+diff --git a/tests/cli/test_submit_run.py b/tests/cli/test_submit_run.py
+index 472858d75a..6553f42470 100644
+--- a/tests/cli/test_submit_run.py
++++ b/tests/cli/test_submit_run.py
+@@ -325,8 +325,8 @@ class TestWriteAutopilotSubmission:
+         for order in [4, 8, 16]:
+             d = case_output / f"order_{order}"
+             d.mkdir()
+-            (d / "bn_error_3d_plot.pdf").write_bytes(f"bn_{order}".encode())
+-            (d / "bn_error_3d_plot_initial.pdf").write_bytes(f"bni_{order}".encode())
++            (d / "bn_error_3d_plot.png").write_bytes(f"bn_{order}".encode())
++            (d / "bn_error_3d_plot_initial.png").write_bytes(f"bni_{order}".encode())
+             (d / "biot_savart_optimized.json").write_text("{}")
+ 
+         _write_autopilot_submission(
+@@ -340,12 +340,12 @@ class TestWriteAutopilotSubmission:
+         )
+ 
+         sub_dir = tmp_path / "submissions" / "LandremanPaul2021_QA" / "auto" / "fc_test"
+-        assert (sub_dir / "bn_error_3d_plot.pdf").exists()
+-        assert (sub_dir / "bn_error_3d_plot.pdf").read_bytes() == b"bn_16"
++        assert (sub_dir / "bn_error_3d_plot.png").exists()
++        assert (sub_dir / "bn_error_3d_plot.png").read_bytes() == b"bn_16"
+         assert (sub_dir / "poincare_plot.png").exists()
+-        assert (sub_dir / "order_4" / "bn_error_3d_plot.pdf").exists()
+-        assert (sub_dir / "order_8" / "bn_error_3d_plot.pdf").exists()
+-        assert (sub_dir / "order_16" / "bn_error_3d_plot.pdf").exists()
++        assert (sub_dir / "order_4" / "bn_error_3d_plot.png").exists()
++        assert (sub_dir / "order_8" / "bn_error_3d_plot.png").exists()
++        assert (sub_dir / "order_16" / "bn_error_3d_plot.png").exists()
+ 
+     def test_fc_no_order_dirs_falls_back(self, tmp_path):
+         from stellcoilbench.cli import _write_autopilot_submission
+diff --git a/tests/test_coil_optimization.py b/tests/test_coil_optimization.py
+index 1688ef4a79..baaa90fbde 100644
+--- a/tests/test_coil_optimization.py
++++ b/tests/test_coil_optimization.py
+@@ -243,7 +243,7 @@ class TestExtendCoilsToHigherOrder:
+ 
+ # ---- Plotting ----
+ class TestPlotBnError3D:
+-    def test_plot_bn_error_3d_creates_pdf(self, tmp_path):
++    def test_plot_bn_error_3d_creates_png(self, tmp_path):
+         pytest.importorskip("matplotlib")
+         from simsopt.geo import SurfaceRZFourier
+         from simsopt.field import BiotSavart
+@@ -268,8 +268,8 @@ class TestPlotBnError3D:
+         out_dir = tmp_path / "output"
+         out_dir.mkdir()
+         _plot_bn_error_3d(surface, bs, coils, out_dir)
+-        pdf_path = out_dir / "bn_error_3d_plot.pdf"
+-        assert pdf_path.exists()
++        png_path = out_dir / "bn_error_3d_plot.png"
++        assert png_path.exists()
+ 
+     def test_plot_bn_error_3d_handles_missing_matplotlib(self, tmp_path, monkeypatch):
+         with patch(
+-- 
+2.54.0 (Apple Git-157)
+

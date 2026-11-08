@@ -1,0 +1,150 @@
+% Appendix B: Methodology for in-the-loop FEM
+% Include this in your main .tex: \input{docs/appendix_B_fem} or \include{...}
+
+\section{Methodology for in-the-loop FEM}\label{sec:appendix_B}
+
+FEM calculations must be optimized for speed in order to be computed in the optimization loop. We detail below a number of choices that were made to implement, make efficient, and make robust the in-the-loop FEM calculations presented in this work.
+
+\paragraph{Domain and Geometry.}
+The coil winding pack is represented as a solid with rectangular cross-section swept along the coil centerline. The mesh is a tetrahedralization of this volume, generated either by Gmsh or a pre-built mesh from ParaStell or Gmsh.
+
+\paragraph{Mesh Deformation Strategy.}
+The mesh topology is generated once and cached. On subsequent evaluations, node positions are deformed to follow the updated coil geometry:
+\begin{enumerate}
+  \item For each mesh node $\mathbf{x}$, find the nearest coil centerline point $\boldsymbol{\gamma}_{i}$ and the associated coil frame $\{\mathbf{p}_i, \mathbf{q}_i, \mathbf{t}_i\}$.
+  \item Compute the local offset in the coil frame:
+    \begin{equation}
+      \delta_p = (\mathbf{x} - \boldsymbol{\gamma}_i) \cdot \mathbf{p}_i,\quad
+      \delta_q = (\mathbf{x} - \boldsymbol{\gamma}_i) \cdot \mathbf{q}_i,\quad
+      \delta_t = (\mathbf{x} - \boldsymbol{\gamma}_i) \cdot \mathbf{t}_i.
+    \end{equation}
+  \item When the coil deforms, reconstruct the new node position:
+    \begin{equation}
+      \mathbf{x}_{\text{new}} = \boldsymbol{\gamma}_i + \delta_p \, \mathbf{p}_i + \delta_q \, \mathbf{q}_i + \delta_t \, \mathbf{t}_i.
+    \end{equation}
+\end{enumerate}
+
+The coil frame uses the centroid frame: $\mathbf{C} = \operatorname{mean}(\boldsymbol{\gamma})$, $\mathbf{w} = \boldsymbol{\gamma} - \mathbf{C}$, $\mathbf{p} = (\mathbf{w} - (\mathbf{w} \cdot \mathbf{t})\mathbf{t}) / |\cdots|$, $\mathbf{q} = \mathbf{t} \times \mathbf{p}$.
+
+\paragraph{Current Density Model.}
+The body force density is $\bm f = \bm J \times \bm B$, which requires a model for the current in the coil and the magnetic field and must be evaluated on the appropriate quadrature points of the weak formulation described below.
+The current density is assumed uniform across the winding-pack cross-section:
+\begin{equation}
+  \mathbf{J} = \frac{I}{A} \, \mathbf{t},
+\end{equation}
+where $I$ is the coil current, $A$ is the cross-section area, and $\mathbf{t}$ is the unit tangent at the nearest centerline point. Each mesh node (or quadrature point) is assigned to the nearest coil centerline point via a KD-tree lookup.
+
+\paragraph{Magnetic Field model.}
+The Biot--Savart law diverges near the coil centerline, so a filamentary model is inadequate for points inside the conductor. StellCoilBench uses the Landreman et al.\ (2025) regularized internal field model for rectangular cross-sections. The total field at a point inside a coil is:
+\begin{equation}
+  \mathbf{B} = \mathbf{B}_{\text{reg}} + \mathbf{B}_0 + \mathbf{B}_{\kappa} + \mathbf{B}_b.
+\end{equation}
+This is a fast approximation for the self-field that significantly increases the capacity to compute the Lorentz body force in-the-loop.
+The mutual field is computed via the Biot-Savart law assuming filamentary models for the other coils, since this is adequate outside the coil where the calculations are taking place (assuming other coils do not come too close).
+
+\paragraph{Linear Elasticity.}
+The linear structural problem to solve is: find the displacement $\mathbf{u} : \Omega \to \mathbb{R}^3$ such that
+\begin{equation}
+  -\nabla \cdot \boldsymbol{\sigma} = \mathbf{f}
+  \quad \text{in } \Omega,
+  \qquad
+  \mathbf{u} = \mathbf{0}
+  \quad \text{on } \Gamma_\Omega,
+\end{equation}
+where $\boldsymbol{\sigma}$ is the Cauchy stress tensor for a linear elastic, isotropic material:
+\begin{equation}
+  \boldsymbol{\sigma} = \lambda \, (\nabla \cdot \mathbf{u}) \, \mathbf{I} + 2\mu \, \boldsymbol{\varepsilon},
+  \qquad
+  \boldsymbol{\varepsilon} = \frac{1}{2}\bigl(\nabla \mathbf{u} + (\nabla \mathbf{u})^T\bigr).
+\end{equation}
+The Lam\'e Parameters are:
+\begin{equation}
+  \lambda = \frac{E \nu}{(1+\nu)(1-2\nu)},
+  \qquad
+  \mu = \frac{E}{2(1+\nu)},
+\end{equation}
+where $E$ is Young's modulus [Pa] and $\nu$ is Poisson ratio. The defaults are $E = 100\,\text{GPa}$, $\nu = 0.3$, which are typical for REBCO and similar materials~\cite{srivastava2024modelling}.
+Simple ``fixed support'' boundary conditions are used; nodes whose $z$-coordinate lies in the bottom fraction $\zeta = 0.15$ of the global mesh $z$-range are pinned ($\mathbf{u} = \mathbf{0}$). This models coil support stands and removes rigid-body modes:
+\begin{equation}
+  \Gamma_\Omega = \bigl\{ \mathbf{x} \in \partial\Omega : z(\mathbf{x}) \leq z_{\min} + 0.15(z_{\max} - z_{\min}) \bigr\}.
+\end{equation}
+More complex boundary conditions consistent with realistic support structures can easily be implemented in the code in future work.
+
+\paragraph{Weak Form and Discretization.}
+Using linear tetrahedral elements and a standard Galerkin discretization:
+\begin{equation}
+  \int_\Omega \bigl( \lambda \, (\nabla \cdot \mathbf{u}) \, (\nabla \cdot \mathbf{v}) + 2\mu \, \boldsymbol{\varepsilon}(\mathbf{u}) : \boldsymbol{\varepsilon}(\mathbf{v}) \bigr) \, dV
+  = \int_\Omega \mathbf{f} \cdot \mathbf{v} \, dV
+  \quad \forall \mathbf{v} \in V_h.
+\end{equation}
+The quadrature degree for the load integral is configurable (see Reduced Quadrature below).
+The implementation uses scikit-fem or DOLFINx with bilinear and linear forms assembled and the linear system solved with Dirichlet DOFs eliminated via condense.
+
+\paragraph{Von Mises Stress.}
+For each tetrahedral element, the displacement gradient $\nabla \mathbf{u}$ is computed from nodal values and the element Jacobian. The strain tensor is
+\begin{equation}
+  \boldsymbol{\varepsilon} = \frac{1}{2}\bigl(\nabla \mathbf{u} + (\nabla \mathbf{u})^T\bigr).
+\end{equation}
+The Cauchy stress is
+\begin{equation}
+  \boldsymbol{\sigma} = \lambda \, \operatorname{tr}(\boldsymbol{\varepsilon}) \, \mathbf{I} + 2\mu \, \boldsymbol{\varepsilon}.
+\end{equation}
+The deviatoric stress is $\mathbf{s} = \boldsymbol{\sigma} - \frac{1}{3}\operatorname{tr}(\boldsymbol{\sigma}) \, \mathbf{I}$. The Von Mises stress is
+\begin{equation}
+  \sigma_{\text{vm}}
+  = \sqrt{\frac{3}{2} \sum_{i,j} s_{ij}^2}.
+\end{equation}
+This is computed per element (constant within each linear tetrahedron).
+The FEM yields $\sigma_{\text{vm}}^{(e)}$ per element $e$, so that the objective is chosen to be:
+\begin{equation}
+  \max(0, \max_e \sigma_{\text{vm}}^{(e)} - \lambda_{\sigma_{vm}})^2.
+\end{equation}
+The objective returns values in GPa to improve optimizer numerics.
+
+\paragraph{Optimization tricks.}
+We use a number of optimization tricks to prevent undesirable behavior.
+The first is a guard against computing FEM when coil-coil distances become very small, since the mutual field body force calculations will become nearly singular. When $d_{cc} < \alpha_\text{safety}\lambda_{d_{cc}}$ it skips the FEM and returns a finite penalty (e.g., 10\,GPa) with zero gradient.
+The second trick is a short-circuit; when $\max_e \sigma_{\text{vm}}^{(e)} \leq \lambda_{\sigma_{vm}}$, it skips the expensive gradient calculation and returns $\nabla J = \mathbf{0}$.
+Gradients are computed by forward finite differences.
+Third, the stiffness matrix $\mathbf{K}$ and fixed-DOF list can be cached at the baseline; $\mathbf{K}$ changes by $O(\varepsilon)$ per perturbation, which is negligible for FD accuracy. When \texttt{structural\_use\_cached\_K} is true, $\mathbf{K}$ is reused for all FD perturbations in $\nabla J$, yielding up to $\sim$40\,\% speedup on $\nabla J$ for adaptive meshes at the cost of gradient accuracy; the default is false.
+Fourth, only coil frames and $\mathbf{B}_{\text{reg}}$ for coils whose DOFs are perturbed are recomputed, reducing cost.
+Fifth, the objective can be evaluated every $N$ iterations and cached in between to reduce cost.
+Both DOLFINx and scikit-fem evaluate J$\times$B at quadrature points; the backend choice affects per-solve speed (see Dual Backends below).
+
+\paragraph{MPI Parallelization.}
+When running with MPI ($P > 1$ processes), the structural gradient $\nabla J$ is computed in parallel: rank~0 broadcasts the baseline state; each rank computes a subset of the $n$ finite-difference perturbations (indices $r, r+P, r+2P, \ldots$); partial gradients are combined via \texttt{Allreduce}. Workers (ranks $1 \ldots P{-}1$) block in a worker loop until rank~0 signals a gradient computation. Expected speedup is up to $\sim P\times$ on the FD loop; overhead from broadcast and Allreduce is small for typical $n \sim 100$--200. Example: \texttt{mpirun -n 4 stellcoilbench submit-case cases/basic\_LandremanPaulQA\_structural.yaml} uses 4 processes for parallel $\nabla J$.
+
+\paragraph{Reduced Quadrature.}
+The weak-form RHS uses a quadrature element with configurable degree $q \in \{1,2\}$. For $q=1$ (centroid-only), J$\times$B evaluations are reduced, giving $\sim$30--50\,\% speedup in body-force assembly with $\sim$2\,\% relative error in $J$ for typical coils. Configurable via \texttt{structural\_quadrature\_degree}.
+
+\paragraph{Adaptive Mesh.}
+When \texttt{structural\_mesh\_resolution\_coarse} and \texttt{structural\_mesh\_resolution\_fine} are set, optimization starts with the coarse mesh and refines to the fine mesh when $\sigma_{\text{vm}} \geq \eta \times \lambda_{\sigma_{\text{vm}}}$ ($\eta = 0.5$ by default). Refinement is one-way (coarse $\to$ fine) and triggered from the optimizer callback; subsequent iterations use the finer mesh. Early iterations are 2--6$\times$ faster.
+
+\paragraph{Dual Backends.}
+DOLFINx (default) and scikit-fem are supported. DOLFINx is typically 2.5--3$\times$ faster per solve; scikit-fem is used when DOLFINx is unavailable or when \texttt{structural\_backend: skfem} is set. Both evaluate J$\times$B at quadrature points and use P1 tetrahedra.
+
+\begin{table*}[t]
+  \centering
+  \caption{Key implementation parameters.}
+  \begin{tabular}{lll}
+    \toprule
+    Parameter & Default & Description \\
+    \midrule
+    \texttt{width}, \texttt{height} & 0.05\,m & Cross-section dimensions \\
+    \texttt{E} & 100\,GPa & Young's modulus \\
+    \texttt{nu} & 0.3 & Poisson ratio \\
+    \texttt{mesh\_resolution} & 0.16\,m & Gmsh element size \\
+    \texttt{stress\_metric} & $\max_e \sigma_{\text{vm}}^{(e)}$ & Scalar metric \\
+    \texttt{fd\_step} & $10^{-5}$ & Finite-difference step \\
+    \texttt{eval\_interval} & 1 & Evaluate every $N$ iterations \\
+    \texttt{BC\_Z\_FRACTION} & 0.15 & Fraction of $z$-range pinned \\
+    \texttt{structural\_quadrature\_degree} & 2 & Quadrature degree for J$\times$B (1=centroid, 2=full) \\
+    \texttt{structural\_mesh\_resolution\_coarse} & 0.16\,m & Coarse mesh for adaptive strategy \\
+    \texttt{structural\_mesh\_resolution\_fine} & 0.08\,m & Fine mesh after refinement \\
+    \texttt{structural\_refine\_stress\_ratio} & 0.5 & Refine when $\sigma_{\text{vm}} \geq \eta \times$ threshold \\
+    \texttt{structural\_use\_cached\_K} & false & Cache stiffness $\mathbf{K}$ for $\nabla J$ speedup \\
+    \texttt{structural\_backend} & dolfinx & FEM backend: dolfinx or skfem \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:fem_summary}
+\end{table*}
